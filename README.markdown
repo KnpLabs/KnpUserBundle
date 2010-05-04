@@ -1,0 +1,1 @@
+Like http://www.symfony-project.org/plugins/sfDoctrineGuardPlugin for Symfony 2 and Doctrine 2.
