@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * This file is part of the Symfony framework.
+ *
+ * (c) Matthieu Bontemps <matthieu@knplabs.com>
+ * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Bundle\DoctrineUserBundle\Controller;
 
 use Symfony\Framework\DoctrineBundle\Controller\DoctrineController;
@@ -22,11 +32,6 @@ class AuthController extends DoctrineController
 
             if($user && $user->getIsActive())
             {
-                $this->getUser()->setAttribute('identity', $user);
-
-                $user->login();
-                $this->getEntityManager()->flush();
-
                 $event = new Event($this, 'doctrine_user.login', array('user' => $user));
                 $this->container->eventDispatcher->notify($event);
 
@@ -45,8 +50,6 @@ class AuthController extends DoctrineController
     {
         if($user = $this->getUser()->getAttribute('identity'))
         {
-            $this->getUser()->setAttribute('identity', null);
-
             $event = new Event($this, 'doctrine_user.logout', array('user' => $user));
             $this->container->eventDispatcher->notify($event);
         }

@@ -144,9 +144,9 @@ class User
         return $this->lastLogin;
     }
 
-    public function login()
+    public function setLastLogin(\DateTime $time)
     {
-        $this->lastLogin = new \DateTime();
+        $this->lastLogin = $time;
     }
 
     protected function encryptPassword($password)
@@ -168,5 +168,8 @@ class User
         return $this->password === $this->encryptPassword($password);
     }
 
+    public function __toString()
+    {
+        return $this->getUsername();
+    }
 }
-
