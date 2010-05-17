@@ -124,9 +124,9 @@ class User
         return $this->isSuperAdmin;
     }
 
-    public function setIsSuperAdmin()
+    public function setIsSuperAdmin($isSuperAdmin)
     {
-        return $this->isSuperAdmin;
+        $this->isSuperAdmin = $isSuperAdmin;
     }
 
     public function getCreatedAt()
