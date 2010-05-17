@@ -1,11 +1,11 @@
 login:
   pattern:  /login
-  defaults: { _bundle: DoctrineUserBundle, _controller: Auth, _action: login }
+  defaults: { _controller: DoctrineUserBundle:Auth:login }
 
 loginSuccess:
   pattern:  /login/success
-  defaults: { _bundle: DoctrineUserBundle, _controller: Auth, _action: success }
+  defaults: { _controller: DoctrineUserBundle:Auth:success }
 
 logout:
   pattern:  /logout
-  defaults: { _bundle: DoctrineUserBundle, _controller: Auth, _action: logout }
+  defaults: { _controller: DoctrineUserBundle:Auth:logout }
