@@ -40,19 +40,7 @@ class UserRepository extends ORM\EntityRepository
      */
     public function findOneByUsername($username)
     {
-        try
-        {
-            return $this->createQueryBuilder('e')
-            ->where('e.username = :username')
-            ->setMaxResults(1)
-            ->getQuery()
-            ->setParameter('username', $username)
-            ->getSingleResult();
-        }
-        catch(ORM\NoResultException $e)
-        {
-            return null;
-        }
+        return $this->findOneBy(array('username' => $username));
     }
 
 }
