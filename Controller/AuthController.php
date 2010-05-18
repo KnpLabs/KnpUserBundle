@@ -43,7 +43,8 @@ class AuthController extends DoctrineController
             }
         }
 
-        return $this->render('DoctrineUserBundle:Auth:login', array());
+        $view = $this->container->getParameter('doctrine_user.view.login');
+        return $this->render($view, array());
     }
 
     public function logoutAction()
@@ -61,7 +62,8 @@ class AuthController extends DoctrineController
     {
         $identity = $this->getUser()->getAttribute('identity');
 
-        return $this->render('DoctrineUserBundle:Auth:success', array(
+        $view = $this->container->getParameter('doctrine_user.view.success');
+        return $this->render($view, array(
             'identity' => $identity,
         ));
     }

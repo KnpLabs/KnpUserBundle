@@ -25,6 +25,7 @@ class Bundle extends BaseBundle
         $configuration = new BuilderConfiguration();
         $loader = new XmlFileLoader(__DIR__.'/Resources/config');
         $configuration->merge($loader->load('listener.xml'));
+        $configuration->merge($loader->load('controller.xml'));
 
         return $configuration;
     }
