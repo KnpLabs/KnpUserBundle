@@ -63,11 +63,12 @@ class User
 
     public function __construct()
     {
-        $this->createdAt = $this->updatedAt = new \DateTime();
         $this->algorithm = 'sha1';
         $this->salt = md5(uniqid() . rand(100000, 999999));
         $this->isActive = true;
         $this->isSuperAdmin = false;
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId()
@@ -172,4 +173,9 @@ class User
     {
         return $this->getUsername();
     }
+
+    /** @preUpdate */ public function incrementUpdatedAt() {
+        $this->updatedAt = new DateTime();
+    }
+
 }
