@@ -174,7 +174,8 @@ class User
         return $this->getUsername();
     }
 
-    /** @preUpdate */ public function incrementUpdatedAt() {
+    /** @preUpdate */
+    public function incrementUpdatedAt() {
         $this->updatedAt = new DateTime();
     }
 
