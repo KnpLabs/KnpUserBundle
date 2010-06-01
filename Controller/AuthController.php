@@ -23,8 +23,8 @@ class AuthController extends DoctrineController
         $request = $this->getRequest();
 
         if('POST' === $request->getMethod()) {
-            $username = $request->request->get('username');
-            $password = $request->request->get('password');
+            $username = $request->get('username');
+            $password = $request->get('password');
             
             $user = $this->getEntityManager()
             ->getRepository('Bundle\DoctrineUserBundle\Entities\User')
