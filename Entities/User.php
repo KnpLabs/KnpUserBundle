@@ -15,6 +15,7 @@ namespace Bundle\DoctrineUserBundle\Entities;
 /**
  * @Entity(repositoryClass="Bundle\DoctrineUserBundle\Entities\UserRepository")
  * @Table(name="sf_doctrine_user")
+ * @HasLifecycleCallbacks
  */
 class User
 {
@@ -67,8 +68,6 @@ class User
         $this->salt = md5(uniqid() . rand(100000, 999999));
         $this->isActive = true;
         $this->isSuperAdmin = false;
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
     }
 
     public function getId()
@@ -174,9 +173,14 @@ class User
         return $this->getUsername();
     }
 
-    /** @preUpdate */
+    /** @PrePersist */
+    public function incrementCreatedAt() {
+        $this->createdAt = $this->updatedAt = new \DateTime();
+    }
+
+    /** @PreUpdate */
     public function incrementUpdatedAt() {
-        $this->updatedAt = new DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
 }
