@@ -53,12 +53,12 @@ class Helper
 // Fire Doctrine autoload
 
 if (!isset($GLOBALS['doctrine2-path'])) {
-    throw new InvalidArgumentException('Global variable "doctrine2-path" has to be set in phpunit.xml');
+    throw new \InvalidArgumentException('Global variable "doctrine2-path" has to be set in phpunit.xml');
 }
 
 $loaderfile = $GLOBALS['doctrine2-path'] . "/Doctrine/Common/ClassLoader.php";
 if (!file_exists($loaderfile)) {
-    throw new InvalidArgumentException(sprintf(
+    throw new \InvalidArgumentException(sprintf(
         'Could not include %s',
         $loaderfile
     ));
