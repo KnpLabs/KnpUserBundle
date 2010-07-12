@@ -2,37 +2,43 @@
 
 namespace Bundle\DoctrineUserBundle\Auth;
 
-use Symfony\Framework\FoundationBundle\User as SymfonyUser;
-use Symfony\Foundation\EventDispatcher;
+use Symfony\Components\HttpFoundation\Session;
+use Symfony\Framework\EventDispatcher;
 use Symfony\Components\EventDispatcher\Event;
 use Doctrine\ORM\EntityManager;
 
 class Listener
 {
     /**
-     * @var SymfonyUser
+     * @var Session
      */
-    protected $user;
+    protected $session;
     /**
      * @var EntityManager
      */
     protected $em;
 
-    public function __construct(SymfonyUser $user, EntityManager $em, EventDispatcher $eventDispatcher)
+    /**
+     * @var EventDispatcher
+     */
+    protected $eventDispatcher = null;
+
+    public function __construct(Session $session, EntityManager $em, EventDispatcher $eventDispatcher)
     {
-        $this->user = $user;
+        $this->session = $session;
         $this->em = $em;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function connect()
     {
-        $eventDispatcher->connect('doctrine_user.login', array($this, 'listenToUserLoginEvent'));
-        $eventDispatcher->connect('doctrine_user.logout', array($this, 'listenToUserLogoutEvent'));
+        $this->eventDispatcher->connect('doctrine_user.login', array($this, 'listenToUserLoginEvent'));
+        $this->eventDispatcher->connect('doctrine_user.logout', array($this, 'listenToUserLogoutEvent'));
     }
 
     public function listenToUserLoginEvent(Event $event)
     {
-        $this->user->setAttribute('identity', $event['user']);
+        $this->session->setAttribute('identity', $event['user']);
 
         $event['user']->setLastLogin(new \DateTime());
         $this->em->flush();
@@ -40,6 +46,6 @@ class Listener
 
     public function listenToUserLogoutEvent(Event $event)
     {
-        $this->user->setAttribute('identity', null);
+        $this->session->setAttribute('identity', null);
     }
 }

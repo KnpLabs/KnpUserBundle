@@ -10,7 +10,7 @@
 
      <services>
          <service id="doctrine_user_auth_listener" class="%doctrine_user.auth_listener.class%">
-            <argument type="service" id="user" />
+            <argument type="service" id="session" />
             <argument type="service" id="Doctrine.ORM.DefaultEntityManager" />
             <argument type="service" id="eventDispatcher" />
          </service>
