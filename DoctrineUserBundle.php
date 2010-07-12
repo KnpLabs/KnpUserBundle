@@ -12,26 +12,20 @@
 
 namespace Bundle\DoctrineUserBundle;
 
-use Symfony\Foundation\Bundle\Bundle as BaseBundle;
-
+use Bundle\DoctrineUserBundle\DependencyInjection\DoctrineUserExtension;
+use Symfony\Framework\Bundle\Bundle as BaseBundle;
 use Symfony\Components\DependencyInjection\ContainerInterface;
-use Symfony\Components\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Components\DependencyInjection\BuilderConfiguration;
+use Symfony\Components\DependencyInjection\Loader\Loader;
 
 class DoctrineUserBundle extends BaseBundle
 {
     public function buildContainer(ContainerInterface $container)
     {
-        $configuration = new BuilderConfiguration();
-        $loader = new XmlFileLoader(__DIR__.'/Resources/config');
-        $configuration->merge($loader->load('listener.xml'));
-        $configuration->merge($loader->load('controller.xml'));
-
-        return $configuration;
+        Loader::registerExtension(new DoctrineUserExtension());
     }
 
     public function boot(ContainerInterface $container)
     {
-        $container->getDoctrineUserAuthListenerService();
+        $container->getDoctrineUserAuthListenerService()->connect();
     }
 }

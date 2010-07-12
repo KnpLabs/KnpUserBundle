@@ -22,7 +22,10 @@ class Listener
     {
         $this->user = $user;
         $this->em = $em;
+    }
 
+    public function connect()
+    {
         $eventDispatcher->connect('doctrine_user.login', array($this, 'listenToUserLoginEvent'));
         $eventDispatcher->connect('doctrine_user.logout', array($this, 'listenToUserLogoutEvent'));
     }
