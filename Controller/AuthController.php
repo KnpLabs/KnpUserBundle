@@ -12,7 +12,7 @@
 
 namespace Bundle\DoctrineUserBundle\Controller;
 
-use Symfony\Framework\DoctrineBundle\Controller\DoctrineController;
+use Symfony\Bundle\DoctrineBundle\Controller\DoctrineController;
 use Symfony\Components\EventDispatcher\Event;
 
 class AuthController extends DoctrineController
@@ -20,6 +20,7 @@ class AuthController extends DoctrineController
 
     public function loginAction()
     {
+        $this->getSession()->start();
         $request = $this->getRequest();
 
         if('POST' === $request->getMethod()) {
@@ -39,7 +40,7 @@ class AuthController extends DoctrineController
             }
             else
             {
-                $this->getUser()->setFlash('loginError', true);
+                $this->getSession()->setFlash('loginError', true);
             }
         }
 
@@ -49,10 +50,11 @@ class AuthController extends DoctrineController
 
     public function logoutAction()
     {
-        if($user = $this->getUser()->getAttribute('identity'))
+        $this->getSession()->start();
+        if($user = $this->getSession()->getAttribute('identity'))
         {
             $event = new Event($this, 'doctrine_user.logout', array('user' => $user));
-            $this->container->eventDispatcher->notify($event);
+            $this->container->getEventDispatcherService()->notify($event);
         }
 
         return $this->redirect($this->generateUrl('login'));
@@ -60,12 +62,18 @@ class AuthController extends DoctrineController
 
     public function successAction()
     {
-        $identity = $this->getUser()->getAttribute('identity');
+        $this->getSession()->start();
+        $identity = $this->getSession()->getAttribute('identity');
 
         $view = $this->container->getParameter('doctrine_user.view.success');
         return $this->render($view, array(
             'identity' => $identity,
         ));
+    }
+
+    protected function getSession()
+    {
+        return $this->container->getSessionService();
     }
 
 }

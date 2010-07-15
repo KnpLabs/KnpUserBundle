@@ -1,6 +1,6 @@
 <?php $view->extend('DoctrineUserBundle::layout') ?>
 
-<?php if ($view->user->hasFlash('loginError')): ?>
+<?php if ($view->session->hasFlash('loginError')): ?>
 <p>Bad username or password, please try again.</p>
 <?php endif; ?>
 
