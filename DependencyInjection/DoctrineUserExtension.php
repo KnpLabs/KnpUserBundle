@@ -2,19 +2,19 @@
 
 namespace Bundle\DoctrineUserBundle\DependencyInjection;
 
-use Symfony\Components\DependencyInjection\Loader\LoaderExtension;
+use Symfony\Components\DependencyInjection\Extension\Extension;
 use Symfony\Components\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Components\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Components\DependencyInjection\BuilderConfiguration;
+use Symfony\Components\DependencyInjection\ContainerBuilder;
 
-class DoctrineUserExtension extends LoaderExtension
+class DoctrineUserExtension extends Extension
 {
 
-    public function configLoad($config, BuilderConfiguration $configuration)
+    public function configLoad($config, ContainerBuilder $container)
     {
-        $loader = new XmlFileLoader(__DIR__.'/../Resources/config');
-        $configuration->merge($loader->load('listener.xml'));
-        $configuration->merge($loader->load('controller.xml'));
+        $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
+        $loader->load('listener.xml');
+        $loader->load('controller.xml');
     }
 
     /**

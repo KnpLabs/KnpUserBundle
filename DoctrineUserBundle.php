@@ -1,8 +1,6 @@
 <?php
 
 /**
- * This file is part of the Symfony framework.
- *
  * (c) Matthieu Bontemps <matthieu@knplabs.com>
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
  *
@@ -14,15 +12,15 @@ namespace Bundle\DoctrineUserBundle;
 
 use Bundle\DoctrineUserBundle\DependencyInjection\DoctrineUserExtension;
 use Symfony\Framework\Bundle\Bundle as BaseBundle;
-use Symfony\Components\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Components\DependencyInjection\ContainerInterface;
-use Symfony\Components\DependencyInjection\Loader\Loader;
+use Symfony\Components\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Components\DependencyInjection\ContainerBuilder;
 
 class DoctrineUserBundle extends BaseBundle
 {
     public function buildContainer(ParameterBagInterface $parameterBag)
     {
-        Loader::registerExtension(new DoctrineUserExtension());
+        ContainerBuilder::registerExtension(new DoctrineUserExtension());
     }
 
     public function boot(ContainerInterface $container)
