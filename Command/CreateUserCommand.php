@@ -8,7 +8,7 @@ use Symfony\Components\Console\Input\InputOption;
 use Symfony\Components\Console\Input\InputInterface;
 use Symfony\Components\Console\Output\OutputInterface;
 use Symfony\Components\Console\Output\Output;
-use Bundle\DoctrineUserBundle\Entities\User;
+use Bundle\DoctrineUserBundle\Entity\User;
 
 /*
  * This file is part of the DoctrineUserBundle

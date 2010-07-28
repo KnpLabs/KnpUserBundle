@@ -1,6 +1,6 @@
 <?php
 
-use Bundle\DoctrineUserBundle\Entities\User as User;
+use Bundle\DoctrineUserBundle\Entity\User as User;
 
 $admin = new User();
 $admin->setUsername('admin');

@@ -10,7 +10,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\DoctrineUserBundle\Entities;
+namespace Bundle\DoctrineUserBundle\Entity;
 
 use Doctrine\ORM as ORM;
 

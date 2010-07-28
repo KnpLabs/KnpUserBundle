@@ -2,7 +2,7 @@
 
 namespace Bundle\DoctrineUserBundle\Tests\Entities;
 
-use Bundle\DoctrineUserBundle\Entities\User;
+use Bundle\DoctrineUserBundle\Entity\User;
 
 // Custom Doctrine helper
 require_once __DIR__ . '/Helper.php';
@@ -59,11 +59,11 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Bundle\DoctrineUserBundle\Entities\UserRepository
+     * @return Bundle\DoctrineUserBundle\Entity\UserRepository
      */
     protected function getRepository()
     {
-        return $this->em->getRepository('Bundle\DoctrineUserBundle\Entities\User');
+        return $this->em->getRepository('Bundle\DoctrineUserBundle\Entity\User');
     }
 
     public function setup()

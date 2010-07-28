@@ -2,7 +2,7 @@
 
 namespace Bundle\DoctrineUserBundle\Tests\Entities;
 
-use Bundle\DoctrineUserBundle\Entities\User;
+use Bundle\DoctrineUserBundle\Entity\User;
 
 require_once 'PHPUnit/Framework.php';
 require_once __DIR__ . '/../../Entities/User.php';
