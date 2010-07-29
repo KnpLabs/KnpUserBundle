@@ -12,10 +12,10 @@
 
 namespace Bundle\DoctrineUserBundle\Controller;
 
-use Symfony\Bundle\DoctrineBundle\Controller\DoctrineController;
+use Symfony\Bundle\FrameworkBundle\Controller as Controller;
 use Symfony\Components\EventDispatcher\Event;
 
-class AuthController extends DoctrineController
+class AuthController extends Controller
 {
 
     public function loginAction()
@@ -74,6 +74,11 @@ class AuthController extends DoctrineController
     protected function getSession()
     {
         return $this->container->getSessionService();
+    }
+
+    protected function getEntityManager()
+    {
+        return $this->container->getDoctrine_ORM_EntityManagerService();
     }
 
 }
