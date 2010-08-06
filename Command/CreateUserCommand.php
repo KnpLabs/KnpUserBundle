@@ -2,7 +2,7 @@
 
 namespace Bundle\DoctrineUserBundle\Command;
 
-use Symfony\Framework\DoctrineBundle\Command\DoctrineCommand;
+use Symfony\Bundle\DoctrineBundle\Command\DoctrineCommand;
 use Symfony\Components\Console\Input\InputArgument;
 use Symfony\Components\Console\Input\InputOption;
 use Symfony\Components\Console\Input\InputInterface;
