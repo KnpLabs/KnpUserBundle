@@ -22,4 +22,35 @@ Also provides login & logout controllers.
 3. Configure the `auth` service in your config:
 
     # application/config/config.yml
+    kernel.session:
+      lifetime: 2592000
+
     auth.config: ~
+
+    doctrine.orm: ~
+
+    doctrine.dbal:
+    connections:
+      default:
+        driver:               PDOMySql
+        dbname:               mydb
+        user:                 root
+        password:
+        host:                 localhost
+        port:                 ~
+
+4. Add the routes
+    # application/config/routing.yml 
+    doctrine_user:
+      resource: DoctrineUserBundle/Resources/config/routing.yml
+
+5. build database
+    # build database (optional)
+    ./application/console doctrine:database:create
+
+    # build tables
+    ./application/console doctrine:schema:update
+
+6. Add new user
+    # create a new user `username`
+    ./application/console doctrine:user:create username password
