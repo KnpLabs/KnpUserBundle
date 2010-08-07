@@ -75,19 +75,17 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+
         DoctrineCommand::setApplicationEntityManager($this->application, $input->getOption('em'));
-        
-        $user = new User();
-        
-        $user->setUsername($input->getArgument('username'));
-        $user->setPassword($input->getArgument('password'));
-        $user->setIsSuperAdmin($input->getOption('super-admin'));
-        $user->setIsActive(!$input->getOption('inactive'));
 
-        $em = $this->getHelper('em')->getEntityManager();
-
-        $em->persist($user);
-        $em->flush();
+        $user = $this->getHelper('em')->getEntityManager()
+        ->getRepository('Bundle\DoctrineUserBundle\Entity\User')
+        ->createUser(
+            $input->getArgument('username'),
+            $input->getArgument('password'),
+            !$input->getOption('inactive'),
+            $input->getOption('super-admin')
+        );
         
         $output->writeln(sprintf('Created user <comment>%s</comment>', $user->getUsername()));
     }
