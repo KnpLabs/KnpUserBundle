@@ -12,36 +12,21 @@
 
 namespace Bundle\DoctrineUserBundle\Entity;
 
-use Doctrine\ORM as ORM;
-
-class UserRepository extends ORM\EntityRepository implements UserRepositoryInterface
+interface UserRepositoryInterface
 {
-
     /**
      * Find a user by its username and password
      * @param   string  $username
      * @param   string  $password
      * @return  User or null if user does not exist
      */
-    public function findOneByUsernameAndPassword($username, $password)
-    {
-        $user = $this->findOneByUsername($username);
-        
-        if($user && $user->checkPassword($password))
-        {
-            return $user;
-        }
-    }
+    public function findOneByUsernameAndPassword($username, $password);
 
     /**
      * Find a user by its username
      * @param   string  $username
      * @return  User or null if user does not exist
      */
-    public function findOneByUsername($username)
-    {
-        return $this->findOneBy(array('username' => $username));
-    }
-
+    public function findOneByUsername($username);
 }
 
