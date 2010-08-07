@@ -11,17 +11,13 @@
  */
 
 namespace Bundle\DoctrineUserBundle\Entity;
+use Doctrine\ORM\EntityRepository;
+use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 
-use Doctrine\ORM as ORM;
-
-class UserRepository extends ORM\EntityRepository implements UserRepositoryInterface
+class UserRepository extends EntityRepository implements UserRepositoryInterface
 {
     /**
-     * Create a new user
-     * @param string  $username       username
-     * @param string  $password       password
-     * @param boolean $isActive      is the user active
-     * @param boolean $isSuperAdmin is the user a super admin
+     * @see UserRepositoryInterface::createUser
      */
     public function createUser($username, $password, $isActive = true, $isSuperAdmin = false)
     {
@@ -40,10 +36,7 @@ class UserRepository extends ORM\EntityRepository implements UserRepositoryInter
     }
 
     /**
-     * Find a user by its username and password
-     * @param   string  $username
-     * @param   string  $password
-     * @return  User or null if user does not exist
+     * @see UserRepositoryInterface::findOneByUsernameAndPassword
      */
     public function findOneByUsernameAndPassword($username, $password)
     {
@@ -56,9 +49,7 @@ class UserRepository extends ORM\EntityRepository implements UserRepositoryInter
     }
 
     /**
-     * Find a user by its username
-     * @param   string  $username
-     * @return  User or null if user does not exist
+     * @see UserRepositoryInterface::findOneByUsername
      */
     public function findOneByUsername($username)
     {
@@ -66,4 +57,3 @@ class UserRepository extends ORM\EntityRepository implements UserRepositoryInter
     }
 
 }
-
