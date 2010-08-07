@@ -15,6 +15,15 @@ namespace Bundle\DoctrineUserBundle\Entity;
 interface UserRepositoryInterface
 {
     /**
+     * Create a new user
+     * @param string  $username       username
+     * @param string  $password       password
+     * @param boolean $isActive      is the user active
+     * @param boolean $isSuperAdmin is the user a super admin
+     */
+    public function createUser($username, $password, $isActive = true, $isSuperAdmin = false);
+
+    /**
      * Find a user by its username and password
      * @param   string  $username
      * @param   string  $password

@@ -16,6 +16,28 @@ use Doctrine\ORM as ORM;
 
 class UserRepository extends ORM\EntityRepository implements UserRepositoryInterface
 {
+    /**
+     * Create a new user
+     * @param string  $username       username
+     * @param string  $password       password
+     * @param boolean $isActive      is the user active
+     * @param boolean $isSuperAdmin is the user a super admin
+     */
+    public function createUser($username, $password, $isActive = true, $isSuperAdmin = false)
+    {
+        $user = new User();
+
+        $user->setUsername($username);
+        $user->setPassword($password);
+        $user->setIsActive($isActive);
+        $user->setIsSuperAdmin($isSuperAdmin);
+
+        $em = $this->getEntityManager();
+        $em->persist($user);
+        $em->flush();
+
+        return $user;
+    }
 
     /**
      * Find a user by its username and password
