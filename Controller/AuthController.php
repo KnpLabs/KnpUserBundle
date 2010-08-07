@@ -34,7 +34,7 @@ class AuthController extends Controller
             if($user && $user->getIsActive())
             {
                 $event = new Event($this, 'doctrine_user.login', array('user' => $user));
-                $this->container->eventDispatcher->notify($event);
+                $this->container->getEventDispatcherService()->notify($event);
 
                 return $this->redirect($this->generateUrl('loginSuccess'));
             }
