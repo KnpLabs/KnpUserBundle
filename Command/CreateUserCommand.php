@@ -79,7 +79,7 @@ EOT
         DoctrineCommand::setApplicationEntityManager($this->application, $input->getOption('em'));
 
         $user = $this->getHelper('em')->getEntityManager()
-        ->getRepository('Bundle\DoctrineUserBundle\Entity\User')
+        ->getRepository($this->container->getParameter('doctrine_user.user_object.class'))
         ->createUser(
             $input->getArgument('username'),
             $input->getArgument('password'),

@@ -28,7 +28,7 @@ class AuthController extends Controller
             $password = $request->get('password');
             
             $user = $this->getEntityManager()
-            ->getRepository('Bundle\DoctrineUserBundle\Entity\User')
+            ->getRepository($this->container->getParameter('doctrine_user.user_object.class'))
             ->findOneByUsernameAndPassword($username, $password);
 
             if($user && $user->getIsActive())
