@@ -10,11 +10,16 @@ use Symfony\Components\DependencyInjection\ContainerBuilder;
 class DoctrineUserExtension extends Extension
 {
 
-    public function configLoad($config, ContainerBuilder $container)
+    public function configLoad(array $config, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
         $loader->load('listener.xml');
         $loader->load('controller.xml');
+        $loader->load('dao.xml');
+
+        if(isset($config['user_object_class'])) {
+            $container->setParameter('doctrine_user.user_object.class', $config['user_object_class']);
+        }
     }
 
     /**
