@@ -23,8 +23,8 @@ class DoctrineUserBundle extends BaseBundle
         ContainerBuilder::registerExtension(new DoctrineUserExtension());
     }
 
-    public function boot(ContainerInterface $container)
+    public function boot()
     {
-        $container->getDoctrineUserAuthListenerService()->connect();
+        $this->container->getDoctrineUserAuthListenerService()->connect();
     }
 }
