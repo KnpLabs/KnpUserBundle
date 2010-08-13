@@ -13,22 +13,6 @@ namespace Bundle\DoctrineUserBundle\DAO;
 interface UserRepositoryInterface
 {
     /**
-     * The Repository Driver
-     * @return mixed
-     */
-    public function getDriver();
-
-    /**
-     * Create a new user
-     * @param string  $username       username
-     * @param string  $password       password
-     * @param boolean $isActive      is the user active
-     * @param boolean $isSuperAdmin is the user a super admin
-     * @return  BaseUser The created user
-     */
-    public function createUser($username, $password, $isActive = true, $isSuperAdmin = false);
-
-    /**
      * Find a user by its username and password
      * @param   string  $username
      * @param   string  $password
