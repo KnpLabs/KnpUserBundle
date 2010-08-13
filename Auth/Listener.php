@@ -38,7 +38,7 @@ class Listener
 
     public function listenToUserLoginEvent(Event $event)
     {
-        $this->session->setAttribute('identity', $event['user']);
+        $this->session->setAttribute('identity_username', $event['user']->getUsername());
 
         $event['user']->setLastLogin(new \DateTime());
         $this->em->flush();
@@ -46,6 +46,6 @@ class Listener
 
     public function listenToUserLogoutEvent(Event $event)
     {
-        $this->session->setAttribute('identity', null);
+        $this->session->setAttribute('identity_username', null);
     }
 }
