@@ -1,8 +1,6 @@
 <?php
 
 /**
- * This file is part of the Symfony framework.
- *
  * (c) Matthieu Bontemps <matthieu@knplabs.com>
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
  *
@@ -11,18 +9,17 @@
  */
 
 namespace Bundle\DoctrineUserBundle\Entity;
-use Bundle\DoctrineUserBundle\DAO\BaseUser;
+use Bundle\DoctrineUserBundle\DAO\User as AbstractUser;
 
 /**
  * @Entity(repositoryClass="Bundle\DoctrineUserBundle\Entity\UserRepository")
  * @Table(name="sf_doctrine_user")
- * @HasLifecycleCallbacks
  */
-class User extends BaseUser
+class User extends AbstractUser
 {
     /**
-     * @Column(name="id", type="integer")
      * @Id
+     * @Column(name="id", type="integer")
      * @GeneratedValue(strategy="AUTO")
      */
     protected $id;
