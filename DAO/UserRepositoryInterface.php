@@ -1,8 +1,6 @@
 <?php
 
 /**
- * This file is part of the Symfony framework.
- *
  * (c) Gordon Franke <info@nevalon.de>
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
  *
@@ -14,6 +12,12 @@ namespace Bundle\DoctrineUserBundle\DAO;
 
 interface UserRepositoryInterface
 {
+    /**
+     * The Repository Driver
+     * @return mixed
+     */
+    public function getDriver();
+
     /**
      * Create a new user
      * @param string  $username       username
@@ -39,4 +43,3 @@ interface UserRepositoryInterface
      */
     public function findOneByUsername($username);
 }
-

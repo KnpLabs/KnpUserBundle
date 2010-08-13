@@ -15,10 +15,18 @@ class DoctrineUserExtension extends Extension
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
         $loader->load('listener.xml');
         $loader->load('controller.xml');
-        $loader->load('dao.xml');
 
-        if(isset($config['user_object_class'])) {
-            $container->setParameter('doctrine_user.user_object.class', $config['user_object_class']);
+        if(!isset($config['db_driver'])) {
+            throw new \InvalidConfigurationException('You must provide the auth.db_driver configuration');
+        }
+        if('orm' === $config['db_driver']) {
+            $loader->load('orm.xml');
+        }
+        elseif('odm' === $config['db_driver']) {
+            $loader->load('odm.xml');
+        }
+        else {
+            throw new \InvalidConfigurationException(sprintf('The %s driver is not supported', $config['db_driver']));
         }
     }
 
