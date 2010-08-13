@@ -17,25 +17,6 @@ use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 class UserRepository extends EntityRepository implements UserRepositoryInterface
 {
     /**
-     * @see UserRepositoryInterface::createUser
-     */
-    public function createUser($username, $password, $isActive = true, $isSuperAdmin = false)
-    {
-        $user = new User();
-
-        $user->setUsername($username);
-        $user->setPassword($password);
-        $user->setIsActive($isActive);
-        $user->setIsSuperAdmin($isSuperAdmin);
-
-        $em = $this->getEntityManager();
-        $em->persist($user);
-        $em->flush();
-
-        return $user;
-    }
-
-    /**
      * @see UserRepositoryInterface::findOneByUsernameAndPassword
      */
     public function findOneByUsernameAndPassword($username, $password)
