@@ -5,7 +5,7 @@ Also provides login & logout controllers.
 
 1. Add this bundle to your project as a Git submodule:
 
-        $ git submodule add git://github.com/knplabes/DoctrineUserBundle.git src/Bundle/DoctrineUserBundle
+        $ git submodule add git://github.com/knplabs/DoctrineUserBundle.git src/Bundle/DoctrineUserBundle
 
 2. Add this bundle to your application's kernel:
 
