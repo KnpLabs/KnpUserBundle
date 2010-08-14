@@ -5,7 +5,7 @@ namespace Bundle\DoctrineUserBundle\Auth;
 use Symfony\Components\HttpFoundation\Session;
 use Symfony\Framework\EventDispatcher;
 use Symfony\Components\EventDispatcher\Event;
-use Doctrine\ORM\EntityManager;
+use Bundle\DoctrineUserBundle\DAO\UserRepository;
 
 class Listener
 {
@@ -13,20 +13,21 @@ class Listener
      * @var Session
      */
     protected $session;
+
     /**
-     * @var EntityManager
+     * @var UserRepository
      */
-    protected $em;
+    protected $repo;
 
     /**
      * @var EventDispatcher
      */
     protected $eventDispatcher = null;
 
-    public function __construct(Session $session, EntityManager $em, EventDispatcher $eventDispatcher)
+    public function __construct(Session $session, UserRepository $repo, EventDispatcher $eventDispatcher)
     {
         $this->session = $session;
-        $this->em = $em;
+        $this->repo = $repo;
         $this->eventDispatcher = $eventDispatcher;
     }
 
@@ -38,14 +39,17 @@ class Listener
 
     public function listenToUserLoginEvent(Event $event)
     {
-        $this->session->setAttribute('identity_username', $event['user']->getUsername());
+        $this->session->setAttribute('identity/user_id', $event['user']->getId());
 
-        $event['user']->setLastLogin(new \DateTime());
-        $this->em->flush();
+        try {
+            $event['user']->setLastLogin(new \DateTime());
+            $this->repo->getObjectManager()->flush();
+        }
+        catch(\Exception $e) {}
     }
 
     public function listenToUserLogoutEvent(Event $event)
     {
-        $this->session->setAttribute('identity_username', null);
+        $this->session->setAttribute('identity/user_id', null);
     }
 }
