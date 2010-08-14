@@ -17,6 +17,14 @@ use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 class UserRepository extends EntityRepository implements UserRepositoryInterface
 {
     /**
+     * @see UserRepositoryInterface::findOneById
+     */
+    public function findOneById($id)
+    {
+        $user = $this->findOneBy(array('id' => $id));
+    }
+
+    /**
      * @see UserRepositoryInterface::findOneByUsernameAndPassword
      */
     public function findOneByUsernameAndPassword($username, $password)

@@ -36,10 +36,20 @@ class UserRepository
     }
 
     /**
+     * Find a user by its id
+     * @param   mixed  $id
+     * @return  User or null if user does not exist
+     */
+    public function findOneById($id)
+    {
+        return $this->getDriver()->findOneById($id);
+    }
+
+    /**
      * Find a user by its username and password
      * @param   string  $username
      * @param   string  $password
-     * @return  BaseUser or null if user does not exist
+     * @return  User or null if user does not exist
      */
     public function findOneByUsernameAndPassword($username, $password)
     {
@@ -49,7 +59,7 @@ class UserRepository
     /**
      * Find a user by its username
      * @param   string  $username
-     * @return  BaseUser or null if user does not exist
+     * @return  User or null if user does not exist
      */
     public function findOneByUsername($username)
     {

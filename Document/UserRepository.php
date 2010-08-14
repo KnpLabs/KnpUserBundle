@@ -16,6 +16,14 @@ use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 
 class UserRepository extends DocumentRepository implements UserRepositoryInterface
 {
+   /**
+     * @see UserRepositoryInterface::findOneById
+     */
+    public function findOneById($id)
+    {
+        $user = $this->findOneBy(array('id' => $id));
+    }
+
     /**
      * @see UserRepositoryInterface::findOneByUsernameAndPassword
      */
