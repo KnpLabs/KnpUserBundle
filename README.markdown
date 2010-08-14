@@ -1,5 +1,9 @@
-Provides a Doctrine User Entity and bounds it to the Symfony2 Session service.
-Also provides login & logout controllers.
+Authentication and User persistence services for your Symfony2 project.
+
+- Supports Doctrine ORM and Doctrine ODM
+- Features RESTful authentication controllers
+- Authentication template helper included
+- Unit and functional tests
 
 ## INSTALLATION
 
@@ -18,41 +22,26 @@ Also provides login & logout controllers.
             );
         }
 
-3. Configure the services to `application/config/config.yml`:
+3. Configure the services in `application/config/config.yml`:
 
         kernel.session:
           lifetime: 2592000
 
-        auth.config: ~
-
-        doctrine.orm: ~
-
-        doctrine.dbal:
-          connections:
-            default:
-              driver:               PDOMySql
-              dbname:               mydb
-              user:                 root
-              password:
-              host:                 localhost
-              port:                 ~
+        doctrine_user.config:
+            db_driver: orm # can be orm or odm
 
 4. Add the routes to `application/config/routing.yml`:
 
         doctrine_user:
-          resource: DoctrineUserBundle/Resources/config/routing.yml
+          resource: DoctrineUserBundle/Resources/config/routing/session.yml
 
-5. Build database (optional)
+5. Migrate database
 
-        ./application/console doctrine:database:create
+        If you use Doctrine ORM, you should run migrations to update the DB structure.
 
-6. Build entities
+7. Create a new user
 
-        ./application/console doctrine:schema:update
-
-7. Create a new user (optional)
-
-        ./application/console doctrine:user:create username password
+        ./application/console doctrine:user:create
 
 ## CREDITS
 
