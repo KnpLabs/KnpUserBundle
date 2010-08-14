@@ -14,8 +14,4 @@ use Symfony\Framework\Bundle\Bundle as BaseBundle;
 
 class DoctrineUserBundle extends BaseBundle
 {
-    public function boot()
-    {
-        $this->container->getDoctrineUserAuthListenerService()->connect();
-    }
 }

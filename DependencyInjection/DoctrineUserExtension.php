@@ -13,7 +13,6 @@ class DoctrineUserExtension extends Extension
     public function configLoad(array $config, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
-        $loader->load('listener.xml');
         $loader->load('form.xml');
 
         if(!isset($config['db_driver'])) {
