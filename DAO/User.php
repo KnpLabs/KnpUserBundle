@@ -28,6 +28,14 @@ abstract class User
     protected $username;
     /**
      * @Validation({
+     *      @Email(),
+     *      @NotBlank(),
+     *      @MaxLength(limit=255)
+     * })
+     */
+    protected $email;
+    /**
+     * @Validation({
      *      @AssertType(type="boolean')
      * })
      */
@@ -111,7 +119,26 @@ abstract class User
     {
         $this->username = $username;
     }
-
+    
+    /**
+     * Get email
+     * @return string
+     */
+    public function getEmail()
+    {
+      return $this->email;
+    }
+    
+    /**
+     * Set email
+     * @param  string
+     * @return null
+     */
+    public function setEmail($email)
+    {
+      $this->email = $email;
+    }
+    
     /**
      * @param string $password
      */

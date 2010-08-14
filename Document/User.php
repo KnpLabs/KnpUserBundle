@@ -32,6 +32,10 @@ class User extends AbstractUser
      */
     protected $username;
     /**
+     * @Field(type="string")
+     */
+    protected $email;
+    /**
      * @Field(type="boolean")
      */
     protected $isActive;

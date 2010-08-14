@@ -29,6 +29,10 @@ class User extends AbstractUser
      */
     protected $username;
     /**
+     * @Column(name="email", type="string", length=255, unique=true, nullable=false)
+     */
+    protected $email;
+    /**
      * @Column(name="is_active", type="boolean", nullable=false)
      */
     protected $isActive;

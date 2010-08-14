@@ -10,15 +10,6 @@ class User extends AbstractUser
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCheckPassword()
-    {
-        $user = new User();
-        $user->setPassword('changeme');
-
-        $this->assertFalse($user->checkPassword('badpassword'));
-        $this->assertTrue($user->checkPassword('changeme'));
-    }
-
     public function testUsername()
     {
         $user = new User();
@@ -26,5 +17,23 @@ class UserTest extends \PHPUnit_Framework_TestCase
         
         $user->setUsername('tony');
         $this->assertEquals('tony', $user->getUsername());
+    }
+
+    public function testEmail()
+    {
+        $user = new User();
+        $this->assertNull($user->getEmail());
+        
+        $user->setEmail('tony@mail.org');
+        $this->assertEquals('tony@mail.org', $user->getEmail());
+    }
+
+    public function testCheckPassword()
+    {
+        $user = new User();
+        $user->setPassword('changeme');
+
+        $this->assertFalse($user->checkPassword('badpassword'));
+        $this->assertTrue($user->checkPassword('changeme'));
     }
 }
