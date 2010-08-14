@@ -13,6 +13,8 @@ class SessionControllerTest extends WebTestCase
         $client = $this->createClient();
         $crawler = $client->request('GET', '/session/new');
         $this->assertTrue($client->getResponse()->isSuccessful());
+
+        $this->assertEquals(1, $crawler->filter('form.doctrine_user_session_new')->count());
     }
 
     public static function setUpBeforeClass()
