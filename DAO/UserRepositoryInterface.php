@@ -20,14 +20,6 @@ interface UserRepositoryInterface
     public function findOneById($id);
 
     /**
-     * Find a user by its username and password
-     * @param   string  $username
-     * @param   string  $password
-     * @return  User or null if user does not exist
-     */
-    public function findOneByUsernameAndPassword($username, $password);
-
-    /**
      * Find a user by its username
      * @param   string  $username
      * @return  User or null if user does not exist

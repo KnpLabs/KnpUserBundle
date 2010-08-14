@@ -46,17 +46,6 @@ class UserRepository
     }
 
     /**
-     * Find a user by its username and password
-     * @param   string  $username
-     * @param   string  $password
-     * @return  User or null if user does not exist
-     */
-    public function findOneByUsernameAndPassword($username, $password)
-    {
-        return $this->getDriver()->findOneByUsernameAndPassword($username, $password);
-    }
-
-    /**
      * Find a user by its username
      * @param   string  $username
      * @return  User or null if user does not exist
@@ -64,6 +53,22 @@ class UserRepository
     public function findOneByUsername($username)
     {
         return $this->getDriver()->findOneByUsername($username);
+    }
+
+    /**
+     * Find a user by its username and password
+     * @param   string  $username
+     * @param   string  $password
+     * @return  User or null if user does not exist
+     */
+    public function findOneByUsernameAndPassword($username, $password)
+    {
+        $user = $this->findOneByUsername($username);
+
+        if($user && $user->checkPassword($password))
+        {
+            return $user;
+        }
     }
     
     /**

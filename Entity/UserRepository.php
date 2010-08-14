@@ -25,19 +25,6 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
     }
 
     /**
-     * @see UserRepositoryInterface::findOneByUsernameAndPassword
-     */
-    public function findOneByUsernameAndPassword($username, $password)
-    {
-        $user = $this->findOneByUsername($username);
-        
-        if($user && $user->checkPassword($password))
-        {
-            return $user;
-        }
-    }
-
-    /**
      * @see UserRepositoryInterface::findOneByUsername
      */
     public function findOneByUsername($username)
