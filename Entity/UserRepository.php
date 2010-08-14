@@ -12,6 +12,7 @@
 
 namespace Bundle\DoctrineUserBundle\Entity;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
 use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 
 class UserRepository extends EntityRepository implements UserRepositoryInterface
@@ -30,6 +31,32 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
     public function findOneByUsername($username)
     {
         return $this->findOneBy(array('username' => $username));
+    }
+
+    /**
+     * @see UserRepositoryInterface::findOneByEmail
+     */
+    public function findOneByEmail($email)
+    {
+        return $this->findOneBy(array('email' => $email));
+    }
+
+    /**
+     * @see UserRepositoryInterface::findOneByUsernameOrEmail
+     */
+    public function findOneByUsernameOrEmail($usernameOrEmail)
+    {
+        try {
+            return $this->createQueryBuilder('u')
+                ->where('u.username = :string')
+                ->orWhere('u.email = :string')
+                ->setParameter('string', $usernameOrEmail)
+                ->getQuery()
+                ->getSingleResult();
+        }
+        catch(NoResultException $e) {
+            return null;
+        }
     }
 
 }
