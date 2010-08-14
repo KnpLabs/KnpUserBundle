@@ -18,6 +18,7 @@ namespace Bundle\DoctrineUserBundle\DAO;
  */
 abstract class User
 {
+    protected $id;
     /**
      * @Validation({
      *      @NotBlank(),
@@ -96,16 +97,25 @@ abstract class User
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getUsername()
     {
         return $this->username;
     }
 
+    /**
+     * @param string $username
+     */
     public function setUsername($username)
     {
         $this->username = $username;
     }
 
+    /**
+     * @param string $password
+     */
     public function setPassword($password)
     {
         if (empty($password)) {
@@ -115,67 +125,76 @@ abstract class User
         $this->password = $this->encryptPassword($password);
     }
 
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-
-    public function getAlgorithm()
-    {
-        return $this->algorithm;
-    }
-
+    /**
+     * @param string $algorithm
+     */
     public function setAlgorithm($algorithm)
     {
         $this->algorithm = $algorithm;
     }
 
+    /**
+     * @return bool
+     */
     public function getIsActive()
     {
         return $this->isActive;
     }
 
+    /**
+     * @param bool $isActive
+     */
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
     }
 
+    /**
+     * @return bool
+     */
     public function getIsSuperAdmin()
     {
         return $this->isSuperAdmin;
     }
 
+    /**
+     * @param bool $isActive
+     */
     public function setIsSuperAdmin($isSuperAdmin)
     {
         $this->isSuperAdmin = $isSuperAdmin;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getLastLogin()
     {
         return $this->lastLogin;
     }
 
+    /**
+     * @param \DateTime $time
+     */
     public function setLastLogin(\DateTime $time)
     {
         $this->lastLogin = $time;
-    }
-
-    protected function encryptPassword($password)
-    {
-        $algorithm = $this->getAlgorithm();
-        $salt = $this->getSalt();
-
-        return $algorithm($salt . $password);
     }
 
     /**
@@ -197,7 +216,10 @@ abstract class User
     /** @PrePersist */
     public function incrementCreatedAt()
     {
-        $this->createdAt = $this->updatedAt = new \DateTime();
+        if(null === $this->createdAt) {
+            $this->createdAt = new \DateTime();
+        }
+        $this->updatedAt = new \DateTime();
     }
 
     /** @PreUpdate */
@@ -206,4 +228,11 @@ abstract class User
         $this->updatedAt = new \DateTime();
     }
 
+    protected function encryptPassword($password)
+    {
+        $algorithm = $this->getAlgorithm();
+        $salt = $this->getSalt();
+
+        return $algorithm($salt . $password);
+    }
 }
