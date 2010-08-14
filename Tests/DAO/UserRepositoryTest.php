@@ -26,6 +26,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         $userClass = $userRepo->getObjectClass();
         $user = new $userClass();
         $user->setUserName('harry');
+        $user->setEmail('harry@mail.org');
         $user->setPassword('changeme');
 
         $objectManager = $userRepo->getObjectManager();
@@ -76,6 +77,53 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($user->getUsername(), $fetchedUser->getUsername());
 
         $nullUser = $userRepo->findOneByUsername('thisusernamedoesnotexist----thatsprettyobivous');
+        $this->assertNull($nullUser);
+    }
+
+    /**
+     * @depends testCreateNewUser
+     */
+    public function testFindOneByEmail(array $dependencies)
+    {
+        list($userRepo, $user) = $dependencies;
+
+        $fetchedUser = $userRepo->findOneByEmail($user->getEmail());
+        $this->assertEquals($user->getEmail(), $fetchedUser->getEmail());
+
+        $nullUser = $userRepo->findOneByEmail('thisemaildoesnotexist----thatsprettyobivous');
+        $this->assertNull($nullUser);
+    }
+
+    /**
+     * @depends testCreateNewUser
+     */
+    public function testFindOneByUsernameOrEmail(array $dependencies)
+    {
+        list($userRepo, $user) = $dependencies;
+
+        $userClass = $userRepo->getObjectClass();
+        $user2 = new $userClass();
+        $user2->setUserName('harry2');
+        $user2->setEmail('harry2@mail.org');
+        $user2->setPassword('changeme2');
+
+        $objectManager = $userRepo->getObjectManager();
+        $objectManager->persist($user2);
+        $objectManager->flush();
+
+        $fetchedUser = $userRepo->findOneByUsernameOrEmail($user->getUsername());
+        $this->assertEquals($user->getUsername(), $fetchedUser->getUsername());
+
+        $fetchedUser = $userRepo->findOneByUsernameOrEmail($user2->getUsername());
+        $this->assertEquals($user2->getUsername(), $fetchedUser->getUsername());
+
+        $fetchedUser = $userRepo->findOneByUsernameOrEmail($user->getEmail());
+        $this->assertEquals($user->getEmail(), $fetchedUser->getEmail());
+
+        $fetchedUser = $userRepo->findOneByUsernameOrEmail($user2->getEmail());
+        $this->assertEquals($user2->getEmail(), $fetchedUser->getEmail());
+
+        $nullUser = $userRepo->findOneByUsernameOrEmail('thisemaildoesnotexist----thatsprettyobivous');
         $this->assertNull($nullUser);
     }
 
