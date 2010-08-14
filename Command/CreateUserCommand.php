@@ -2,7 +2,7 @@
 
 namespace Bundle\DoctrineUserBundle\Command;
 
-use Symfony\Bundle\DoctrineBundle\Command\DoctrineCommand;
+use Symfony\Bundle\FrameworkBundle\Command\Command as BaseCommand;
 use Symfony\Components\Console\Input\InputArgument;
 use Symfony\Components\Console\Input\InputOption;
 use Symfony\Components\Console\Input\InputInterface;
@@ -28,7 +28,7 @@ use Bundle\DoctrineUserBundle\Entity\User;
  * @author     Matthieu Bontemps <matthieu@knplabs.com>
  * @author     Thibault Duplessis <thibault.duplessis@gmail.com>
  */
-class CreateUserCommand extends Command
+class CreateUserCommand extends BaseCommand
 {
     /**
      * @see Command
@@ -37,16 +37,13 @@ class CreateUserCommand extends Command
     {
         $this
             ->setName('doctrine:user:create')
-            ->setDescription(
-                'Create a user.'
-            )
+            ->setDescription('Create a user.')
             ->setDefinition(array(
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
                 new InputArgument('password', InputArgument::REQUIRED, 'The password'),
                 new InputOption('super-admin', null, InputOption::PARAMETER_NONE, 'Set the user as super admin'),
                 new InputOption('inactive', null, InputOption::PARAMETER_NONE, 'Set the user as inactive'),
             ))
-            ->addOption('em', null, InputOption::PARAMETER_OPTIONAL, 'The entity manager to use for this command.')
             ->setHelp(<<<EOT
 The <info>doctrine:user:create</info> command creates a user:
 
@@ -75,23 +72,36 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $userRepo = $this->container->getDoctrineUser_UserRepoService();
+        $userClass = $userRepo->getObjectClass();
 
-        DoctrineCommand::setApplicationEntityManager($this->application, $input->getOption('em'));
-
-        $user = $this->getHelper('em')->getEntityManager()
-        ->getRepository($this->container->getParameter('doctrine_user.user_object.class'))
-        ->createUser(
-            $input->getArgument('username'),
-            $input->getArgument('password'),
-            !$input->getOption('inactive'),
-            $input->getOption('super-admin')
-        );
+        $user = new $userClass();
+        $user->setUsername($input->getArgument('username'));
+        $user->setPassword($input->getArgument('password'));
+        $user->setIsActive(!$input->getOption('inactive'));
+        $user->setIsSuperAdmin($input->getOption('super-admin'));
         
+        $userRepo->getObjectManager()->persist($user);
+        $userRepo->getObjectManager()->flush();
+
         $output->writeln(sprintf('Created user <comment>%s</comment>', $user->getUsername()));
     }
     
     protected function interact(InputInterface $input, OutputInterface $output)
     {
+        if(null === $input->getArgument('username')) {
+            $username = $this->getHelper('dialog')->askAndValidate(
+                $output,
+                'Please choose a username:',
+                function($username) {
+                    if(empty($username)) {
+                        throw new \Exception('Username can not be empty');
+                    }
+                    return $username;
+                }
+            );
+            $input->setArgument('username', $username);
+        }
         if(null === $input->getArgument('password')) {
             $password = $this->getHelper('dialog')->askAndValidate(
                 $output,
