@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="doctrine_user.view.login">DoctrineUserBundle:Auth:login</parameter>
+        <parameter key="doctrine_user.session_view.new">DoctrineUserBundle:Session:new</parameter>
         <parameter key="doctrine_user.view.success">DoctrineUserBundle:Auth:success</parameter>
     </parameters>
 

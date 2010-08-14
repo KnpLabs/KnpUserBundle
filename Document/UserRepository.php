@@ -10,19 +10,18 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\DoctrineUserBundle\Entity;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\NoResultException;
+namespace Bundle\DoctrineUserBundle\Document;
+use Doctrine\ODM\MongoDB\DocumentRepository;
 use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 
-class UserRepository extends EntityRepository implements UserRepositoryInterface
+class UserRepository extends DocumentRepository implements UserRepositoryInterface
 {
     /**
      * @see UserRepositoryInterface::findOneById
      */
     public function findOneById($id)
     {
-        return $this->findOneBy(array('id' => $id));
+        return $this->find($id);
     }
 
     /**
@@ -46,17 +45,12 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
      */
     public function findOneByUsernameOrEmail($usernameOrEmail)
     {
-        try {
-            return $this->createQueryBuilder('u')
-                ->where('u.username = :string')
-                ->orWhere('u.email = :string')
-                ->setParameter('string', $usernameOrEmail)
-                ->getQuery()
-                ->getSingleResult();
-        }
-        catch(NoResultException $e) {
-            return null;
-        }
+        return $this->findOne(array(
+            '$or' => array(
+                array('username' => $usernameOrEmail),
+                array('email' => $usernameOrEmail)
+            )
+        ));
     }
 
 }

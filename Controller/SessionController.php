@@ -15,8 +15,14 @@ namespace Bundle\DoctrineUserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller as Controller;
 use Symfony\Components\EventDispatcher\Event;
 
-class AuthController extends Controller
+class SessionController extends Controller
 {
+
+    public function newAction()
+    {
+        $view = $this->container->getParameter('doctrine_user.session_view.new');
+        return $this->render($view, array());
+    }
 
     public function loginAction()
     {
@@ -27,9 +33,7 @@ class AuthController extends Controller
             $username = $request->get('username');
             $password = $request->get('password');
             
-            $user = $this->getEntityManager()
-            ->getRepository('Bundle\DoctrineUserBundle\Entity\User')
-            ->findOneByUsernameAndPassword($username, $password);
+            $user = $this->container->getDoctrineUser_UserRepoService()->findOneByUsernameAndPassword($username, $password);
 
             if($user && $user->getIsActive())
             {
