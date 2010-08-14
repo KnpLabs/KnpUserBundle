@@ -53,3 +53,11 @@ Also provides login & logout controllers.
 7. Create a new user (optional)
 
         ./application/console doctrine:user:create username password
+
+## CREDITS
+
+Non-exhaustive list of developers who contributed:
+- Thibault Duplessis
+- Matthieu Bontemps
+- Gordon Franke
+- Henrik Bjornskov
