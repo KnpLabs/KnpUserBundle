@@ -40,6 +40,7 @@ class CreateUserCommand extends BaseCommand
             ->setDescription('Create a user.')
             ->setDefinition(array(
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
+                new InputArgument('email', InputArgument::REQUIRED, 'The email'),
                 new InputArgument('password', InputArgument::REQUIRED, 'The password'),
                 new InputOption('super-admin', null, InputOption::PARAMETER_NONE, 'Set the user as super admin'),
                 new InputOption('inactive', null, InputOption::PARAMETER_NONE, 'Set the user as inactive'),
@@ -77,6 +78,7 @@ EOT
 
         $user = new $userClass();
         $user->setUsername($input->getArgument('username'));
+        $user->setEmail($input->getArgument('email'));
         $user->setPassword($input->getArgument('password'));
         $user->setIsActive(!$input->getOption('inactive'));
         $user->setIsSuperAdmin($input->getOption('super-admin'));
@@ -89,7 +91,7 @@ EOT
     
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        if(null === $input->getArgument('username')) {
+        if(!$input->getArgument('username')) {
             $username = $this->getHelper('dialog')->askAndValidate(
                 $output,
                 'Please choose a username:',
@@ -102,7 +104,20 @@ EOT
             );
             $input->setArgument('username', $username);
         }
-        if(null === $input->getArgument('password')) {
+        if(!$input->getArgument('email')) {
+            $email = $this->getHelper('dialog')->askAndValidate(
+                $output,
+                'Please choose an email:',
+                function($email) {
+                    if(empty($email)) {
+                        throw new \Exception('Email can not be empty');
+                    }
+                    return $email;
+                }
+            );
+            $input->setArgument('email', $email);
+        }
+        if(!$input->getArgument('password')) {
             $password = $this->getHelper('dialog')->askAndValidate(
                 $output,
                 'Please choose a password:',
