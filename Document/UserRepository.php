@@ -32,4 +32,23 @@ class UserRepository extends DocumentRepository implements UserRepositoryInterfa
         return $this->findOneBy(array('username' => $username));
     }
 
+    /**
+     * @see UserRepositoryInterface::findOneByUsername
+     */
+    public function findOneByEmail($email)
+    {
+        return $this->findOneBy(array('email' => $email));
+    }
+
+    /**
+     * @see UserRepositoryInterface::findOneByUsername
+     */
+    public function findOneByUsernameOrEmail($usernameOrEmail)
+    {
+        // The following line throws a "MongoCursorException: $or requires nonempty array" (?)
+        //return $this->findOne(array('$or' => array('username' => $usernameOrEmail), array('email' => $usernameOrEmail)));
+
+        return $this->createQuery()->where(sprintf('function() { return this.username == "%s" || this.email == "%s"; }', $usernameOrEmail, $usernameOrEmail))->getSingleResult();
+    }
+
 }
