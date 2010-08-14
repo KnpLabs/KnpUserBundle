@@ -92,6 +92,22 @@ class UserRepository
     }
 
     /**
+     * Find a user by its email, and check the password
+     * @param   string  $email
+     * @param   string  $password
+     * @return  User or null if user does not exist
+     */
+    public function findOneByEmailAndPassword($email, $password)
+    {
+        $user = $this->findOneByEmail($email);
+
+        if($user && $user->checkPassword($password))
+        {
+            return $user;
+        }
+    }
+
+    /**
      * Find a user by its username or email, and check the password
      * @param   string  $username
      * @param   string  $password
