@@ -15,6 +15,7 @@ class DoctrineUserExtension extends Extension
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
         $loader->load('listener.xml');
         $loader->load('controller.xml');
+        $loader->load('form.xml');
 
         if(!isset($config['db_driver'])) {
             throw new \InvalidConfigurationException('You must provide the auth.db_driver configuration');
