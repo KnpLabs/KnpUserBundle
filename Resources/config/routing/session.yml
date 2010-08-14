@@ -1,0 +1,9 @@
+doctrine_user_session_new:
+    pattern:        /new
+    defaults:       { _controller: DoctrineUserBundle:Session:new }
+    requirements:   { _method: "GET" }
+
+doctrine_user_session_create:
+    pattern:        /create
+    defaults:       { _controller: DoctrineUserBundle:Session:create }
+    requirements:   { _method: "PUT" }

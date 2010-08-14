@@ -15,8 +15,14 @@ namespace Bundle\DoctrineUserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller as Controller;
 use Symfony\Components\EventDispatcher\Event;
 
-class AuthController extends Controller
+class SessionController extends Controller
 {
+
+    public function newAction()
+    {
+        $view = $this->container->getParameter('doctrine_user.session_view.new');
+        return $this->render($view, array());
+    }
 
     public function loginAction()
     {
