@@ -12,7 +12,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetUserRepo()
     {
-        $userRepo = $this->createKernel()->getContainer()->getDoctrineUser_UserRepoService();
+        $userRepo = self::createKernel()->getContainer()->getDoctrineUser_UserRepoService();
         $this->assertTrue($userRepo instanceof UserRepository);
 
         return $userRepo;
@@ -25,7 +25,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     {
         $userClass = $userRepo->getObjectClass();
         $user = new $userClass();
-        $user->setUserName('harry');
+        $user->setUserName('harry_test');
         $user->setEmail('harry@mail.org');
         $user->setPassword('changeme');
 
@@ -103,7 +103,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 
         $userClass = $userRepo->getObjectClass();
         $user2 = new $userClass();
-        $user2->setUserName('harry2');
+        $user2->setUserName('harry_test2');
         $user2->setEmail('harry2@mail.org');
         $user2->setPassword('changeme2');
 
@@ -126,6 +126,17 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         $nullUser = $userRepo->findOneByUsernameOrEmail('thisemaildoesnotexist----thatsprettyobivous');
         $this->assertNull($nullUser);
     }
+
+    static public function tearDownAfterClass()
+    {
+        $userRepo = self::createKernel()->getContainer()->getDoctrineUser_UserRepoService();
+        $objectManager = $userRepo->getObjectManager();
+        foreach(array('harry_test', 'harry_test2') as $username) {
+            $objectManager->remove($userRepo->findOneByUsername($username));
+        }
+        $objectManager->flush();
+    }
+
 
     //public function testFindOneByUsernameAndPassword()
     //{
@@ -159,7 +170,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
      *
      * @return HttpKernelInterface A HttpKernelInterface instance
      */
-    protected function createKernel(array $options = array())
+    static protected function createKernel(array $options = array())
     {
         // black magic below, you have been warned!
         $dir = getcwd();
