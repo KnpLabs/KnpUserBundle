@@ -10,18 +10,7 @@ class User extends AbstractUser
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
-    public function testTimestampable()
-    {
-        $user = new User();
-        
-        $this->assertTrue($user->getCreatedAt() instanceof \DateTime);
-        $this->assertEquals(new \DateTime(), $user->getCreatedAt());
-        
-        $this->assertTrue($user->getUpdatedAt() instanceof \DateTime);
-        $this->assertEquals(new \DateTime(), $user->getUpdatedAt());
-    }
-
-    public function testPassword()
+    public function testCheckPassword()
     {
         $user = new User();
         $user->setPassword('changeme');
