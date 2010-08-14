@@ -1,9 +1,7 @@
 <?php $view->extend('DoctrineUserBundle::layout'); ?>
 
-<h1>Hello, <?php echo $identity->getUsername(); ?>!</h1>
-
-You have been logged in successfully.
-
-<a href="<?php echo $view->router->generate('logout') ?>">
-    Log out, now
-</a>
+<div class="doctrine_user_session_confirmation">
+    <h1>Hello, <?php echo $view->auth->getUser()->getUsername(); ?>!</h1>
+    You have been logged in successfully.
+    <a href="<?php echo $view->router->generate('doctrine_user_session_delete') ?>">Log out</a>
+</div>

@@ -6,6 +6,15 @@
 
     <parameters>
         <parameter key="doctrine_user.session_form.class">Bundle\DoctrineUserBundle\Form\SessionForm</parameter>
+        <parameter key="doctrine_user.session_form.name">doctrine_user_session_new</parameter>
     </parameters>
+
+    <services>
+        <service id="doctrine_user.session_form" class="%doctrine_user.session_form.class%">
+            <argument>%doctrine_user.session_form.name%</argument>
+            <argument></argument>
+            <argument type="service" id="validator" />
+        </service>
+    </services>
 
 </container>

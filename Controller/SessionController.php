@@ -1,8 +1,6 @@
 <?php
 
 /**
- * This file is part of the Symfony framework.
- *
  * (c) Matthieu Bontemps <matthieu@knplabs.com>
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
  *
@@ -13,78 +11,67 @@
 namespace Bundle\DoctrineUserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller as Controller;
-use Symfony\Components\EventDispatcher\Event;
+use Bundle\DoctrineUserBundle\DAO\User;
 
+/**
+ * RESTful controller managing authentication: login and logout
+ */
 class SessionController extends Controller
 {
-
+    /**
+     * Show the login form
+     */
     public function newAction()
     {
-        $formClass = $this->container->getParameter('doctrine_user.session_form.class'); 
-        $form = new $formClass('doctrine_user_session_new', array(), $this->container->getValidatorService());
-        $view = $this->container->getParameter('doctrine_user.session_view.new');
-        return $this->render($view, array('form' => $form));
+        return $this->render('DoctrineUserBundle:Session:new', array('form' => $this['doctrine_user.session_form']));
     }
 
-    public function loginAction()
+    /**
+     * Log in the user 
+     */
+    public function createAction()
     {
-        $this->getSession()->start();
-        $request = $this->getRequest();
+        $data = $this['request']->request->get($this->container->getParameter('doctrine_user.session_form.name'));
+        $user = $this['doctrine_user.user_repo']->findOneByUsernameOrEmailAndPassword($data['usernameOrEmail'], $data['password']);
 
-        if('POST' === $request->getMethod()) {
-            $username = $request->get('username');
-            $password = $request->get('password');
-            
-            $user = $this->container->getDoctrineUser_UserRepoService()->findOneByUsernameAndPassword($username, $password);
-
-            if($user && $user->getIsActive())
-            {
-                $event = new Event($this, 'doctrine_user.login', array('user' => $user));
-                $this->container->getEventDispatcherService()->notify($event);
-
-                return $this->redirect($this->generateUrl('loginSuccess'));
-            }
-            else
-            {
-                $this->getSession()->setFlash('loginError', true);
-            }
-        }
-
-        $view = $this->container->getParameter('doctrine_user.view.login');
-        return $this->render($view, array());
-    }
-
-    public function logoutAction()
-    {
-        $this->getSession()->start();
-        if($user = $this->getSession()->getAttribute('identity'))
+        if($user && $user->getIsActive())
         {
-            $event = new Event($this, 'doctrine_user.logout', array('user' => $user));
-            $this->container->getEventDispatcherService()->notify($event);
+            // authenticate the user
+            $this['doctrine_user.auth']->login($user);
+
+            $this['session']->setFlash('doctrine_user_session_new/success', true);
+            return $this->onCreateSuccess($user);
         }
 
-        return $this->redirect($this->generateUrl('login'));
+        $this['session']->setFlash('doctrine_user_session_new/error', true);
+
+        return $this->forward('DoctrineUserBundle:Session:new');
+    }
+
+    /**
+     * What to do when a user successfuly logged in 
+     */
+    protected function onCreateSuccess(User $user)
+    {
+        return $this->redirect($this->generateUrl('doctrine_user_session_success'));
     }
 
     public function successAction()
     {
-        $this->getSession()->start();
-        $identity = $this->getSession()->getAttribute('identity');
-
-        $view = $this->container->getParameter('doctrine_user.view.success');
-        return $this->render($view, array(
-            'identity' => $identity,
-        ));
+        if(!$this['doctrine_user.auth']->isAuthenticated()) {
+            return $this->redirect($this->generateUrl('doctrine_user_session_new'));
+        }
+        return $this->render('DoctrineUserBundle:Session:success');
     }
 
-    protected function getSession()
+    /**
+     * Log out the user 
+     */
+    public function deleteAction()
     {
-        return $this->container->getSessionService();
-    }
+        $this['doctrine_user.auth']->logout();
 
-    protected function getEntityManager()
-    {
-        return $this->container->getDoctrine_ORM_EntityManagerService();
+        return $this->redirect($this->generateUrl('doctrine_user_session_new'));
     }
 
 }

@@ -46,6 +46,16 @@ class UserRepository
     }
 
     /**
+     * Find a user by its identifier
+     * @param   mixed  $identifier
+     * @return  User or null if user does not exist
+     */
+    public function findOneByIdentifier($identifier)
+    {
+        return $this->findOneById($identifier);
+    }
+
+    /**
      * Find a user by its username
      * @param   string  $username
      * @return  User or null if user does not exist
