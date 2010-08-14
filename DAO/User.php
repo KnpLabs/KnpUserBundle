@@ -232,6 +232,6 @@ abstract class User
      */
     protected function encryptPassword($password)
     {
-        return hash_hmac($this->algorithm, $this->password, $this->salt);
+        return hash_hmac($this->algorithm, $password, $this->salt);
     }
 }
