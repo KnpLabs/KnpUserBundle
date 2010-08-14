@@ -23,19 +23,27 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateNewUser(UserRepository $userRepo)
     {
+        $objectManager = $userRepo->getObjectManager();
+
         $userClass = $userRepo->getObjectClass();
         $user = new $userClass();
         $user->setUserName('harry_test');
         $user->setEmail('harry@mail.org');
         $user->setPassword('changeme');
-
-        $objectManager = $userRepo->getObjectManager();
         $objectManager->persist($user);
+
+        $user2 = new $userClass();
+        $user2->setUserName('harry_test2');
+        $user2->setEmail('harry2@mail.org');
+        $user2->setPassword('changeme2');
+        $objectManager->persist($user2);
+
         $objectManager->flush();
 
         $this->assertNotNull($user->getId());
+        $this->assertNotNull($user2->getId());
 
-        return array($userRepo, $user);
+        return array($userRepo, $user, $user2);
     }
 
     /**
@@ -76,7 +84,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         $fetchedUser = $userRepo->findOneByUsername($user->getUsername());
         $this->assertEquals($user->getUsername(), $fetchedUser->getUsername());
 
-        $nullUser = $userRepo->findOneByUsername('thisusernamedoesnotexist----thatsprettyobivous');
+        $nullUser = $userRepo->findOneByUsername('thisusernamedoesnotexist----thatsprettycertain');
         $this->assertNull($nullUser);
     }
 
@@ -90,7 +98,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         $fetchedUser = $userRepo->findOneByEmail($user->getEmail());
         $this->assertEquals($user->getEmail(), $fetchedUser->getEmail());
 
-        $nullUser = $userRepo->findOneByEmail('thisemaildoesnotexist----thatsprettyobivous');
+        $nullUser = $userRepo->findOneByEmail('thisemaildoesnotexist----thatsprettycertain');
         $this->assertNull($nullUser);
     }
 
@@ -99,17 +107,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testFindOneByUsernameOrEmail(array $dependencies)
     {
-        list($userRepo, $user) = $dependencies;
-
-        $userClass = $userRepo->getObjectClass();
-        $user2 = new $userClass();
-        $user2->setUserName('harry_test2');
-        $user2->setEmail('harry2@mail.org');
-        $user2->setPassword('changeme2');
-
-        $objectManager = $userRepo->getObjectManager();
-        $objectManager->persist($user2);
-        $objectManager->flush();
+        list($userRepo, $user, $user2) = $dependencies;
 
         $fetchedUser = $userRepo->findOneByUsernameOrEmail($user->getUsername());
         $this->assertEquals($user->getUsername(), $fetchedUser->getUsername());
@@ -123,7 +121,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         $fetchedUser = $userRepo->findOneByUsernameOrEmail($user2->getEmail());
         $this->assertEquals($user2->getEmail(), $fetchedUser->getEmail());
 
-        $nullUser = $userRepo->findOneByUsernameOrEmail('thisemaildoesnotexist----thatsprettyobivous');
+        $nullUser = $userRepo->findOneByUsernameOrEmail('thisemaildoesnotexist----thatsprettycertain');
         $this->assertNull($nullUser);
     }
 
@@ -140,7 +138,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         $nullUser = $userRepo->findOneByUsernameAndPassword($user->getUsername(), 'badpassword');
         $this->assertNull($nullUser);
 
-        $nullUser = $userRepo->findOneByUsernameAndPassword('thisusernamedoesnotexist----thatsprettyobivous', 'changeme');
+        $nullUser = $userRepo->findOneByUsernameAndPassword('thisusernamedoesnotexist----thatsprettycertain', 'changeme');
         $this->assertNull($nullUser);
     }
 
@@ -157,7 +155,38 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         $nullUser = $userRepo->findOneByEmailAndPassword($user->getEmail(), 'badpassword');
         $this->assertNull($nullUser);
 
-        $nullUser = $userRepo->findOneByEmailAndPassword('thisemaildoesnotexist----thatsprettyobivous', 'changeme');
+        $nullUser = $userRepo->findOneByEmailAndPassword('thisemaildoesnotexist----thatsprettycertain', 'changeme');
+        $this->assertNull($nullUser);
+    }
+
+    /**
+     * @depends testCreateNewUser
+     */
+    public function testFindOneByUsernameOrEmailAndPassword(array $dependencies)
+    {
+        list($userRepo, $user, $user2) = $dependencies;
+
+        $userClass = $userRepo->getObjectClass();
+
+        $fetchedUser = $userRepo->findOneByUsernameOrEmailAndPassword($user->getUsername(), 'changeme');
+        $this->assertEquals($user->getUsername(), $fetchedUser->getUsername());
+
+        $fetchedUser = $userRepo->findOneByUsernameOrEmailAndPassword($user2->getUsername(), 'changeme2');
+        $this->assertEquals($user2->getUsername(), $fetchedUser->getUsername());
+
+        $fetchedUser = $userRepo->findOneByUsernameOrEmailAndPassword($user->getEmail(), 'changeme');
+        $this->assertEquals($user->getEmail(), $fetchedUser->getEmail());
+
+        $fetchedUser = $userRepo->findOneByUsernameOrEmailAndPassword($user2->getEmail(), 'changeme2');
+        $this->assertEquals($user2->getEmail(), $fetchedUser->getEmail());
+
+        $nullUser = $userRepo->findOneByUsernameOrEmailAndPassword('thisemaildoesnotexist----thatsprettycertain', 'changeme');
+        $this->assertNull($nullUser);
+
+        $nullUser = $userRepo->findOneByUsernameOrEmailAndPassword($user->getUsername(), 'badPassword');
+        $this->assertNull($nullUser);
+
+        $nullUser = $userRepo->findOneByUsernameOrEmailAndPassword($user->getEmail(), 'badPassword');
         $this->assertNull($nullUser);
     }
 
@@ -170,24 +199,6 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         }
         $objectManager->flush();
     }
-
-
-    //public function testFindOneByUsernameAndPassword()
-    //{
-        //$tony = new User();
-        //$tony->setUserName('tony');
-        //$tony->setPassword('changeme');
-
-        //$this->em->persist($tony);
-        //$this->em->flush();
-
-        //$this->assertSame($tony, $this->getRepository()->findOneByUsernameAndPassword('tony', 'changeme'));
-
-        //$this->assertNull($this->getRepository()->findOneByUsernameAndPassword('thisusernameisprobablynottakenyet', 'badpassword'));
-        //$this->assertNull($this->getRepository()->findOneByUsernameAndPassword('thisusernameisprobablynottakenyet', 'changeme'));
-        //$this->assertNull($this->getRepository()->findOneByUsernameAndPassword('tony', 'badpassword'));
-        //$this->assertNull($this->getRepository()->findOneByUsernameAndPassword('tony', ''));
-    //}
 
     /**
      * Creates a Kernel.
