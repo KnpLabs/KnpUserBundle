@@ -20,7 +20,6 @@ class SessionControllerTest extends WebTestCase
     {
         $client = $this->createClient();
         $crawler = $client->request('GET', '/session/new');
-
         $form = $crawler->selectButton('Log in')->form();
         $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'harry_test', 'doctrine_user_session_new[password]' => 'changeme'));
         $this->assertTrue($client->getResponse()->isRedirect());
@@ -28,6 +27,31 @@ class SessionControllerTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_confirmation')->count());
         $this->assertRegexp('/harry_test/', $client->getResponse()->getContent());
+    }
+
+    public function testCreateWithEmailSuccess()
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', '/session/new');
+        $form = $crawler->selectButton('Log in')->form();
+        $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'harry@mail.org', 'doctrine_user_session_new[password]' => 'changeme'));
+        $this->assertTrue($client->getResponse()->isRedirect());
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isSuccessful());
+        $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_confirmation')->count());
+        $this->assertRegexp('/harry_test/', $client->getResponse()->getContent());
+    }
+
+    public function testCreateEmptyFormError()
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', '/session/new');
+        $form = $crawler->selectButton('Log in')->form();
+        $crawler = $client->submit($form, array());
+        $this->assertFalse($client->getResponse()->isRedirect());
+        $this->assertTrue($client->getResponse()->isSuccessful());
+        $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_new_error')->count());
+        $this->assertEquals(1, $crawler->filter('form.doctrine_user_session_new')->count());
     }
 
     public static function setUpBeforeClass()
