@@ -33,7 +33,7 @@ class UserRepository extends DocumentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @see UserRepositoryInterface::findOneByUsername
+     * @see UserRepositoryInterface::findOneByEmail
      */
     public function findOneByEmail($email)
     {
@@ -41,7 +41,7 @@ class UserRepository extends DocumentRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @see UserRepositoryInterface::findOneByUsername
+     * @see UserRepositoryInterface::findOneByUsernameOrEmail
      */
     public function findOneByUsernameOrEmail($usernameOrEmail)
     {
