@@ -48,6 +48,6 @@ class DoctrineUserExtension extends Extension
 
     public function getAlias()
     {
-        return 'auth';
+        return 'doctrine_user';
     }
 }
