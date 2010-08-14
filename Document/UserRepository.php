@@ -16,12 +16,12 @@ use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 
 class UserRepository extends DocumentRepository implements UserRepositoryInterface
 {
-   /**
+    /**
      * @see UserRepositoryInterface::findOneById
      */
     public function findOneById($id)
     {
-        $user = $this->findOneBy(array('id' => $id));
+        return $this->find($id);
     }
 
     /**
@@ -30,7 +30,7 @@ class UserRepository extends DocumentRepository implements UserRepositoryInterfa
     public function findOneByUsernameAndPassword($username, $password)
     {
         $user = $this->findOneByUsername($username);
-        
+
         if($user && $user->checkPassword($password))
         {
             return $user;

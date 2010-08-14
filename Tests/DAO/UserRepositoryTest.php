@@ -54,14 +54,14 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testCreateNewUser
      */
-    public function testFindOneByUsername(array $dependencies)
+    public function testFindOneById(array $dependencies)
     {
         list($userRepo, $user) = $dependencies;
 
-        $fetchedUser = $userRepo->findOneByUsername($user->getUsername());
+        $fetchedUser = $userRepo->findOneById($user->getId());
         $this->assertSame($user, $fetchedUser);
 
-        $nullUser = $userRepo->findOneByUsername('thisusernameisprobablynottakenyet');
+        $nullUser = $userRepo->findOneById(0);
         $this->assertNull($nullUser);
     }
 

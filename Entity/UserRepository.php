@@ -21,7 +21,7 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
      */
     public function findOneById($id)
     {
-        $user = $this->findOneBy(array('id' => $id));
+        return $this->findOneBy(array('id' => $id));
     }
 
     /**
