@@ -13,8 +13,21 @@ class SessionControllerTest extends WebTestCase
         $client = $this->createClient();
         $crawler = $client->request('GET', '/session/new');
         $this->assertTrue($client->getResponse()->isSuccessful());
-
         $this->assertEquals(1, $crawler->filter('form.doctrine_user_session_new')->count());
+    }
+
+    public function testCreateWithUsernameSuccess()
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', '/session/new');
+
+        $form = $crawler->selectButton('Log in')->form();
+        $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'harry_test', 'doctrine_user_session_new[password]' => 'changeme'));
+        $this->assertTrue($client->getResponse()->isRedirect());
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isSuccessful());
+        $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_confirmation'));
+        $this->assertRegexp('/harry_test/', $client->getResponse()->getContent());
     }
 
     public static function setUpBeforeClass()
