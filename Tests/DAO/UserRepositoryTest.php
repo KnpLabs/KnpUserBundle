@@ -144,6 +144,23 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($nullUser);
     }
 
+    /**
+     * @depends testCreateNewUser
+     */
+    public function testFindOneByEmailAndPassword(array $dependencies)
+    {
+        list($userRepo, $user) = $dependencies;
+
+        $fetchedUser = $userRepo->findOneByEmailAndPassword($user->getEmail(), 'changeme');
+        $this->assertEquals($user->getEmail(), $fetchedUser->getEmail());
+
+        $nullUser = $userRepo->findOneByEmailAndPassword($user->getEmail(), 'badpassword');
+        $this->assertNull($nullUser);
+
+        $nullUser = $userRepo->findOneByEmailAndPassword('thisemaildoesnotexist----thatsprettyobivous', 'changeme');
+        $this->assertNull($nullUser);
+    }
+
     static public function tearDownAfterClass()
     {
         $userRepo = self::createKernel()->getContainer()->getDoctrineUser_UserRepoService();
