@@ -20,8 +20,10 @@ class SessionController extends Controller
 
     public function newAction()
     {
+        $formClass = $this->container->getParameter('doctrine_user.session_form.class'); 
+        $form = new $formClass('doctrine_user_session_new', array(), $this->container->getValidatorService());
         $view = $this->container->getParameter('doctrine_user.session_view.new');
-        return $this->render($view, array());
+        return $this->render($view, array('form' => $form));
     }
 
     public function loginAction()

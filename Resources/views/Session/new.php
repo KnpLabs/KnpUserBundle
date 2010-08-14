@@ -4,14 +4,16 @@
 <p>Bad username or password, please try again.</p>
 <?php endif; ?>
 
-<form method="PUT" action="<?php echo $view->router->generate('doctrine_user_session_create') ?>" name="doctrine_user_session_new">
-
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" />
-
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" />
-
-    <input type="submit" value="Log in" />
-    
+<?php echo $form->renderFormTag($view->router->generate('doctrine_user_session_create'), array('class' => 'doctrine_user_session_new')) ?>
+    <div>
+        <label for="doctrine_user_session_new_usernameOrEmail">Username or email:</label>
+        <?php echo $form['usernameOrEmail']->render(); ?>
+    </div>
+    <div>
+        <label for="doctrine_user_session_new_password">Password:</label>
+        <?php echo $form['password']->render(); ?>
+    </div>
+    <div>
+        <input type="submit" value="Log in" />
+    </div>
 </form>
