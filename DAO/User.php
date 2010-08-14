@@ -14,7 +14,6 @@ namespace Bundle\DoctrineUserBundle\DAO;
 /**
  * Storage agnostic user object
  * Has validator annotation, but database mapping must be done in a subclass.
- * @HasLifecycleCallbacks
  */
 abstract class User
 {
@@ -228,11 +227,13 @@ abstract class User
         $this->updatedAt = new \DateTime();
     }
 
+    /**
+     * @return string encrypted password
+     */
     protected function encryptPassword($password)
     {
-        $algorithm = $this->getAlgorithm();
-        $salt = $this->getSalt();
+        $algorithm = $this->algorithm;
 
-        return $algorithm($salt . $password);
+        return $algorithm($this->salt.$this->password);
     }
 }

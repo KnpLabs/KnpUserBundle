@@ -19,6 +19,7 @@ use Bundle\DoctrineUserBundle\DAO\User as AbstractUser;
  *   },
  *   repositoryClass="Bundle\DoctrineUserBundle\Document\UserRepository"
  * )
+ * @HasLifecycleCallbacks
  */
 class User extends AbstractUser
 {
