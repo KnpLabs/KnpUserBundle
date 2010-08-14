@@ -27,6 +27,8 @@ class SessionControllerTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_confirmation')->count());
         $this->assertRegexp('/harry_test/', $client->getResponse()->getContent());
+
+        return array($client, $crawler);
     }
 
     public function testCreateWithEmailSuccess()
@@ -52,6 +54,32 @@ class SessionControllerTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_new_error')->count());
         $this->assertEquals(1, $crawler->filter('form.doctrine_user_session_new')->count());
+    }
+
+    public function testCreateWithBadUsernameError()
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', '/session/new');
+        $form = $crawler->selectButton('Log in')->form();
+        $crawler = $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'thisusernamedoesnotexist-atleastihope', 'doctrine_user_session_new[password]' => 'changeme'));
+        $this->assertFalse($client->getResponse()->isRedirect());
+        $this->assertTrue($client->getResponse()->isSuccessful());
+        $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_new_error')->count());
+        $this->assertEquals(1, $crawler->filter('form.doctrine_user_session_new')->count());
+    }
+
+    /**
+     * @depends testCreateWithUsernameSuccess
+     */
+    public function testLogout(array $dependencies)
+    {
+        list($client, $crawler) = $dependencies;
+        $crawler = $client->click($crawler->selectLink('Log out')->link());
+        $this->assertTrue($client->getResponse()->isRedirect());
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isSuccessful());
+        $this->assertEquals(1, $crawler->filter('form.doctrine_user_session_new')->count());
+        $this->assertNotRegexp('/harry_test/', $client->getResponse()->getContent());
     }
 
     public static function setUpBeforeClass()
