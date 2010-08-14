@@ -78,7 +78,7 @@ class Auth
     /**
      * Get the authenticated user
      * @return User
-     */
+     **/
     public function getUser()
     {
         if(null === $this->user && $this->session->getAttribute($this->options['session_path'])) {
@@ -86,6 +86,16 @@ class Auth
         }
 
         return $this->user;
+    }
+
+    /**
+     * Tell whether or not a user is logged in
+     *
+     * @return bool
+     **/
+    public function isAuthenticated()
+    {
+        return (bool) $this->getUser();
     }
 
     /**
