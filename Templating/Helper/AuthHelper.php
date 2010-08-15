@@ -43,6 +43,16 @@ class AuthHelper extends Helper
     }
 
     /**
+     * Tell whether or not a user is logged in
+     *
+     * @return bool
+     **/
+    public function getIsAuthenticated()
+    {
+        return $this->isAuthenticated();
+    }
+
+    /**
      * Returns the canonical name of this helper.
      *
      * @return string The canonical name
