@@ -30,7 +30,7 @@ Provides authentication and User persistence for your Symfony2 Project.
 
     # app/config.yml
     doctrine_user.config:
-        db_driver: orm
+        db_driver: orm # can be orm or odm
 
 ### Add authentication routes
 
@@ -44,7 +44,7 @@ You now can login at http://app.com/session/create
 
 ### Customize authentication urls
 
-#TODO Will be explained soon.
+TODO Will be explained soon.
 
 ## Command line
 
