@@ -10,11 +10,11 @@ Provides authentication and User persistence for your Symfony2 Project.
 
 ## Installation
 
-1. Add DoctrineUserBundle to your src/Bundle dir
+### Add DoctrineUserBundle to your src/Bundle dir
 
     git submodule add git://github.com/knplabs/DoctrineUserBundle.git src/Bundle/DoctrineUserBundle
 
-2. Add DoctrineUserBundle to your application kernel
+### Add DoctrineUserBundle to your application kernel
 
     // app/AppKernel.php
     public function registerBundles()
@@ -26,17 +26,13 @@ Provides authentication and User persistence for your Symfony2 Project.
         );
     }
 
-3. Choose ORM or ODM database driver
+### Choose ORM or ODM database driver
 
     # app/config.yml
     doctrine_user.config:
         db_driver: orm
 
-4. Migrate database
-
-If you use Doctrine ORM, you should run migrations to update the DB structure.
-
-5. Add authentication routes
+### Add authentication routes
 
 If you want ready to use login and logout pages, include the builtin routes:
 
@@ -44,13 +40,19 @@ If you want ready to use login and logout pages, include the builtin routes:
     doctrine_user:
         resource: DoctrineUserBundle/Resources/config/routing/session.yml
 
+You now can login at http://app.com/session/create
+
+### Customize authentication urls
+
+#TODO Will be explained soon.
+
 ## Command line
 
 DoctrineUserBundle provides command line utilities to help manage your application users.
 
 ### Create user
 
-        php app/console doctrine:user:create
+    php app/console doctrine:user:create
 
 ## Get the current authenticated user in your code
 
