@@ -33,9 +33,9 @@ class SessionController extends Controller
     {
         $this['session']->start();
         $data = $this['request']->request->get($this->container->getParameter('doctrine_user.session_form.name'));
-        $user = $this['doctrine_user.user_repo']->findOneByUsernameOrEmailAndPassword($data['usernameOrEmail'], $data['password']);
+        $user = $this['doctrine_user.user_repo']->findOneByUsernameOrEmail($data['usernameOrEmail']);
 
-        if($user && $user->getIsActive())
+        if($user && $user->getIsActive() && $user->checkPassword($data['password']))
         {
             // authenticate the user
             $this['doctrine_user.auth']->login($user);

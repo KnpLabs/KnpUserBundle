@@ -3,7 +3,7 @@
 namespace Bundle\DoctrineUserBundle;
 
 use Bundle\DoctrineUserBundle\DAO\User;
-use Bundle\DoctrineUserBundle\DAO\UserRepository;
+use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 use Symfony\Components\HttpFoundation\Session;
 
 /**
@@ -12,9 +12,9 @@ use Symfony\Components\HttpFoundation\Session;
 class Auth
 {
     /**
-     * The generic User repository
+     * A User repository
      *
-     * @var UserRepository
+     * @var UserRepositoryInterface
      */
     protected $userRepository = null;
 
@@ -35,10 +35,10 @@ class Auth
     /**
      * Instanciate the Auth service 
      * 
-     * @param UserRepository $userRepository 
+     * @param UserRepositoryInterface $userRepository 
      * @param Session $session 
      */
-    public function __construct(UserRepository $userRepository, Session $session, array $options = array())
+    public function __construct(UserRepositoryInterface $userRepository, Session $session, array $options = array())
     {
         $this->userRepository = $userRepository;
         $this->session = $session;
@@ -46,6 +46,8 @@ class Auth
             'session_path' => 'doctrine_user/auth/identifier',
             'user_identifier' => 'id'
         ));
+
+        // make sure session is started
         $this->session->start();
     }
 
@@ -82,7 +84,7 @@ class Auth
     public function getUser()
     {
         if(null === $this->user && $this->session->getAttribute($this->options['session_path'])) {
-            $this->user = $this->userRepository->findOneByIdentifier($this->session->getAttribute($this->options['session_path']));
+            $this->user = $this->userRepository->find($this->session->getAttribute($this->options['session_path']));
         }
 
         return $this->user;
@@ -106,7 +108,7 @@ class Auth
     protected function getUserIdentifierValue(User $user)
     {
         $getter = 'get'.ucfirst($this->options['user_identifier']);
+
         return $user->$getter();
     }
-
 }
