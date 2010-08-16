@@ -31,6 +31,7 @@ class SessionController extends Controller
      */
     public function createAction()
     {
+        $this['session']->start();
         $data = $this['request']->request->get($this->container->getParameter('doctrine_user.session_form.name'));
         $user = $this['doctrine_user.user_repo']->findOneByUsernameOrEmailAndPassword($data['usernameOrEmail'], $data['password']);
 
