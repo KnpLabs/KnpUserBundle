@@ -98,6 +98,19 @@ For example, to get more traditional "login" and "logout" urls, write:
         defaults:       { _controller: DoctrineUserBundle:Session:success }
         requirements:   { _method: "GET" }
 
+## User repository service
+
+DoctrineUserBundle works with both ORM and ODM. To make it possible, the user repository is a service of the container.
+If you configure the db_driver to orm, this service is an instance of Bundle\DoctrineUserBundle\Entity\UserRepository.
+If you configure the db_driver to odm, this service is an instance of Bundle\DoctrineUserBundle\Document\UserRepository.
+Both these classes implement Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface.
+
+### Access the repository service
+
+If you want to manipulate users in a way that will work as well with ORM and ODM, use the doctrine_user.user_repository service:
+
+    $userRepository = $container->get('doctrine_user.user_repository');
+
 ## CREDITS
 
 Non-exhaustive list of developers who contributed:
