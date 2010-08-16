@@ -60,4 +60,12 @@ class UserRepository extends DocumentRepository implements UserRepositoryInterfa
     {
         return $this->getDocumentName();
     }
+
+    /**
+     * @see UserRepositoryInterface::getObjectIdentifier
+     */
+    public function getObjectIdentifier()
+    {
+        return $this->getClassMetadata()->identifier;
+    }
 }

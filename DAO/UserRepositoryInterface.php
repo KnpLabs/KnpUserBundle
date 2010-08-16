@@ -46,4 +46,11 @@ interface UserRepositoryInterface
      * @return string a model fully qualified class name
      **/
     public function getObjectClass();
+
+    /**
+     * Get the identifier property of the User 
+     * 
+     * @return string
+     */
+    public function getObjectIdentifier();
 }

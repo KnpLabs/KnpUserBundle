@@ -43,8 +43,7 @@ class Auth
         $this->userRepository = $userRepository;
         $this->session = $session;
         $this->options = array_merge(array(
-            'session_path' => 'doctrine_user/auth/identifier',
-            'user_identifier' => 'id'
+            'session_path' => 'doctrine_user/auth/identifier'
         ));
 
         // make sure session is started
@@ -107,7 +106,7 @@ class Auth
      **/
     protected function getUserIdentifierValue(User $user)
     {
-        $getter = 'get'.ucfirst($this->options['user_identifier']);
+        $getter = 'get'.ucfirst($this->userRepository->getObjectIdentifier());
 
         return $user->$getter();
     }

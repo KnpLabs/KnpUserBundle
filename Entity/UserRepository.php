@@ -66,4 +66,12 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
     {
         return $this->getEntityName();
     }
+
+    /**
+     * @see UserRepositoryInterface::getObjectIdentifier
+     */
+    public function getObjectIdentifier()
+    {
+        return reset($this->getClassMetadata()->identifier);
+    }
 }

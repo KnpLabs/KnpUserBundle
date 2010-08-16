@@ -7,7 +7,6 @@
     <parameters>
         <parameter key="doctrine_user.auth.class">Bundle\DoctrineUserBundle\Auth</parameter>
         <parameter key="doctrine_user.auth.session_path">doctrine_user/auth/identifier</parameter>
-        <parameter key="doctrine_user.auth.user_identifier">id</parameter>
     </parameters>
 
     <services>
@@ -17,7 +16,6 @@
             <argument type="service" id="session" />
             <argument type="collection">
                 <argument key="session_path">%doctrine_user.auth.session_path%</argument>
-                <argument key="user_identifier">%doctrine_user.auth.user_identifier%</argument>
             </argument>
         </service>
 
