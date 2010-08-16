@@ -10,7 +10,7 @@
 
     <services>
 
-        <service id="doctrine_user.user_repo" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
+        <service id="doctrine_user.user_repository" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
             <argument type="service" id="doctrine.orm.default_entity_manager" />
             <argument>%doctrine_user.user_object.class%</argument>
         </service>

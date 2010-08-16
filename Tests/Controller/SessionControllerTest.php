@@ -84,7 +84,7 @@ class SessionControllerTest extends WebTestCase
 
     public static function setUpBeforeClass()
     {
-        $userRepo = self::staticCreateKernel()->getContainer()->getDoctrineUser_UserRepoService();
+        $userRepo = self::staticCreateKernel()->getContainer()->getDoctrineUser_UserRepositoryService();
         $objectManager = $userRepo->getObjectManager();
 
         $userClass = $userRepo->getObjectClass();
@@ -105,7 +105,7 @@ class SessionControllerTest extends WebTestCase
 
     static public function tearDownAfterClass()
     {
-        $userRepo = self::staticCreateKernel()->getContainer()->getDoctrineUser_UserRepoService();
+        $userRepo = self::staticCreateKernel()->getContainer()->getDoctrineUser_UserRepositoryService();
         $objectManager = $userRepo->getObjectManager();
         foreach(array('harry_test', 'harry_test2') as $username) {
             if($object = $userRepo->findOneByUsername($username)) {

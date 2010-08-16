@@ -12,7 +12,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetUserRepo()
     {
-        $userRepo = self::createKernel()->getContainer()->getDoctrineUser_UserRepoService();
+        $userRepo = self::createKernel()->getContainer()->getDoctrineUser_UserRepositoryService();
         $this->assertTrue($userRepo instanceof UserRepositoryInterface);
 
         return $userRepo;
@@ -127,7 +127,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 
     static public function tearDownAfterClass()
     {
-        $userRepo = self::createKernel()->getContainer()->getDoctrineUser_UserRepoService();
+        $userRepo = self::createKernel()->getContainer()->getDoctrineUser_UserRepositoryService();
         $objectManager = $userRepo->getObjectManager();
         foreach(array('harry_test', 'harry_test2') as $username) {
             if($object = $userRepo->findOneByUsername($username)) {
