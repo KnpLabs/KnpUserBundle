@@ -14,4 +14,8 @@ use Symfony\Framework\Bundle\Bundle as BaseBundle;
 
 class DoctrineUserBundle extends BaseBundle
 {
+    public static function getRepository($objectManager, $objectClass)
+    {
+        return $objectManager->getRepository($objectClass);
+    }
 }
