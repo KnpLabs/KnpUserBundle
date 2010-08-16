@@ -3,7 +3,7 @@
 namespace Bundle\DoctrineUserBundle\Tests\DAO;
 
 use Bundle\DoctrineUserBundle\DAO\User;
-use Bundle\DoctrineUserBundle\DAO\UserRepository;
+use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 
 // Kernel creation required namespaces
 use Symfony\Components\Finder\Finder;
@@ -13,7 +13,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     public function testGetUserRepo()
     {
         $userRepo = self::createKernel()->getContainer()->getDoctrineUser_UserRepoService();
-        $this->assertTrue($userRepo instanceof UserRepository);
+        $this->assertTrue($userRepo instanceof UserRepositoryInterface);
 
         return $userRepo;
     }
@@ -21,7 +21,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testGetUserRepo
      */
-    public function testCreateNewUser(UserRepository $userRepo)
+    public function testCreateNewUser(UserRepositoryInterface $userRepo)
     {
         $objectManager = $userRepo->getObjectManager();
 
@@ -63,14 +63,14 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     /**
      * @depends testCreateNewUser
      */
-    public function testFindOneById(array $dependencies)
+    public function testFind(array $dependencies)
     {
         list($userRepo, $user) = $dependencies;
 
-        $fetchedUser = $userRepo->findOneById($user->getId());
+        $fetchedUser = $userRepo->find($user->getId());
         $this->assertSame($user, $fetchedUser);
 
-        $nullUser = $userRepo->findOneById(0);
+        $nullUser = $userRepo->find(0);
         $this->assertNull($nullUser);
     }
 
@@ -125,77 +125,14 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($nullUser);
     }
 
-    /**
-     * @depends testCreateNewUser
-     */
-    public function testFindOneByUsernameAndPassword(array $dependencies)
-    {
-        list($userRepo, $user) = $dependencies;
-
-        $fetchedUser = $userRepo->findOneByUsernameAndPassword($user->getUsername(), 'changeme');
-        $this->assertEquals($user->getUsername(), $fetchedUser->getUsername());
-
-        $nullUser = $userRepo->findOneByUsernameAndPassword($user->getUsername(), 'badpassword');
-        $this->assertNull($nullUser);
-
-        $nullUser = $userRepo->findOneByUsernameAndPassword('thisusernamedoesnotexist----thatsprettycertain', 'changeme');
-        $this->assertNull($nullUser);
-    }
-
-    /**
-     * @depends testCreateNewUser
-     */
-    public function testFindOneByEmailAndPassword(array $dependencies)
-    {
-        list($userRepo, $user) = $dependencies;
-
-        $fetchedUser = $userRepo->findOneByEmailAndPassword($user->getEmail(), 'changeme');
-        $this->assertEquals($user->getEmail(), $fetchedUser->getEmail());
-
-        $nullUser = $userRepo->findOneByEmailAndPassword($user->getEmail(), 'badpassword');
-        $this->assertNull($nullUser);
-
-        $nullUser = $userRepo->findOneByEmailAndPassword('thisemaildoesnotexist----thatsprettycertain', 'changeme');
-        $this->assertNull($nullUser);
-    }
-
-    /**
-     * @depends testCreateNewUser
-     */
-    public function testFindOneByUsernameOrEmailAndPassword(array $dependencies)
-    {
-        list($userRepo, $user, $user2) = $dependencies;
-
-        $userClass = $userRepo->getObjectClass();
-
-        $fetchedUser = $userRepo->findOneByUsernameOrEmailAndPassword($user->getUsername(), 'changeme');
-        $this->assertEquals($user->getUsername(), $fetchedUser->getUsername());
-
-        $fetchedUser = $userRepo->findOneByUsernameOrEmailAndPassword($user2->getUsername(), 'changeme2');
-        $this->assertEquals($user2->getUsername(), $fetchedUser->getUsername());
-
-        $fetchedUser = $userRepo->findOneByUsernameOrEmailAndPassword($user->getEmail(), 'changeme');
-        $this->assertEquals($user->getEmail(), $fetchedUser->getEmail());
-
-        $fetchedUser = $userRepo->findOneByUsernameOrEmailAndPassword($user2->getEmail(), 'changeme2');
-        $this->assertEquals($user2->getEmail(), $fetchedUser->getEmail());
-
-        $nullUser = $userRepo->findOneByUsernameOrEmailAndPassword('thisemaildoesnotexist----thatsprettycertain', 'changeme');
-        $this->assertNull($nullUser);
-
-        $nullUser = $userRepo->findOneByUsernameOrEmailAndPassword($user->getUsername(), 'badPassword');
-        $this->assertNull($nullUser);
-
-        $nullUser = $userRepo->findOneByUsernameOrEmailAndPassword($user->getEmail(), 'badPassword');
-        $this->assertNull($nullUser);
-    }
-
     static public function tearDownAfterClass()
     {
         $userRepo = self::createKernel()->getContainer()->getDoctrineUser_UserRepoService();
         $objectManager = $userRepo->getObjectManager();
         foreach(array('harry_test', 'harry_test2') as $username) {
-            $objectManager->remove($userRepo->findOneByUsername($username));
+            if($object = $userRepo->findOneByUsername($username)) {
+                $objectManager->remove($object);
+            }
         }
         $objectManager->flush();
     }
