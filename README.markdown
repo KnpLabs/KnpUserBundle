@@ -111,6 +111,54 @@ If you want to manipulate users in a way that will work as well with ORM and ODM
 
     $userRepository = $container->get('doctrine_user.user_repository');
 
+That's the way DoctrineUserBundle internal controllers are built.
+
+## Extend the User
+
+You will probably want to extend the user to add it new properties and methods.
+You can change the User class DoctrineUserBundle will use in configuration:
+
+    # application/config/config.yml
+    doctrine_user.config:
+        db_driver: orm
+        user_class: Bundle\MyBundle\Entity\User
+
+Then create your own User class:
+
+    # Bundle\MyBundle\Document\User.php
+    <?php
+    namespace Bundle\MyBundle\Entity;
+    use Bundle\DoctrineUserBundle\Entity\User as BaseUser;
+
+    class User extends BaseUser
+    {
+        // add your stuff here
+    }
+
+Once you extended the User class, you can easily replace and extend the User repository, too.
+Declare your custom repository from your User class annotations:
+
+    /**
+    * @Entity(repositoryClass="Bundle\MyBundle\Entity\UserRepository")
+    */
+    class User extends BaseUser
+    {
+    }
+
+Then create your custom repository:
+
+    # Bundle\MyBundle\Document\UserRepository.php
+    <?php
+    namespace Bundle\MyBundle\Entity;
+    use Bundle\DoctrineUserBundle\Entity\UserRepository as BaseUserRepository
+
+    class UserRepository extends BaseUserRepository
+    {
+        // add your stuff here
+    }
+
+Of course, to do the same with Doctrine ODM, just replace Entity with Document in the previous exemples.
+
 ## CREDITS
 
 Non-exhaustive list of developers who contributed:
