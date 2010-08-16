@@ -18,7 +18,7 @@ class DoctrineUserExtension extends Extension
         $loader->load('templating.xml');
 
         if(!isset($config['db_driver'])) {
-            throw new \InvalidConfigurationException('You must provide the auth.db_driver configuration');
+            throw new \InvalidArgumentException('You must provide the doctrine_user.db_driver configuration');
         }
         if('orm' === $config['db_driver']) {
             $loader->load('orm.xml');
@@ -27,7 +27,7 @@ class DoctrineUserExtension extends Extension
             $loader->load('odm.xml');
         }
         else {
-            throw new \InvalidConfigurationException(sprintf('The %s driver is not supported', $config['db_driver']));
+            throw new \InvalidArgumentException(sprintf('The %s driver is not supported', $config['db_driver']));
         }
     }
 
