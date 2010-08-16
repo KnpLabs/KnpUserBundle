@@ -29,6 +29,10 @@ class DoctrineUserExtension extends Extension
         else {
             throw new \InvalidArgumentException(sprintf('The %s driver is not supported', $config['db_driver']));
         }
+
+        if(isset($config['user_class'])) {
+            $container->setParameter('doctrine_user.user_object.class', $config['user_class']);
+        }
     }
 
     /**
