@@ -18,14 +18,6 @@ use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 class UserRepository extends EntityRepository implements UserRepositoryInterface
 {
     /**
-     * @see UserRepositoryInterface::findOneById
-     */
-    public function findOneById($id)
-    {
-        return $this->findOneBy(array('id' => $id));
-    }
-
-    /**
      * @see UserRepositoryInterface::findOneByUsername
      */
     public function findOneByUsername($username)
@@ -59,4 +51,19 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
         }
     }
 
+    /**
+     * @see UserRepositoryInterface::getObjectManager
+     */
+    public function getObjectManager()
+    {
+        return $this->getEntityManager();
+    }
+
+    /**
+     * @see UserRepositoryInterface::getObjectClass
+     */
+    public function getObjectClass()
+    {
+        return $this->getEntityName();
+    }
 }
