@@ -73,8 +73,9 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $userRepo = $this->container->getDoctrineUser_UserRepoService();
-        $userClass = $userRepo->getObjectClass();
+        //$userRepo = $this->container->getDoctrineUser_UserRepoService();
+        $userRepo = $this->container->get("doctrine_user.user_repository");
+        $userClass = $this->container->getParameter("doctrine_user.user_object.class");
 
         $user = new $userClass();
         $user->setUsername($input->getArgument('username'));

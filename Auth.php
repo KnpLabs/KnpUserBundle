@@ -110,4 +110,10 @@ class Auth
 
         return $user->$getter();
     }
+    
+    public function getObjectClass() 
+    {
+    	return $this->options["doctrine_user.auth.class"];    	
+    }
+    
 }
