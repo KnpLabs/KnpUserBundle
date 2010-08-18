@@ -33,6 +33,12 @@ class DoctrineUserExtension extends Extension
         if(isset($config['user_class'])) {
             $container->setParameter('doctrine_user.user_object.class', $config['user_class']);
         }
+        
+        // doctrine_user.success.route
+        if(isset($config['success_route'])) {
+            $container->setParameter('doctrine_user.success.route', $config['success_route']);
+        }
+        
     }
 
     /**

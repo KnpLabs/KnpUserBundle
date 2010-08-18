@@ -53,8 +53,16 @@ class SessionController extends Controller
      * What to do when a user successfuly logged in 
      */
     protected function onCreateSuccess(User $user)
-    {
-        return $this->redirect($this->generateUrl('doctrine_user_session_success'));
+    {   
+    	// FIXME: Sometime when the redirect is working
+    	// This is currently very verbose - but it helps testing the specific problem
+    	// Don't worry - it'll be removed when the problem is fixed :)
+    	$successRoute = $this->container->getParameter('doctrine_user.success.route');
+    	$url = $this->generateUrl($successRoute);
+        $this->redirect($url);
+        header("Location: " . $url);
+        exit;
+        //return $r;
     }
 
     public function successAction()
