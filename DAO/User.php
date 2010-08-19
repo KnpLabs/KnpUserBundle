@@ -21,7 +21,7 @@ abstract class User
     /**
      * @Validation({
      *      @NotBlank(),
-     *      @MinLength(limit=2)
+     *      @MinLength(limit=2),
      *      @MaxLength(limit=255)
      * })
      */
@@ -36,20 +36,20 @@ abstract class User
     protected $email;
     /**
      * @Validation({
-     *      @AssertType(type="boolean')
+     *      @AssertType(type="boolean")
      * })
      */
     protected $isActive;
     /**
      * @Validation({
-     *      @AssertType(type="boolean')
+     *      @AssertType(type="boolean")
      * })
      */
     protected $isSuperAdmin;
     /**
      * @Validation({
      *      @NotBlank(),
-     *      @MinLength(limit=2)
+     *      @MinLength(limit=2),
      *      @MaxLength(limit=255)
      * })
      */
@@ -57,7 +57,7 @@ abstract class User
     /**
      * @Validation({
      *      @NotBlank(),
-     *      @MinLength(limit=2)
+     *      @MinLength(limit=2),
      *      @MaxLength(limit=31)
      * })
      */
@@ -65,28 +65,26 @@ abstract class User
     /**
      * @Validation({
      *      @NotBlank(),
-     *      @MinLength(limit=2)
+     *      @MinLength(limit=2),
      *      @MaxLength(limit=255)
      * })
      */
     protected $salt;
     /**
      * @Validation({
-     *      @DateTime(),
-     *      @NotNull()
+     *      @DateTime()
      * })
      */
     protected $createdAt;
     /**
      * @Validation({
-     *      @DateTime(),
-     *      @NotNull()
+     *      @DateTime()
      * })
      */
     protected $updatedAt;
     /**
      * @Validation({
-     *      @DateTime(),
+     *      @DateTime()
      * })
      */
     protected $lastLogin;
@@ -155,7 +153,7 @@ abstract class User
     public function setPassword($password)
     {
         if (empty($password)) {
-            throw new \InvalidArgumentException('Password can not be empty');
+            $this->password = null;
         }
 
         $this->password = $this->encryptPassword($password);
