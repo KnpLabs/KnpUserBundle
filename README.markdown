@@ -135,6 +135,17 @@ If you want to manipulate users in a way that will work as well with ORM and ODM
 
 That's the way DoctrineUserBundle internal controllers are built.
 
+### Access the current user class
+
+When using Doctrine ORM, the default user class is Bundle\DoctrineUserBundle\Entity\User.
+When using Doctrine ODM, the default user class is Bundle\DoctrineUserBundle\Document\User.
+To get the current user class, you can ask it to the user repository:
+
+    $userClass = $userRepository->getObjectClass();
+    $user = new $userClass();
+
+`$user` is now an Entity or a Document, depending on the configuration.
+
 ## Extend the User
 
 You will probably want to extend the user to add it new properties and methods.
