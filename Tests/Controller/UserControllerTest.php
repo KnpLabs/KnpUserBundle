@@ -54,12 +54,7 @@ class UserControllerTest extends WebTestCase
         $this->assertRegexp('/harry_test/', $client->getResponse()->getContent());
     }
 
-    protected function generateUrl($client, $route, array $params = array())
-    {
-        return $client->getContainer()->get('router')->generate($route, $params);
-    }
-
-    public static function setUpBeforeClass()
+    public function testList()
     {
         $userRepo = self::staticCreateKernel()->getContainer()->getDoctrineUser_UserRepositoryService();
         $objectManager = $userRepo->getObjectManager();
@@ -78,6 +73,17 @@ class UserControllerTest extends WebTestCase
         $objectManager->persist($user2);
 
         $objectManager->flush();
+
+        $client = $this->createClient();
+        $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_user_list'));
+        $this->assertTrue($client->getResponse()->isSuccessful());
+        $this->assertRegexp('/harry_test/', $client->getResponse()->getContent());
+        $this->assertRegexp('/harry_test2/', $client->getResponse()->getContent());
+    }
+
+    protected function generateUrl($client, $route, array $params = array())
+    {
+        return $client->getContainer()->get('router')->generate($route, $params);
     }
 
     static public function tearDownAfterClass()
