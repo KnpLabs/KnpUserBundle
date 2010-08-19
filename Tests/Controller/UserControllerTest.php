@@ -25,8 +25,22 @@ class UserControllerTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isRedirect());
         $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertEquals(1, $crawler->filter('div.doctrine_user_user_confirmation')->count());
+        $this->assertEquals(1, $crawler->filter('div.doctrine_user_user_create_success')->count());
         $this->assertRegexp('/harry_test/', $client->getResponse()->getContent());
+    }
+
+    public function testCreateEmptyFormError()
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_user_new'));
+        $form = $crawler->selectButton('Create user')->form();
+        $client->submit($form, array());
+        $this->assertFalse($client->getResponse()->isRedirect());
+        $this->assertTrue($client->getResponse()->isSuccessful());
+        $form = $crawler->filter('form.doctrine_user_user_new');
+        $this->assertEquals(1, $form->count());
+        $this->assertRegexp('/This value should not be blank/', $client->getResponse()->getContent());
+        $this->assertEquals(0, $crawler->filter('div.doctrine_user_user_create_success')->count());
     }
 
     protected function generateUrl($client, $route)
