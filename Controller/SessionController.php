@@ -39,11 +39,11 @@ class SessionController extends Controller
         {
             $this['doctrine_user.auth']->login($user);
 
-            $this['session']->setFlash('doctrine_user_session_new/success', true);
+            $this['session']->setFlash('doctrine_user_session_create/success', true);
             return $this->onCreateSuccess($user);
         }
 
-        $this['session']->setFlash('doctrine_user_session_new/error', true);
+        $this['session']->setFlash('doctrine_user_session_create/error', true);
 
         return $this->forward('DoctrineUserBundle:Session:new');
     }
