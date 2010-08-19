@@ -17,3 +17,8 @@ doctrine_user_user_list:
     pattern:        /user/list
     defaults:       { _controller: DoctrineUserBundle:User:list }
     requirements:   { _method: "GET" }
+
+doctrine_user_user_show:
+    pattern:        /user/:username
+    defaults:       { _controller: DoctrineUserBundle:User:show }
+    requirements:   { _method: "GET" }
