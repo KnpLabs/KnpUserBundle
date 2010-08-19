@@ -11,6 +11,7 @@ namespace Bundle\DoctrineUserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller as Controller;
 use Bundle\DoctrineUserBundle\DAO\User;
+use Symfony\Components\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * RESTful controller managing user CRUD
@@ -18,64 +19,64 @@ use Bundle\DoctrineUserBundle\DAO\User;
 class UserController extends Controller
 {
     /**
+     * Show one user
+     */
+    public function showAction($username)
+    {
+        $user = $this['doctrine_user.user_repository']->findOneByUsername($username);
+        if(!$user) {
+            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $username));
+        }
+
+        return $this->render('DoctrineUserBundle:User:show', array('user' => $user));
+    }
+
+    /**
      * Show the new form
      */
     public function newAction()
     {
-        $formClass = $this->container->getParameter('doctrine_user.user_form.class');
-        $userClass = $this['doctrine_user.user_repository']->getObjectClass();
-        $form = new $formClass('doctrine_user_user_new', new $userClass(), $this['validator']);
+        return $this->render('DoctrineUserBundle:User:new', array('form' => $this->createForm('doctrine_user_user_new')));
+    }
+
+    /**
+     * Create a user
+     */
+    public function createAction()
+    {
+        $form = $this->createForm('doctrine_user_user_new');
+
+        if($this['request']->request->has($form->getName())) {
+            $form->bind($this['request']->request->get($form->getName()));
+            if($form->isValid()) {
+                $user = $form->getData();
+                $this['doctrine_user.user_repository']->getObjectManager()->persist($user);
+                $this['doctrine_user.user_repository']->getObjectManager()->flush();
+                $this['session']->start();
+                $this['session']->setFlash('doctrine_user_user_create/success', true);
+                $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
+                return $this->redirect($userUrl);
+            }
+        }
+
         return $this->render('DoctrineUserBundle:User:new', array('form' => $form));
     }
 
     /**
-     * Log in the user 
+     * Create a UserForm instance and returns it 
+     * 
+     * @param string $name 
+     * @param User $object 
+     * @return Bundle\DoctrineUserBundle\Form\UserForm
      */
-    public function createAction()
+    protected function createForm($name, $object = null)
     {
-        $this['session']->start();
-        $data = $this['request']->request->get($this->container->getParameter('doctrine_user.session_form.name'));
-        $user = $this['doctrine_user.user_repository']->findOneByUsernameOrEmail($data['usernameOrEmail']);
-
-        if($user && $user->getIsActive() && $user->checkPassword($data['password']))
-        {
-            $this['doctrine_user.auth']->login($user);
-
-            $this['session']->setFlash('doctrine_user_session_new/success', true);
-            return $this->onCreateSuccess($user);
+        $formClass = $this->container->getParameter('doctrine_user.user_form.class');
+        if(null === $object) {
+            $userClass = $this['doctrine_user.user_repository']->getObjectClass();
+            $object = new $userClass();
         }
 
-        $this['session']->setFlash('doctrine_user_session_new/error', true);
-
-        return $this->forward('DoctrineUserBundle:Session:new');
+        return new $formClass($name, $object, $this['validator']);
     }
-
-    /**
-     * What to do when a user successfuly logged in 
-     */
-    protected function onCreateSuccess(User $user)
-    {   
-    	$successRoute = $this->container->getParameter('doctrine_user.session_create.success_route');
-    	$url = $this->generateUrl($successRoute);
-        return $this->redirect($url);
-    }
-
-    public function successAction()
-    {
-        if(!$this['doctrine_user.auth']->isAuthenticated()) {
-            return $this->redirect($this->generateUrl('doctrine_user_session_new'));
-        }
-        return $this->render('DoctrineUserBundle:Session:success');
-    }
-
-    /**
-     * Log out the user 
-     */
-    public function deleteAction()
-    {
-        $this['doctrine_user.auth']->logout();
-
-        return $this->redirect($this->generateUrl('doctrine_user_session_new'));
-    }
-
 }
