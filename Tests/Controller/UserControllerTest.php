@@ -16,6 +16,19 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('form.doctrine_user_user_new')->count());
     }
 
+    public function testCreateSuccess()
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_user_new'));
+        $form = $crawler->selectButton('Create user')->form();
+        $client->submit($form, array('doctrine_user_user_new[username]' => 'harry_test', 'doctrine_user_user_new[email]' => 'harry_test@email.org', 'doctrine_user_user_new[password]' => 'changeme'));
+        $this->assertTrue($client->getResponse()->isRedirect());
+        $crawler = $client->followRedirect();
+        $this->assertTrue($client->getResponse()->isSuccessful());
+        $this->assertEquals(1, $crawler->filter('div.doctrine_user_user_confirmation')->count());
+        $this->assertRegexp('/harry_test/', $client->getResponse()->getContent());
+    }
+
     protected function generateUrl($client, $route)
     {
         return $client->getContainer()->get('router')->generate($route);
