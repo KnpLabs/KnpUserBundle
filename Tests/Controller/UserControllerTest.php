@@ -43,9 +43,20 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(0, $crawler->filter('div.doctrine_user_user_create_success')->count());
     }
 
-    protected function generateUrl($client, $route)
+    /**
+     * @depends testCreateSuccess
+     */
+    public function testShow()
     {
-        return $client->getContainer()->get('router')->generate($route);
+        $client = $this->createClient();
+        $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_user_show', array('username' => 'harry_test')));
+        $this->assertTrue($client->getResponse()->isSuccessful());
+        $this->assertRegexp('/harry_test/', $client->getResponse()->getContent());
+    }
+
+    protected function generateUrl($client, $route, array $params = array())
+    {
+        return $client->getContainer()->get('router')->generate($route, $params);
     }
 
     public static function setUpBeforeClass()
