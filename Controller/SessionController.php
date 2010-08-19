@@ -37,7 +37,6 @@ class SessionController extends Controller
 
         if($user && $user->getIsActive() && $user->checkPassword($data['password']))
         {
-            // authenticate the user
             $this['doctrine_user.auth']->login($user);
 
             $this['session']->setFlash('doctrine_user_session_new/success', true);

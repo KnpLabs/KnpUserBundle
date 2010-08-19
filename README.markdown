@@ -98,6 +98,16 @@ For example, to get more traditional "login" and "logout" urls, write:
         defaults:       { _controller: DoctrineUserBundle:Session:success }
         requirements:   { _method: "GET" }
 
+### Change the route used when user successfully logs in
+
+By default, when a user logs in through SessionController::create, he gets redirected to the route doctrine_user_session_success.
+You can change the route used in configuration:
+ 
+    # app/config.yml
+    doctrine_user.config:
+        db_driver: orm # can be orm or odm
+        session_create_success_route: my_custom_route_name
+
 ## User repository service
 
 DoctrineUserBundle works with both ORM and ODM. To make it possible, the user repository is a service of the container.
