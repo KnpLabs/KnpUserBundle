@@ -19,6 +19,16 @@ use Symfony\Components\HttpKernel\Exception\NotFoundHttpException;
 class UserController extends Controller
 {
     /**
+     * Show all users
+     **/
+    public function listAction()
+    {
+        $users = $this['doctrine_user.user_repository']->findAll();
+
+        return $this->render('DoctrineUserBundle:User:list', array('users' => $users));
+    }
+
+    /**
      * Show one user
      */
     public function showAction($username)
