@@ -21,22 +21,18 @@ class DoctrineUserExtension extends Extension
         if(!isset($config['db_driver'])) {
             throw new \InvalidArgumentException('You must provide the doctrine_user.db_driver configuration');
         }
-        # TODO load any db_driver and catch InvalidArgumentException
-        if('orm' === $config['db_driver']) {
-            $loader->load('orm.xml');
+
+        try {
+            $loader->load(sprintf('%s.%s', $config['db_driver'], 'xml'));
         }
-        elseif('odm' === $config['db_driver']) {
-            $loader->load('odm.xml');
-        }
-        else {
-            throw new \InvalidArgumentException(sprintf('The %s driver is not supported', $config['db_driver']));
+        catch(\InvalidArgumentException $e) {
+            throw new \InvalidArgumentException(sprintf('The db_driver "%s" is not supported by doctrine_user', $config['db_driver']));
         }
 
         if(isset($config['user_class'])) {
             $container->setParameter('doctrine_user.user_object.class', $config['user_class']);
         }
         
-        // doctrine_user.session_create.success_route
         if(isset($config['session_create_success_route'])) {
             $container->setParameter('doctrine_user.session_create.success_route', $config['session_create_success_route']);
         }
