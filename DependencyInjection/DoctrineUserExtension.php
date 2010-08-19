@@ -15,11 +15,13 @@ class DoctrineUserExtension extends Extension
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
         $loader->load('auth.xml');
         $loader->load('form.xml');
+        $loader->load('controller.xml');
         $loader->load('templating.xml');
 
         if(!isset($config['db_driver'])) {
             throw new \InvalidArgumentException('You must provide the doctrine_user.db_driver configuration');
         }
+        # TODO load any db_driver and catch InvalidArgumentException
         if('orm' === $config['db_driver']) {
             $loader->load('orm.xml');
         }
@@ -34,11 +36,10 @@ class DoctrineUserExtension extends Extension
             $container->setParameter('doctrine_user.user_object.class', $config['user_class']);
         }
         
-        // doctrine_user.success.route
-        if(isset($config['success_route'])) {
-            $container->setParameter('doctrine_user.success.route', $config['success_route']);
+        // doctrine_user.session_create.success_route
+        if(isset($config['session_create_success_route'])) {
+            $container->setParameter('doctrine_user.session_create.success_route', $config['session_create_success_route']);
         }
-        
     }
 
     /**

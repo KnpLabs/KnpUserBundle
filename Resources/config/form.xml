@@ -7,7 +7,6 @@
     <parameters>
         <parameter key="doctrine_user.session_form.class">Bundle\DoctrineUserBundle\Form\SessionForm</parameter>
         <parameter key="doctrine_user.session_form.name">doctrine_user_session_new</parameter>
-        <parameter key="doctrine_user.success.route">doctrine_user_session_success</parameter>
     </parameters>
 
     <services>
