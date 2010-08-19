@@ -138,6 +138,16 @@ abstract class User
     {
       $this->email = $email;
     }
+
+    /**
+     * Password is encrypted and can not be accessed. 
+     * Returns empty string for use in form password field.
+     * @return string
+     */
+    public function getPassword()
+    {
+        return '';
+    }
     
     /**
      * @param string $password
