@@ -25,7 +25,7 @@ class SessionControllerTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isRedirect());
         $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_confirmation')->count());
+        $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_create_success')->count());
         $this->assertRegexp('/harry_test/', $client->getResponse()->getContent());
 
         return array($client, $crawler);
@@ -40,7 +40,7 @@ class SessionControllerTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isRedirect());
         $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_confirmation')->count());
+        $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_create_success')->count());
         $this->assertRegexp('/harry_test/', $client->getResponse()->getContent());
     }
 
@@ -52,7 +52,7 @@ class SessionControllerTest extends WebTestCase
         $crawler = $client->submit($form, array());
         $this->assertFalse($client->getResponse()->isRedirect());
         $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_new_error')->count());
+        $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_create_error')->count());
         $this->assertEquals(1, $crawler->filter('form.doctrine_user_session_new')->count());
     }
 
@@ -64,7 +64,7 @@ class SessionControllerTest extends WebTestCase
         $crawler = $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'thisusernamedoesnotexist-atleastihope', 'doctrine_user_session_new[password]' => 'changeme'));
         $this->assertFalse($client->getResponse()->isRedirect());
         $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_new_error')->count());
+        $this->assertEquals(1, $crawler->filter('div.doctrine_user_session_create_error')->count());
         $this->assertEquals(1, $crawler->filter('form.doctrine_user_session_new')->count());
     }
 
