@@ -11,7 +11,7 @@ class SessionControllerTest extends WebTestCase
     public function testNew()
     {
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/session/new');
+        $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_session_new'));
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(1, $crawler->filter('form.doctrine_user_session_new')->count());
     }
@@ -19,7 +19,7 @@ class SessionControllerTest extends WebTestCase
     public function testCreateWithUsernameSuccess()
     {
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/session/new');
+        $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_session_new'));
         $form = $crawler->selectButton('Log in')->form();
         $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'harry_test', 'doctrine_user_session_new[password]' => 'changeme'));
         $this->assertTrue($client->getResponse()->isRedirect());
@@ -34,7 +34,7 @@ class SessionControllerTest extends WebTestCase
     public function testCreateWithEmailSuccess()
     {
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/session/new');
+        $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_session_new'));
         $form = $crawler->selectButton('Log in')->form();
         $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'harry@mail.org', 'doctrine_user_session_new[password]' => 'changeme'));
         $this->assertTrue($client->getResponse()->isRedirect());
@@ -47,7 +47,7 @@ class SessionControllerTest extends WebTestCase
     public function testCreateEmptyFormError()
     {
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/session/new');
+        $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_session_new'));
         $form = $crawler->selectButton('Log in')->form();
         $crawler = $client->submit($form, array());
         $this->assertFalse($client->getResponse()->isRedirect());
@@ -59,7 +59,7 @@ class SessionControllerTest extends WebTestCase
     public function testCreateWithBadUsernameError()
     {
         $client = $this->createClient();
-        $crawler = $client->request('GET', '/session/new');
+        $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_session_new'));
         $form = $crawler->selectButton('Log in')->form();
         $crawler = $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'thisusernamedoesnotexist-atleastihope', 'doctrine_user_session_new[password]' => 'changeme'));
         $this->assertFalse($client->getResponse()->isRedirect());
@@ -80,6 +80,11 @@ class SessionControllerTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isSuccessful());
         $this->assertEquals(1, $crawler->filter('form.doctrine_user_session_new')->count());
         $this->assertNotRegexp('/harry_test/', $client->getResponse()->getContent());
+    }
+
+    protected function generateUrl($client, $route)
+    {
+        return $client->getContainer()->get('router')->generate($route);
     }
 
     public static function setUpBeforeClass()
