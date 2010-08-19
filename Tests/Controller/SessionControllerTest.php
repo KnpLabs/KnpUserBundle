@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\ArticleBundle\Tests\Controller;
+namespace Bundle\DoctrineUserBundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 // Kernel creation required namespaces
