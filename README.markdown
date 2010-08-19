@@ -48,7 +48,19 @@ DoctrineUserBundle provides command line utilities to help manage your applicati
 
 ### Create user
 
+This command creates a new user
+
+    php app/console doctrine:user:create username email password
+
+If you don't provide the required arguments, a interactive prompt will ask them to you
+
     php app/console doctrine:user:create
+
+### Promote user as a super administrator
+
+This command promotes a user as a super administrator
+
+    php app/console doctrine:user:promote
 
 ## Get the current authenticated user in your code
 
@@ -177,3 +189,4 @@ Non-exhaustive list of developers who contributed:
 - Matthieu Bontemps
 - Gordon Franke
 - Henrik Bjornskov
+- David Ashwood
