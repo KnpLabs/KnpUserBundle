@@ -54,15 +54,9 @@ class SessionController extends Controller
      */
     protected function onCreateSuccess(User $user)
     {   
-    	// FIXME: Sometime when the redirect is working
-    	// This is currently very verbose - but it helps testing the specific problem
-    	// Don't worry - it'll be removed when the problem is fixed :)
     	$successRoute = $this->container->getParameter('doctrine_user.session_create.success_route');
     	$url = $this->generateUrl($successRoute);
-        $this->redirect($url);
-        header("Location: " . $url);
-        exit;
-        //return $r;
+        return $this->redirect($url);
     }
 
     public function successAction()
