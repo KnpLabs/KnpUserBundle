@@ -48,21 +48,21 @@ class CreateUserCommand extends BaseCommand
             ->setHelp(<<<EOT
 The <info>doctrine:user:create</info> command creates a user:
 
-  <info>./symfony doctrine:user:create matthieu</info>
+  <info>php app/console doctrine:user:create matthieu</info>
 
 This interactive shell will first ask you for a password.
 
 You can alternatively specify the password as a second argument:
 
-  <info>./symfony doctrine:user:create matthieu mypassword</info>
+  <info>php app/console doctrine:user:create matthieu mypassword</info>
 
 You can create a super admin via the super-admin flag:
 
-  <info>./symfony doctrine:user:create admin --super-admin</info>
+  <info>php app/console doctrine:user:create admin --super-admin</info>
 
 You can create an inactive user (will not be able to log in):
 
-  <info>./symfony doctrine:user:create thibault --inactive</info>
+  <info>php app/console doctrine:user:create thibault --inactive</info>
   
 EOT
         );
