@@ -74,9 +74,9 @@ This command promotes a user as a super administrator
 
 #### PHP templates
 
-    $view->auth->getUser() // return a User instance, or null
+    $view['auth']->getUser() // return a User instance, or null
 
-    $view->auth->isAuthenticated() // return true if a user is authenticated
+    $view['auth']->isAuthenticated() // return true if a user is authenticated
 
 #### Twig templates
 
