@@ -10,11 +10,35 @@
 
         <parameter key="doctrine_user.user_form.class">Bundle\DoctrineUserBundle\Form\UserForm</parameter>
         <parameter key="doctrine_user.user_form.name">doctrine_user_user_form</parameter>
+
+        <parameter key="doctrine_user.group_form.class">Bundle\DoctrineUserBundle\Form\GroupeForm</parameter>
+        <parameter key="doctrine_user.group_form.name">doctrine_user_group_form</parameter>
+
+        <parameter key="doctrine_user.permission_form.class">Bundle\DoctrineUserBundle\Form\PermissionForm</parameter>
+        <parameter key="doctrine_user.permission_form.name">doctrine_user_permission_form</parameter>
     </parameters>
 
     <services>
         <service id="doctrine_user.session_form" class="%doctrine_user.session_form.class%">
             <argument>%doctrine_user.session_form.name%</argument>
+            <argument></argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service id="doctrine_user.user_form" class="%doctrine_user.user_form.class%">
+            <argument>%doctrine_user.user_form.name%</argument>
+            <argument></argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service id="doctrine_user.group_form" class="%doctrine_user.group_form.class%">
+            <argument>%doctrine_user.group_form.name%</argument>
+            <argument></argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service id="doctrine_user.permission_form" class="%doctrine_user.permission_form.class%">
+            <argument>%doctrine_user.permission_form.name%</argument>
             <argument></argument>
             <argument type="service" id="validator" />
         </service>

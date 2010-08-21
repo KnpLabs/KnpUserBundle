@@ -1,0 +1,59 @@
+<?php
+
+namespace Bundle\DoctrineUserBundle\Document;
+use Bundle\DoctrineUserBundle\DAO\Permission as AbstractPermission;
+
+/**
+ * @Document(
+ *   collection="sf_doctrine_user_permission",
+ *   indexes={
+ *     @Index(keys={"name"="asc"})
+ *   },
+ *   repositoryClass="Bundle\DoctrineUserBundle\Document\GroupRepository"
+ * )
+ * @HasLifecycleCallbacks
+ */
+class Permission extends AbstractPermission
+{
+    /**
+     * @Id
+     */
+    protected $id;
+
+    /**
+     * @Field(type="string")
+     */
+    protected $name;
+
+    /**
+     * @Field(type="text")
+     */
+    protected $description;
+
+    /**
+     * @Field(type="date")
+     */
+    protected $createdAt;
+
+    /**
+     * @Field(type="date")
+     */
+    protected $updatedAt;
+
+
+    /**
+     * @PreInsert
+     */
+    public function incrementCreatedAt()
+    {
+        parent::incrementCreatedAt();
+    }
+
+    /**
+     * PreUpdate
+     */
+    public function incrementUpdatedAt()
+    {
+        parent::incrementUpdatedAt();
+    }
+}

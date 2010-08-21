@@ -89,6 +89,10 @@ abstract class User
      */
     protected $lastLogin;
 
+    protected $groups;
+    protected $permissions;
+    protected $allPermissions;
+
     public function __construct()
     {
         $this->algorithm = 'sha1';
@@ -117,16 +121,16 @@ abstract class User
     {
         $this->username = $username;
     }
-    
+
     /**
      * Get email
      * @return string
      */
     public function getEmail()
     {
-      return $this->email;
+        return $this->email;
     }
-    
+
     /**
      * Set email
      * @param  string
@@ -134,11 +138,11 @@ abstract class User
      */
     public function setEmail($email)
     {
-      $this->email = $email;
+        $this->email = $email;
     }
 
     /**
-     * Password is encrypted and can not be accessed. 
+     * Password is encrypted and can not be accessed.
      * Returns empty string for use in form password field.
      * @return string
      */
@@ -146,13 +150,14 @@ abstract class User
     {
         return '';
     }
-    
+
     /**
      * @param string $password
      */
     public function setPassword($password)
     {
-        if (empty($password)) {
+        if (empty($password))
+        {
             $this->password = null;
         }
 
@@ -247,16 +252,15 @@ abstract class User
         return $this->getUsername();
     }
 
-    /** @PrePersist */
     public function incrementCreatedAt()
     {
-        if(null === $this->createdAt) {
+        if(null === $this->createdAt)
+        {
             $this->createdAt = new \DateTime();
         }
         $this->updatedAt = new \DateTime();
     }
 
-    /** @PreUpdate */
     public function incrementUpdatedAt()
     {
         $this->updatedAt = new \DateTime();
@@ -268,5 +272,49 @@ abstract class User
     protected function encryptPassword($password)
     {
         return hash_hmac($this->algorithm, $password, $this->salt);
+    }
+
+    /**
+     * Gets the name of the groups which includes the user
+     *
+     * @return array
+     */
+    abstract public function getGroupNames();
+    
+    /**
+     * Indicates whether the user belongs to the specified group or not
+     *
+     * @param string $name Name of the group
+     * @return boolean
+     */
+    public function hasGroup($name)
+    {
+        return in_array($name, $this->getGroupNames());
+    }
+
+    /**
+     * Gets the name of the permissions granted to the user
+     *
+     * @return array
+     */
+    abstract public function getPermissionNames();
+
+    /**
+     * Gets the name of all the permissions granted to the user including group
+     * permissions
+     *
+     * @return array
+     */
+    abstract public function getAllPermissionNames();
+
+    /**
+     * Indicates whether the specified permission is granted to the user or not
+     *
+     * @param string $name Name of the permission
+     * @return boolean
+     */
+    public function hasPermission($name)
+    {
+        return in_array($name, $this->getAllPermissionNames());
     }
 }

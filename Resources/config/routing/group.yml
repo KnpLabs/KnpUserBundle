@@ -1,0 +1,35 @@
+
+doctrine_user_group_list:
+    pattern:        /group/list
+    defaults:       { _controller: DoctrineUserBundle:Group:list }
+    requirements:   { _method: GET }
+
+doctrine_user_group_new:
+    pattern:        /group/new
+    defaults:       { _controller: DoctrineUserBundle:Group:new }
+    requirements:   { _method: GET }
+
+doctrine_user_group_create:
+    pattern:        /group/new
+    defaults:       { _controller: DoctrineUserBundle:Group:create }
+    requirements:   { _method: POST }
+
+doctrine_user_group_edit:
+    pattern:        /group/:name/edit
+    defaults:       { _controller: DoctrineUserBundle:Group:edit }
+    requirements:   { _method: GET }
+
+doctrine_user_group_update:
+    pattern:        /group/:name/edit
+    defaults:       { _controller: DoctrineUserBundle:Group:update }
+    requirements:   { _method: POST }
+
+doctrine_user_group_delete:
+    pattern:        /group/:name/delete
+    defaults:       { _controller: DoctrineUserBundle:Group:delete }
+    requirements:   { _method: GET }
+
+doctrine_user_group_show:
+    pattern:        /group/:name
+    defaults:       { _controller: DoctrineUserBundle:Group:show }
+    requirements:   { _method: GET }
