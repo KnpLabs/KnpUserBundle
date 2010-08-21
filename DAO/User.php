@@ -70,23 +70,8 @@ abstract class User
      * })
      */
     protected $salt;
-    /**
-     * @Validation({
-     *      @DateTime()
-     * })
-     */
     protected $createdAt;
-    /**
-     * @Validation({
-     *      @DateTime()
-     * })
-     */
     protected $updatedAt;
-    /**
-     * @Validation({
-     *      @DateTime()
-     * })
-     */
     protected $lastLogin;
 
     public function __construct()
