@@ -1,6 +1,6 @@
 <?php $view->extend('DoctrineUserBundle::layout') ?>
 
-<?php echo $form->getRawValue()->renderFormTag($view->router->generate('doctrine_user_group_create'), array('class' => 'doctrine_user_group_new')) ?>
+<?php echo $form->getRawValue()->renderFormTag($view['router']->generate('doctrine_user_group_create'), array('class' => 'doctrine_user_group_new')) ?>
     
     <?php echo $form->getRawValue()->renderErrors() ?>
 

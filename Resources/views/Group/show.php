@@ -1,8 +1,8 @@
 <?php $view->extend('DoctrineUserBundle::layout') ?>
 
-<?php if ($view->session->hasFlash('doctrine_user_group_create/success')): ?>
+<?php if ($view['session']->hasFlash('doctrine_user_group_create/success')): ?>
 <div class="doctrine_user_user_create_success">The group has been created successfully</div>
-<?php elseif ($view->session->hasFlash('doctrine_user_group_update/success')): ?>
+<?php elseif ($view['session']->hasFlash('doctrine_user_group_update/success')): ?>
 <div class="doctrine_user_user_update_success">The group has been updated successfully</div>
 <?php endif; ?>
 

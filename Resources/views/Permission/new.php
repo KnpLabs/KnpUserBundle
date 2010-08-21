@@ -1,6 +1,6 @@
 <?php $view->extend('DoctrineUserBundle::layout') ?>
 
-<?php echo $form->getRawValue()->renderFormTag($view->router->generate('doctrine_user_permission_create'), array('class' => 'doctrine_user_permission_new')) ?>
+<?php echo $form->getRawValue()->renderFormTag($view['router']->generate('doctrine_user_permission_create'), array('class' => 'doctrine_user_permission_new')) ?>
     
     <?php echo $form->getRawValue()->renderErrors() ?>
 

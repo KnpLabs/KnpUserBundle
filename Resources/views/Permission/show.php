@@ -1,8 +1,8 @@
 <?php $view->extend('DoctrineUserBundle::layout') ?>
 
-<?php if ($view->session->hasFlash('doctrine_user_permission_create/success')): ?>
+<?php if ($view['session']->hasFlash('doctrine_user_permission_create/success')): ?>
 <div class="doctrine_user_permission_create_success">The permission has been created successfully</div>
-<?php elseif ($view->session->hasFlash('doctrine_user_permission_update/success')): ?>
+<?php elseif ($view['session']->hasFlash('doctrine_user_permission_update/success')): ?>
 <div class="doctrine_user_permission_update_success">The permission has been updated successfully</div>
 <?php endif; ?>
 

@@ -1,6 +1,6 @@
 <?php $view->extend('DoctrineUserBundle::layout') ?>
 
-<?php echo $form->getRawValue()->renderFormTag($view->router->generate('doctrine_user_permission_update', array('name' => $form->getData()->getName())), array('class' => 'doctrine_user_permission_edit')) ?>
+<?php echo $form->getRawValue()->renderFormTag($view['router']->generate('doctrine_user_permission_update', array('name' => $form->getData()->getName())), array('class' => 'doctrine_user_permission_edit')) ?>
     
     <?php echo $form->getRawValue()->renderErrors() ?>
 
