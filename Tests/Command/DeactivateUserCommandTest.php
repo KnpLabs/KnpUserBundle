@@ -4,7 +4,7 @@ namespace Bundle\DoctrineUserBundle\Tests\Command;
 
 use Bundle\DoctrineUserBundle\Tests\BaseDatabaseTest;
 use Bundle\DoctrineUserBundle\DAO\User;
-use Bundle\DoctrineUserBundle\Command\CreateUserCommand;
+use Bundle\DoctrineUserBundle\Command\DeactivateUserCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Tester\ApplicationTester;
@@ -16,7 +16,7 @@ class DeactivateUserCommandTest extends BaseDatabaseTest
 {
     public function testUserDeactivation()
     {
-        $kernel = self::createKernel1();
+        $kernel = self::createKernel();
         $command = new DeactivateUserCommand();
         $application = new Application($kernel);
         $application->setAutoExit(false);
@@ -37,7 +37,7 @@ class DeactivateUserCommandTest extends BaseDatabaseTest
         $userRepo->getObjectManager()->persist($user);
         $userRepo->getObjectManager()->flush();
         
-        $this->assertFalse($user->getIsActive());
+        $this->assertTrue($user->getIsActive());
 
         $tester->run(array(
             'command'  => $command->getFullName(),

@@ -4,7 +4,7 @@ namespace Bundle\DoctrineUserBundle\Tests\Command;
 
 use Bundle\DoctrineUserBundle\Tests\BaseDatabaseTest;
 use Bundle\DoctrineUserBundle\DAO\User;
-use Bundle\DoctrineUserBundle\Command\CreateUserCommand;
+use Bundle\DoctrineUserBundle\Command\ActivateUserCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Tester\ApplicationTester;
@@ -16,7 +16,7 @@ class ActivateUserCommandTest extends BaseDatabaseTest
 {
     public function testUserActivation()
     {
-        $kernel = self::createKernel1();
+        $kernel = self::createKernel();
         $command = new ActivateUserCommand();
         $application = new Application($kernel);
         $application->setAutoExit(false);

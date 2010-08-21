@@ -94,13 +94,13 @@ class SessionControllerTest extends WebTestCase
 
         $userClass = $userRepo->getObjectClass();
         $user = new $userClass();
-        $user->setUserName('harry_test');
+        $user->setUsername('harry_test');
         $user->setEmail('harry@mail.org');
         $user->setPassword('changeme');
         $objectManager->persist($user);
 
         $user2 = new $userClass();
-        $user2->setUserName('harry_test2');
+        $user2->setUsername('harry_test2');
         $user2->setEmail('harry2@mail.org');
         $user2->setPassword('changeme2');
         $objectManager->persist($user2);

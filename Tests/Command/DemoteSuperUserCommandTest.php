@@ -4,7 +4,7 @@ namespace Bundle\DoctrineUserBundle\Tests\Command;
 
 use Bundle\DoctrineUserBundle\Tests\BaseDatabaseTest;
 use Bundle\DoctrineUserBundle\DAO\User;
-use Bundle\DoctrineUserBundle\Command\PromoteSuperAdminCommand;
+use Bundle\DoctrineUserBundle\Command\DemoteSuperAdminCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Tester\ApplicationTester;
