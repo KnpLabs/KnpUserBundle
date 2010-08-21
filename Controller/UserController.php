@@ -33,12 +33,42 @@ class UserController extends Controller
      */
     public function showAction($username)
     {
-        $user = $this['doctrine_user.user_repository']->findOneByUsername($username);
-        if(!$user) {
-            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $username));
-        }
+        $user = $this->findUser($username);
 
         return $this->render('DoctrineUserBundle:User:show', array('user' => $user));
+    }
+
+    /**
+     * Edit one user, show the edit form
+     */
+    public function editAction($username)
+    {
+        $user = $this->findUser($username);
+        $form = $this->createForm('doctrine_user_user_edit', $user);
+
+        return $this->render('DoctrineUserBundle:User:edit', array('form' => $form, 'username' => $username));
+    }
+
+    /**
+     * Update a user
+     */
+    public function updateAction($username)
+    {
+        $user = $this->findUser($username);
+        $form = $this->createForm('doctrine_user_user_edit', $user);
+
+        if($data = $this['request']->request->get($form->getName())) {
+            $form->bind($data);
+            if($form->isValid()) {
+                $this->saveUser($user);
+                $this['session']->start();
+                $this['session']->setFlash('doctrine_user_user_update/success', true);
+                $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
+                return $this->redirect($userUrl);
+            }
+        }
+
+        return $this->render('DoctrineUserBundle:User:edit', array('form' => $form, 'username' => $username));
     }
 
     /**
@@ -46,7 +76,9 @@ class UserController extends Controller
      */
     public function newAction()
     {
-        return $this->render('DoctrineUserBundle:User:new', array('form' => $this->createForm('doctrine_user_user_new')));
+        $form = $this->createForm('doctrine_user_user_new');
+
+        return $this->render('DoctrineUserBundle:User:new', array('form' => $form));
     }
 
     /**
@@ -56,12 +88,11 @@ class UserController extends Controller
     {
         $form = $this->createForm('doctrine_user_user_new');
 
-        if($this['request']->request->has($form->getName())) {
-            $form->bind($this['request']->request->get($form->getName()));
+        if($data = $this['request']->request->get($form->getName())) {
+            $form->bind($data);
             if($form->isValid()) {
                 $user = $form->getData();
-                $this['doctrine_user.user_repository']->getObjectManager()->persist($user);
-                $this['doctrine_user.user_repository']->getObjectManager()->flush();
+                $this->saveUser($user);
                 $this['session']->start();
                 $this['session']->setFlash('doctrine_user_user_create/success', true);
                 $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
@@ -70,6 +101,50 @@ class UserController extends Controller
         }
 
         return $this->render('DoctrineUserBundle:User:new', array('form' => $form));
+    }
+
+    /**
+     * Delete one user
+     */
+    public function deleteAction($username)
+    {
+        $user = $this->findUser($username);
+
+        $objectManager = $this['doctrine_user.user_repository']->getObjectManager();
+        $objectManager->remove($user);
+        $objectManager->flush();
+
+        return $this->redirect($this->generateUrl('doctrine_user_user_list'));
+    }
+
+    /**
+     * Find a user by its username
+     * 
+     * @param string $username 
+     * @throw NotFoundException if user does not exist
+     * @return User
+     */
+    protected function findUser($username)
+    {
+        $user = $this['doctrine_user.user_repository']->findOneByUsername($username);
+        if(!$user) {
+            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $username));
+        }
+        
+        return $user;
+    }
+
+    /**
+     * Save a user in database
+     *
+     * @param User $user
+     * @return null
+     **/
+    public function saveUser(User $user)
+    {
+        $objectManager = $this['doctrine_user.user_repository']->getObjectManager();
+        $objectManager->persist($user);
+        $objectManager->flush();
     }
 
     /**

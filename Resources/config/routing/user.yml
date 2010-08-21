@@ -1,3 +1,8 @@
+doctrine_user_user_list:
+    pattern:        /user/list
+    defaults:       { _controller: DoctrineUserBundle:User:list }
+    requirements:   { _method: "GET" }
+
 doctrine_user_user_new:
     pattern:        /user/new
     defaults:       { _controller: DoctrineUserBundle:User:new }
@@ -8,17 +13,22 @@ doctrine_user_user_create:
     defaults:       { _controller: DoctrineUserBundle:User:create }
     requirements:   { _method: "POST" }
 
-doctrine_user_user_delete:
-    pattern:        /user/delete
-    defaults:       { _controller: DoctrineUserBundle:User:delete }
-    requirements:   { _method: "GET" }
-
-doctrine_user_user_list:
-    pattern:        /user/list
-    defaults:       { _controller: DoctrineUserBundle:User:list }
-    requirements:   { _method: "GET" }
-
 doctrine_user_user_show:
     pattern:        /user/:username
     defaults:       { _controller: DoctrineUserBundle:User:show }
-    requirements:   { _method: "GET" }
+    requirements:   { _method: "GET", username: "[\w\d]+" }
+
+doctrine_user_user_edit:
+    pattern:        /user/:username/edit
+    defaults:       { _controller: DoctrineUserBundle:User:edit }
+    requirements:   { _method: "GET", username: "[\w\d]+" }
+
+doctrine_user_user_update:
+    pattern:        /user/:username/edit
+    defaults:       { _controller: DoctrineUserBundle:User:update }
+    requirements:   { _method: "POST", username: "[\w\d]+" }
+
+doctrine_user_user_delete:
+    pattern:        /user/:username/delete
+    defaults:       { _controller: DoctrineUserBundle:User:delete }
+    requirements:   { username: "[\w\d]+" }
