@@ -2,7 +2,7 @@
 
 namespace Bundle\DoctrineUserBundle\Templating\Helper;
 
-use Symfony\Components\Templating\Helper\Helper;
+use Symfony\Component\Templating\Helper\Helper;
 use Bundle\DoctrineUserBundle\Auth;
 
 /**

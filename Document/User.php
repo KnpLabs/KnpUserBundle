@@ -78,7 +78,7 @@ class User extends AbstractUser
 
     /**
      * @see Bundle\DoctrineUserBundle\DAO\User::incrementCreatedAt
-     * @PreCreate
+     * @PrePersist
      */
     public function incrementCreatedAt()
     {

@@ -11,7 +11,7 @@ namespace Bundle\DoctrineUserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller as Controller;
 use Bundle\DoctrineUserBundle\DAO\User;
-use Symfony\Components\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * RESTful controller managing user CRUD

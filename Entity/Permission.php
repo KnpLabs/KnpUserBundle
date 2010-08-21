@@ -34,7 +34,7 @@ class Permission extends AbstractPermission
     protected $updatedAt;
 
     /**
-     * @PreInsert
+     * @PrePersist
      */
     public function incrementCreatedAt()
     {

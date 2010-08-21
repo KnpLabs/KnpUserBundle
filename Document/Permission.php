@@ -42,7 +42,7 @@ class Permission extends AbstractPermission
 
 
     /**
-     * @PreInsert
+     * @PrePersist
      */
     public function incrementCreatedAt()
     {

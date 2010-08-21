@@ -4,7 +4,7 @@ namespace Bundle\DoctrineUserBundle;
 
 use Bundle\DoctrineUserBundle\DAO\User;
 use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
-use Symfony\Components\HttpFoundation\Session;
+use Symfony\Component\HttpFoundation\Session;
 
 /**
  * The Auth service binds a User Entity or Document to the Symfony2 Session 

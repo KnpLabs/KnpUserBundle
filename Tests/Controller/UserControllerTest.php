@@ -4,7 +4,7 @@ namespace Bundle\DoctrineUserBundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 // Kernel creation required namespaces
-use Symfony\Components\Finder\Finder;
+use Symfony\Component\Finder\Finder;
 
 class UserControllerTest extends WebTestCase
 {

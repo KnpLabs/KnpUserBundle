@@ -42,7 +42,7 @@ class Group extends AbstractGroup
 
 
     /**
-     * @PreInsert
+     * @PrePersist
      */
     public function incrementCreatedAt()
     {

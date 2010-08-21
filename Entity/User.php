@@ -68,7 +68,7 @@ class User extends AbstractUser
     protected $lastLogin;
     /**
      * @ManyToMany(targetEntity="Group")
-     * @JoinTable(name="doctrine_user_users_group",
+     * @JoinTable(name="sf_doctrine_user_users_group",
      *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="group_id", referencedColumnName="id")}
      * )
@@ -76,7 +76,7 @@ class User extends AbstractUser
     protected $groups;
     /**
      * @ManyToMany(targetEntity="Permission")
-     * @JoinTable(name="doctrine_user_users_permission",
+     * @JoinTable(name="sf_doctrine_user_users_permission",
      *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="permission_id", referencedColumnName="id")}
      * )
@@ -93,7 +93,7 @@ class User extends AbstractUser
 
     /**
      * @see Bundle\DoctrineUserBundle\DAO\User::incrementCreatedAt
-     * @PreCreate
+     * @PrePersist
      */
     public function incrementCreatedAt()
     {

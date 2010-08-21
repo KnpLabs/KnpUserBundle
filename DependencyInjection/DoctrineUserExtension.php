@@ -2,10 +2,10 @@
 
 namespace Bundle\DoctrineUserBundle\DependencyInjection;
 
-use Symfony\Components\DependencyInjection\Extension\Extension;
-use Symfony\Components\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Components\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Components\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class DoctrineUserExtension extends Extension
 {

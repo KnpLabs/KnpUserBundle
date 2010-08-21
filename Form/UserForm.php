@@ -2,9 +2,9 @@
 
 namespace Bundle\DoctrineUserBundle\Form;
 
-use Symfony\Components\Form\Form;
-use Symfony\Components\Form\TextField;
-use Symfony\Components\Form\PasswordField;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\TextField;
+use Symfony\Component\Form\PasswordField;
 
 class UserForm extends Form
 {

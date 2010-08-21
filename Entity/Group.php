@@ -34,7 +34,13 @@ class Group extends AbstractGroup
      * @Column(name="updated_at", type="datetime")
      */
     protected $updatedAt;
-
+    /**
+     * @ManyToMany(targetEntity="Permission")
+     * @JoinTable(name="sf_doctrine_user_groups_permission",
+     *      joinColumns={@JoinColumn(name="group_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="permission_id", referencedColumnName="id")}
+     * )
+     */
     protected $permissions;
 
     public function __construct()
@@ -45,7 +51,7 @@ class Group extends AbstractGroup
     }
 
     /**
-     * @PreInsert
+     * @PrePersist
      */
     public function incrementCreatedAt()
     {

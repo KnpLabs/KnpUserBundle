@@ -2,9 +2,9 @@
 
 namespace Bundle\DoctrineUserBundle\Form;
 
-use Symfony\Components\Form\Form;
-use Symfony\Components\Form\TextField;
-use Symfony\Components\Form\TextareaField;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\TextField;
+use Symfony\Component\Form\TextareaField;
 
 class PermissionForm extends Form
 {
