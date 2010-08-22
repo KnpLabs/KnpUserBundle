@@ -18,6 +18,7 @@ namespace Bundle\DoctrineUserBundle\DAO;
 abstract class User
 {
     protected $id;
+
     /**
      * @Validation({
      *      @NotBlank(),
@@ -26,6 +27,7 @@ abstract class User
      * })
      */
     protected $username;
+
     /**
      * @Validation({
      *      @Email(),
@@ -34,18 +36,21 @@ abstract class User
      * })
      */
     protected $email;
+
     /**
      * @Validation({
      *      @AssertType(type="boolean")
      * })
      */
     protected $isActive;
+
     /**
      * @Validation({
      *      @AssertType(type="boolean")
      * })
      */
     protected $isSuperAdmin;
+
     /**
      * @Validation({
      *      @NotBlank(),
@@ -54,6 +59,7 @@ abstract class User
      * })
      */
     protected $password;
+
     /**
      * @Validation({
      *      @NotBlank(),
@@ -62,6 +68,7 @@ abstract class User
      * })
      */
     protected $algorithm;
+
     /**
      * @Validation({
      *      @NotBlank(),
@@ -70,8 +77,11 @@ abstract class User
      * })
      */
     protected $salt;
+
     protected $createdAt;
+
     protected $updatedAt;
+
     protected $lastLogin;
 
     public function __construct()
