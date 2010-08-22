@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="doctrine_user.user_object.class">Bundle\DoctrineUserBundle\Entity\User</parameter>
+        <parameter key="doctrine_user.permission_object.class">Bundle\DoctrineUserBundle\Entity\Permission</parameter>
     </parameters>
 
     <services>
@@ -13,6 +14,11 @@
         <service id="doctrine_user.user_repository" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
             <argument type="service" id="doctrine.orm.default_entity_manager" />
             <argument>%doctrine_user.user_object.class%</argument>
+        </service>
+
+        <service id="doctrine_user.permission_repository" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <argument>%doctrine_user.permission_object.class%</argument>
         </service>
 
     </services>
