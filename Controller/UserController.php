@@ -113,6 +113,8 @@ class UserController extends Controller
         $objectManager = $this['doctrine_user.user_repository']->getObjectManager();
         $objectManager->remove($user);
         $objectManager->flush();
+        $this['session']->start();
+        $this['session']->setFlash('doctrine_user_user_delete/success', true);
 
         return $this->redirect($this->generateUrl('doctrine_user_user_list'));
     }
