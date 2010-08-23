@@ -9,7 +9,7 @@ use Bundle\DoctrineUserBundle\DAO\Permission as AbstractPermission;
  *   indexes={
  *     @Index(keys={"name"="asc"})
  *   },
- *   repositoryClass="Bundle\DoctrineUserBundle\Document\GroupRepository"
+ *   repositoryClass="Bundle\DoctrineUserBundle\Document\PermissionRepository"
  * )
  * @HasLifecycleCallbacks
  */
