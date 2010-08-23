@@ -201,3 +201,4 @@ Non-exhaustive list of developers who contributed:
 - Gordon Franke
 - Henrik Bjornskov
 - David Ashwood
+- Antoine Hérault
