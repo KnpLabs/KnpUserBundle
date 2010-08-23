@@ -260,6 +260,16 @@ abstract class User
     }
 
     /**
+     * Returns true if the user can login else false.
+     *
+     * @return boolean
+     */
+    public function isAllowedToLogin()
+    {
+        return (boolean) $this->getIsActive();
+    }
+
+    /**
      * @return string encrypted password
      */
     protected function encryptPassword($password)

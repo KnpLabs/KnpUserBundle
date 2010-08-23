@@ -23,7 +23,13 @@ class SessionController extends Controller
      */
     public function newAction()
     {
-        return $this->render('DoctrineUserBundle:Session:new', array('form' => $this['doctrine_user.session_form']));
+        $form = $this['doctrine_user.session_form'];
+
+        if ($this['request']->headers->has('HTTP_REFERER')) {
+            $this['session']->set('DoctrineUserBundle/referer', $this['request']->headers->get('HTTP_REFERER'));
+        }
+
+        return $this->render('DoctrineUserBundle:Session:new', compact('form'));
     }
 
     /**
@@ -31,39 +37,22 @@ class SessionController extends Controller
      */
     public function createAction()
     {
-        $this['session']->start();
-        $data = $this['request']->request->get($this->container->getParameter('doctrine_user.session_form.name'));
+        $form = $this['doctrine_user.session_form'];
+        $data = $this['request']->request->get($form->getName());
         $user = $this['doctrine_user.user_repository']->findOneByUsernameOrEmail($data['usernameOrEmail']);
 
-        if($user && $user->getIsActive() && $user->checkPassword($data['password']))
+        if($user && $user->checkPassword($data['password']) && $user->isAllowedToLogin())
         {
             $this['doctrine_user.auth']->login($user);
 
-            $this['session']->setFlash('doctrine_user_session_create/success', true);
-            return $this->onCreateSuccess($user);
+            $this['session']->setFlash('success', 'Welcome back ' . $user->getUsername());
+
+            return $this->redirect($this['session']->get('DoctrineUserBundle/referer', $this->generateUrl('homepage'));
         }
 
-        $this['session']->setFlash('doctrine_user_session_create/error', true);
+        $form->addError('The entered username and/or password is invalid.');
 
-        return $this->forward('DoctrineUserBundle:Session:new');
-    }
-
-    /**
-     * What to do when a user successfuly logged in 
-     */
-    protected function onCreateSuccess(User $user)
-    {   
-    	$successRoute = $this->container->getParameter('doctrine_user.session_create.success_route');
-    	$url = $this->generateUrl($successRoute);
-        return $this->redirect($url);
-    }
-
-    public function successAction()
-    {
-        if(!$this['doctrine_user.auth']->isAuthenticated()) {
-            return $this->redirect($this->generateUrl('doctrine_user_session_new'));
-        }
-        return $this->render('DoctrineUserBundle:Session:success');
+        return $this->render('DoctrineUserBundle:Session:new', compact('form'));
     }
 
     /**
@@ -72,7 +61,6 @@ class SessionController extends Controller
     public function deleteAction()
     {
         $this['doctrine_user.auth']->logout();
-
         return $this->redirect($this->generateUrl('doctrine_user_session_new'));
     }
 
