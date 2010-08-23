@@ -1,6 +1,6 @@
 <?php $view->extend('DoctrineUserBundle::layout') ?>
 
-<?php echo $form->getRawValue()->renderFormTag($view->router->generate('doctrine_user_user_update', array('username' => $username)), array('class' => 'doctrine_user_user_edit')) ?>
+<?php echo $form->getRawValue()->renderFormTag($view['router']->generate('doctrine_user_user_update', array('username' => $username)), array('class' => 'doctrine_user_user_edit')) ?>
     <div>
         <label for="doctrine_user_user_edit_username">Username:</label>
         <?php echo $form['username']->getRawValue()->render(); ?>
