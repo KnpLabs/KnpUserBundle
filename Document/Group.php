@@ -26,7 +26,7 @@ class Group extends AbstractGroup
     protected $name;
 
     /**
-     * @Field(type="text")
+     * @Field(type="string")
      */
     protected $description;
 

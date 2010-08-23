@@ -26,7 +26,7 @@ class Permission extends AbstractPermission
     protected $name;
 
     /**
-     * @Field(type="text")
+     * @Field(type="string")
      */
     protected $description;
 
