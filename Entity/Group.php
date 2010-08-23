@@ -36,7 +36,7 @@ class Group extends AbstractGroup
     protected $updatedAt;
     /**
      * @ManyToMany(targetEntity="Permission")
-     * @JoinTable(name="sf_doctrine_user_groups_permission",
+     * @JoinTable(name="doctrine_user_groups_permission",
      *      joinColumns={@JoinColumn(name="group_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="permission_id", referencedColumnName="id")}
      * )
