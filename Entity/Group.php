@@ -59,7 +59,7 @@ class Group extends AbstractGroup
     }
 
     /**
-     * PreUpdate
+     * @PreUpdate
      */
     public function incrementUpdatedAt()
     {

@@ -42,7 +42,7 @@ class Permission extends AbstractPermission
     }
 
     /**
-     * PreUpdate
+     * @PreUpdate
      */
     public function incrementUpdatedAt()
     {
