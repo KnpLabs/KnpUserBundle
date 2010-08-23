@@ -83,6 +83,22 @@ abstract class Permission
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
      * This method must be called just before inserting the object into the
      * database. Don't call it otherwise!
      */
