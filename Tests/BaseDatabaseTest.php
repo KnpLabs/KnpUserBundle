@@ -3,7 +3,7 @@
 namespace Bundle\DoctrineUserBundle\Tests;
 
 // Kernel creation required namespaces
-use Symfony\Components\Finder\Finder;
+use Symfony\Component\Finder\Finder;
 
 abstract class BaseDatabaseTest extends \PHPUnit_Framework_TestCase
 {

@@ -6,11 +6,11 @@ use Bundle\DoctrineUserBundle\Tests\BaseDatabaseTest;
 use Bundle\DoctrineUserBundle\DAO\User;
 use Bundle\DoctrineUserBundle\Command\ActivateUserCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Components\Console\Output\Output;
-use Symfony\Components\Console\Tester\ApplicationTester;
+use Symfony\Component\Console\Output\Output;
+use Symfony\Component\Console\Tester\ApplicationTester;
 
 // Kernel creation required namespaces
-use Symfony\Components\Finder\Finder;
+use Symfony\Component\Finder\Finder;
 
 class ActivateUserCommandTest extends BaseDatabaseTest
 {

@@ -3,12 +3,12 @@
 namespace Bundle\DoctrineUserBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
-use Bundle\DoctrineUserBundle\DAO\PermissionRepositoryInterface;
+use Bundle\DoctrineUserBundle\DAO\GroupRepositoryInterface;
 
-class PermissionRepository extends DocumentRepository implements PermissionRepositoryInterface
+class GroupRepository extends DocumentRepository implements GroupRepositoryInterface
 {
     /**
-     * @see PermissionRepositoryInterface::findOneByName
+     * @see GroupRepositoryInterface::findOneByName
      */
     public function findOneByName($name)
     {
@@ -16,7 +16,7 @@ class PermissionRepository extends DocumentRepository implements PermissionRepos
     }
     
     /**
-     * @see PermissionRepositoryInterface::getObjectManager
+     * @see GroupRepositoryInterface::getObjectManager
      */
     public function getObjectManager()
     {
@@ -24,7 +24,7 @@ class PermissionRepository extends DocumentRepository implements PermissionRepos
     }
 
     /**
-     * @see PermissionRepositoryInterface::getObjectClass
+     * @see GroupRepositoryInterface::getObjectClass
      */
     public function getObjectClass()
     {
@@ -32,7 +32,7 @@ class PermissionRepository extends DocumentRepository implements PermissionRepos
     }
 
     /**
-     * @see PermissionRepositoryInterface::getObjectIdentifier
+     * @see GroupRepositoryInterface::getObjectIdentifier
      */
     public function getObjectIdentifier()
     {

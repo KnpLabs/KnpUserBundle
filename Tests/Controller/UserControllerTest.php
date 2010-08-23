@@ -4,7 +4,7 @@ namespace Bundle\DoctrineUserBundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 // Kernel creation required namespaces
-use Symfony\Components\Finder\Finder;
+use Symfony\Component\Finder\Finder;
 
 class UserControllerTest extends WebTestCase
 {
@@ -64,7 +64,7 @@ class UserControllerTest extends WebTestCase
         $objectManager = $userRepo->getObjectManager();
 
         $user2 = new $userClass();
-        $user2->setUserName('harry_test2');
+        $user2->setUsername('harry_test2');
         $user2->setEmail('harry2@mail.org');
         $user2->setPassword('changeme2');
         $objectManager->persist($user2);

@@ -2,13 +2,13 @@
 
 namespace Bundle\DoctrineUserBundle\DAO;
 
-interface PermissionRepositoryInterface
+interface GroupRepositoryInterface
 {
     /**
-     * Find a permission by its name
+     * Find a group by its name
      *
      * @param string $name
-     * @return Permission or null if the permission was not found
+     * @return Group or null if the group was not found
      */
     public function findOneByName($name);
 
@@ -27,8 +27,8 @@ interface PermissionRepositoryInterface
     public function getObjectClass();
 
     /**
-     * Get the identifier property of the Permission
-     *
+     * Get the identifier property of the Group
+     * 
      * @return string
      */
     public function getObjectIdentifier();

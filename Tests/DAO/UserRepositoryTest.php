@@ -7,7 +7,7 @@ use Bundle\DoctrineUserBundle\DAO\User;
 use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 
 // Kernel creation required namespaces
-use Symfony\Components\Finder\Finder;
+use Symfony\Component\Finder\Finder;
 
 class UserRepositoryTest extends BaseDatabaseTest
 {

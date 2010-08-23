@@ -1,6 +1,6 @@
 <?php $view->extend('DoctrineUserBundle::layout') ?>
 
-<?php if ($view->session->hasFlash('doctrine_user_user_create/success')): ?>
+<?php if ($view['session']->hasFlash('doctrine_user_user_create/success')): ?>
 <div class="doctrine_user_user_create_success">The user has been created successfully</div>
 <?php endif; ?>
 

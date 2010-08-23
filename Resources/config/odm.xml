@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="doctrine_user.user_object.class">Bundle\DoctrineUserBundle\Document\User</parameter>
+        <parameter key="doctrine_user.group_object.class">Bundle\DoctrineUserBundle\Document\Group</parameter>
         <parameter key="doctrine_user.permission_object.class">Bundle\DoctrineUserBundle\Document\Permission</parameter>
     </parameters>
 
@@ -14,6 +15,11 @@
         <service id="doctrine_user.user_repository" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
             <argument type="service" id="doctrine.odm.mongodb.document_manager" />
             <argument>%doctrine_user.user_object.class%</argument>
+        </service>
+
+        <service id="doctrine_user.group_repository" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
+            <argument type="service" id="doctrine.odm.mongodb.document_manager" />
+            <argument>%doctrine_user.group_object.class%</argument>
         </service>
 
         <service id="doctrine_user.permission_repository" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">

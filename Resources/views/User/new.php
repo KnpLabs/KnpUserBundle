@@ -1,6 +1,6 @@
 <?php $view->extend('DoctrineUserBundle::layout') ?>
 
-<?php echo $form->getRawValue()->renderFormTag($view->router->generate('doctrine_user_user_create'), array('class' => 'doctrine_user_user_new')) ?>
+<?php echo $form->getRawValue()->renderFormTag($view['router']->generate('doctrine_user_user_create'), array('class' => 'doctrine_user_user_new')) ?>
     <div>
         <label for="<?php $form['username']->getId() ?>">Username:</label>
         <?php echo $form['username']->getRawValue()->render(); ?>

@@ -1,11 +1,11 @@
 <?php
 
 namespace Bundle\DoctrineUserBundle\Document;
-use Bundle\DoctrineUserBundle\DAO\Permission as AbstractPermission;
+use Bundle\DoctrineUserBundle\DAO\Group as AbstractGroup;
 
 /**
  * @Document(
- *   collection="sf_doctrine_user_permission",
+ *   collection="sf_doctrine_user_group",
  *   indexes={
  *     @Index(keys={"name"="asc"})
  *   },
@@ -13,7 +13,7 @@ use Bundle\DoctrineUserBundle\DAO\Permission as AbstractPermission;
  * )
  * @HasLifecycleCallbacks
  */
-class Permission extends AbstractPermission
+class Group extends AbstractGroup
 {
     /**
      * @Id
@@ -55,5 +55,13 @@ class Permission extends AbstractPermission
     public function incrementUpdatedAt()
     {
         parent::incrementUpdatedAt();
+    }
+
+    /**
+     * @see Bundle\DoctrineUserBundle\DAO\Group::getPermissionNames
+     */
+    public function getPermissionNames()
+    {
+        throw new \Exception('Not implemented yet.');
     }
 }

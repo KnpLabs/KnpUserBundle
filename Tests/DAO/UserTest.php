@@ -6,6 +6,9 @@ use Bundle\DoctrineUserBundle\DAO\User as AbstractUser;
 
 class User extends AbstractUser
 {
+    public function getGroupNames() { return array(); }
+    public function getPermissionNames() { return array(); }
+    public function getAllPermissionNames() { return array(); }
 }
 
 class UserTest extends \PHPUnit_Framework_TestCase

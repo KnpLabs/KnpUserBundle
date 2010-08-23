@@ -4,12 +4,12 @@ namespace Bundle\DoctrineUserBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
-use Bundle\DoctrineUserBundle\DAO\PermissionRepositoryInterface;
+use Bundle\DoctrineUserBundle\DAO\GroupRepositoryInterface;
 
-class PermissionRepository extends EntityRepository implements PermissionRepositoryInterface
+class GroupRepository extends EntityRepository implements GroupRepositoryInterface
 {
     /**
-     * @see PermissionRepositoryInterface::findOneByName
+     * @see GroupRepositoryInterface::findOneByName
      */
     public function findOneByName($name)
     {
@@ -17,7 +17,7 @@ class PermissionRepository extends EntityRepository implements PermissionReposit
     }
 
     /**
-     * @see PermissionRepositoryInterface::getObjectManager
+     * @see GroupRepositoryInterface::getObjectManager
      */
     public function getObjectManager()
     {
@@ -25,7 +25,7 @@ class PermissionRepository extends EntityRepository implements PermissionReposit
     }
 
     /**
-     * @see PermissionRepositoryInterface::getObjectClass
+     * @see GroupRepositoryInterface::getObjectClass
      */
     public function getObjectClass()
     {
@@ -33,7 +33,7 @@ class PermissionRepository extends EntityRepository implements PermissionReposit
     }
 
     /**
-     * @see PermissionRepositoryInterface::getObjectIdentifier
+     * @see GroupRepositoryInterface::getObjectIdentifier
      */
     public function getObjectIdentifier()
     {

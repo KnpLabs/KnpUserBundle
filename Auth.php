@@ -4,7 +4,7 @@ namespace Bundle\DoctrineUserBundle;
 
 use Bundle\DoctrineUserBundle\DAO\User;
 use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
-use Symfony\Components\HttpFoundation\Session;
+use Symfony\Component\HttpFoundation\Session;
 
 /**
  * The Auth service binds a User Entity or Document to the Symfony2 Session 
@@ -58,7 +58,7 @@ class Auth
     public function login(User $user)
     {
         // bind user identifier to the session
-        $this->session->setAttribute($this->options['session_path'], $this->getUserIdentifierValue($user));
+        $this->session->set($this->options['session_path'], $this->getUserIdentifierValue($user));
 
         // update user last login date
         $user->setLastLogin(new \DateTime());
@@ -73,7 +73,7 @@ class Auth
      **/
     public function logout()
     {
-        $this->session->setAttribute($this->options['session_path'], null);
+        $this->session->set($this->options['session_path'], null);
     }
 
     /**
@@ -82,8 +82,8 @@ class Auth
      **/
     public function getUser()
     {
-        if(null === $this->user && $this->session->getAttribute($this->options['session_path'])) {
-            $this->user = $this->userRepository->find($this->session->getAttribute($this->options['session_path']));
+        if(null === $this->user && $this->session->has($this->options['session_path'])) {
+            $this->user = $this->userRepository->find($this->session->get($this->options['session_path']));
         }
 
         return $this->user;

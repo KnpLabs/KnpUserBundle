@@ -3,12 +3,12 @@
 namespace Bundle\DoctrineUserBundle\DAO;
 
 /**
- * Storage agnostic permission object
+ * Storage agnostic group object
  * Has validator annotation, but database mapping must be done in a subclass.
  *
  * @author Antoine Hérault <antoine.herault@gmail.com>
  */
-abstract class Permission
+abstract class Group
 {
     protected $id;
     /**
@@ -36,6 +36,7 @@ abstract class Permission
      * })
      */
     protected $updatedAt;
+    protected $permissions;
 
     public function getId()
     {
@@ -103,6 +104,11 @@ abstract class Permission
     {
         $this->updatedAt = new \DateTime();
     }
+
+    /**
+     * Gets the name of the permissions granted to the group
+     */
+    abstract public function getPermissionNames();
 
     public function __toString()
     {

@@ -84,4 +84,54 @@ class User extends AbstractUser
      * @Field(type="date")
      */
     protected $lastLogin;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->groups = new ArrayCollection();
+        $this->permissions = new ArrayCollection();
+    }
+
+    /**
+     * @see Bundle\DoctrineUserBundle\DAO\User::incrementCreatedAt
+     * @PrePersist
+     */
+    public function incrementCreatedAt()
+    {
+        parent::incrementCreatedAt();
+    }
+
+    /**
+     * @see Bundle\DoctrineUserBundle\DAO\User::incrementUpdatedAt
+     * @PreUpdate
+     */
+    public function incrementUpdatedAt()
+    {
+        parent::incrementUpdatedAt();
+    }
+
+    /**
+     * @see Bundle\DoctrineUserBundle\DAO\User::getGroupNames
+     */
+    public function getGroupNames()
+    {
+        throw new \Exception('Not implemented yet.');
+    }
+
+    /**
+     * @see Bundle\DoctrineUserBundle\DAO\User::getPermissionNames
+     */
+    public function getPermissionNames()
+    {
+        throw new \Exception('Not implemented yet.');
+    }
+
+    /**
+     * @see Bundle\DoctrineUserBundle\DAO\User::getAllPermissionNames
+     */
+    public function getAllPermissionNames()
+    {
+        throw new \Exception('Not implemented yet.');
+    }
 }
