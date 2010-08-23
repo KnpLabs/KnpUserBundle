@@ -5,7 +5,7 @@ use Bundle\DoctrineUserBundle\DAO\Permission as AbstractPermission;
 
 /**
  * @Entity(repositoryClass="Bundle\DoctrineUserBundle\Entity\PermissionRepository")
- * @Table(name="sf_doctrine_user_permission")
+ * @Table(name="doctrine_user_permission")
  * @HasLifecycleCallbacks
  */
 class Permission extends AbstractPermission

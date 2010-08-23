@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Document(
- *   collection="sf_doctrine_user",
+ *   collection="doctrine_user_user",
  *   indexes={
  *     @Index(keys={"username"="asc"})
  *   },

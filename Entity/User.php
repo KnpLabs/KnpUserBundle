@@ -15,7 +15,7 @@ use Bundle\DoctrineUserBundle\DAO\User as AbstractUser;
 
 /**
  * @Entity(repositoryClass="Bundle\DoctrineUserBundle\Entity\UserRepository")
- * @Table(name="sf_doctrine_user")
+ * @Table(name="doctrine_user_user")
  * @HasLifecycleCallbacks
  */
 class User extends AbstractUser

@@ -5,7 +5,7 @@ use Bundle\DoctrineUserBundle\DAO\Permission as AbstractPermission;
 
 /**
  * @Document(
- *   collection="sf_doctrine_user_permission",
+ *   collection="doctrine_user_permission",
  *   indexes={
  *     @Index(keys={"name"="asc"})
  *   },

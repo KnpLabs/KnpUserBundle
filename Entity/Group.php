@@ -7,7 +7,7 @@ use Bundle\DoctrineUserBundle\DAO\Group as AbstractGroup;
 
 /**
  * @Entity(repositoryClass="Bundle\DoctrineUserBundle\Entity\GroupRepository")
- * @Table(name="sf_doctrine_user_group")
+ * @Table(name="doctrine_user_group")
  * @HasLifecycleCallbacks
  */
 class Group extends AbstractGroup

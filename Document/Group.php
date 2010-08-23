@@ -5,7 +5,7 @@ use Bundle\DoctrineUserBundle\DAO\Group as AbstractGroup;
 
 /**
  * @Document(
- *   collection="sf_doctrine_user_group",
+ *   collection="doctrine_user_group",
  *   indexes={
  *     @Index(keys={"name"="asc"})
  *   },
