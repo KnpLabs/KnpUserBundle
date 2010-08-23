@@ -47,7 +47,7 @@ class SessionController extends Controller
 
             $this['session']->setFlash('success', 'Welcome back ' . $user->getUsername());
 
-            return $this->redirect($this['session']->get('DoctrineUserBundle/referer', $this->generateUrl('homepage'));
+            return $this->redirect($this['session']->get('DoctrineUserBundle/referer', $this->generateUrl('homepage')));
         }
 
         $form->addError('The entered username and/or password is invalid.');
