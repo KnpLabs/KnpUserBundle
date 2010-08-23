@@ -1,9 +1,7 @@
 <?php
 
 /**
- * (c) Matthieu Bontemps <matthieu@knplabs.com>
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
- * (c) Gordon Franke <info@nevalon.de>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -18,6 +16,8 @@ namespace Bundle\DoctrineUserBundle\DAO;
 abstract class User
 {
     protected $id;
+
+    protected $permissions;
 
     /**
      * @Validation({

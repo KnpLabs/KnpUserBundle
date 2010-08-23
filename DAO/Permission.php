@@ -17,6 +17,8 @@ abstract class Permission
 {
     protected $id;
 
+    protected $users;
+
     /**
      * @Validation({
      *      @NotBlank(),

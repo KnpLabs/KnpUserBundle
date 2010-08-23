@@ -27,42 +27,59 @@ class User extends AbstractUser
      * @Id
      */
     protected $id;
+
+    /**
+     * undocumented class variable
+     *
+     * @var ArrayCollection
+     */
+    protected $permissions = null;
+    
     /**
      * @Field(type="string")
      */
     protected $username;
+
     /**
      * @Field(type="string")
      */
     protected $email;
+
     /**
      * @Field(type="boolean")
      */
     protected $isActive;
+
     /**
      * @Field(type="boolean")
      */
     protected $isSuperAdmin;
+
     /**
      * @Field(type="string")
      */
     protected $password;
+
     /**
      * @Field(type="string")
      */
     protected $algorithm;
+
     /**
      * @Field(type="string")
      */
     protected $salt;
+
     /**
      * @Field(type="date")
      */
     protected $createdAt;
+
     /**
      * @Field(type="date")
      */
     protected $updatedAt;
+
     /**
      * @Field(type="date")
      */

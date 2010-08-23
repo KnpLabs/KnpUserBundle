@@ -89,10 +89,10 @@ class PermissionRepositoryTest extends BaseDatabaseTest
 
     static public function tearDownAfterClass()
     {
-        $permissionRepo = self::createKernel()->getContainer()->getDoctrineUser_UserRepositoryService();
+        $permissionRepo = self::createKernel()->getContainer()->getDoctrineUser_PermissionRepositoryService();
         $objectManager = $permissionRepo->getObjectManager();
         foreach(array('harry_test', 'harry_test2') as $permissionname) {
-            if($object = $permissionRepo->findOneByUsername($permissionname)) {
+            if($object = $permissionRepo->findOneByName($permissionname)) {
                 $objectManager->remove($object);
             }
         }
