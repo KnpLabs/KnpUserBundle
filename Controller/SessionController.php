@@ -47,21 +47,28 @@ class SessionController extends Controller
         $data = $this['request']->request->get($form->getName());
         $user = $this['doctrine_user.user_repository']->findOneByUsernameOrEmail($data['usernameOrEmail']);
 
-        if($user && $user->checkPassword($data['password']) && $user->isAllowedToLogin()) {
-            $this['doctrine_user.auth']->login($user);
 
-            $event = new Event($this, 'doctrine_user.login_success', array('user' => $user));
-            $this['dispatcher']->notify($event);
+        if($user && $user->checkPassword($data['password'])) {
+            $isAllowedToLogin = true;
+            $filter = new Event($isAllowedToLogin, 'doctrine_user.user_can_login_filter', array());
+            $this['dispatcher']->filter($event);
 
-            if ($event->isProcessed()) {
-                return $event->getReturnValue();
+            if ($filter->getReturnValue()) {
+                $this['doctrine_user.auth']->login($user);
+
+                $event = new Event($this, 'doctrine_user.login_success', array('user' => $user));
+                $this['dispatcher']->notify($event);
+
+                if ($event->isProcessed()) {
+                    return $event->getReturnValue();
+                }
+
+                return $this->redirect(
+                    $this['session']->get('DoctrineUserBundle/referer', $this->generateUrl(
+                        $this->container->getParameter('doctrine_user.session_create.success_route')
+                    ))
+                );
             }
-
-            return $this->redirect(
-                $this['session']->get('DoctrineUserBundle/referer', $this->generateUrl(
-                    $this->container->getParameter('doctrine_user.session_create.success_route')
-                ))
-            );
         }
 
         $form->addError('The entered username and/or password is invalid.');
