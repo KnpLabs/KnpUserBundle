@@ -3,6 +3,7 @@
 /**
  * (c) Matthieu Bontemps <matthieu@knplabs.com>
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ * (c) Henrik Bjornskov <henrik@bearwoods.dk>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -10,7 +11,8 @@
 
 namespace Bundle\DoctrineUserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller as Controller;
+use Symfony\Bundle\FrameworkBundle\Controller;
+use Symfony\Component\EventDispatcher\Event;
 use Bundle\DoctrineUserBundle\DAO\User;
 
 /**
@@ -19,7 +21,9 @@ use Bundle\DoctrineUserBundle\DAO\User;
 class SessionController extends Controller
 {
     /**
-     * Show the login form
+     * Renders the login form. And saves the referer on the user.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function newAction()
     {
@@ -33,7 +37,9 @@ class SessionController extends Controller
     }
 
     /**
-     * Log in the user 
+     * Logs in the user and upon success notify the event doctrine_user.login_success.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function createAction()
     {
@@ -41,13 +47,21 @@ class SessionController extends Controller
         $data = $this['request']->request->get($form->getName());
         $user = $this['doctrine_user.user_repository']->findOneByUsernameOrEmail($data['usernameOrEmail']);
 
-        if($user && $user->checkPassword($data['password']) && $user->isAllowedToLogin())
-        {
+        if($user && $user->checkPassword($data['password']) && $user->isAllowedToLogin()) {
             $this['doctrine_user.auth']->login($user);
 
-            $this['session']->setFlash('success', 'Welcome back ' . $user->getUsername());
+            $event = new Event($this, 'doctrine_user.login_success', array('user' => $user));
+            $this['dispatcher']->notify($event);
 
-            return $this->redirect($this['session']->get('DoctrineUserBundle/referer', $this->generateUrl('homepage')));
+            if ($event->isProcessed()) {
+                return $event->getReturnValue();
+            }
+
+            return $this->redirect(
+                $this['session']->get('DoctrineUserBundle/referer', $this->generateUrl(
+                    $this->container->getParameter('doctrine_user.session_create.success_route')
+                ))
+            );
         }
 
         $form->addError('The entered username and/or password is invalid.');
@@ -56,7 +70,9 @@ class SessionController extends Controller
     }
 
     /**
-     * Log out the user 
+     * Deletes the current session.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function deleteAction()
     {
