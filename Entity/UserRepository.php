@@ -24,11 +24,12 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
      * @param boolean $isActive      is the user active
      * @param boolean $isSuperAdmin is the user a super admin
      */
-    public function createUser($username, $password, $isActive = true, $isSuperAdmin = false)
+    public function createUser($username, $email, $password, $isActive = true, $isSuperAdmin = false)
     {
-        $user = new User();
+        $user = $this->getObjectClass();
 
         $user->setUsername($username);
+        $user->setEmail($email);
         $user->setPassword($password);
         $user->setIsActive($isActive);
         $user->setIsSuperAdmin($isSuperAdmin);

@@ -75,16 +75,13 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $userRepo = $this->container->get('doctrine_user.user_repository');
-        $userRepo->createUser(
+        $user = $userRepo->createUser(
             $input->getArgument('username'),
             $input->getArgument('email'),
             $input->getArgument('password'),
             !$input->getOption('inactive'),
             $input->getOption('super-admin')
         );
-
-        $user = new $userClass();
-        $user->setEmail($input->getArgument('email'));
 
         $output->writeln(sprintf('Created user <comment>%s</comment>', $user->getUsername()));
     }
