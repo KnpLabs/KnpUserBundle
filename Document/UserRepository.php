@@ -17,6 +17,30 @@ use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 class UserRepository extends DocumentRepository implements UserRepositoryInterface
 {
     /**
+     * Create a new user
+     * @param string  $username       username
+     * @param string  $password       password
+     * @param boolean $isActive      is the user active
+     * @param boolean $isSuperAdmin is the user a super admin
+     */
+    public function createUser($username, $email, $password, $isActive = true, $isSuperAdmin = false)
+    {
+        $userClass = $this->getObjectClass();
+        $user = new $userClass();
+
+        $user->setUsername($username);
+        $user->setEmail($email);
+        $user->setPassword($password);
+        $user->setIsActive($isActive);
+        $user->setIsSuperAdmin($isSuperAdmin);
+
+        $this->getObjectManager()->persist($user);
+        $this->getObjectManager()->flush();
+
+        return $user;
+    }
+
+    /**
      * @see UserRepositoryInterface::findOneByUsername
      */
     public function findOneByUsername($username)

@@ -26,7 +26,8 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
      */
     public function createUser($username, $email, $password, $isActive = true, $isSuperAdmin = false)
     {
-        $user = $this->getObjectClass();
+        $userClass = $this->getObjectClass();
+        $user = new $userClass();
 
         $user->setUsername($username);
         $user->setEmail($email);
@@ -34,9 +35,8 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
         $user->setIsActive($isActive);
         $user->setIsSuperAdmin($isSuperAdmin);
 
-        $em = $this->getEntityManager();
-        $em->persist($user);
-        $em->flush();
+        $this->getObjectManager()->persist($user);
+        $this->getObjectManager()->flush();
 
         return $user;
     }

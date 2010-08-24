@@ -13,23 +13,34 @@ namespace Bundle\DoctrineUserBundle\DAO;
 interface UserRepositoryInterface
 {
     /**
+     * Create a new user
+     * @param  string  $username       username
+     * @param  string  $email          email
+     * @param  string  $password       password
+     * @param  boolean $isActive      is the user active
+     * @param  boolean $isSuperAdmin is the user a super admin
+     * @return User
+     */
+    public function createUser($username, $email, $password, $isActive = true, $isSuperAdmin = false);
+
+    /**
      * Find a user by its username
-     * @param   string  $username
-     * @return  User or null if user does not exist
+     * @param  string  $username
+     * @return User or null if user does not exist
      */
     public function findOneByUsername($username);
 
     /**
      * Find a user by its email
-     * @param   string  $email
-     * @return  User or null if user does not exist
+     * @param  string  $email
+     * @return User or null if user does not exist
      */
     public function findOneByEmail($email);
 
     /**
      * Find a user by its username or email
-     * @param   string  $usernameOrEmail
-     * @return  User or null if user does not exist
+     * @param  string  $usernameOrEmail
+     * @return User or null if user does not exist
      */
     public function findOneByUsernameOrEmail($usernameOrEmail);
 
