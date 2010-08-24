@@ -3,6 +3,7 @@
 /**
  * (c) Matthieu Bontemps <matthieu@knplabs.com>
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ * (c) Henrik Bjornskov <henrik@bearwoods.dk>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -10,7 +11,8 @@
 
 namespace Bundle\DoctrineUserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller as Controller;
+use Symfony\Bundle\FrameworkBundle\Controller;
+use Symfony\Component\EventDispatcher\Event;
 use Bundle\DoctrineUserBundle\DAO\User;
 
 /**
@@ -19,60 +21,69 @@ use Bundle\DoctrineUserBundle\DAO\User;
 class SessionController extends Controller
 {
     /**
-     * Show the login form
+     * Renders the login form. And saves the referer on the user.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function newAction()
     {
-        return $this->render('DoctrineUserBundle:Session:new', array('form' => $this['doctrine_user.session_form']));
+        $form = $this['doctrine_user.session_form'];
+
+        if ($this['request']->headers->has('HTTP_REFERER')) {
+            $this['session']->set('DoctrineUserBundle/referer', $this['request']->headers->get('HTTP_REFERER'));
+        }
+
+        return $this->render('DoctrineUserBundle:Session:new', compact('form'));
     }
 
     /**
-     * Log in the user 
+     * Logs in the user and upon success notify the event doctrine_user.login_success.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function createAction()
     {
-        $this['session']->start();
-        $data = $this['request']->request->get($this->container->getParameter('doctrine_user.session_form.name'));
+        $form = $this['doctrine_user.session_form'];
+        $data = $this['request']->request->get($form->getName());
         $user = $this['doctrine_user.user_repository']->findOneByUsernameOrEmail($data['usernameOrEmail']);
 
-        if($user && $user->getIsActive() && $user->checkPassword($data['password']))
-        {
-            $this['doctrine_user.auth']->login($user);
 
-            $this['session']->setFlash('doctrine_user_session_create/success', true);
-            return $this->onCreateSuccess($user);
+        if($user && $user->checkPassword($data['password'])) {
+            $isAllowedToLogin = true;
+            $filter = new Event($isAllowedToLogin, 'doctrine_user.user_can_login_filter', array());
+            $this['dispatcher']->filter($event);
+
+            if ($filter->getReturnValue()) {
+                $this['doctrine_user.auth']->login($user);
+
+                $event = new Event($this, 'doctrine_user.login_success', array('user' => $user));
+                $this['dispatcher']->notify($event);
+
+                if ($event->isProcessed()) {
+                    return $event->getReturnValue();
+                }
+
+                return $this->redirect(
+                    $this['session']->get('DoctrineUserBundle/referer', $this->generateUrl(
+                        $this->container->getParameter('doctrine_user.session_create.success_route')
+                    ))
+                );
+            }
         }
 
-        $this['session']->setFlash('doctrine_user_session_create/error', true);
+        $form->addError('The entered username and/or password is invalid.');
 
-        return $this->forward('DoctrineUserBundle:Session:new');
+        return $this->render('DoctrineUserBundle:Session:new', compact('form'));
     }
 
     /**
-     * What to do when a user successfuly logged in 
-     */
-    protected function onCreateSuccess(User $user)
-    {   
-    	$successRoute = $this->container->getParameter('doctrine_user.session_create.success_route');
-    	$url = $this->generateUrl($successRoute);
-        return $this->redirect($url);
-    }
-
-    public function successAction()
-    {
-        if(!$this['doctrine_user.auth']->isAuthenticated()) {
-            return $this->redirect($this->generateUrl('doctrine_user_session_new'));
-        }
-        return $this->render('DoctrineUserBundle:Session:success');
-    }
-
-    /**
-     * Log out the user 
+     * Deletes the current session.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function deleteAction()
     {
         $this['doctrine_user.auth']->logout();
-
         return $this->redirect($this->generateUrl('doctrine_user_session_new'));
     }
 
