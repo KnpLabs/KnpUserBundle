@@ -11,10 +11,11 @@
  */
 
 namespace Bundle\DoctrineUserBundle\Entity;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
+use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 
-use Doctrine\ORM as ORM;
-
-class UserRepository extends ORM\EntityRepository implements UserRepositoryInterface
+class UserRepository extends EntityRepository implements UserRepositoryInterface
 {
     /**
      * Create a new user
@@ -40,30 +41,60 @@ class UserRepository extends ORM\EntityRepository implements UserRepositoryInter
     }
 
     /**
-     * Find a user by its username and password
-     * @param   string  $username
-     * @param   string  $password
-     * @return  User or null if user does not exist
-     */
-    public function findOneByUsernameAndPassword($username, $password)
-    {
-        $user = $this->findOneByUsername($username);
-        
-        if($user && $user->checkPassword($password))
-        {
-            return $user;
-        }
-    }
-
-    /**
-     * Find a user by its username
-     * @param   string  $username
-     * @return  User or null if user does not exist
+     * @see UserRepositoryInterface::findOneByUsername
      */
     public function findOneByUsername($username)
     {
         return $this->findOneBy(array('username' => $username));
     }
 
-}
+    /**
+     * @see UserRepositoryInterface::findOneByEmail
+     */
+    public function findOneByEmail($email)
+    {
+        return $this->findOneBy(array('email' => $email));
+    }
 
+    /**
+     * @see UserRepositoryInterface::findOneByUsernameOrEmail
+     */
+    public function findOneByUsernameOrEmail($usernameOrEmail)
+    {
+        try {
+            return $this->createQueryBuilder('u')
+                ->where('u.username = :string')
+                ->orWhere('u.email = :string')
+                ->setParameter('string', $usernameOrEmail)
+                ->getQuery()
+                ->getSingleResult();
+        }
+        catch(NoResultException $e) {
+            return null;
+        }
+    }
+
+    /**
+     * @see UserRepositoryInterface::getObjectManager
+     */
+    public function getObjectManager()
+    {
+        return $this->getEntityManager();
+    }
+
+    /**
+     * @see UserRepositoryInterface::getObjectClass
+     */
+    public function getObjectClass()
+    {
+        return $this->getEntityName();
+    }
+
+    /**
+     * @see UserRepositoryInterface::getObjectIdentifier
+     */
+    public function getObjectIdentifier()
+    {
+        return reset($this->getClassMetadata()->identifier);
+    }
+}

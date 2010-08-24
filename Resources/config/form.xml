@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="doctrine_user.session_form.class">Bundle\DoctrineUserBundle\Form\SessionForm</parameter>
+        <parameter key="doctrine_user.session_form.name">doctrine_user_session_new</parameter>
+
+        <parameter key="doctrine_user.user_form.class">Bundle\DoctrineUserBundle\Form\UserForm</parameter>
+        <parameter key="doctrine_user.user_form.name">doctrine_user_user_form</parameter>
+
+        <parameter key="doctrine_user.group_form.class">Bundle\DoctrineUserBundle\Form\GroupeForm</parameter>
+        <parameter key="doctrine_user.group_form.name">doctrine_user_group_form</parameter>
+
+        <parameter key="doctrine_user.permission_form.class">Bundle\DoctrineUserBundle\Form\PermissionForm</parameter>
+        <parameter key="doctrine_user.permission_form.name">doctrine_user_permission_form</parameter>
+    </parameters>
+
+    <services>
+        <service id="doctrine_user.session_form" class="%doctrine_user.session_form.class%">
+            <argument>%doctrine_user.session_form.name%</argument>
+            <argument></argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service id="doctrine_user.user_form" class="%doctrine_user.user_form.class%">
+            <argument>%doctrine_user.user_form.name%</argument>
+            <argument></argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service id="doctrine_user.group_form" class="%doctrine_user.group_form.class%">
+            <argument>%doctrine_user.group_form.name%</argument>
+            <argument></argument>
+            <argument type="service" id="validator" />
+        </service>
+
+        <service id="doctrine_user.permission_form" class="%doctrine_user.permission_form.class%">
+            <argument>%doctrine_user.permission_form.name%</argument>
+            <argument></argument>
+            <argument type="service" id="validator" />
+        </service>
+    </services>
+
+</container>

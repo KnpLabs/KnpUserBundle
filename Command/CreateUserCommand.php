@@ -2,12 +2,12 @@
 
 namespace Bundle\DoctrineUserBundle\Command;
 
-use Symfony\Bundle\DoctrineBundle\Command\DoctrineCommand;
-use Symfony\Components\Console\Input\InputArgument;
-use Symfony\Components\Console\Input\InputOption;
-use Symfony\Components\Console\Input\InputInterface;
-use Symfony\Components\Console\Output\OutputInterface;
-use Symfony\Components\Console\Output\Output;
+use Symfony\Bundle\FrameworkBundle\Command\Command as BaseCommand;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\Output;
 use Bundle\DoctrineUserBundle\Entity\User;
 
 /*
@@ -15,6 +15,7 @@ use Bundle\DoctrineUserBundle\Entity\User;
  *
  * (c) Matthieu Bontemps <matthieu@knplabs.com>
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+ * (c) Gordon Franke <>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -28,7 +29,7 @@ use Bundle\DoctrineUserBundle\Entity\User;
  * @author     Matthieu Bontemps <matthieu@knplabs.com>
  * @author     Thibault Duplessis <thibault.duplessis@gmail.com>
  */
-class CreateUserCommand extends Command
+class CreateUserCommand extends BaseCommand
 {
     /**
      * @see Command
@@ -37,34 +38,32 @@ class CreateUserCommand extends Command
     {
         $this
             ->setName('doctrine:user:create')
-            ->setDescription(
-                'Create a user.'
-            )
+            ->setDescription('Create a user.')
             ->setDefinition(array(
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
+                new InputArgument('email', InputArgument::REQUIRED, 'The email'),
                 new InputArgument('password', InputArgument::REQUIRED, 'The password'),
                 new InputOption('super-admin', null, InputOption::PARAMETER_NONE, 'Set the user as super admin'),
                 new InputOption('inactive', null, InputOption::PARAMETER_NONE, 'Set the user as inactive'),
             ))
-            ->addOption('em', null, InputOption::PARAMETER_OPTIONAL, 'The entity manager to use for this command.')
             ->setHelp(<<<EOT
 The <info>doctrine:user:create</info> command creates a user:
 
-  <info>./symfony doctrine:user:create matthieu</info>
+  <info>php app/console doctrine:user:create matthieu</info>
 
 This interactive shell will first ask you for a password.
 
 You can alternatively specify the password as a second argument:
 
-  <info>./symfony doctrine:user:create matthieu mypassword</info>
+  <info>php app/console doctrine:user:create matthieu mypassword</info>
 
 You can create a super admin via the super-admin flag:
 
-  <info>./symfony doctrine:user:create admin --super-admin</info>
+  <info>php app/console doctrine:user:create admin --super-admin</info>
 
 You can create an inactive user (will not be able to log in):
 
-  <info>./symfony doctrine:user:create thibault --inactive</info>
+  <info>php app/console doctrine:user:create thibault --inactive</info>
   
 EOT
         );
@@ -75,24 +74,50 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
-        DoctrineCommand::setApplicationEntityManager($this->application, $input->getOption('em'));
-
-        $user = $this->getHelper('em')->getEntityManager()
-        ->getRepository('Bundle\DoctrineUserBundle\Entity\User')
-        ->createUser(
+        $userRepo = $this->container->get('doctrine_user.user_repository');
+        $userRepo->createUser(
             $input->getArgument('username'),
+            $input->getArgument('email'),
             $input->getArgument('password'),
             !$input->getOption('inactive'),
             $input->getOption('super-admin')
         );
-        
+
+        $user = new $userClass();
+        $user->setEmail($input->getArgument('email'));
+
         $output->writeln(sprintf('Created user <comment>%s</comment>', $user->getUsername()));
     }
     
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        if(null === $input->getArgument('password')) {
+        if(!$input->getArgument('username')) {
+            $username = $this->getHelper('dialog')->askAndValidate(
+                $output,
+                'Please choose a username:',
+                function($username) {
+                    if(empty($username)) {
+                        throw new \Exception('Username can not be empty');
+                    }
+                    return $username;
+                }
+            );
+            $input->setArgument('username', $username);
+        }
+        if(!$input->getArgument('email')) {
+            $email = $this->getHelper('dialog')->askAndValidate(
+                $output,
+                'Please choose an email:',
+                function($email) {
+                    if(empty($email)) {
+                        throw new \Exception('Email can not be empty');
+                    }
+                    return $email;
+                }
+            );
+            $input->setArgument('email', $email);
+        }
+        if(!$input->getArgument('password')) {
             $password = $this->getHelper('dialog')->askAndValidate(
                 $output,
                 'Please choose a password:',

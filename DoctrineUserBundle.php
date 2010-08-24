@@ -10,21 +10,19 @@
 
 namespace Bundle\DoctrineUserBundle;
 
-use Bundle\DoctrineUserBundle\DependencyInjection\DoctrineUserExtension;
 use Symfony\Framework\Bundle\Bundle as BaseBundle;
-use Symfony\Components\DependencyInjection\ContainerInterface;
-use Symfony\Components\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Components\DependencyInjection\ContainerBuilder;
 
 class DoctrineUserBundle extends BaseBundle
 {
-    public function buildContainer(ParameterBagInterface $parameterBag)
+    /**
+     * Get a EntityRepository or a DocumentRepository, based on db driver configuration 
+     * 
+     * @param mixed $objectManager a EntityManager or a DocumentManager
+     * @param mixed $objectClass the class of the entity or document
+     * @return mixed a EntityRepository or DocumentRepository
+     */
+    public static function getRepository($objectManager, $objectClass)
     {
-        ContainerBuilder::registerExtension(new DoctrineUserExtension());
-    }
-
-    public function boot(ContainerInterface $container)
-    {
-        $container->getDoctrineUserAuthListenerService()->connect();
+        return $objectManager->getRepository($objectClass);
     }
 }
