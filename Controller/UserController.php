@@ -9,7 +9,7 @@
 
 namespace Bundle\DoctrineUserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller as Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
 use Bundle\DoctrineUserBundle\DAO\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
