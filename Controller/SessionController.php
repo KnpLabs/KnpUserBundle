@@ -74,6 +74,15 @@ class SessionController extends Controller
 
         return $this->render('DoctrineUserBundle:Session:new', compact('form'));
     }
+    
+    public function successAction()
+    {
+        if(!$this['doctrine_user.auth']->isAuthenticated()) {
+            return $this->redirect($this->generateUrl('doctrine_user_session_new'));
+        }
+
+        return $this->render('DoctrineUserBundle:Session:success');
+    }
 
     /**
      * Deletes the current session.
