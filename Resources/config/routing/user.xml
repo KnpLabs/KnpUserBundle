@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://www.symfony-project.org/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/routing http://www.symfony-project.org/schema/routing/routing-1.0.xsd">
+
+    <route id="doctrine_user_user_list" pattern="/user/list">
+        <default key="_controller">DoctrineUserBundle:User:list</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+
+    <route id="doctrine_user_user_new" pattern="/user/new">
+        <default key="_controller">DoctrineUserBundle:User:new</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+
+    <route id="doctrine_user_user_create" pattern="/user/new">
+        <default key="_controller">DoctrineUserBundle:User:create</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+
+    <route id="doctrine_user_user_show" pattern="/user/:username">
+        <default key="_controller">DoctrineUserBundle:User:show</default>
+        <requirement key="_method">GET</requirement>
+        <requirement key="username">[\w\d]+</requirement>
+    </route>
+
+    <route id="doctrine_user_user_edit" pattern="/user/:username/edit">
+        <default key="_controller">DoctrineUserBundle:User:edit</default>
+          <requirement key="_method">GET</requirement>
+        <requirement key="username">[\w\d]+</requirement>
+    </route>
+
+    <route id="doctrine_user_user_update" pattern="/user/:username/edit">
+        <default key="_controller">DoctrineUserBundle:User:update</default>
+        <requirement key="_method">GET</requirement>
+        <requirement key="username">[\w\d]+</requirement>
+    </route>
+
+    <route id="doctrine_user_user_delete" pattern="/user/:username/delete">
+        <default key="_controller">DoctrineUserBundle:User:delete</default>
+        <requirement key="_method">GET</requirement>
+        <requirement key="username">[\w\d]+</requirement>
+    </route>
+</routes>

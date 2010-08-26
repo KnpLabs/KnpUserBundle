@@ -45,12 +45,12 @@ class DoctrineUserExtension extends Extension
      */
     public function getXsdValidationBasePath()
     {
-        return null;
+        return __DIR__.'/../Resources/config/schema';
     }
 
     public function getNamespace()
     {
-        return 'http://www.symfony-project.org/schema/dic/symfony';
+        return 'http://www.symfony-project.org/schema/dic/doctrine_user';
     }
 
     public function getAlias()
