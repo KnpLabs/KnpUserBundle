@@ -70,6 +70,8 @@ class SessionController extends Controller
             }
         }
 
+        $this['session']->setFlash('doctrine_user_session_create/error', true);
+
         $form->addError('The entered username and/or password is invalid.');
 
         return $this->render('DoctrineUserBundle:Session:new', compact('form'));
