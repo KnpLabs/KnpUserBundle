@@ -40,7 +40,7 @@ If you want ready to use login and logout pages, include the builtin routes:
     doctrine_user_session:
         resource: DoctrineUserBundle/Resources/config/routing/session.yml
 
-You now can login at http://app.com/session/create
+You now can login at http://app.com/session/new
 
 ## Command line
 
