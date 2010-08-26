@@ -49,15 +49,14 @@ class SessionController extends Controller
 
 
         if($user && $user->checkPassword($data['password'])) {
-            $isAllowedToLogin = true;
-            $filter = new Event($isAllowedToLogin, 'doctrine_user.user_can_login_filter', array());
-            $this['dispatcher']->filter($event);
+            $event = new Event($this, 'doctrine_user.user_can_login_filter', array());
+            $this['event_dispatcher']->filter($event, true);
 
-            if ($filter->getReturnValue()) {
+            if ($event->getReturnValue()) {
                 $this['doctrine_user.auth']->login($user);
 
                 $event = new Event($this, 'doctrine_user.login_success', array('user' => $user));
-                $this['dispatcher']->notify($event);
+                $this['event_dispatcher']->notifyUntil($event);
 
                 if ($event->isProcessed()) {
                     return $event->getReturnValue();
