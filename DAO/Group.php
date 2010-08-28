@@ -111,9 +111,29 @@ abstract class Group
     }
 
     /**
-     * Gets the name of the permissions granted to the group
+     * Get permissions granted to the group 
+     * 
+     * @return array
      */
-    abstract public function getPermissionNames();
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
+
+    /**
+     * Gets the name of the permissions granted to the group
+     *
+     * @return array
+     */
+    public function getPermissionNames()
+    {
+        $names = array();
+        foreach($this->permissions as $permission) {
+            $names[] = $permission->getName();
+        }
+
+        return $names;
+    }
 
     public function __toString()
     {

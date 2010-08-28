@@ -70,20 +70,4 @@ class Group extends AbstractGroup
     {
         parent::incrementUpdatedAt();
     }
-
-    /**
-     * @see Bundle\DoctrineUserBundle\DAO\Group::getPermissionNames
-     */
-    public function getPermissionNames()
-    {
-        return $this->permissions->map(function($permissions) {
-           $names = array();
-           
-           foreach ($permissions as $permission) {
-               $names[] = $permission->getName();
-           }
-
-           return $names;
-        });
-    }
 }
