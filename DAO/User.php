@@ -268,11 +268,28 @@ abstract class User
     }
 
     /**
-     * Gets the name of the groups which includes the user
-     *
+     * Get groups granted to the user 
+     * 
      * @return array
      */
-    abstract public function getGroupNames();
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * Gets the name of the groups which includes the user
+     * @return array
+     */
+    public function getGroupNames()
+    {
+        $names = array();
+        foreach($this->groups as $group) {
+            $names[] = $group->getName();
+        }
+
+        return $group;
+    }
     
     /**
      * Indicates whether the user belongs to the specified group or not
@@ -286,19 +303,60 @@ abstract class User
     }
 
     /**
+     * Get permissions granted to the user 
+     * 
+     * @return array
+     */
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
+
+    /**
      * Gets the name of the permissions granted to the user
      *
      * @return array
      */
-    abstract public function getPermissionNames();
+    public function getPermissionNames()
+    {
+        $names = array();
+        foreach($this->getPermissions() as $permission) {
+            $names[] = $permission->getName();
+        }
+
+        return $names;
+    }
 
     /**
-     * Gets the name of all the permissions granted to the user including group
-     * permissions
+     * Get all permissions, including user groups permissions 
      *
      * @return array
      */
-    abstract public function getAllPermissionNames();
+    public function getAllPermissions()
+    {
+        $permissions = $this->getPermissions();
+
+        foreach($this->getGroups() as $group) {
+            $permissions += $group->getPermissions();
+        }
+
+        return array_unique($permissions);
+    }
+
+    /**
+     * Get all permission names, including user groups permissions 
+     *
+     * @return array
+     */
+    public function getAllPermissionNames()
+    {
+        $names = array();
+        foreach($this->getAllPermissions() as $permission) {
+            $names[] = $permission->getName();
+        }
+
+        return $names;
+    }
 
     /**
      * Indicates whether the specified permission is granted to the user or not
