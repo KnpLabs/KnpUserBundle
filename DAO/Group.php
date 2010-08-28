@@ -11,6 +11,7 @@ namespace Bundle\DoctrineUserBundle\DAO;
 abstract class Group
 {
     protected $id;
+
     /**
      * @Validation({
      *      @NotBlank(),
@@ -18,24 +19,28 @@ abstract class Group
      * })
      */
     protected $name;
+
     /**
      * @Validation({
      *      
      * })
      */
     protected $description;
+
     /**
      * @Validation({
      *      @DateTime()
      * })
      */
     protected $createdAt;
+
     /**
      * @Validation({
      *      @DateTime()
      * })
      */
     protected $updatedAt;
+
     protected $permissions;
 
     public function getId()

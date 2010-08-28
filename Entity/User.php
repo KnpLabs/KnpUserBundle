@@ -76,6 +76,7 @@ class User extends AbstractUser
      * @Column(name="last_login", type="datetime", nullable=true)
      */
     protected $lastLogin;
+
     /**
      * @ManyToMany(targetEntity="Group")
      * @JoinTable(name="doctrine_user_users_group",
@@ -84,6 +85,7 @@ class User extends AbstractUser
      * )
      */
     protected $groups;
+
     /**
      * @ManyToMany(targetEntity="Permission")
      * @JoinTable(name="doctrine_user_users_permission",
