@@ -15,7 +15,6 @@ use Bundle\DoctrineUserBundle\Entity\User;
  *
  * (c) Matthieu Bontemps <matthieu@knplabs.com>
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
- * (c) Gordon Franke <>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -75,13 +74,17 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $userRepo = $this->container->get('doctrine_user.user_repository');
-        $user = $userRepo->createUser(
-            $input->getArgument('username'),
-            $input->getArgument('email'),
-            $input->getArgument('password'),
-            !$input->getOption('inactive'),
-            $input->getOption('super-admin')
-        );
+        $userClass = $userRepo->getObjectClass();
+
+        $user = new $userClass();
+        $user->setUsername($input->getArgument('username'));
+        $user->setEmail($input->getArgument('email'));
+        $user->setPassword($input->getArgument('password'));
+        $user->setIsActive(!$input->getOption('inactive'));
+        $user->setIsSuperAdmin($input->getOption('super-admin'));
+        
+        $userRepo->getObjectManager()->persist($user);
+        $userRepo->getObjectManager()->flush();
 
         $output->writeln(sprintf('Created user <comment>%s</comment>', $user->getUsername()));
     }
