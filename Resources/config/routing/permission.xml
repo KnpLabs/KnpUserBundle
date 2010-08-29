@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://www.symfony-project.org/schema/routing"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/routing http://www.symfony-project.org/schema/routing/routing-1.0.xsd">
+
+    <route id="doctrine_user_permission_list" pattern="/permission/list">
+        <default key="_controller">DoctrineUserBundle:Permission:list</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+
+    <route id="doctrine_user_permission_new" pattern="/permission/new">
+        <default key="_controller">DoctrineUserBundle:Permission:new</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+
+    <route id="doctrine_user_permission_create" pattern="/permission/new">
+        <default key="_controller">DoctrineUserBundle:Permission:create</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+
+    <route id="doctrine_user_permission_edit" pattern="/permission/:name/edit">
+        <default key="_controller">DoctrineUserBundle:Permission:edit</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+
+    <route id="doctrine_user_permission_update" pattern="/permission/:name/edit">
+        <default key="_controller">DoctrineUserBundle:Permission:update</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+
+    <route id="doctrine_user_permission_delete" pattern="/permission/:name/delete">
+        <default key="_controller">DoctrineUserBundle:Permission:delete</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+
+    <route id="doctrine_user_permission_show" pattern="/permission/:name">
+        <default key="_controller">DoctrineUserBundle:Permission:show</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+    </routes>

@@ -7,7 +7,7 @@ use Bundle\DoctrineUserBundle\DAO\Permission;
 use Bundle\DoctrineUserBundle\DAO\PermissionRepositoryInterface;
 
 // Kernel creation required namespaces
-use Symfony\Components\Finder\Finder;
+use Symfony\Component\Finder\Finder;
 
 class PermissionRepositoryTest extends BaseDatabaseTest
 {

@@ -32,6 +32,11 @@ Provides authentication and User persistence for your Symfony2 Project.
     doctrine_user.config:
         db_driver: orm # can be orm or odm
 
+or if you prefer xml
+
+    # app/config.xml
+    <doctrine_user:config db_driver="orm"/> <!-- can be orm or odm -->
+
 ### Add authentication routes
 
 If you want ready to use login and logout pages, include the builtin routes:
@@ -40,7 +45,12 @@ If you want ready to use login and logout pages, include the builtin routes:
     doctrine_user_session:
         resource: DoctrineUserBundle/Resources/config/routing/session.yml
 
-You now can login at http://app.com/session/create
+in xml
+
+    # app/config/routing.xml
+    <import resource="DoctrineUserBundle/Resources/config/routing/session.xml"/>
+
+You now can login at http://app.com/session/new
 
 ## Command line
 
@@ -109,6 +119,28 @@ For example, to get more traditional "login" and "logout" urls, write:
         pattern:        /welcome
         defaults:       { _controller: DoctrineUserBundle:Session:success }
         requirements:   { _method: "GET" }
+        
+using xml
+
+    <route id="doctrine_user_session_new" pattern="/login">
+        <default key="_controller">DoctrineUserBundle:Session:new</default>
+        <requirement key="_method">GET</requirement>
+    </route>
+    
+    <route id="doctrine_user_session_create" pattern="/login">
+        <default key="_controller">DoctrineUserBundle:Session:create</default>
+        <requirement key="_method">POST</requirement>
+    </route>
+    
+    <route id="doctrine_user_session_delete" pattern="/logout">
+        <default key="_controller">DoctrineUserBundle:Session:delete</default>
+         <requirement key="_method">GET</requirement>
+   </route>
+   
+    <route id="doctrine_user_session_success" pattern="/welcome">
+        <default key="_controller">DoctrineUserBundle:Session:success</default>
+         <requirement key="_method">GET</requirement>
+   </route>
 
 ### Change the route used when user successfully logs in
 
@@ -120,6 +152,14 @@ You can change the route used in configuration:
         db_driver: orm # can be orm or odm
         session_create_success_route: my_custom_route_name
 
+with xml
+
+    # app/config.xml
+    <doctrine_user:config
+        db_driver="orm"
+        session_create_success_route="my_custom_route_name"
+    />
+    
 ## User repository service
 
 DoctrineUserBundle works with both ORM and ODM. To make it possible, the user repository is a service of the container.
@@ -156,6 +196,14 @@ You can change the User class DoctrineUserBundle will use in configuration:
         db_driver: orm
         user_class: Bundle\MyBundle\Entity\User
 
+with xml
+
+    # app/config.xml
+    <doctrine_user:config
+        db_driver="orm"
+        user_class="Bundle\MyBundle\Entity\User"
+    />
+    
 Then create your own User class:
 
     # Bundle\MyBundle\Document\User.php

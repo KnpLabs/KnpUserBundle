@@ -11,7 +11,7 @@
 
 namespace Bundle\DoctrineUserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\Event;
 use Bundle\DoctrineUserBundle\DAO\User;
 
@@ -49,15 +49,14 @@ class SessionController extends Controller
 
 
         if($user && $user->checkPassword($data['password'])) {
-            $isAllowedToLogin = true;
-            $filter = new Event($isAllowedToLogin, 'doctrine_user.user_can_login_filter', array());
-            $this['dispatcher']->filter($event);
+            $event = new Event($this, 'doctrine_user.user_can_login_filter', array());
+            $this['event_dispatcher']->filter($event, true);
 
-            if ($filter->getReturnValue()) {
+            if ($event->getReturnValue()) {
                 $this['doctrine_user.auth']->login($user);
 
                 $event = new Event($this, 'doctrine_user.login_success', array('user' => $user));
-                $this['dispatcher']->notify($event);
+                $this['event_dispatcher']->notifyUntil($event);
 
                 if ($event->isProcessed()) {
                     return $event->getReturnValue();
@@ -71,9 +70,20 @@ class SessionController extends Controller
             }
         }
 
+        $this['session']->setFlash('doctrine_user_session_create/error', true);
+
         $form->addError('The entered username and/or password is invalid.');
 
         return $this->render('DoctrineUserBundle:Session:new', compact('form'));
+    }
+    
+    public function successAction()
+    {
+        if(!$this['doctrine_user.auth']->isAuthenticated()) {
+            return $this->redirect($this->generateUrl('doctrine_user_session_new'));
+        }
+
+        return $this->render('DoctrineUserBundle:Session:success');
     }
 
     /**

@@ -126,6 +126,25 @@ class UserRepositoryTest extends BaseDatabaseTest
         $this->assertNull($nullUser);
     }
 
+    /**
+     * @depends testCreateNewUser
+     */
+    public function testCompareUsers(array $dependencies)
+    {
+        list($userRepo, $user, $user2) = $dependencies;
+        
+        $this->assertTrue($user == $user);
+        $this->assertTrue($user->is($user));
+        $this->assertFalse($user == $user2);
+        $this->assertFalse($user->is($user2));
+        $this->assertFalse($user2->is($user));
+
+        $this->assertTrue($userRepo->findOneByUsername('harry_test') == $userRepo->findOneByUsername('harry_test'));
+        $this->assertTrue($userRepo->findOneByUsername('harry_test')->is($userRepo->findOneByUsername('harry_test')));
+        $this->assertFalse($userRepo->findOneByUsername('harry_test') == $userRepo->findOneByUsername('harry_test2'));
+        $this->assertFalse($userRepo->findOneByUsername('harry_test')->is($userRepo->findOneByUsername('harry_test2')));
+    }
+
     static public function tearDownAfterClass()
     {
         $userRepo = self::createKernel()->getContainer()->getDoctrineUser_UserRepositoryService();

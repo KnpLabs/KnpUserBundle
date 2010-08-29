@@ -11,6 +11,7 @@ namespace Bundle\DoctrineUserBundle\DAO;
 abstract class Permission
 {
     protected $id;
+
     /**
      * @Validation({
      *      @NotBlank(),
@@ -18,18 +19,21 @@ abstract class Permission
      * })
      */
     protected $name;
+
     /**
      * @Validation({
      *      
      * })
      */
     protected $description;
+    
     /**
      * @Validation({
      *      @DateTime()
      * })
      */
     protected $createdAt;
+
     /**
      * @Validation({
      *      @DateTime()

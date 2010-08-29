@@ -11,6 +11,7 @@ namespace Bundle\DoctrineUserBundle\DAO;
 abstract class Group
 {
     protected $id;
+
     /**
      * @Validation({
      *      @NotBlank(),
@@ -18,24 +19,28 @@ abstract class Group
      * })
      */
     protected $name;
+
     /**
      * @Validation({
      *      
      * })
      */
     protected $description;
+
     /**
      * @Validation({
      *      @DateTime()
      * })
      */
     protected $createdAt;
+
     /**
      * @Validation({
      *      @DateTime()
      * })
      */
     protected $updatedAt;
+
     protected $permissions;
 
     public function getId()
@@ -106,9 +111,29 @@ abstract class Group
     }
 
     /**
-     * Gets the name of the permissions granted to the group
+     * Get permissions granted to the group 
+     * 
+     * @return array
      */
-    abstract public function getPermissionNames();
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
+
+    /**
+     * Gets the name of the permissions granted to the group
+     *
+     * @return array
+     */
+    public function getPermissionNames()
+    {
+        $names = array();
+        foreach($this->permissions as $permission) {
+            $names[] = $permission->getName();
+        }
+
+        return $names;
+    }
 
     public function __toString()
     {

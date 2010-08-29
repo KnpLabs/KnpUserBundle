@@ -18,22 +18,27 @@ class Group extends AbstractGroup
      * @GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
     /**
      * @Column(name="name", type="string", unique=true)
      */
     protected $name;
+
     /**
      * @Column(name="description", type="text", nullable=true)
      */
     protected $description;
+    
     /**
      * @Column(name="created_at", type="datetime")
      */
     protected $createdAt;
+
     /**
      * @Column(name="updated_at", type="datetime")
      */
     protected $updatedAt;
+
     /**
      * @ManyToMany(targetEntity="Permission")
      * @JoinTable(name="doctrine_user_groups_permission",
@@ -64,21 +69,5 @@ class Group extends AbstractGroup
     public function incrementUpdatedAt()
     {
         parent::incrementUpdatedAt();
-    }
-
-    /**
-     * @see Bundle\DoctrineUserBundle\DAO\Group::getPermissionNames
-     */
-    public function getPermissionNames()
-    {
-        return $this->permissions->map(function($permissions) {
-           $names = array();
-           
-           foreach ($permissions as $permission) {
-               $names[] = $permission->getName();
-           }
-
-           return $names;
-        });
     }
 }
