@@ -368,4 +368,16 @@ abstract class User
     {
         return in_array($name, $this->getAllPermissionNames());
     }
+
+    /**
+     * Tell if the the given user is this user 
+     * Useful when not hydrating all fields.
+     * 
+     * @param User $user 
+     * @return boolean
+     */
+    public function is(User $user)
+    {
+        return $this->getUsername() === $user->getUsername();
+    }
 }
