@@ -11,10 +11,10 @@
  */
 
 namespace Bundle\DoctrineUserBundle\Document;
-use Doctrine\ODM\MongoDB\DocumentRepository;
+
 use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 
-class UserRepository extends DocumentRepository implements UserRepositoryInterface
+class UserRepository extends ObjectRepository implements UserRepositoryInterface
 {
     /**
      * @see UserRepositoryInterface::findOneByUsername
@@ -43,29 +43,5 @@ class UserRepository extends DocumentRepository implements UserRepositoryInterfa
                 array('email' => $usernameOrEmail)
             )
         ));
-    }
-
-    /**
-     * @see UserRepositoryInterface::getObjectManager
-     */
-    public function getObjectManager()
-    {
-        return $this->getDocumentManager();
-    }
-
-    /**
-     * @see UserRepositoryInterface::getObjectClass
-     */
-    public function getObjectClass()
-    {
-        return $this->getDocumentName();
-    }
-
-    /**
-     * @see UserRepositoryInterface::getObjectIdentifier
-     */
-    public function getObjectIdentifier()
-    {
-        return $this->getClassMetadata()->identifier;
     }
 }

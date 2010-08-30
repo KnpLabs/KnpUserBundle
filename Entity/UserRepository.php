@@ -11,11 +11,11 @@
  */
 
 namespace Bundle\DoctrineUserBundle\Entity;
-use Doctrine\ORM\EntityRepository;
+
 use Doctrine\ORM\NoResultException;
 use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 
-class UserRepository extends EntityRepository implements UserRepositoryInterface
+class UserRepository extends ObjectRepository implements UserRepositoryInterface
 {
     /**
      * @see UserRepositoryInterface::findOneByUsername
@@ -49,29 +49,5 @@ class UserRepository extends EntityRepository implements UserRepositoryInterface
         catch(NoResultException $e) {
             return null;
         }
-    }
-
-    /**
-     * @see UserRepositoryInterface::getObjectManager
-     */
-    public function getObjectManager()
-    {
-        return $this->getEntityManager();
-    }
-
-    /**
-     * @see UserRepositoryInterface::getObjectClass
-     */
-    public function getObjectClass()
-    {
-        return $this->getEntityName();
-    }
-
-    /**
-     * @see UserRepositoryInterface::getObjectIdentifier
-     */
-    public function getObjectIdentifier()
-    {
-        return reset($this->getClassMetadata()->identifier);
     }
 }

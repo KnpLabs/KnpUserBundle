@@ -10,7 +10,7 @@
 
 namespace Bundle\DoctrineUserBundle\DAO;
 
-interface UserRepositoryInterface
+interface UserRepositoryInterface extends RepositoryInterface
 {
     /**
      * Find a user by its username
@@ -32,25 +32,4 @@ interface UserRepositoryInterface
      * @return  User or null if user does not exist
      */
     public function findOneByUsernameOrEmail($usernameOrEmail);
-
-    /**
-     * Get the Entity manager or the Document manager, depending on the db driver
-     *
-     * @return mixed
-     **/
-    public function getObjectManager();
-
-    /**
-     * Get the class of the User Entity or Document, depending on the db driver
-     *
-     * @return string a model fully qualified class name
-     **/
-    public function getObjectClass();
-
-    /**
-     * Get the identifier property of the User 
-     * 
-     * @return string
-     */
-    public function getObjectIdentifier();
 }
