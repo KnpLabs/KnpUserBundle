@@ -16,19 +16,18 @@ doctrine_user_user_create:
 doctrine_user_user_show:
     pattern:        /user/:username
     defaults:       { _controller: DoctrineUserBundle:User:show }
-    requirements:   { _method: "GET", username: "[\w\d]+" }
+    requirements:   { _method: "GET" }
 
 doctrine_user_user_edit:
     pattern:        /user/:username/edit
     defaults:       { _controller: DoctrineUserBundle:User:edit }
-    requirements:   { _method: "GET", username: "[\w\d]+" }
+    requirements:   { _method: "GET" }
 
 doctrine_user_user_update:
     pattern:        /user/:username/edit
     defaults:       { _controller: DoctrineUserBundle:User:update }
-    requirements:   { _method: "POST", username: "[\w\d]+" }
+    requirements:   { _method: "POST" }
 
 doctrine_user_user_delete:
     pattern:        /user/:username/delete
     defaults:       { _controller: DoctrineUserBundle:User:delete }
-    requirements:   { username: "[\w\d]+" }
