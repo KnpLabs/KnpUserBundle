@@ -1,24 +1,16 @@
 <?php
 
-//use Bundle\DoctrineUserBundle\Entity\User as User;
+$userClass = $this->container->get('doctrine_user.user_repository')->getObjectClass();
 
-//$admin = new User();
-//$admin->setUsername('admin');
-//$admin->setPassword('admin');
-//$admin->setIsSuperAdmin(true);
+$admin = new $userClass();
+$admin->setUsername('admin');
+$admin->setEmail('admin@site.org');
+$admin->setPassword('admin');
+$admin->setIsSuperAdmin(true);
 
-//$knplabs = new User();
-//$knplabs->setUsername('knplabs');
-//$knplabs->setPassword('changeme');
-
-//$zenzile = new User();
-//$zenzile->setUsername('zenzile');
-//$zenzile->setPassword('changeme');
-
-//$hightone = new User();
-//$hightone->setUsername('hightone');
-//$hightone->setPassword('changeme');
-
-//$interlope = new User();
-//$interlope->setUsername('interlope');
-//$interlope->setPassword('changeme');
+for($it = 1; $it <= 5; $it++) {
+    ${'user'.$it} = new $userClass();
+    ${'user'.$it}->setUsername('user'.$it);
+    ${'user'.$it}->setEmail('user'.$it.'@site.org');
+    ${'user'.$it}->setPassword('password'.$it);
+}
