@@ -139,6 +139,39 @@ class UserController extends Controller
     }
 
     /**
+     * Receive the confirmation token from user email provider, login the user
+     */
+    public function confirmAction($token)
+    {
+        $user = $this['doctrine_user.user_repository']->findOneByConfirmationToken($token);
+        if(!$user) {
+            throw new NotFoundHttpException(sprintf('No user to confirm with token "%s"', $token));
+        }
+
+        $user->setConfirmationToken(null);
+        $user->setIsActive(true);
+
+        $this->saveUser($user);
+
+        $this['doctrine_user.auth']->login($user);
+
+        return $this->redirect($this->generateUrl('doctrine_user_user_confirmed'));
+    }
+
+    /**
+     * Tell the user his account is now confirmed
+     */
+    public function confirmedAction()
+    {
+        $user = $this['doctrine_user.auth']->getUser();
+        if(!$user) {
+            throw new NotFoundHttpException(sprintf('No user confirmed'));
+        }
+
+        return $this->render('DoctrineUserBundle:User:confirmed');
+    }
+
+    /**
      * Delete one user
      */
     public function deleteAction($username)

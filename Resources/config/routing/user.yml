@@ -23,6 +23,11 @@ doctrine_user_user_check_email:
     defaults:       { _controller: DoctrineUserBundle:User:checkEmail }
     requirements:   { _method: "GET" }
 
+doctrine_user_user_confirmed:
+    pattern:        /user/confirmed
+    defaults:       { _controller: DoctrineUserBundle:User:confirmed }
+    requirements:   { _method: "GET" }
+
 doctrine_user_user_show:
     pattern:        /user/:username
     defaults:       { _controller: DoctrineUserBundle:User:show }
