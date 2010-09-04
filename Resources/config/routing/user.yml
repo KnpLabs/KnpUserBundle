@@ -13,6 +13,11 @@ doctrine_user_user_create:
     defaults:       { _controller: DoctrineUserBundle:User:create }
     requirements:   { _method: "POST" }
 
+doctrine_user_user_confirm:
+    pattern:        /user/confirm/:token
+    defaults:       { _controller: DoctrineUserBundle:User:confirm }
+    requirements:   { _method: "GET" }
+
 doctrine_user_user_show:
     pattern:        /user/:username
     defaults:       { _controller: DoctrineUserBundle:User:show }

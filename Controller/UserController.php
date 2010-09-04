@@ -90,13 +90,37 @@ class UserController extends Controller
 
         if($form->isValid()) {
             $user = $form->getData();
+            $user->setIsActive(false);
             $this->saveUser($user);
+            $this->sendConfirmationEmail($user);
             $this['session']->setFlash('doctrine_user_user_create/success', true);
             $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
             return $this->redirect($userUrl);
         }
 
         return $this->render('DoctrineUserBundle:User:new:'.$this->getRenderer(), array('form' => $form));
+    }
+
+    protected function sendConfirmationEmail(User $user)
+    {
+        $parameters = $this->container->getParameter('doctrine_user.confirmation_email.parameters');
+        
+        // Render the template, use the first line as the subject, and the rest as the body
+        $rendered = $this->renderView($parameters['template'].':'.$this->getRenderer(), array(
+            'user' => $user,
+            'confirmationUrl' => $this->generateUrl('doctrine_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
+        ));
+        $renderedLines = explode("\n", $rendered);
+        $subject = $renderedLines[0];
+        $body = implode("\n", array_slice($renderedLines, 1));
+
+	    $message = \Swift_Message::newInstance()
+	        ->setSubject($subject)
+	        ->setFrom($parameters['from'])
+	        ->setTo($user->getEmail())
+	        ->setBody($body);
+
+	    $this['mailer']->send($message);
     }
 
     /**
