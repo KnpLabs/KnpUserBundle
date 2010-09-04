@@ -2,6 +2,8 @@
 
 namespace Bundle\DoctrineUserBundle\DAO;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Storage agnostic group object
  * Has validator annotation, but database mapping must be done in a subclass.
@@ -117,7 +119,7 @@ abstract class Group
      */
     public function getPermissions()
     {
-        return $this->permissions;
+        return $this->permissions ?: $this->permissions = new ArrayCollection();
     }
 
     /**
@@ -133,6 +135,19 @@ abstract class Group
         }
 
         return $names;
+    }
+
+    /**
+     * Add a permission to the group permissions
+     *
+     * @param Permission $permission
+     * @return null
+     **/
+    public function addPermission(Permission $permission)
+    {
+        if(!$this->getPermissions()->contains($permission)) {
+            $this->getPermissions()->add($permission);
+        }
     }
 
     public function __toString()
