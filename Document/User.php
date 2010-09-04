@@ -28,13 +28,6 @@ class User extends AbstractUser
      * @Id
      */
     protected $id;
-
-    /**
-     * undocumented class variable
-     *
-     * @var ArrayCollection
-     */
-    protected $permissions = null;
     
     /**
      * @Field(type="string")
@@ -85,6 +78,11 @@ class User extends AbstractUser
      * @Field(type="date")
      */
     protected $lastLogin;
+
+    /**
+     * @Field(type="string")
+     */
+    protected $confirmationToken;
 
     public function __construct()
     {

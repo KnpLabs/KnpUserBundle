@@ -78,6 +78,11 @@ class User extends AbstractUser
     protected $lastLogin;
 
     /**
+     * @Column(name="confirmation_token", type="string", length=127, nullable=true)
+     */
+    protected $confirmationToken;
+
+    /**
      * @ManyToMany(targetEntity="Group")
      * @JoinTable(name="doctrine_user_users_group",
      *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},

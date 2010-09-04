@@ -99,6 +99,13 @@ abstract class User
     protected $lastLogin;
 
     /**
+     * Random string sent to the user email adress in order to verify it
+     *
+     * @var string
+     */
+    protected $confirmationToken;
+
+    /**
      * @var array
      */
     protected $groups;
@@ -112,7 +119,8 @@ abstract class User
     {
         $this->algorithm = 'sha1';
         $this->salt = md5(uniqid() . rand(100000, 999999));
-        $this->isActive = true;
+        $this->confirmationToken = md5(uniqid() . rand(100000, 999999));
+        $this->isActive = false;
         $this->isSuperAdmin = false;
     }
 
@@ -290,6 +298,25 @@ abstract class User
     }
 
     /**
+     * Get confirmationToken
+     * @return string
+     */
+    public function getConfirmationToken()
+    {
+        return $this->confirmationToken;
+    }
+
+    /**
+     * Set confirmationToken
+     * @param  string
+     * @return null
+     */
+    public function setConfirmationToken($confirmationToken)
+    {
+        $this->confirmationToken = $confirmationToken;
+    }
+
+    /**
      * Get groups granted to the user 
      * 
      * @return array
@@ -312,7 +339,7 @@ abstract class User
 
         return $group;
     }
-    
+
     /**
      * Indicates whether the user belongs to the specified group or not
      *
