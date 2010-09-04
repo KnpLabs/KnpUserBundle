@@ -23,6 +23,7 @@ abstract class User
      *      @MinLength(limit=2),
      *      @MaxLength(limit=255)
      * })
+     * @var string
      */
     protected $username;
 
@@ -32,6 +33,7 @@ abstract class User
      *      @NotBlank(),
      *      @MaxLength(limit=255)
      * })
+     * @var string
      */
     protected $email;
 
@@ -39,6 +41,7 @@ abstract class User
      * @Validation({
      *      @AssertType(type="boolean")
      * })
+     * @var boolean
      */
     protected $isActive;
 
@@ -46,6 +49,7 @@ abstract class User
      * @Validation({
      *      @AssertType(type="boolean")
      * })
+     * @var boolean
      */
     protected $isSuperAdmin;
 
@@ -55,6 +59,7 @@ abstract class User
      *      @MinLength(limit=2),
      *      @MaxLength(limit=255)
      * })
+     * @var string
      */
     protected $password;
 
@@ -64,6 +69,7 @@ abstract class User
      *      @MinLength(limit=2),
      *      @MaxLength(limit=31)
      * })
+     * @var string
      */
     protected $algorithm;
 
@@ -73,18 +79,34 @@ abstract class User
      *      @MinLength(limit=2),
      *      @MaxLength(limit=255)
      * })
+     * @var string
      */
     protected $salt;
 
+    /**
+     * @var \DateTime
+     */
     protected $createdAt;
 
+    /**
+     * @var \DateTime
+     */
     protected $updatedAt;
 
+    /**
+     * @var \DateTime
+     */
     protected $lastLogin;
 
+    /**
+     * @var array
+     */
     protected $groups;
+
+    /**
+     * @var array
+     */
     protected $permissions;
-    protected $allPermissions;
 
     public function __construct()
     {
