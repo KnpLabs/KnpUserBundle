@@ -18,7 +18,7 @@ class GroupController extends Controller
     {
         $groups = $this['doctrine_user.group_repository']->findAll();
 
-        return $this->render('DoctrineUserBundle:Group:list', array('groups' => $groups));
+        return $this->render('DoctrineUserBundle:Group:list:'.$this->getRenderer(), array('groups' => $groups));
     }
 
     /**
@@ -32,7 +32,7 @@ class GroupController extends Controller
             throw new NotFoundHttpException(sprintf('The group "%s" does not exist.', $name));
         }
 
-        return $this->render('DoctrineUserBundle:Group:show', array('group' => $group));
+        return $this->render('DoctrineUserBundle:Group:show:'.$this->getRenderer(), array('group' => $group));
     }
 
     /**
@@ -43,7 +43,7 @@ class GroupController extends Controller
         $form = $this['doctrine_user.group_form'];
         $form->setData(new Group());
 
-        return $this->render('DoctrineUserBundle:Group:new', array('form' => $form));
+        return $this->render('DoctrineUserBundle:Group:new:'.$this->getRenderer(), array('form' => $form));
     }
 
     /**
@@ -66,7 +66,7 @@ class GroupController extends Controller
             return $this->redirect($this->generateUrl('doctrine_user_group_show', array('name' => $form->getData()->getName())));
         }
 
-        return $this->render('DoctrineUserBundle:Group:new');
+        return $this->render('DoctrineUserBundle:Group:new:'.$this->getRenderer());
     }
 
     /**
@@ -83,7 +83,7 @@ class GroupController extends Controller
         $form = $this['doctrine_user.group_form'];
         $form->setData($group);
 
-        return $this->render('DoctrineUserBundle:Group:edit');
+        return $this->render('DoctrineUserBundle:Group:edit:'.$this->getRenderer());
     }
 
     /**
@@ -112,7 +112,7 @@ class GroupController extends Controller
             return $this->redirect($this->generateUrl('doctrine_user_group_show', array('name' => $form->getData()->getName())));
         }
 
-        return $this->render('DoctrineUserBundle:Group:edit');
+        return $this->render('DoctrineUserBundle:Group:edit:'.$this->getRenderer());
     }
 
     /**
@@ -133,5 +133,10 @@ class GroupController extends Controller
         $this['session']->setFlash('doctrine_user_group_delete/success');
 
         return $this->redirect($this->generateUrl('doctrine_user_group_list'));
+    }
+
+    protected function getRenderer()
+    {
+        return $this->container->getParameter('doctrine_user.template.renderer');
     }
 }

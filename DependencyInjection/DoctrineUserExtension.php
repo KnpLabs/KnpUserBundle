@@ -36,6 +36,10 @@ class DoctrineUserExtension extends Extension
         if(isset($config['session_create_success_route'])) {
             $container->setParameter('doctrine_user.session_create.success_route', $config['session_create_success_route']);
         }
+
+        if(isset($config['template_renderer'])) {
+            $container->setParameter('doctrine_user.template.renderer', $config['template_renderer']);
+        }
     }
 
     /**

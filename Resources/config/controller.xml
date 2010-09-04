@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="doctrine_user.session_create.success_route">doctrine_user_session_success</parameter>
+        <parameter key="doctrine_user.template.renderer">php</parameter>
     </parameters>
 
 </container>

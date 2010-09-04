@@ -33,7 +33,7 @@ class SessionController extends Controller
             $this['session']->set('DoctrineUserBundle/referer', $this['request']->headers->get('HTTP_REFERER'));
         }
 
-        return $this->render('DoctrineUserBundle:Session:new', compact('form'));
+        return $this->render('DoctrineUserBundle:Session:new:'.$this->getRenderer(), compact('form'));
     }
 
     /**
@@ -74,7 +74,7 @@ class SessionController extends Controller
 
         $form->addError('The entered username and/or password is invalid.');
 
-        return $this->render('DoctrineUserBundle:Session:new', compact('form'));
+        return $this->render('DoctrineUserBundle:Session:new:'.$this->getRenderer(), compact('form'));
     }
     
     public function successAction()
@@ -83,7 +83,7 @@ class SessionController extends Controller
             return $this->redirect($this->generateUrl('doctrine_user_session_new'));
         }
 
-        return $this->render('DoctrineUserBundle:Session:success');
+        return $this->render('DoctrineUserBundle:Session:success:'.$this->getRenderer());
     }
 
     /**
@@ -97,4 +97,8 @@ class SessionController extends Controller
         return $this->redirect($this->generateUrl('doctrine_user_session_new'));
     }
 
+    protected function getRenderer()
+    {
+        return $this->container->getParameter('doctrine_user.template.renderer');
+    }
 }

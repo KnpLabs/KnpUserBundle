@@ -134,4 +134,9 @@ class PermissionController extends Controller
 
         return $this->redirect($this->generateUrl('doctrine_user_permission_list'));
     }
+
+    protected function getRenderer()
+    {
+        return $this->container->getParameter('doctrine_user.template.renderer');
+    }
 }
