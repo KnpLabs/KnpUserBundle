@@ -40,6 +40,10 @@ class Group extends AbstractGroup
      */
     protected $updatedAt;
 
+    /**
+     * @ReferenceMany(targetDocument="Permission")
+     */
+    protected $permissions;
 
     /**
      * @PrePersist
