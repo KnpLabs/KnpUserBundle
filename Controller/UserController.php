@@ -92,22 +92,24 @@ class UserController extends Controller
             $user = $form->getData();
             $user->setIsActive(false);
             $this->saveUser($user);
-            $this->sendConfirmationEmail($user);
             $this['session']->setFlash('doctrine_user_user_create/success', true);
-            // store created user username in session
-            $this['session']->set('doctrine_user/check_email/username', $user->getUsername());
 
-            return $this->redirect($this->generateUrl('doctrine_user_user_check_email'));
+            return $this->redirect($this->generateUrl('doctrine_user_user_send_confirmation_email', array('email' => $user->getEmail())));
         }
 
         return $this->render('DoctrineUserBundle:User:new:'.$this->getRenderer(), array('form' => $form));
     }
 
     /**
-     * Send the confirmation email containing a link to the confirmation page, with a token
+     * Send the confirmation email containing a link to the confirmation page,
+     * then redirect the check email page
      */
-    protected function sendConfirmationEmail(User $user)
+    public function sendConfirmationEmailAction($email)
     {
+        $user = $this['doctrine_user.user_repository']->findOneByEmail($email);
+        if(!$user) {
+            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $email));
+        }
         $parameters = $this->container->getParameter('doctrine_user.confirmation_email.parameters');
         
         // Render the template, use the first line as the subject, and the rest as the body
@@ -126,16 +128,21 @@ class UserController extends Controller
 	        ->setBody($body);
 
 	    $this['mailer']->send($message);
+
+        return $this->redirect($this->generateUrl('doctrine_user_user_check_confirmation_email', array('email' => $user->getEmail())));
     }
 
     /**
      * Tell the user to check his email provider
      */
-    public function checkEmailAction()
+    public function checkConfirmationEmailAction($email)
     {
-        $user = $this->findUser($this['session']->get('doctrine_user/check_email/username'));
+        $user = $this['doctrine_user.user_repository']->findOneByEmail($email);
+        if(!$user) {
+            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $email));
+        }
 
-        return $this->render('DoctrineUserBundle:User:checkEmail:'.$this->getRenderer(), array('user' => $user));
+        return $this->render('DoctrineUserBundle:User:checkConfirmationEmail:'.$this->getRenderer(), array('user' => $user));
     }
 
     /**

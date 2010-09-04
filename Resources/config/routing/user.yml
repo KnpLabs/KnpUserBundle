@@ -13,14 +13,19 @@ doctrine_user_user_create:
     defaults:       { _controller: DoctrineUserBundle:User:create }
     requirements:   { _method: "POST" }
 
+doctrine_user_user_send_confirmation_email:
+    pattern:        /user/send-confirmation-email/:email
+    defaults:       { _controller: DoctrineUserBundle:User:sendConfirmationEmail }
+    requirements:   { _method: "GET", email: ".+" }
+
+doctrine_user_user_check_confirmation_email:
+    pattern:        /user/check-confirmation-email/:email
+    defaults:       { _controller: DoctrineUserBundle:User:checkConfirmationEmail }
+    requirements:   { _method: "GET", email: ".+" }
+
 doctrine_user_user_confirm:
     pattern:        /user/confirm/:token
     defaults:       { _controller: DoctrineUserBundle:User:confirm }
-    requirements:   { _method: "GET" }
-
-doctrine_user_user_check_email:
-    pattern:        /user/check-email
-    defaults:       { _controller: DoctrineUserBundle:User:checkEmail }
     requirements:   { _method: "GET" }
 
 doctrine_user_user_confirmed:
