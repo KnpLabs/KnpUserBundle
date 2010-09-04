@@ -87,17 +87,14 @@ class UserController extends Controller
     public function createAction()
     {
         $form = $this->createForm('doctrine_user_user_new');
+        $form->bind($this['request']->request->get($form->getName()));
 
-        if($data = $this['request']->request->get($form->getName())) {
-            $form->bind($data);
-            if($form->isValid()) {
-                $user = $form->getData();
-                $this->saveUser($user);
-                $this['session']->start();
-                $this['session']->setFlash('doctrine_user_user_create/success', true);
-                $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
-                return $this->redirect($userUrl);
-            }
+        if($form->isValid()) {
+            $user = $form->getData();
+            $this->saveUser($user);
+            $this['session']->setFlash('doctrine_user_user_create/success', true);
+            $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
+            return $this->redirect($userUrl);
         }
 
         return $this->render('DoctrineUserBundle:User:new:'.$this->getRenderer(), array('form' => $form));
