@@ -61,7 +61,6 @@ class UserController extends Controller
             $form->bind($data);
             if($form->isValid()) {
                 $this->saveUser($user);
-                $this['session']->start();
                 $this['session']->setFlash('doctrine_user_user_update/success', true);
                 $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
                 return $this->redirect($userUrl);
@@ -110,7 +109,6 @@ class UserController extends Controller
         $objectManager = $this['doctrine_user.user_repository']->getObjectManager();
         $objectManager->remove($user);
         $objectManager->flush();
-        $this['session']->start();
         $this['session']->setFlash('doctrine_user_user_delete/success', true);
 
         return $this->redirect($this->generateUrl('doctrine_user_user_list'));
