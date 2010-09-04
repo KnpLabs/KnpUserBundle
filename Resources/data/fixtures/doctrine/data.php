@@ -42,8 +42,8 @@ for($it = 1; $it <= $nbUsers; $it++) {
 
 // User permissions
 
-$user1->addPermission($permission4);
-$user1->addPermission($permission5);
+$user1->addPermission($permission1);
+$user1->addPermission($permission2);
 
 // Group permissions
 
