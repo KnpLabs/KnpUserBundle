@@ -401,7 +401,7 @@ abstract class User
         $permissions = $this->getPermissions()->toArray();
 
         foreach($this->getGroups() as $group) {
-            $permissions += $group->getPermissions();
+            $permissions = array_merge($permissions, $group->getPermissions()->toArray());
         }
 
         return array_unique($permissions);
