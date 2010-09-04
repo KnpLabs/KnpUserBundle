@@ -82,8 +82,8 @@ class Auth
      **/
     public function getUser()
     {
-        if(null === $this->user && $this->session->has($this->options['session_path'])) {
-            $this->user = $this->userRepository->find($this->session->get($this->options['session_path']));
+        if(null === $this->user && ($userId = $this->session->has($this->options['session_path']))) {
+            $this->user = $this->userRepository->find($userId);
         }
 
         return $this->user;
