@@ -81,7 +81,7 @@ class UserController extends Controller
     }
 
     /**
-     * Create a user
+     * Create a user and send a confirmation email
      */
     public function createAction()
     {
@@ -103,6 +103,9 @@ class UserController extends Controller
         return $this->render('DoctrineUserBundle:User:new:'.$this->getRenderer(), array('form' => $form));
     }
 
+    /**
+     * Send the confirmation email containing a link to the confirmation page, with a token
+     */
     protected function sendConfirmationEmail(User $user)
     {
         $parameters = $this->container->getParameter('doctrine_user.confirmation_email.parameters');
@@ -125,6 +128,9 @@ class UserController extends Controller
 	    $this['mailer']->send($message);
     }
 
+    /**
+     * Tell the user to check his email provider
+     */
     public function checkEmailAction()
     {
         $user = $this->findUser($this['session']->get('doctrine_user/check_email/username'));
