@@ -32,4 +32,11 @@ interface UserRepositoryInterface extends RepositoryInterface
      * @return  User or null if user does not exist
      */
     public function findOneByUsernameOrEmail($usernameOrEmail);
+
+    /**
+     * Find a user by its confirmationtoken
+     * @param   string  $token
+     * @return  User or null if user does not exist
+     */
+    public function findOneByConfirmationToken($token);
 }

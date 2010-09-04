@@ -50,4 +50,12 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
             return null;
         }
     }
+
+    /**
+     * @see UserRepositoryInterface::findOneByUsernameOrEmail
+     */
+    public function findOneByConfirmationToken($token)
+    {
+        return $this->findOneBy(array('confirmationToken' => $token));
+    }
 }
