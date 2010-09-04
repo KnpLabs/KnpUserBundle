@@ -9,6 +9,8 @@
 
 namespace Bundle\DoctrineUserBundle\DAO;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Storage agnostic user object
  * Has validator annotation, but database mapping must be done in a subclass.
@@ -323,7 +325,7 @@ abstract class User
      */
     public function getGroups()
     {
-        return $this->groups;
+        return $this->groups ?: $this->groups = new ArrayCollection();
     }
 
     /**
@@ -352,13 +354,26 @@ abstract class User
     }
 
     /**
+     * Add a group to the user groups
+     *
+     * @param Group $group
+     * @return null
+     **/
+    public function addGroup(Group $group)
+    {
+        if(!$this->getGroups()->contains($group)) {
+            $this->getGroups()->add($group);
+        }
+    }
+
+    /**
      * Get permissions granted to the user 
      * 
      * @return array
      */
     public function getPermissions()
     {
-        return $this->permissions;
+        return $this->permissions ?: $this->permissions = new ArrayCollection();
     }
 
     /**
@@ -383,7 +398,7 @@ abstract class User
      */
     public function getAllPermissions()
     {
-        $permissions = $this->getPermissions();
+        $permissions = $this->getPermissions()->toArray();
 
         foreach($this->getGroups() as $group) {
             $permissions += $group->getPermissions();
@@ -416,6 +431,19 @@ abstract class User
     public function hasPermission($name)
     {
         return in_array($name, $this->getAllPermissionNames());
+    }
+
+    /**
+     * Add a permission to the user permissions
+     *
+     * @param Permission $permission
+     * @return null
+     **/
+    public function addPermission(Permission $permission)
+    {
+        if(!$this->getPermissions()->contains($permission)) {
+            $this->getPermissions()->add($permission);
+        }
     }
 
     /**
