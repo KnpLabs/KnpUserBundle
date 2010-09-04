@@ -94,8 +94,10 @@ class UserController extends Controller
             $this->saveUser($user);
             $this->sendConfirmationEmail($user);
             $this['session']->setFlash('doctrine_user_user_create/success', true);
-            $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
-            return $this->redirect($userUrl);
+            // store created user username in session
+            $this['session']->set('doctrine_user/check_email/username', $user->getUsername());
+
+            return $this->redirect($this->generateUrl('doctrine_user_user_check_email'));
         }
 
         return $this->render('DoctrineUserBundle:User:new:'.$this->getRenderer(), array('form' => $form));
@@ -123,6 +125,13 @@ class UserController extends Controller
 	    $this['mailer']->send($message);
     }
 
+    public function checkEmailAction()
+    {
+        $user = $this->findUser($this['session']->get('doctrine_user/check_email/username'));
+
+        return $this->render('DoctrineUserBundle:User:checkEmail:'.$this->getRenderer(), array('user' => $user));
+    }
+
     /**
      * Delete one user
      */
@@ -147,6 +156,9 @@ class UserController extends Controller
      */
     protected function findUser($username)
     {
+        if(empty($username)) {
+            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $username));
+        }
         $user = $this['doctrine_user.user_repository']->findOneByUsername($username);
         if(!$user) {
             throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $username));
