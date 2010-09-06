@@ -2,20 +2,13 @@
 
 namespace Bundle\DoctrineUserBundle\Tests\DAO;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Bundle\DoctrineUserBundle\Test\WebTestCase;
 
 class PermissionRepositoryTest extends WebTestCase
 {
-    public function getPermissionRepository()
-    {
-        $kernel = $this->createKernel();
-        $kernel->boot();
-        return $kernel->getContainer()->get('doctrine_user.permission_repository');
-    }
-
     public function testTimestampable()
     {
-        $repo = $this->getPermissionRepository();
+        $repo = $this->getService('doctrine_user.permission_repository');
         $permission = $repo->findOneByName('permission1');
         
         $this->assertTrue($permission->getCreatedAt() instanceof \DateTime);
@@ -27,7 +20,7 @@ class PermissionRepositoryTest extends WebTestCase
 
     public function testFind()
     {
-        $repo = $this->getPermissionRepository();
+        $repo = $this->getService('doctrine_user.permission_repository');
         $permission = $repo->findOneByName('permission1');
 
         $fetchedPermission = $repo->find($permission->getId());
@@ -39,7 +32,7 @@ class PermissionRepositoryTest extends WebTestCase
 
     public function testFindOneByName()
     {
-        $repo = $this->getPermissionRepository();
+        $repo = $this->getService('doctrine_user.permission_repository');
         $permission = $repo->findOneByName('permission1');
 
         $fetchedPermission = $repo->findOneByName($permission->getName());
