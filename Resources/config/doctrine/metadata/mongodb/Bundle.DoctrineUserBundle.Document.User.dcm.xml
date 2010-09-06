@@ -1,0 +1,53 @@
+<?xml version="1.0" charset="UTF-8"?>
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                        http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+
+    <document name="Bundle\DoctrineUserBundle\Document\Group" collection="doctrine_user_group" repository-class="Bundle\DoctrineUserBundle\Document\GroupRepository">
+
+        <field name="id" fieldName="id" id="true" />
+
+        <field name="username" fieldName="username" type="string" />
+
+        <field name="email" fieldName="email" type="string" />
+
+        <field name="isActive" fieldName="isActive" type="boolean" />
+
+        <field name="isSuperAdmin" fieldName="isSuperAdmin" type="boolean" />
+
+        <field name="password" fieldName="password" type="string" />
+
+        <field name="algorithm" fieldName="algorithm" type="string" />
+
+        <field name="salt" fieldName="salt" type="string" />
+
+        <field name="createdAt" fieldName="createdAt" type="date" />
+
+        <field name="updatedAt" fieldName="updatedAt" type="date" />
+
+        <field name="lastLogin" fieldName="lastLogin" type="date" />
+
+        <field name="confirmationToken" fieldName="confirmationToken" type="string" />
+
+        <reference-many target-document="Permission" field="permissions" />
+
+        <reference-many target-document="Group" field="groups" />
+        
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="incrementCreatedAt" />
+            <lifecycle-callback type="preUpdate" method="incrementUpdatedAt" />
+        </lifecycle-callbacks>
+
+        <indexes>
+            <index unique="true">
+                <key name="username" />
+            </index>
+            <index unique="true">
+                <key name="email" />
+            </index>
+        </indexes>
+
+    </document>
+
+</doctrine-mongo-mapping>
