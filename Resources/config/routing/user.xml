@@ -20,13 +20,13 @@
     </route>
 
     <route id="doctrine_user_user_send_confirmation_email" pattern="/send-confirmation-email/:email">
-        <default key="_controller">DoctrineUserBundle/User:sendConfirmationEmail</default>
+        <default key="_controller">DoctrineUserBundle:User:sendConfirmationEmail</default>
         <requirement key="_method">GET</requirement>
         <requirement key="email">.+</requirement>
     </route>
 
     <route id="doctrine_user_user_check_confirmation_email" pattern="/check-confirmation-email/:email">
-        <default key="_controller">DoctrineUserBundle/User:checkConfirmationEmail</default>
+        <default key="_controller">DoctrineUserBundle:User:checkConfirmationEmail</default>
         <requirement key="_method">GET</requirement>
         <requirement key="email">.+</requirement>
     </route>
