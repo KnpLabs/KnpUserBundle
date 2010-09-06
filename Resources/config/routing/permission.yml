@@ -1,35 +1,34 @@
-
 doctrine_user_permission_list:
-    pattern:        /permission/list
+    pattern:        /list
     defaults:       { _controller: DoctrineUserBundle:Permission:list }
     requirements:   { _method: GET }
 
 doctrine_user_permission_new:
-    pattern:        /permission/new
+    pattern:        /new
     defaults:       { _controller: DoctrineUserBundle:Permission:new }
     requirements:   { _method: GET }
 
 doctrine_user_permission_create:
-    pattern:        /permission/new
+    pattern:        /new
     defaults:       { _controller: DoctrineUserBundle:Permission:create }
     requirements:   { _method: POST }
 
 doctrine_user_permission_edit:
-    pattern:        /permission/:name/edit
+    pattern:        /:name/edit
     defaults:       { _controller: DoctrineUserBundle:Permission:edit }
     requirements:   { _method: GET }
 
 doctrine_user_permission_update:
-    pattern:        /permission/:name/edit
+    pattern:        /:name/edit
     defaults:       { _controller: DoctrineUserBundle:Permission:update }
     requirements:   { _method: POST }
 
 doctrine_user_permission_delete:
-    pattern:        /permission/:name/delete
+    pattern:        /:name/delete
     defaults:       { _controller: DoctrineUserBundle:Permission:delete }
     requirements:   { _method: GET }
 
 doctrine_user_permission_show:
-    pattern:        /permission/:name
+    pattern:        /:name
     defaults:       { _controller: DoctrineUserBundle:Permission:show }
     requirements:   { _method: GET }

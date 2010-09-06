@@ -1,19 +1,19 @@
 doctrine_user_session_new:
-    pattern:        /session/new
+    pattern:        /new
     defaults:       { _controller: DoctrineUserBundle:Session:new }
     requirements:   { _method: "GET" }
 
 doctrine_user_session_create:
-    pattern:        /session/new
+    pattern:        /new
     defaults:       { _controller: DoctrineUserBundle:Session:create }
     requirements:   { _method: "POST" }
 
 doctrine_user_session_delete:
-    pattern:        /session/delete
+    pattern:        /delete
     defaults:       { _controller: DoctrineUserBundle:Session:delete }
     requirements:   { _method: "GET" }
 
 doctrine_user_session_success:
-    pattern:        /session/success
+    pattern:        /success
     defaults:       { _controller: DoctrineUserBundle:Session:success }
     requirements:   { _method: "GET" }

@@ -1,53 +1,53 @@
 doctrine_user_user_list:
-    pattern:        /user/list
+    pattern:        /list
     defaults:       { _controller: DoctrineUserBundle:User:list }
     requirements:   { _method: "GET" }
 
 doctrine_user_user_new:
-    pattern:        /user/new
+    pattern:        /new
     defaults:       { _controller: DoctrineUserBundle:User:new }
     requirements:   { _method: "GET" }
 
 doctrine_user_user_create:
-    pattern:        /user/new
+    pattern:        /new
     defaults:       { _controller: DoctrineUserBundle:User:create }
     requirements:   { _method: "POST" }
 
 doctrine_user_user_send_confirmation_email:
-    pattern:        /user/send-confirmation-email/:email
+    pattern:        /send-confirmation-email/:email
     defaults:       { _controller: DoctrineUserBundle:User:sendConfirmationEmail }
     requirements:   { _method: "GET", email: ".+" }
 
 doctrine_user_user_check_confirmation_email:
-    pattern:        /user/check-confirmation-email/:email
+    pattern:        /check-confirmation-email/:email
     defaults:       { _controller: DoctrineUserBundle:User:checkConfirmationEmail }
     requirements:   { _method: "GET", email: ".+" }
 
 doctrine_user_user_confirm:
-    pattern:        /user/confirm/:token
+    pattern:        /confirm/:token
     defaults:       { _controller: DoctrineUserBundle:User:confirm }
     requirements:   { _method: "GET" }
 
 doctrine_user_user_confirmed:
-    pattern:        /user/confirmed
+    pattern:        /confirmed
     defaults:       { _controller: DoctrineUserBundle:User:confirmed }
     requirements:   { _method: "GET" }
 
 doctrine_user_user_show:
-    pattern:        /user/:username
+    pattern:        /:username
     defaults:       { _controller: DoctrineUserBundle:User:show }
     requirements:   { _method: "GET" }
 
 doctrine_user_user_edit:
-    pattern:        /user/:username/edit
+    pattern:        /:username/edit
     defaults:       { _controller: DoctrineUserBundle:User:edit }
     requirements:   { _method: "GET" }
 
 doctrine_user_user_update:
-    pattern:        /user/:username/edit
+    pattern:        /:username/edit
     defaults:       { _controller: DoctrineUserBundle:User:update }
     requirements:   { _method: "POST" }
 
 doctrine_user_user_delete:
-    pattern:        /user/:username/delete
+    pattern:        /:username/delete
     defaults:       { _controller: DoctrineUserBundle:User:delete }
