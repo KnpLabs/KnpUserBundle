@@ -2,6 +2,7 @@
 
 namespace Bundle\DoctrineUserBundle\DAO;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -43,6 +44,9 @@ abstract class Group
      */
     protected $updatedAt;
 
+    /**
+     * @var Collection
+     */
     protected $permissions;
 
     public function getId()
@@ -115,7 +119,7 @@ abstract class Group
     /**
      * Get permissions granted to the group 
      * 
-     * @return array
+     * @return Collection
      */
     public function getPermissions()
     {
@@ -130,7 +134,7 @@ abstract class Group
     public function getPermissionNames()
     {
         $names = array();
-        foreach($this->permissions as $permission) {
+        foreach($this->getPermissions() as $permission) {
             $names[] = $permission->getName();
         }
 

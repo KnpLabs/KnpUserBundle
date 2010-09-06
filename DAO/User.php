@@ -9,6 +9,7 @@
 
 namespace Bundle\DoctrineUserBundle\DAO;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -108,12 +109,12 @@ abstract class User
     protected $confirmationToken;
 
     /**
-     * @var array
+     * @var Collection
      */
     protected $groups;
 
     /**
-     * @var array
+     * @var Collection
      */
     protected $permissions;
 
@@ -321,7 +322,7 @@ abstract class User
     /**
      * Get groups granted to the user 
      * 
-     * @return array
+     * @return Collection
      */
     public function getGroups()
     {
@@ -330,12 +331,13 @@ abstract class User
 
     /**
      * Gets the name of the groups which includes the user
+     *
      * @return array
      */
     public function getGroupNames()
     {
         $names = array();
-        foreach($this->groups as $group) {
+        foreach($this->getGroups() as $group) {
             $names[] = $group->getName();
         }
 
@@ -369,7 +371,7 @@ abstract class User
     /**
      * Get permissions granted to the user 
      * 
-     * @return array
+     * @return Collection
      */
     public function getPermissions()
     {
@@ -394,7 +396,7 @@ abstract class User
     /**
      * Get all permissions, including user groups permissions 
      *
-     * @return array
+     * @return ArrayCollection
      */
     public function getAllPermissions()
     {
@@ -404,7 +406,7 @@ abstract class User
             $permissions = array_merge($permissions, $group->getPermissions()->toArray());
         }
 
-        return array_unique($permissions);
+        return new ArrayCollection(array_unique($permissions));
     }
 
     /**

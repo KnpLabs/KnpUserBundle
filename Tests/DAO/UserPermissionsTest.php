@@ -3,6 +3,7 @@
 namespace Bundle\DoctrineUserBundle\Tests\DAO;
 
 use Bundle\DoctrineUserBundle\Test\WebTestCase;
+use Doctrine\Common\Collections\Collection;
 
 class UserPermissionsTest extends WebTestCase
 {
@@ -10,6 +11,7 @@ class UserPermissionsTest extends WebTestCase
     {
         $repo = $this->getService('doctrine_user.user_repository');
         $user = $repo->findOneByUsername('admin');
+        $this->assertTrue($user->getPermissions() instanceof Collection);
         $this->assertEquals(0, count($user->getPermissions()));
     }
 
@@ -17,6 +19,7 @@ class UserPermissionsTest extends WebTestCase
     {
         $repo = $this->getService('doctrine_user.user_repository');
         $user = $repo->findOneByUsername('user1');
+        $this->assertTrue($user->getPermissions() instanceof Collection);
         $this->assertEquals(2, count($user->getPermissions()));
     }
 
@@ -24,6 +27,7 @@ class UserPermissionsTest extends WebTestCase
     {
         $repo = $this->getService('doctrine_user.user_repository');
         $user = $repo->findOneByUsername('user2');
+        $this->assertTrue($user->getAllPermissions() instanceof Collection);
         $this->assertEquals(3, count($user->getAllPermissions()));
     }
 
@@ -31,6 +35,7 @@ class UserPermissionsTest extends WebTestCase
     {
         $repo = $this->getService('doctrine_user.user_repository');
         $user = $repo->findOneByUsername('user1');
+        $this->assertTrue($user->getAllPermissions() instanceof Collection);
         $this->assertEquals(5, count($user->getAllPermissions()));
     }
 
