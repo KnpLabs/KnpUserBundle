@@ -21,12 +21,11 @@ class UserControllerTest extends WebTestCase
         $client = $this->createClient();
         $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_user_new'));
         $form = $crawler->selectButton('Create user')->form();
-        $client->submit($form, array('doctrine_user_user_new[username]' => 'harry_test', 'doctrine_user_user_new[email]' => 'harry_test@email.org', 'doctrine_user_user_new[password]' => 'changeme'));
+        $client->submit($form, array('doctrine_user_user_new[username]' => 'harry_test', 'doctrine_user_user_new[email]' => 'harry_test@email.org', 'doctrine_user_user_new[password][first]' => 'changeme', 'doctrine_user_user_new[password][second]' => 'changeme'));
         $this->assertTrue($client->getResponse()->isRedirect());
         $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isSuccessful());
-        $this->assertEquals(1, $crawler->filter('div.doctrine_user_user_create_success')->count());
-        $this->assertRegexp('/harry_test/', $client->getResponse()->getContent());
+        $this->assertRegexp('/Congrats harry_test/', $client->getResponse()->getContent());
     }
 
     public function testCreateEmptyFormError()
@@ -97,7 +96,7 @@ class UserControllerTest extends WebTestCase
         $client = $this->createClient();
         $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_user_edit', array('username' => 'harry_test')));
         $form = $crawler->selectButton('Update user')->form();
-        $client->submit($form, array('doctrine_user_user_edit[username]' => 'harry_test_modified', 'doctrine_user_user_edit[email]' => 'harry_test_modified@email.org', 'doctrine_user_user_edit[password]' => 'changeme'));
+        $client->submit($form, array('doctrine_user_user_edit[username]' => 'harry_test_modified', 'doctrine_user_user_edit[email]' => 'harry_test_modified@email.org', 'doctrine_user_user_edit[password][first]' => 'changeme', 'doctrine_user_user_edit[password][second]' => 'changeme'));
         $this->assertTrue($client->getResponse()->isRedirect());
         $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -113,7 +112,7 @@ class UserControllerTest extends WebTestCase
         $client = $this->createClient();
         $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_user_edit', array('username' => 'harry_test_modified')));
         $form = $crawler->selectButton('Update user')->form();
-        $client->submit($form, array('doctrine_user_user_edit[username]' => '', 'doctrine_user_user_edit[email]' => '', 'doctrine_user_user_edit[password]' => ''));
+        $client->submit($form, array('doctrine_user_user_edit[username]' => '', 'doctrine_user_user_edit[email]' => '', 'doctrine_user_user_edit[password][first]' => '', 'doctrine_user_user_edit[password][second]' => ''));
         $this->assertFalse($client->getResponse()->isRedirect());
         $this->assertTrue($client->getResponse()->isSuccessful());
         $form = $crawler->filter('form.doctrine_user_user_edit');
@@ -130,9 +129,9 @@ class UserControllerTest extends WebTestCase
         $client = $this->createClient();
         $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_user_edit', array('username' => 'harry_test_modified')));
         $form = $crawler->selectButton('Update user')->form();
-        $client->submit($form, array('doctrine_user_user_edit[username]' => '', 'doctrine_user_user_edit[email]' => '', 'doctrine_user_user_edit[password]' => ''));
+        $client->submit($form, array('doctrine_user_user_edit[username]' => '', 'doctrine_user_user_edit[email]' => '', 'doctrine_user_user_edit[password][first]' => '', 'doctrine_user_user_edit[password][second]' => ''));
         $form = $crawler->selectButton('Update user')->form();
-        $client->submit($form, array('doctrine_user_user_edit[username]' => 'harry_test', 'doctrine_user_user_edit[email]' => 'harry_test@email.org', 'doctrine_user_user_edit[password]' => 'changeme'));
+        $client->submit($form, array('doctrine_user_user_edit[username]' => 'harry_test', 'doctrine_user_user_edit[email]' => 'harry_test@email.org', 'doctrine_user_user_edit[password][first]' => 'changeme', 'doctrine_user_user_edit[password][second]' => 'changeme'));
         $this->assertTrue($client->getResponse()->isRedirect());
         $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isSuccessful());
