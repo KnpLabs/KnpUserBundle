@@ -90,11 +90,20 @@ class UserController extends Controller
 
         if($form->isValid()) {
             $user = $form->getData();
-            $user->setIsActive(false);
-            $this->saveUser($user);
-            $this['session']->setFlash('doctrine_user_user_create/success', true);
+            if($this->container->getParameter('doctrine_user.user_create.use_email_confirmation')) {
+                $user->setIsActive(false);
+                $this->saveUser($user);
+                $url = $this->generateUrl('doctrine_user_user_send_confirmation_email', array('email' => $user->getEmail()));
+            }
+            else {
+                $user->setIsActive(true);
+                $this->saveUser($user);
+                $this['doctrine_user.auth']->login($user);
+                $url = $this->generateUrl('doctrine_user_user_confirmed');
+            }
 
-            return $this->redirect($this->generateUrl('doctrine_user_user_send_confirmation_email', array('email' => $user->getEmail())));
+            $this['session']->setFlash('doctrine_user_user_create/success', true);
+            return $this->redirect($url);
         }
 
         return $this->render('DoctrineUserBundle:User:new:'.$this->getRenderer(), array('form' => $form));

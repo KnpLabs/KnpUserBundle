@@ -41,6 +41,10 @@ class DoctrineUserExtension extends Extension
         if(isset($config['template_renderer'])) {
             $container->setParameter('doctrine_user.template.renderer', $config['template_renderer']);
         }
+
+        if(isset($config['use_email_confirmation'])) {
+            $container->setParameter('doctrine_user.user_create.use_email_confirmation', $config['use_email_confirmation']);
+        }
     }
 
     /**
