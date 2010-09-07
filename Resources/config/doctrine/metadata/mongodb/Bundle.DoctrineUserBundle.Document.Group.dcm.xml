@@ -31,4 +31,4 @@
 
     </document>
 
-</doctrine-mapping>
+</doctrine-mongo-mapping>

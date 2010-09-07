@@ -4,7 +4,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <document name="Bundle\DoctrineUserBundle\Document\Group" collection="doctrine_user_group" repository-class="Bundle\DoctrineUserBundle\Document\GroupRepository">
+    <document name="Bundle\DoctrineUserBundle\Document\User" collection="doctrine_user_user" repository-class="Bundle\DoctrineUserBundle\Document\UserRepository">
 
         <field name="id" fieldName="id" id="true" />
 
