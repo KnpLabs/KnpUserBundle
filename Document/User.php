@@ -11,7 +11,6 @@
 namespace Bundle\DoctrineUserBundle\Document;
 
 use Bundle\DoctrineUserBundle\DAO\User as AbstractUser;
-use Doctrine\Common\Collections\ArrayCollection;
 
 class User extends AbstractUser
 {
