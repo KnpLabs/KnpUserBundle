@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Bundle\DoctrineUserBundle\Entity\Permission" table="doctrine_user_permission" repository-class="Bundle\DoctrineUserBundle\Entity\PermissionRepository">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="name" column="name" type="string" unique="true" />
+
+        <field name="description" column="description" type="text" nullable="true" />
+
+        <field name="createdAt" column="created_at" type="datetime" />
+
+        <field name="updatedAt" column="updated_at" type="datetime" />
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="incrementCreatedAt" />
+            <lifecycle-callback type="preUpdate" method="incrementUpdatedAt" />
+        </lifecycle-callbacks>
+
+    </entity>
+
+</doctrine-mapping>
