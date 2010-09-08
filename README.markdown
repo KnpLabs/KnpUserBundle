@@ -41,12 +41,6 @@ or if you prefer xml
 
 If you want ready to use login and logout pages, include the builtin routes:
 
-    # app/config/routing.yml
-    doctrine_user_session:
-        resource: DoctrineUserBundle/Resources/config/routing/session.yml
-
-in xml
-
     # app/config/routing.xml
     <import resource="DoctrineUserBundle/Resources/config/routing/session.xml"/>
 

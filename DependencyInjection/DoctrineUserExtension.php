@@ -34,6 +34,14 @@ class DoctrineUserExtension extends Extension
             $container->setParameter('doctrine_user.user_object.class', $config['user_class']);
         }
         
+        if(isset($config['group_class'])) {
+            $container->setParameter('doctrine_user.group_object.class', $config['group_class']);
+        }
+        
+        if(isset($config['permission_class'])) {
+            $container->setParameter('doctrine_user.permission_object.class', $config['permission_class']);
+        }
+                
         if(isset($config['session_create_success_route'])) {
             $container->setParameter('doctrine_user.session_create.success_route', $config['session_create_success_route']);
         }

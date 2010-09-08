@@ -11,5 +11,7 @@
     <xsd:attribute name="db_driver" type="xsd:string" />
     <xsd:attribute name="session_create_success_route" type="xsd:string" />
     <xsd:attribute name="user_class" type="xsd:string" />
+    <xsd:attribute name="group_class" type="xsd:string" />
+    <xsd:attribute name="permission_class" type="xsd:string" />
   </xsd:complexType>
 </xsd:schema>
