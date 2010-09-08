@@ -166,7 +166,10 @@ class UserController extends Controller
             throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $email));
         }
 
-        return $this->render('DoctrineUserBundle:User:checkConfirmationEmail:'.$this->getRenderer(), array('user' => $user));
+        return $this->render('DoctrineUserBundle:User:checkConfirmationEmail:'.$this->getRenderer(), array(
+            'user' => $user,
+            'debug' => $this->container->getParameter('kernel.debug')
+        ));
     }
 
     /**
