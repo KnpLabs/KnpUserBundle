@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="security.annotation" class="Bundle\DoctrineUserBundle\Security\AnnotationSecurityListener">
+            <tag name="kernel.listener" />
+            <argument type="service" id="service_container" />
+        </service>
+    </services>
+    
+</container>
