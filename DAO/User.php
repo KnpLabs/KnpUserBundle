@@ -341,7 +341,7 @@ abstract class User
             $names[] = $group->getName();
         }
 
-        return $group;
+        return $names;
     }
 
     /**
