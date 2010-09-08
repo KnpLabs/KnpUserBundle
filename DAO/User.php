@@ -455,8 +455,8 @@ abstract class User
      * @param User $user 
      * @return boolean
      */
-    public function is(User $user)
+    public function is(User $user = null)
     {
-        return $this->getUsername() === $user->getUsername();
+        return null !== $user && $this->getUsername() === $user->getUsername();
     }
 }
