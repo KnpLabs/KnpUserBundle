@@ -14,7 +14,7 @@
 
         <field name="email" column="email" type="string" length="255" unique="true" />
 
-        <field name="isActive" column="is_super_admin" type="boolean" />
+        <field name="isActive" column="is_active" type="boolean" />
 
         <field name="isSuperAdmin" column="is_super_admin" type="boolean" />
 
