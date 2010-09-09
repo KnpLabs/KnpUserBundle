@@ -25,20 +25,22 @@ abstract class Group
 
     /**
      * @Validation({
-     *      
+     *      @MaxLength(limit=5000)
      * })
      */
     protected $description;
 
     /**
-     * @Validation({
+     * Commented validation: DateTimeValidator can't validate PHP \DateTime objects
+     * Validation({
      *      @DateTime()
      * })
      */
     protected $createdAt;
 
     /**
-     * @Validation({
+     * Commented validation: DateTimeValidator can't validate PHP \DateTime objects
+     * Validation({
      *      @DateTime()
      * })
      */
