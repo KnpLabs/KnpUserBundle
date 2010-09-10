@@ -29,8 +29,8 @@ class SessionController extends Controller
     {
         $form = $this['doctrine_user.session_form'];
 
-        if ($this['request']->headers->has('HTTP_REFERER')) {
-            $this['session']->set('DoctrineUserBundle/referer', $this['request']->headers->get('HTTP_REFERER'));
+        if ($this['request']->server->has('HTTP_REFERER')) {
+            $this['session']->set('DoctrineUserBundle/referer', $this['request']->server->get('HTTP_REFERER'));
         }
 
         return $this->render('DoctrineUserBundle:Session:new:'.$this->getRenderer(), compact('form'));
