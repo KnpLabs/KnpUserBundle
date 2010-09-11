@@ -54,7 +54,7 @@ class PermissionController extends Controller
     {
         $form = $this['doctrine_user.permission_form'];
         $form->setData(new Permission());
-        $form->bind($this->getRequest()->get($form->getName()));
+        $form->bind($this['request']->get($form->getName()));
 
         if ($form->isValid()) {
             $this['Doctrine.ORM.DefaultEntityManager']->persist($form->getData());
@@ -99,7 +99,7 @@ class PermissionController extends Controller
 
         $form = $this['doctrine_user.permission_form'];
         $form->setData($permission);
-        $form->bind($this->getRequest()->get($form->getName()));
+        $form->bind($this['request']->get($form->getName()));
 
         if ($form->isValid()) {
             $this['Doctrine.ORM.DefaultEntityManager']->persist($form->getData());

@@ -54,7 +54,7 @@ class GroupController extends Controller
     {
         $form = $this['doctrine_user.group_form'];
         $form->setData(new Group());
-        $form->bind($this->getRequest()->get($form->getName()));
+        $form->bind($this['request']->get($form->getName()));
 
         if ($form->isValid()) {
             $this['Doctrine.ORM.DefaultEntityManager']->persist($form->getData());
@@ -99,7 +99,7 @@ class GroupController extends Controller
 
         $form = $this['doctrine_user.group_form'];
         $form->setData($group);
-        $form->bind($this->getRequest()->get($form->getName()));
+        $form->bind($this['request']->get($form->getName()));
 
         if ($form->isValid()) {
             $this['Doctrine.ORM.DefaultEntityManager']->persist($form->getData());
