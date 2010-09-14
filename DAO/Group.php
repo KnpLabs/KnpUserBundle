@@ -2,6 +2,9 @@
 
 namespace Bundle\DoctrineUserBundle\DAO;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Storage agnostic group object
  * Has validator annotation, but database mapping must be done in a subclass.
@@ -22,25 +25,30 @@ abstract class Group
 
     /**
      * @Validation({
-     *      
+     *      @MaxLength(limit=5000)
      * })
      */
     protected $description;
 
     /**
-     * @Validation({
+     * Commented validation: DateTimeValidator can't validate PHP \DateTime objects
+     * Validation({
      *      @DateTime()
      * })
      */
     protected $createdAt;
 
     /**
-     * @Validation({
+     * Commented validation: DateTimeValidator can't validate PHP \DateTime objects
+     * Validation({
      *      @DateTime()
      * })
      */
     protected $updatedAt;
 
+    /**
+     * @var Collection
+     */
     protected $permissions;
 
     public function getId()
@@ -113,11 +121,11 @@ abstract class Group
     /**
      * Get permissions granted to the group 
      * 
-     * @return array
+     * @return Collection
      */
     public function getPermissions()
     {
-        return $this->permissions;
+        return $this->permissions ?: $this->permissions = new ArrayCollection();
     }
 
     /**
@@ -128,11 +136,24 @@ abstract class Group
     public function getPermissionNames()
     {
         $names = array();
-        foreach($this->permissions as $permission) {
+        foreach($this->getPermissions() as $permission) {
             $names[] = $permission->getName();
         }
 
         return $names;
+    }
+
+    /**
+     * Add a permission to the group permissions
+     *
+     * @param Permission $permission
+     * @return null
+     **/
+    public function addPermission(Permission $permission)
+    {
+        if(!$this->getPermissions()->contains($permission)) {
+            $this->getPermissions()->add($permission);
+        }
     }
 
     public function __toString()

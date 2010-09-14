@@ -9,6 +9,9 @@
 
 namespace Bundle\DoctrineUserBundle\DAO;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Storage agnostic user object
  * Has validator annotation, but database mapping must be done in a subclass.
@@ -23,6 +26,7 @@ abstract class User
      *      @MinLength(limit=2),
      *      @MaxLength(limit=255)
      * })
+     * @var string
      */
     protected $username;
 
@@ -32,6 +36,7 @@ abstract class User
      *      @NotBlank(),
      *      @MaxLength(limit=255)
      * })
+     * @var string
      */
     protected $email;
 
@@ -39,6 +44,7 @@ abstract class User
      * @Validation({
      *      @AssertType(type="boolean")
      * })
+     * @var boolean
      */
     protected $isActive;
 
@@ -46,6 +52,7 @@ abstract class User
      * @Validation({
      *      @AssertType(type="boolean")
      * })
+     * @var boolean
      */
     protected $isSuperAdmin;
 
@@ -55,6 +62,7 @@ abstract class User
      *      @MinLength(limit=2),
      *      @MaxLength(limit=255)
      * })
+     * @var string
      */
     protected $password;
 
@@ -64,6 +72,7 @@ abstract class User
      *      @MinLength(limit=2),
      *      @MaxLength(limit=31)
      * })
+     * @var string
      */
     protected $algorithm;
 
@@ -73,24 +82,48 @@ abstract class User
      *      @MinLength(limit=2),
      *      @MaxLength(limit=255)
      * })
+     * @var string
      */
     protected $salt;
 
+    /**
+     * @var \DateTime
+     */
     protected $createdAt;
 
+    /**
+     * @var \DateTime
+     */
     protected $updatedAt;
 
+    /**
+     * @var \DateTime
+     */
     protected $lastLogin;
 
+    /**
+     * Random string sent to the user email adress in order to verify it
+     *
+     * @var string
+     */
+    protected $confirmationToken;
+
+    /**
+     * @var Collection
+     */
     protected $groups;
+
+    /**
+     * @var Collection
+     */
     protected $permissions;
-    protected $allPermissions;
 
     public function __construct()
     {
         $this->algorithm = 'sha1';
         $this->salt = md5(uniqid() . rand(100000, 999999));
-        $this->isActive = true;
+        $this->confirmationToken = md5(uniqid() . rand(100000, 999999));
+        $this->isActive = false;
         $this->isSuperAdmin = false;
     }
 
@@ -268,29 +301,49 @@ abstract class User
     }
 
     /**
+     * Get confirmationToken
+     * @return string
+     */
+    public function getConfirmationToken()
+    {
+        return $this->confirmationToken;
+    }
+
+    /**
+     * Set confirmationToken
+     * @param  string
+     * @return null
+     */
+    public function setConfirmationToken($confirmationToken)
+    {
+        $this->confirmationToken = $confirmationToken;
+    }
+
+    /**
      * Get groups granted to the user 
      * 
-     * @return array
+     * @return Collection
      */
     public function getGroups()
     {
-        return $this->groups;
+        return $this->groups ?: $this->groups = new ArrayCollection();
     }
 
     /**
      * Gets the name of the groups which includes the user
+     *
      * @return array
      */
     public function getGroupNames()
     {
         $names = array();
-        foreach($this->groups as $group) {
+        foreach($this->getGroups() as $group) {
             $names[] = $group->getName();
         }
 
-        return $group;
+        return $names;
     }
-    
+
     /**
      * Indicates whether the user belongs to the specified group or not
      *
@@ -303,13 +356,26 @@ abstract class User
     }
 
     /**
+     * Add a group to the user groups
+     *
+     * @param Group $group
+     * @return null
+     **/
+    public function addGroup(Group $group)
+    {
+        if(!$this->getGroups()->contains($group)) {
+            $this->getGroups()->add($group);
+        }
+    }
+
+    /**
      * Get permissions granted to the user 
      * 
-     * @return array
+     * @return Collection
      */
     public function getPermissions()
     {
-        return $this->permissions;
+        return $this->permissions ?: $this->permissions = new ArrayCollection();
     }
 
     /**
@@ -330,17 +396,17 @@ abstract class User
     /**
      * Get all permissions, including user groups permissions 
      *
-     * @return array
+     * @return ArrayCollection
      */
     public function getAllPermissions()
     {
-        $permissions = $this->getPermissions();
+        $permissions = $this->getPermissions()->toArray();
 
         foreach($this->getGroups() as $group) {
-            $permissions += $group->getPermissions();
+            $permissions = array_merge($permissions, $group->getPermissions()->toArray());
         }
 
-        return array_unique($permissions);
+        return new ArrayCollection(array_unique($permissions));
     }
 
     /**
@@ -370,14 +436,27 @@ abstract class User
     }
 
     /**
+     * Add a permission to the user permissions
+     *
+     * @param Permission $permission
+     * @return null
+     **/
+    public function addPermission(Permission $permission)
+    {
+        if(!$this->getPermissions()->contains($permission)) {
+            $this->getPermissions()->add($permission);
+        }
+    }
+
+    /**
      * Tell if the the given user is this user 
      * Useful when not hydrating all fields.
      * 
      * @param User $user 
      * @return boolean
      */
-    public function is(User $user)
+    public function is(User $user = null)
     {
-        return $this->getUsername() === $user->getUsername();
+        return null !== $user && $this->getUsername() === $user->getUsername();
     }
 }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Bundle\DoctrineUserBundle\Entity\User" table="doctrine_user_user" repository-class="Bundle\DoctrineUserBundle\Entity\UserRepository">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="username" column="username" type="string" length="255" unique="true" />
+
+        <field name="email" column="email" type="string" length="255" unique="true" />
+
+        <field name="isActive" column="is_active" type="boolean" />
+
+        <field name="isSuperAdmin" column="is_super_admin" type="boolean" />
+
+        <field name="password" column="password" type="string" />
+
+        <field name="algorithm" column="algorithm" type="string" length="127" />
+
+        <field name="salt" column="salt" type="string" length="127" />
+
+        <field name="createdAt" column="created_at" type="datetime" />
+
+        <field name="updatedAt" column="updated_at" type="datetime" />
+
+        <field name="lastLogin" column="last_login" type="datetime" nullable="true" />
+
+        <field name="confirmationToken" column="confirmation_token" type="string" length="127" nullable="true" />
+
+        <many-to-many target-entity="Group" field="groups">
+            <join-table name="doctrine_user_users_group">
+                <join-columns>
+                    <join-column name="user_id" referenced-column-name="id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="group_id" referenced-column-name="id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+        <many-to-many target-entity="Permission" field="permissions">
+            <join-table name="doctrine_user_users_permission">
+                <join-columns>
+                    <join-column name="user_id" referenced-column-name="id" />
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column name="permission_id" referenced-column-name="id" />
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
+        <lifecycle-callbacks>
+            <lifecycle-callback type="prePersist" method="incrementCreatedAt" />
+            <lifecycle-callback type="preUpdate" method="incrementUpdatedAt" />
+        </lifecycle-callbacks>
+
+    </entity>
+
+</doctrine-mapping>

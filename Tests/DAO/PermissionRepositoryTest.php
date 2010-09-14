@@ -2,100 +2,43 @@
 
 namespace Bundle\DoctrineUserBundle\Tests\DAO;
 
-use Bundle\DoctrineUserBundle\Tests\BaseDatabaseTest;
-use Bundle\DoctrineUserBundle\DAO\Permission;
-use Bundle\DoctrineUserBundle\DAO\PermissionRepositoryInterface;
+use Bundle\DoctrineUserBundle\Test\WebTestCase;
 
-// Kernel creation required namespaces
-use Symfony\Component\Finder\Finder;
-
-class PermissionRepositoryTest extends BaseDatabaseTest
+class PermissionRepositoryTest extends WebTestCase
 {
-    public function testGetPermissionRepo()
+    public function testTimestampable()
     {
-        $permissionRepo = self::createKernel()->getContainer()->getDoctrineUser_PermissionRepositoryService();
-        $this->assertTrue($permissionRepo instanceof PermissionRepositoryInterface);
-
-        return $permissionRepo;
-    }
-
-    /**
-     * @depends testGetPermissionRepo
-     */
-    public function testCreateNewPermission(PermissionRepositoryInterface $permissionRepo)
-    {
-        $objectManager = $permissionRepo->getObjectManager();
-
-        $permissionClass = $permissionRepo->getObjectClass();
-        $permission = new $permissionClass();
-        $permission->setName('harry_test');
-        $permission->setDescription('permission description');
-        $objectManager->persist($permission);
-
-        $permission2 = new $permissionClass();
-        $permission2->setName('harry_test2');
-        $permission2->setDescription('permission description 2');
-        $objectManager->persist($permission2);
-
-        $objectManager->flush();
-
-        $this->assertNotNull($permission->getId());
-        $this->assertNotNull($permission2->getId());
-
-        return array($permissionRepo, $permission, $permission2);
-    }
-
-    /**
-     * @depends testCreateNewPermission
-     */
-    public function testTimestampable(array $dependencies)
-    {
-        list($permissionRepo, $permission) = $dependencies;
+        $repo = $this->getService('doctrine_user.permission_repository');
+        $permission = $repo->findOneByName('permission1');
         
         $this->assertTrue($permission->getCreatedAt() instanceof \DateTime);
-        $this->assertEquals(new \DateTime(), $permission->getCreatedAt());
+        $this->assertNotEquals(new \DateTime(), $permission->getCreatedAt());
         
         $this->assertTrue($permission->getUpdatedAt() instanceof \DateTime);
-        $this->assertEquals(new \DateTime(), $permission->getUpdatedAt());
+        $this->assertNotEquals(new \DateTime(), $permission->getUpdatedAt());
     }
 
-    /**
-     * @depends testCreateNewPermission
-     */
-    public function testFind(array $dependencies)
+    public function testFind()
     {
-        list($permissionRepo, $permission) = $dependencies;
+        $repo = $this->getService('doctrine_user.permission_repository');
+        $permission = $repo->findOneByName('permission1');
 
-        $fetchedPermission = $permissionRepo->find($permission->getId());
+        $fetchedPermission = $repo->find($permission->getId());
         $this->assertSame($permission, $fetchedPermission);
 
-        $nullPermission = $permissionRepo->find(0);
+        $nullPermission = $repo->find(0);
         $this->assertNull($nullPermission);
     }
 
-    /**
-     * @depends testCreateNewPermission
-     */
-    public function testFindOneByName(array $dependencies)
+    public function testFindOneByName()
     {
-        list($permissionRepo, $permission) = $dependencies;
+        $repo = $this->getService('doctrine_user.permission_repository');
+        $permission = $repo->findOneByName('permission1');
 
-        $fetchedPermission = $permissionRepo->findOneByName($permission->getName());
+        $fetchedPermission = $repo->findOneByName($permission->getName());
         $this->assertEquals($permission->getName(), $fetchedPermission->getName());
 
-        $nullPermission = $permissionRepo->findOneByName('thispermissionnamedoesnotexist----thatsprettycertain');
+        $nullPermission = $repo->findOneByName('thispermissionnamedoesnotexist----thatsprettycertain');
         $this->assertNull($nullPermission);
-    }
-
-    static public function tearDownAfterClass()
-    {
-        $permissionRepo = self::createKernel()->getContainer()->getDoctrineUser_PermissionRepositoryService();
-        $objectManager = $permissionRepo->getObjectManager();
-        foreach(array('harry_test', 'harry_test2') as $permissionname) {
-            if($object = $permissionRepo->findOneByName($permissionname)) {
-                $objectManager->remove($object);
-            }
-        }
-        $objectManager->flush();
     }
 }

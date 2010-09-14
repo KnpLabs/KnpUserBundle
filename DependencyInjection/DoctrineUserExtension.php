@@ -17,6 +17,11 @@ class DoctrineUserExtension extends Extension
         $loader->load('form.xml');
         $loader->load('controller.xml');
         $loader->load('templating.xml');
+        $loader->load('email.xml');
+
+        if (isset($config['annotations']) && $config['annotations']) {
+            $loader->load('annotations.xml');
+        }
 
         if(!isset($config['db_driver'])) {
             throw new \InvalidArgumentException('You must provide the doctrine_user.db_driver configuration');
@@ -33,8 +38,24 @@ class DoctrineUserExtension extends Extension
             $container->setParameter('doctrine_user.user_object.class', $config['user_class']);
         }
         
+        if(isset($config['group_class'])) {
+            $container->setParameter('doctrine_user.group_object.class', $config['group_class']);
+        }
+        
+        if(isset($config['permission_class'])) {
+            $container->setParameter('doctrine_user.permission_object.class', $config['permission_class']);
+        }
+                
         if(isset($config['session_create_success_route'])) {
             $container->setParameter('doctrine_user.session_create.success_route', $config['session_create_success_route']);
+        }
+
+        if(isset($config['template_renderer'])) {
+            $container->setParameter('doctrine_user.template.renderer', $config['template_renderer']);
+        }
+
+        if(isset($config['use_email_confirmation'])) {
+            $container->setParameter('doctrine_user.user_create.use_email_confirmation', $config['use_email_confirmation']);
         }
     }
 

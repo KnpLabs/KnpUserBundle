@@ -2,21 +2,18 @@
 
 namespace Bundle\DoctrineUserBundle\Tests\Command;
 
-use Bundle\DoctrineUserBundle\Tests\BaseDatabaseTest;
+use Bundle\DoctrineUserBundle\Test\WebTestCase;
 use Bundle\DoctrineUserBundle\DAO\User;
 use Bundle\DoctrineUserBundle\Command\CreateUserCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Tester\ApplicationTester;
 
-// Kernel creation required namespaces
-use Symfony\Component\Finder\Finder;
-
-class CreateUserCommandTest extends BaseDatabaseTest
+class CreateUserCommandTest extends WebTestCase
 {
     public function testUserCreation()
     {
-        $kernel = self::createKernel();
+        $kernel = $this->createKernel();
         $command = new CreateUserCommand();
         $application = new Application($kernel);
         $application->setAutoExit(false);
@@ -31,8 +28,7 @@ class CreateUserCommandTest extends BaseDatabaseTest
             'email'    => $email,
         ), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
 
-        $kernel = self::createKernel();
-        $userRepo = $kernel->getContainer()->get('doctrine_user.user_repository');
+        $userRepo = $this->getService('doctrine_user.user_repository');
         $user = $userRepo->findOneByUsername($username);
 
         $this->assertTrue($user instanceof User);
@@ -45,7 +41,7 @@ class CreateUserCommandTest extends BaseDatabaseTest
 
     public function testUserCreationWithOptions()
     {
-        $kernel = self::createKernel();
+        $kernel = $this->createKernel();
         $command = new CreateUserCommand();
         $application = new Application($kernel);
         $application->setAutoExit(false);
@@ -62,8 +58,7 @@ class CreateUserCommandTest extends BaseDatabaseTest
             '--super-admin' => true
         ), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
 
-        $kernel = self::createKernel();
-        $userRepo = $kernel->getContainer()->get('doctrine_user.user_repository');
+        $userRepo = $this->getService('doctrine_user.user_repository');
         $user = $userRepo->findOneByUsername($username);
 
         $this->assertTrue($user instanceof User);
@@ -76,13 +71,13 @@ class CreateUserCommandTest extends BaseDatabaseTest
         $userRepo->getObjectManager()->flush();
     }
 
-    static public function tearDownAfterClass()
+    public function tearDown()
     {
-        $userRepo = self::createKernel()->getContainer()->getDoctrineUser_UserRepositoryService();
-        $objectManager = $userRepo->getObjectManager();
-        if($object = $userRepo->findOneByUsername('test_username')) {
-            $objectManager->remove($object);
+        $repo = $this->getService('doctrine_user.user_repository');
+        $om = $repo->getObjectManager();
+        if($user = $repo->findOneByUsername('test_username')) {
+            $om->remove($user);
         }
-        $objectManager->flush();
+        $om->flush();
     }
 }

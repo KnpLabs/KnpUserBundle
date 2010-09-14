@@ -5,9 +5,10 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="doctrine_user.session_create.success_route">doctrine_user_session_success</parameter>
-        <parameter key="doctrine_user.template.renderer">php</parameter>
-        <parameter key="doctrine_user.user_create.use_email_confirmation">false</parameter>
+        <parameter type="collection" key="doctrine_user.confirmation_email.parameters">
+            <parameter key="from">webmaster@site.org</parameter>
+            <parameter key="template">DoctrineUserBundle:User:confirmationEmail</parameter>
+        </parameter>
     </parameters>
 
 </container>

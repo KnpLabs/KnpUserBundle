@@ -54,13 +54,12 @@ class PermissionController extends Controller
     {
         $form = $this['doctrine_user.permission_form'];
         $form->setData(new Permission());
-        $form->bind($this->getRequest()->get($form->getName()));
+        $form->bind($this['request']->get($form->getName()));
 
         if ($form->isValid()) {
             $this['Doctrine.ORM.DefaultEntityManager']->persist($form->getData());
             $this['Doctrine.ORM.DefaultEntityManager']->flush();
 
-            $this['session']->start();
             $this['session']->setFlash('doctrine_user_permission_create/success', true);
 
             return $this->redirect($this->generateUrl('doctrine_user_permission_show', array('name' => $form->getData()->getName())));
@@ -100,13 +99,12 @@ class PermissionController extends Controller
 
         $form = $this['doctrine_user.permission_form'];
         $form->setData($permission);
-        $form->bind($this->getRequest()->get($form->getName()));
+        $form->bind($this['request']->get($form->getName()));
 
         if ($form->isValid()) {
             $this['Doctrine.ORM.DefaultEntityManager']->persist($form->getData());
             $this['Doctrine.ORM.DefaultEntityManager']->flush();
 
-            $this['session']->start();
             $this['session']->setFlash('doctrine_user_permission_update/success', true);
 
             return $this->redirect($this->generateUrl('doctrine_user_permission_show', array('name' => $form->getData()->getName())));
@@ -129,9 +127,13 @@ class PermissionController extends Controller
         $this['doctrine_user.permission_repository']->getObjectManager()->delete($permission);
         $this['doctrine_user.permission_repository']->getObjectManager()->flush();
 
-        $this['session']->start();
         $this['session']->setFlash('doctrine_user_permission_delete/success');
 
         return $this->redirect($this->generateUrl('doctrine_user_permission_list'));
+    }
+
+    protected function getRenderer()
+    {
+        return $this->container->getParameter('doctrine_user.template.renderer');
     }
 }

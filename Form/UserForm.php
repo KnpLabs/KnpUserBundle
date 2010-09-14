@@ -4,6 +4,7 @@ namespace Bundle\DoctrineUserBundle\Form;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\TextField;
+use Symfony\Component\Form\RepeatedField;
 use Symfony\Component\Form\PasswordField;
 
 class UserForm extends Form
@@ -12,6 +13,6 @@ class UserForm extends Form
     {
         $this->add(new TextField('username'));
         $this->add(new TextField('email'));
-        $this->add(new PasswordField('password'));
+        $this->add(new RepeatedField(new PasswordField('password')));
     } 
 }
