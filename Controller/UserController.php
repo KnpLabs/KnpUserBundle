@@ -93,7 +93,8 @@ class UserController extends Controller
             if($this->container->getParameter('doctrine_user.user_create.use_email_confirmation')) {
                 $user->setIsActive(false);
                 $this->saveUser($user);
-                $url = $this->generateUrl('doctrine_user_user_send_confirmation_email', array('email' => $user->getEmail()));
+                $this['session']->set('doctrine_user_send_confirmation_email/email', $user->getEmail());
+                $url = $this->generateUrl('doctrine_user_user_send_confirmation_email');
             }
             else {
                 $user->setIsActive(true);
@@ -113,11 +114,16 @@ class UserController extends Controller
      * Send the confirmation email containing a link to the confirmation page,
      * then redirect the check email page
      */
-    public function sendConfirmationEmailAction($email)
+    public function sendConfirmationEmailAction()
     {
+        $email = $this['session']->get('doctrine_user_send_confirmation_email/email');
+        if(!$email) {
+            throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
+        }
+        
         $user = $this['doctrine_user.user_repository']->findOneByEmail($email);
         if(!$user) {
-            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $email));
+            throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
         }
         
         // Render the email, use the first line as the subject, and the rest as the body
@@ -135,7 +141,7 @@ class UserController extends Controller
 
 	    $this['mailer']->send($message);
 
-        return $this->redirect($this->generateUrl('doctrine_user_user_check_confirmation_email', array('email' => $user->getEmail())));
+        return $this->redirect($this->generateUrl('doctrine_user_user_check_confirmation_email'));
     }
 
     /**
@@ -146,7 +152,7 @@ class UserController extends Controller
     {
         $user = $this['doctrine_user.user_repository']->findOneByEmail($email);
         if(!$user) {
-            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $email));
+            throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
         }
         $parameters = $this->container->getParameter('doctrine_user.confirmation_email.parameters');
 
@@ -159,8 +165,13 @@ class UserController extends Controller
     /**
      * Tell the user to check his email provider
      */
-    public function checkConfirmationEmailAction($email)
+    public function checkConfirmationEmailAction()
     {
+        $email = $this['session']->get('doctrine_user_send_confirmation_email/email');
+        if(!$email) {
+            throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
+        }
+
         $user = $this['doctrine_user.user_repository']->findOneByEmail($email);
         if(!$user) {
             throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $email));
