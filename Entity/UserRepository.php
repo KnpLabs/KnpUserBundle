@@ -46,11 +46,19 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     }
 
     /**
-     * @see UserRepositoryInterface::findOneByUsernameOrEmail
+     * @see UserRepositoryInterface::findOneByConfirmationToken
      */
     public function findOneByConfirmationToken($token)
     {
         return $this->findOneBy(array('confirmationToken' => $token));
+    }
+
+    /**
+     * @see UserRepositoryInterface::findOneByRememberMeToken
+     */
+    public function findOneByRememberMeToken($token)
+    {
+        return $this->findOneBy(array('rememberMeToken' => $token));
     }
 
     protected function isValidEmail($email)
