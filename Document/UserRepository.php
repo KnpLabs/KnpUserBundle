@@ -45,7 +45,7 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     }
 
     /**
-     * @see UserRepositoryInterface::findOneByUsernameOrEmail
+     * @see UserRepositoryInterface::findOneByConfirmationToken
      */
     public function findOneByConfirmationToken($token)
     {
