@@ -109,6 +109,13 @@ abstract class User
     protected $confirmationToken;
 
     /**
+     * Random string stored in client cookie to enable automatic login
+     *
+     * @var string
+     */
+    protected $rememberMeToken;
+
+    /**
      * @var Collection
      */
     protected $groups;
@@ -122,7 +129,8 @@ abstract class User
     {
         $this->algorithm = 'sha1';
         $this->salt = md5(uniqid() . rand(100000, 999999));
-        $this->confirmationToken = md5(uniqid() . rand(100000, 999999));
+        $this->confirmationToken = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->renewRememberMeToken();
         $this->isActive = false;
         $this->isSuperAdmin = false;
     }
@@ -317,6 +325,15 @@ abstract class User
     public function setConfirmationToken($confirmationToken)
     {
         $this->confirmationToken = $confirmationToken;
+    }
+
+    /**
+     * Renew the rememberMeToken
+     * @return null
+     */
+    public function renewRememberMeToken()
+    {
+        $this->rememberMeToken = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
     }
 
     /**
