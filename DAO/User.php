@@ -328,6 +328,15 @@ abstract class User
     }
 
     /**
+     * Get rememberMeToken
+     * @return string
+     */
+    public function getRememberMeToken()
+    {
+        return $this->rememberMeToken;
+    }
+
+    /**
      * Renew the rememberMeToken
      * @return null
      */

@@ -43,7 +43,9 @@ class UserTest extends \PHPUnit_Framework_TestCase
     public function testRenewRememberMeToken()
     {
         $user = new User();
+        $rmt = $user->getRememberMeToken();
+        $this->assertNotNull($rmt);
         $user->renewRememberMeToken();
-        $this->assertTrue(true);
+        $this->assertNotEquals($rmt, $user->getRememberMeToken());
     }
 }
