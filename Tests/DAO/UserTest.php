@@ -39,4 +39,11 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($user->checkPassword('badpassword'));
         $this->assertTrue($user->checkPassword('changeme'));
     }
+
+    public function testRenewRememberMeToken()
+    {
+        $user = new User();
+        $user->renewRememberMeToken();
+        $this->assertTrue(true);
+    }
 }
