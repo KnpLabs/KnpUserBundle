@@ -58,6 +58,10 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
      */
     public function findOneByRememberMeToken($token)
     {
+        if(empty($token)) {
+            return null;
+        }
+
         return $this->findOneBy(array('rememberMeToken' => $token));
     }
 

@@ -76,6 +76,21 @@ class UserRepositoryTest extends WebTestCase
         $this->assertNull($nullUser);
     }
 
+    public function testFindOneByRememberMeToken()
+    {
+        $repo = $this->getService('doctrine_user.user_repository');
+        $user = $repo->findOneByUsername('admin');
+
+        $fetchedUser = $repo->findOneByRememberMeToken($user->getRememberMeToken());
+        $this->assertEquals($user->getUsername(), $fetchedUser->getUsername());
+
+        $nullUser = $repo->findOneByRememberMeToken('thistokendoesnotexist----thatsprettycertain');
+        $this->assertNull($nullUser);
+
+        $nullUser = $repo->findOneByRememberMeToken('');
+        $this->assertNull($nullUser);
+    }
+
     public function testCompareUsers()
     {
         $repo = $this->getService('doctrine_user.user_repository');
