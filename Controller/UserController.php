@@ -126,12 +126,15 @@ class UserController extends Controller
             throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
         }
         
+        $parameters = $this->container->getParameter('doctrine_user.confirmation_email.parameters');
         // Render the email, use the first line as the subject, and the rest as the body
-        $rendered = $this['controller_resolver']->render('DoctrineUserBundle:User:renderConfirmationEmail', array('attributes' => array('email' => $user->getEmail())));
+        $rendered = $this->renderView($parameters['template'].':'.$this->getRenderer(), array(
+            'user' => $user,
+            'confirmationUrl' => $this->generateUrl('doctrine_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
+        ));
         $renderedLines = explode("\n", $rendered);
         $subject = $renderedLines[0];
         $body = implode("\n", array_slice($renderedLines, 1));
-        $parameters = $this->container->getParameter('doctrine_user.confirmation_email.parameters');
 
 	    $message = \Swift_Message::newInstance()
 	        ->setSubject($subject)
@@ -142,24 +145,6 @@ class UserController extends Controller
 	    $this['mailer']->send($message);
 
         return $this->redirect($this->generateUrl('doctrine_user_user_check_confirmation_email'));
-    }
-
-    /**
-     * Render the email subject and body
-     * First line is the subject, the rest is the body
-     */
-    public function renderConfirmationEmailAction($email)
-    {
-        $user = $this['doctrine_user.user_repository']->findOneByEmail($email);
-        if(!$user) {
-            throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
-        }
-        $parameters = $this->container->getParameter('doctrine_user.confirmation_email.parameters');
-
-        return $this->render($parameters['template'].':'.$this->getRenderer(), array(
-            'user' => $user,
-            'confirmationUrl' => $this->generateUrl('doctrine_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
-        ));
     }
 
     /**
