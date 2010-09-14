@@ -28,13 +28,13 @@ Provides authentication and User persistence for your Symfony2 Project.
 
 ### Choose ORM or ODM database driver
 
-    # app/config.yml
+    # app/config/config.yml
     doctrine_user.config:
         db_driver: orm # can be orm or odm
 
 or if you prefer xml
 
-    # app/config.xml
+    # app/config/config.xml
     <doctrine_user:config db_driver="orm"/> <!-- can be orm or odm -->
 
 ### Add authentication routes
@@ -116,6 +116,7 @@ For example, to get more traditional "login" and "logout" urls, write:
         
 using xml
 
+    # app/config/routing.xml
     <route id="doctrine_user_session_new" pattern="/login">
         <default key="_controller">DoctrineUserBundle:Session:new</default>
         <requirement key="_method">GET</requirement>
@@ -141,14 +142,14 @@ using xml
 By default, when a user logs in through SessionController::create, he gets redirected to the route doctrine_user_session_success.
 You can change the route used in configuration:
  
-    # app/config.yml
+    # app/config/config.yml
     doctrine_user.config:
         db_driver: orm # can be orm or odm
         session_create_success_route: my_custom_route_name
 
 with xml
 
-    # app/config.xml
+    # app/config/config.xml
     <doctrine_user:config
         db_driver="orm"
         session_create_success_route="my_custom_route_name"
@@ -185,14 +186,14 @@ To get the current user class, you can ask it to the user repository:
 You will probably want to extend the user to add it new properties and methods.
 You can change the User class DoctrineUserBundle will use in configuration:
 
-    # application/config/config.yml
+    # app/config/config.yml
     doctrine_user.config:
         db_driver: orm
         user_class: Bundle\MyBundle\Entity\User
 
 with xml
 
-    # app/config.xml
+    # app/config/config.xml
     <doctrine_user:config
         db_driver="orm"
         user_class="Bundle\MyBundle\Entity\User"
