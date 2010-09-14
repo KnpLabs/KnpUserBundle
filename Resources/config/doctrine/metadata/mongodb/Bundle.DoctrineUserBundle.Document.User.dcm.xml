@@ -30,6 +30,8 @@
 
         <field name="confirmationToken" fieldName="confirmationToken" type="string" />
 
+        <field name="rememberMeToken" fieldName="rememberMeToken" type="string" />
+
         <reference-many target-document="Permission" field="permissions" />
 
         <reference-many target-document="Group" field="groups" />

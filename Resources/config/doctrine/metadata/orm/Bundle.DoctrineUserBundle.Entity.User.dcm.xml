@@ -32,6 +32,8 @@
 
         <field name="confirmationToken" column="confirmation_token" type="string" length="127" nullable="true" />
 
+        <field name="rememberMeToken" column="remember_me_token" type="string" length="127" nullable="true" />
+
         <many-to-many target-entity="Group" field="groups">
             <join-table name="doctrine_user_users_group">
                 <join-columns>
