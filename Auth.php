@@ -4,6 +4,7 @@ namespace Bundle\DoctrineUserBundle;
 
 use Bundle\DoctrineUserBundle\DAO\User;
 use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session;
 
 /**
@@ -89,7 +90,7 @@ class Auth
      **/
     public function logout()
     {
-        $this->session->delete($this->options['session_path']);
+        $this->session->remove($this->options['session_path']);
         $this->request->cookies->delete($this->options['remember_me_cookie_name']);
     }
 
