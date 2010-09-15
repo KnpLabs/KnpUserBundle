@@ -42,11 +42,13 @@
         </lifecycle-callbacks>
 
         <indexes>
-            <index unique="true">
-                <key name="username" />
+            <index unique="true" dropDups="true">
+                <key name="username" order="asc" />
+                <option name="safe" value="true" />
             </index>
-            <index unique="true">
-                <key name="email" />
+            <index unique="true" dropDups="true">
+                <key name="email" order="asc" />
+                <option name="safe" value="true" />
             </index>
         </indexes>
 

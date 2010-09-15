@@ -22,8 +22,9 @@
         </lifecycle-callbacks>
 
         <indexes>
-            <index unique="true">
-                <key name="name" />
+            <index unique="true" dropDups="true">
+                <key name="name" order="asc" />
+                <option name="safe" value="true" />
             </index>
         </indexes>
 
