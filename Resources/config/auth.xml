@@ -13,7 +13,7 @@
 
         <service id="doctrine_user.auth" class="%doctrine_user.auth.class%" shared="true">
             <argument type="service" id="doctrine_user.user_repository" />
-            <argument type="service" id="session" />
+            <argument type="service" id="request" />
             <argument type="collection">
                 <argument key="session_path">%doctrine_user.auth.session_path%</argument>
             </argument>
