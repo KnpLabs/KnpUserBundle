@@ -41,8 +41,8 @@ class Auth
         $this->userRepository = $userRepository;
         $this->session = $session;
         $this->options = array_merge(array(
-                    'session_path' => 'doctrine_user/auth/identifier'
-                ));
+            'session_path' => 'doctrine_user/auth/identifier'
+        ), $options);
 
         // make sure session is started
         $this->session->start();
