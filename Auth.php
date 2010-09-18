@@ -7,7 +7,9 @@ use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\Session;
 
 /**
- * The Auth service binds a User Entity or Document to the Symfony2 Session 
+ * The Auth service binds a User Entity or Document to the Symfony2 Session
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
 class Auth
 {
@@ -29,20 +31,27 @@ class Auth
      * @var User
      */
     protected $user = null;
+    /**
+     * Array of options
+     *
+     * @var array
+     */
+    protected $options = array(
+        'session_path' => 'doctrine_user/auth/identifier'
+    );
 
     /**
-     * Instanciate the Auth service 
+     * Instanciate the Auth service
      * 
-     * @param UserRepositoryInterface $userRepository 
-     * @param Session $session 
+     * @param UserRepositoryInterface $userRepository The user repository
+     * @param Session                 $session        The session service
+     * @param array                   $options        An array of options
      */
     public function __construct(UserRepositoryInterface $userRepository, Session $session, array $options = array())
     {
         $this->userRepository = $userRepository;
         $this->session = $session;
-        $this->options = array_merge(array(
-            'session_path' => 'doctrine_user/auth/identifier'
-        ), $options);
+        $this->options = array_merge($this->options, $options);
 
         // make sure session is started
         $this->session->start();
@@ -51,8 +60,10 @@ class Auth
     /**
      * Log in a user, bind it to the session and update its last login date
      *
+     * @param User $user The user object
+     *
      * @return null
-     * */
+     */
     public function login(User $user)
     {
         // bind user identifier to the session
@@ -68,7 +79,7 @@ class Auth
      * Log out a user
      *
      * @return null
-     * */
+     */
     public function logout()
     {
         $this->session->set($this->options['session_path'], null);
@@ -76,8 +87,9 @@ class Auth
 
     /**
      * Get the authenticated user
+     *
      * @return User
-     * */
+     */
     public function getUser()
     {
         if (null === $this->user && ($userId = $this->session->get($this->options['session_path']))) {
@@ -91,7 +103,7 @@ class Auth
      * Tell whether or not a user is logged in
      *
      * @return bool
-     * */
+     */
     public function isAuthenticated()
     {
         return (bool) $this->getUser();
@@ -100,8 +112,8 @@ class Auth
     /**
      * Indicates whether the user has credentials
      *
-     * @param mixed $crendentials
-     * @param bool $useAnd
+     * @param mixed $credentials A list of credentials
+     * @param bool  $useAnd      False will use OR as logical operator
      * 
      * @return bool
      */
@@ -143,8 +155,10 @@ class Auth
     /**
      * Get the value of the user identifier
      *
+     * @param User $user User object
+     *
      * @return mixed
-     * */
+     */
     protected function getUserIdentifierValue(User $user)
     {
         $getter = 'get' . ucfirst($this->userRepository->getObjectIdentifier());
@@ -152,9 +166,13 @@ class Auth
         return $user->$getter();
     }
 
+    /**
+     * Get the object class of Auth service
+     *
+     * @return string
+     */
     public function getObjectClass()
     {
-        return $this->options["doctrine_user.auth.class"];
+        return $this->options['doctrine_user.auth.class'];
     }
-
 }
