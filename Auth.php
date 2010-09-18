@@ -107,7 +107,7 @@ class Auth
      */
     public function hasCredentials($credentials, $useAnd = true)
     {
-        if (!$user->isAuthenticated()) {
+        if (!$this->isAuthenticated()) {
             return false;
         }
 
@@ -122,7 +122,7 @@ class Auth
         $test = false;
 
         foreach ($credentials as $credential) {
-            $test = $this->hasCredential($credential, $useAnd ? false : true);
+            $test = $this->getUser()->hasPermission($credential);
 
             if ($useAnd) {
                 $test = $test ? false : true;
