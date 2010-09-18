@@ -38,7 +38,7 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
      */
     public function findOneByUsernameOrEmail($usernameOrEmail)
     {
-        if($this->isValidEmail($usernameOrEmail)) {
+        if ($this->isValidEmail($usernameOrEmail)) {
             return $this->findOneByEmail($usernameOrEmail);
         }
 

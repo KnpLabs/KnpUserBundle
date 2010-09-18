@@ -57,7 +57,7 @@ EOT
         $userRepo = $this->container->get('doctrine_user.user_repository');
         $user = $userRepo->findOneByUsername($input->getArgument('username'));
 
-        if(!$user) {
+        if (!$user) {
             throw new \InvalidArgumentException(sprintf('The user "%s" does not exist', $input->getArgument('username')));
         }
         $user->setIsSuperAdmin(true);
@@ -67,15 +67,19 @@ EOT
 
         $output->writeln(sprintf('User "%s" has been promoted as a super administrator.', $user->getUsername()));
     }
-    
+
+    /**
+     * @see Command
+     */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        if(!$input->getArgument('username')) {
+        if (!$input->getArgument('username')) {
             $username = $this->getHelper('dialog')->askAndValidate(
                 $output,
                 'Please choose a username:',
-                function($username) {
-                    if(empty($username)) {
+                function($username)
+                {
+                    if (empty($username)) {
                         throw new \Exception('Username can not be empty');
                     }
                     return $username;

@@ -88,15 +88,19 @@ EOT
 
         $output->writeln(sprintf('Created user <comment>%s</comment>', $user->getUsername()));
     }
-    
+
+    /**
+     * @see Command
+     */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        if(!$input->getArgument('username')) {
+        if (!$input->getArgument('username')) {
             $username = $this->getHelper('dialog')->askAndValidate(
                 $output,
                 'Please choose a username:',
-                function($username) {
-                    if(empty($username)) {
+                function($username)
+                {
+                    if (empty($username)) {
                         throw new \Exception('Username can not be empty');
                     }
                     return $username;
@@ -104,12 +108,14 @@ EOT
             );
             $input->setArgument('username', $username);
         }
-        if(!$input->getArgument('email')) {
+
+        if (!$input->getArgument('email')) {
             $email = $this->getHelper('dialog')->askAndValidate(
                 $output,
                 'Please choose an email:',
-                function($email) {
-                    if(empty($email)) {
+                function($email)
+                {
+                    if (empty($email)) {
                         throw new \Exception('Email can not be empty');
                     }
                     return $email;
@@ -117,12 +123,14 @@ EOT
             );
             $input->setArgument('email', $email);
         }
-        if(!$input->getArgument('password')) {
+
+        if (!$input->getArgument('password')) {
             $password = $this->getHelper('dialog')->askAndValidate(
                 $output,
                 'Please choose a password:',
-                function($password) {
-                    if(empty($password)) {
+                function($password)
+                {
+                    if (empty($password)) {
                         throw new \Exception('Password can not be empty');
                     }
                     return $password;

@@ -182,8 +182,7 @@ abstract class User
      */
     public function setPassword($password)
     {
-        if (empty($password))
-        {
+        if (empty($password)) {
             $this->password = null;
         }
 
@@ -280,8 +279,7 @@ abstract class User
 
     public function incrementCreatedAt()
     {
-        if(null === $this->createdAt)
-        {
+        if (null === $this->createdAt) {
             $this->createdAt = new \DateTime();
         }
         $this->updatedAt = new \DateTime();
@@ -337,7 +335,7 @@ abstract class User
     public function getGroupNames()
     {
         $names = array();
-        foreach($this->getGroups() as $group) {
+        foreach ($this->getGroups() as $group) {
             $names[] = $group->getName();
         }
 
@@ -363,7 +361,7 @@ abstract class User
      **/
     public function addGroup(Group $group)
     {
-        if(!$this->getGroups()->contains($group)) {
+        if (!$this->getGroups()->contains($group)) {
             $this->getGroups()->add($group);
         }
     }
@@ -386,7 +384,7 @@ abstract class User
     public function getPermissionNames()
     {
         $names = array();
-        foreach($this->getPermissions() as $permission) {
+        foreach ($this->getPermissions() as $permission) {
             $names[] = $permission->getName();
         }
 
@@ -402,7 +400,7 @@ abstract class User
     {
         $permissions = $this->getPermissions()->toArray();
 
-        foreach($this->getGroups() as $group) {
+        foreach ($this->getGroups() as $group) {
             $permissions = array_merge($permissions, $group->getPermissions()->toArray());
         }
 
@@ -417,7 +415,7 @@ abstract class User
     public function getAllPermissionNames()
     {
         $names = array();
-        foreach($this->getAllPermissions() as $permission) {
+        foreach ($this->getAllPermissions() as $permission) {
             $names[] = $permission->getName();
         }
 
@@ -443,7 +441,7 @@ abstract class User
      **/
     public function addPermission(Permission $permission)
     {
-        if(!$this->getPermissions()->contains($permission)) {
+        if (!$this->getPermissions()->contains($permission)) {
             $this->getPermissions()->add($permission);
         }
     }

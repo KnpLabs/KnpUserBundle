@@ -23,38 +23,38 @@ class DoctrineUserExtension extends Extension
             $loader->load('annotations.xml');
         }
 
-        if(!isset($config['db_driver'])) {
+        if (!isset($config['db_driver'])) {
             throw new \InvalidArgumentException('You must provide the doctrine_user.db_driver configuration');
         }
 
         try {
             $loader->load(sprintf('%s.%s', $config['db_driver'], 'xml'));
         }
-        catch(\InvalidArgumentException $e) {
+        catch (\InvalidArgumentException $e) {
             throw new \InvalidArgumentException(sprintf('The db_driver "%s" is not supported by doctrine_user', $config['db_driver']));
         }
 
-        if(isset($config['user_class'])) {
+        if (isset($config['user_class'])) {
             $container->setParameter('doctrine_user.user_object.class', $config['user_class']);
         }
-        
-        if(isset($config['group_class'])) {
+
+        if (isset($config['group_class'])) {
             $container->setParameter('doctrine_user.group_object.class', $config['group_class']);
         }
-        
-        if(isset($config['permission_class'])) {
+
+        if (isset($config['permission_class'])) {
             $container->setParameter('doctrine_user.permission_object.class', $config['permission_class']);
         }
-                
-        if(isset($config['session_create_success_route'])) {
+
+        if (isset($config['session_create_success_route'])) {
             $container->setParameter('doctrine_user.session_create.success_route', $config['session_create_success_route']);
         }
 
-        if(isset($config['template_renderer'])) {
+        if (isset($config['template_renderer'])) {
             $container->setParameter('doctrine_user.template.renderer', $config['template_renderer']);
         }
 
-        if(isset($config['use_email_confirmation'])) {
+        if (isset($config['use_email_confirmation'])) {
             $container->setParameter('doctrine_user.user_create.use_email_confirmation', $config['use_email_confirmation']);
         }
     }

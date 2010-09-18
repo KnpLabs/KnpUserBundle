@@ -56,7 +56,7 @@ class DemoteSuperAdminCommandTest extends WebTestCase
     {
         $repo = $this->getService('doctrine_user.user_repository');
         $om = $repo->getObjectManager();
-        if($user = $repo->findOneByUsername('test_username')) {
+        if ($user = $repo->findOneByUsername('test_username')) {
             $om->remove($user);
         }
         $om->flush();
