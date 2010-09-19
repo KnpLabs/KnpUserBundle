@@ -5,6 +5,7 @@ namespace Bundle\DoctrineUserBundle\Form;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\TextField;
 use Symfony\Component\Form\PasswordField;
+use Symfony\Component\Form\CheckboxField;
 
 class SessionForm extends Form
 {
@@ -12,5 +13,6 @@ class SessionForm extends Form
     {
         $this->add(new TextField('usernameOrEmail'));
         $this->add(new PasswordField('password'));
+        $this->add(new CheckboxField('rememberMe'));
     } 
 }

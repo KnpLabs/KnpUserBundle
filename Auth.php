@@ -101,8 +101,21 @@ class Auth
      **/
     public function getUser()
     {
-        if (null === $this->user && ($userId = $this->session->get($this->options['session_path']))) {
-            $this->user = $this->userRepository->find($userId);
+        if (null === $this->user) {
+            // if we have a user id in the session
+            if($userId = $this->session->get($this->options['session_path'])) {
+                $this->user = $this->userRepository->find($userId);
+            }
+            // if we have a remember_me token in cookies
+            elseif($userRememberToken = $this->request->cookies->get($this->options['remember_me_cookie_name'])) {
+                // remove the cookie
+                $this->request->cookies->delete($this->options['remember_me_cookie_name']);
+                // if the user exists, login it with the remember parameter to true
+                if($user = $this->userRepository->findOneByRememberMeToken($userRememberMeToken)) {
+                    $this->login($user, true);
+                    $this->user = $user;
+                }
+            }
         }
 
         return $this->user;

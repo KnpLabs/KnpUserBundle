@@ -44,6 +44,30 @@ class SessionControllerTest extends WebTestCase
         $this->assertRegexp('/harry_test/', $client->getResponse()->getContent());
     }
 
+    public function testRememberMeFalse()
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_session_new'));
+        $form = $crawler->selectButton('Log in')->form();
+        $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'harry_test', 'doctrine_user_session_new[password]' => 'changeme', 'doctrine_user_session_new[rememberMe]' => false));
+        $crawler = $client->followRedirect();
+
+        $cookieJar = $client->getCookieJar();
+        $this->assertEquals(array(), $cookieJar->all());
+    }
+
+    public function testRememberMeTrue()
+    {
+        $client = $this->createClient();
+        $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_session_new'));
+        $form = $crawler->selectButton('Log in')->form();
+        $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'harry_test', 'doctrine_user_session_new[password]' => 'changeme', 'doctrine_user_session_new[rememberMe]' => true));
+        //$crawler = $client->followRedirect();
+
+        $cookieJar = $client->getCookieJar();
+        $this->assertEquals(array(), $cookieJar->all());
+    }
+
     public function testCreateEmptyFormError()
     {
         $client = $this->createClient();
