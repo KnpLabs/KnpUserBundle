@@ -108,8 +108,7 @@ abstract class Permission
      */
     public function incrementCreatedAt()
     {
-        if(null === $this->createdAt)
-        {
+        if (null === $this->createdAt) {
             $this->createdAt = new \DateTime();
         }
         $this->updatedAt = new \DateTime();

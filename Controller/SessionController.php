@@ -48,7 +48,7 @@ class SessionController extends Controller
         $user = $this['doctrine_user.user_repository']->findOneByUsernameOrEmail($data['usernameOrEmail']);
 
 
-        if($user && $user->checkPassword($data['password'])) {
+        if ($user && $user->checkPassword($data['password'])) {
             $event = new Event($this, 'doctrine_user.user_can_login_filter', array());
             $this['event_dispatcher']->filter($event, true);
 
@@ -79,7 +79,7 @@ class SessionController extends Controller
     
     public function successAction()
     {
-        if(!$this['doctrine_user.auth']->isAuthenticated()) {
+        if (!$this['doctrine_user.auth']->isAuthenticated()) {
             return $this->redirect($this->generateUrl('doctrine_user_session_new'));
         }
 

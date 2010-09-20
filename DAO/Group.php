@@ -102,8 +102,7 @@ abstract class Group
      */
     public function incrementCreatedAt()
     {
-        if(null === $this->createdAt)
-        {
+        if (null === $this->createdAt) {
             $this->createdAt = new \DateTime();
         }
         $this->updatedAt = new \DateTime();
@@ -136,7 +135,7 @@ abstract class Group
     public function getPermissionNames()
     {
         $names = array();
-        foreach($this->getPermissions() as $permission) {
+        foreach ($this->getPermissions() as $permission) {
             $names[] = $permission->getName();
         }
 
@@ -151,7 +150,7 @@ abstract class Group
      **/
     public function addPermission(Permission $permission)
     {
-        if(!$this->getPermissions()->contains($permission)) {
+        if (!$this->getPermissions()->contains($permission)) {
             $this->getPermissions()->add($permission);
         }
     }

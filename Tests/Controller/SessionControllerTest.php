@@ -136,8 +136,8 @@ class SessionControllerTest extends WebTestCase
     {
         $userRepo = self::staticCreateKernel()->getContainer()->getDoctrineUser_UserRepositoryService();
         $objectManager = $userRepo->getObjectManager();
-        foreach(array('harry_test', 'harry_test2') as $username) {
-            if($object = $userRepo->findOneByUsername($username)) {
+        foreach (array('harry_test', 'harry_test2') as $username) {
+            if ($object = $userRepo->findOneByUsername($username)) {
                 $objectManager->remove($object);
             }
         }
