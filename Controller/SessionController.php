@@ -47,13 +47,12 @@ class SessionController extends Controller
         $data = $this['request']->request->get($form->getName());
         $user = $this['doctrine_user.user_repository']->findOneByUsernameOrEmail($data['usernameOrEmail']);
 
-
         if ($user && $user->checkPassword($data['password'])) {
             $event = new Event($this, 'doctrine_user.user_can_login_filter', array());
             $this['event_dispatcher']->filter($event, true);
 
             if ($event->getReturnValue()) {
-                $this['doctrine_user.auth']->login($user);
+                $this['doctrine_user.auth']->login($user, $data['rememberMe']);
 
                 $event = new Event($this, 'doctrine_user.login_success', array('user' => $user));
                 $this['event_dispatcher']->notifyUntil($event);

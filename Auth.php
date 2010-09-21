@@ -5,6 +5,7 @@ namespace Bundle\DoctrineUserBundle;
 use Bundle\DoctrineUserBundle\DAO\User;
 use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session;
 
 /**
@@ -27,6 +28,13 @@ class Auth
      * @var Request
      */
     protected $request = null;
+
+    /**
+     * The Symfony2 Response service
+     *
+     * @var Request
+     */
+    protected $response = null;
 
     /**
      * The Symfony2 Session service
@@ -57,11 +65,12 @@ class Auth
      * @param Request                 $request        The request service
      * @param array                   $options        An array of options
      */
-    public function __construct(UserRepositoryInterface $userRepository, Request $request, array $options = array())
+    public function __construct(UserRepositoryInterface $userRepository, Request $request, Response $response, array $options = array())
     {
         $this->userRepository = $userRepository;
         $this->request = $request;
         $this->session = $request->getSession();
+        $this->response = $response;
         $this->options = array_merge($this->options, $options);
     }
 
@@ -81,7 +90,7 @@ class Auth
             // renew user remember_me token
             $user->renewRememberMeToken();
             // make token a cookie
-            $this->request->cookies->set($this->options['remember_me_cookie_name'], $user->getRememberMeToken());
+            $this->response->headers->setCookie($this->options['remember_me_cookie_name'], $user->getRememberMeToken());
         }
 
         // update user last login date

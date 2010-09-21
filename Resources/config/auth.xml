@@ -15,6 +15,7 @@
         <service id="doctrine_user.auth" class="%doctrine_user.auth.class%" shared="true">
             <argument type="service" id="doctrine_user.user_repository" />
             <argument type="service" id="request" />
+            <argument type="service" id="response" />
             <argument type="collection">
                 <argument key="session_path">%doctrine_user.auth.session_path%</argument>
                 <argument key="remember_me_cookie_name">%doctrine_user.auth.remember_me_cookie_name%</argument>
