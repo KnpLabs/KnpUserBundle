@@ -197,7 +197,7 @@ class UserController extends Controller
             throw new NotFoundHttpException(sprintf('No user confirmed'));
         }
 
-        return $this->render('DoctrineUserBundle:User:confirmed');
+        return $this->render('DoctrineUserBundle:User:confirmed:'.$this->getRenderer());
     }
 
     /**
