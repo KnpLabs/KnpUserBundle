@@ -393,6 +393,19 @@ abstract class User
     }
 
     /**
+     * Remove a group from the user groups
+     *
+     * @param Group $group
+     * @return null
+     **/
+    public function removeGroup(Group $group)
+    {
+        if ($this->getGroups()->contains($group)) {
+            $this->getGroups()->remove($group);
+        }
+    }
+
+    /**
      * Get permissions granted to the user 
      * 
      * @return Collection
@@ -469,6 +482,19 @@ abstract class User
     {
         if (!$this->getPermissions()->contains($permission)) {
             $this->getPermissions()->add($permission);
+        }
+    }
+
+    /**
+     * Remove a permission from the user permissions
+     *
+     * @param Permission $permission
+     * @return null
+     **/
+    public function removePermission(Permission $permission)
+    {
+        if ($this->getPermissions()->contains($permission)) {
+            $this->getPermissions()->remove($permission);
         }
     }
 
