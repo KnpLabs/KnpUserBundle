@@ -5,7 +5,6 @@ namespace Bundle\DoctrineUserBundle;
 use Bundle\DoctrineUserBundle\DAO\User;
 use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session;
 
 /**
@@ -28,13 +27,6 @@ class Auth
      * @var Request
      */
     protected $request = null;
-
-    /**
-     * The Symfony2 Response service
-     *
-     * @var Request
-     */
-    protected $response = null;
 
     /**
      * The Symfony2 Session service
@@ -65,12 +57,11 @@ class Auth
      * @param Request                 $request        The request service
      * @param array                   $options        An array of options
      */
-    public function __construct(UserRepositoryInterface $userRepository, Request $request, Response $response, array $options = array())
+    public function __construct(UserRepositoryInterface $userRepository, Request $request, array $options = array())
     {
         $this->userRepository = $userRepository;
         $this->request = $request;
         $this->session = $request->getSession();
-        $this->response = $response;
         $this->options = array_merge($this->options, $options);
     }
 
@@ -78,20 +69,12 @@ class Auth
      * Log in a user, bind it to the session and update its last login date
      *
      * @param User $user the user to log in
-     * @param boolean $remember whether or not to remember the user
      * @return null
      */
-    public function login(User $user, $remember = false)
+    public function login(User $user)
     {
         // bind user identifier to the session
         $this->session->set($this->options['session_path'], $this->getUserIdentifierValue($user));
-
-        if($remember) {
-            // renew user remember_me token
-            $user->renewRememberMeToken();
-            // make token a cookie
-            $this->response->headers->setCookie($this->options['remember_me_cookie_name'], $user->getRememberMeToken());
-        }
 
         // update user last login date
         $user->setLastLogin(new \DateTime());
@@ -108,7 +91,6 @@ class Auth
     public function logout()
     {
         $this->session->remove($this->options['session_path']);
-        $this->request->cookies->delete($this->options['remember_me_cookie_name']);
     }
 
     /**
@@ -125,11 +107,9 @@ class Auth
             }
             // if we have a remember_me token in cookies
             elseif($userRememberToken = $this->request->cookies->get($this->options['remember_me_cookie_name'])) {
-                // remove the cookie
-                $this->request->cookies->delete($this->options['remember_me_cookie_name']);
                 // if the user exists, login it with the remember parameter to true
                 if($user = $this->userRepository->findOneByRememberMeToken($userRememberMeToken)) {
-                    $this->login($user, true);
+                    $this->login($user);
                     $this->user = $user;
                 }
             }
@@ -146,6 +126,16 @@ class Auth
     public function isAuthenticated()
     {
         return (bool) $this->getUser();
+    }
+
+    /**
+     * Get an option value
+     *
+     * @return mixed
+     **/
+    public function getOption($name, $default = null)
+    {
+        return isset($this->options[$name]) ? $this->options[$name] : $default;
     }
 
     /**
