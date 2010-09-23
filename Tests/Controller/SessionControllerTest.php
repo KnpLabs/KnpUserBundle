@@ -21,7 +21,7 @@ class SessionControllerTest extends WebTestCase
         $client = $this->createClient();
         $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_session_new'));
         $form = $crawler->selectButton('Log in')->form();
-        $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'harry_test', 'doctrine_user_session_new[password]' => 'changeme'));
+        $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'harry_test', 'doctrine_user_session_new[password]' => 'changeme', 'doctrine_user_session_new[rememberMe]' => false));
         $this->assertTrue($client->getResponse()->isRedirect());
         $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -36,7 +36,7 @@ class SessionControllerTest extends WebTestCase
         $client = $this->createClient();
         $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_session_new'));
         $form = $crawler->selectButton('Log in')->form();
-        $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'harry@mail.org', 'doctrine_user_session_new[password]' => 'changeme'));
+        $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'harry@mail.org', 'doctrine_user_session_new[password]' => 'changeme', 'doctrine_user_session_new[rememberMe]' => false));
         $this->assertTrue($client->getResponse()->isRedirect());
         $crawler = $client->followRedirect();
         $this->assertTrue($client->getResponse()->isSuccessful());
@@ -53,7 +53,8 @@ class SessionControllerTest extends WebTestCase
         $crawler = $client->followRedirect();
 
         $cookieJar = $client->getCookieJar();
-        $this->assertEquals(array(), $cookieJar->all());
+        $rmc = $cookieJar->get('doctrine_user/remember_me');
+        $this->assertEquals(null, $rmc->getValue());
     }
 
     public function testRememberMeTrue()
@@ -62,10 +63,10 @@ class SessionControllerTest extends WebTestCase
         $crawler = $client->request('GET', $this->generateUrl($client, 'doctrine_user_session_new'));
         $form = $crawler->selectButton('Log in')->form();
         $client->submit($form, array('doctrine_user_session_new[usernameOrEmail]' => 'harry_test', 'doctrine_user_session_new[password]' => 'changeme', 'doctrine_user_session_new[rememberMe]' => true));
-        //$crawler = $client->followRedirect();
 
         $cookieJar = $client->getCookieJar();
-        $this->assertEquals(array(), $cookieJar->all());
+        $rmc = $cookieJar->get('doctrine_user/remember_me');
+        $this->assertNotEquals(null, $rmc->getValue());
     }
 
     public function testCreateEmptyFormError()
