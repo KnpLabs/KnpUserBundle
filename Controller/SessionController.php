@@ -52,7 +52,7 @@ class SessionController extends Controller
             $this['event_dispatcher']->filter($event, true);
 
             if ($event->getReturnValue()) {
-                $this['doctrine_user.auth']->login($user, $data['rememberMe']);
+                $this['doctrine_user.auth']->login($user);
 
                 $event = new Event($this, 'doctrine_user.login_success', array('user' => $user));
                 $this['event_dispatcher']->notifyUntil($event);
@@ -66,12 +66,17 @@ class SessionController extends Controller
                         $this->container->getParameter('doctrine_user.session_create.success_route')
                     ))
                 );
-                if($rememberMe) {
+                if(isset($data['rememberMe'])) {
                     // renew user remember_me token
                     $user->renewRememberMeToken();
                     // make token a cookie
-                    $response->headers->setCookie($this['doctrine_user.auth']->getOption('remember_me_cookie_name'), $user->getRememberMeToken());
+                    $rememberMeCookieValue = $user->getRememberMeToken();
                 }
+                else {
+                    $rememberMeCookieValue = null;
+                }
+                $rememberMeCookieName = $this['doctrine_user.auth']->getOption('remember_me_cookie_name');
+                $response->headers->setCookie($rememberMeCookieName, $rememberMeCookieValue);
 
                 return $response;
             }
