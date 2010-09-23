@@ -61,11 +61,19 @@ class SessionController extends Controller
                     return $event->getReturnValue();
                 }
 
-                return $this->redirect(
+                $response = $this->redirect(
                     $this['session']->get('DoctrineUserBundle/referer', $this->generateUrl(
                         $this->container->getParameter('doctrine_user.session_create.success_route')
                     ))
                 );
+                if($rememberMe) {
+                    // renew user remember_me token
+                    $user->renewRememberMeToken();
+                    // make token a cookie
+                    $response->headers->setCookie($this['doctrine_user.auth']->getOption('remember_me_cookie_name'), $user->getRememberMeToken());
+                }
+
+                return $response;
             }
         }
 
