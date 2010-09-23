@@ -76,6 +76,8 @@ class Auth
         // bind user identifier to the session
         $this->session->set($this->options['session_path'], $this->getUserIdentifierValue($user));
 
+        // renew user remember_me token
+        $user->renewRememberMeToken();
         // update user last login date
         $user->setLastLogin(new \DateTime());
         // save the updated user
@@ -106,7 +108,7 @@ class Auth
                 $this->user = $this->userRepository->find($userId);
             }
             // if we have a remember_me token in cookies
-            elseif($userRememberToken = $this->request->cookies->get($this->options['remember_me_cookie_name'])) {
+            elseif($userRememberMeToken = $this->request->cookies->get($this->options['remember_me_cookie_name'])) {
                 // if the user exists, login it with the remember parameter to true
                 if($user = $this->userRepository->findOneByRememberMeToken($userRememberMeToken)) {
                     $this->login($user);
