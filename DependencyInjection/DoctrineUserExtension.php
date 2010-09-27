@@ -37,6 +37,9 @@ class DoctrineUserExtension extends Extension
         if (isset($config['user_class'])) {
             $container->setParameter('doctrine_user.user_object.class', $config['user_class']);
         }
+        else {
+            throw new \InvalidArgumentException('You must define your user class');
+        }
 
         if (isset($config['group_class'])) {
             $container->setParameter('doctrine_user.group_object.class', $config['group_class']);
