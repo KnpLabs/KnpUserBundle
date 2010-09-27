@@ -12,7 +12,7 @@ namespace Bundle\DoctrineUserBundle\Document;
 
 use Bundle\DoctrineUserBundle\DAO\User as AbstractUser;
 
-class User extends AbstractUser
+abstract class User extends AbstractUser
 {
     
 }
