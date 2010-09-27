@@ -26,11 +26,35 @@ Provides authentication and User persistence for your Symfony2 Project.
         );
     }
 
+### Create your own user class
+
+You must create a User class that extends the default one.
+Then you will be able to add logic and mapping in it.
+
+#### ORM User class:
+
+    // src/Application/MyBundle/Entity/User.php
+
+    namespace Application\MyBundle\Entity;
+    use Bundle\DoctrineUser\Entity\User as BaseUser;
+
+    class User extends BaseUser {}
+
+#### MongoDB User class:
+
+    // src/Application/MyBundle/Document/User.php
+
+    namespace Application\MyBundle\Document;
+    use Bundle\DoctrineUser\Document\User as BaseUser;
+
+    class User extends BaseUser {}
+
 ### Choose ORM or ODM database driver
 
     # app/config/config.yml
     doctrine_user.config:
         db_driver: orm # can be orm or odm
+        user_class: Application\MyBundle\Entity\User # you must define your own user class
 
 or if you prefer xml
 
