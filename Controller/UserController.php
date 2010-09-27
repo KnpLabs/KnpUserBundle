@@ -90,7 +90,7 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $user = $form->getData();
-            if ($this->container->getParameter('doctrine_user.user_create.use_email_confirmation')) {
+            if ($this->container->getParameter('doctrine_user.confirmation_email.enabled')) {
                 $user->setIsActive(false);
                 $this->saveUser($user);
                 $this['session']->set('doctrine_user_send_confirmation_email/email', $user->getEmail());
@@ -115,6 +115,10 @@ class UserController extends Controller
      */
     public function sendConfirmationEmailAction()
     {
+        if (!$this->container->getParameter('doctrine_user.confirmation_email.enabled')) {
+            throw new NotFoundHttpException('Email confirmation is disabled');
+        }
+
         $email = $this['session']->get('doctrine_user_send_confirmation_email/email');
         if (!$email) {
             throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
@@ -125,9 +129,9 @@ class UserController extends Controller
             throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
         }
         
-        $parameters = $this->container->getParameter('doctrine_user.confirmation_email.parameters');
+        $template = $this->container->getParameter('doctrine_user.confirmation_email.template');
         // Render the email, use the first line as the subject, and the rest as the body
-        $rendered = $this->renderView($parameters['template'].':'.$this->getRenderer(), array(
+        $rendered = $this->renderView($template.':'.$this->getRenderer(), array(
             'user' => $user,
             'confirmationUrl' => $this->generateUrl('doctrine_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
         ));
@@ -135,9 +139,10 @@ class UserController extends Controller
         $subject = $renderedLines[0];
         $body = implode("\n", array_slice($renderedLines, 1));
 
+        $fromEmail = $this->container->getParameter('doctrine_user.confirmation_email.from_email');
 	    $message = \Swift_Message::newInstance()
 	        ->setSubject($subject)
-	        ->setFrom($parameters['from'])
+	        ->setFrom($fromEmail)
 	        ->setTo($user->getEmail())
 	        ->setBody($body);
 

@@ -7,7 +7,6 @@
     <parameters>
         <parameter key="doctrine_user.session_create.success_route">doctrine_user_session_success</parameter>
         <parameter key="doctrine_user.template.renderer">php</parameter>
-        <parameter key="doctrine_user.user_create.use_email_confirmation">false</parameter>
     </parameters>
 
 </container>

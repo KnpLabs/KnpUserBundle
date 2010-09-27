@@ -54,8 +54,20 @@ class DoctrineUserExtension extends Extension
             $container->setParameter('doctrine_user.template.renderer', $config['template_renderer']);
         }
 
-        if (isset($config['use_email_confirmation'])) {
-            $container->setParameter('doctrine_user.user_create.use_email_confirmation', $config['use_email_confirmation']);
+        if (isset($config['confirmation_email']) && is_array($config['confirmation_email'])) {
+            $confirmationEmailConfig = $config['confirmation_email'];
+
+            if (isset($confirmationEmailConfig['enabled'])) {
+                $container->setParameter('doctrine_user.confirmation_email.enabled', $confirmationEmailConfig['enabled']);
+            }
+
+            if (isset($confirmationEmailConfig['from_email'])) {
+                $container->setParameter('doctrine_user.confirmation_email.from_email', $confirmationEmailConfig['from_email']);
+            }
+
+            if (isset($confirmationEmailConfig['template'])) {
+                $container->setParameter('doctrine_user.confirmation_email.template', $confirmationEmailConfig['template']);
+            }
         }
     }
 
