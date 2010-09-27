@@ -10,10 +10,9 @@
 
 namespace Bundle\DoctrineUserBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Bundle\DoctrineUserBundle\DAO\User as AbstractUser;
 
-class User extends AbstractUser
+abstract class User extends AbstractUser
 {
 
 }
