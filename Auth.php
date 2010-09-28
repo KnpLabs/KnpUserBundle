@@ -47,7 +47,9 @@ class Auth
      * @var array
      */
     protected $options = array(
-        'session_path' => 'doctrine_user/auth/identifier'
+        'session_path' => 'doctrine_user/auth/identifier',
+        'remember_me_cookie_name' => 'doctrine_user/remember_me',
+        'remember_me_lifetime' => 2592000
     );
 
     /**

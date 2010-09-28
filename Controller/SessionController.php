@@ -14,6 +14,7 @@ namespace Bundle\DoctrineUserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\Event;
 use Bundle\DoctrineUserBundle\DAO\User;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * RESTful controller managing authentication: login and logout
@@ -66,17 +67,7 @@ class SessionController extends Controller
                         $this->container->getParameter('doctrine_user.session_create.success_route')
                     ))
                 );
-                if(isset($data['rememberMe'])) {
-                    // renew user remember_me token
-                    $user->renewRememberMeToken();
-                    // make token a cookie
-                    $rememberMeCookieValue = $user->getRememberMeToken();
-                }
-                else {
-                    $rememberMeCookieValue = null;
-                }
-                $rememberMeCookieName = $this['doctrine_user.auth']->getOption('remember_me_cookie_name');
-                $response->headers->setCookie($rememberMeCookieName, $rememberMeCookieValue);
+                $this->storeRememberMeCookie($user, $response, isset($data['rememberMe']));
 
                 return $response;
             }
@@ -87,6 +78,19 @@ class SessionController extends Controller
         $form->addError('The entered username and/or password is invalid.');
 
         return $this->render('DoctrineUserBundle:Session:new:'.$this->getRenderer(), compact('form'));
+    }
+
+    protected function storeRememberMeCookie(User $user, Response $response, $rememberMe)
+    {
+        if($rememberMe) {
+            $rememberMeCookieValue = $user->getRememberMeToken();
+        }
+        else {
+            $rememberMeCookieValue = null;
+        }
+        $rememberMeCookieName = $this['doctrine_user.auth']->getOption('remember_me_cookie_name');
+        $rememberMeLifetime = $this['doctrine_user.auth']->getOption('remember_me_lifetime');
+        $response->headers->setCookie($rememberMeCookieName, $rememberMeCookieValue, null, time() + $rememberMeLifetime);
     }
     
     public function successAction()
