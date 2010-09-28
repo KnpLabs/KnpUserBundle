@@ -1,4 +1,4 @@
-<?php $view->extend('DoctrineUserBundle::layout') ?>
+<?php $view->extend('DoctrineUserBundle::layout.php') ?>
 
 <div class="doctrine_user_user_list">
     <ul>

@@ -1,4 +1,4 @@
-<?php $view->extend('DoctrineUserBundle::layout'); ?>
+<?php $view->extend('DoctrineUserBundle::layout.php'); ?>
 
 <div class="doctrine_user_session_create_success">
     <h1>Hello, <?php echo $view['auth']->getUser()->getUsername(); ?>!</h1>

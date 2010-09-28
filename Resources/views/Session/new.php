@@ -1,4 +1,4 @@
-<?php $view->extend('DoctrineUserBundle::layout') ?>
+<?php $view->extend('DoctrineUserBundle::layout.php') ?>
 
 <?php if ($view['session']->hasFlash('doctrine_user_session_create/error')): ?>
 <div class="doctrine_user_session_create_error">Bad username or password, please try again.</div>
