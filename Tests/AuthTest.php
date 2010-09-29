@@ -29,6 +29,9 @@ class MockUserRepository implements UserRepositoryInterface
 
     public function getObjectIdentifier()
     {}
+
+    public function findOneByRememberMeToken($token)
+    {}
 }
 
 class MockUser extends User
