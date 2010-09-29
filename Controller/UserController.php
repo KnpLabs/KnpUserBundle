@@ -25,7 +25,7 @@ class UserController extends Controller
     {
         $users = $this['doctrine_user.user_repository']->findAll();
 
-        return $this->render('DoctrineUserBundle:User:list:'.$this->getRenderer(), array('users' => $users));
+        return $this->render('DoctrineUserBundle:User:list.'.$this->getRenderer(), array('users' => $users));
     }
 
     /**
@@ -35,7 +35,7 @@ class UserController extends Controller
     {
         $user = $this->findUser($username);
 
-        return $this->render('DoctrineUserBundle:User:show:'.$this->getRenderer(), array('user' => $user));
+        return $this->render('DoctrineUserBundle:User:show.'.$this->getRenderer(), array('user' => $user));
     }
 
     /**
@@ -46,7 +46,7 @@ class UserController extends Controller
         $user = $this->findUser($username);
         $form = $this->createForm('doctrine_user_user_edit', $user);
 
-        return $this->render('DoctrineUserBundle:User:edit:'.$this->getRenderer(), array('form' => $form, 'username' => $username));
+        return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array('form' => $form, 'username' => $username));
     }
 
     /**
@@ -67,7 +67,7 @@ class UserController extends Controller
             }
         }
 
-        return $this->render('DoctrineUserBundle:User:edit:'.$this->getRenderer(), array('form' => $form, 'username' => $username));
+        return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array('form' => $form, 'username' => $username));
     }
 
     /**
@@ -77,7 +77,7 @@ class UserController extends Controller
     {
         $form = $this->createForm('doctrine_user_user_new');
 
-        return $this->render('DoctrineUserBundle:User:new:'.$this->getRenderer(), array('form' => $form));
+        return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array('form' => $form));
     }
 
     /**
@@ -106,7 +106,7 @@ class UserController extends Controller
             return $this->redirect($url);
         }
 
-        return $this->render('DoctrineUserBundle:User:new:'.$this->getRenderer(), array('form' => $form));
+        return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array('form' => $form));
     }
 
     /**
@@ -131,7 +131,7 @@ class UserController extends Controller
         
         $template = $this->container->getParameter('doctrine_user.confirmation_email.template');
         // Render the email, use the first line as the subject, and the rest as the body
-        $rendered = $this->renderView($template.':'.$this->getRenderer(), array(
+        $rendered = $this->renderView($template.'.'.$this->getRenderer(), array(
             'user' => $user,
             'confirmationUrl' => $this->generateUrl('doctrine_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
         ));
@@ -166,7 +166,7 @@ class UserController extends Controller
             throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $email));
         }
 
-        return $this->render('DoctrineUserBundle:User:checkConfirmationEmail:'.$this->getRenderer(), array(
+        return $this->render('DoctrineUserBundle:User:checkConfirmationEmail.'.$this->getRenderer(), array(
             'user' => $user,
             'debug' => $this->container->getParameter('kernel.debug')
         ));
@@ -202,7 +202,7 @@ class UserController extends Controller
             throw new NotFoundHttpException(sprintf('No user confirmed'));
         }
 
-        return $this->render('DoctrineUserBundle:User:confirmed:'.$this->getRenderer());
+        return $this->render('DoctrineUserBundle:User:confirmed.'.$this->getRenderer());
     }
 
     /**

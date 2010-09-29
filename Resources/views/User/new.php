@@ -1,4 +1,4 @@
-<?php $view->extend('DoctrineUserBundle::layout') ?>
+<?php $view->extend('DoctrineUserBundle::layout.php') ?>
 
 <?php echo $form->getRawValue()->renderFormTag($view['router']->generate('doctrine_user_user_create'), array('class' => 'doctrine_user_user_new')) ?>
     <div>
