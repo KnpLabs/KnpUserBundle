@@ -35,8 +35,8 @@ Then you will be able to add logic and mapping in it.
 
     // src/Application/MyBundle/Entity/User.php
 
-    namespace Application\MyBundle\Entity;
-    use Bundle\DoctrineUser\Entity\User as BaseUser;
+    namespace Application\DoctrineUserBundle\Entity;
+    use Bundle\DoctrineUserBundle\Entity\User as BaseUser;
 
     class User extends BaseUser {}
 
@@ -44,8 +44,8 @@ Then you will be able to add logic and mapping in it.
 
     // src/Application/MyBundle/Document/User.php
 
-    namespace Application\MyBundle\Document;
-    use Bundle\DoctrineUser\Document\User as BaseUser;
+    namespace Application\DoctrineUserBundle\Document;
+    use Bundle\DoctrineUserBundle\Document\User as BaseUser;
 
     class User extends BaseUser {}
 
@@ -54,12 +54,12 @@ Then you will be able to add logic and mapping in it.
     # app/config/config.yml
     doctrine_user.config:
         db_driver: orm # can be orm or odm
-        user_class: Application\MyBundle\Entity\User # you must define your own user class
+        user_class: Application\DoctrineUserBundle\Entity\User # you must define your own user class
 
 or if you prefer xml
 
     # app/config/config.xml
-    <doctrine_user:config db_driver="orm"/> <!-- can be orm or odm -->
+    <doctrine_user:config db_driver="orm" user_class="DoctrineUserBundle" />
 
 ### Add authentication routes
 
