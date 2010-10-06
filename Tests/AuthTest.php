@@ -5,7 +5,7 @@ namespace Bundle\DoctrineUserBundle\Tests;
 use Bundle\DoctrineUserBundle\Auth;
 use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
 use Bundle\DoctrineUserBundle\DAO\User;
-use Symfony\Component\HttpFoundation\Session;
+use Symfony\Component\HttpFoundation\Request;
 
 class MockUserRepository implements UserRepositoryInterface
 {
@@ -44,7 +44,7 @@ class MockUser extends User
     }
 }
 
-class MockSession extends Session
+class MockRequest extends Request
 {
     public function __construct()
     {}
@@ -81,11 +81,11 @@ class AuthTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructor()
     {
-        $auth = new MockAuth(new MockUserRepository(), new MockSession(), array('test' => 'unit'));
+        $auth = new MockAuth(new MockUserRepository(), new MockRequest(), array('test' => 'unit'));
         $options = $auth->getOptions();
         $this->assertEquals('unit', $options['test'], '->__construct() takes an array of parameters as its third argument');
 
-        $auth = new MockAuth(new MockUserRepository(), new MockSession(), array('session_path' => 'test/unit'));
+        $auth = new MockAuth(new MockUserRepository(), new MockRequest(), array('session_path' => 'test/unit'));
         $options = $auth->getOptions();
         $this->assertEquals('test/unit', $options['session_path'], '->__construct() allows to customize session_path option');
     }
@@ -95,7 +95,7 @@ class AuthTest extends \PHPUnit_Framework_TestCase
      */
     public function testHasCredentials()
     {
-        $auth = new MockAuth(new MockUserRepository(), new MockSession());
+        $auth = new MockAuth(new MockUserRepository(), new MockRequest());
         $auth->isAuthenticated = false;
         $this->assertFalse($auth->hasCredentials('perm1'), '->hasCredentials() returns false if user is not authenticated');
 
