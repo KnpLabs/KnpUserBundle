@@ -21,66 +21,62 @@ abstract class User
     protected $id;
 
     /**
-     * @Validation({
-     *      @NotBlank(),
-     *      @MinLength(limit=2),
-     *      @MaxLength(limit=255)
+     * @validation:Validation({
+     *      @validation:NotBlank(),
+     *      @validation:MinLength(limit=2),
+     *      @validation:MaxLength(limit=255)
      * })
      * @var string
      */
     protected $username;
 
     /**
-     * @Validation({
-     *      @Email(),
-     *      @NotBlank(),
-     *      @MaxLength(limit=255)
+     * @validation:Validation({
+     *      @validation:Email(),
+     *      @validation:NotBlank(),
+     *      @validation:MaxLength(limit=255)
      * })
      * @var string
      */
     protected $email;
 
     /**
-     * @Validation({
-     *      @AssertType(type="boolean")
-     * })
+     * @validation:AssertType(type="boolean")
      * @var boolean
      */
     protected $isActive;
 
     /**
-     * @Validation({
-     *      @AssertType(type="boolean")
-     * })
+     * @validation:AssertType(type="boolean")
      * @var boolean
      */
     protected $isSuperAdmin;
 
     /**
-     * @Validation({
-     *      @NotBlank(),
-     *      @MinLength(limit=2),
-     *      @MaxLength(limit=255)
+     * @validation:Validation({
+     *      @validation:NotBlank(),
+     *      @validation:MinLength(limit=2),
+     *      @validation:MaxLength(limit=255)
      * })
      * @var string
      */
     protected $password;
 
     /**
-     * @Validation({
-     *      @NotBlank(),
-     *      @MinLength(limit=2),
-     *      @MaxLength(limit=31)
+     * @validation:Validation({
+     *      @validation:NotBlank(),
+     *      @validation:MinLength(limit=2),
+     *      @validation:MaxLength(limit=31)
      * })
      * @var string
      */
     protected $algorithm;
 
     /**
-     * @Validation({
-     *      @NotBlank(),
-     *      @MinLength(limit=2),
-     *      @MaxLength(limit=255)
+     * @validation:Validation({
+     *      @validation:NotBlank(),
+     *      @validation:MinLength(limit=2),
+     *      @validation:MaxLength(limit=255)
      * })
      * @var string
      */
@@ -88,16 +84,19 @@ abstract class User
 
     /**
      * @var \DateTime
+     * @validation:DateTime()
      */
     protected $createdAt;
 
     /**
      * @var \DateTime
+     * @validation:DateTime()
      */
     protected $updatedAt;
 
     /**
      * @var \DateTime
+     * @validation:DateTime()
      */
     protected $lastLogin;
 

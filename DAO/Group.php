@@ -16,33 +16,25 @@ abstract class Group
     protected $id;
 
     /**
-     * @Validation({
-     *      @NotBlank(),
-     *      @MaxLength(limit=255)
+     * @validation:Validation({
+     *      @validation:NotBlank(),
+     *      @validation:MaxLength(limit=255)
      * })
      */
     protected $name;
 
     /**
-     * @Validation({
-     *      @MaxLength(limit=5000)
-     * })
+     * @validation:MaxLength(limit=5000)
      */
     protected $description;
 
     /**
-     * Commented validation: DateTimeValidator can't validate PHP \DateTime objects
-     * Validation({
-     *      @DateTime()
-     * })
+     * @validation:DateTime()
      */
     protected $createdAt;
 
     /**
-     * Commented validation: DateTimeValidator can't validate PHP \DateTime objects
-     * Validation({
-     *      @DateTime()
-     * })
+     * @validation:DateTime()
      */
     protected $updatedAt;
 

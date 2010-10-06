@@ -13,31 +13,22 @@ abstract class Permission
     protected $id;
 
     /**
-     * @Validation({
-     *      @NotBlank(),
-     *      @MaxLength(limit=255)
+     * @validation:Validation({
+     *      @validation:NotBlank(),
+     *      @validation:MaxLength(limit=255)
      * })
      */
     protected $name;
 
-    /**
-     * @Validation({
-     *      
-     * })
-     */
     protected $description;
     
     /**
-     * @Validation({
-     *      @DateTime()
-     * })
+     * @validation:DateTime()
      */
     protected $createdAt;
 
     /**
-     * @Validation({
-     *      @DateTime()
-     * })
+     * @validation:DateTime()
      */
     protected $updatedAt;
 
