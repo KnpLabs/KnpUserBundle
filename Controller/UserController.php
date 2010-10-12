@@ -128,7 +128,15 @@ class UserController extends Controller
         if (!$user) {
             throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
         }
-        
+
+        $message = $this->getConfirmationEmailMessage($user);
+        $this['mailer']->send($message);
+
+        return $this->redirect($this->generateUrl('doctrine_user_user_check_confirmation_email'));
+    }
+
+    protected function getConfirmationEmailMessage(User $user)
+    {
         $template = $this->container->getParameter('doctrine_user.confirmation_email.template');
         // Render the email, use the first line as the subject, and the rest as the body
         $rendered = $this->renderView($template.'.'.$this->getRenderer(), array(
@@ -140,15 +148,11 @@ class UserController extends Controller
         $body = implode("\n", array_slice($renderedLines, 1));
 
         $fromEmail = $this->container->getParameter('doctrine_user.confirmation_email.from_email');
-	    $message = \Swift_Message::newInstance()
+	    return \Swift_Message::newInstance()
 	        ->setSubject($subject)
 	        ->setFrom($fromEmail)
 	        ->setTo($user->getEmail())
 	        ->setBody($body);
-
-	    $this['mailer']->send($message);
-
-        return $this->redirect($this->generateUrl('doctrine_user_user_check_confirmation_email'));
     }
 
     /**
