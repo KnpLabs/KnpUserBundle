@@ -11,6 +11,7 @@ namespace Bundle\DoctrineUserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
 use Bundle\DoctrineUserBundle\DAO\User;
+use Bundle\DoctrineUserBundle\Form\ChangePassword;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -123,7 +124,7 @@ class UserController extends Controller
         if (!$email) {
             throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
         }
-        
+
         $user = $this['doctrine_user.user_repository']->findOneByEmail($email);
         if (!$user) {
             throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
@@ -215,6 +216,9 @@ class UserController extends Controller
     public function deleteAction($username)
     {
         $user = $this->findUser($username);
+        if (!$user) {
+            throw new NotFoundHttpException(sprintf('Must be logged in to change your password'));
+        }
 
         $objectManager = $this['doctrine_user.user_repository']->getObjectManager();
         $objectManager->remove($user);
@@ -225,9 +229,46 @@ class UserController extends Controller
     }
 
     /**
+     * Change user password: show form
+     */
+    public function changePasswordAction()
+    {
+        $user = $this['doctrine_user.auth']->getUser();
+        if (!$user) {
+            throw new NotFoundHttpException(sprintf('Must be logged in to change your password'));
+        }
+
+        $form = $this->createChangePasswordForm($user);
+
+        return $this->render('DoctrineUserBundle:User:changePassword.'.$this->getRenderer(), array('form' => $form));
+    }
+
+    /**
+     * Change user password: submit form
+     */
+    public function changePasswordUpdateAction()
+    {
+        $user = $this['doctrine_user.auth']->getUser();
+        if (!$user) {
+            throw new NotFoundHttpException(sprintf('Must be logged in to change your password'));
+        }
+
+        $form = $this->createChangePasswordForm($user);
+        $form->bind($this['request']->request->get($form->getName()));
+        if($form->isValid()) {
+            $user->setPassword($form->getNewPassword());
+            $this['doctrine_user.user_repository']->getObjectManager()->flush();
+            $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
+            return $this->redirect($userUrl);
+        }
+
+        return $this->render('DoctrineUserBundle:User:changePassword.'.$this->getRenderer(), array('form' => $form));
+    }
+
+    /**
      * Find a user by its username
-     * 
-     * @param string $username 
+     *
+     * @param string $username
      * @throw NotFoundException if user does not exist
      * @return User
      */
@@ -240,7 +281,7 @@ class UserController extends Controller
         if (!$user) {
             throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $username));
         }
-        
+
         return $user;
     }
 
@@ -258,10 +299,10 @@ class UserController extends Controller
     }
 
     /**
-     * Create a UserForm instance and returns it 
-     * 
-     * @param string $name 
-     * @param User $object 
+     * Create a UserForm instance and returns it
+     *
+     * @param string $name
+     * @param User $object
      * @return Bundle\DoctrineUserBundle\Form\UserForm
      */
     protected function createForm($name, $object = null)
@@ -273,6 +314,12 @@ class UserController extends Controller
         }
 
         return new $formClass($name, $object, $this['validator']);
+    }
+
+    protected function createChangePasswordForm(User $user)
+    {
+        $formClass = $this->container->getParameter('doctrine_user.change_password_form.class');
+        return new $formClass('changePassword', new ChangePassword($user), $this['validator']);
     }
 
     protected function getRenderer()

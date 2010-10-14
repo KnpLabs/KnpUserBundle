@@ -16,6 +16,9 @@
 
         <parameter key="doctrine_user.permission_form.class">Bundle\DoctrineUserBundle\Form\PermissionForm</parameter>
         <parameter key="doctrine_user.permission_form.name">doctrine_user_permission_form</parameter>
+
+        <parameter key="doctrine_user.change_password_form.class">Bundle\DoctrineUserBundle\Form\ChangePasswordForm</parameter>
+        <parameter key="doctrine_user.change_password_form.name">doctrine_user_user_form</parameter>
     </parameters>
 
     <services>
