@@ -10,7 +10,7 @@
 
 namespace Bundle\DoctrineUserBundle\Entity;
 
-use Bundle\DoctrineUserBundle\DAO\User as AbstractUser;
+use Bundle\DoctrineUserBundle\Model\User as AbstractUser;
 
 abstract class User extends AbstractUser
 {

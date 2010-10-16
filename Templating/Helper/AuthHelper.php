@@ -25,7 +25,7 @@ class AuthHelper extends Helper
     /**
      * Returns the authenticated user, if any
      *
-     * @return Bundle\DoctrineUserBundle\DAO\User
+     * @return Bundle\DoctrineUserBundle\Model\User
      */
     public function getUser()
     {

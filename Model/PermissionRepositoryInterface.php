@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\DAO;
+namespace Bundle\DoctrineUserBundle\Model;
 
 interface PermissionRepositoryInterface extends RepositoryInterface
 {

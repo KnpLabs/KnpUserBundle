@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\DoctrineUserBundle\DAO;
+namespace Bundle\DoctrineUserBundle\Model;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;

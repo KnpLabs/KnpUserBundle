@@ -10,7 +10,7 @@
 namespace Bundle\DoctrineUserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
-use Bundle\DoctrineUserBundle\DAO\User;
+use Bundle\DoctrineUserBundle\Model\User;
 use Bundle\DoctrineUserBundle\Form\ChangePassword;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

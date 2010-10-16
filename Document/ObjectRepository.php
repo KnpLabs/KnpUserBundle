@@ -3,7 +3,7 @@
 namespace Bundle\DoctrineUserBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
-use Bundle\DoctrineUserBundle\DAO\RepositoryInterface;
+use Bundle\DoctrineUserBundle\Model\RepositoryInterface;
 
 abstract class ObjectRepository extends DocumentRepository implements RepositoryInterface
 {

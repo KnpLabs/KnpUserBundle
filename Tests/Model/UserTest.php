@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Tests\DAO;
+namespace Bundle\DoctrineUserBundle\Tests\Model;
 
-use Bundle\DoctrineUserBundle\DAO\User as AbstractUser;
+use Bundle\DoctrineUserBundle\Model\User as AbstractUser;
 
 class User extends AbstractUser
 {

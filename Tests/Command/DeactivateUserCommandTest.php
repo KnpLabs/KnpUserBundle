@@ -3,7 +3,7 @@
 namespace Bundle\DoctrineUserBundle\Tests\Command;
 
 use Bundle\DoctrineUserBundle\Test\WebTestCase;
-use Bundle\DoctrineUserBundle\DAO\User;
+use Bundle\DoctrineUserBundle\Model\User;
 use Bundle\DoctrineUserBundle\Command\DeactivateUserCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Output\Output;
