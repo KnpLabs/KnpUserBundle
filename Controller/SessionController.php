@@ -34,7 +34,9 @@ class SessionController extends Controller
             $this['session']->set('DoctrineUserBundle/referer', $this['request']->server->get('HTTP_REFERER'));
         }
 
-        return $this->render('DoctrineUserBundle:Session:new.'.$this->getRenderer(), compact('form'));
+        return $this->render('DoctrineUserBundle:Session:new.'.$this->getRenderer(), array(
+            'form' => $this['templating.form']->get($form)
+        ));
     }
 
     /**
@@ -77,7 +79,9 @@ class SessionController extends Controller
 
         $form->addError('The entered username and/or password is invalid.');
 
-        return $this->render('DoctrineUserBundle:Session:new.'.$this->getRenderer(), compact('form'));
+        return $this->render('DoctrineUserBundle:Session:new.'.$this->getRenderer(), array(
+            'form' => $this['templating.form']->get($form)
+        ));
     }
 
     protected function storeRememberMeCookie(User $user, Response $response, $rememberMe)

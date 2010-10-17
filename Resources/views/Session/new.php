@@ -4,18 +4,18 @@
 <div class="doctrine_user_session_create_error">Bad username or password, please try again.</div>
 <?php endif; ?>
 
-<?php echo $form->getRawValue()->renderFormTag($view['router']->generate('doctrine_user_session_create'), array('class' => 'doctrine_user_session_new')) ?>
+<?php echo $form->form($view['router']->generate('doctrine_user_session_create'), array('class' => 'doctrine_user_session_new')) ?>
     <div>
-        <label for="<?php echo $form['usernameOrEmail']->getId() ?>">Username or email:</label>
-        <?php echo $form['usernameOrEmail']->getRawValue()->render(); ?>
+        <?php echo $form['usernameOrEmail']->label('Username or email:') ?>
+        <?php echo $form['usernameOrEmail']->widget(); ?>
     </div>
     <div>
-        <label for="<?php echo $form['password']->getId() ?>">Password:</label>
-        <?php echo $form['password']->getRawValue()->render(); ?>
+        <?php echo $form['password']->label('Password:') ?>
+        <?php echo $form['password']->widget() ?>
     </div>
     <div>
-        <label for="<?php echo $form['rememberMe']->getId() ?>">Remember me:</label>
-        <?php echo $form['rememberMe']->getRawValue()->render(); ?>
+        <?php echo $form['rememberMe']->label('Remember me:') ?>
+        <?php echo $form['rememberMe']->widget() ?>
     </div>
     <div>
         <input type="submit" value="Log in" />
