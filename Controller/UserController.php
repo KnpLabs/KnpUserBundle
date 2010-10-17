@@ -47,7 +47,10 @@ class UserController extends Controller
         $user = $this->findUser($username);
         $form = $this->createForm('doctrine_user_user_edit', $user);
 
-        return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array('form' => $form, 'username' => $username));
+        return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array(
+            'form'      => $this['templating.form']->get($form),
+            'username'  => $username
+        ));
     }
 
     /**
@@ -68,7 +71,10 @@ class UserController extends Controller
             }
         }
 
-        return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array('form' => $form, 'username' => $username));
+        return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array(
+            'form'      => $this['templating.form']->get($form), 
+            'username'  => $username
+        ));
     }
 
     /**
@@ -78,7 +84,9 @@ class UserController extends Controller
     {
         $form = $this->createForm('doctrine_user_user_new');
 
-        return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array('form' => $form));
+        return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array(
+            'form' => $this['templating.form']->get($form)
+        ));
     }
 
     /**
@@ -107,7 +115,9 @@ class UserController extends Controller
             return $this->redirect($url);
         }
 
-        return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array('form' => $form));
+        return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array(
+            'form' => $this['templating.form']->get($form)
+        ));
     }
 
     /**
@@ -240,7 +250,9 @@ class UserController extends Controller
 
         $form = $this->createChangePasswordForm($user);
 
-        return $this->render('DoctrineUserBundle:User:changePassword.'.$this->getRenderer(), array('form' => $form));
+        return $this->render('DoctrineUserBundle:User:changePassword.'.$this->getRenderer(), array(
+            'form' => $this['templating.form']->get($form)
+        ));
     }
 
     /**
@@ -262,7 +274,9 @@ class UserController extends Controller
             return $this->redirect($userUrl);
         }
 
-        return $this->render('DoctrineUserBundle:User:changePassword.'.$this->getRenderer(), array('form' => $form));
+        return $this->render('DoctrineUserBundle:User:changePassword.'.$this->getRenderer(), array(
+            'form' => $this['templating.form']->get($form)
+        ));
     }
 
     /**

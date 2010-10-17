@@ -1,20 +1,25 @@
 <?php $view->extend('DoctrineUserBundle::layout.php') ?>
 
-<?php echo $form->getRawValue()->renderFormTag($view['router']->generate('doctrine_user_user_create'), array('class' => 'doctrine_user_user_new')) ?>
+<?php echo $form->form($view['router']->generate('doctrine_user_user_create'), array('class' => 'doctrine_user_user_new')) ?>
     <div>
-        <label for="<?php $form['username']->getId() ?>">Username:</label>
-        <?php echo $form['username']->getRawValue()->render(); ?>
-        <?php echo $form['username']->getRawValue()->renderErrors() ?>
+        <?php echo $form['username']->label('Username:') ?>
+        <?php echo $form['username']->widget() ?>
+        <?php echo $form['username']->errors() ?>
     </div>
     <div>
-        <label for="<?php echo $form['email']->getId() ?>">Email:</label>
-        <?php echo $form['email']->getRawValue()->render(); ?>
-        <?php echo $form['email']->getRawValue()->renderErrors() ?>
+        <?php echo $form['email']->label('Email:') ?>
+        <?php echo $form['email']->widget() ?>
+        <?php echo $form['email']->errors() ?>
     </div>
     <div>
-        <label for="<?php echo $form['password']->getId() ?>">Password:</label>
-        <?php echo $form['password']->getRawValue()->render(); ?>
-        <?php echo $form['password']->getRawValue()->renderErrors() ?>
+        <?php echo $form['password']['first']->label('Password:') ?>
+        <?php echo $form['password']['first']->widget() ?>
+        <?php echo $form['password']['first']->errors() ?>
+    </div>
+    <div>
+        <?php echo $form['password']['second']->label('Password (again):') ?>
+        <?php echo $form['password']['second']->widget() ?>
+        <?php echo $form['password']['second']->errors() ?>
     </div>
     <div>
         <input type="submit" value="Create user" />
