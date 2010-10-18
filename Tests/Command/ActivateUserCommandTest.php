@@ -34,7 +34,7 @@ class ActivateUserCommandTest extends WebTestCase
 
         $userRepo->getObjectManager()->persist($user);
         $userRepo->getObjectManager()->flush();
-        
+
         $this->assertFalse($user->getIsActive());
 
         $tester->run(array(
@@ -43,6 +43,7 @@ class ActivateUserCommandTest extends WebTestCase
         ), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
 
         $userRepo = $this->getService('doctrine_user.user_repository');
+        $userRepo->getObjectManager()->clear();
         $user = $userRepo->findOneByUsername($username);
 
         $this->assertTrue($user instanceof User);
