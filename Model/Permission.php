@@ -1,17 +1,14 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\DAO;
-
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
+namespace Bundle\DoctrineUserBundle\Model;
 
 /**
- * Storage agnostic group object
+ * Storage agnostic permission object
  * Has validator annotation, but database mapping must be done in a subclass.
  *
  * @author Antoine Hérault <antoine.herault@gmail.com>
  */
-abstract class Group
+abstract class Permission
 {
     protected $id;
 
@@ -23,11 +20,8 @@ abstract class Group
      */
     protected $name;
 
-    /**
-     * @validation:MaxLength(limit=5000)
-     */
     protected $description;
-
+    
     /**
      * @validation:DateTime()
      */
@@ -37,11 +31,6 @@ abstract class Group
      * @validation:DateTime()
      */
     protected $updatedAt;
-
-    /**
-     * @var Collection
-     */
-    protected $permissions;
 
     public function getId()
     {
@@ -89,6 +78,22 @@ abstract class Group
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
      * This method must be called just before inserting the object into the
      * database. Don't call it otherwise!
      */
@@ -107,44 +112,6 @@ abstract class Group
     public function incrementUpdatedAt()
     {
         $this->updatedAt = new \DateTime();
-    }
-
-    /**
-     * Get permissions granted to the group 
-     * 
-     * @return Collection
-     */
-    public function getPermissions()
-    {
-        return $this->permissions ?: $this->permissions = new ArrayCollection();
-    }
-
-    /**
-     * Gets the name of the permissions granted to the group
-     *
-     * @return array
-     */
-    public function getPermissionNames()
-    {
-        $names = array();
-        foreach ($this->getPermissions() as $permission) {
-            $names[] = $permission->getName();
-        }
-
-        return $names;
-    }
-
-    /**
-     * Add a permission to the group permissions
-     *
-     * @param Permission $permission
-     * @return null
-     **/
-    public function addPermission(Permission $permission)
-    {
-        if (!$this->getPermissions()->contains($permission)) {
-            $this->getPermissions()->add($permission);
-        }
     }
 
     public function __toString()

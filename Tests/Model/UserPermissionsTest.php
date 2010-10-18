@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Tests\DAO;
+namespace Bundle\DoctrineUserBundle\Tests\Model;
 
 use Bundle\DoctrineUserBundle\Test\WebTestCase;
 use Doctrine\Common\Collections\Collection;

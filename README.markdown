@@ -184,7 +184,7 @@ with xml
 DoctrineUserBundle works with both ORM and ODM. To make it possible, the user repository is a service of the container.
 If you configure the db_driver to orm, this service is an instance of Bundle\DoctrineUserBundle\Entity\UserRepository.
 If you configure the db_driver to odm, this service is an instance of Bundle\DoctrineUserBundle\Document\UserRepository.
-Both these classes implement Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface.
+Both these classes implement Bundle\DoctrineUserBundle\Model\UserRepositoryInterface.
 
 ### Access the repository service
 

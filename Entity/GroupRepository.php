@@ -3,7 +3,7 @@
 namespace Bundle\DoctrineUserBundle\Entity;
 
 use Doctrine\ORM\NoResultException;
-use Bundle\DoctrineUserBundle\DAO\GroupRepositoryInterface;
+use Bundle\DoctrineUserBundle\Model\GroupRepositoryInterface;
 
 class GroupRepository extends ObjectRepository implements GroupRepositoryInterface
 {

@@ -2,7 +2,7 @@
 
 namespace Bundle\DoctrineUserBundle\Document;
 
-use Bundle\DoctrineUserBundle\DAO\PermissionRepositoryInterface;
+use Bundle\DoctrineUserBundle\Model\PermissionRepositoryInterface;
 
 class PermissionRepository extends ObjectRepository implements PermissionRepositoryInterface
 {

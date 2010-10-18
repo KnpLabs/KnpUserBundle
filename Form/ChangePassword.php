@@ -1,7 +1,7 @@
 <?php
 
 namespace Bundle\DoctrineUserBundle\Form;
-use Bundle\DoctrineUserBundle\DAO\User;
+use Bundle\DoctrineUserBundle\Model\User;
 
 class ChangePassword
 {

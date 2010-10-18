@@ -3,7 +3,7 @@
 namespace Bundle\DoctrineUserBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Bundle\DoctrineUserBundle\DAO\RepositoryInterface;
+use Bundle\DoctrineUserBundle\Model\RepositoryInterface;
 
 abstract class ObjectRepository extends EntityRepository implements RepositoryInterface
 {

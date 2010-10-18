@@ -2,7 +2,7 @@
 
 namespace Bundle\DoctrineUserBundle\Document;
 
-use Bundle\DoctrineUserBundle\DAO\GroupRepositoryInterface;
+use Bundle\DoctrineUserBundle\Model\GroupRepositoryInterface;
 
 class GroupRepository extends ObjectRepository implements GroupRepositoryInterface
 {

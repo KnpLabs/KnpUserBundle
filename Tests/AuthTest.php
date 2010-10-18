@@ -3,8 +3,8 @@
 namespace Bundle\DoctrineUserBundle\Tests;
 
 use Bundle\DoctrineUserBundle\Auth;
-use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
-use Bundle\DoctrineUserBundle\DAO\User;
+use Bundle\DoctrineUserBundle\Model\UserRepositoryInterface;
+use Bundle\DoctrineUserBundle\Model\User;
 use Symfony\Component\HttpFoundation\Request;
 
 class MockUserRepository implements UserRepositoryInterface

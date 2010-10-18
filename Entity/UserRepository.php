@@ -13,7 +13,7 @@
 namespace Bundle\DoctrineUserBundle\Entity;
 
 use Doctrine\ORM\NoResultException;
-use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
+use Bundle\DoctrineUserBundle\Model\UserRepositoryInterface;
 
 class UserRepository extends ObjectRepository implements UserRepositoryInterface
 {

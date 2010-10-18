@@ -12,7 +12,7 @@
 
 namespace Bundle\DoctrineUserBundle\Document;
 
-use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
+use Bundle\DoctrineUserBundle\Model\UserRepositoryInterface;
 
 class UserRepository extends ObjectRepository implements UserRepositoryInterface
 {

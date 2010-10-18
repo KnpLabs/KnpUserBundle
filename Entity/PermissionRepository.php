@@ -3,7 +3,7 @@
 namespace Bundle\DoctrineUserBundle\Entity;
 
 use Doctrine\ORM\NoResultException;
-use Bundle\DoctrineUserBundle\DAO\PermissionRepositoryInterface;
+use Bundle\DoctrineUserBundle\Model\PermissionRepositoryInterface;
 
 class PermissionRepository extends ObjectRepository implements PermissionRepositoryInterface
 {

@@ -3,7 +3,7 @@
 namespace Bundle\DoctrineUserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
-use Bundle\DoctrineUserBundle\DAO\Group;
+use Bundle\DoctrineUserBundle\Model\Group;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**

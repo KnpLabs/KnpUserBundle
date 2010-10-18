@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Tests\DAO;
+namespace Bundle\DoctrineUserBundle\Tests\Model;
 
-use Bundle\DoctrineUserBundle\DAO\Permission as AbstractPermission;
+use Bundle\DoctrineUserBundle\Model\Permission as AbstractPermission;
 
 class Permission extends AbstractPermission
 {

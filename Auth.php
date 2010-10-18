@@ -2,8 +2,8 @@
 
 namespace Bundle\DoctrineUserBundle;
 
-use Bundle\DoctrineUserBundle\DAO\User;
-use Bundle\DoctrineUserBundle\DAO\UserRepositoryInterface;
+use Bundle\DoctrineUserBundle\Model\User;
+use Bundle\DoctrineUserBundle\Model\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session;
 
