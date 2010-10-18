@@ -27,6 +27,10 @@
             <argument>%doctrine_user.permission_object.class%</argument>
         </service>
 
+        <service id="Bundle.DoctrineUserBundle.Validator.Doctrine.ODM.MongoDB.UniqueValidator" class="Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB\UniqueValidator">
+            <argument type="service" id="doctrine.odm.mongodb.document_manager" />
+        </service>
+
     </services>
 
 </container>

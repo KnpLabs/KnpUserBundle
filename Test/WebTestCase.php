@@ -9,6 +9,8 @@ use Symfony\Component\Console\Command\Command;
 
 abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
 {
+    protected $kernel;
+
     protected function runCommand($name, array $params = array())
     {
         \array_unshift($params, $name);
@@ -27,17 +29,14 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
         $application->run($input, $ouput);
     }
 
-    protected function getService($name, $kernel = null)
+    protected function getService($name)
     {
-        if (null === $kernel) {
-            $kernel = $this->createKernel();
+        if (null === $this->kernel) {
+            $this->kernel = $this->createKernel();
+            $this->kernel->boot();
         }
 
-        if (!$kernel->isBooted()) {
-            $kernel->boot();
-        }
-
-        return $kernel->getContainer()->get($name);
+        return $this->kernel->getContainer()->get($name);
     }
 
 }
