@@ -41,6 +41,30 @@ class UserValidationTest extends WebTestCase
         $user2->setUsername($username);
         $violations = $this->getService('validator')->validate($user2);
         $this->assertTrue($this->hasViolationForPropertyPath($violations, 'username'));
+        $om->remove($user1);
+        $om->flush();
+    }
+
+    public function testDuplicatedEmailFail()
+    {
+        $email = uniqid().'@email.org';
+        $repo = $this->getService('doctrine_user.user_repository');
+        $om = $repo->getObjectManager();
+        $validator = $this->getService('validator');
+        $userClass = $repo->getObjectClass();
+        $user1 = new $userClass();
+        $user1->setEmail($email);
+        //$this->markTestSkipped();
+        $violations = $this->getService('validator')->validate($user1);
+        $this->assertFalse($this->hasViolationForPropertyPath($violations, 'email'));
+        $om->persist($user1);
+        $om->flush();
+        $user2 = new $userClass();
+        $user2->setEmail($email);
+        $violations = $this->getService('validator')->validate($user2);
+        $this->assertTrue($this->hasViolationForPropertyPath($violations, 'email'));
+        $om->remove($user1);
+        $om->flush();
     }
 
     protected function hasViolationForPropertyPath($violations, $propertyPath)

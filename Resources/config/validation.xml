@@ -5,10 +5,17 @@
         http://www.symfony-project.org/schema/dic/services/constraint-mapping-1.0.xsd">
 
     <class name="Bundle\DoctrineUserBundle\Document\User">
+
         <constraint name="Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB\Unique">
             <option name="property">username</option>
             <option name="message">The provided username was already taken.</option>
         </constraint>
+
+        <constraint name="Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB\Unique">
+            <option name="property">email</option>
+            <option name="message">The provided email was already taken.</option>
+        </constraint>
+
     </class>
 
 </constraint-mapping>
