@@ -19,10 +19,6 @@ class DoctrineUserExtension extends Extension
         $loader->load('templating.xml');
         $loader->load('email.xml');
 
-        if (isset($config['annotations']) && $config['annotations']) {
-            $loader->load('annotations.xml');
-        }
-
         if (!isset($config['db_driver'])) {
             throw new \InvalidArgumentException('You must provide the doctrine_user.db_driver configuration');
         }
