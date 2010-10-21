@@ -26,24 +26,36 @@
             <argument>%doctrine_user.session_form.name%</argument>
             <argument></argument>
             <argument type="service" id="validator" />
+            <argument type="collection">
+                <argument key="theme">%doctrine_user.template.theme%</argument>
+            </argument>
         </service>
 
         <service id="doctrine_user.user_form" class="%doctrine_user.user_form.class%">
             <argument>%doctrine_user.user_form.name%</argument>
             <argument></argument>
             <argument type="service" id="validator" />
+            <argument type="collection">
+                <argument key="theme">%doctrine_user.template.theme%</argument>
+            </argument>
         </service>
 
         <service id="doctrine_user.group_form" class="%doctrine_user.group_form.class%">
             <argument>%doctrine_user.group_form.name%</argument>
             <argument></argument>
             <argument type="service" id="validator" />
+            <argument type="collection">
+                <argument key="theme">%doctrine_user.template.theme%</argument>
+            </argument>
         </service>
 
         <service id="doctrine_user.permission_form" class="%doctrine_user.permission_form.class%">
             <argument>%doctrine_user.permission_form.name%</argument>
             <argument></argument>
             <argument type="service" id="validator" />
+            <argument type="collection">
+                <argument key="theme">%doctrine_user.template.theme%</argument>
+            </argument>
         </service>
     </services>
 

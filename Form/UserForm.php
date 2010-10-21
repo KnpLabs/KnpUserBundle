@@ -7,10 +7,21 @@ use Symfony\Component\Form\TextField;
 use Symfony\Component\Form\RepeatedField;
 use Symfony\Component\Form\PasswordField;
 
+use Symfony\Component\Validator\ValidatorInterface;
+
 class UserForm extends Form
 {
-    public function __construct($title, $data, $validator, array $options = array())
+    /**
+     * Constructor.
+     *
+     * @param string $name
+     * @param array|object $data
+     * @param ValidatorInterface $validator
+     * @param array $options
+     */
+    public function __construct($title, $data, ValidatorInterface $validator, array $options = array())
     {
+        $this->addOption('theme', array());
         $this->addOption('categoryRepository');
         $this->addOption('columnRepository');
         $this->addOption('showPublishedAt');
