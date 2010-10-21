@@ -68,6 +68,10 @@ class DoctrineUserExtension extends Extension
                 $container->setParameter('doctrine_user.confirmation_email.template', $confirmationEmailConfig['template']);
             }
         }
+
+        if (isset($config['auth_class'])) {
+            $container->setParameter('doctrine_user.auth.class', $config['auth_class']);
+        }
     }
 
     /**
