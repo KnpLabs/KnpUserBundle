@@ -35,7 +35,7 @@ class SessionController extends Controller
         }
 
         return $this->render('DoctrineUserBundle:Session:new.'.$this->getRenderer(), array(
-            'form' => $this['templating.form']->get($form)
+            'form' => $form
         ));
     }
 
@@ -80,7 +80,7 @@ class SessionController extends Controller
         $form->addError('The entered username and/or password is invalid.');
 
         return $this->render('DoctrineUserBundle:Session:new.'.$this->getRenderer(), array(
-            'form' => $this['templating.form']->get($form)
+            'form' => $form
         ));
     }
 
@@ -96,7 +96,7 @@ class SessionController extends Controller
         $rememberMeLifetime = $this['doctrine_user.auth']->getOption('remember_me_lifetime');
         $response->headers->setCookie($rememberMeCookieName, $rememberMeCookieValue, null, time() + $rememberMeLifetime);
     }
-    
+
     public function successAction()
     {
         if (!$this['doctrine_user.auth']->isAuthenticated()) {
