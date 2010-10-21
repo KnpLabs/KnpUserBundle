@@ -2,6 +2,6 @@
     <ul>
     {% for user in users %}
         <li><a href="{% route 'doctrine_user_group_show' with ['name': group.getName()] %}">{{ group.getName() }}</a></li>
-    {% endforeach %}
+    {% endfor %}
     </ul>
 </div>
