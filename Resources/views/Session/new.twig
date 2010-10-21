@@ -1,0 +1,6 @@
+{% extends "DoctrineUserBundle::layout.twig" %}
+
+{% block content %}
+{# TODO: remove the "with" once the engine passes on everything by default again #}
+{% include "DoctrineUserBundle:Session:new_content.twig" with ['form' : form] %}
+{% endblock content %}
