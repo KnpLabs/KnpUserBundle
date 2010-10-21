@@ -1,19 +1,7 @@
-<?php if ($view['session']->hasFlash('doctrine_user_session_create/error')): ?>
-<div class="doctrine_user_session_create_error">Bad username or password, please try again.</div>
-<?php endif; ?>
+{% if _view.session.hasFlash('doctrine_user_session_create/error') %}
+<div class="doctrine_user_session_create_error">
+    {% trans 'Bad username or password, please try again.' from DoctrineUserBundle %}
+</div>
+{% endif %}
 
-<form action="{% route 'doctrine_user_session_create' %}" method="post">
-<p>
-    {{ form|render_hidden }}
-    <ul>
-        {% for field in form.getVisibleFields() %}
-        <li>
-            {{ field|render_errors }}
-            {{ field|render_label }}
-            {{ field|render_widget }}
-        </li>
-        {% endfor %}
-        <li><input type="submit" name="submit" value="Log in" /></li>
-    </ul>
-</p>
-</form>
+{{ form|render(form.getTheme) }}
