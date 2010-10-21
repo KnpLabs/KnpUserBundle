@@ -4,4 +4,14 @@
 </div>
 {% endif %}
 
-{{ form|render(form.getOption('theme')) }}
+<form action="{% route 'doctrine_user_session_create' %}" method="POST" class="doctrine_user_user_new">
+    <ul>
+        {% for field in form.getVisibleFieldsRecursively() %}
+            {{ field|render }}
+        {% endfor %}
+        <li>
+            <input type="submit" value="Login" />
+        </li>
+    </ul>
+    {{ form|render_hidden }}
+</form>

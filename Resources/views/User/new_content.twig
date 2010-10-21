@@ -1,0 +1,11 @@
+<form action="{% route 'doctrine_user_user_create' %}" method="POST" class="doctrine_user_user_new">
+    <ul>
+        {% for field in form.getVisibleFieldsRecursively() %}
+            {{ field|render }}
+        {% endfor %}
+        <li>
+            <input type="submit" value="Create user" />
+        </li>
+    </ul>
+    {{ form|render_hidden }}
+</form>
