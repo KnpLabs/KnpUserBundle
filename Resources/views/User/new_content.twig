@@ -1,4 +1,4 @@
-<form action="{% route 'doctrine_user_user_create' %}" {{ form|render_enctype } method="POST" class="doctrine_user_user_new">
+<form action="{% route 'doctrine_user_user_create' %}" {{ form|render_enctype }} method="POST" class="doctrine_user_user_new">
     <ul>
         {% for field in form.getVisibleFieldsRecursively() %}
             {{ field|render }}
