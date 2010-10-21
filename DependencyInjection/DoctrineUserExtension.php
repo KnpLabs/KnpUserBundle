@@ -25,15 +25,13 @@ class DoctrineUserExtension extends Extension
 
         try {
             $loader->load(sprintf('%s.%s', $config['db_driver'], 'xml'));
-        }
-        catch (\InvalidArgumentException $e) {
+        } catch (\InvalidArgumentException $e) {
             throw new \InvalidArgumentException(sprintf('The db_driver "%s" is not supported by doctrine_user', $config['db_driver']));
         }
 
         if (isset($config['user_class'])) {
             $container->setParameter('doctrine_user.user_object.class', $config['user_class']);
-        }
-        else {
+        } else {
             throw new \InvalidArgumentException('You must define your user class');
         }
 
