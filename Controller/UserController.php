@@ -48,7 +48,7 @@ class UserController extends Controller
         $form = $this->createForm('doctrine_user_user_edit', $user);
 
         return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array(
-            'form'      => $this['templating.form']->get($form),
+            'form'      => $form,
             'username'  => $username
         ));
     }
@@ -72,7 +72,7 @@ class UserController extends Controller
         }
 
         return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array(
-            'form'      => $this['templating.form']->get($form), 
+            'form'      => $form,
             'username'  => $username
         ));
     }
@@ -85,7 +85,7 @@ class UserController extends Controller
         $form = $this->createForm('doctrine_user_user_new');
 
         return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array(
-            'form' => $this['templating.form']->get($form)
+            'form' => $form
         ));
     }
 
@@ -116,7 +116,7 @@ class UserController extends Controller
         }
 
         return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array(
-            'form' => $this['templating.form']->get($form)
+            'form' => $form
         ));
     }
 
@@ -159,11 +159,11 @@ class UserController extends Controller
         $body = implode("\n", array_slice($renderedLines, 1));
 
         $fromEmail = $this->container->getParameter('doctrine_user.confirmation_email.from_email');
-	    return \Swift_Message::newInstance()
-	        ->setSubject($subject)
-	        ->setFrom($fromEmail)
-	        ->setTo($user->getEmail())
-	        ->setBody($body);
+        return \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setFrom($fromEmail)
+            ->setTo($user->getEmail())
+            ->setBody($body);
     }
 
     /**
@@ -251,7 +251,7 @@ class UserController extends Controller
         $form = $this->createChangePasswordForm($user);
 
         return $this->render('DoctrineUserBundle:User:changePassword.'.$this->getRenderer(), array(
-            'form' => $this['templating.form']->get($form)
+            'form' => $form
         ));
     }
 
@@ -275,7 +275,7 @@ class UserController extends Controller
         }
 
         return $this->render('DoctrineUserBundle:User:changePassword.'.$this->getRenderer(), array(
-            'form' => $this['templating.form']->get($form)
+            'form' => $form
         ));
     }
 
