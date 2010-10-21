@@ -31,6 +31,11 @@ abstract class User
     protected $username;
 
     /**
+     * @var string
+     */
+    protected $usernameLower;
+
+    /**
      * @validation:Validation({
      *      @validation:Email(),
      *      @validation:NotBlank(),
@@ -153,6 +158,7 @@ abstract class User
     public function setUsername($username)
     {
         $this->username = $username;
+        $this->usernameLower = mb_strtolower($username);
     }
 
     /**
@@ -171,7 +177,7 @@ abstract class User
      */
     public function setEmail($email)
     {
-        $this->email = $email;
+        $this->email = mb_strtolower($email);
     }
 
     /**

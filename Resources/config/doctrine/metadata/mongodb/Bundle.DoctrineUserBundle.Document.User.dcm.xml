@@ -10,6 +10,8 @@
 
         <field name="username" fieldName="username" type="string" />
 
+        <field name="usernameLower" fieldName="usernameLower" type="string" />
+
         <field name="email" fieldName="email" type="string" />
 
         <field name="isActive" fieldName="isActive" type="boolean" />
@@ -35,7 +37,7 @@
         <reference-many target-document="Permission" field="permissions" />
 
         <reference-many target-document="Group" field="groups" />
-        
+
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="incrementCreatedAt" />
             <lifecycle-callback type="preUpdate" method="incrementUpdatedAt" />
@@ -43,7 +45,7 @@
 
         <indexes>
             <index unique="true" dropDups="true">
-                <key name="username" order="asc" />
+                <key name="usernameLower" order="asc" />
                 <option name="safe" value="true" />
             </index>
             <index unique="true" dropDups="true">

@@ -12,6 +12,8 @@
 
         <field name="username" column="username" type="string" length="255" unique="true" />
 
+        <field name="usernameLower" column="username_lower" type="string" length="255" unique="true" />
+
         <field name="email" column="email" type="string" length="255" unique="true" />
 
         <field name="isActive" column="is_active" type="boolean" />
