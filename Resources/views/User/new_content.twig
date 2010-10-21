@@ -1,10 +1,10 @@
-<form action="{% route 'doctrine_user_user_create' %}" method="POST" class="doctrine_user_user_new">
+<form action="{% route 'doctrine_user_user_create' %}" {{ form|render_enctype } method="POST" class="doctrine_user_user_new">
     <ul>
         {% for field in form.getVisibleFieldsRecursively() %}
             {{ field|render }}
         {% endfor %}
         <li>
-            <input type="submit" value="Create user" />
+            <input type="submit" value="{% trans 'Create user' from 'DoctrineUserBundle' %}" />
         </li>
     </ul>
     {{ form|render_hidden }}

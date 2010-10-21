@@ -1,0 +1,11 @@
+<form action="{% route 'doctrine_user_group_create' %}" {{ form|render_enctype } method="POST" class="doctrine_user_group_new">
+    <ul>
+        {% for field in form.getVisibleFieldsRecursively() %}
+            {{ field|render }}
+        {% endfor %}
+        <li>
+            <input type="submit" value="{% trans 'Create group' from 'DoctrineUserBundle' %}" />
+        </li>
+    </ul>
+    {{ form|render_hidden }}
+</form>
