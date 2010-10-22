@@ -50,7 +50,7 @@ class SessionController extends Controller
         $data = $this['request']->request->get($form->getName());
         $user = $this['doctrine_user.user_repository']->findOneByUsernameOrEmail($data['usernameOrEmail']);
 
-        if ($user && $user->checkPassword($data['password'])) {
+        if ($user && $user->getIsActive() && $user->checkPassword($data['password'])) {
             $event = new Event($this, 'doctrine_user.user_can_login_filter', array());
             $this['event_dispatcher']->filter($event, true);
 
@@ -96,7 +96,7 @@ class SessionController extends Controller
         $rememberMeLifetime = $this['doctrine_user.auth']->getOption('remember_me_lifetime');
         $response->headers->setCookie($rememberMeCookieName, $rememberMeCookieValue, null, time() + $rememberMeLifetime);
     }
-    
+
     public function successAction()
     {
         if (!$this['doctrine_user.auth']->isAuthenticated()) {
