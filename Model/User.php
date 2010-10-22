@@ -158,7 +158,7 @@ abstract class User
     public function setUsername($username)
     {
         $this->username = $username;
-        $this->usernameLower = $this->strtolower($username);
+        $this->usernameLower = static::strtolower($username);
     }
 
     /**
@@ -187,7 +187,7 @@ abstract class User
      */
     public function setEmail($email)
     {
-        $this->email = $this->strtolower($email);
+        $this->email = static::strtolower($email);
     }
 
     /**
@@ -525,7 +525,7 @@ abstract class User
         return null !== $user && $this->getUsername() === $user->getUsername();
     }
 
-    protected function strtolower($string)
+    public static function strtolower($string)
     {
         return extension_loaded('mbstring') ? mb_strtolower($string) : strtolower($string);
     }
