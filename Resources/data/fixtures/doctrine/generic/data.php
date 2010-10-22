@@ -31,6 +31,7 @@ $admin->setUsername('admin');
 $admin->setEmail('admin@site.org');
 $admin->setPassword('admin');
 $admin->setIsSuperAdmin(true);
+$admin->setIsActive(true);
 
 $nbUsers = 5;
 for ($it = 1; $it <= $nbUsers; $it++) {
