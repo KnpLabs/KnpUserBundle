@@ -1,0 +1,11 @@
+<form action="{% route 'doctrine_user_user_update' %}" {{ form|render_enctype }} method="POST" class="doctrine_user_user_edit">
+    <ul>
+        {% for field in form.getVisibleFieldsRecursively() %}
+            {{ field|render }}
+        {% endfor %}
+        <li>
+            <input type="submit" value="{% trans 'Update user' from DoctrineUserBundle %}" />
+        </li>
+    </ul>
+    {{ form|render_hidden }}
+</form>

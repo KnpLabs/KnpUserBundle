@@ -18,7 +18,7 @@ class PermissionController extends Controller
     {
         $permissions = $this['doctrine_user.permission_repository']->findAll();
 
-        return $this->render('DoctrineUserBundle:Permission:list', array('permissions' => $permissions));
+        return $this->render('DoctrineUserBundle:Permission:list.'.$this->getRenderer(), array('permissions' => $permissions));
     }
 
     /**
@@ -32,7 +32,7 @@ class PermissionController extends Controller
             throw new NotFoundHttpException(sprintf('The permission "%s" does not exist.', $name));
         }
 
-        return $this->render('DoctrineUserBundle:Permission:show', array('permission' => $permission));
+        return $this->render('DoctrineUserBundle:Permission:show.'.$this->getRenderer(), array('permission' => $permission));
     }
 
     /**
@@ -43,7 +43,7 @@ class PermissionController extends Controller
         $form = $this['doctrine_user.permission_form'];
         $form->setData(new Permission());
 
-        return $this->render('DoctrineUserBundle:Permission:new', array('form' => $form));
+        return $this->render('DoctrineUserBundle:Permission:new.'.$this->getRenderer(), array('form' => $form));
     }
 
     /**
@@ -62,10 +62,10 @@ class PermissionController extends Controller
 
             $this['session']->setFlash('doctrine_user_permission_create/success', true);
 
-            return $this->redirect($this->generateUrl('doctrine_user_permission_show', array('name' => $form->getData()->getName())));
+            return $this->redirect($this->generateUrl('doctrine_user_permission_show.'.$this->getRenderer(), array('name' => $form->getData()->getName())));
         }
 
-        return $this->render('DoctrineUserBundle:Permission:new');
+        return $this->render('DoctrineUserBundle:Permission:new.'.$this->getRenderer());
     }
 
     /**
@@ -82,7 +82,7 @@ class PermissionController extends Controller
         $form = $this['doctrine_user.permission_form'];
         $form->setData($permission);
 
-        return $this->render('DoctrineUserBundle:Permission:edit');
+        return $this->render('DoctrineUserBundle:Permission:edit.'.$this->getRenderer());
     }
 
     /**
@@ -110,7 +110,7 @@ class PermissionController extends Controller
             return $this->redirect($this->generateUrl('doctrine_user_permission_show', array('name' => $form->getData()->getName())));
         }
 
-        return $this->render('DoctrineUserBundle:Permission:edit');
+        return $this->render('DoctrineUserBundle:Permission:edit.'.$this->getRenderer());
     }
 
     /**
