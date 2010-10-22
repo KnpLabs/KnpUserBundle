@@ -9,7 +9,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class DoctrineUserExtension extends Extension
 {
-
     public function configLoad(array $config, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
@@ -24,55 +23,54 @@ class DoctrineUserExtension extends Extension
         }
 
         try {
-            $loader->load(sprintf('%s.%s', $config['db_driver'], 'xml'));
+            $loader->load(sprintf('%s.xml', $config['db_driver']));
         } catch (\InvalidArgumentException $e) {
             throw new \InvalidArgumentException(sprintf('The db_driver "%s" is not supported by doctrine_user', $config['db_driver']));
         }
 
-        if (isset($config['user_class'])) {
-            $container->setParameter('doctrine_user.user_object.class', $config['user_class']);
-        } else {
+        if (!isset($config['classes']['user'])) {
             throw new \InvalidArgumentException('You must define your user class');
         }
 
-        if (isset($config['group_class'])) {
-            $container->setParameter('doctrine_user.group_object.class', $config['group_class']);
-        }
+        $namespaces = array(
+            '' => array(
+                'session_create_success_route' => 'doctrine_user.session_create.success_route',
+                'template_renderer' => 'doctrine_user.template.renderer',
+            ),
+            'classes' => 'doctrine_user.%s.class',
+            'auth' => 'doctrine_user.auth.%s',
+            'form_names' => 'doctrine_user.%s_form.name',
+            'confirmation_email' => 'doctrine_user.confirmation_email.%s',
+        );
+        $this->remapParametersNamespaces($config, $container, $namespaces);
+    }
 
-        if (isset($config['permission_class'])) {
-            $container->setParameter('doctrine_user.permission_object.class', $config['permission_class']);
-        }
-
-        if (isset($config['session_create_success_route'])) {
-            $container->setParameter('doctrine_user.session_create.success_route', $config['session_create_success_route']);
-        }
-
-        if (isset($config['template_renderer'])) {
-            $container->setParameter('doctrine_user.template.renderer', $config['template_renderer']);
-        }
-
-        if (isset($config['template_theme'])) {
-            $container->setParameter('doctrine_user.template.theme', $config['template_theme']);
-        }
-
-        if (isset($config['confirmation_email']) && is_array($config['confirmation_email'])) {
-            $confirmationEmailConfig = $config['confirmation_email'];
-
-            if (isset($confirmationEmailConfig['enabled'])) {
-                $container->setParameter('doctrine_user.confirmation_email.enabled', $confirmationEmailConfig['enabled']);
+    protected function remapParameters($config, $container, $map)
+    {
+        foreach ($map as $name => $paramName) {
+            if (!isset($config[$name])) {
+                continue;
             }
-
-            if (isset($confirmationEmailConfig['from_email'])) {
-                $container->setParameter('doctrine_user.confirmation_email.from_email', $confirmationEmailConfig['from_email']);
-            }
-
-            if (isset($confirmationEmailConfig['template'])) {
-                $container->setParameter('doctrine_user.confirmation_email.template', $confirmationEmailConfig['template']);
-            }
+            $container->setParameter($paramName, $config[$name]);
         }
+    }
 
-        if (isset($config['auth_class'])) {
-            $container->setParameter('doctrine_user.auth.class', $config['auth_class']);
+    protected function remapParametersNamespaces($config, $container, $namespaces)
+    {
+        foreach ($namespaces as $ns => $map) {
+            if ($ns) {
+                if (!isset($config[$ns])) {
+                    continue;
+                }
+                $config = $config[$ns];
+            }
+            if (is_array($map)) {
+                $this->remapParameters($config, $container, $map);
+            } else {
+                foreach ($config as $name => $value) {
+                    $container->setParameter(sprintf($map, $name), $value);
+                }
+            }
         }
     }
 
