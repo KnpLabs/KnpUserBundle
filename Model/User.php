@@ -158,7 +158,17 @@ abstract class User
     public function setUsername($username)
     {
         $this->username = $username;
-        $this->usernameLower = mb_strtolower($username);
+        $this->usernameLower = $this->strtolower($username);
+    }
+
+    /**
+     * Get the username in lowercase used in search and sort queries
+     *
+     * @return string
+     **/
+    public function getUsernameLower()
+    {
+        return $this->usernameLower;
     }
 
     /**
@@ -177,7 +187,7 @@ abstract class User
      */
     public function setEmail($email)
     {
-        $this->email = mb_strtolower($email);
+        $this->email = $this->strtolower($email);
     }
 
     /**
@@ -513,5 +523,10 @@ abstract class User
     public function is(User $user = null)
     {
         return null !== $user && $this->getUsername() === $user->getUsername();
+    }
+
+    protected function strtolower($string)
+    {
+        return extension_loaded('mbstring') ? mb_strtolower($string) : strtolower($string);
     }
 }
