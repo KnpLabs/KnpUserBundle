@@ -14,11 +14,11 @@
     <table>
         <tbody>
             <tr>
-                <th>Name</th>
+                <th>{% trans "Name" from DoctrineUserBundle %}</th>
                 <td>{{ group.getName() }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>{% trans "Description" from DoctrineUserBundle %}</th>
                 <td>{{ group.getDescription()|nlbr }}</td>
             </tr>
         </tbody>
