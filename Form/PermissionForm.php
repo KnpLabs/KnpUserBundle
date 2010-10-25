@@ -20,7 +20,7 @@ class PermissionForm extends Form
      */
     public function __construct($name, $data, ValidatorInterface $validator, array $options = array())
     {
-        $this->addOption('theme', array());
+        $this->addOption('theme');
 
         parent::__construct($name, $data, $validator, $options);
     }

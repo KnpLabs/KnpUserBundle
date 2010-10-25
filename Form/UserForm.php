@@ -21,7 +21,7 @@ class UserForm extends Form
      */
     public function __construct($title, $data, ValidatorInterface $validator, array $options = array())
     {
-        $this->addOption('theme', array());
+        $this->addOption('theme');
         $this->addOption('categoryRepository');
         $this->addOption('columnRepository');
         $this->addOption('showPublishedAt');
