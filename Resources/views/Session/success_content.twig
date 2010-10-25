@@ -1,5 +1,5 @@
 <div class="doctrine_user_session_create_success">
-    <h1>Hello, {{ _view.auth.getUser()->getUsername() }}!</h1>
+    <h1>Hello, {{ _view.auth.getUser().getUsername() }}!</h1>
     You have been logged in successfully.
     <a href="{% route 'doctrine_user_session_delete' %}">Log out</a>
 </div>
