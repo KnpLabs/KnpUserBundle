@@ -1,8 +1,10 @@
-Welcome, dear {{ user.getUsername() }}
-Hello {{ user.getUsername() }}!
+{% set username = user.getUsername() %}
+{% trans %}
+    Hello {{ username }}!
 
-To finish validating your account - please visit {{ confirmationUrl }}
+    To finish validating your account - please visit {{ confirmationUrl }}
 
-Regards,
+    Regards,
 
-the Team.
+    the Team.
+{% endtrans %}
