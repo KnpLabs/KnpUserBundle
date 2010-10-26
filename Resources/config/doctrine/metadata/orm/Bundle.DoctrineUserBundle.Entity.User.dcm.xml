@@ -6,10 +6,6 @@
 
     <mapped-superclass name="Bundle\DoctrineUserBundle\Entity\User" table="doctrine_user_user" repository-class="Bundle\DoctrineUserBundle\Entity\UserRepository">
 
-        <id name="id" type="integer" column="id">
-            <generator strategy="AUTO" />
-        </id>
-
         <field name="username" column="username" type="string" length="255" unique="true" />
 
         <field name="email" column="email" type="string" length="255" unique="true" />
