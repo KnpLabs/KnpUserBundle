@@ -1,2 +1,4 @@
 {% set username = _view.auth.getUser().getUsername() %}
-{% trans "Congrats {{ username }}, your account is now confirmed." from DoctrineUserBundle %}
+{% trans from DoctrineUserBundle %}
+    Congrats {{ username }}, your account is now confirmed.
+{% endtrans %}
