@@ -57,6 +57,15 @@
                 <argument key="theme">%doctrine_user.template.theme%</argument>
             </argument>
         </service>
+
+        <service id="doctrine_user.permission_form" class="%doctrine_user.change_password_form.class%">
+            <argument>%doctrine_user.change_password_form.name%</argument>
+            <argument></argument>
+            <argument type="service" id="validator" />
+            <argument type="collection">
+                <argument key="theme">%doctrine_user.template.theme%</argument>
+            </argument>
+        </service>
     </services>
 
 </container>

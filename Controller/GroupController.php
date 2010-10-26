@@ -26,11 +26,7 @@ class GroupController extends Controller
      */
     public function showAction($name)
     {
-        $group = $this['doctrine_user.group_repository']->findOneByName($name);
-
-        if (!$group) {
-            throw new NotFoundHttpException(sprintf('The group "%s" does not exist.', $name));
-        }
+        $group = $this->findGroup($name);
 
         return $this->render('DoctrineUserBundle:Group:show.'.$this->getRenderer(), array('group' => $group));
     }
@@ -40,8 +36,7 @@ class GroupController extends Controller
      */
     public function newAction($name)
     {
-        $form = $this['doctrine_user.group_form'];
-        $form->setData(new Group());
+        $form = $this->createForm();
 
         return $this->render('DoctrineUserBundle:Group:new.'.$this->getRenderer(), array('form' => $form));
     }
@@ -52,8 +47,7 @@ class GroupController extends Controller
      */
     public function createAction($name)
     {
-        $form = $this['doctrine_user.group_form'];
-        $form->setData(new Group());
+        $form = $this->createForm();
         $form->bind($this['request']->get($form->getName()));
 
         if ($form->isValid()) {
@@ -65,7 +59,9 @@ class GroupController extends Controller
             return $this->redirect($this->generateUrl('doctrine_user_group_show', array('name' => $form->getData()->getName())));
         }
 
-        return $this->render('DoctrineUserBundle:Group:new.'.$this->getRenderer());
+        return $this->render('DoctrineUserBundle:Group:new.'.$this->getRenderer(), array(
+            'form' => $form
+        ));
     }
 
     /**
@@ -73,16 +69,13 @@ class GroupController extends Controller
      */
     public function editAction($name)
     {
-        $group = $this['doctrine_user.group_repository']->findOneByName($name);
+        $group = $this->findGroup($name);
+        $form = $this->createForm($group);
 
-        if (!$group) {
-            throw new NotFoundHttpException(sprintf('The group "%s" does not exist.', $name));
-        }
-
-        $form = $this['doctrine_user.group_form'];
-        $form->setData($group);
-
-        return $this->render('DoctrineUserBundle:Group:edit.'.$this->getRenderer());
+        return $this->render('DoctrineUserBundle:Group:edit.'.$this->getRenderer(), array(
+            'form'      => $form,
+            'name'  => $name
+        ));
     }
 
     /**
@@ -91,14 +84,8 @@ class GroupController extends Controller
      */
     public function updateAction($name)
     {
-        $group = $this['doctrine_user.group_repository']->findOneByName($name);
-
-        if (!$group) {
-            throw new NotFoundHttpException(sprintf('The group "%s" does not exist.', $name));
-        }
-
-        $form = $this['doctrine_user.group_form'];
-        $form->setData($group);
+        $group = $this->findGroup($name);
+        $form = $this->createForm($group);
         $form->bind($this['request']->get($form->getName()));
 
         if ($form->isValid()) {
@@ -118,11 +105,7 @@ class GroupController extends Controller
      */
     public function deleteAction($name)
     {
-        $group = $this['doctrine_user.group_repository']->findOneByName($name);
-
-        if (!$group) {
-            throw new NotFoundHttpException(sprintf('The group "%s" does not exist.', $name));
-        }
+        $group = $this->findGroup($name);
 
         $this['doctrine_user.group_repository']->getObjectManager()->delete($group);
         $this['doctrine_user.group_repository']->getObjectManager()->flush();
@@ -130,6 +113,45 @@ class GroupController extends Controller
         $this['session']->setFlash('doctrine_user_group_delete/success');
 
         return $this->redirect($this->generateUrl('doctrine_user_group_list'));
+    }
+
+    /**
+     * Find a group by its name
+     *
+     * @param string $name
+     * @throw NotFoundException if user does not exist
+     * @return Group
+     */
+    protected function findGroup($name)
+    {
+        if (empty($name)) {
+            throw new NotFoundHttpException(sprintf('The group "%s" does not exist', $name));
+        }
+        $group = $this['doctrine_user.group_repository']->findOneByName($name);
+        if (!$group) {
+            throw new NotFoundHttpException(sprintf('The group "%s" does not exist', $name));
+        }
+
+        return $group;
+    }
+
+    /**
+     * Create a GroupForm instance and returns it
+     *
+     * @param Group $object
+     * @return Bundle\DoctrineUserBundle\Form\GroupForm
+     */
+    protected function createForm($object = null)
+    {
+        $form = $this['doctrine_user.group_form'];
+        if (null === $object) {
+            $groupClass = $this['doctrine_user.group_repository']->getObjectClass();
+            $object = new $groupClass();
+        }
+
+        $form->setData($object);
+
+        return $form;
     }
 
     protected function getRenderer()
