@@ -45,7 +45,7 @@ class UserController extends Controller
     public function editAction($username)
     {
         $user = $this->findUser($username);
-        $form = $this->createForm('doctrine_user_user_edit', $user);
+        $form = $this->createForm($user);
 
         return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array(
             'form'      => $form,
@@ -59,7 +59,7 @@ class UserController extends Controller
     public function updateAction($username)
     {
         $user = $this->findUser($username);
-        $form = $this->createForm('doctrine_user_user_edit', $user);
+        $form = $this->createForm($user);
 
         if ($data = $this['request']->request->get($form->getName())) {
             $form->bind($data);
@@ -82,7 +82,7 @@ class UserController extends Controller
      */
     public function newAction()
     {
-        $form = $this->createForm('doctrine_user_user_new');
+        $form = $this->createForm();
 
         return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array(
             'form' => $form
@@ -94,7 +94,7 @@ class UserController extends Controller
      */
     public function createAction()
     {
-        $form = $this->createForm('doctrine_user_user_new');
+        $form = $this->createForm();
         $form->bind($this['request']->request->get($form->getName()));
 
         if ($form->isValid()) {
@@ -315,25 +315,28 @@ class UserController extends Controller
     /**
      * Create a UserForm instance and returns it
      *
-     * @param string $name
      * @param User $object
      * @return Bundle\DoctrineUserBundle\Form\UserForm
      */
-    protected function createForm($name, $object = null)
+    protected function createForm($object = null)
     {
-        $formClass = $this->container->getParameter('doctrine_user.user_form.class');
+        $form = $this['doctrine_user.user_form'];
         if (null === $object) {
             $userClass = $this['doctrine_user.user_repository']->getObjectClass();
             $object = new $userClass();
         }
 
-        return new $formClass($name, $object, $this['validator']);
+        $form->setData($object);
+
+        return $form;
     }
 
     protected function createChangePasswordForm(User $user)
     {
-        $formClass = $this->container->getParameter('doctrine_user.change_password_form.class');
-        return new $formClass('changePassword', new ChangePassword($user), $this['validator']);
+        $form = $this['doctrine_user.change_password_form.class'];
+        $form->setData($user);
+
+        return $form;
     }
 
     protected function getRenderer()

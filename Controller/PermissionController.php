@@ -26,11 +26,7 @@ class PermissionController extends Controller
      */
     public function showAction($name)
     {
-        $permission = $this['doctrine_user.permission_repository']->findOneByName($name);
-
-        if (!$permission) {
-            throw new NotFoundHttpException(sprintf('The permission "%s" does not exist.', $name));
-        }
+        $permission = $this->findPermission($name);
 
         return $this->render('DoctrineUserBundle:Permission:show.'.$this->getRenderer(), array('permission' => $permission));
     }
@@ -40,8 +36,7 @@ class PermissionController extends Controller
      */
     public function newAction($name)
     {
-        $form = $this['doctrine_user.permission_form'];
-        $form->setData(new Permission());
+        $form = $this->createForm();
 
         return $this->render('DoctrineUserBundle:Permission:new.'.$this->getRenderer(), array('form' => $form));
     }
@@ -52,8 +47,7 @@ class PermissionController extends Controller
      */
     public function createAction($name)
     {
-        $form = $this['doctrine_user.permission_form'];
-        $form->setData(new Permission());
+        $form = $this->createForm();
         $form->bind($this['request']->get($form->getName()));
 
         if ($form->isValid()) {
@@ -65,7 +59,9 @@ class PermissionController extends Controller
             return $this->redirect($this->generateUrl('doctrine_user_permission_show.'.$this->getRenderer(), array('name' => $form->getData()->getName())));
         }
 
-        return $this->render('DoctrineUserBundle:Permission:new.'.$this->getRenderer());
+        return $this->render('DoctrineUserBundle:Permission:new.'.$this->getRenderer(), array(
+            'form' => $form
+        ));
     }
 
     /**
@@ -73,16 +69,13 @@ class PermissionController extends Controller
      */
     public function editAction($name)
     {
-        $permission = $this['doctrine_user.permission_repository']->findOneByName($name);
+        $permission = $this->findPermission($name);
+        $form = $this->createForm($permission);
 
-        if (!$permission) {
-            throw new NotFoundHttpException(sprintf('The permission "%s" does not exist.', $name));
-        }
-
-        $form = $this['doctrine_user.permission_form'];
-        $form->setData($permission);
-
-        return $this->render('DoctrineUserBundle:Permission:edit.'.$this->getRenderer());
+        return $this->render('DoctrineUserBundle:Permission:edit.'.$this->getRenderer(), array(
+            'form'      => $form,
+            'name'  => $name
+        ));
     }
 
     /**
@@ -91,14 +84,8 @@ class PermissionController extends Controller
      */
     public function updateAction($name)
     {
-        $permission = $this['doctrine_user.permission_repository']->findOneByName($name);
-
-        if (!$permission) {
-            throw new NotFoundHttpException(sprintf('The permission "%s" does not exist.', $name));
-        }
-
-        $form = $this['doctrine_user.permission_form'];
-        $form->setData($permission);
+        $permission = $this->findPermission($name);
+        $form = $this->createForm($permission);
         $form->bind($this['request']->get($form->getName()));
 
         if ($form->isValid()) {
@@ -118,11 +105,7 @@ class PermissionController extends Controller
      */
     public function deleteAction($name)
     {
-        $permission = $this['doctrine_user.permission_repository']->findOneByName($name);
-
-        if (!$permission) {
-            throw new NotFoundHttpException(sprintf('The permission "%s" does not exist.', $name));
-        }
+        $permission = $this->findPermission($name);
 
         $this['doctrine_user.permission_repository']->getObjectManager()->delete($permission);
         $this['doctrine_user.permission_repository']->getObjectManager()->flush();
@@ -130,6 +113,45 @@ class PermissionController extends Controller
         $this['session']->setFlash('doctrine_user_permission_delete/success');
 
         return $this->redirect($this->generateUrl('doctrine_user_permission_list'));
+    }
+
+    /**
+     * Find a permission by its name
+     *
+     * @param string $name
+     * @throw NotFoundException if user does not exist
+     * @return Permission
+     */
+    protected function findPermission($name)
+    {
+        if (empty($name)) {
+            throw new NotFoundHttpException(sprintf('The permission "%s" does not exist', $name));
+        }
+        $permission = $this['doctrine_user.permission_repository']->findOneByName($name);
+        if (!$permission) {
+            throw new NotFoundHttpException(sprintf('The permission "%s" does not exist', $name));
+        }
+
+        return $permission;
+    }
+
+    /**
+     * Create a PermissionForm instance and returns it
+     *
+     * @param Permission $object
+     * @return Bundle\DoctrineUserBundle\Form\PermissionForm
+     */
+    protected function createForm($object = null)
+    {
+        $form = $this['doctrine_user.user_form'];
+        if (null === $object) {
+            $permissionClass = $this['doctrine_user.permission_repository']->getObjectClass();
+            $object = new $permissionClass();
+        }
+
+        $form->setData($object);
+
+        return $form;
     }
 
     protected function getRenderer()
