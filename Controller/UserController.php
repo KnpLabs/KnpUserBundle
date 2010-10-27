@@ -314,7 +314,7 @@ class UserController extends Controller
     protected function createChangePasswordForm(User $user)
     {
         $form = $this['doctrine_user.change_password_form'];
-        $form->setData($user);
+        $form->setData(new ChangePassword($user));
 
         return $form;
     }
