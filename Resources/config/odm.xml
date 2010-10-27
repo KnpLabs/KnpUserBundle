@@ -29,6 +29,7 @@
 
         <service id="Bundle.DoctrineUserBundle.Validator.Doctrine.ODM.MongoDB.UniqueValidator" class="Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB\UniqueValidator">
             <argument type="service" id="doctrine.odm.mongodb.document_manager" />
+            <tag name="validator.constraint_validator" alias="Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB\UniqueValidator" />
         </service>
 
     </services>
