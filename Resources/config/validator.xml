@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="Bundle.DoctrineUserBundle.Validator.Doctrine.ODM.MongoDB.UniqueValidator" class="Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB\UniqueValidator">
+            <argument type="service" id="doctrine.odm.mongodb.document_manager" />
+            <tag name="validator.constraint_validator" alias="Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB\UniqueValidator" />
+        </service>
+
+    </services>
+
+</container>
