@@ -86,12 +86,7 @@ class SessionController extends Controller
 
     protected function storeRememberMeCookie(User $user, Response $response, $rememberMe)
     {
-        if ($rememberMe) {
-            $rememberMeCookieValue = $user->getRememberMeToken();
-        } else {
-            $rememberMeCookieValue = null;
-        }
-
+        $rememberMeCookieValue = $rememberMe ?$user->getRememberMeToken() : null;
         $rememberMeCookieName = $this['doctrine_user.auth']->getOption('remember_me_cookie_name');
         $rememberMeLifetime = $this['doctrine_user.auth']->getOption('remember_me_lifetime');
         $response->headers->setCookie($rememberMeCookieName, $rememberMeCookieValue, null, time() + $rememberMeLifetime);

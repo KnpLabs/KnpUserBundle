@@ -34,7 +34,7 @@ class UserController extends Controller
      */
     public function showAction($username)
     {
-        $user = $this->findUser($username);
+        $user = $this->findUser('username', $username);
 
         return $this->render('DoctrineUserBundle:User:show.'.$this->getRenderer(), array('user' => $user));
     }
@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     public function editAction($username)
     {
-        $user = $this->findUser($username);
+        $user = $this->findUser('username', $username);
         $form = $this->createForm($user);
 
         return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array(
@@ -58,7 +58,7 @@ class UserController extends Controller
      */
     public function updateAction($username)
     {
-        $user = $this->findUser($username);
+        $user = $this->findUser('username', $username);
         $form = $this->createForm($user);
 
         if ($data = $this['request']->request->get($form->getName())) {
@@ -135,10 +135,7 @@ class UserController extends Controller
             throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
         }
 
-        $user = $this['doctrine_user.user_repository']->findOneByEmail($email);
-        if (!$user) {
-            throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
-        }
+        $user = $this->findUser('email', $email);
 
         $message = $this->getConfirmationEmailMessage($user);
         $this['mailer']->send($message);
@@ -176,10 +173,7 @@ class UserController extends Controller
             throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
         }
 
-        $user = $this['doctrine_user.user_repository']->findOneByEmail($email);
-        if (!$user) {
-            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $email));
-        }
+        $user = $this->findUser('email', $email);
 
         return $this->render('DoctrineUserBundle:User:checkConfirmationEmail.'.$this->getRenderer(), array(
             'user' => $user,
@@ -225,10 +219,7 @@ class UserController extends Controller
      */
     public function deleteAction($username)
     {
-        $user = $this->findUser($username);
-        if (!$user) {
-            throw new NotFoundHttpException(sprintf('Must be logged in to change your password'));
-        }
+        $user = $this->findUser('username', $username);
 
         $objectManager = $this['doctrine_user.user_repository']->getObjectManager();
         $objectManager->remove($user);
@@ -286,14 +277,14 @@ class UserController extends Controller
      * @throw NotFoundException if user does not exist
      * @return User
      */
-    protected function findUser($username)
+    protected function findUser($key, $value)
     {
-        if (empty($username)) {
-            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $username));
+        if (empty($value)) {
+            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $value));
         }
-        $user = $this['doctrine_user.user_repository']->findOneByUsername($username);
+        $user = $this['doctrine_user.user_repository']->{'findOneBy'.ucfirst($key)}($value);
         if (!$user) {
-            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $username));
+            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $value));
         }
 
         return $user;
