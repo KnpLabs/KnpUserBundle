@@ -32,20 +32,11 @@ class DoctrineUserExtension extends Extension
             throw new \InvalidArgumentException('You must define your user model class');
         }
 
-        //foreach(array('model', 'form', 'controller') as $type) {
-            //if(isset($config['class'][$type]) && is_array($config['class'][$type])) {
-                //foreach($config['class'][$type] as $name => $class) {
-                    //if(null !== $class) {
-                        //$container->setParameter(sprintf('doctrine_user.%s.%s.class', $type, $name), $class);
-                    //}
-                //}
-            //}
-        //}
-
         $namespaces = array(
             '' => array(
                 'session_create_success_route' => 'doctrine_user.session_create.success_route',
                 'template_renderer' => 'doctrine_user.template_renderer',
+                'template_theme' => 'doctrine_user.template.theme',
             ),
             'auth' => 'doctrine_user.auth.%s',
             'remember_me' => 'doctrine_user.remember_me.%s',
@@ -80,8 +71,7 @@ class DoctrineUserExtension extends Extension
                     continue;
                 }
                 $namespaceConfig = $config[$ns];
-            }
-            else {
+            } else {
                 $namespaceConfig = $config;
             }
             if (is_array($map)) {
