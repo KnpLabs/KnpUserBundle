@@ -5,19 +5,19 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/routing http://www.symfony-project.org/schema/routing/routing-1.0.xsd">
 
     <route id="doctrine_user_session_new" pattern="/new">
-        <default key="_controller">doctrine_user.session_controller:newAction</default>
+        <default key="_controller">doctrine_user.controller.session:newAction</default>
         <requirement key="_method">GET</requirement>
     </route>
     <route id="doctrine_user_session_create" pattern="/new">
-        <default key="_controller">doctrine_user.session_controller:createAction</default>
+        <default key="_controller">doctrine_user.controller.session:createAction</default>
         <requirement key="_method">POST</requirement>
     </route>
     <route id="doctrine_user_session_delete" pattern="/delete">
-        <default key="_controller">doctrine_user.session_controller:deleteAction</default>
+        <default key="_controller">doctrine_user.controller.session:deleteAction</default>
         <requirement key="_method">GET</requirement>
    </route>
     <route id="doctrine_user_session_success" pattern="/success">
-        <default key="_controller">doctrine_user.session_controller:successAction</default>
+        <default key="_controller">doctrine_user.controller.session:successAction</default>
         <requirement key="_method">GET</requirement>
    </route>
 </routes>

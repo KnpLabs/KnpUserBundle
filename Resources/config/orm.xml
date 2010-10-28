@@ -5,26 +5,26 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="doctrine_user.user.class">Bundle\DoctrineUserBundle\Entity\User</parameter>
-        <parameter key="doctrine_user.group.class">Bundle\DoctrineUserBundle\Entity\Group</parameter>
-        <parameter key="doctrine_user.permission.class">Bundle\DoctrineUserBundle\Entity\Permission</parameter>
+        <parameter key="doctrine_model.user.user.class">Bundle\DoctrineUserBundle\Entity\User</parameter>
+        <parameter key="doctrine_user.model.group.class">Bundle\DoctrineUserBundle\Entity\Group</parameter>
+        <parameter key="doctrine_user.model.permission.class">Bundle\DoctrineUserBundle\Entity\Permission</parameter>
     </parameters>
 
     <services>
 
-        <service id="doctrine_user.user_repository" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
+        <service id="doctrine_user.repository.user" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
             <argument type="service" id="doctrine.orm.default_entity_manager" />
-            <argument>%doctrine_user.user.class%</argument>
+            <argument>%doctrine_user.model.user.class%</argument>
         </service>
 
-        <service id="doctrine_user.group_repository" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
+        <service id="doctrine_user.repository.group" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
             <argument type="service" id="doctrine.orm.default_entity_manager" />
-            <argument>%doctrine_user.group.class%</argument>
+            <argument>%doctrine_user.model.group.class%</argument>
         </service>
 
-        <service id="doctrine_user.permission_repository" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
+        <service id="doctrine_user.repository.permission" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
             <argument type="service" id="doctrine.orm.default_entity_manager" />
-            <argument>%doctrine_user.permission.class%</argument>
+            <argument>%doctrine_user.model.permission.class%</argument>
         </service>
 
     </services>

@@ -5,25 +5,25 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="doctrine_user.session_form.class">Bundle\DoctrineUserBundle\Form\SessionForm</parameter>
-        <parameter key="doctrine_user.session_form.name">doctrine_user_session_new</parameter>
+        <parameter key="doctrine_user.form.session.class">Bundle\DoctrineUserBundle\Form\SessionForm</parameter>
+        <parameter key="doctrine_user.form.session.name">doctrine_user_session_form</parameter>
 
-        <parameter key="doctrine_user.user_form.class">Bundle\DoctrineUserBundle\Form\UserForm</parameter>
-        <parameter key="doctrine_user.user_form.name">doctrine_user_user_form</parameter>
+        <parameter key="doctrine_user.form.user.class">Bundle\DoctrineUserBundle\Form\UserForm</parameter>
+        <parameter key="doctrine_user.form.user.name">doctrine_user_user_form</parameter>
 
-        <parameter key="doctrine_user.group_form.class">Bundle\DoctrineUserBundle\Form\GroupeForm</parameter>
-        <parameter key="doctrine_user.group_form.name">doctrine_user_group_form</parameter>
+        <parameter key="doctrine_user.form.group.class">Bundle\DoctrineUserBundle\Form\GroupForm</parameter>
+        <parameter key="doctrine_user.form.group.name">doctrine_user_group_form</parameter>
 
-        <parameter key="doctrine_user.permission_form.class">Bundle\DoctrineUserBundle\Form\PermissionForm</parameter>
-        <parameter key="doctrine_user.permission_form.name">doctrine_user_permission_form</parameter>
+        <parameter key="doctrine_user.form.permission.class">Bundle\DoctrineUserBundle\Form\PermissionForm</parameter>
+        <parameter key="doctrine_user.form.permission.name">doctrine_user_permission_form</parameter>
 
-        <parameter key="doctrine_user.change_password_form.class">Bundle\DoctrineUserBundle\Form\ChangePasswordForm</parameter>
-        <parameter key="doctrine_user.change_password_form.name">doctrine_user_change_password_form</parameter>
+        <parameter key="doctrine_user.form.change_password.class">Bundle\DoctrineUserBundle\Form\ChangePasswordForm</parameter>
+        <parameter key="doctrine_user.form.change_password.name">doctrine_user_change_password_form</parameter>
     </parameters>
 
     <services>
-        <service id="doctrine_user.session_form" class="%doctrine_user.session_form.class%">
-            <argument>%doctrine_user.session_form.name%</argument>
+        <service id="doctrine_user.form.session" class="%doctrine_user.form.session.class%">
+            <argument>%doctrine_user.form.session.name%</argument>
             <argument></argument>
             <argument type="service" id="validator" />
             <argument type="collection">
@@ -31,8 +31,8 @@
             </argument>
         </service>
 
-        <service id="doctrine_user.user_form" class="%doctrine_user.user_form.class%">
-            <argument>%doctrine_user.user_form.name%</argument>
+        <service id="doctrine_user.form.user" class="%doctrine_user.form.user.class%">
+            <argument>%doctrine_user.form.user.name%</argument>
             <argument></argument>
             <argument type="service" id="validator" />
             <argument type="collection">
@@ -40,8 +40,8 @@
             </argument>
         </service>
 
-        <service id="doctrine_user.group_form" class="%doctrine_user.group_form.class%">
-            <argument>%doctrine_user.group_form.name%</argument>
+        <service id="doctrine_user.form.group" class="%doctrine_user.form.group.class%">
+            <argument>%doctrine_user.form.group.name%</argument>
             <argument></argument>
             <argument type="service" id="validator" />
             <argument type="collection">
@@ -49,8 +49,8 @@
             </argument>
         </service>
 
-        <service id="doctrine_user.permission_form" class="%doctrine_user.permission_form.class%">
-            <argument>%doctrine_user.permission_form.name%</argument>
+        <service id="doctrine_user.form.permission" class="%doctrine_user.form.permission.class%">
+            <argument>%doctrine_user.form.permission.name%</argument>
             <argument></argument>
             <argument type="service" id="validator" />
             <argument type="collection">
@@ -58,8 +58,8 @@
             </argument>
         </service>
 
-        <service id="doctrine_user.change_password_form" class="%doctrine_user.change_password_form.class%">
-            <argument>%doctrine_user.change_password_form.name%</argument>
+        <service id="doctrine_user.form.change_password" class="%doctrine_user.form.change_password.class%">
+            <argument>%doctrine_user.form.change_password.name%</argument>
             <argument></argument>
             <argument type="service" id="validator" />
             <argument type="collection">

@@ -7,8 +7,8 @@
     <parameters>
         <parameter key="doctrine_user.auth.class">Bundle\DoctrineUserBundle\Auth</parameter>
         <parameter key="doctrine_user.auth.session_path">doctrine_user/auth/identifier</parameter>
-        <parameter key="doctrine_user.auth.remember_me_cookie_name">doctrine_user/remember_me</parameter>
-        <parameter key="doctrine_user.auth.remember_me_lifetime">2592000</parameter>
+        <parameter key="doctrine_user.remember_me.cookie_name">doctrine_user/remember_me</parameter>
+        <parameter key="doctrine_user.remember_me.lifetime">2592000</parameter>
     </parameters>
 
     <services>
@@ -17,9 +17,9 @@
             <argument type="service" id="doctrine_user.user_repository" />
             <argument type="service" id="request" />
             <argument type="collection">
-                <argument key="session_path">%doctrine_user.auth.session_path%</argument>
-                <argument key="remember_me_cookie_name">%doctrine_user.auth.remember_me_cookie_name%</argument>
-                <argument key="remember_me_lifetime">%doctrine_user.auth.remember_me_lifetime%</argument>
+                <argument key="doctrine_user.auth.session_path">%doctrine_user.auth.session_path%</argument>
+                <argument key="doctrine_user.remember_me.cookie_name">%doctrine_user.auth.remember_me_cookie_name%</argument>
+                <argument key="doctrine_user.remember_me.lifetime">%doctrine_user.auth.remember_me_lifetime%</argument>
             </argument>
         </service>
 

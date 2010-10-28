@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="templating.helper.auth.class">Bundle\DoctrineUserBundle\Templating\Helper\AuthHelper</parameter>
+        <parameter key="doctrine_user.template_renderer">twig</parameter>
     </parameters>
 
     <services>
