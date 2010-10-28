@@ -14,12 +14,12 @@
     <services>
 
         <service id="doctrine_user.auth" class="%doctrine_user.auth.class%" shared="true">
-            <argument type="service" id="doctrine_user.user_repository" />
+            <argument type="service" id="doctrine_user.repository.user" />
             <argument type="service" id="request" />
             <argument type="collection">
-                <argument key="doctrine_user.auth.session_path">%doctrine_user.auth.session_path%</argument>
-                <argument key="doctrine_user.remember_me.cookie_name">%doctrine_user.auth.remember_me_cookie_name%</argument>
-                <argument key="doctrine_user.remember_me.lifetime">%doctrine_user.auth.remember_me_lifetime%</argument>
+                <argument>%doctrine_user.auth.session_path%</argument>
+                <argument>%doctrine_user.remember_me.cookie_name%</argument>
+                <argument>%doctrine_user.remember_me.lifetime%</argument>
             </argument>
         </service>
 
