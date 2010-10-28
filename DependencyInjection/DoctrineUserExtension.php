@@ -28,47 +28,69 @@ class DoctrineUserExtension extends Extension
             throw new \InvalidArgumentException(sprintf('The db_driver "%s" is not supported by doctrine_user', $config['db_driver']));
         }
 
-        if (!isset($config['classes']['user'])) {
-            throw new \InvalidArgumentException('You must define your user class');
+        if (!isset($config['class']['model']['user'])) {
+            throw new \InvalidArgumentException('You must define your user model class');
         }
+
+        //foreach(array('model', 'form', 'controller') as $type) {
+            //if(isset($config['class'][$type]) && is_array($config['class'][$type])) {
+                //foreach($config['class'][$type] as $name => $class) {
+                    //if(null !== $class) {
+                        //$container->setParameter(sprintf('doctrine_user.%s.%s.class', $type, $name), $class);
+                    //}
+                //}
+            //}
+        //}
 
         $namespaces = array(
             '' => array(
                 'session_create_success_route' => 'doctrine_user.session_create.success_route',
-                'template_renderer' => 'doctrine_user.template.renderer',
+                'template_renderer' => 'doctrine_user.template_renderer',
             ),
-            'classes' => 'doctrine_user.%s.class',
             'auth' => 'doctrine_user.auth.%s',
-            'form_names' => 'doctrine_user.%s_form.name',
+            'remember_me' => 'doctrine_user.remember_me.%s',
+            'form_name' => 'doctrine_user.form.%s.name',
             'confirmation_email' => 'doctrine_user.confirmation_email.%s',
         );
         $this->remapParametersNamespaces($config, $container, $namespaces);
+
+        $namespaces = array(
+            'model' => 'doctrine_user.model.%s.class',
+            'form' => 'doctrine_user.form.%s.class',
+            'controller' => 'doctrine_user.controller.%s.class'
+        );
+        $this->remapParametersNamespaces($config['class'], $container, $namespaces);
     }
 
-    protected function remapParameters($config, $container, $map)
+    protected function remapParameters(array $config, ContainerBuilder $container, array $map)
     {
         foreach ($map as $name => $paramName) {
-            if (!isset($config[$name])) {
+            if (empty($config[$name])) {
                 continue;
             }
             $container->setParameter($paramName, $config[$name]);
         }
     }
 
-    protected function remapParametersNamespaces($config, $container, $namespaces)
+    protected function remapParametersNamespaces(array $config, ContainerBuilder $container, array $namespaces)
     {
         foreach ($namespaces as $ns => $map) {
             if ($ns) {
                 if (!isset($config[$ns])) {
                     continue;
                 }
-                $config = $config[$ns];
+                $namespaceConfig = $config[$ns];
+            }
+            else {
+                $namespaceConfig = $config;
             }
             if (is_array($map)) {
-                $this->remapParameters($config, $container, $map);
+                $this->remapParameters($namespaceConfig, $container, $map);
             } else {
-                foreach ($config as $name => $value) {
-                    $container->setParameter(sprintf($map, $name), $value);
+                foreach ($namespaceConfig as $name => $value) {
+                    if(null !== $value) {
+                        $container->setParameter(sprintf($map, $name), $value);
+                    }
                 }
             }
         }
