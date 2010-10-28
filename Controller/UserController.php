@@ -24,7 +24,7 @@ class UserController extends Controller
      **/
     public function listAction()
     {
-        $users = $this['doctrine_user.user_repository']->findAll();
+        $users = $this['doctrine_user.repository.user']->findAll();
 
         return $this->render('DoctrineUserBundle:User:list.'.$this->getRenderer(), array('users' => $users));
     }
@@ -209,7 +209,7 @@ class UserController extends Controller
     {
         $user = $this->findUser('username', $username);
 
-        $objectManager = $this['doctrine_user.user_repository']->getObjectManager();
+        $objectManager = $this['doctrine_user.repository.user']->getObjectManager();
         $objectManager->remove($user);
         $objectManager->flush();
         $this['session']->setFlash('doctrine_user_user_delete/success', true);
@@ -248,7 +248,7 @@ class UserController extends Controller
         $form->bind($this['request']->request->get($form->getName()));
         if($form->isValid()) {
             $user->setPassword($form->getNewPassword());
-            $this['doctrine_user.user_repository']->getObjectManager()->flush();
+            $this['doctrine_user.repository.user']->getObjectManager()->flush();
             $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
             return $this->redirect($userUrl);
         }
@@ -269,7 +269,7 @@ class UserController extends Controller
     protected function findUser($key, $value)
     {
         if (!empty($value)) {
-            $user = $this['doctrine_user.user_repository']->{'findOneBy'.ucfirst($key)}($value);
+            $user = $this['doctrine_user.repository.user']->{'findOneBy'.ucfirst($key)}($value);
         }
 
         if (empty($user)) {
@@ -287,7 +287,7 @@ class UserController extends Controller
      **/
     public function saveUser(User $user)
     {
-        $objectManager = $this['doctrine_user.user_repository']->getObjectManager();
+        $objectManager = $this['doctrine_user.repository.user']->getObjectManager();
         $objectManager->persist($user);
         $objectManager->flush();
     }
@@ -302,7 +302,7 @@ class UserController extends Controller
     {
         $form = $this['doctrine_user.user_form'];
         if (null === $object) {
-            $userClass = $this['doctrine_user.user_repository']->getObjectClass();
+            $userClass = $this['doctrine_user.repository.user']->getObjectClass();
             $object = new $userClass();
         }
 

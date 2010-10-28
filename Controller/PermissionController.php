@@ -16,7 +16,7 @@ class PermissionController extends Controller
      */
     public function listAction()
     {
-        $permissions = $this['doctrine_user.permission_repository']->findAll();
+        $permissions = $this['doctrine_user.repository.permission']->findAll();
 
         return $this->render('DoctrineUserBundle:Permission:list.'.$this->getRenderer(), array('permissions' => $permissions));
     }
@@ -107,8 +107,8 @@ class PermissionController extends Controller
     {
         $permission = $this->findPermission($name);
 
-        $this['doctrine_user.permission_repository']->getObjectManager()->delete($permission);
-        $this['doctrine_user.permission_repository']->getObjectManager()->flush();
+        $this['doctrine_user.repository.permission']->getObjectManager()->delete($permission);
+        $this['doctrine_user.repository.permission']->getObjectManager()->flush();
 
         $this['session']->setFlash('doctrine_user_permission_delete/success');
 
@@ -127,7 +127,7 @@ class PermissionController extends Controller
         if (empty($name)) {
             throw new NotFoundHttpException(sprintf('The permission "%s" does not exist', $name));
         }
-        $permission = $this['doctrine_user.permission_repository']->findOneByName($name);
+        $permission = $this['doctrine_user.repository.permission']->findOneByName($name);
         if (!$permission) {
             throw new NotFoundHttpException(sprintf('The permission "%s" does not exist', $name));
         }
@@ -145,7 +145,7 @@ class PermissionController extends Controller
     {
         $form = $this['doctrine_user.user_form'];
         if (null === $object) {
-            $permissionClass = $this['doctrine_user.permission_repository']->getObjectClass();
+            $permissionClass = $this['doctrine_user.repository.permission']->getObjectClass();
             $object = new $permissionClass();
         }
 

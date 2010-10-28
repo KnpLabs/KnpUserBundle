@@ -63,7 +63,7 @@ You can create a super admin via the super-admin flag:
 You can create an inactive user (will not be able to log in):
 
   <info>php app/console doctrine:user:create thibault --inactive</info>
-  
+
 EOT
         );
     }
@@ -73,7 +73,7 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $userRepo = $this->container->get('doctrine_user.user_repository');
+        $userRepo = $this->container->get('doctrine_user.repository.user');
         $userClass = $userRepo->getObjectClass();
 
         $user = new $userClass();
@@ -82,7 +82,7 @@ EOT
         $user->setPassword($input->getArgument('password'));
         $user->setIsActive(!$input->getOption('inactive'));
         $user->setIsSuperAdmin($input->getOption('super-admin'));
-        
+
         $userRepo->getObjectManager()->persist($user);
         $userRepo->getObjectManager()->flush();
 

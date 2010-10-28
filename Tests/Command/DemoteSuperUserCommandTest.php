@@ -23,7 +23,7 @@ class DemoteSuperAdminCommandTest extends WebTestCase
         $password = 'test_password';
         $email    = 'test_email@email.org';
 
-        $userRepo = $this->getService('doctrine_user.user_repository');
+        $userRepo = $this->getService('doctrine_user.repository.user');
         $userClass = $userRepo->getObjectClass();
 
         $user = new $userClass();
@@ -42,7 +42,7 @@ class DemoteSuperAdminCommandTest extends WebTestCase
             'username' => $username,
         ), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
 
-        $userRepo = $this->getService('doctrine_user.user_repository');
+        $userRepo = $this->getService('doctrine_user.repository.user');
         $userRepo->getObjectManager()->clear();
         $user = $userRepo->findOneByUsername($username);
 
@@ -55,7 +55,7 @@ class DemoteSuperAdminCommandTest extends WebTestCase
 
     public function tearDown()
     {
-        $repo = $this->getService('doctrine_user.user_repository');
+        $repo = $this->getService('doctrine_user.repository.user');
         $om = $repo->getObjectManager();
         if ($user = $repo->findOneByUsername('test_username')) {
             $om->remove($user);

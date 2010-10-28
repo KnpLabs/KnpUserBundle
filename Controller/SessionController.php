@@ -48,7 +48,7 @@ class SessionController extends Controller
     {
         $form = $this['doctrine_user.session_form'];
         $data = $this['request']->request->get($form->getName());
-        $user = $this['doctrine_user.user_repository']->findOneByUsernameOrEmail($data['usernameOrEmail']);
+        $user = $this['doctrine_user.repository.user']->findOneByUsernameOrEmail($data['usernameOrEmail']);
 
         if ($user && $user->getIsActive() && $user->checkPassword($data['password'])) {
             $event = new Event($this, 'doctrine_user.user_can_login_filter', array());

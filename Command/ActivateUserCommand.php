@@ -53,7 +53,7 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $userRepo = $this->container->get('doctrine_user.user_repository');
+        $userRepo = $this->container->get('doctrine_user.repository.user');
         $user = $userRepo->findOneByUsername($input->getArgument('username'));
 
         if (!$user) {

@@ -16,7 +16,7 @@ class GroupController extends Controller
      */
     public function listAction()
     {
-        $groups = $this['doctrine_user.group_repository']->findAll();
+        $groups = $this['doctrine_user.repository.group']->findAll();
 
         return $this->render('DoctrineUserBundle:Group:list.'.$this->getRenderer(), array('groups' => $groups));
     }
@@ -107,8 +107,8 @@ class GroupController extends Controller
     {
         $group = $this->findGroup($name);
 
-        $this['doctrine_user.group_repository']->getObjectManager()->delete($group);
-        $this['doctrine_user.group_repository']->getObjectManager()->flush();
+        $this['doctrine_user.repository.group']->getObjectManager()->delete($group);
+        $this['doctrine_user.repository.group']->getObjectManager()->flush();
 
         $this['session']->setFlash('doctrine_user_group_delete/success');
 
@@ -127,7 +127,7 @@ class GroupController extends Controller
         if (empty($name)) {
             throw new NotFoundHttpException(sprintf('The group "%s" does not exist', $name));
         }
-        $group = $this['doctrine_user.group_repository']->findOneByName($name);
+        $group = $this['doctrine_user.repository.group']->findOneByName($name);
         if (!$group) {
             throw new NotFoundHttpException(sprintf('The group "%s" does not exist', $name));
         }
@@ -145,7 +145,7 @@ class GroupController extends Controller
     {
         $form = $this['doctrine_user.group_form'];
         if (null === $object) {
-            $groupClass = $this['doctrine_user.group_repository']->getObjectClass();
+            $groupClass = $this['doctrine_user.repository.group']->getObjectClass();
             $object = new $groupClass();
         }
 

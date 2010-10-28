@@ -8,19 +8,19 @@ class UserRepositoryTest extends WebTestCase
 {
     public function testTimestampable()
     {
-        $repo = $this->getService('doctrine_user.user_repository');
+        $repo = $this->getService('doctrine_user.repository.user');
         $user = $repo->findOneByUsername('admin');
-        
+
         $this->assertTrue($user->getCreatedAt() instanceof \DateTime);
         $this->assertNotEquals(new \DateTime(), $user->getCreatedAt());
-        
+
         $this->assertTrue($user->getUpdatedAt() instanceof \DateTime);
         $this->assertNotEquals(new \DateTime(), $user->getUpdatedAt());
     }
 
     public function testFind()
     {
-        $repo = $this->getService('doctrine_user.user_repository');
+        $repo = $this->getService('doctrine_user.repository.user');
         $user = $repo->findOneByUsername('admin');
 
         $fetchedUser = $repo->find($user->getId());
@@ -32,7 +32,7 @@ class UserRepositoryTest extends WebTestCase
 
     public function testFindOneByUsername()
     {
-        $repo = $this->getService('doctrine_user.user_repository');
+        $repo = $this->getService('doctrine_user.repository.user');
         $user = $repo->findOneByUsername('admin');
 
         $fetchedUser = $repo->findOneByUsername($user->getUsername());
@@ -44,7 +44,7 @@ class UserRepositoryTest extends WebTestCase
 
     public function testFindOneByEmail()
     {
-        $repo = $this->getService('doctrine_user.user_repository');
+        $repo = $this->getService('doctrine_user.repository.user');
         $user = $repo->findOneByUsername('admin');
 
         $fetchedUser = $repo->findOneByEmail($user->getEmail());
@@ -56,7 +56,7 @@ class UserRepositoryTest extends WebTestCase
 
     public function testFindOneByUsernameOrEmail()
     {
-        $repo = $this->getService('doctrine_user.user_repository');
+        $repo = $this->getService('doctrine_user.repository.user');
         $user = $repo->findOneByUsername('admin');
         $user2 = $repo->findOneByUsername('user1');
 
@@ -78,7 +78,7 @@ class UserRepositoryTest extends WebTestCase
 
     public function testFindOneByRememberMeToken()
     {
-        $repo = $this->getService('doctrine_user.user_repository');
+        $repo = $this->getService('doctrine_user.repository.user');
         $user = $repo->findOneByUsername('admin');
 
         $fetchedUser = $repo->findOneByRememberMeToken($user->getRememberMeToken());
@@ -93,10 +93,10 @@ class UserRepositoryTest extends WebTestCase
 
     public function testCompareUsers()
     {
-        $repo = $this->getService('doctrine_user.user_repository');
+        $repo = $this->getService('doctrine_user.repository.user');
         $user = $repo->findOneByUsername('admin');
         $user2 = $repo->findOneByUsername('user1');
-        
+
         $this->assertTrue($user == $user);
         $this->assertTrue($user->is($user));
         $this->assertFalse($user == $user2);

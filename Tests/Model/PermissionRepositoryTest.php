@@ -8,19 +8,19 @@ class PermissionRepositoryTest extends WebTestCase
 {
     public function testTimestampable()
     {
-        $repo = $this->getService('doctrine_user.permission_repository');
+        $repo = $this->getService('doctrine_user.repository.permission');
         $permission = $repo->findOneByName('permission1');
-        
+
         $this->assertTrue($permission->getCreatedAt() instanceof \DateTime);
         $this->assertNotEquals(new \DateTime(), $permission->getCreatedAt());
-        
+
         $this->assertTrue($permission->getUpdatedAt() instanceof \DateTime);
         $this->assertNotEquals(new \DateTime(), $permission->getUpdatedAt());
     }
 
     public function testFind()
     {
-        $repo = $this->getService('doctrine_user.permission_repository');
+        $repo = $this->getService('doctrine_user.repository.permission');
         $permission = $repo->findOneByName('permission1');
 
         $fetchedPermission = $repo->find($permission->getId());
@@ -32,7 +32,7 @@ class PermissionRepositoryTest extends WebTestCase
 
     public function testFindOneByName()
     {
-        $repo = $this->getService('doctrine_user.permission_repository');
+        $repo = $this->getService('doctrine_user.repository.permission');
         $permission = $repo->findOneByName('permission1');
 
         $fetchedPermission = $repo->findOneByName($permission->getName());

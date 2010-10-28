@@ -2,7 +2,7 @@
 
 // Permissions
 
-$permissionClass = $this->container->get('doctrine_user.permission_repository')->getObjectClass();
+$permissionClass = $this->container->get('doctrine_user.repository.permission')->getObjectClass();
 
 $nbPermissions = 5;
 for ($it = 1; $it <= $nbPermissions; $it++) {
@@ -13,7 +13,7 @@ for ($it = 1; $it <= $nbPermissions; $it++) {
 
 // Groups
 
-$groupClass = $this->container->get('doctrine_user.group_repository')->getObjectClass();
+$groupClass = $this->container->get('doctrine_user.repository.group')->getObjectClass();
 
 $nbGroups = 5;
 for ($it = 1; $it <= $nbGroups; $it++) {
@@ -24,7 +24,7 @@ for ($it = 1; $it <= $nbGroups; $it++) {
 
 // Users
 
-$userClass = $this->container->get('doctrine_user.user_repository')->getObjectClass();
+$userClass = $this->container->get('doctrine_user.repository.user')->getObjectClass();
 
 $admin = new $userClass();
 $admin->setUsername('admin');

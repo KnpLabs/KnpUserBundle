@@ -54,14 +54,14 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $userRepo = $this->container->get('doctrine_user.user_repository');
+        $userRepo = $this->container->get('doctrine_user.repository.user');
         $user = $userRepo->findOneByUsername($input->getArgument('username'));
 
         if (!$user) {
             throw new \InvalidArgumentException(sprintf('The user "%s" does not exist', $input->getArgument('username')));
         }
         $user->setIsSuperAdmin(true);
-       
+
         $userRepo->getObjectManager()->persist($user);
         $userRepo->getObjectManager()->flush();
 
