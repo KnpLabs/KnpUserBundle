@@ -300,7 +300,7 @@ class UserController extends Controller
      */
     protected function createForm($object = null)
     {
-        $form = $this['doctrine_user.user_form'];
+        $form = $this['doctrine_user.form.user'];
         if (null === $object) {
             $userClass = $this['doctrine_user.repository.user']->getObjectClass();
             $object = new $userClass();
@@ -313,7 +313,7 @@ class UserController extends Controller
 
     protected function createChangePasswordForm(User $user)
     {
-        $form = $this['doctrine_user.change_password_form'];
+        $form = $this['doctrine_user.form.change_password'];
         $form->setData(new ChangePassword($user));
 
         return $form;

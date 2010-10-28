@@ -28,7 +28,7 @@ class SessionController extends Controller
      */
     public function newAction()
     {
-        $form = $this['doctrine_user.session_form'];
+        $form = $this['doctrine_user.form.session'];
 
         if ($this['request']->server->has('HTTP_REFERER')) {
             $this['session']->set('DoctrineUserBundle/referer', $this['request']->server->get('HTTP_REFERER'));
@@ -46,7 +46,7 @@ class SessionController extends Controller
      */
     public function createAction()
     {
-        $form = $this['doctrine_user.session_form'];
+        $form = $this['doctrine_user.form.session'];
         $data = $this['request']->request->get($form->getName());
         $user = $this['doctrine_user.repository.user']->findOneByUsernameOrEmail($data['usernameOrEmail']);
 

@@ -143,7 +143,7 @@ class PermissionController extends Controller
      */
     protected function createForm($object = null)
     {
-        $form = $this['doctrine_user.user_form'];
+        $form = $this['doctrine_user.form.user'];
         if (null === $object) {
             $permissionClass = $this['doctrine_user.repository.permission']->getObjectClass();
             $object = new $permissionClass();

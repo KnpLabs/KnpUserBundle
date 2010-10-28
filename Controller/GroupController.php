@@ -143,7 +143,7 @@ class GroupController extends Controller
      */
     protected function createForm($object = null)
     {
-        $form = $this['doctrine_user.group_form'];
+        $form = $this['doctrine_user.form.group'];
         if (null === $object) {
             $groupClass = $this['doctrine_user.repository.group']->getObjectClass();
             $object = new $groupClass();
