@@ -131,10 +131,6 @@ class UserController extends Controller
         }
 
         $email = $this['session']->get('doctrine_user_send_confirmation_email/email');
-        if (!$email) {
-            throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
-        }
-
         $user = $this->findUser('email', $email);
 
         $message = $this->getConfirmationEmailMessage($user);
@@ -169,10 +165,6 @@ class UserController extends Controller
     public function checkConfirmationEmailAction()
     {
         $email = $this['session']->get('doctrine_user_send_confirmation_email/email');
-        if (!$email) {
-            throw new NotFoundHttpException(sprintf('The email "%s" does not exist', $email));
-        }
-
         $user = $this->findUser('email', $email);
 
         return $this->render('DoctrineUserBundle:User:checkConfirmationEmail.'.$this->getRenderer(), array(
@@ -186,11 +178,7 @@ class UserController extends Controller
      */
     public function confirmAction($token)
     {
-        $user = $this['doctrine_user.user_repository']->findOneByConfirmationToken($token);
-        if (!$user) {
-            throw new NotFoundHttpException(sprintf('No user to confirm with token "%s"', $token));
-        }
-
+        $user = $this->findUser('confirmationToken', $token);
         $user->setConfirmationToken(null);
         $user->setIsActive(true);
 
@@ -271,20 +259,21 @@ class UserController extends Controller
     }
 
     /**
-     * Find a user by its username
+     * Find a user by a specific property
      *
-     * @param string $username
+     * @param srring $key property name
+     * @param mixed $value property value
      * @throw NotFoundException if user does not exist
      * @return User
      */
     protected function findUser($key, $value)
     {
-        if (empty($value)) {
-            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $value));
+        if (!empty($value)) {
+            $user = $this['doctrine_user.user_repository']->{'findOneBy'.ucfirst($key)}($value);
         }
-        $user = $this['doctrine_user.user_repository']->{'findOneBy'.ucfirst($key)}($value);
-        if (!$user) {
-            throw new NotFoundHttpException(sprintf('The user "%s" does not exist', $value));
+
+        if (empty($user)) {
+            throw new NotFoundHttpException(sprintf('The user with "%s" does not exist for value "%s"', $key, $value));
         }
 
         return $user;
