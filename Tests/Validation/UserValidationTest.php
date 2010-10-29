@@ -32,6 +32,8 @@ class UserValidationTest extends WebTestCase
         $userClass = $repo->getObjectClass();
         $user1 = new $userClass();
         $user1->setUsername($username);
+        $user1->setEmail(uniqid().'@mail.org');
+        $user1->setPassword(uniqid());
         //$this->markTestSkipped();
         $violations = $this->getService('validator')->validate($user1);
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'username'));
@@ -39,6 +41,8 @@ class UserValidationTest extends WebTestCase
         $om->flush();
         $user2 = new $userClass();
         $user2->setUsername($username);
+        $user1->setEmail(uniqid().'@mail.org');
+        $user1->setPassword(uniqid());
         $violations = $this->getService('validator')->validate($user2);
         $this->assertTrue($this->hasViolationForPropertyPath($violations, 'username'));
         $om->remove($user1);
@@ -54,7 +58,6 @@ class UserValidationTest extends WebTestCase
         $userClass = $repo->getObjectClass();
         $user1 = new $userClass();
         $user1->setEmail($email);
-        //$this->markTestSkipped();
         $violations = $this->getService('validator')->validate($user1);
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'email'));
         $om->persist($user1);
