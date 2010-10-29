@@ -54,7 +54,7 @@ class Auth
 
     /**
      * Instanciate the Auth service
-     * 
+     *
      * @param UserRepositoryInterface $userRepository The user repository
      * @param Request                 $request        The request service
      * @param array                   $options        An array of options
@@ -95,6 +95,7 @@ class Auth
     public function logout()
     {
         $this->session->remove($this->options['session_path']);
+        $this->user = null;
     }
 
     /**
@@ -147,7 +148,7 @@ class Auth
      *
      * @param mixed $credentials A list of credentials
      * @param bool  $useAnd      False will use OR as logical operator
-     * 
+     *
      * @return bool
      */
     public function hasCredentials($credentials, $useAnd = true)
