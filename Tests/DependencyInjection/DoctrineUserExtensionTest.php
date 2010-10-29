@@ -92,11 +92,12 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('DoctrineUserBundle:User:confirmationEmail', 'doctrine_user.confirmation_email.template');
     }
 
-    public function testDoctrineUserLoadTemplateRendererWithDefaults()
+    public function testDoctrineUserLoadTemplateConfigWithDefaults()
     {
         $this->createEmptyConfiguration();
 
         $this->assertParameter('twig', 'doctrine_user.template.renderer');
+        $this->assertParameter('TwigBundle::form.twig', 'doctrine_user.template.theme');
     }
 
     /**
