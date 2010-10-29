@@ -35,7 +35,7 @@ class DoctrineUserExtension extends Extension
         $namespaces = array(
             '' => array(
                 'session_create_success_route' => 'doctrine_user.session_create.success_route',
-                'template_renderer' => 'doctrine_user.template_renderer',
+                'template_renderer' => 'doctrine_user.template.renderer',
                 'template_theme' => 'doctrine_user.template.theme',
             ),
             'auth' => 'doctrine_user.auth.%s',

@@ -96,7 +96,7 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('twig', 'doctrine_user.template_renderer');
+        $this->assertParameter('twig', 'doctrine_user.template.renderer');
     }
 
     /**
