@@ -75,6 +75,9 @@ class Auth
      */
     public function login(User $user)
     {
+        // log out any precedent user
+        $this->logout();
+
         // bind user identifier to the session
         $this->session->set($this->options['session_path'], $this->getUserIdentifierValue($user));
 
