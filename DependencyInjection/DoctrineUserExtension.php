@@ -35,7 +35,7 @@ class DoctrineUserExtension extends Extension
         $namespaces = array(
             '' => array(
                 'session_create_success_route' => 'doctrine_user.session_create.success_route',
-                'template_renderer' => 'doctrine_user.template_renderer',
+                'template_renderer' => 'doctrine_user.template.renderer',
                 'template_theme' => 'doctrine_user.template.theme',
             ),
             'auth' => 'doctrine_user.auth.%s',
@@ -56,7 +56,7 @@ class DoctrineUserExtension extends Extension
     protected function remapParameters(array $config, ContainerBuilder $container, array $map)
     {
         foreach ($map as $name => $paramName) {
-            if (array_key_exists($name, $config)) {
+            if (isset($config[$name])) {
                 $container->setParameter($paramName, $config[$name]);
             }
         }
@@ -77,7 +77,9 @@ class DoctrineUserExtension extends Extension
                 $this->remapParameters($namespaceConfig, $container, $map);
             } else {
                 foreach ($namespaceConfig as $name => $value) {
-                    $container->setParameter(sprintf($map, $name), $value);
+                    if(null !== $value) {
+                        $container->setParameter(sprintf($map, $name), $value);
+                    }
                 }
             }
         }
