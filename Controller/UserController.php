@@ -261,7 +261,7 @@ class UserController extends Controller
     /**
      * Find a user by a specific property
      *
-     * @param srring $key property name
+     * @param string $key property name
      * @param mixed $value property value
      * @throw NotFoundException if user does not exist
      * @return User
