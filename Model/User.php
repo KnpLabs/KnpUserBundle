@@ -67,6 +67,8 @@ abstract class User
      */
     protected $password;
 
+    protected $encryptedPassword;
+
     /**
      * @validation:Validation({
      *      @validation:NotBlank(),
@@ -209,7 +211,8 @@ abstract class User
             $this->password = null;
         }
 
-        $this->password = $this->encryptPassword($password);
+        $this->password = $password;
+        $this->encryptedPassword = $this->encryptPassword($password);
     }
 
     /**
@@ -292,7 +295,7 @@ abstract class User
      */
     public function checkPassword($password)
     {
-        return $this->password === $this->encryptPassword($password);
+        return $this->encryptedPassword === $this->encryptPassword($password);
     }
 
     public function __toString()
