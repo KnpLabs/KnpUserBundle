@@ -20,7 +20,7 @@
 
         <field name="isSuperAdmin" column="is_super_admin" type="boolean" />
 
-        <field name="password" column="password" type="string" />
+        <field name="encryptedPassword" column="encrypted_password" type="string" />
 
         <field name="algorithm" column="algorithm" type="string" length="127" />
 
