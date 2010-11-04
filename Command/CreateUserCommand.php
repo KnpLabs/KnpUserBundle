@@ -128,8 +128,7 @@ EOT
             $password = $this->getHelper('dialog')->askAndValidate(
                 $output,
                 'Please choose a password:',
-                function($password)
-                {
+                function($password) {
                     if (empty($password)) {
                         throw new \Exception('Password can not be empty');
                     }
