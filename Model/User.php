@@ -67,7 +67,7 @@ abstract class User
      */
     protected $password;
 
-    protected $encryptedPassword;
+    protected $passwordHash;
 
     /**
      * @validation:Validation({
@@ -193,7 +193,7 @@ abstract class User
     }
 
     /**
-     * Password is encrypted and can not be accessed.
+     * Password is hashed and can not be accessed.
      * Returns empty string for use in form password field.
      * @return string
      */
@@ -212,7 +212,7 @@ abstract class User
         }
 
         $this->password = $password;
-        $this->encryptedPassword = $this->encryptPassword($password);
+        $this->passwordHash = $this->hashPassword($password);
     }
 
     /**
@@ -295,7 +295,7 @@ abstract class User
      */
     public function checkPassword($password)
     {
-        return $this->encryptedPassword === $this->encryptPassword($password);
+        return $this->passwordHash === $this->hashPassword($password);
     }
 
     public function __toString()
@@ -317,9 +317,9 @@ abstract class User
     }
 
     /**
-     * @return string encrypted password
+     * @return string hashed password
      */
-    protected function encryptPassword($password)
+    protected function hashPassword($password)
     {
         return hash_hmac($this->algorithm, $password, $this->salt);
     }
