@@ -1,5 +1,5 @@
 <div class="doctrine_user_session_create_success">
     <h1>{% trans "Hello, {{ username }}!" from DoctrineUserBundle %}</h1>
     {% trans "You have been logged in successfully." from DoctrineUserBundle %}
-    <a href="{% route 'doctrine_user_session_delete' %}">{% trans "Log out" from DoctrineUserBundle %}</a>
+    <a href="{% path 'doctrine_user_session_delete' %}">{% trans "Log out" from DoctrineUserBundle %}</a>
 </div>

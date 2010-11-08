@@ -1,7 +1,7 @@
 <div class="doctrine_user_permission_list">
     <ul>
     {% for user in users %}
-        <li><a href="{% route 'doctrine_user_permission_show' with ['name': permission.getName()] %}">{{ permission.getName() }}</a></li>
+        <li><a href="{% path 'doctrine_user_permission_show' with ['name': permission.getName()] %}">{{ permission.getName() }}</a></li>
     {% endfor %}
     </ul>
 </div>

@@ -1,5 +1,5 @@
 {% form_theme form form.getOption('theme') %}
-<form action="{% route 'doctrine_user_group_create' %}" {{ form|render_enctype }} method="POST" class="doctrine_user_group_new">
+<form action="{% path 'doctrine_user_group_create' %}" {{ form|render_enctype }} method="POST" class="doctrine_user_group_new">
     <ul>
         {% for field in form.getVisibleFieldsRecursively() %}
             {{ field|render }}
