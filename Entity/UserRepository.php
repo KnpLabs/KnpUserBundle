@@ -12,10 +12,11 @@
 
 namespace Bundle\DoctrineUserBundle\Entity;
 
-use Doctrine\ORM\NoResultException;
 use Bundle\DoctrineUserBundle\Model\UserRepositoryInterface;
+use Symfony\Component\Security\User\UserProviderInterface;
+use Symfony\Component\Security\Exception\UsernameNotFoundException;
 
-class UserRepository extends ObjectRepository implements UserRepositoryInterface
+class UserRepository extends ObjectRepository implements UserRepositoryInterface, UserProviderInterface
 {
     /**
      * @see UserRepositoryInterface::findOneByUsername
@@ -23,6 +24,27 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     public function findOneByUsername($username)
     {
         return $this->findOneBy(array('username' => $username));
+    }
+
+    /**
+     * Loads the user for the given username.
+     *
+     * This method must throw UsernameNotFoundException if the user is not
+     * found.
+     *
+     * @param  string $username The username
+     * @return AccountInterface A user instance
+     * @throws UsernameNotFoundException if the user is not found
+     */
+    public function loadUserByUsername($username)
+    {
+        $user = $this->findOneByUsername($username);
+
+        if(!$user) {
+            throw new UsernameNotFoundException(sprintf('The user "%s" does not exist'));
+        }
+
+        return $user;
     }
 
     /**
