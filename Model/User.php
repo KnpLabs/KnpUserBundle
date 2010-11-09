@@ -11,12 +11,13 @@ namespace Bundle\DoctrineUserBundle\Model;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\User\AdvancedAccountInterface;
 
 /**
  * Storage agnostic user object
  * Has validator annotation, but database mapping must be done in a subclass.
  */
-abstract class User
+abstract class User implements AdvancedAccountInterface
 {
     protected $id;
 
@@ -131,6 +132,74 @@ abstract class User
         $this->isSuperAdmin = false;
     }
 
+    /**
+     * Return the user roles
+     * Implements AccountInterface
+     *
+     * @return array The roles
+     **/
+    public function getRoles()
+    {
+        return array();
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     * Implements AccountInterface
+     */
+    public function eraseCredentials()
+    {
+    }
+
+    /**
+     * Checks whether the user's account has expired.
+     * Implements AdvancedAccountInterface
+     *
+     * @return Boolean true if the user's account is non expired, false otherwise
+     */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * Checks whether the user is locked.
+     * Implements AdvancedAccountInterface
+     *
+     * @return Boolean true if the user is not locked, false otherwise
+     */
+    function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    /**
+     * Checks whether the user's credentials (password) has expired.
+     * Implements AdvancedAccountInterface
+     *
+     * @return Boolean true if the user's credentials are non expired, false otherwise
+     */
+    function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * Checks whether the user is enabled.
+     * Implements AdvancedAccountInterface
+     *
+     * @return Boolean true if the user is enabled, false otherwise
+     */
+    function isEnabled()
+    {
+        return $this->getIsActive();
+    }
+
+    /**
+     * Return the user unique id
+     *
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
@@ -183,13 +252,22 @@ abstract class User
     }
 
     /**
-     * Password is hashed and can not be accessed.
-     * Returns empty string for use in form password field.
+     * Hashed password
      * @return string
      */
     public function getPassword()
     {
-        return '';
+        return $this->passwordHash;
+    }
+
+    /**
+     * Return the salt used to hash the password
+     *
+     * @return string The salt
+     **/
+    public function getSalt()
+    {
+        return $this->salt;
     }
 
     /**
