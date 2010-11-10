@@ -259,6 +259,48 @@ Then create your custom repository:
 
 Of course, to do the same with Doctrine ODM, just replace Entity with Document in the previous exemples.
 
+## Configuration example:
+
+All configuration options are listed below:
+
+    db_driver: odm
+    class:
+        model:
+            user: Bundle\ExerciseUserBundle\Document\User
+            group: ~
+            permission: ~
+        form:
+            user: ~
+            group: ~
+            permission: ~
+            session: ~
+            change_password: ~
+        controller:
+            user: ~
+            group: ~
+            permission: ~
+            session: ~
+    auth:
+        class: ~
+        session_path: ~
+    remember_me:
+        cookie_name: ~
+        lifetime: ~
+    form_name:
+        user: ~
+        group: ~
+        permission: ~
+        session: ~
+        change_password: ~
+    confirmation_email:
+        enabled: ~
+        from_email: ~
+        template: ~
+    session_create_success_route: ~
+    template:
+        renderer: ~
+        theme: ~
+
 ## CREDITS
 
 Non-exhaustive list of developers who contributed:
