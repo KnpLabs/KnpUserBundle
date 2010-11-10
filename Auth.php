@@ -59,11 +59,11 @@ class Auth
      * @param Request                 $request        The request service
      * @param array                   $options        An array of options
      */
-    public function __construct(UserRepositoryInterface $userRepository, Request $request, array $options = array())
+    public function __construct(UserRepositoryInterface $userRepository, Session $session, Request $request = null, array $options = array())
     {
         $this->userRepository = $userRepository;
+        $this->session = $session;
         $this->request = $request;
-        $this->session = $request->getSession();
         $this->options = array_merge($this->options, $options);
     }
 
@@ -113,12 +113,15 @@ class Auth
             if($userId = $this->session->get($this->options['session_path'])) {
                 $this->user = $this->userRepository->find($userId);
             }
-            // if we have a remember_me token in cookies
-            elseif($userRememberMeToken = $this->request->cookies->get($this->options['remember_me_cookie_name'])) {
-                // if the user exists, login it with the remember parameter to true
-                if($user = $this->userRepository->findOneByRememberMeToken($userRememberMeToken)) {
-                    $this->login($user);
-                    $this->user = $user;
+            // if we have a request
+            elseif($this->request) {
+                // if we have a remember_me token in cookies
+                if($userRememberMeToken = $this->request->cookies->get($this->options['remember_me_cookie_name'])) {
+                    // if the user exists, login it with the remember parameter to true
+                    if($user = $this->userRepository->findOneByRememberMeToken($userRememberMeToken)) {
+                        $this->login($user);
+                        $this->user = $user;
+                    }
                 }
             }
         }
