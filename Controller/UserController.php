@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
 use Bundle\DoctrineUserBundle\Model\User;
 use Bundle\DoctrineUserBundle\Form\ChangePassword;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\ForbiddenHttpException;
 
 /**
  * RESTful controller managing user CRUD
@@ -197,7 +198,7 @@ class UserController extends Controller
     {
         $user = $this['doctrine_user.auth']->getUser();
         if (!$user) {
-            throw new NotFoundHttpException(sprintf('No user confirmed'));
+            throw new ForbiddenHttpException(sprintf('No user confirmed'));
         }
 
         return $this->render('DoctrineUserBundle:User:confirmed.'.$this->getRenderer());
@@ -225,7 +226,7 @@ class UserController extends Controller
     {
         $user = $this['doctrine_user.auth']->getUser();
         if (!$user) {
-            throw new NotFoundHttpException(sprintf('Must be logged in to change your password'));
+            throw new ForbiddenHttpException(sprintf('Must be logged in to change your password'));
         }
 
         $form = $this->createChangePasswordForm($user);
@@ -242,7 +243,7 @@ class UserController extends Controller
     {
         $user = $this['doctrine_user.auth']->getUser();
         if (!$user) {
-            throw new NotFoundHttpException(sprintf('Must be logged in to change your password'));
+            throw new ForbiddenHttpException(sprintf('Must be logged in to change your password'));
         }
 
         $form = $this->createChangePasswordForm($user);
