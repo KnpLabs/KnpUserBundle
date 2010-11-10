@@ -5,12 +5,14 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="templating.helper.auth.class">Bundle\DoctrineUserBundle\Templating\Helper\AuthHelper</parameter>
         <parameter key="doctrine_user.template.renderer">twig</parameter>
+        <parameter key="doctrine_user.template.theme">TwigBundle::form.twig</parameter>
+
+        <parameter key="doctrine_user.templating.helper.auth.class">Bundle\DoctrineUserBundle\Templating\Helper\AuthHelper</parameter>
     </parameters>
 
     <services>
-        <service id="templating.helper.auth" class="%templating.helper.auth.class%">
+        <service id="doctrine_user.templating.helper.auth" class="%templating.helper.auth.class%">
             <tag name="templating.helper" alias="auth" />
             <argument type="service" id="doctrine_user.auth" />
         </service>
