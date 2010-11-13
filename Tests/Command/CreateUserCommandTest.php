@@ -32,7 +32,6 @@ class CreateUserCommandTest extends WebTestCase
         $user = $userRepo->findOneByUsername($username);
 
         $this->assertTrue($user instanceof User);
-        $this->assertTrue($user->checkPassword($password));
         $this->assertEquals($email, $user->getEmail());
 
         $userRepo->getObjectManager()->remove($user);
@@ -62,7 +61,6 @@ class CreateUserCommandTest extends WebTestCase
         $user = $userRepo->findOneByUsername($username);
 
         $this->assertTrue($user instanceof User);
-        $this->assertTrue($user->checkPassword($password));
         $this->assertEquals($email, $user->getEmail());
         $this->assertFalse($user->getIsActive());
         $this->assertTrue($user->getIsSuperAdmin());
