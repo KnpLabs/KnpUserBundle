@@ -168,7 +168,7 @@ abstract class User implements AdvancedAccountInterface
      *
      * @return Boolean true if the user is not locked, false otherwise
      */
-    function isAccountNonLocked()
+    public function isAccountNonLocked()
     {
         return true;
     }
@@ -179,7 +179,7 @@ abstract class User implements AdvancedAccountInterface
      *
      * @return Boolean true if the user's credentials are non expired, false otherwise
      */
-    function isCredentialsNonExpired()
+    public function isCredentialsNonExpired()
     {
         return true;
     }
@@ -190,7 +190,7 @@ abstract class User implements AdvancedAccountInterface
      *
      * @return Boolean true if the user is enabled, false otherwise
      */
-    function isEnabled()
+    public function isEnabled()
     {
         return $this->getIsActive();
     }

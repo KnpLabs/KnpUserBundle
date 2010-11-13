@@ -6,8 +6,6 @@
 
     <parameters>
         <parameter key="doctrine_user.session_create.success_route">doctrine_user_session_success</parameter>
-        <parameter key="doctrine_user.template.renderer">twig</parameter>
-        <parameter key="doctrine_user.template.theme">TwigBundle::form.twig</parameter>
 
         <parameter key="doctrine_user.controller.user.class">Bundle\DoctrineUserBundle\Controller\UserController</parameter>
 
