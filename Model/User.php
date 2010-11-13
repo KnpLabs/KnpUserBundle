@@ -12,6 +12,7 @@ namespace Bundle\DoctrineUserBundle\Model;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\User\AdvancedAccountInterface;
+use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
 
 /**
  * Storage agnostic user object
@@ -271,16 +272,26 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
+     * Return the algorithm used to hash the password
+     *
+     * @return string the algorithm
+     **/
+    public function getAlgorithm()
+    {
+        return $this->algorithm;
+    }
+
+    /**
      * @param string $password
      */
     public function setPassword($password)
     {
         if (empty($password)) {
-            $this->password = null;
+            throw new \InvalidArgumentException('The password can not be empty');
         }
 
         $this->password = $password;
-        $this->passwordHash = $this->hashPassword($password);
+        $this->hashPassword();
     }
 
     /**
@@ -355,17 +366,6 @@ abstract class User implements AdvancedAccountInterface
         $this->lastLogin = $time;
     }
 
-    /**
-     * Returns whether or not the given password is valid.
-     *
-     * @param string $password
-     * @return boolean
-     */
-    public function checkPassword($password)
-    {
-        return $this->passwordHash === $this->hashPassword($password);
-    }
-
     public function __toString()
     {
         return (string) $this->getUsername();
@@ -385,11 +385,13 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
-     * @return string hashed password
+     * Encode the user password
+     * @return null
      */
-    protected function hashPassword($password)
+    protected function hashPassword()
     {
-        return hash_hmac($this->algorithm, $password, $this->salt);
+        $encoder = new MessageDigestPasswordEncoder($this->getAlgorithm());
+        $this->passwordHash = $encoder->encodePassword($this->password, $this->getSalt());
     }
 
     /**
