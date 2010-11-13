@@ -12,4 +12,8 @@
         <default key="_controller">DoctrineUserBundle:Security:login</default>
     </route>
 
+    <route id="_security_logout" pattern="/logout">
+        <default key="_controller">DoctrineUserBundle:Security:logout</default>
+    </route>
+
 </routes>

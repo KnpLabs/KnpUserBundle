@@ -3,23 +3,24 @@
 namespace Bundle\DoctrineUserBundle\Templating\Helper;
 
 use Symfony\Component\Templating\Helper\Helper;
-use Bundle\DoctrineUserBundle\Auth;
+use Bundle\DoctrineUserBundle\Model\User;
+use Symfony\Component\Security\SecurityContext;
 
 /**
- * AuthHelper.
+ * SecurityHelper.
  */
-class AuthHelper extends Helper
+class SecurityHelper extends Helper
 {
-    protected $auth;
+    protected $securityContext;
 
     /**
      * Constructor.
      *
      * @param Auth the Auth service instance
      */
-    public function __construct(Auth $auth)
+    public function __construct(SecurityContext $securityContext)
     {
-        $this->auth = $auth;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -29,7 +30,7 @@ class AuthHelper extends Helper
      */
     public function getUser()
     {
-        return $this->auth->getUser();
+        return $this->securityContext->getUser();
     }
 
     /**
@@ -39,17 +40,23 @@ class AuthHelper extends Helper
      **/
     public function isAuthenticated()
     {
-        return $this->auth->isAuthenticated();
+        return $this->securityContext->isAuthenticated();
     }
 
     /**
-     * Tell whether or not a user is logged in
+     * Tell whether or not the user is anonymous
      *
      * @return bool
      **/
-    public function getIsAuthenticated()
+    public function isAnonymous()
     {
-        return $this->isAuthenticated();
+        $token = $this->securityContext->getToken();
+
+        if(!$token) {
+            return true;
+        }
+
+        return !$token->getUser() instanceof User;
     }
 
     /**
@@ -59,6 +66,6 @@ class AuthHelper extends Helper
      */
     public function getName()
     {
-        return 'auth';
+        return 'doctrine_user_security';
     }
 }

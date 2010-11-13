@@ -8,13 +8,13 @@
         <parameter key="doctrine_user.template.renderer">twig</parameter>
         <parameter key="doctrine_user.template.theme">TwigBundle::form.twig</parameter>
 
-        <parameter key="doctrine_user.templating.helper.auth.class">Bundle\DoctrineUserBundle\Templating\Helper\AuthHelper</parameter>
+        <parameter key="doctrine_user.templating.helper.security.class">Bundle\DoctrineUserBundle\Templating\Helper\SecurityHelper</parameter>
     </parameters>
 
     <services>
-        <service id="doctrine_user.templating.helper.auth" class="%doctrine_user.templating.helper.auth.class%">
-            <tag name="templating.helper" alias="auth" />
-            <argument type="service" id="doctrine_user.auth" />
+        <service id="doctrine_user.templating.helper.security" class="%doctrine_user.templating.helper.security.class%">
+            <tag name="templating.helper" alias="doctrine_user_security" />
+            <argument type="service" id="security.context" />
         </service>
     </services>
 </container>

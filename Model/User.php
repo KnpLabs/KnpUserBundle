@@ -141,7 +141,7 @@ abstract class User implements AdvancedAccountInterface
      **/
     public function getRoles()
     {
-        return array();
+        return array('IS_AUTHENTICATED_FULLY');
     }
 
     /**
@@ -286,10 +286,6 @@ abstract class User implements AdvancedAccountInterface
      */
     public function setPassword($password)
     {
-        if (empty($password)) {
-            throw new \InvalidArgumentException('The password can not be empty');
-        }
-
         $this->password = $password;
         $this->hashPassword();
     }
@@ -390,8 +386,13 @@ abstract class User implements AdvancedAccountInterface
      */
     protected function hashPassword()
     {
-        $encoder = new MessageDigestPasswordEncoder($this->getAlgorithm());
-        $this->passwordHash = $encoder->encodePassword($this->password, $this->getSalt());
+        if(empty($this->password)) {
+            $this->hashPassword = null;
+        }
+        else {
+            $encoder = new MessageDigestPasswordEncoder($this->getAlgorithm());
+            $this->passwordHash = $encoder->encodePassword($this->password, $this->getSalt());
+        }
     }
 
     /**
