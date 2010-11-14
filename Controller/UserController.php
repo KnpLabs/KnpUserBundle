@@ -186,8 +186,7 @@ class UserController extends Controller
         $user->setIsActive(true);
 
         $this->saveUser($user);
-
-        $this['doctrine_user.auth']->login($user);
+        $this->authenticateUser($user);
 
         return $this->redirect($this->generateUrl('doctrine_user_user_confirmed'));
     }
@@ -197,7 +196,7 @@ class UserController extends Controller
      */
     public function confirmedAction()
     {
-        $user = $this['doctrine_user.auth']->getUser();
+        $user = $this['security.context']->getUser();
         if (!$user) {
             throw new ForbiddenHttpException(sprintf('No user confirmed'));
         }
@@ -225,7 +224,7 @@ class UserController extends Controller
      */
     public function changePasswordAction()
     {
-        $user = $this['doctrine_user.auth']->getUser();
+        $user = $this['security.context']->getUser();
         if (!$user) {
             throw new ForbiddenHttpException(sprintf('Must be logged in to change your password'));
         }
@@ -242,7 +241,7 @@ class UserController extends Controller
      */
     public function changePasswordUpdateAction()
     {
-        $user = $this['doctrine_user.auth']->getUser();
+        $user = $this['security.context']->getUser();
         if (!$user) {
             throw new ForbiddenHttpException(sprintf('Must be logged in to change your password'));
         }
