@@ -14,6 +14,7 @@ use Bundle\DoctrineUserBundle\Model\User;
 use Bundle\DoctrineUserBundle\Form\ChangePassword;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\ForbiddenHttpException;
+use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
 
 /**
  * RESTful controller managing user CRUD
@@ -109,7 +110,7 @@ class UserController extends Controller
             } else {
                 $user->setIsActive(true);
                 $this->saveUser($user);
-                $this['doctrine_user.auth']->login($user);
+                $this->authenticateUser($user);
                 $url = $this->generateUrl('doctrine_user_user_confirmed');
             }
 
@@ -292,6 +293,17 @@ class UserController extends Controller
         $objectManager = $this['doctrine_user.repository.user']->getObjectManager();
         $objectManager->persist($user);
         $objectManager->flush();
+    }
+
+    /**
+     * Authenticate a user with Symfony Security
+     *
+     * @return null
+     **/
+    public function authenticateUser(User $user)
+    {
+        $token = new UsernamePasswordToken($user, array(), $user->getRoles());
+        $this['security.context']->setToken($token);
     }
 
     /**
