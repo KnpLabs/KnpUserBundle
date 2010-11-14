@@ -152,24 +152,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('doctrine_user.controller.session');
     }
 
-    public function testDoctrineUserLoadAuthWithDefaults()
-    {
-        $this->createEmptyConfiguration();
-
-        $this->assertParameter('Bundle\DoctrineUserBundle\Auth', 'doctrine_user.auth.class');
-        $this->assertParameter('doctrine_user/auth/identifier', 'doctrine_user.auth.session_path');
-        $this->assertHasDefinition('doctrine_user.auth');
-    }
-
-    public function testDoctrineUserLoadAuth()
-    {
-        $this->createFullConfiguration();
-
-        $this->assertParameter('class', 'doctrine_user.auth.class');
-        $this->assertParameter('session_path', 'doctrine_user.auth.session_path');
-        $this->assertHasDefinition('doctrine_user.auth');
-    }
-
     public function testDoctrineUserLoadRememberMeWithDefaults()
     {
         $this->createEmptyConfiguration();
@@ -269,9 +251,6 @@ class:
         group: ~
         permission: ~
         session: ~
-auth:
-    class: ~
-    session_path: ~
 remember_me:
     cookie_name: ~
     lifetime: ~
