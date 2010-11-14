@@ -152,22 +152,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('doctrine_user.controller.session');
     }
 
-    public function testDoctrineUserLoadRememberMeWithDefaults()
-    {
-        $this->createEmptyConfiguration();
-
-        $this->assertParameter('doctrine_user/remember_me', 'doctrine_user.remember_me.cookie_name');
-        $this->assertParameter(2592000, 'doctrine_user.remember_me.lifetime');
-    }
-
-    public function testDoctrineUserLoadRememberMe()
-    {
-        $this->createFullConfiguration();
-
-        $this->assertParameter('cookie_name', 'doctrine_user.remember_me.cookie_name');
-        $this->assertParameter('lifetime', 'doctrine_user.remember_me.lifetime');
-    }
-
     public function testDoctrineUserLoadConfirmationEmailWithDefaults()
     {
         $this->createEmptyConfiguration();
@@ -251,9 +235,6 @@ class:
         group: ~
         permission: ~
         session: ~
-remember_me:
-    cookie_name: ~
-    lifetime: ~
 form_name:
     user: ~
     group: ~
