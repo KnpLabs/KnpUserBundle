@@ -10,7 +10,7 @@ class UserValidationTest extends WebTestCase
     {
         $userClass = $this->getService('doctrine_user.repository.user')->getObjectClass();
         $user = new $userClass();
-        $violations = $this->getService('validator')->validate($user);
+        $violations = $this->getService('validator')->validate($user, 'Registration');
         $this->assertTrue($this->hasViolationForPropertyPath($violations, 'username'));
     }
 
@@ -19,7 +19,7 @@ class UserValidationTest extends WebTestCase
         $userClass = $this->getService('doctrine_user.repository.user')->getObjectClass();
         $user = new $userClass();
         $user->setUsername(uniqid());
-        $violations = $this->getService('validator')->validate($user);
+        $violations = $this->getService('validator')->validate($user, 'Registration');
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'username'));
     }
 
@@ -35,7 +35,7 @@ class UserValidationTest extends WebTestCase
         $user1->setEmail(uniqid().'@mail.org');
         $user1->setPassword(uniqid());
         //$this->markTestSkipped();
-        $violations = $this->getService('validator')->validate($user1);
+        $violations = $this->getService('validator')->validate($user1, 'Registration');
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'username'));
         $om->persist($user1);
         $om->flush();
@@ -43,7 +43,7 @@ class UserValidationTest extends WebTestCase
         $user2->setUsername($username);
         $user1->setEmail(uniqid().'@mail.org');
         $user1->setPassword(uniqid());
-        $violations = $this->getService('validator')->validate($user2);
+        $violations = $this->getService('validator')->validate($user2, 'Registration');
         $this->assertTrue($this->hasViolationForPropertyPath($violations, 'username'));
         $om->remove($user1);
         $om->flush();
@@ -58,13 +58,13 @@ class UserValidationTest extends WebTestCase
         $userClass = $repo->getObjectClass();
         $user1 = new $userClass();
         $user1->setEmail($email);
-        $violations = $this->getService('validator')->validate($user1);
+        $violations = $this->getService('validator')->validate($user1, 'Registration');
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'email'));
         $om->persist($user1);
         $om->flush();
         $user2 = new $userClass();
         $user2->setEmail($email);
-        $violations = $this->getService('validator')->validate($user2);
+        $violations = $this->getService('validator')->validate($user2, 'Registration');
         $this->assertTrue($this->hasViolationForPropertyPath($violations, 'email'));
         $om->remove($user1);
         $om->flush();
