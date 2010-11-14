@@ -145,6 +145,16 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
+     * Tell whether or not the user has a role
+     *
+     * @return bool
+     **/
+    public function hasRole($role)
+    {
+        return in_array($role, $this->getRoles());
+    }
+
+    /**
      * Removes sensitive data from the user.
      * Implements AccountInterface
      */
