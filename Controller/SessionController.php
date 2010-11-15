@@ -31,7 +31,7 @@ class SessionController extends Controller
         $form = $this->get('doctrine_user.form.session');
 
         if ($this->get('request')->server->has('HTTP_REFERER')) {
-            $this->get('session']->set('DoctrineUserBundle/referer', $this['request')->server->get('HTTP_REFERER'));
+            $this->get('session')->set('DoctrineUserBundle/referer', $this->get('request')->server->get('HTTP_REFERER'));
         }
 
         return $this->render('DoctrineUserBundle:Session:new.'.$this->getRenderer(), array(
@@ -48,7 +48,7 @@ class SessionController extends Controller
     {
         $form = $this->get('doctrine_user.form.session');
         $data = $this->get('request')->request->get($form->getName());
-        $user = $this->get('doctrine_user.repository.user']->findOneByUsernameOrEmail($data['usernameOrEmail'));
+        $user = $this->get('doctrine_user.repository.user')->findOneByUsernameOrEmail($data['usernameOrEmail']);
 
         if ($user && $user->getIsActive() && $user->checkPassword($data['password'])) {
             $event = new Event($this, 'doctrine_user.user_can_login_filter', array());
