@@ -16,7 +16,7 @@ class GroupController extends Controller
      */
     public function listAction()
     {
-        $groups = $this['doctrine_user.repository.group']->findAll();
+        $groups = $this->get('doctrine_user.repository.group')->findAll();
 
         return $this->render('DoctrineUserBundle:Group:list.'.$this->getRenderer(), array('groups' => $groups));
     }
@@ -48,13 +48,13 @@ class GroupController extends Controller
     public function createAction($name)
     {
         $form = $this->createForm();
-        $form->bind($this['request']->get($form->getName()));
+        $form->bind($this->get('request')->get($form->getName()));
 
         if ($form->isValid()) {
-            $this['Doctrine.ORM.DefaultEntityManager']->persist($form->getData());
-            $this['Doctrine.ORM.DefaultEntityManager']->flush();
+            $this->get('Doctrine.ORM.DefaultEntityManager')->persist($form->getData());
+            $this->get('Doctrine.ORM.DefaultEntityManager')->flush();
 
-            $this['session']->setFlash('doctrine_user_group_create/success', true);
+            $this->get('session')->setFlash('doctrine_user_group_create/success', true);
 
             return $this->redirect($this->generateUrl('doctrine_user_group_show', array('name' => $form->getData()->getName())));
         }
@@ -86,13 +86,13 @@ class GroupController extends Controller
     {
         $group = $this->findGroup($name);
         $form = $this->createForm($group);
-        $form->bind($this['request']->get($form->getName()));
+        $form->bind($this->get('request')->get($form->getName()));
 
         if ($form->isValid()) {
-            $this['Doctrine.ORM.DefaultEntityManager']->persist($form->getData());
-            $this['Doctrine.ORM.DefaultEntityManager']->flush();
+            $this->get('Doctrine.ORM.DefaultEntityManager')->persist($form->getData());
+            $this->get('Doctrine.ORM.DefaultEntityManager')->flush();
 
-            $this['session']->setFlash('doctrine_user_group_update/success', true);
+            $this->get('session')->setFlash('doctrine_user_group_update/success', true);
 
             return $this->redirect($this->generateUrl('doctrine_user_group_show', array('name' => $form->getData()->getName())));
         }
@@ -107,10 +107,10 @@ class GroupController extends Controller
     {
         $group = $this->findGroup($name);
 
-        $this['doctrine_user.repository.group']->getObjectManager()->delete($group);
-        $this['doctrine_user.repository.group']->getObjectManager()->flush();
+        $this->get('doctrine_user.repository.group')->getObjectManager()->delete($group);
+        $this->get('doctrine_user.repository.group')->getObjectManager()->flush();
 
-        $this['session']->setFlash('doctrine_user_group_delete/success');
+        $this->get('session')->setFlash('doctrine_user_group_delete/success');
 
         return $this->redirect($this->generateUrl('doctrine_user_group_list'));
     }
@@ -127,7 +127,7 @@ class GroupController extends Controller
         if (empty($name)) {
             throw new NotFoundHttpException(sprintf('The group "%s" does not exist', $name));
         }
-        $group = $this['doctrine_user.repository.group']->findOneByName($name);
+        $group = $this->get('doctrine_user.repository.group')->findOneByName($name);
         if (!$group) {
             throw new NotFoundHttpException(sprintf('The group "%s" does not exist', $name));
         }
@@ -143,9 +143,9 @@ class GroupController extends Controller
      */
     protected function createForm($object = null)
     {
-        $form = $this['doctrine_user.form.group'];
+        $form = $this->get('doctrine_user.form.group');
         if (null === $object) {
-            $groupClass = $this['doctrine_user.repository.group']->getObjectClass();
+            $groupClass = $this->get('doctrine_user.repository.group')->getObjectClass();
             $object = new $groupClass();
         }
 
