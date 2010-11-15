@@ -25,7 +25,7 @@ class UserController extends Controller
      **/
     public function listAction()
     {
-        $users = $this['doctrine_user.repository.user']->findAll();
+        $users = $this->get('doctrine_user.repository.user')->findAll();
 
         return $this->render('DoctrineUserBundle:User:list.'.$this->getRenderer(), array('users' => $users));
     }
@@ -62,11 +62,11 @@ class UserController extends Controller
         $user = $this->findUser('username', $username);
         $form = $this->createForm($user);
 
-        if ($data = $this['request']->request->get($form->getName())) {
+        if ($data = $this->get('request')->request->get($form->getName())) {
             $form->bind($data);
             if ($form->isValid()) {
                 $this->saveUser($user);
-                $this['session']->setFlash('doctrine_user_user_update/success', true);
+                $this->get('session')->setFlash('doctrine_user_user_update/success', true);
                 $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
                 return $this->redirect($userUrl);
             }
@@ -97,23 +97,23 @@ class UserController extends Controller
     {
         $form = $this->createForm();
         $form->setValidationGroups('Registration');
-        $form->bind($this['request']->request->get($form->getName()));
+        $form->bind($this->get('request')->request->get($form->getName()));
 
         if ($form->isValid()) {
             $user = $form->getData();
             if ($this->container->getParameter('doctrine_user.confirmation_email.enabled')) {
                 $user->setIsActive(false);
                 $this->saveUser($user);
-                $this['session']->set('doctrine_user_send_confirmation_email/email', $user->getEmail());
+                $this->get('session')->set('doctrine_user_send_confirmation_email/email', $user->getEmail());
                 $url = $this->generateUrl('doctrine_user_user_send_confirmation_email');
             } else {
                 $user->setIsActive(true);
                 $this->saveUser($user);
-                $this['doctrine_user.auth']->login($user);
+                $this->get('doctrine_user.auth')->login($user);
                 $url = $this->generateUrl('doctrine_user_user_confirmed');
             }
 
-            $this['session']->setFlash('doctrine_user_user_create/success', true);
+            $this->get('session')->setFlash('doctrine_user_user_create/success', true);
             return $this->redirect($url);
         }
 
@@ -132,11 +132,11 @@ class UserController extends Controller
             throw new NotFoundHttpException('Email confirmation is disabled');
         }
 
-        $email = $this['session']->get('doctrine_user_send_confirmation_email/email');
+        $email = $this->get('session')->get('doctrine_user_send_confirmation_email/email');
         $user = $this->findUser('email', $email);
 
         $message = $this->getConfirmationEmailMessage($user);
-        $this['mailer']->send($message);
+        $this->get('mailer')->send($message);
 
         return $this->redirect($this->generateUrl('doctrine_user_user_check_confirmation_email'));
     }
@@ -166,7 +166,7 @@ class UserController extends Controller
      */
     public function checkConfirmationEmailAction()
     {
-        $email = $this['session']->get('doctrine_user_send_confirmation_email/email');
+        $email = $this->get('session')->get('doctrine_user_send_confirmation_email/email');
         $user = $this->findUser('email', $email);
 
         return $this->render('DoctrineUserBundle:User:checkConfirmationEmail.'.$this->getRenderer(), array(
@@ -186,7 +186,7 @@ class UserController extends Controller
 
         $this->saveUser($user);
 
-        $this['doctrine_user.auth']->login($user);
+        $this->get('doctrine_user.auth')->login($user);
 
         return $this->redirect($this->generateUrl('doctrine_user_user_confirmed'));
     }
@@ -196,7 +196,7 @@ class UserController extends Controller
      */
     public function confirmedAction()
     {
-        $user = $this['doctrine_user.auth']->getUser();
+        $user = $this->get('doctrine_user.auth')->getUser();
         if (!$user) {
             throw new ForbiddenHttpException(sprintf('No user confirmed'));
         }
@@ -211,10 +211,10 @@ class UserController extends Controller
     {
         $user = $this->findUser('username', $username);
 
-        $objectManager = $this['doctrine_user.repository.user']->getObjectManager();
+        $objectManager = $this->get('doctrine_user.repository.user')->getObjectManager();
         $objectManager->remove($user);
         $objectManager->flush();
-        $this['session']->setFlash('doctrine_user_user_delete/success', true);
+        $this->get('session')->setFlash('doctrine_user_user_delete/success', true);
 
         return $this->redirect($this->generateUrl('doctrine_user_user_list'));
     }
@@ -224,7 +224,7 @@ class UserController extends Controller
      */
     public function changePasswordAction()
     {
-        $user = $this['doctrine_user.auth']->getUser();
+        $user = $this->get('doctrine_user.auth')->getUser();
         if (!$user) {
             throw new ForbiddenHttpException(sprintf('Must be logged in to change your password'));
         }
@@ -241,16 +241,16 @@ class UserController extends Controller
      */
     public function changePasswordUpdateAction()
     {
-        $user = $this['doctrine_user.auth']->getUser();
+        $user = $this->get('doctrine_user.auth')->getUser();
         if (!$user) {
             throw new ForbiddenHttpException(sprintf('Must be logged in to change your password'));
         }
 
         $form = $this->createChangePasswordForm($user);
-        $form->bind($this['request']->request->get($form->getName()));
+        $form->bind($this->get('request')->request->get($form->getName()));
         if($form->isValid()) {
             $user->setPassword($form->getNewPassword());
-            $this['doctrine_user.repository.user']->getObjectManager()->flush();
+            $this->get('doctrine_user.repository.user')->getObjectManager()->flush();
             $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
             return $this->redirect($userUrl);
         }
@@ -271,7 +271,7 @@ class UserController extends Controller
     protected function findUser($key, $value)
     {
         if (!empty($value)) {
-            $user = $this['doctrine_user.repository.user']->{'findOneBy'.ucfirst($key)}($value);
+            $user = $this->get('doctrine_user.repository.user')->{'findOneBy'.ucfirst($key)}($value);
         }
 
         if (empty($user)) {
@@ -289,7 +289,7 @@ class UserController extends Controller
      **/
     public function saveUser(User $user)
     {
-        $objectManager = $this['doctrine_user.repository.user']->getObjectManager();
+        $objectManager = $this->get('doctrine_user.repository.user')->getObjectManager();
         $objectManager->persist($user);
         $objectManager->flush();
     }
@@ -302,9 +302,9 @@ class UserController extends Controller
      */
     protected function createForm($object = null)
     {
-        $form = $this['doctrine_user.form.user'];
+        $form = $this->get('doctrine_user.form.user');
         if (null === $object) {
-            $userClass = $this['doctrine_user.repository.user']->getObjectClass();
+            $userClass = $this->get('doctrine_user.repository.user')->getObjectClass();
             $object = new $userClass();
         }
 
@@ -315,7 +315,7 @@ class UserController extends Controller
 
     protected function createChangePasswordForm(User $user)
     {
-        $form = $this['doctrine_user.form.change_password'];
+        $form = $this->get('doctrine_user.form.change_password');
         $form->setData(new ChangePassword($user));
 
         return $form;

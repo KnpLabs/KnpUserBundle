@@ -28,10 +28,10 @@ class SessionController extends Controller
      */
     public function newAction()
     {
-        $form = $this['doctrine_user.form.session'];
+        $form = $this->get('doctrine_user.form.session');
 
-        if ($this['request']->server->has('HTTP_REFERER')) {
-            $this['session']->set('DoctrineUserBundle/referer', $this['request']->server->get('HTTP_REFERER'));
+        if ($this->get('request')->server->has('HTTP_REFERER')) {
+            $this->get('session']->set('DoctrineUserBundle/referer', $this['request')->server->get('HTTP_REFERER'));
         }
 
         return $this->render('DoctrineUserBundle:Session:new.'.$this->getRenderer(), array(
@@ -46,26 +46,26 @@ class SessionController extends Controller
      */
     public function createAction()
     {
-        $form = $this['doctrine_user.form.session'];
-        $data = $this['request']->request->get($form->getName());
-        $user = $this['doctrine_user.repository.user']->findOneByUsernameOrEmail($data['usernameOrEmail']);
+        $form = $this->get('doctrine_user.form.session');
+        $data = $this->get('request')->request->get($form->getName());
+        $user = $this->get('doctrine_user.repository.user']->findOneByUsernameOrEmail($data['usernameOrEmail'));
 
         if ($user && $user->getIsActive() && $user->checkPassword($data['password'])) {
             $event = new Event($this, 'doctrine_user.user_can_login_filter', array());
-            $this['event_dispatcher']->filter($event, true);
+            $this->get('event_dispatcher')->filter($event, true);
 
             if ($event->getReturnValue()) {
-                $this['doctrine_user.auth']->login($user);
+                $this->get('doctrine_user.auth')->login($user);
 
                 $event = new Event($this, 'doctrine_user.login_success', array('user' => $user));
-                $this['event_dispatcher']->notifyUntil($event);
+                $this->get('event_dispatcher')->notifyUntil($event);
 
                 if ($event->isProcessed()) {
                     return $event->getReturnValue();
                 }
 
                 $response = $this->redirect(
-                    $this['session']->get('DoctrineUserBundle/referer', $this->generateUrl(
+                    $this->get('session')->get('DoctrineUserBundle/referer', $this->generateUrl(
                         $this->container->getParameter('doctrine_user.session_create.success_route')
                     ))
                 );
@@ -75,7 +75,7 @@ class SessionController extends Controller
             }
         }
 
-        $this['session']->setFlash('doctrine_user_session_create/error', true);
+        $this->get('session')->setFlash('doctrine_user_session_create/error', true);
 
         $form->addError('The entered username and/or password is invalid.');
 
@@ -87,14 +87,14 @@ class SessionController extends Controller
     protected function storeRememberMeCookie(User $user, Response $response, $rememberMe)
     {
         $rememberMeCookieValue = $rememberMe ?$user->getRememberMeToken() : null;
-        $rememberMeCookieName = $this['doctrine_user.auth']->getOption('remember_me_cookie_name');
-        $rememberMeLifetime = $this['doctrine_user.auth']->getOption('remember_me_lifetime');
+        $rememberMeCookieName = $this->get('doctrine_user.auth')->getOption('remember_me_cookie_name');
+        $rememberMeLifetime = $this->get('doctrine_user.auth')->getOption('remember_me_lifetime');
         $response->headers->setCookie($rememberMeCookieName, $rememberMeCookieValue, null, time() + $rememberMeLifetime);
     }
 
     public function successAction()
     {
-        if (!$this['doctrine_user.auth']->isAuthenticated()) {
+        if (!$this->get('doctrine_user.auth')->isAuthenticated()) {
             return $this->redirect($this->generateUrl('doctrine_user_session_new'));
         }
 
@@ -108,7 +108,7 @@ class SessionController extends Controller
      */
     public function deleteAction()
     {
-        $this['doctrine_user.auth']->logout();
+        $this->get('doctrine_user.auth')->logout();
         return $this->redirect($this->generateUrl('doctrine_user_session_new'));
     }
 
