@@ -92,6 +92,13 @@ class SessionController extends Controller
         $response->headers->setCookie($rememberMeCookieName, $rememberMeCookieValue, null, time() + $rememberMeLifetime);
     }
 
+    protected function deleteRememberMeCookie(Response $response)
+    {
+        $rememberMeCookieValue = null;
+        $rememberMeCookieName = $this->get('doctrine_user.auth')->getOption('remember_me_cookie_name');
+        $response->headers->setCookie($rememberMeCookieName, $rememberMeCookieValue, null, time() - 7200);
+    }
+
     public function successAction()
     {
         if (!$this->get('doctrine_user.auth')->isAuthenticated()) {
@@ -109,7 +116,9 @@ class SessionController extends Controller
     public function deleteAction()
     {
         $this->get('doctrine_user.auth')->logout();
-        return $this->redirect($this->generateUrl('doctrine_user_session_new'));
+        $response = $this->redirect($this->generateUrl('doctrine_user_session_new'));
+        $this->deleteRememberMeCookie($response);
+        return $response;
     }
 
     protected function getRenderer()
