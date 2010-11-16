@@ -36,7 +36,7 @@ class UserController extends Controller
      */
     public function showAction($username)
     {
-        $user = $this->findUser('username', $username);
+        $user = $this->findUserByUsername($username);
 
         return $this->render('DoctrineUserBundle:User:show.'.$this->getRenderer(), array('user' => $user));
     }
@@ -46,7 +46,7 @@ class UserController extends Controller
      */
     public function editAction($username)
     {
-        $user = $this->findUser('username', $username);
+        $user = $this->findUserByUsername($username);
         $form = $this->createForm($user);
 
         return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array(
@@ -60,7 +60,7 @@ class UserController extends Controller
      */
     public function updateAction($username)
     {
-        $user = $this->findUser('username', $username);
+        $user = $this->findUserByUsername($username);
         $form = $this->createForm($user);
 
         if ($data = $this->get('request')->request->get($form->getName())) {
@@ -209,7 +209,7 @@ class UserController extends Controller
      */
     public function deleteAction($username)
     {
-        $user = $this->findUser('username', $username);
+        $user = $this->findUserByUsername($username);
 
         $objectManager = $this->get('doctrine_user.repository.user')->getObjectManager();
         $objectManager->remove($user);
@@ -258,6 +258,24 @@ class UserController extends Controller
         return $this->render('DoctrineUserBundle:User:changePassword.'.$this->getRenderer(), array(
             'form' => $form
         ));
+    }
+
+    /**
+     * Find a username by its lowercased username
+     *
+     * @param string $username username
+     * @throw NotFoundException if user does not exist
+     * @return User
+     **/
+    public function findUserByUsername($username)
+    {
+        $user = $this->get('doctrine_user.repository.user')->findOneByUsername($username);
+
+        if (empty($user)) {
+            throw new NotFoundHttpException(sprintf('The user with username "%s" does not exist', $username));
+        }
+
+        return $user;
     }
 
     /**
