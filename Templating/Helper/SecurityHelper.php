@@ -34,6 +34,18 @@ class SecurityHelper extends Helper
     }
 
     /**
+     * Tells whether the authenticated user is this user
+     *
+     * @return bool
+     **/
+    public function isUser(User $user)
+    {
+        $authenticatedUser = $this->getUser();
+
+        return $authenticatedUser instanceof User && $authenticatedUser->is($user);
+    }
+
+    /**
      * Tell whether or not a user is logged in
      *
      * @return bool
