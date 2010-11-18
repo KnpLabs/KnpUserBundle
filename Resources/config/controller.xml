@@ -5,13 +5,11 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="doctrine_user.session_create.success_route">doctrine_user_session_success</parameter>
-
         <parameter key="doctrine_user.controller.user.class">Bundle\DoctrineUserBundle\Controller\UserController</parameter>
 
         <parameter key="doctrine_user.controller.permission.class">Bundle\DoctrineUserBundle\Controller\PermissionController</parameter>
 
-        <parameter key="doctrine_user.controller.session.class">Bundle\DoctrineUserBundle\Controller\SessionController</parameter>
+        <parameter key="doctrine_user.controller.security.class">Bundle\DoctrineUserBundle\Controller\SecurityController</parameter>
 
         <parameter key="doctrine_user.controller.group.class">Bundle\DoctrineUserBundle\Controller\GroupController</parameter>
     </parameters>
@@ -29,7 +27,7 @@
             </call>
         </service>
 
-        <service id="doctrine_user.controller.session" class="%doctrine_user.controller.session.class%">
+        <service id="doctrine_user.controller.security" class="%doctrine_user.controller.security.class%">
             <call method="setContainer">
                 <argument type="service" id="service_container" />
             </call>
