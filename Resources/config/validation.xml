@@ -9,11 +9,13 @@
         <constraint name="Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB\Unique">
             <option name="property">username</option>
             <option name="message">The provided username was already taken.</option>
+            <option name="groups">Registration</option>
         </constraint>
 
         <constraint name="Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB\Unique">
             <option name="property">email</option>
             <option name="message">The provided email was already taken.</option>
+            <option name="groups">Registration</option>
         </constraint>
 
     </class>
