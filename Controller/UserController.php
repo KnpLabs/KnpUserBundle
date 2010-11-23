@@ -133,8 +133,9 @@ class UserController extends Controller
         $email = $this['session']->get('doctrine_user_send_confirmation_email/email');
         $user = $this->findUser('email', $email);
 
+        $mailer = $this['mailer'];
         $message = $this->getConfirmationEmailMessage($user);
-        $this['mailer']->send($message);
+        $mailer->send($message);
 
         return $this->redirect($this->generateUrl('doctrine_user_user_check_confirmation_email'));
     }
