@@ -1,9 +1,3 @@
-{% if _view.session.hasFlash('doctrine_user_session_create/error') %}
-<div class="doctrine_user_session_create_error">
-    {% trans 'Bad username or password, please try again.' from 'DoctrineUserBundle' %}
-</div>
-{% endif %}
-
 {% form_theme form form.getOption('theme') %}
 <form action="{% path 'doctrine_user_session_create' %}" {{ form|render_enctype }} method="POST" class="doctrine_user_session_new">
     <ul>

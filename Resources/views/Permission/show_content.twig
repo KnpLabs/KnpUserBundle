@@ -1,15 +1,3 @@
-{% if _view.session.hasFlash('doctrine_user_permission_create/success') %}
-<div class="doctrine_user_permission_create_success">
-    {% trans 'The permission has been created successfully' from 'DoctrineUserBundle' %}
-</div>
-{% endif %}
-
-{% if _view.session.hasFlash('doctrine_user_permission_update/success') %}
-<div class="doctrine_user_permission_update_success">
-    {% trans 'The permission has been updated successfully' from 'DoctrineUserBundle' %}
-</div>
-{% endif %}
-
 <div class="doctrine_user_permission_show">
     <table>
         <tbody>
