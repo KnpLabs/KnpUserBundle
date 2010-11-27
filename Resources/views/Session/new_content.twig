@@ -1,6 +1,6 @@
 {% if _view.session.hasFlash('doctrine_user_session_create/error') %}
 <div class="doctrine_user_session_create_error">
-    {% trans 'Bad username or password, please try again.' from DoctrineUserBundle %}
+    {% trans 'Bad username or password, please try again.' from 'DoctrineUserBundle' %}
 </div>
 {% endif %}
 
@@ -11,7 +11,7 @@
             {{ field|render }}
         {% endfor %}
         <li>
-            <input type="submit" value="{% trans 'Login' from DoctrineUserBundle %}" />
+            <input type="submit" value="{% trans 'Login' from 'DoctrineUserBundle' %}" />
         </li>
     </ul>
     {{ form|render_hidden }}
