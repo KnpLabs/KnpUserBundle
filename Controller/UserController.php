@@ -66,7 +66,7 @@ class UserController extends Controller
             $form->bind($data);
             if ($form->isValid()) {
                 $this->saveUser($user);
-                $this->get('session')->setFlash('doctrine_user_user_update/success', true);
+                $this->get('session')->setFlash('doctrine_user_user_update', 'success');
                 $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
                 return $this->redirect($userUrl);
             }
@@ -84,6 +84,7 @@ class UserController extends Controller
     public function newAction()
     {
         $form = $this->createForm();
+        $this->get('session')->setFlash('doctrine_user_user_update', 'success');
 
         return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array(
             'form' => $form
@@ -113,7 +114,7 @@ class UserController extends Controller
                 $url = $this->generateUrl('doctrine_user_user_confirmed');
             }
 
-            $this->get('session')->setFlash('doctrine_user_user_create/success', true);
+            $this->get('session')->setFlash('doctrine_user_user_create', 'success');
             return $this->redirect($url);
         }
 
@@ -215,7 +216,7 @@ class UserController extends Controller
         $objectManager = $this->get('doctrine_user.repository.user')->getObjectManager();
         $objectManager->remove($user);
         $objectManager->flush();
-        $this->get('session')->setFlash('doctrine_user_user_delete/success', true);
+        $this->get('session')->setFlash('doctrine_user_user_delete', 'success');
 
         return $this->redirect($this->generateUrl('doctrine_user_user_list'));
     }
