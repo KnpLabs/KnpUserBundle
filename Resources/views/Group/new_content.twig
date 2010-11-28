@@ -3,8 +3,8 @@
     <ul>
         {% for field in form.getAllVisibleFields() %}
             {{ field|render_label }}
-            {{ field|render }}
             {{ field|render_errors }}
+            {{ field|render }}
         {% endfor %}
         <li>
             <input type="submit" value="{% trans 'Create group' from 'DoctrineUserBundle' %}" />
