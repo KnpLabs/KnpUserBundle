@@ -2,7 +2,9 @@
 <form action="{% path 'doctrine_user_group_create' %}" {{ form|render_enctype }} method="POST" class="doctrine_user_group_new">
     <ul>
         {% for field in form.getAllVisibleFields() %}
+            {{ field|render_label }}
             {{ field|render }}
+            {{ field|render_errors }}
         {% endfor %}
         <li>
             <input type="submit" value="{% trans 'Create group' from 'DoctrineUserBundle' %}" />
