@@ -57,12 +57,16 @@ class UserValidationTest extends WebTestCase
         $validator = $this->getService('validator');
         $userClass = $repo->getObjectClass();
         $user1 = new $userClass();
+        $user1->setUsername(uniqid());
+        $user1->setPassword(uniqid());
         $user1->setEmail($email);
         $violations = $this->getService('validator')->validate($user1, 'Registration');
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'email'));
         $om->persist($user1);
         $om->flush();
         $user2 = new $userClass();
+        $user2->setUsername(uniqid());
+        $user2->setPassword(uniqid());
         $user2->setEmail($email);
         $violations = $this->getService('validator')->validate($user2, 'Registration');
         $this->assertTrue($this->hasViolationForPropertyPath($violations, 'email'));
