@@ -172,7 +172,6 @@ class UserController extends Controller
 
         return $this->render('DoctrineUserBundle:User:checkConfirmationEmail.'.$this->getRenderer(), array(
             'user' => $user,
-            'debug' => $this->container->getParameter('kernel.debug')
         ));
     }
 
@@ -202,7 +201,9 @@ class UserController extends Controller
             throw new ForbiddenHttpException(sprintf('No user confirmed'));
         }
 
-        return $this->render('DoctrineUserBundle:User:confirmed.'.$this->getRenderer());
+        return $this->render('DoctrineUserBundle:User:confirmed.'.$this->getRenderer(), array(
+            'user' => $user,
+        ));
     }
 
     /**

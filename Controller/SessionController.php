@@ -105,7 +105,8 @@ class SessionController extends Controller
             return $this->redirect($this->generateUrl('doctrine_user_session_new'));
         }
 
-        return $this->render('DoctrineUserBundle:Session:success.'.$this->getRenderer());
+        $user = $this->get('doctrine_user.auth')->getUser();
+        return $this->render('DoctrineUserBundle:Session:success.'.$this->getRenderer(), array('user' => $user));
     }
 
     /**
