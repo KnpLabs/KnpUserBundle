@@ -84,8 +84,7 @@ class UserController extends Controller
     public function newAction()
     {
         $form = $this->createForm();
-        $this->get('session')->setFlash('doctrine_user_user_update', 'success');
-
+        
         return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array(
             'form' => $form
         ));
