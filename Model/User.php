@@ -100,7 +100,7 @@ abstract class User implements AdvancedAccountInterface
     protected $lastLogin;
 
     /**
-     * Random string sent to the user email adress in order to verify it
+     * Random string sent to the user email address in order to verify it
      *
      * @var string
      */
@@ -125,7 +125,6 @@ abstract class User implements AdvancedAccountInterface
 
     public function __construct()
     {
-        $this->algorithm = 'sha1';
         $this->salt = md5(uniqid() . rand(100000, 999999));
         $this->confirmationToken = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->renewRememberMeToken();
@@ -282,30 +281,12 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
-     * Return the algorithm used to hash the password
-     *
-     * @return string the algorithm
-     **/
-    public function getAlgorithm()
-    {
-        return $this->algorithm;
-    }
-
-    /**
      * @param string $password
      */
     public function setPassword($password)
     {
         $this->password = $password;
         $this->hashPassword();
-    }
-
-    /**
-     * @param string $algorithm
-     */
-    public function setAlgorithm($algorithm)
-    {
-        $this->algorithm = $algorithm;
     }
 
     /**
@@ -396,10 +377,9 @@ abstract class User implements AdvancedAccountInterface
      */
     protected function hashPassword()
     {
-        if(empty($this->password)) {
+        if (empty($this->password)) {
             $this->hashPassword = null;
-        }
-        else {
+        } else {
             $encoder = new MessageDigestPasswordEncoder($this->getAlgorithm());
             $this->passwordHash = $encoder->encodePassword($this->password, $this->getSalt());
         }
