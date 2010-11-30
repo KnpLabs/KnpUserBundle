@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\Event;
 use Bundle\DoctrineUserBundle\Model\User;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\FieldError;
 
 /**
  * RESTful controller managing authentication: login and logout
@@ -77,7 +78,7 @@ class SessionController extends Controller
 
         $this->get('session')->setFlash('doctrine_user_session_create/error', true);
 
-        $form->addError('The entered username and/or password is invalid.');
+        $form->addError(new FieldError($this->container->getParameter('doctrine_user.form.session.error.bad_login')));
 
         return $this->render('DoctrineUserBundle:Session:new.'.$this->getRenderer(), array(
             'form' => $form

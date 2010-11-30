@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="doctrine_user.form.session.class">Bundle\DoctrineUserBundle\Form\SessionForm</parameter>
         <parameter key="doctrine_user.form.session.name">doctrine_user_session_form</parameter>
+        <parameter key="doctrine_user.form.session.error.bad_login">Bad login, please try again.</parameter>
 
         <parameter key="doctrine_user.form.user.class">Bundle\DoctrineUserBundle\Form\UserForm</parameter>
         <parameter key="doctrine_user.form.user.name">doctrine_user_user_form</parameter>
