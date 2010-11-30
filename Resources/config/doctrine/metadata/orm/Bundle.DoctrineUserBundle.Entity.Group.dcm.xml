@@ -7,7 +7,6 @@
     <mapped-superclass
         name="Bundle\DoctrineUserBundle\Entity\Group"
         table="doctrine_user_group"
-        repository-class="Bundle\DoctrineUserBundle\Entity\GroupRepository"
         inheritance-type="SINGLE_TABLE"
         >
 

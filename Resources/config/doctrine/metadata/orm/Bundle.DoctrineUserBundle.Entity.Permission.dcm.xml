@@ -7,7 +7,6 @@
     <mapped-superclass
         name="Bundle\DoctrineUserBundle\Entity\Permission"
         table="doctrine_user_permission"
-        repository-class="Bundle\DoctrineUserBundle\Entity\PermissionRepository"
         inheritance-type="SINGLE_TABLE"
         >
 

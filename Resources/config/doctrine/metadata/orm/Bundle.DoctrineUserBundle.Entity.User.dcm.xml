@@ -7,7 +7,6 @@
     <mapped-superclass
         name="Bundle\DoctrineUserBundle\Entity\User"
         table="doctrine_user_user"
-        repository-class="Bundle\DoctrineUserBundle\Entity\UserRepository"
         inheritance-type="SINGLE_TABLE"
         >
 
