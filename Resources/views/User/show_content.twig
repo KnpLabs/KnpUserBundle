@@ -1,16 +1,4 @@
-{% if _view.session.hasFlash('doctrine_user_user_create/success') %}
-<div class="doctrine_user_user_create_success">
-    {% trans 'The user has been created successfully' from DoctrineUserBundle %}
-</div>
-{% endif %}
-
-{% if _view.session.hasFlash('doctrine_user_user_update/success') %}
-<div class="doctrine_user_user_update_success">
-    {% trans 'The user has been updated successfully' from DoctrineUserBundle %}
-</div>
-{% endif %}
-
 <div class="doctrine_user_user_show">
-    <p>{% trans "Username" from DoctrineUserBundle %}: {{ user.getUsername() }}</p>
-    <p>{% trans "Email" from DoctrineUserBundle %}: {{ user.getEmail() }}</p>
+    <p>{% trans "Username" from 'DoctrineUserBundle' %}: {{ user.getUsername() }}</p>
+    <p>{% trans "Email" from 'DoctrineUserBundle' %}: {{ user.getEmail() }}</p>
 </div>

@@ -54,7 +54,7 @@ class GroupController extends Controller
             $this->get('Doctrine.ORM.DefaultEntityManager')->persist($form->getData());
             $this->get('Doctrine.ORM.DefaultEntityManager')->flush();
 
-            $this->get('session')->setFlash('doctrine_user_group_create/success', true);
+            $this->get('session')->setFlash('doctrine_user_group_create', 'success');
 
             return $this->redirect($this->generateUrl('doctrine_user_group_show', array('name' => $form->getData()->getName())));
         }
@@ -92,7 +92,7 @@ class GroupController extends Controller
             $this->get('Doctrine.ORM.DefaultEntityManager')->persist($form->getData());
             $this->get('Doctrine.ORM.DefaultEntityManager')->flush();
 
-            $this->get('session')->setFlash('doctrine_user_group_update/success', true);
+            $this->get('session')->setFlash('doctrine_user_group_update', 'success');
 
             return $this->redirect($this->generateUrl('doctrine_user_group_show', array('name' => $form->getData()->getName())));
         }

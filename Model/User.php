@@ -39,8 +39,8 @@ abstract class User implements AdvancedAccountInterface
 
     /**
      * @validation:Validation({
-     *      @validation:Email(message="This is not a valid email", groups="Registration"),
      *      @validation:NotBlank(message="Please enter an email", groups="Registration"),
+     *      @validation:Email(message="This is not a valid email", groups="Registration"),
      *      @validation:MaxLength(limit=255, message="The email is too long", groups="Registration")
      * })
      * @var string

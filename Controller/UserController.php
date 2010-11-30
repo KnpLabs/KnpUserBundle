@@ -67,7 +67,7 @@ class UserController extends Controller
             $form->bind($data);
             if ($form->isValid()) {
                 $this->saveUser($user);
-                $this->get('session')->setFlash('doctrine_user_user_update/success', true);
+                $this->get('session')->setFlash('doctrine_user_user_update', 'success');
                 $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
                 return $this->redirect($userUrl);
             }
@@ -85,7 +85,7 @@ class UserController extends Controller
     public function newAction()
     {
         $form = $this->createForm();
-
+        
         return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array(
             'form' => $form
         ));
@@ -114,7 +114,7 @@ class UserController extends Controller
                 $url = $this->generateUrl('doctrine_user_user_confirmed');
             }
 
-            $this->get('session')->setFlash('doctrine_user_user_create/success', true);
+            $this->get('session')->setFlash('doctrine_user_user_create', 'success');
             return $this->redirect($url);
         }
 
@@ -136,8 +136,9 @@ class UserController extends Controller
         $email = $this->get('session')->get('doctrine_user_send_confirmation_email/email');
         $user = $this->findUser('email', $email);
 
+        $mailer = $this->get('mailer');
         $message = $this->getConfirmationEmailMessage($user);
-        $this->get('mailer')->send($message);
+        $mailer->send($message);
 
         return $this->redirect($this->generateUrl('doctrine_user_user_check_confirmation_email'));
     }
@@ -150,7 +151,7 @@ class UserController extends Controller
             'user' => $user,
             'confirmationUrl' => $this->generateUrl('doctrine_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
         ));
-        $renderedLines = explode("\n", $rendered);
+        $renderedLines = explode("\n", trim($rendered));
         $subject = $renderedLines[0];
         $body = implode("\n", array_slice($renderedLines, 1));
 
@@ -172,7 +173,6 @@ class UserController extends Controller
 
         return $this->render('DoctrineUserBundle:User:checkConfirmationEmail.'.$this->getRenderer(), array(
             'user' => $user,
-            'debug' => $this->container->getParameter('kernel.debug')
         ));
     }
 
@@ -201,7 +201,9 @@ class UserController extends Controller
             throw new ForbiddenHttpException(sprintf('No user confirmed'));
         }
 
-        return $this->render('DoctrineUserBundle:User:confirmed.'.$this->getRenderer());
+        return $this->render('DoctrineUserBundle:User:confirmed.'.$this->getRenderer(), array(
+            'user' => $user,
+        ));
     }
 
     /**
@@ -214,7 +216,7 @@ class UserController extends Controller
         $objectManager = $this->get('doctrine_user.repository.user')->getObjectManager();
         $objectManager->remove($user);
         $objectManager->flush();
-        $this->get('session')->setFlash('doctrine_user_user_delete/success', true);
+        $this->get('session')->setFlash('doctrine_user_user_delete', 'success');
 
         return $this->redirect($this->generateUrl('doctrine_user_user_list'));
     }
