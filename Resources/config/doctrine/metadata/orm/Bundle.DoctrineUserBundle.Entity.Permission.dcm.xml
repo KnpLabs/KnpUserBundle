@@ -4,7 +4,12 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Bundle\DoctrineUserBundle\Entity\Permission" table="doctrine_user_permission" repository-class="Bundle\DoctrineUserBundle\Entity\PermissionRepository">
+    <mapped-superclass
+        name="Bundle\DoctrineUserBundle\Entity\Permission"
+        table="doctrine_user_permission"
+        repository-class="Bundle\DoctrineUserBundle\Entity\PermissionRepository"
+        inheritance-type="SINGLE_TABLE"
+        >
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
@@ -23,6 +28,6 @@
             <lifecycle-callback type="preUpdate" method="incrementUpdatedAt" />
         </lifecycle-callbacks>
 
-    </entity>
+    </mapped-superclass>
 
 </doctrine-mapping>

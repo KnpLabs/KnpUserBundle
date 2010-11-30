@@ -4,7 +4,12 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass name="Bundle\DoctrineUserBundle\Entity\User" table="doctrine_user_user" repository-class="Bundle\DoctrineUserBundle\Entity\UserRepository">
+    <mapped-superclass
+        name="Bundle\DoctrineUserBundle\Entity\User"
+        table="doctrine_user_user"
+        repository-class="Bundle\DoctrineUserBundle\Entity\UserRepository"
+        inheritance-type="SINGLE_TABLE"
+        >
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
