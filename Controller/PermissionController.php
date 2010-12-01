@@ -16,7 +16,7 @@ class PermissionController extends Controller
      */
     public function listAction()
     {
-        $permissions = $this['doctrine_user.repository.permission']->findAll();
+        $permissions = $this->get('doctrine_user.repository.permission')->findAll();
 
         return $this->render('DoctrineUserBundle:Permission:list.'.$this->getRenderer(), array('permissions' => $permissions));
     }
@@ -48,13 +48,13 @@ class PermissionController extends Controller
     public function createAction($name)
     {
         $form = $this->createForm();
-        $form->bind($this['request']->get($form->getName()));
+        $form->bind($this->get('request')->get($form->getName()));
 
         if ($form->isValid()) {
-            $this['Doctrine.ORM.DefaultEntityManager']->persist($form->getData());
-            $this['Doctrine.ORM.DefaultEntityManager']->flush();
+            $this->get('Doctrine.ORM.DefaultEntityManager')->persist($form->getData());
+            $this->get('Doctrine.ORM.DefaultEntityManager')->flush();
 
-            $this['session']->setFlash('doctrine_user_permission_create/success', true);
+            $this->get('session')->setFlash('doctrine_user_permission_create', 'success');
 
             return $this->redirect($this->generateUrl('doctrine_user_permission_show.'.$this->getRenderer(), array('name' => $form->getData()->getName())));
         }
@@ -86,13 +86,13 @@ class PermissionController extends Controller
     {
         $permission = $this->findPermission($name);
         $form = $this->createForm($permission);
-        $form->bind($this['request']->get($form->getName()));
+        $form->bind($this->get('request')->get($form->getName()));
 
         if ($form->isValid()) {
-            $this['Doctrine.ORM.DefaultEntityManager']->persist($form->getData());
-            $this['Doctrine.ORM.DefaultEntityManager']->flush();
+            $this->get('Doctrine.ORM.DefaultEntityManager')->persist($form->getData());
+            $this->get('Doctrine.ORM.DefaultEntityManager')->flush();
 
-            $this['session']->setFlash('doctrine_user_permission_update/success', true);
+            $this->get('session')->setFlash('doctrine_user_permission_update', 'success');
 
             return $this->redirect($this->generateUrl('doctrine_user_permission_show', array('name' => $form->getData()->getName())));
         }
@@ -107,10 +107,10 @@ class PermissionController extends Controller
     {
         $permission = $this->findPermission($name);
 
-        $this['doctrine_user.repository.permission']->getObjectManager()->delete($permission);
-        $this['doctrine_user.repository.permission']->getObjectManager()->flush();
+        $this->get('doctrine_user.repository.permission')->getObjectManager()->delete($permission);
+        $this->get('doctrine_user.repository.permission')->getObjectManager()->flush();
 
-        $this['session']->setFlash('doctrine_user_permission_delete/success');
+        $this->get('session')->setFlash('doctrine_user_permission_delete/success');
 
         return $this->redirect($this->generateUrl('doctrine_user_permission_list'));
     }
@@ -127,7 +127,7 @@ class PermissionController extends Controller
         if (empty($name)) {
             throw new NotFoundHttpException(sprintf('The permission "%s" does not exist', $name));
         }
-        $permission = $this['doctrine_user.repository.permission']->findOneByName($name);
+        $permission = $this->get('doctrine_user.repository.permission')->findOneByName($name);
         if (!$permission) {
             throw new NotFoundHttpException(sprintf('The permission "%s" does not exist', $name));
         }
@@ -143,9 +143,9 @@ class PermissionController extends Controller
      */
     protected function createForm($object = null)
     {
-        $form = $this['doctrine_user.form.user'];
+        $form = $this->get('doctrine_user.form.user');
         if (null === $object) {
-            $permissionClass = $this['doctrine_user.repository.permission']->getObjectClass();
+            $permissionClass = $this->get('doctrine_user.repository.permission')->getObjectClass();
             $object = new $permissionClass();
         }
 

@@ -12,7 +12,6 @@ class DoctrineUserExtension extends Extension
     public function configLoad(array $config, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
-        $loader->load('auth.xml');
         $loader->load('form.xml');
         $loader->load('controller.xml');
         $loader->load('templating.xml');
@@ -35,10 +34,8 @@ class DoctrineUserExtension extends Extension
         $namespaces = array(
             '' => array(
                 'session_create_success_route' => 'doctrine_user.session_create.success_route',
-                'template_renderer' => 'doctrine_user.template.renderer',
-                'template_theme' => 'doctrine_user.template.theme',
             ),
-            'auth' => 'doctrine_user.auth.%s',
+            'template' => 'doctrine_user.template.%s',
             'remember_me' => 'doctrine_user.remember_me.%s',
             'form_name' => 'doctrine_user.form.%s.name',
             'confirmation_email' => 'doctrine_user.confirmation_email.%s',

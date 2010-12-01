@@ -34,9 +34,10 @@ class UniqueValidator extends ConstraintValidator
     {
         $class = get_class($value);
         $classMetadata = $this->documentManager->getClassMetadata($class);
+        $repository = $this->documentManager->getRepository($class);
         $query = $this->getQueryArray($classMetadata, $value, $constraint->property);
         // check if document exists in mongodb
-        if (null === ($document = $this->documentManager->findOne($class, $query))) {
+        if (null === ($document = $repository->findOneBy($query))) {
             return true;
         }
         // check if document in mongodb is the same document as the checked one

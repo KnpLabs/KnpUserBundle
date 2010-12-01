@@ -42,8 +42,8 @@ class CreateUserCommand extends BaseCommand
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
                 new InputArgument('email', InputArgument::REQUIRED, 'The email'),
                 new InputArgument('password', InputArgument::REQUIRED, 'The password'),
-                new InputOption('super-admin', null, InputOption::PARAMETER_NONE, 'Set the user as super admin'),
-                new InputOption('inactive', null, InputOption::PARAMETER_NONE, 'Set the user as inactive'),
+                new InputOption('super-admin', null, InputOption::VALUE_NONE, 'Set the user as super admin'),
+                new InputOption('inactive', null, InputOption::VALUE_NONE, 'Set the user as inactive'),
             ))
             ->setHelp(<<<EOT
 The <info>doctrine:user:create</info> command creates a user:

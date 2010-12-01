@@ -11,20 +11,22 @@ namespace Bundle\DoctrineUserBundle\Model;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\User\AdvancedAccountInterface;
+use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
 
 /**
  * Storage agnostic user object
  * Has validator annotation, but database mapping must be done in a subclass.
  */
-abstract class User
+abstract class User implements AdvancedAccountInterface
 {
     protected $id;
 
     /**
      * @validation:Validation({
-     *      @validation:NotBlank(),
-     *      @validation:MinLength(limit=2),
-     *      @validation:MaxLength(limit=255)
+     *      @validation:NotBlank(message="Please enter a username", groups="Registration"),
+     *      @validation:MinLength(limit=2, message="The username is too short", groups="Registration"),
+     *      @validation:MaxLength(limit=255, message="The username is too long", groups="Registration")
      * })
      * @var string
      */
@@ -37,9 +39,9 @@ abstract class User
 
     /**
      * @validation:Validation({
-     *      @validation:Email(),
-     *      @validation:NotBlank(),
-     *      @validation:MaxLength(limit=255)
+     *      @validation:NotBlank(message="Please enter an email", groups="Registration"),
+     *      @validation:Email(message="This is not a valid email", groups="Registration"),
+     *      @validation:MaxLength(limit=255, message="The email is too long", groups="Registration")
      * })
      * @var string
      */
@@ -59,56 +61,46 @@ abstract class User
 
     /**
      * @validation:Validation({
-     *      @validation:NotBlank(),
-     *      @validation:MinLength(limit=2),
-     *      @validation:MaxLength(limit=255)
+     *      @validation:NotBlank(message="Please enter a password", groups="Registration"),
+     *      @validation:MinLength(limit=2, message="The password is too short", groups="Registration"),
+     *      @validation:MaxLength(limit=255, message="The password is too long", groups="Registration")
      * })
      * @var string
      */
     protected $password;
 
-    protected $encryptedPassword;
+    /**
+     * @var string
+     */
+    protected $passwordHash;
 
     /**
-     * @validation:Validation({
-     *      @validation:NotBlank(),
-     *      @validation:MinLength(limit=2),
-     *      @validation:MaxLength(limit=31)
-     * })
      * @var string
      */
     protected $algorithm;
 
     /**
-     * @validation:Validation({
-     *      @validation:NotBlank(),
-     *      @validation:MinLength(limit=2),
-     *      @validation:MaxLength(limit=255)
-     * })
      * @var string
      */
     protected $salt;
 
     /**
      * @var \DateTime
-     * @validation:DateTime()
      */
     protected $createdAt;
 
     /**
      * @var \DateTime
-     * @validation:DateTime()
      */
     protected $updatedAt;
 
     /**
      * @var \DateTime
-     * @validation:DateTime()
      */
     protected $lastLogin;
 
     /**
-     * Random string sent to the user email adress in order to verify it
+     * Random string sent to the user email address in order to verify it
      *
      * @var string
      */
@@ -133,7 +125,6 @@ abstract class User
 
     public function __construct()
     {
-        $this->algorithm = 'sha1';
         $this->salt = md5(uniqid() . rand(100000, 999999));
         $this->confirmationToken = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->renewRememberMeToken();
@@ -141,6 +132,84 @@ abstract class User
         $this->isSuperAdmin = false;
     }
 
+    /**
+     * Return the user roles
+     * Implements AccountInterface
+     *
+     * @return array The roles
+     **/
+    public function getRoles()
+    {
+        return array('IS_AUTHENTICATED_FULLY');
+    }
+
+    /**
+     * Tell whether or not the user has a role
+     *
+     * @return bool
+     **/
+    public function hasRole($role)
+    {
+        return in_array($role, $this->getRoles());
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     * Implements AccountInterface
+     */
+    public function eraseCredentials()
+    {
+    }
+
+    /**
+     * Checks whether the user's account has expired.
+     * Implements AdvancedAccountInterface
+     *
+     * @return Boolean true if the user's account is non expired, false otherwise
+     */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * Checks whether the user is locked.
+     * Implements AdvancedAccountInterface
+     *
+     * @return Boolean true if the user is not locked, false otherwise
+     */
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    /**
+     * Checks whether the user's credentials (password) has expired.
+     * Implements AdvancedAccountInterface
+     *
+     * @return Boolean true if the user's credentials are non expired, false otherwise
+     */
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * Checks whether the user is enabled.
+     * Implements AdvancedAccountInterface
+     *
+     * @return Boolean true if the user is enabled, false otherwise
+     */
+    public function isEnabled()
+    {
+        return $this->getIsActive();
+    }
+
+    /**
+     * Return the user unique id
+     *
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
@@ -193,13 +262,22 @@ abstract class User
     }
 
     /**
-     * Password is encrypted and can not be accessed.
-     * Returns empty string for use in form password field.
+     * Hashed password
      * @return string
      */
     public function getPassword()
     {
-        return '';
+        return $this->passwordHash;
+    }
+
+    /**
+     * Return the salt used to hash the password
+     *
+     * @return string The salt
+     **/
+    public function getSalt()
+    {
+        return $this->salt;
     }
 
     /**
@@ -207,20 +285,8 @@ abstract class User
      */
     public function setPassword($password)
     {
-        if (empty($password)) {
-            $this->password = null;
-        }
-
         $this->password = $password;
-        $this->encryptedPassword = $this->encryptPassword($password);
-    }
-
-    /**
-     * @param string $algorithm
-     */
-    public function setAlgorithm($algorithm)
-    {
-        $this->algorithm = $algorithm;
+        $this->hashPassword();
     }
 
     /**
@@ -287,17 +353,6 @@ abstract class User
         $this->lastLogin = $time;
     }
 
-    /**
-     * Returns whether or not the given password is valid.
-     *
-     * @param string $password
-     * @return boolean
-     */
-    public function checkPassword($password)
-    {
-        return $this->encryptedPassword === $this->encryptPassword($password);
-    }
-
     public function __toString()
     {
         return (string) $this->getUsername();
@@ -317,11 +372,17 @@ abstract class User
     }
 
     /**
-     * @return string encrypted password
+     * Encode the user password
+     * @return null
      */
-    protected function encryptPassword($password)
+    protected function hashPassword()
     {
-        return hash_hmac($this->algorithm, $password, $this->salt);
+        if (empty($this->password)) {
+            $this->hashPassword = null;
+        } else {
+            $encoder = new MessageDigestPasswordEncoder($this->getAlgorithm());
+            $this->passwordHash = $encoder->encodePassword($this->password, $this->getSalt());
+        }
     }
 
     /**
