@@ -90,6 +90,19 @@ class DoctrineUserExtension extends Extension
     }
 
     /**
+     * Get a (Document|Entity)Repository, based on db driver configuration
+     *
+     * @param  DocumentManager|EntityManager $objectManager
+     * @param  string                        $objectClass
+     *
+     * @return DocumentRepository|EntityRepository
+     */
+    public static function getRepository($objectManager, $objectClass)
+    {
+        return $objectManager->getRepository($objectClass);
+    }
+
+    /**
      * Returns the base path for the XSD files.
      *
      * @return string The XSD base path
