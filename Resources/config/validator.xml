@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Unique Validator Service -->
+        <service id="doctrine_user.validator.unique" class="%doctrine_user.validator.unique.class%">
+            <argument type="service" id="doctrine_user.object_manager" />
+            <tag name="validator.constraint_validator" alias="doctrine_user.validator.unique" />
+        </service>
+    </services>
+
+</container>

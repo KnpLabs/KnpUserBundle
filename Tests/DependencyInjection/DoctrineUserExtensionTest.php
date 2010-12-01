@@ -15,8 +15,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('Bundle\ExerciseUserBundle\Document\User', 'doctrine_user.model.user.class');
-        $this->assertParameter('Bundle\DoctrineUserBundle\Document\Group', 'doctrine_user.model.group.class');
-        $this->assertParameter('Bundle\DoctrineUserBundle\Document\Permission', 'doctrine_user.model.permission.class');
     }
 
     public function testDoctrineUserLoadModelClass()
@@ -24,8 +22,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createFullConfiguration();
 
         $this->assertParameter('user', 'doctrine_user.model.user.class');
-        $this->assertParameter('group', 'doctrine_user.model.group.class');
-        $this->assertParameter('permission', 'doctrine_user.model.permission.class');
     }
 
     public function testDoctrineUserLoadRepositoryClassWithDefaults()
@@ -33,8 +29,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertHasDefinition('doctrine_user.repository.user');
-        $this->assertHasDefinition('doctrine_user.repository.group');
-        $this->assertHasDefinition('doctrine_user.repository.permission');
     }
 
     public function testDoctrineUserLoadRepositoryClass()
@@ -42,8 +36,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createFullConfiguration();
 
         $this->assertHasDefinition('doctrine_user.repository.user');
-        $this->assertHasDefinition('doctrine_user.repository.group');
-        $this->assertHasDefinition('doctrine_user.repository.permission');
     }
 
     public function testDoctrineUserLoadFormClassWithDefaults()
@@ -51,8 +43,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('Bundle\DoctrineUserBundle\Form\UserForm', 'doctrine_user.form.user.class');
-        $this->assertParameter('Bundle\DoctrineUserBundle\Form\GroupForm', 'doctrine_user.form.group.class');
-        $this->assertParameter('Bundle\DoctrineUserBundle\Form\PermissionForm', 'doctrine_user.form.permission.class');
         $this->assertParameter('Bundle\DoctrineUserBundle\Form\ChangePasswordForm', 'doctrine_user.form.change_password.class');
     }
 
@@ -61,8 +51,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createFullConfiguration();
 
         $this->assertParameter('user', 'doctrine_user.form.user.class');
-        $this->assertParameter('group', 'doctrine_user.form.group.class');
-        $this->assertParameter('permission', 'doctrine_user.form.permission.class');
         $this->assertParameter('change_password', 'doctrine_user.form.change_password.class');
     }
 
@@ -71,8 +59,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('doctrine_user_user_form', 'doctrine_user.form.user.name');
-        $this->assertParameter('doctrine_user_group_form', 'doctrine_user.form.group.name');
-        $this->assertParameter('doctrine_user_permission_form', 'doctrine_user.form.permission.name');
         $this->assertParameter('doctrine_user_change_password_form', 'doctrine_user.form.change_password.name');
     }
 
@@ -81,8 +67,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createFullConfiguration();
 
         $this->assertParameter('user', 'doctrine_user.form.user.name');
-        $this->assertParameter('group', 'doctrine_user.form.group.name');
-        $this->assertParameter('permission', 'doctrine_user.form.permission.name');
         $this->assertParameter('change_password', 'doctrine_user.form.change_password.name');
     }
 
@@ -91,8 +75,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertHasDefinition('doctrine_user.form.user');
-        $this->assertHasDefinition('doctrine_user.form.group');
-        $this->assertHasDefinition('doctrine_user.form.permission');
         $this->assertHasDefinition('doctrine_user.form.change_password');
     }
 
@@ -101,8 +83,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createFullConfiguration();
 
         $this->assertHasDefinition('doctrine_user.form.user');
-        $this->assertHasDefinition('doctrine_user.form.group');
-        $this->assertHasDefinition('doctrine_user.form.permission');
         $this->assertHasDefinition('doctrine_user.form.change_password');
     }
 
@@ -111,8 +91,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('Bundle\DoctrineUserBundle\Controller\UserController', 'doctrine_user.controller.user.class');
-        $this->assertParameter('Bundle\DoctrineUserBundle\Controller\GroupController', 'doctrine_user.controller.group.class');
-        $this->assertParameter('Bundle\DoctrineUserBundle\Controller\PermissionController', 'doctrine_user.controller.permission.class');
         $this->assertParameter('Bundle\DoctrineUserBundle\Controller\SecurityController', 'doctrine_user.controller.security.class');
     }
 
@@ -121,8 +99,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createFullConfiguration();
 
         $this->assertParameter('user', 'doctrine_user.controller.user.class');
-        $this->assertParameter('group', 'doctrine_user.controller.group.class');
-        $this->assertParameter('permission', 'doctrine_user.controller.permission.class');
         $this->assertParameter('security', 'doctrine_user.controller.security.class');
     }
 
@@ -131,8 +107,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertHasDefinition('doctrine_user.controller.user');
-        $this->assertHasDefinition('doctrine_user.controller.group');
-        $this->assertHasDefinition('doctrine_user.controller.permission');
         $this->assertHasDefinition('doctrine_user.controller.security');
     }
 
@@ -141,8 +115,6 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createFullConfiguration();
 
         $this->assertHasDefinition('doctrine_user.controller.user');
-        $this->assertHasDefinition('doctrine_user.controller.group');
-        $this->assertHasDefinition('doctrine_user.controller.permission');
         $this->assertHasDefinition('doctrine_user.controller.security');
     }
 
@@ -216,22 +188,14 @@ db_driver: odm
 class:
     model:
         user: Bundle\ExerciseUserBundle\Document\User
-        group: ~
-        permission: ~
     form:
         user: ~
-        group: ~
-        permission: ~
         change_password: ~
     controller:
         user: ~
-        group: ~
-        permission: ~
         security: ~
 form_name:
     user: ~
-    group: ~
-    permission: ~
     change_password: ~
 confirmation_email:
     enabled: ~

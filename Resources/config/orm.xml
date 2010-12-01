@@ -6,13 +6,12 @@
 
     <parameters>
         <parameter key="doctrine_user.model.user.class">Bundle\DoctrineUserBundle\Entity\User</parameter>
+        <parameter key="doctrine_user.validator.unique.class">Bundle\DoctrineUserBundle\Validator\Doctrine\UniqueValidator</parameter>
     </parameters>
 
     <services>
-        <service id="doctrine_user.repository.user" class="Bundle\DoctrineUserBundle\DependencyInjection\DoctrineUserExtension" shared="true" factory-method="getRepository">
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
-            <argument>%doctrine_user.model.user.class%</argument>
-        </service>
+        <!-- Object Manager Service -->
+        <service id="doctrine_user.object_manager" alias="doctrine.orm.default_entity_manager" />
     </services>
 
 </container>
