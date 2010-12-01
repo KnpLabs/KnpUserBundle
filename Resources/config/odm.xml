@@ -9,7 +9,7 @@
     </parameters>
 
     <services>
-        <service id="doctrine_user.repository.user" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
+        <service id="doctrine_user.repository.user" class="Bundle\DoctrineUserBundle\DependencyInjection\DoctrineUserExtension" shared="true" factory-method="getRepository">
             <argument type="service" id="doctrine.odm.mongodb.document_manager" />
             <argument>%doctrine_user.model.user.class%</argument>
         </service>
