@@ -25,6 +25,13 @@ class DoctrineUserExtension extends Extension
             throw new \InvalidArgumentException('You must define your user model class');
         }
 
+        // TODO: this needs to be removed eventually once we figure out how to be able to determine the encoder
+        if (!isset($config['password_encoder'])) {
+            throw new \InvalidArgumentException('You must define your password_encoder');
+        }
+
+        $container->setParameter('doctrine_user.password_encoder', $config['password_encoder']);
+
         // load all service configuration files (the db_driver first)
         foreach (array($config['db_driver'], 'model', 'controller', 'templating', 'email', 'form', 'validator') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));

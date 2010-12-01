@@ -15,6 +15,7 @@ use Bundle\DoctrineUserBundle\Form\ChangePassword;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\ForbiddenHttpException;
 use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
 
 /**
  * RESTful controller managing user CRUD
@@ -66,6 +67,7 @@ class UserController extends Controller
         if ($data = $this->get('request')->request->get($form->getName())) {
             $form->bind($data);
             if ($form->isValid()) {
+                $this->hashUserPassword($user);
                 $this->saveUser($user);
                 $this->get('session')->setFlash('doctrine_user_user_update', 'success');
                 $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
@@ -85,7 +87,7 @@ class UserController extends Controller
     public function newAction()
     {
         $form = $this->createForm();
-        
+
         return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array(
             'form' => $form
         ));
@@ -102,6 +104,7 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $user = $form->getData();
+            $this->hashUserPassword($user);
             if ($this->container->getParameter('doctrine_user.confirmation_email.enabled')) {
                 $user->setIsActive(false);
                 $this->saveUser($user);
@@ -251,7 +254,10 @@ class UserController extends Controller
         $form = $this->createChangePasswordForm($user);
         $form->bind($this->get('request')->request->get($form->getName()));
         if($form->isValid()) {
-            $user->setPassword($form->getNewPassword());
+            $password = $form->getNewPassword();
+            $user->setPassword($password);
+            $this->hashUserPassword($user);
+
             $this->get('doctrine_user.repository.user')->getObjectManager()->flush();
             $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
             return $this->redirect($userUrl);
@@ -355,5 +361,20 @@ class UserController extends Controller
     protected function getRenderer()
     {
         return $this->container->getParameter('doctrine_user.template.renderer');
+    }
+
+    protected function hashUserPassword($user)
+    {
+        $password = $user->getPassword();
+        $algorithm = $this->container->getParameter('doctrine_user.password_encoder');
+        if (empty($password)) {
+            $hashPassword = null;
+        } else {
+            // TODO: ideally inject the message encoder, but there is no way to retrieve the encoding from it atm
+            $encoder = new MessageDigestPasswordEncoder($algorithm);
+            $hashPassword = $encoder->encodePassword($password, $user->getSalt());
+        }
+
+        $user->setPasswordHash($hashPassword, $algorithm);
     }
 }
