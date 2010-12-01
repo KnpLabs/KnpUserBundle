@@ -77,11 +77,6 @@ abstract class User implements AdvancedAccountInterface
     /**
      * @var string
      */
-    protected $algorithm;
-
-    /**
-     * @var string
-     */
     protected $salt;
 
     /**
@@ -377,10 +372,11 @@ abstract class User implements AdvancedAccountInterface
      */
     protected function hashPassword()
     {
+        // TODO: the Symfony2 security layer should take care of hashing the password
         if (empty($this->password)) {
             $this->hashPassword = null;
         } else {
-            $encoder = new MessageDigestPasswordEncoder($this->getAlgorithm());
+            $encoder = new MessageDigestPasswordEncoder('sha1');
             $this->passwordHash = $encoder->encodePassword($this->password, $this->getSalt());
         }
     }
