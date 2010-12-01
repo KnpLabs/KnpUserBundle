@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB;
+namespace Bundle\DoctrineUserBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
@@ -13,7 +13,6 @@ use Symfony\Component\Validator\Constraint;
  */
 class Unique extends Constraint
 {
-
     public $message = 'The value for "%property%" already exists.';
     public $property;
 
@@ -27,4 +26,8 @@ class Unique extends Constraint
         return array('property');
     }
 
+    public function validatedBy()
+    {
+        return 'doctrine_user.validator.unique';
+    }
 }

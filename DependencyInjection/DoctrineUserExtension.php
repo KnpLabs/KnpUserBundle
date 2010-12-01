@@ -12,21 +12,15 @@ class DoctrineUserExtension extends Extension
     public function configLoad(array $config, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
-        $loader->load('form.xml');
-        $loader->load('controller.xml');
-        $loader->load('templating.xml');
-        $loader->load('email.xml');
 
+        // ensure the db_driver is configured
         if (!isset($config['db_driver'])) {
-            throw new \InvalidArgumentException('You must provide the doctrine_user.db_driver configuration');
+            throw new \InvalidArgumentException('You must provide the db_driver parameter in the DoctrineUserBundle configuration');
+        } elseif (!in_array($config['db_driver'], array('orm', 'odm'))) {
+            throw new \InvalidArgumentException(sprintf('The db_driver "%s" is not supported (choose either "odm" or "orm")', $config['db_driver']));
         }
 
-        try {
-            $loader->load(sprintf('%s.xml', $config['db_driver']));
-        } catch (\InvalidArgumentException $e) {
-            throw new \InvalidArgumentException(sprintf('The db_driver "%s" is not supported by doctrine_user', $config['db_driver']));
-        }
-
+        // ensure the user model class is configured
         if (!isset($config['class']['model']['user'])) {
             throw new \InvalidArgumentException('You must define your user model class');
         }
@@ -49,12 +43,11 @@ class DoctrineUserExtension extends Extension
         );
         $this->remapParametersNamespaces($config, $container, $namespaces);
 
-        $namespaces = array(
-            'model' => 'doctrine_user.model.%s.class',
-            'form' => 'doctrine_user.form.%s.class',
-            'controller' => 'doctrine_user.controller.%s.class'
-        );
-        $this->remapParametersNamespaces($config['class'], $container, $namespaces);
+        $this->remapParametersNamespaces($config['class'], $container, array(
+            'model'         => 'doctrine_user.model.%s.class',
+            'form'          => 'doctrine_user.form.%s.class',
+            'controller'    => 'doctrine_user.controller.%s.class'
+        ));
     }
 
     protected function remapParameters(array $config, ContainerBuilder $container, array $map)
