@@ -6,32 +6,17 @@
 
     <parameters>
         <parameter key="doctrine_user.model.user.class">Bundle\DoctrineUserBundle\Document\User</parameter>
-        <parameter key="doctrine_user.model.group.class">Bundle\DoctrineUserBundle\Document\Group</parameter>
-        <parameter key="doctrine_user.model.permission.class">Bundle\DoctrineUserBundle\Document\Permission</parameter>
     </parameters>
 
     <services>
-
         <service id="doctrine_user.repository.user" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
             <argument type="service" id="doctrine.odm.mongodb.document_manager" />
             <argument>%doctrine_user.model.user.class%</argument>
         </service>
-
-        <service id="doctrine_user.repository.group" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
-            <argument type="service" id="doctrine.odm.mongodb.document_manager" />
-            <argument>%doctrine_user.model.group.class%</argument>
-        </service>
-
-        <service id="doctrine_user.repository.permission" class="Bundle\DoctrineUserBundle\DoctrineUserBundle" shared="true" factory-method="getRepository">
-            <argument type="service" id="doctrine.odm.mongodb.document_manager" />
-            <argument>%doctrine_user.model.permission.class%</argument>
-        </service>
-
         <service id="Bundle.DoctrineUserBundle.Validator.Doctrine.ODM.MongoDB.UniqueValidator" class="Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB\UniqueValidator">
             <argument type="service" id="doctrine.odm.mongodb.document_manager" />
             <tag name="validator.constraint_validator" alias="Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB\UniqueValidator" />
         </service>
-
     </services>
 
 </container>
