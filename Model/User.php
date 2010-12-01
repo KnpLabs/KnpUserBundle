@@ -12,7 +12,6 @@ namespace Bundle\DoctrineUserBundle\Model;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\User\AdvancedAccountInterface;
-use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
 
 /**
  * Storage agnostic user object
@@ -73,6 +72,11 @@ abstract class User implements AdvancedAccountInterface
      * @var string
      */
     protected $passwordHash;
+
+    /**
+     * @var string
+     */
+    protected $algorithm;
 
     /**
      * @var string
@@ -257,12 +261,22 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
-     * Hashed password
+     * Return the algorithm used to hash the password
+     *
+     * @return string the algorithm
+     **/
+    public function getAlgorithm()
+    {
+        return $this->algorithm;
+    }
+
+    /**
+     * Get password
      * @return string
      */
     public function getPassword()
     {
-        return $this->passwordHash;
+        return $this->password;
     }
 
     /**
@@ -281,7 +295,6 @@ abstract class User implements AdvancedAccountInterface
     public function setPassword($password)
     {
         $this->password = $password;
-        $this->hashPassword();
     }
 
     /**
@@ -367,18 +380,14 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
-     * Encode the user password
-     * @return null
+     * Encode the user hashed password
+     * @param string $hashPassword
+     * @param string $algorithm
      */
-    protected function hashPassword()
+    public function setPasswordHash($hashPassword, $algorithm)
     {
-        // TODO: the Symfony2 security layer should take care of hashing the password
-        if (empty($this->password)) {
-            $this->hashPassword = null;
-        } else {
-            $encoder = new MessageDigestPasswordEncoder('sha1');
-            $this->passwordHash = $encoder->encodePassword($this->password, $this->getSalt());
-        }
+        $this->passwordHash = $hashPassword;
+        $this->algorithm = $algorithm;
     }
 
     /**
