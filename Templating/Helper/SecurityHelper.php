@@ -64,7 +64,7 @@ class SecurityHelper extends Helper
     {
         $token = $this->securityContext->getToken();
 
-        if(!$token) {
+        if (!$token) {
             return true;
         }
 

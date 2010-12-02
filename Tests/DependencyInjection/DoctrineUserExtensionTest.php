@@ -213,7 +213,7 @@ EOF;
     {
         $config = $this->getEmptyConfig();
         array_walk_recursive($config, function(&$item, $key) {
-            if(!is_array($item)) {
+            if (!is_array($item)) {
                 $item = $key;
             }
         });

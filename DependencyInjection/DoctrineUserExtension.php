@@ -76,7 +76,7 @@ class DoctrineUserExtension extends Extension
                 $this->remapParameters($namespaceConfig, $container, $map);
             } else {
                 foreach ($namespaceConfig as $name => $value) {
-                    if(null !== $value) {
+                    if (null !== $value) {
                         $container->setParameter(sprintf($map, $name), $value);
                     }
                 }

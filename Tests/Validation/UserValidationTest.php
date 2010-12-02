@@ -76,12 +76,12 @@ class UserValidationTest extends WebTestCase
 
     protected function hasViolationForPropertyPath($violations, $propertyPath)
     {
-        if(!is_object($violations)) {
+        if (!is_object($violations)) {
             return false;
         }
 
-        foreach($violations as $violation) {
-            if($violation->getPropertyPath() == $propertyPath) {
+        foreach ($violations as $violation) {
+            if ($violation->getPropertyPath() == $propertyPath) {
                 return true;
             }
         }
