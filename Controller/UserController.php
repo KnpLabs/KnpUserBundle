@@ -253,7 +253,7 @@ class UserController extends Controller
 
         $form = $this->createChangePasswordForm($user);
         $form->bind($this->get('request')->request->get($form->getName()));
-        if($form->isValid()) {
+        if ($form->isValid()) {
             $password = $form->getNewPassword();
             $user->setPassword($password);
             $this->hashUserPassword($user);

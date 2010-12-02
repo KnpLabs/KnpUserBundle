@@ -32,16 +32,18 @@ class DoctrineUserExtension extends Extension
 
         $container->setParameter('doctrine_user.password_encoder', $config['password_encoder']);
 
-        $namespaces = array(
-            '' => array(
-                'session_create_success_route' => 'doctrine_user.session_create.success_route',
-            ),
-            'template' => 'doctrine_user.template.%s',
-            'remember_me' => 'doctrine_user.remember_me.%s',
-            'form_name' => 'doctrine_user.form.%s.name',
-            'confirmation_email' => 'doctrine_user.confirmation_email.%s',
-        );
-        $this->remapParametersNamespaces($config, $container, $namespaces);
+        // load all service configuration files (the db_driver first)
+        foreach (array($config['db_driver'], 'model', 'controller', 'templating', 'email', 'form', 'validator') as $basename) {
+            $loader->load(sprintf('%s.xml', $basename));
+        }
+
+        $this->remapParametersNamespaces($config, $container, array(
+            ''                      => array('session_create_success_route' => 'doctrine_user.session_create.success_route'),
+            'template'              => 'doctrine_user.template.%s',
+            'remember_me'           => 'doctrine_user.remember_me.%s',
+            'form_name'             => 'doctrine_user.form.%s.name',
+            'confirmation_email'    => 'doctrine_user.confirmation_email.%s',
+        ));
 
         $this->remapParametersNamespaces($config['class'], $container, array(
             'model'         => 'doctrine_user.model.%s.class',
@@ -74,7 +76,7 @@ class DoctrineUserExtension extends Extension
                 $this->remapParameters($namespaceConfig, $container, $map);
             } else {
                 foreach ($namespaceConfig as $name => $value) {
-                    if(null !== $value) {
+                    if (null !== $value) {
                         $container->setParameter(sprintf($map, $name), $value);
                     }
                 }
