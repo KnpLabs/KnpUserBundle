@@ -40,7 +40,7 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     {
         $user = $this->findOneByUsername($username);
 
-        if(!$user) {
+        if (!$user) {
             throw new UsernameNotFoundException(sprintf('The user "%s" does not exist', $username));
         }
 
@@ -80,7 +80,7 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
      */
     public function findOneByRememberMeToken($token)
     {
-        if(empty($token)) {
+        if (empty($token)) {
             return null;
         }
 
