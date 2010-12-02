@@ -286,7 +286,7 @@ abstract class User implements AdvancedAccountInterface
      */
     public function getPassword()
     {
-        return $this->password;
+        return $this->passwordHash;
     }
 
     /**
@@ -452,7 +452,6 @@ abstract class User implements AdvancedAccountInterface
     {
         return extension_loaded('mbstring') ? mb_strtolower($string) : strtolower($string);
     }
-
 
     protected function hashUserPassword()
     {

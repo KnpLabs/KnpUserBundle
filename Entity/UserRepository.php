@@ -51,20 +51,7 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
      */
     public function loadUserByUsername($username)
     {
-        if (empty($username)) {
-            // do facebook login
-
-            $user = $this->findOneByFacebookId($facebookId);
-            if (!$user) {
-                // get profile data and write to DB
-                $em->persist($user);
-                $em->flush();
-            }
-
-            // else read
-        } else {
-            $user = $this->findOneByUsername($username);
-        }
+        $user = $this->findOneByUsername($username);
 
         if (!$user) {
             throw new UsernameNotFoundException(sprintf('The user "%s" does not exist'));
