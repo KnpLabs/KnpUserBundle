@@ -6,7 +6,7 @@
 
     <parameters>
         <parameter key="doctrine_user.model.user.class">Bundle\DoctrineUserBundle\Entity\User</parameter>
-        <parameter key="doctrine_user.validator.unique.class">Bundle\DoctrineUserBundle\Validator\Doctrine\UniqueValidator</parameter>
+        <parameter key="doctrine_user.validator.unique.class">Bundle\DoctrineUserBundle\Validator\Doctrine\ORM\UniqueValidator</parameter>
     </parameters>
 
     <services>

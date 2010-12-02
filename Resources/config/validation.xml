@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/constraint-mapping
         http://www.symfony-project.org/schema/dic/services/constraint-mapping-1.0.xsd">
 
-    <class name="Bundle\DoctrineUserBundle\Document\User">
+    <class name="Bundle\DoctrineUserBundle\Model\User">
 
         <constraint name="Bundle\DoctrineUserBundle\Validator\Unique">
             <option name="property">username</option>
