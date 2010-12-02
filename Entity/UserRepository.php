@@ -54,7 +54,7 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
         $user = $this->findOneByUsername($username);
 
         if (!$user) {
-            throw new UsernameNotFoundException(sprintf('The user "%s" does not exist'));
+            throw new UsernameNotFoundException(sprintf('The user "%s" does not exist', $username));
         }
 
         return $user;
