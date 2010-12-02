@@ -12,6 +12,7 @@ namespace Bundle\DoctrineUserBundle\Model;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\User\AdvancedAccountInterface;
+use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
 
 /**
  * Storage agnostic user object
@@ -122,8 +123,9 @@ abstract class User implements AdvancedAccountInterface
      */
     protected $permissions;
 
-    public function __construct()
+    public function __construct($algorithm)
     {
+        $this->algorithm = $algorithm;
         $this->salt = md5(uniqid() . rand(100000, 999999));
         $this->confirmationToken = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->renewRememberMeToken();
@@ -261,6 +263,14 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
+     * @param string $algorithm
+     */
+    public function setAlgorithm($algorithm)
+    {
+        $this->algorithm = $algorithm;
+    }
+
+    /**
      * Return the algorithm used to hash the password
      *
      * @return string the algorithm
@@ -295,6 +305,7 @@ abstract class User implements AdvancedAccountInterface
     public function setPassword($password)
     {
         $this->password = $password;
+        $this->hashUserPassword();
     }
 
     /**
@@ -381,13 +392,11 @@ abstract class User implements AdvancedAccountInterface
 
     /**
      * Encode the user hashed password
-     * @param string $hashPassword
-     * @param string $algorithm
+     * @param string $passwordHash
      */
-    public function setPasswordHash($hashPassword, $algorithm)
+    public function setPasswordHash($passwordHash)
     {
-        $this->passwordHash = $hashPassword;
-        $this->algorithm = $algorithm;
+        $this->passwordHash = $passwordHash;
     }
 
     /**
@@ -442,5 +451,19 @@ abstract class User implements AdvancedAccountInterface
     public static function strtolower($string)
     {
         return extension_loaded('mbstring') ? mb_strtolower($string) : strtolower($string);
+    }
+
+
+    protected function hashUserPassword()
+    {
+        $password = $this->getPassword();
+        if (empty($password)) {
+            $hashPassword = null;
+        } else {
+            $encoder = new MessageDigestPasswordEncoder($this->algorithm);
+            $hashPassword = $encoder->encodePassword($password, $this->getSalt());
+        }
+
+        $this->setPasswordHash($hashPassword);
     }
 }

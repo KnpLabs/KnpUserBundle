@@ -19,6 +19,19 @@ use Symfony\Component\Security\Exception\UsernameNotFoundException;
 class UserRepository extends ObjectRepository implements UserRepositoryInterface, UserProviderInterface
 {
     /**
+     * @var string
+     */
+    protected $algorithm;
+
+    /**
+     * @param string $algorithm
+     */
+    public function setAlgorithm($algorithm)
+    {
+        $this->algorithm = $algorithm;
+    }
+
+    /**
      * @see UserRepositoryInterface::findOneByUsername
      */
     public function findOneByUsername($username)
@@ -38,7 +51,20 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
      */
     public function loadUserByUsername($username)
     {
-        $user = $this->findOneByUsername($username);
+        if (empty($username)) {
+            // do facebook login
+
+            $user = $this->findOneByFacebookId($facebookId);
+            if (!$user) {
+                // get profile data and write to DB
+                $em->persist($user);
+                $em->flush();
+            }
+
+            // else read
+        } else {
+            $user = $this->findOneByUsername($username);
+        }
 
         if (!$user) {
             throw new UsernameNotFoundException(sprintf('The user "%s" does not exist'));
@@ -90,5 +116,11 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     protected function isValidEmail($email)
     {
         return preg_match('/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i', $email);
+    }
+
+    public function createUserInstance()
+    {
+        $userClass = $this->getObjectClass();
+        return new $userClass($this->algorithm);
     }
 }

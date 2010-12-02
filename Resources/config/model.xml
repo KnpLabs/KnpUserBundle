@@ -9,6 +9,9 @@
         <service id="doctrine_user.repository.user" class="Bundle\DoctrineUserBundle\DependencyInjection\DoctrineUserExtension" shared="true" factory-method="getRepository">
             <argument type="service" id="doctrine_user.object_manager" />
             <argument>%doctrine_user.model.user.class%</argument>
+            <call method="setAlgorithm">
+                <argument>%doctrine_user.password_encoder%</argument>
+            </call>
         </service>
     </services>
 
