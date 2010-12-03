@@ -185,6 +185,7 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $yaml = <<<EOF
 db_driver: odm
+password_encoder: sha1
 class:
     model:
         user: Bundle\ExerciseUserBundle\Document\User
