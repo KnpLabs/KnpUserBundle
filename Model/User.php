@@ -60,6 +60,15 @@ abstract class User implements AdvancedAccountInterface
     protected $isSuperAdmin;
 
     /**
+     * Encrypted password. Must be persisted.
+     *
+     * @var string
+     */
+    protected $password;
+
+    /**
+     * Plain password. Used for model validation. Must not be persisted.
+     *
      * @validation:Validation({
      *      @validation:NotBlank(message="Please enter a password", groups="Registration"),
      *      @validation:MinLength(limit=2, message="The password is too short", groups="Registration"),
@@ -67,12 +76,7 @@ abstract class User implements AdvancedAccountInterface
      * })
      * @var string
      */
-    protected $password;
-
-    /**
-     * @var string
-     */
-    protected $passwordHash;
+    protected $plainPassword;
 
     /**
      * @var string
@@ -281,12 +285,13 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
-     * Get password
+     * Implements AccountInterface
+     * Get the encrypted password
      * @return string
      */
     public function getPassword()
     {
-        return $this->passwordHash;
+        return $this->password;
     }
 
     /**
@@ -300,11 +305,13 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
-     * @param string $password
+     * Sets the plain password. Also encrypts it and fills the encrypted attribute.
+     *
+     * @param string $plainPassword
      */
-    public function setPassword($password)
+    public function setPlainPassword($plainPassword)
     {
-        $this->password = $password;
+        $this->plainPassword = $plainPassword;
         $this->hashUserPassword();
     }
 
@@ -391,15 +398,6 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
-     * Encode the user hashed password
-     * @param string $passwordHash
-     */
-    public function setPasswordHash($passwordHash)
-    {
-        $this->passwordHash = $passwordHash;
-    }
-
-    /**
      * Get confirmationToken
      * @return string
      */
@@ -455,14 +453,13 @@ abstract class User implements AdvancedAccountInterface
 
     protected function hashUserPassword()
     {
-        $password = $this->getPassword();
-        if (empty($password)) {
-            $hashPassword = null;
+        if (empty($this->plainPassword)) {
+            $this->password = null;
         } else {
-            $encoder = new MessageDigestPasswordEncoder($this->algorithm);
-            $hashPassword = $encoder->encodePassword($password, $this->getSalt());
+            $encoder = new MessageDigestPasswordEncoder($this->getAlgorithm());
+            $this->password = $encoder->encodePassword($this->plainPassword, $this->getSalt());
         }
 
-        $this->setPasswordHash($hashPassword);
+        $this->password = $password;
     }
 }
