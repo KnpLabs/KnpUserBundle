@@ -459,7 +459,5 @@ abstract class User implements AdvancedAccountInterface
             $encoder = new MessageDigestPasswordEncoder($this->getAlgorithm());
             $this->password = $encoder->encodePassword($this->plainPassword, $this->getSalt());
         }
-
-        $this->password = $password;
     }
 }

@@ -74,12 +74,10 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $userRepo = $this->container->get('doctrine_user.repository.user');
-        $userClass = $userRepo->getObjectClass();
-
-        $user = new $userClass();
+        $user = $userRepo->createUserInstance();
         $user->setUsername($input->getArgument('username'));
         $user->setEmail($input->getArgument('email'));
-        $user->setPassword($input->getArgument('password'));
+        $user->setPlainPassword($input->getArgument('password'));
         $user->setIsActive(!$input->getOption('inactive'));
         $user->setIsSuperAdmin($input->getOption('super-admin'));
 
