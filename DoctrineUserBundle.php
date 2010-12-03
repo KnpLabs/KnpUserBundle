@@ -11,7 +11,20 @@
 namespace Bundle\DoctrineUserBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle as BaseBundle;
+use Symfony\Component\EventDispatcher\Event;
 
 class DoctrineUserBundle extends BaseBundle
 {
+    public function boot()
+    {
+        $this->container->get('event_dispatcher')->connect('security.token.unserialize', array($this, 'listenToSecurityTokenUnserialize'));
+    }
+
+    public function listenToSecurityTokenUnserialize(Event $event)
+    {
+        if($user = $event->getSubject()->getUser()) {
+            $user = $this->container->get('doctrine_user.repository.user')->find($user->getId());
+            var_dump($user);die;
+        }
+    }
 }
