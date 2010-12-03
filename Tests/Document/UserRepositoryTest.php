@@ -62,7 +62,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadUserByUsernameWithExistingUser()
     {
-        $userMock = $this->getMock('Bundle\DoctrineUserBundle\Document\User');
+        $userMock = $this->getMock('Bundle\DoctrineUserBundle\Document\User', array(), array('sha1'));
 
         $this->repo->expects($this->once())
             ->method('findOneBy')
@@ -98,6 +98,9 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     protected function getRepositoryMock()
     {
         $methods = array('findOneBy');
-        return $this->getMock('Bundle\DoctrineUserBundle\Document\UserRepository', $methods, array(), '', false);
+        $repo = $this->getMock('Bundle\DoctrineUserBundle\Document\UserRepository', $methods, array(), '', false);
+        $repo->setAlgorithm('sha1');
+
+        return $repo;
     }
 }

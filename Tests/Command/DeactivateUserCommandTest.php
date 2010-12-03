@@ -26,10 +26,10 @@ class DeactivateUserCommandTest extends WebTestCase
         $userRepo = $this->getService('doctrine_user.repository.user');
         $userClass = $userRepo->getObjectClass();
 
-        $user = new $userClass();
+        $user = $userRepo->createUserInstance();
         $user->setUsername($username);
         $user->setEmail($email);
-        $user->setPassword($password);
+        $user->setPlainPassword($password);
         $user->setIsActive(true);
 
         $userRepo->getObjectManager()->persist($user);
