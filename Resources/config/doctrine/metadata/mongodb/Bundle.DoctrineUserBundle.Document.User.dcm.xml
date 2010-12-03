@@ -34,10 +34,6 @@
 
         <field name="rememberMeToken" fieldName="rememberMeToken" type="string" />
 
-        <reference-many target-document="Permission" field="permissions" />
-
-        <reference-many target-document="Group" field="groups" />
-
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="incrementCreatedAt" />
             <lifecycle-callback type="preUpdate" method="incrementUpdatedAt" />
