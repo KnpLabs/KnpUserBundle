@@ -32,7 +32,6 @@ class UserValidationTest extends WebTestCase
         $user1->setUsername($username);
         $user1->setEmail(uniqid().'@mail.org');
         $user1->setPlainPassword(uniqid());
-        //$this->markTestSkipped();
         $violations = $this->getService('validator')->validate($user1, 'Registration');
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'username'));
         $om->persist($user1);

@@ -87,6 +87,10 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        if(!class_exists('\Doctrine\ODM\MongoDB\DocumentManager')) {
+            $this->markTestSkipped('No ODM installed');
+        }
+
         $this->repo = $this->getRepositoryMock();
     }
 

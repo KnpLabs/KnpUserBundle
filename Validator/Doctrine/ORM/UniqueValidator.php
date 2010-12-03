@@ -68,6 +68,10 @@ class UniqueValidator extends ConstraintValidator
             return true;
         }
 
+        if (1 === count($fields)) {
+            $this->context->setPropertyPath($fields[0]);
+        }
+
         $this->setMessage($constraint->message, array(
             'property' => implode(', ', $fields)
         ));
