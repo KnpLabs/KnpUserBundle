@@ -53,4 +53,13 @@ interface UserRepositoryInterface extends RepositoryInterface
      * @return  User or null if user does not exist
      */
     public function findOneByRememberMeToken($token);
+
+    /**
+     * Creates and returns a new User instance,
+     * Passing the password encryption algorithm
+     * to the constructor
+     *
+     * @return void
+     */
+    public function createUserInstance();
 }

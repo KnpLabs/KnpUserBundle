@@ -104,4 +104,10 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     {
         return preg_match('/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i', $email);
     }
+
+    public function createUserInstance()
+    {
+        $userClass = $this->getObjectClass();
+        return new $userClass($this->algorithm);
+    }
 }
