@@ -8,16 +8,14 @@ class UserValidationTest extends WebTestCase
 {
     public function testBlankUsernameFail()
     {
-        $userClass = $this->getService('doctrine_user.repository.user')->getObjectClass();
-        $user = new $userClass();
+        $user = $this->getService('doctrine_user.repository.user')->getUserInstance();
         $violations = $this->getService('validator')->validate($user, 'Registration');
         $this->assertTrue($this->hasViolationForPropertyPath($violations, 'username'));
     }
 
     public function testGoodUsernameValid()
     {
-        $userClass = $this->getService('doctrine_user.repository.user')->getObjectClass();
-        $user = new $userClass();
+        $user = $this->getService('doctrine_user.repository.user')->getUserInstance();
         $user->setUsername(uniqid());
         $violations = $this->getService('validator')->validate($user, 'Registration');
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'username'));
@@ -30,7 +28,7 @@ class UserValidationTest extends WebTestCase
         $om = $repo->getObjectManager();
         $validator = $this->getService('validator');
         $userClass = $repo->getObjectClass();
-        $user1 = new $userClass();
+        $user1 = $repo->getUserInstance();
         $user1->setUsername($username);
         $user1->setEmail(uniqid().'@mail.org');
         $user1->setPassword(uniqid());
@@ -39,7 +37,7 @@ class UserValidationTest extends WebTestCase
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'username'));
         $om->persist($user1);
         $om->flush();
-        $user2 = new $userClass();
+        $user2 = $repo->getUserInstance();
         $user2->setUsername($username);
         $user1->setEmail(uniqid().'@mail.org');
         $user1->setPassword(uniqid());
@@ -56,7 +54,7 @@ class UserValidationTest extends WebTestCase
         $om = $repo->getObjectManager();
         $validator = $this->getService('validator');
         $userClass = $repo->getObjectClass();
-        $user1 = new $userClass();
+        $user1 = $repo->getUserInstance();
         $user1->setUsername(uniqid());
         $user1->setPassword(uniqid());
         $user1->setEmail($email);
@@ -64,7 +62,7 @@ class UserValidationTest extends WebTestCase
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'email'));
         $om->persist($user1);
         $om->flush();
-        $user2 = new $userClass();
+        $user2 = $repo->getUserInstance();
         $user2->setUsername(uniqid());
         $user2->setPassword(uniqid());
         $user2->setEmail($email);
