@@ -24,7 +24,6 @@ class DoctrineUserBundle extends BaseBundle
     {
         if($user = $event->getSubject()->getUser()) {
             $user = $this->container->get('doctrine_user.repository.user')->find($user->getId());
-            var_dump($user);die;
         }
     }
 }
