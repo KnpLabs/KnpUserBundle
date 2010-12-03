@@ -12,7 +12,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 {
     public function testUsername()
     {
-        $user = new User();
+        $user = new User('sha1');
         $this->assertNull($user->getUsername());
 
         $user->setUsername('tony');
@@ -21,7 +21,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     public function testEmail()
     {
-        $user = new User();
+        $user = new User('sha1');
         $this->assertNull($user->getEmail());
 
         $user->setEmail('tony@mail.org');
@@ -30,7 +30,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     public function testRenewRememberMeToken()
     {
-        $user = new User();
+        $user = new User('sha1');
         $rmt = $user->getRememberMeToken();
         $this->assertNotNull($rmt);
         $user->renewRememberMeToken();
