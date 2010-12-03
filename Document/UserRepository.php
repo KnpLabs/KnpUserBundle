@@ -19,6 +19,19 @@ use Symfony\Component\Security\Exception\UsernameNotFoundException;
 class UserRepository extends ObjectRepository implements UserRepositoryInterface, UserProviderInterface
 {
     /**
+     * @var string
+     */
+    protected $algorithm;
+
+    /**
+     * @param string $algorithm
+     */
+    public function setAlgorithm($algorithm)
+    {
+        $this->algorithm = $algorithm;
+    }
+
+    /**
      * @see UserRepositoryInterface::findOneByUsername
      */
     public function findOneByUsername($username)
