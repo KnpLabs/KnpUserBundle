@@ -13,6 +13,13 @@ namespace Bundle\DoctrineUserBundle\Model;
 interface UserRepositoryInterface extends RepositoryInterface
 {
     /**
+     * Set the repository password encryption algorithm
+     * @param string $algorithm
+     * @return void
+     */
+    public function setAlgorithm($algorithm);
+
+    /**
      * Find a user by its username
      * @param   string  $username
      * @return  User or null if user does not exist
