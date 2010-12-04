@@ -69,13 +69,13 @@ or if you prefer xml
 
 ### Configure the Security Firewall (see the official Symfony2 documentation for details
 
-security.config:
-    providers:
-        main:
-            password_encoder: sha1
-            entity:
-                class: MyBundle:User
-                property: username
+    security.config:
+        providers:
+            main:
+                password_encoder: sha1
+                entity:
+                    class: MyBundle:User
+                    property: username
 
 ### Add authentication routes
 
