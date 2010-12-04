@@ -63,7 +63,7 @@ or if you prefer xml
     # app/config/config.xml
     <doctrine_user:config db_driver="orm">
         <doctrine_user:class>
-            <doctrine_user:model user="Application\MyBundle\Entity\User" />
+            <doctrine_user:model user="Application\DoctrineUserBundle\Entity\User" />
         </doctrine_user:class>
     </doctrine_user:config>
 
