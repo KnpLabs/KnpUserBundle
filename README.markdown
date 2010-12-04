@@ -1,4 +1,4 @@
-Provides authentication and User persistence for your Symfony2 Project.
+Provides authentication and User persistence for your Symfony2 Project using the Security Firewall.
 
 ## Features
 
@@ -66,6 +66,16 @@ or if you prefer xml
             <doctrine_user:model user="Application\DoctrineUserBundle\Entity\User" />
         </doctrine_user:class>
     </doctrine_user:config>
+
+### Configure the Security Firewall (see the official Symfony2 documentation for details
+
+security.config:
+    providers:
+        main:
+            password_encoder: sha1
+            entity:
+                class: MyBundle:User
+                property: username
 
 ### Add authentication routes
 
