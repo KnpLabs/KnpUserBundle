@@ -54,12 +54,18 @@ Then you will be able to add logic and mapping in it.
     # app/config/config.yml
     doctrine_user.config:
         db_driver: orm # can be orm or odm
-        user_class: Application\DoctrineUserBundle\Entity\User # you must define your own user class
+        class:
+            model:
+                user: Application\DoctrineUserBundle\Entity\User # you must define your own user class
 
 or if you prefer xml
 
     # app/config/config.xml
-    <doctrine_user:config db_driver="orm" user_class="DoctrineUserBundle" />
+    <doctrine_user:config db_driver="orm">
+        <doctrine_user:class>
+            <doctrine_user:model user="Application\MyBundle\Entity\User" />
+        </doctrine_user:class>
+    </doctrine_user:config>
 
 ### Add authentication routes
 
@@ -212,16 +218,19 @@ You can change the User class DoctrineUserBundle will use in configuration:
 
     # app/config/config.yml
     doctrine_user.config:
-        db_driver: orm
-        user_class: Bundle\MyBundle\Entity\User
+        db_driver: orm # can be orm or odm
+        class:
+            model:
+                user: Bundle\MyBundle\Entity\User # you must define your own user class
 
-with xml
+or if you prefer xml
 
     # app/config/config.xml
-    <doctrine_user:config
-        db_driver="orm"
-        user_class="Bundle\MyBundle\Entity\User"
-    />
+    <doctrine_user:config db_driver="orm">
+        <doctrine_user:class>
+            <doctrine_user:model user="Bundle\MyBundle\Entity\User" />
+        </doctrine_user:class>
+    </doctrine_user:config>
     
 Then create your own User class:
 
