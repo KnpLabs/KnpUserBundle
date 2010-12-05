@@ -30,6 +30,6 @@ class UserForm extends Form
     {
         $this->add(new TextField('username'));
         $this->add(new TextField('email'));
-        $this->add(new RepeatedField(new PasswordField('password')));
+        $this->add(new RepeatedField(new PasswordField('plainPassword')));
     }
 }
