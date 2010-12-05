@@ -26,30 +26,71 @@ Provides authentication and User persistence for your Symfony2 Project using the
         );
     }
 
-### Create your own user class
+### Create your own classes
 
-You must create a User class that extends the default one.
+You must create a User class, a Group class and a Permission class that extend the default ones.
 Then you will be able to add logic and mapping in it.
 
-#### ORM User class:
+#### ORM classes:
+
+##### User class
 
     // src/Application/MyBundle/Entity/User.php
 
     namespace Application\MyBundle\Entity;
     use Bundle\DoctrineUserBundle\Entity\User as BaseUser;
 
+    /**
+     * @orm:Entity
+     */
     class User extends BaseUser
     {
         // add your stuff here...
     }
 
-#### MongoDB User class:
+##### Group class
+
+    // src/Application/MyBundle/Entity/Group.php
+
+    namespace Application\MyBundle\Entity;
+    use Bundle\DoctrineUserBundle\Entity\Group as BaseGroup;
+
+    /**
+     * @orm:Entity
+     */
+    class Group extends BaseGroup
+    {
+        // add your stuff here...
+    }
+
+##### Permission class
+
+    // src/Application/MyBundle/Entity/Permission.php
+
+    namespace Application\MyBundle\Entity;
+    use Bundle\DoctrineUserBundle\Entity\Permission as BasePermission;
+
+    /**
+     * @orm:Entity
+     */
+    class Permission extends BasePermission
+    {
+        // add your stuff here...
+    }
+
+#### MongoDB classes:
+
+If you use MongoDB you just have to replace Entity by Document in the previous classes.
+For example here is the User class
 
     // src/Application/MyBundle/Document/User.php
 
     namespace Application\MyBundle\Document;
     use Bundle\DoctrineUserBundle\Document\User as BaseUser;
 
+    /**
+     * @mongodb:Document
+     */
     class User extends BaseUser
     {
         // add your stuff here...
@@ -62,14 +103,20 @@ Then you will be able to add logic and mapping in it.
         db_driver: orm # can be orm or odm
         class:
             model:
-                user: Application\MyBundle\Entity\User # you must define your own user class
+                user: Application\MyBundle\Entity\User # you must define your own User class
+                group: Application\MyBundle\Entity\Group # you must define your own Group class
+                permission: Application\MyBundle\Entity\Permission # you must define your own Permission class
 
 or if you prefer xml
 
     # app/config/config.xml
     <doctrine_user:config db_driver="orm">
         <doctrine_user:class>
-            <doctrine_user:model user="Application\MyBundle\Entity\User" />
+            <doctrine_user:model
+                user="Application\MyBundle\Entity\User"
+                group="Application\MyBundle\Entity\Group"
+                permission="Application\MyBundle\Entity\Permission"
+            />
         </doctrine_user:class>
     </doctrine_user:config>
 
@@ -243,7 +290,7 @@ You can easily replace and extend the User repository.
 Declare your custom repository from your User class annotations:
 
     /**
-    * @Entity(repositoryClass="Application\MyBundle\Entity\UserRepository")
+    * @orm:Entity(repositoryClass="Application\MyBundle\Entity\UserRepository")
     */
     class User extends BaseUser
     {
@@ -271,8 +318,8 @@ All configuration options are listed below:
     class:
         model:
             user: Application\MyBundle\Entity\User
-            group: ~
-            permission: ~
+            group: Application\MyBundle\Entity\Group
+            permission: Application\MyBundle\Entity\Permission
         form:
             user: ~
             group: ~
