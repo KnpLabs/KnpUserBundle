@@ -110,15 +110,20 @@ For example here is the User class
 or if you prefer xml
 
     # app/config/config.xml
-    <doctrine_user:config db_driver="orm">
-        <doctrine_user:class>
-            <doctrine_user:model
-                user="Application\MyBundle\Entity\User"
-                group="Application\MyBundle\Entity\Group"
-                permission="Application\MyBundle\Entity\Permission"
-            />
-        </doctrine_user:class>
-    </doctrine_user:config>
+    <container
+        <!-- the other namespaces -->
+        xmlns:doctrine_user="http://www.symfony-project.org/schema/dic/doctrine_user"
+    >
+        <doctrine_user:config db_driver="orm">
+            <doctrine_user:class>
+                <doctrine_user:model
+                    user="Application\MyBundle\Entity\User"
+                    group="Application\MyBundle\Entity\Group"
+                    permission="Application\MyBundle\Entity\Permission"
+                />
+            </doctrine_user:class>
+        </doctrine_user:config>
+    </container>
 
 ### Configure the Security Firewall (see the official [Symfony2 documentation](http://docs.symfony-reloaded.org/master/guides/security/users.html) for details)
 
