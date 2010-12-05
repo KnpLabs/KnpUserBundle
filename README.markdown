@@ -35,19 +35,25 @@ Then you will be able to add logic and mapping in it.
 
     // src/Application/MyBundle/Entity/User.php
 
-    namespace Application\DoctrineUserBundle\Entity;
+    namespace Application\MyBundle\Entity;
     use Bundle\DoctrineUserBundle\Entity\User as BaseUser;
 
-    class User extends BaseUser {}
+    class User extends BaseUser
+    {
+        // add your stuff here...
+    }
 
 #### MongoDB User class:
 
     // src/Application/MyBundle/Document/User.php
 
-    namespace Application\DoctrineUserBundle\Document;
+    namespace Application\MyBundle\Document;
     use Bundle\DoctrineUserBundle\Document\User as BaseUser;
 
-    class User extends BaseUser {}
+    class User extends BaseUser
+    {
+        // add your stuff here...
+    }
 
 ### Choose ORM or ODM database driver
 
@@ -56,18 +62,18 @@ Then you will be able to add logic and mapping in it.
         db_driver: orm # can be orm or odm
         class:
             model:
-                user: Application\DoctrineUserBundle\Entity\User # you must define your own user class
+                user: Application\MyBundle\Entity\User # you must define your own user class
 
 or if you prefer xml
 
     # app/config/config.xml
     <doctrine_user:config db_driver="orm">
         <doctrine_user:class>
-            <doctrine_user:model user="Application\DoctrineUserBundle\Entity\User" />
+            <doctrine_user:model user="Application\MyBundle\Entity\User" />
         </doctrine_user:class>
     </doctrine_user:config>
 
-### Configure the Security Firewall (see the official Symfony2 documentation for details
+### Configure the Security Firewall (see the official [Symfony2 documentation](http://docs.symfony-reloaded.org/master/guides/security/users.html) for details)
 
     security.config:
         providers:
@@ -81,10 +87,20 @@ or if you prefer xml
 
 If you want ready to use login and logout pages, include the builtin routes:
 
+    # app/config/routing.yml
+    doctrine_user_session:
+        resource: DoctrineUserBundle/Resources/config/routing/session.xml
+        prefix: /session
+
+or if you use xml
+
     # app/config/routing.xml
-    <import resource="DoctrineUserBundle/Resources/config/routing/session.xml"/>
+    <import resource="DoctrineUserBundle/Resources/config/routing/session.xml" prefix="/session" />
 
 You now can login at http://app.com/session/new
+
+DoctrineUserBundle also give you builtin routes to manage users, groups and permissions.
+They are available in the user.xml, group.xml and permission.xml files that you can import the same way.
 
 ## Command line
 
@@ -177,6 +193,8 @@ using xml
          <requirement key="_method">GET</requirement>
    </route>
 
+See the official [Symfony2 documentation](http://docs.symfony-reloaded.org/master/quick_tour/the_big_picture.html#routing) to learn more about the use of the routing component.
+
 ### Change the route used when user successfully logs in
 
 By default, when a user logs in through SessionController::create, he gets redirected to the route doctrine_user_session_success.
@@ -204,61 +222,28 @@ Both these classes implement Bundle\DoctrineUserBundle\Model\UserRepositoryInter
 
 ### Access the repository service
 
-If you want to manipulate users in a way that will work as well with ORM and ODM, use the doctrine_user.user_repository service:
+If you want to manipulate users in a way that will work as well with ORM and ODM, use the doctrine_user.repository.user service:
 
-    $userRepository = $container->get('doctrine_user.user_repository');
+    $userRepository = $container->get('doctrine_user.repository.user');
 
 That's the way DoctrineUserBundle internal controllers are built.
 
 ### Access the current user class
 
-When using Doctrine ORM, the default user class is Bundle\DoctrineUserBundle\Entity\User.
-When using Doctrine ODM, the default user class is Bundle\DoctrineUserBundle\Document\User.
-To get the current user class, you can ask it to the user repository:
+To get the current user class (the one you defined in the config file), you can ask it to the user repository:
 
     $userClass = $userRepository->getObjectClass();
     $user = new $userClass();
 
 `$user` is now an Entity or a Document, depending on the configuration.
 
-## Extend the User
+### Extend the user repository
 
-You will probably want to extend the user to add it new properties and methods.
-You can change the User class DoctrineUserBundle will use in configuration:
-
-    # app/config/config.yml
-    doctrine_user.config:
-        db_driver: orm # can be orm or odm
-        class:
-            model:
-                user: Bundle\MyBundle\Entity\User # you must define your own user class
-
-or if you prefer xml
-
-    # app/config/config.xml
-    <doctrine_user:config db_driver="orm">
-        <doctrine_user:class>
-            <doctrine_user:model user="Bundle\MyBundle\Entity\User" />
-        </doctrine_user:class>
-    </doctrine_user:config>
-    
-Then create your own User class:
-
-    # Bundle\MyBundle\Document\User.php
-    <?php
-    namespace Bundle\MyBundle\Entity;
-    use Bundle\DoctrineUserBundle\Entity\User as BaseUser;
-
-    class User extends BaseUser
-    {
-        // add your stuff here
-    }
-
-Once you extended the User class, you can easily replace and extend the User repository, too.
+You can easily replace and extend the User repository.
 Declare your custom repository from your User class annotations:
 
     /**
-    * @Entity(repositoryClass="Bundle\MyBundle\Entity\UserRepository")
+    * @Entity(repositoryClass="Application\MyBundle\Entity\UserRepository")
     */
     class User extends BaseUser
     {
@@ -266,9 +251,9 @@ Declare your custom repository from your User class annotations:
 
 Then create your custom repository:
 
-    # Bundle\MyBundle\Document\UserRepository.php
+    # Application\MyBundle\Entity\UserRepository.php
     <?php
-    namespace Bundle\MyBundle\Entity;
+    namespace Application\MyBundle\Entity;
     use Bundle\DoctrineUserBundle\Entity\UserRepository as BaseUserRepository
 
     class UserRepository extends BaseUserRepository
@@ -282,10 +267,10 @@ Of course, to do the same with Doctrine ODM, just replace Entity with Document i
 
 All configuration options are listed below:
 
-    db_driver: odm
+    db_driver: orm
     class:
         model:
-            user: Bundle\ExerciseUserBundle\Document\User
+            user: Application\MyBundle\Entity\User
             group: ~
             permission: ~
         form:
