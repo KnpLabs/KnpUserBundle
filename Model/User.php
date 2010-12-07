@@ -314,10 +314,10 @@ abstract class User implements AdvancedAccountInterface
         $this->plainPassword = $plainPassword;
         $this->hashUserPassword();
     }
-    
+
     /**
     * A dummy method to prevent error due to plainPassword being private.
-    * @return null 
+    * @return null
     */
     public function getPlainPassword()
     {
