@@ -23,7 +23,7 @@ class DoctrineUserBundle extends BaseBundle
     public function listenToSecurityTokenUnserialize(Event $event)
     {
         if($user = $event->getSubject()->getUser()) {
-            $user = $this->container->get('doctrine_user.repository.user')->find($user->getId());
+            $this->container->get('doctrine_user.object_manager')->merge($user);
         }
     }
 }
