@@ -316,11 +316,12 @@ abstract class User implements AdvancedAccountInterface
     }
     
     /**
-    * @return string The password in plain text
+    * A dummy method to prevent error due to plainPassword being private.
+    * @return null 
     */
     public function getPlainPassword()
     {
-        return $this->plainPassword;
+        return null;
     }
 
     /**
