@@ -14,6 +14,7 @@ class SecurityController extends Controller
             $error = $this->get('request')->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
         } else {
             $error = $this->get('request')->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
+            $this->get('request')->getSession()->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
 
         return $this->render('DoctrineUserBundle:Security:login.twig', array(
