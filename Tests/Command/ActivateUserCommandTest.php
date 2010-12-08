@@ -30,12 +30,12 @@ class ActivateUserCommandTest extends WebTestCase
         $user->setUsername($username);
         $user->setEmail($email);
         $user->setPlainPassword($password);
-        $user->setIsActive(false);
+        $user->setEnabled(false);
 
         $userRepo->getObjectManager()->persist($user);
         $userRepo->getObjectManager()->flush();
 
-        $this->assertFalse($user->getIsActive());
+        $this->assertFalse($user->isEnabled());
 
         $tester->run(array(
             'command'  => $command->getFullName(),
@@ -47,7 +47,7 @@ class ActivateUserCommandTest extends WebTestCase
         $user = $userRepo->findOneByUsername($username);
 
         $this->assertTrue($user instanceof User);
-        $this->assertTrue($user->getIsActive());
+        $this->assertTrue($user->isEnabled());
 
         $userRepo->getObjectManager()->remove($user);
         $userRepo->getObjectManager()->flush();

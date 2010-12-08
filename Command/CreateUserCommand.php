@@ -77,8 +77,8 @@ EOT
         $user->setUsername($input->getArgument('username'));
         $user->setEmail($input->getArgument('email'));
         $user->setPlainPassword($input->getArgument('password'));
-        $user->setIsActive(!$input->getOption('inactive'));
-        $user->setIsSuperAdmin($input->getOption('super-admin'));
+        $user->setEnabled(!$input->getOption('inactive'));
+        $user->setSuperAdmin(!!$input->getOption('super-admin'));
 
         $userRepo->getObjectManager()->persist($user);
         $userRepo->getObjectManager()->flush();

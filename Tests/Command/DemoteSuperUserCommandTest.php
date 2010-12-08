@@ -30,12 +30,12 @@ class DemoteSuperAdminCommandTest extends WebTestCase
         $user->setUsername($username);
         $user->setEmail($email);
         $user->setPlainPassword($password);
-        $user->setIsSuperAdmin(true);
+        $user->addRole('ROLE_SUPERADMIN');
 
         $userRepo->getObjectManager()->persist($user);
         $userRepo->getObjectManager()->flush();
 
-        $this->assertTrue($user->getIsSuperAdmin());
+        $this->assertTrue($user->hasRole('ROLE_SUPERADMIN'));
 
         $tester->run(array(
             'command'  => $command->getFullName(),
@@ -47,7 +47,7 @@ class DemoteSuperAdminCommandTest extends WebTestCase
         $user = $userRepo->findOneByUsername($username);
 
         $this->assertTrue($user instanceof User);
-        $this->assertFalse($user->getIsSuperAdmin());
+        $this->assertFalse($user->hasRole('ROLE_SUPERADMIN'));
 
         $userRepo->getObjectManager()->remove($user);
         $userRepo->getObjectManager()->flush();

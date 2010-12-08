@@ -29,7 +29,7 @@ class PromoteSuperAdminCommandTest extends WebTestCase
         $user->setPlainPassword($password);
         $userRepo->getObjectManager()->persist($user);
         $userRepo->getObjectManager()->flush();
-        $this->assertFalse($user->getIsSuperAdmin());
+        $this->assertFalse($user->hasRole('ROLE_SUPERADMIN'));
         $tester->run(array(
             'command'  => $command->getFullName(),
             'username' => $username,
@@ -39,7 +39,7 @@ class PromoteSuperAdminCommandTest extends WebTestCase
         $user = $userRepo->findOneByUsername($username);
 
         $this->assertTrue($user instanceof User);
-        $this->assertTrue($user->getIsSuperAdmin());
+        $this->assertTrue($user->hasRole('ROLE_SUPERADMIN'));
 
         $userRepo->getObjectManager()->remove($user);
         $userRepo->getObjectManager()->flush();

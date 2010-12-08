@@ -58,7 +58,7 @@ EOT
         if (!$user) {
             throw new \InvalidArgumentException(sprintf('The user "%s" does not exist', $input->getArgument('username')));
         }
-        $user->setIsActive(false);
+        $user->setEnabled(false);
 
         $userRepo->getObjectManager()->persist($user);
         $userRepo->getObjectManager()->flush();

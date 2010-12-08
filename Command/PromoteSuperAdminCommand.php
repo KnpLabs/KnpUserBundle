@@ -59,7 +59,7 @@ EOT
         if (!$user) {
             throw new \InvalidArgumentException(sprintf('The user "%s" does not exist', $input->getArgument('username')));
         }
-        $user->setIsSuperAdmin(true);
+        $user->setSuperAdmin(true);
 
         $userRepo->getObjectManager()->persist($user);
         $userRepo->getObjectManager()->flush();

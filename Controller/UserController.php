@@ -103,12 +103,12 @@ class UserController extends Controller
         if ($form->isValid()) {
             $user = $form->getData();
             if ($this->container->getParameter('doctrine_user.confirmation_email.enabled')) {
-                $user->setIsActive(false);
+                $user->setEnabled(false);
                 $this->saveUser($user);
                 $this->get('session')->set('doctrine_user_send_confirmation_email/email', $user->getEmail());
                 $url = $this->generateUrl('doctrine_user_user_send_confirmation_email');
             } else {
-                $user->setIsActive(true);
+                $user->setEnabled(true);
                 $this->saveUser($user);
                 $this->authenticateUser($user);
                 $url = $this->generateUrl('doctrine_user_user_confirmed');
@@ -183,7 +183,7 @@ class UserController extends Controller
     {
         $user = $this->findUser('confirmationToken', $token);
         $user->setConfirmationToken(null);
-        $user->setIsActive(true);
+        $user->setEnabled(true);
 
         $this->saveUser($user);
         $this->authenticateUser($user);
@@ -323,7 +323,7 @@ class UserController extends Controller
      **/
     public function authenticateUser(User $user)
     {
-        $token = new UsernamePasswordToken($user, array(), $user->getRoles());
+        $token = new UsernamePasswordToken($user, null, $user->getRoles());
         $this->get('security.context')->setToken($token);
     }
 

@@ -16,25 +16,29 @@
 
         <field name="email" column="email" type="string" length="255" unique="true" />
 
-        <field name="isActive" column="is_active" type="boolean" />
+        <field name="enabled" column="enabled" type="boolean" />
 
-        <field name="isSuperAdmin" column="is_super_admin" type="boolean" />
+        <field name="algorithm" column="algorithm" type="string" />
+
+        <field name="salt" column="salt" type="string" />
 
         <field name="password" column="password" type="string" />
-
-        <field name="algorithm" column="algorithm" type="string" length="127" />
-
-        <field name="salt" column="salt" type="string" length="127" />
 
         <field name="createdAt" column="created_at" type="datetime" />
 
         <field name="updatedAt" column="updated_at" type="datetime" />
 
         <field name="lastLogin" column="last_login" type="datetime" nullable="true" />
-
-        <field name="confirmationToken" column="confirmation_token" type="string" length="127" nullable="true" />
-
-        <field name="rememberMeToken" column="remember_me_token" type="string" length="127" nullable="true" />
+        
+        <field name="locked" column="locked" type="boolean" />
+        
+        <field name="expired" column="expired" type="boolean" />
+        
+        <field name="expiresAt" column="expire_time" type="datetime" />
+        
+        <field name="confirmationToken" column="confirmation_token" type="string" />
+        
+        <field name="roles" column="roles" type="array" />
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="incrementCreatedAt" />

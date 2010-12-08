@@ -62,8 +62,8 @@ class CreateUserCommandTest extends WebTestCase
 
         $this->assertTrue($user instanceof User);
         $this->assertEquals($email, $user->getEmail());
-        $this->assertFalse($user->getIsActive());
-        $this->assertTrue($user->getIsSuperAdmin());
+        $this->assertFalse($user->isEnabled());
+        $this->assertTrue($user->hasRole('ROLE_SUPERADMIN'));
 
         $userRepo->getObjectManager()->remove($user);
         $userRepo->getObjectManager()->flush();

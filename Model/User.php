@@ -9,6 +9,7 @@
 
 namespace Bundle\DoctrineUserBundle\Model;
 
+use Bundle\DoctrineUserBundle\Util\String;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\User\AdvancedAccountInterface;
@@ -20,6 +21,9 @@ use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
  */
 abstract class User implements AdvancedAccountInterface
 {
+    const ROLE_DEFAULT    = 'ROLE_USER';
+    const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
+    
     protected $id;
 
     /**
@@ -51,14 +55,22 @@ abstract class User implements AdvancedAccountInterface
      * @validation:AssertType(type="boolean")
      * @var boolean
      */
-    protected $isActive;
+    protected $enabled;
 
     /**
-     * @validation:AssertType(type="boolean")
-     * @var boolean
+     * The algorithm to use for hashing
+     * 
+     * @var string
      */
-    protected $isSuperAdmin;
-
+    protected $algorithm;
+    
+    /**
+     * The salt to use for hashing
+     * 
+     * @var string
+     */
+    protected $salt;
+    
     /**
      * Encrypted password. Must be persisted.
      *
@@ -77,16 +89,6 @@ abstract class User implements AdvancedAccountInterface
      * @var string
      */
     protected $plainPassword;
-
-    /**
-     * @var string
-     */
-    protected $algorithm;
-
-    /**
-     * @var string
-     */
-    protected $salt;
 
     /**
      * @var \DateTime
@@ -111,30 +113,38 @@ abstract class User implements AdvancedAccountInterface
     protected $confirmationToken;
 
     /**
-     * Random string stored in client cookie to enable automatic login
-     *
-     * @var string
-     */
-    protected $rememberMeToken;
-
-    /**
      * @var Collection
      */
     protected $groups;
 
     /**
-     * @var Collection
+     * @var boolean
      */
-    protected $permissions;
+    protected $locked;
+    
+    /**
+     * @var boolean
+     */
+    protected $expired;
+    
+    /**
+     * @var DateTime
+     */
+    protected $expiresAt;
+    
+    /**
+     * @var array
+     */
+    protected $roles;
 
-    public function __construct($algorithm)
+    public function __construct()
     {
-        $this->algorithm = $algorithm;
-        $this->salt = md5(uniqid() . rand(100000, 999999));
+        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->confirmationToken = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-        $this->renewRememberMeToken();
-        $this->isActive = false;
-        $this->isSuperAdmin = false;
+        $this->enabled = false;
+        $this->locked = false;
+        $this->expired = false;
+        $this->roles = array();
     }
 
     /**
@@ -145,17 +155,58 @@ abstract class User implements AdvancedAccountInterface
      **/
     public function getRoles()
     {
-        return array('IS_AUTHENTICATED_FULLY');
+        $roles = $this->roles;
+        
+        // we need to make sure to have at least one role
+        $roles[] = self::ROLE_DEFAULT;
+        
+        return $roles;
     }
-
+    
+    public function setRoles(array $roles)
+    {
+          $this->roles = array();
+          
+        foreach ($roles as $role) {
+            $this->addRole($role);
+        }
+    }
+    
+    public function addRole($role)
+    {
+        $role = strtoupper($role);
+        if ($role === self::ROLE_DEFAULT) {
+            return;
+        }
+        
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = $role;
+        }
+    }
+    
+    public function removeRole($role)
+    {
+        if (false !== $key = array_search(strtoupper($role), $this->roles, true))
+        {
+            unset($this->roles[$key]);
+            $this->roles = array_values($this->roles);
+        }
+    }
+    
     /**
-     * Tell whether or not the user has a role
-     *
-     * @return bool
-     **/
+     * Never use this to check if this user has access to anything!
+     * 
+     * Use the SecurityContext, or an implementation of AccessDecisionManager
+     * instead, e.g.
+     * 
+     *         $securityContext->vote('ROLE_USER');
+     * 
+     * @param string $role
+     * @return void
+     */
     public function hasRole($role)
     {
-        return in_array($role, $this->getRoles());
+        return in_array(strtoupper($role), $this->roles, true);
     }
 
     /**
@@ -164,6 +215,7 @@ abstract class User implements AdvancedAccountInterface
      */
     public function eraseCredentials()
     {
+        $this->plainPassword = null;
     }
 
     /**
@@ -174,6 +226,14 @@ abstract class User implements AdvancedAccountInterface
      */
     public function isAccountNonExpired()
     {
+        if (true === $this->expired) {
+            return false;
+        }
+        
+        if (null !== $this->expiresAt && $this->expiresAt->getTimestamp() < time()) {
+            return false;
+        }
+        
         return true;
     }
 
@@ -185,7 +245,7 @@ abstract class User implements AdvancedAccountInterface
      */
     public function isAccountNonLocked()
     {
-        return true;
+        return !$this->locked;
     }
 
     /**
@@ -207,7 +267,17 @@ abstract class User implements AdvancedAccountInterface
      */
     public function isEnabled()
     {
-        return $this->getIsActive();
+        return $this->enabled;
+    }
+    
+    /**
+     * @validation:AssertType(type="boolean")
+     * 
+     * @return Boolean
+     */    
+    public function isSuperAdmin()
+    {
+       return $this->hasRole(self::ROLE_SUPERADMIN); 
     }
 
     /**
@@ -234,7 +304,7 @@ abstract class User implements AdvancedAccountInterface
     public function setUsername($username)
     {
         $this->username = $username;
-        $this->usernameLower = static::strtolower($username);
+        $this->usernameLower = String::strtolower($username);
     }
 
     /**
@@ -245,6 +315,25 @@ abstract class User implements AdvancedAccountInterface
     public function getUsernameLower()
     {
         return $this->usernameLower;
+    }
+    
+    /**
+     * Implementation of AccountInterface
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+    
+    public function getAlgorithm()
+    {
+        return $this->algorithm;
+    }
+    
+    public function setAlgorithm($algorithm)
+    {
+        $this->algorithm = $algorithm;
     }
 
     /**
@@ -263,25 +352,7 @@ abstract class User implements AdvancedAccountInterface
      */
     public function setEmail($email)
     {
-        $this->email = static::strtolower($email);
-    }
-
-    /**
-     * @param string $algorithm
-     */
-    public function setAlgorithm($algorithm)
-    {
-        $this->algorithm = $algorithm;
-    }
-
-    /**
-     * Return the algorithm used to hash the password
-     *
-     * @return string the algorithm
-     **/
-    public function getAlgorithm()
-    {
-        return $this->algorithm;
+        $this->email = String::strtolower($email);
     }
 
     /**
@@ -293,67 +364,50 @@ abstract class User implements AdvancedAccountInterface
     {
         return $this->password;
     }
-
+    
     /**
-     * Return the salt used to hash the password
-     *
-     * @return string The salt
-     **/
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-
-    /**
-     * Sets the plain password. Also encrypts it and fills the encrypted attribute.
-     *
-     * @param string $plainPassword
+     * Sets the hashed password.
+     * 
+     * @param string $password
+     * @return void
      */
-    public function setPlainPassword($plainPassword)
+    public function setPassword($password)
     {
-        $this->plainPassword = $plainPassword;
-        $this->hashUserPassword();
+        $this->password = $password;
     }
 
     /**
-    * A dummy method to prevent error due to plainPassword being private.
-    * @return null
-    */
+     * @param bool $boolean
+     */
+    public function setEnabled($boolean)
+    {
+        $this->enabled = $boolean;
+    }
+    
+    /**
+     * Sets the super admin status
+     * 
+     * @param boolean $boolean
+     * @return void
+     */
+    public function setSuperAdmin($boolean)
+    {
+        if (true === $boolean) {
+            $this->addRole(self::ROLE_SUPERADMIN);
+        }
+        else {
+            $this->removeRole(self::ROLE_SUPERADMIN);
+        }
+    }
+    
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+    }
+    
     public function getPlainPassword()
     {
-        return null;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
-
-    /**
-     * @param bool $isActive
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsSuperAdmin()
-    {
-        return $this->isSuperAdmin;
-    }
-
-    /**
-     * @param bool $isActive
-     */
-    public function setIsSuperAdmin($isSuperAdmin)
-    {
-        $this->isSuperAdmin = $isSuperAdmin;
+        return $this->plainPassword;
     }
 
     /**
@@ -426,24 +480,6 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
-     * Get rememberMeToken
-     * @return string
-     */
-    public function getRememberMeToken()
-    {
-        return $this->rememberMeToken;
-    }
-
-    /**
-     * Renew the rememberMeToken
-     * @return null
-     */
-    public function renewRememberMeToken()
-    {
-        $this->rememberMeToken = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-    }
-
-    /**
      * Tell if the the given user is this user
      * Useful when not hydrating all fields.
      *
@@ -454,19 +490,41 @@ abstract class User implements AdvancedAccountInterface
     {
         return null !== $user && $this->getUsername() === $user->getUsername();
     }
-
-    public static function strtolower($string)
+    
+    /**
+     * Implementation of AccountInterface.
+     * 
+     * @param AccountInterface $account
+     * @return boolean
+     */
+    public function equals(AccountInterface $account)
     {
-        return extension_loaded('mbstring') ? mb_strtolower($string) : strtolower($string);
-    }
-
-    protected function hashUserPassword()
-    {
-        if (empty($this->plainPassword)) {
-            $this->password = null;
-        } else {
-            $encoder = new MessageDigestPasswordEncoder($this->getAlgorithm());
-            $this->password = $encoder->encodePassword($this->plainPassword, $this->getSalt());
+        if (!$account instanceof User) {
+            return false;
         }
+        
+        if ($this->password !== $account->getPassword()) {
+            return false;
+        }
+        if ($this->getSalt() !== $account->getSalt()) {
+            return false;
+        }
+        if ($this->username !== $account->getUsername()) {
+            return false;
+        }
+        if ($this->accountNonExpired !== $account->isAccountNonExpired()) {
+            return false;
+        }
+        if ($this->accountNonLocked !== $account->isAccountNonLocked()) {
+            return false;
+        }
+        if ($this->credentialsNonExpired !== $account->isCredentialsNonExpired()) {
+            return false;
+        }
+        if ($this->enabled !== $account->isEnabled()) {
+            return false;
+        }
+        
+        return true;     
     }
 }
