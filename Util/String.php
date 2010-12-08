@@ -8,7 +8,7 @@ class String
     {    
         static $function = null;
         if (null === $function) {
-            $function = extension_loaded('mb_string') ? 'mb_strtolower' : 'strotolower';
+            $function = extension_loaded('mb_string') ? 'mb_strtolower' : 'strtolower';
         }
         
         return $function($str);

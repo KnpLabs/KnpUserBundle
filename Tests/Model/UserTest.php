@@ -2,17 +2,11 @@
 
 namespace Bundle\DoctrineUserBundle\Tests\Model;
 
-use Bundle\DoctrineUserBundle\Model\User as AbstractUser;
-
-class User extends AbstractUser
-{
-}
-
 class UserTest extends \PHPUnit_Framework_TestCase
 {
     public function testUsername()
     {
-        $user = new User('sha1');
+        $user = $this->getUser();
         $this->assertNull($user->getUsername());
 
         $user->setUsername('tony');
@@ -21,19 +15,15 @@ class UserTest extends \PHPUnit_Framework_TestCase
 
     public function testEmail()
     {
-        $user = new User('sha1');
+        $user = $this->getUser();
         $this->assertNull($user->getEmail());
 
         $user->setEmail('tony@mail.org');
         $this->assertEquals('tony@mail.org', $user->getEmail());
     }
-
-    public function testRenewRememberMeToken()
+    
+    protected function getUser()
     {
-        $user = new User('sha1');
-        $rmt = $user->getRememberMeToken();
-        $this->assertNotNull($rmt);
-        $user->renewRememberMeToken();
-        $this->assertNotEquals($rmt, $user->getRememberMeToken());
+    	return $this->getMockForAbstractClass('Bundle\DoctrineUserBundle\Model\User');
     }
 }

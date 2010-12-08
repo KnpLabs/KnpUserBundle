@@ -17,6 +17,5 @@ class DoctrineUserBundle extends BaseBundle
 {
     public function boot()
     {
-        $this->container->get('doctrine_user.security.token_unserialize_listener')->register();
     }
 }

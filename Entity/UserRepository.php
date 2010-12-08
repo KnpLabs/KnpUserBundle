@@ -108,6 +108,9 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     public function createUserInstance()
     {
         $userClass = $this->getObjectClass();
-        return new $userClass($this->algorithm);
+        $user = new $userClass();
+        $user->setAlgorithm($this->algorithm);
+        
+        return $user;
     }
 }
