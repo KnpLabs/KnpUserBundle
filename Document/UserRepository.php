@@ -12,12 +12,15 @@
 
 namespace Bundle\DoctrineUserBundle\Document;
 
+use Bundle\DoctrineUserBundle\Util\String;
 use Bundle\DoctrineUserBundle\Model\UserRepositoryInterface;
 use Symfony\Component\Security\User\UserProviderInterface;
 use Symfony\Component\Security\Exception\UsernameNotFoundException;
 
 class UserRepository extends ObjectRepository implements UserRepositoryInterface, UserProviderInterface
 {
+	const UNIQUE_ID = 'BkInnt00ACzb0JGyUaiD';
+	
     /**
      * @var string
      */
@@ -57,7 +60,7 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
             throw new UsernameNotFoundException(sprintf('The user "%s" does not exist', $username));
         }
 
-        return $user;
+        return array($user, self::UNIQUE_ID);
     }
 
     /**
@@ -73,7 +76,7 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
      */
     public function findOneByUsernameOrEmail($usernameOrEmail)
     {
-        if ($this->isValidEmail($usernameOrEmail)) {
+        if (String::isEmail($usernameOrEmail)) {
             return $this->findOneByEmail($usernameOrEmail);
         }
 
@@ -100,14 +103,14 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
         return $this->findOneBy(array('rememberMeToken' => $token));
     }
 
-    protected function isValidEmail($email)
-    {
-        return preg_match('/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i', $email);
-    }
-
     public function createUserInstance()
     {
         $userClass = $this->getObjectClass();
         return new $userClass($this->algorithm);
+    }
+    
+    public function supports($providerName)
+    {
+    	return self::UNIQUE_ID === $providerName;
     }
 }
