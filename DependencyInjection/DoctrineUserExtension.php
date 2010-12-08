@@ -33,7 +33,7 @@ class DoctrineUserExtension extends Extension
         $container->setParameter('doctrine_user.password_encoder', $config['password_encoder']);
 
         // load all service configuration files (the db_driver first)
-        foreach (array($config['db_driver'], 'model', 'controller', 'templating', 'email', 'form', 'validator') as $basename) {
+        foreach (array($config['db_driver'], 'model', 'controller', 'templating', 'email', 'form', 'validator', 'security') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 

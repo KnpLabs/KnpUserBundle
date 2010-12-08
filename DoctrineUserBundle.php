@@ -17,13 +17,6 @@ class DoctrineUserBundle extends BaseBundle
 {
     public function boot()
     {
-        $this->container->get('event_dispatcher')->connect('security.token.unserialize', array($this, 'listenToSecurityTokenUnserialize'));
-    }
-
-    public function listenToSecurityTokenUnserialize(Event $event)
-    {
-        if($user = $event->getSubject()->getUser()) {
-            $this->container->get('doctrine_user.object_manager')->merge($user);
-        }
+        $this->container->get('doctrine_user.security.token_unserialize_listener')->register();
     }
 }

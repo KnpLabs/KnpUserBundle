@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="doctrine_user.security.token_unserialize_listener.class">Bundle\DoctrineUserBundle\Security\TokenUnserializeListener</parameter>
+    </parameters>
+
+    <services>
+        <service id="doctrine_user.security.token_unserialize_listener" class="%doctrine_user.security.token_unserialize_listener.class%">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="doctrine_user.object_manager" />
+        </service>
+    </services>
+</container>
