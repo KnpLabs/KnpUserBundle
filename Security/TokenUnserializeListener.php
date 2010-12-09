@@ -25,7 +25,7 @@ class TokenUnserializeListener
     {
         $token = $event->getSubject();
         if($user = $token->getUser()) {
-            $user = $this->objectManager->merge($user);
+            $user = $this->objectManager->find(get_class($user), $user->getId());
             // Fancy reflection hack to set the new token user
             $reflClass = new \ReflectionClass(get_class($token));
             $reflProp = $reflClass->getProperty('user');
