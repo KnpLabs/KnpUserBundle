@@ -19,7 +19,7 @@ use Symfony\Component\Security\Exception\UsernameNotFoundException;
 
 class UserRepository extends ObjectRepository implements UserRepositoryInterface, UserProviderInterface
 {
-	const UNIQUE_ID = 'BkInnt00ACzb0JGyUaiD';
+    const UNIQUE_ID = 'BkInnt00ACzb0JGyUaiD';
 	
     /**
      * @var string
@@ -111,6 +111,6 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     
     public function supports($providerName)
     {
-    	return self::UNIQUE_ID === $providerName;
+        return self::UNIQUE_ID === $providerName;
     }
 }
