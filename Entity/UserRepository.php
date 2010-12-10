@@ -31,19 +31,6 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     protected $encoder;
     
     /**
-     * @param string $algorithm
-     */
-    public function setAlgorithm($algorithm)
-    {
-        $this->algorithm = $algorithm;
-    }
-    
-    public function setEncoder(PasswordEncoderInterface $encoder)
-    {
-        $this->encoder = $encoder;
-    }
-    
-    /**
      * @see UserRepositoryInterface::findOneByUsername
      */
     public function findOneByUsername($username)
@@ -100,21 +87,6 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
         return $this->findOneBy(array('confirmationToken' => $token));
     }
 
-    public function createUserInstance()
-    {
-        $userClass = $this->getObjectClass();
-        $user = new $userClass();
-        $user->setAlgorithm($this->algorithm);
-        
-        return $user;
-    }
-    
-    public function changePassword($userId, $newPassword)
-    {
-        $user = $this->find($userId);
-        $user->setPassword($this->encoder->encodePassword($newPassword, $user->getSalt()));
-    }
-    
     public function supports($providerName)
     {
         return get_class($this) === $providerName;

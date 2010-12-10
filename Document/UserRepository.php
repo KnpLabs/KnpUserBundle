@@ -88,12 +88,6 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
         return $this->findOneBy(array('rememberMeToken' => $token));
     }
 
-    public function createUserInstance()
-    {
-        $userClass = $this->getObjectClass();
-        return new $userClass($this->algorithm);
-    }
-    
     public function supports($providerName)
     {
         return get_class($this) === $providerName;

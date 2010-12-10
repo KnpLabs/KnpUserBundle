@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * (c) Johannes M. Schmitt <schmittjoh@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Bundle\DoctrineUserBundle\Security\Authentication\Provider;
 
 use Bundle\DoctrineUserBundle\Security\Encoder\EncoderFactoryAwareInterface;
@@ -12,7 +19,6 @@ use Bundle\DoctrineUserBundle\Model\User;
 
 class DaoAuthenticationProvider extends BaseDaoAuthenticationProvider implements EncoderFactoryAwareInterface
 {
-    protected static $encoders = array();
     protected $encoderFactory;
     
     public function setEncoderFactory(EncoderFactoryInterface $encoderFactory)
