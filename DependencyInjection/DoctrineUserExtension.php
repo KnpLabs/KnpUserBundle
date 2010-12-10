@@ -34,7 +34,7 @@ class DoctrineUserExtension extends Extension
         $container->setParameter('security.authentication.provider.dao.class', 'Bundle\DoctrineUserBundle\Security\Authentication\Provider\DaoAuthenticationProvider');
         
         // per default, we use a sha512 encoder, but you may change this here
-        if (isset($config['password_encoder'])) {
+        if (isset($config['encoder'])) {
             $this->configurePasswordEncoder($config['password_encoder'], $container);
         }
         
@@ -64,9 +64,9 @@ class DoctrineUserExtension extends Extension
             }
             
             $this->remapParameters($config, $container, array(
-                'algorithm' => 'doctrine_user.password_encoder.algorithm',
-                'encodeHashAsBase64' => 'doctrine_user.password_encoder.encodeHashAsBase64',
-                'iterations' => 'doctrine_user.password_encoder.iterations',
+                'algorithm' => 'doctrine_user.encoder.algorithm',
+                'encodeHashAsBase64' => 'doctrine_user.encoder.encodeHashAsBase64',
+                'iterations' => 'doctrine_user.encoder.iterations',
             ));
         }
     }
