@@ -35,7 +35,7 @@ class DoctrineUserExtension extends Extension
         
         // per default, we use a sha512 encoder, but you may change this here
         if (isset($config['encoder'])) {
-            $this->configurePasswordEncoder($config['password_encoder'], $container);
+            $this->configurePasswordEncoder($config['encoder'], $container);
         }
         
         $this->remapParametersNamespaces($config, $container, array(
@@ -56,11 +56,11 @@ class DoctrineUserExtension extends Extension
     protected function configurePasswordEncoder($config, ContainerBuilder $container)
     {
         if (!is_array($config)) {
-            $container->setAlias('doctrine_user.password_encoder', 'security.encoder.'.$config);
+            $container->setAlias('doctrine_user.encoder', 'security.encoder.'.$config);
         }
         else {
             if (isset($config['name'])) {
-                $container->setAlias('doctrine_user.password_encoder', 'security.encoder.'.$config['name']);
+                $container->setAlias('doctrine_user.encoder', 'security.encoder.'.$config['name']);
             }
             
             $this->remapParameters($config, $container, array(

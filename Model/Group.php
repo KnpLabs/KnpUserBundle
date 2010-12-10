@@ -2,7 +2,7 @@
 
 namespace Bundle\DoctrineUserBundle\Model;
 
-abstract class Group implements MutableRoleHolderInterface
+abstract class Group
 {
     protected $id;
     protected $name;

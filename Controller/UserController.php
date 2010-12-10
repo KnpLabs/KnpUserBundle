@@ -251,7 +251,7 @@ class UserController extends Controller
         $form = $this->createChangePasswordForm($user);
         $form->bind($this->get('request')->request->get($form->getName()));
         if ($form->isValid()) {
-            $encoder = $this->get('doctrine_user.password_encoder');
+            $encoder = $this->get('doctrine_user.encoder');
             $user->setPassword($encoder->encodePassword($form->getNewPassword(), $user->getSalt()));
 
             $this->get('doctrine_user.repository.user')->getObjectManager()->flush();
@@ -313,6 +313,7 @@ class UserController extends Controller
     {
         if (0 !== strlen($password = $user->getPlainPassword())) {
             $encoder = $this->get('doctrine_user.encoder');
+            $user->setAlgorithm($this->container->getParameter('doctrine_user.encoder.algorithm'));
             $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
             $user->eraseCredentials();
         }

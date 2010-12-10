@@ -34,11 +34,15 @@
         
         <field name="expired" column="expired" type="boolean" />
         
-        <field name="expiresAt" column="expire_time" type="datetime" />
+        <field name="expiresAt" column="expires_at" type="datetime" nullable="true" />
         
         <field name="confirmationToken" column="confirmation_token" type="string" />
         
         <field name="roles" column="roles" type="array" />
+        
+        <field name="credentialsExpired" column="credentials_expired" type="boolean" />
+        
+        <field name="credentialsExpireAt" column="credentials_expire_at" type="datetime" nullable="true" />
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="incrementCreatedAt" />

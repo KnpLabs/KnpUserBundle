@@ -19,9 +19,9 @@
         </service>
     
         <service id="security.encoder.doctrine_user" class="%security.encoder.digest.class%">
-            <argument>%doctrine_user.password_encoder.algorithm%</argument>
-            <argument>%doctrine_user.password_encoder.encodeHashAsBase64%</argument>
-            <argument>%doctrine_user.password_encoder.iterations%</argument>
+            <argument>%doctrine_user.encoder.algorithm%</argument>
+            <argument>%doctrine_user.encoder.encodeHashAsBase64%</argument>
+            <argument>%doctrine_user.encoder.iterations%</argument>
         </service>
         
         <!-- This encoder will be used for hashing new passwords -->
