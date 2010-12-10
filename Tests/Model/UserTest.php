@@ -24,6 +24,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
     
     protected function getUser()
     {
-    	return $this->getMockForAbstractClass('Bundle\DoctrineUserBundle\Model\User');
+        return $this->getMockForAbstractClass('Bundle\DoctrineUserBundle\Model\User');
     }
 }

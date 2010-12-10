@@ -4,15 +4,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
-	<parameters>
-		<parameter key="doctrine_user.validator.password.class">Bundle\DoctrineUserBundle\Validator\PasswordValidator</parameter>
-	</parameters>
+    <parameters>
+        <parameter key="doctrine_user.validator.password.class">Bundle\DoctrineUserBundle\Validator\PasswordValidator</parameter>
+    </parameters>
 
     <services>
         <!-- 
-        	Unique Validator Service:
-        	Class parameters are defined in odm.xml, or orm.xml depending of the
-        	type of driver that you use.
+            Unique Validator Service:
+            Class parameters are defined in odm.xml, or orm.xml depending of the
+            type of driver that you use.
         -->
         <service id="doctrine_user.validator.unique" class="%doctrine_user.validator.unique.class%">
             <argument type="service" id="doctrine_user.object_manager" />
@@ -21,7 +21,7 @@
         
         <!-- Password Validator Service -->
         <service id="doctrine_user.validator.password" class="%doctrine_user.validator.password.class%">
-        	<tag name="validator.contraint_validator" alias="doctrine_user.validator.password" />
+            <tag name="validator.contraint_validator" alias="doctrine_user.validator.password" />
         </service>
     </services>
 

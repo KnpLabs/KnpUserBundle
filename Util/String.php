@@ -16,7 +16,7 @@ class String
     
     public static function isEmail($str)
     {
-    	return 0 < preg_match('/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i', $str);
+        return 0 < preg_match('/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i', $str);
     }
     
     private final function __construct() {}

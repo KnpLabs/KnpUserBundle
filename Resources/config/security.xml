@@ -4,35 +4,35 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
-	<parameters>
-		<parameter key="doctrine_user.encoder.algorithm">sha512</parameter>
-		<parameter key="doctrine_user.encoder.encodeHashAsBase64">true</parameter>
-		<parameter key="doctrine_user.encoder.iterations">3</parameter>
-		<parameter key="doctrine_user.encoder.factory.class">Bundle\DoctrineUserBundle\Security\Encoder\EncoderFactory</parameter>
-	</parameters>
+    <parameters>
+        <parameter key="doctrine_user.encoder.algorithm">sha512</parameter>
+        <parameter key="doctrine_user.encoder.encodeHashAsBase64">true</parameter>
+        <parameter key="doctrine_user.encoder.iterations">3</parameter>
+        <parameter key="doctrine_user.encoder.factory.class">Bundle\DoctrineUserBundle\Security\Encoder\EncoderFactory</parameter>
+    </parameters>
 
-	<services>
-		<service id="doctrine_user.encoder.factory" class="%doctrine_user.encoder.factory.class%">
-			<argument>%security.encoder.digest.class%</argument>
-			<argument>%doctrine_user.encoder.encodeHashAsBase64%</argument>
-			<argument>%doctrine_user.encoder.iterations%</argument>
-		</service>
-	
-		<service id="security.encoder.doctrine_user" class="%security.encoder.digest.class%">
-			<argument>%doctrine_user.password_encoder.algorithm%</argument>
-			<argument>%doctrine_user.password_encoder.encodeHashAsBase64%</argument>
-			<argument>%doctrine_user.password_encoder.iterations%</argument>
-		</service>
-		
-		<!-- This encoder will be used for hashing new passwords -->
-		<service id="doctrine_user.encoder" alias="security.encoder.doctrine_user" />
-	</services>
-	
-	<interfaces>
-		<interface class="Bundle\DoctrineUserBundle\Security\Encoder\EncoderFactoryAwareInterface">
-			<call method="setEncoderFactory">
-				<argument type="service" id="doctrine_user.encoder.factory" />
-			</call>
-		</interface>
-	</interfaces>
+    <services>
+        <service id="doctrine_user.encoder.factory" class="%doctrine_user.encoder.factory.class%">
+            <argument>%security.encoder.digest.class%</argument>
+            <argument>%doctrine_user.encoder.encodeHashAsBase64%</argument>
+            <argument>%doctrine_user.encoder.iterations%</argument>
+        </service>
+    
+        <service id="security.encoder.doctrine_user" class="%security.encoder.digest.class%">
+            <argument>%doctrine_user.password_encoder.algorithm%</argument>
+            <argument>%doctrine_user.password_encoder.encodeHashAsBase64%</argument>
+            <argument>%doctrine_user.password_encoder.iterations%</argument>
+        </service>
+        
+        <!-- This encoder will be used for hashing new passwords -->
+        <service id="doctrine_user.encoder" alias="security.encoder.doctrine_user" />
+    </services>
+    
+    <interfaces>
+        <interface class="Bundle\DoctrineUserBundle\Security\Encoder\EncoderFactoryAwareInterface">
+            <call method="setEncoderFactory">
+                <argument type="service" id="doctrine_user.encoder.factory" />
+            </call>
+        </interface>
+    </interfaces>
 </container>
