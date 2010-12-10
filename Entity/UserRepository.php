@@ -12,6 +12,7 @@
 
 namespace Bundle\DoctrineUserBundle\Entity;
 
+use Symfony\Component\Security\Encoder\PasswordEncoderInterface;
 use Bundle\DoctrineUserBundle\Util\String;
 use Bundle\DoctrineUserBundle\Model\UserRepositoryInterface;
 use Symfony\Component\Security\User\UserProviderInterface;
@@ -19,12 +20,15 @@ use Symfony\Component\Security\Exception\UsernameNotFoundException;
 
 class UserRepository extends ObjectRepository implements UserRepositoryInterface, UserProviderInterface
 {
-    const UNIQUE_ID = 'FvLTW8HNnXsr08dYLtSg';
-	
     /**
      * @var string
      */
     protected $algorithm;
+    
+    /**
+     * @var PasswordEncoderInterface
+     */
+    protected $encoder;
     
     /**
      * @param string $algorithm
@@ -32,6 +36,11 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     public function setAlgorithm($algorithm)
     {
         $this->algorithm = $algorithm;
+    }
+    
+    public function setEncoder(PasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
     }
     
     /**
@@ -60,7 +69,7 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
             throw new UsernameNotFoundException(sprintf('The user "%s" does not exist', $username));
         }
 
-        return array($user, self::UNIQUE_ID);
+        return array($user, get_class($this));
     }
 
     /**
@@ -100,8 +109,14 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
         return $user;
     }
     
+    public function changePassword($userId, $newPassword)
+    {
+        $user = $this->find($userId);
+        $user->setPassword($this->encoder->encodePassword($newPassword, $user->getSalt()));
+    }
+    
     public function supports($providerName)
     {
-        return self::UNIQUE_ID === $providerName;
+        return get_class($this) === $providerName;
     }
 }

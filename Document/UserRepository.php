@@ -19,21 +19,6 @@ use Symfony\Component\Security\Exception\UsernameNotFoundException;
 
 class UserRepository extends ObjectRepository implements UserRepositoryInterface, UserProviderInterface
 {
-    const UNIQUE_ID = 'BkInnt00ACzb0JGyUaiD';
-	
-    /**
-     * @var string
-     */
-    protected $algorithm;
-
-    /**
-     * @param string $algorithm
-     */
-    public function setAlgorithm($algorithm)
-    {
-        $this->algorithm = $algorithm;
-    }
-
     /**
      * @see UserRepositoryInterface::findOneByUsername
      */
@@ -60,7 +45,7 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
             throw new UsernameNotFoundException(sprintf('The user "%s" does not exist', $username));
         }
 
-        return array($user, self::UNIQUE_ID);
+        return array($user, get_class($this));
     }
 
     /**
@@ -111,6 +96,6 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     
     public function supports($providerName)
     {
-        return self::UNIQUE_ID === $providerName;
+        return get_class($this) === $providerName;
     }
 }
