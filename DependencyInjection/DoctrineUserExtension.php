@@ -25,14 +25,19 @@ class DoctrineUserExtension extends Extension
             throw new \InvalidArgumentException('You must define your user model class');
         }
 
-        // FIXME: We shouldn't do this per default
-        $container->setParameter('security.authentication.provider.dao.class', 'Bundle\DoctrineUserBundle\Security\Authentication\DaoAuthenticationProvider');
-
         // load all service configuration files (the db_driver first)
-        foreach (array($config['db_driver'], 'model', 'controller', 'templating', 'email', 'form', 'validator') as $basename) {
+        foreach (array($config['db_driver'], 'model', 'controller', 'templating', 'email', 'form', 'validator', 'security') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
+        // change authentication provider class to support multiple algorithms
+        $container->setParameter('security.authentication.provider.dao.class', 'Bundle\DoctrineUserBundle\Security\Authentication\Provider\DaoAuthenticationProvider');
+        
+        // per default, we use a sha512 encoder, but you may change this here
+        if (isset($config['password_encoder'])) {
+            $this->configurePasswordEncoder($config['password_encoder'], $container);
+        }
+        
         $this->remapParametersNamespaces($config, $container, array(
             ''                      => array('session_create_success_route' => 'doctrine_user.session_create.success_route'),
             'template'              => 'doctrine_user.template.%s',
@@ -46,6 +51,24 @@ class DoctrineUserExtension extends Extension
             'form'          => 'doctrine_user.form.%s.class',
             'controller'    => 'doctrine_user.controller.%s.class'
         ));
+    }
+    
+    protected function configurePasswordEncoder($config, ContainerBuilder $container)
+    {
+        if (!is_array($config)) {
+            $container->setAlias('doctrine_user.password_encoder', 'security.encoder.'.$config);
+        }
+        else {
+            if (isset($config['name'])) {
+                $container->setAlias('doctrine_user.password_encoder', 'security.encoder.'.$config['name']);
+            }
+            
+            $this->remapParameters($config, $container, array(
+                'algorithm' => 'doctrine_user.password_encoder.algorithm',
+                'encodeHashAsBase64' => 'doctrine_user.password_encoder.encodeHashAsBase64',
+                'iterations' => 'doctrine_user.password_encoder.iterations',
+            ));
+        }
     }
 
     protected function remapParameters(array $config, ContainerBuilder $container, array $map)

@@ -2,13 +2,23 @@
 
 namespace Bundle\DoctrineUserBundle\Security\Authentication\Provider;
 
+use Bundle\DoctrineUserBundle\Security\Encoder\EncoderFactoryAwareInterface;
+use Bundle\DoctrineUserBundle\Security\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\User\AccountInterface;
 use Symfony\Component\Security\Authentication\Provider\DaoAuthenticationProvider as BaseDaoAuthenticationProvider;
 use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
 use Bundle\DoctrineUserBundle\Model\User;
 
-class DaoAuthenticationProvider extends BaseDaoAuthenticationProvider
+class DaoAuthenticationProvider extends BaseDaoAuthenticationProvider implements EncoderFactoryAwareInterface
 {
     protected static $encoders = array();
+    protected $encoderFactory;
+    
+    public function setEncoderFactory(EncoderFactoryInterface $encoderFactory)
+    {
+        $this->encoderFactory = $encoderFactory;
+    }
     
     protected function checkAuthentication(AccountInterface $account, UsernamePasswordToken $token)
     {
@@ -17,7 +27,7 @@ class DaoAuthenticationProvider extends BaseDaoAuthenticationProvider
         }
 
         if ($account instanceof User) {
-            $passwordEncoder = $this->getPasswordEncoder($account);
+            $passwordEncoder = $this->encoderFactory->getEncoder($account);
         }
         else {
             $passwordEncoder = $this->passwordEncoder;
@@ -26,14 +36,5 @@ class DaoAuthenticationProvider extends BaseDaoAuthenticationProvider
         if (!$passwordEncoder->isPasswordValid($account->getPassword(), $presentedPassword, $account->getSalt())) {
             throw new BadCredentialsException('Bad credentials');
         }
-    }
-    
-    protected function getPasswordEncoder(User $user)
-    {
-        if (!isset(self::$encoders[$algorithm = $user->getAlgorithm()])) {
-            self::$encoders[$algorithm] = new MessageDigestPasswordEncoder($algorithm, false, 2);
-        }
-        
-        return self::$encoders[$algorithm];
     }
 }

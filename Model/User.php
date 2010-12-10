@@ -9,6 +9,8 @@
 
 namespace Bundle\DoctrineUserBundle\Model;
 
+use Symfony\Component\Security\Role\RoleInterface;
+
 use Bundle\DoctrineUserBundle\Util\String;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -20,11 +22,8 @@ use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
  * Storage agnostic user object
  * Has validator annotation, but database mapping must be done in a subclass.
  */
-abstract class User implements AdvancedAccountInterface
+abstract class User implements AdvancedAccountInterface, MutableRoleHolderInterface
 {
-    const ROLE_DEFAULT    = 'ROLE_USER';
-    const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
-    
     protected $id;
 
     /**
@@ -159,7 +158,7 @@ abstract class User implements AdvancedAccountInterface
         $roles = $this->roles;
         
         // we need to make sure to have at least one role
-        $roles[] = self::ROLE_DEFAULT;
+        $roles[] = RoleHolderInterface::ROLE_DEFAULT;
         
         return $roles;
     }
@@ -176,7 +175,7 @@ abstract class User implements AdvancedAccountInterface
     public function addRole($role)
     {
         $role = strtoupper($role);
-        if ($role === self::ROLE_DEFAULT) {
+        if ($role === RoleHolderInterface::ROLE_DEFAULT) {
             return;
         }
         
@@ -278,7 +277,7 @@ abstract class User implements AdvancedAccountInterface
      */    
     public function isSuperAdmin()
     {
-       return $this->hasRole(self::ROLE_SUPERADMIN); 
+       return $this->hasRole(RoleInterface::ROLE_SUPERADMIN); 
     }
 
     /**
@@ -394,10 +393,10 @@ abstract class User implements AdvancedAccountInterface
     public function setSuperAdmin($boolean)
     {
         if (true === $boolean) {
-            $this->addRole(self::ROLE_SUPERADMIN);
+            $this->addRole(RoleHolderInterface::ROLE_SUPERADMIN);
         }
         else {
-            $this->removeRole(self::ROLE_SUPERADMIN);
+            $this->removeRole(RoleHolderInterface::ROLE_SUPERADMIN);
         }
     }
     

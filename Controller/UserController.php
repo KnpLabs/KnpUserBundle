@@ -251,8 +251,8 @@ class UserController extends Controller
         $form = $this->createChangePasswordForm($user);
         $form->bind($this->get('request')->request->get($form->getName()));
         if ($form->isValid()) {
-            $password = $form->getNewPassword();
-            $user->setPassword($password);
+            $encoder = $this->get('doctrine_user.password_encoder');
+            $user->setPassword($encoder->encodePassword($form->getNewPassword(), $user->getSalt()));
 
             $this->get('doctrine_user.repository.user')->getObjectManager()->flush();
             $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
@@ -311,6 +311,12 @@ class UserController extends Controller
      **/
     public function saveUser(User $user)
     {
+        if (0 !== strlen($password = $user->getPlainPassword())) {
+            $encoder = $this->get('doctrine_user.encoder');
+            $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
+            $user->eraseCredentials();
+        }
+        
         $objectManager = $this->get('doctrine_user.repository.user')->getObjectManager();
         $objectManager->persist($user);
         $objectManager->flush();
@@ -323,7 +329,7 @@ class UserController extends Controller
      **/
     public function authenticateUser(User $user)
     {
-        $token = new UsernamePasswordToken($user, null, $user->getRoles());
+        $token = new UsernamePasswordToken($user, null, get_class($this->get('doctrine_user.repository.user')), $user->getRoles());
         $this->get('security.context')->setToken($token);
     }
 
