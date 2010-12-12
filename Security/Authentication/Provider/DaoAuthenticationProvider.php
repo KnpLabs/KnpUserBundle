@@ -34,8 +34,7 @@ class DaoAuthenticationProvider extends BaseDaoAuthenticationProvider implements
 
         if ($account instanceof User) {
             $passwordEncoder = $this->encoderFactory->getEncoder($account);
-        }
-        else {
+        } else {
             $passwordEncoder = $this->passwordEncoder;
         }
         

@@ -28,19 +28,19 @@ class MongoDBMigrateUserPasswordFieldCommand extends BaseCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $userRepo = $this->container->get('doctrine_user.repository.user');
-        if(!$userRepo instanceof UserRepository) {
+        if (!$userRepo instanceof UserRepository) {
             throw new \RuntimeException('Can only work with MongoDB');
         }
 
         $dm = $this->container->get('doctrine_user.object_manager');
         $collection = $dm->getDocumentCollection($userRepo->getObjectClass())->getMongoCollection();
         $users = $collection->find(array('passwordHash' => array('$exists' => true)));
-        if(!$users->count()) {
+        if (!$users->count()) {
             $output->writeLn('Nothing to do');
             return;
         }
         $output->writeLn(sprintf('Will migrate %d users', $users->count()));
-        foreach($collection->find() as $user) {
+        foreach ($collection->find() as $user) {
             $user['password'] = $user['passwordHash'];
             unset($user['passwordHash']);
             $collection->update(array('_id' => $user['_id']), $user);

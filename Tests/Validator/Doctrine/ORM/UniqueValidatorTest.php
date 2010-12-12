@@ -12,7 +12,7 @@ class UniqueValidatorTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
-        if(!class_exists('\Doctrine\ORM\EntityManager')) {
+        if (!class_exists('\Doctrine\ORM\EntityManager')) {
             $this->markTestSkipped('No ORM installed');
         }
     }

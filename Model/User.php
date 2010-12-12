@@ -549,8 +549,7 @@ abstract class User implements AdvancedAccountInterface
     {
         if (true === $boolean) {
             $this->addRole(self::ROLE_SUPERADMIN);
-        }
-        else {
+        } else {
             $this->removeRole(self::ROLE_SUPERADMIN);
         }
     }

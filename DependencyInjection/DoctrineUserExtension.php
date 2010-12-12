@@ -57,8 +57,7 @@ class DoctrineUserExtension extends Extension
     {
         if (!is_array($config)) {
             $container->setAlias('doctrine_user.encoder', 'security.encoder.'.$config);
-        }
-        else {
+        } else {
             if (isset($config['name'])) {
                 $container->setAlias('doctrine_user.encoder', 'security.encoder.'.$config['name']);
             }
