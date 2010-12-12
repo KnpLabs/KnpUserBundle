@@ -50,6 +50,11 @@ class DoctrineUserExtension extends Extension
             'form'          => 'doctrine_user.form.%s.class',
             'controller'    => 'doctrine_user.controller.%s.class'
         ));
+
+        if (!$container->getParameter('doctrine_user.template.theme')) {
+            $themes = $container->getParameter('twig.form.resources');
+            $container->setParameter('doctrine_user.template.theme', array_pop($themes));
+        }
     }
 
     protected function remapParameters(array $config, ContainerBuilder $container, array $map)

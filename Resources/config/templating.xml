@@ -6,7 +6,7 @@
 
     <parameters>
         <parameter key="doctrine_user.template.renderer">twig</parameter>
-        <parameter key="doctrine_user.template.theme">TwigBundle::form.twig</parameter>
+        <parameter key="doctrine_user.template.theme"></parameter>
 
         <parameter key="doctrine_user.templating.helper.security.class">Bundle\DoctrineUserBundle\Templating\Helper\SecurityHelper</parameter>
     </parameters>
