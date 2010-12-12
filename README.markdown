@@ -200,8 +200,7 @@ When using Doctrine ORM, the default user class is Bundle\DoctrineUserBundle\Ent
 When using Doctrine ODM, the default user class is Bundle\DoctrineUserBundle\Document\User.
 To get the current user class, you can ask it to the user repository:
 
-    $userClass = $userRepository->getObjectClass();
-    $user = new $userClass();
+    $user = $userRepository->getObjectInstance();
 
 `$user` is now an Entity or a Document, depending on the configuration.
 

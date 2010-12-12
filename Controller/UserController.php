@@ -344,7 +344,7 @@ class UserController extends Controller
     {
         $form = $this->get('doctrine_user.form.user');
         if (null === $object) {
-            $object = $this->get('doctrine_user.repository.user')->createUserInstance();
+            $object = $this->get('doctrine_user.repository.user')->createObjectInstance();
         }
 
         $form->setData($object);

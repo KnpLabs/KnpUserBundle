@@ -30,4 +30,10 @@ abstract class ObjectRepository extends DocumentRepository implements Repository
     {
         return $this->getClassMetadata()->identifier;
     }
+
+    public function createObjectInstance()
+    {
+        $className = $this->getObjectClass();
+        return new $className();
+    }
 }

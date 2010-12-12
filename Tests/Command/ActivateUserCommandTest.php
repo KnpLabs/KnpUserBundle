@@ -26,7 +26,7 @@ class ActivateUserCommandTest extends WebTestCase
         $userRepo = $this->getService('doctrine_user.repository.user');
         $userClass = $userRepo->getObjectClass();
 
-        $user = $userRepo->createUserInstance();
+        $user = $userRepo->createObjectInstance();
         $user->setUsername($username);
         $user->setEmail($email);
         $user->setPlainPassword($password);

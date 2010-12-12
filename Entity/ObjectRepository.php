@@ -30,4 +30,10 @@ abstract class ObjectRepository extends EntityRepository implements RepositoryIn
     {
         return reset($this->getClassMetadata()->identifier);
     }
+
+    public function createObjectInstance()
+    {
+        $className = $this->getObjectClass();
+        return new $className();
+    }
 }

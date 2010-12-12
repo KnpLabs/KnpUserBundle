@@ -73,7 +73,7 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $userRepo = $this->container->get('doctrine_user.repository.user');
-        $user = $userRepo->createUserInstance();
+        $user = $userRepo->createObjectInstance();
         $user->setUsername($input->getArgument('username'));
         $user->setEmail($input->getArgument('email'));
         $user->setPlainPassword($input->getArgument('password'));
