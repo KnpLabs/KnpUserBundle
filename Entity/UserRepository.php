@@ -21,21 +21,19 @@ use Symfony\Component\Security\Exception\UsernameNotFoundException;
 class UserRepository extends ObjectRepository implements UserRepositoryInterface, UserProviderInterface
 {
     /**
-     * @var string
-     */
-    protected $algorithm;
-    
-    /**
-     * @var PasswordEncoderInterface
-     */
-    protected $encoder;
-    
-    /**
      * @see UserRepositoryInterface::findOneByUsername
      */
     public function findOneByUsername($username)
     {
         return $this->findOneBy(array('username' => $username));
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function isAggregate()
+    {
+        return false;
     }
 
     /**
@@ -87,6 +85,9 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
         return $this->findOneBy(array('confirmationToken' => $token));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function supports($providerName)
     {
         return get_class($this) === $providerName;

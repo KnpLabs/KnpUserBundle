@@ -26,6 +26,14 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     {
         return $this->findOneBy(array('usernameLower' => strtolower($username)));
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function isAggregate()
+    {
+        return false;
+    }
 
     /**
      * Loads the user for the given username.

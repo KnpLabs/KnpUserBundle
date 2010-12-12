@@ -9,19 +9,26 @@ interface RepositoryInterface
      *
      * @return mixed
      **/
-    public function getObjectManager();
+    function getObjectManager();
 
     /**
      * Get the class of the User Entity or Document, depending on the db driver
      *
      * @return string a model fully qualified class name
      **/
-    public function getObjectClass();
+    function getObjectClass();
 
     /**
      * Get the identifier property of the Group
      *
      * @return string
      */
-    public function getObjectIdentifier();
+    function getObjectIdentifier();
+
+    /**
+     * Returns a fresh object instance 
+     * 
+     * @return object
+     */
+    function createObjectInstance();    
 }
