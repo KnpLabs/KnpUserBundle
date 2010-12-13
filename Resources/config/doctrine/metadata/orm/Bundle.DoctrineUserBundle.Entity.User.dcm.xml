@@ -36,7 +36,7 @@
         
         <field name="expiresAt" column="expires_at" type="datetime" nullable="true" />
         
-        <field name="confirmationToken" column="confirmation_token" type="string" />
+        <field name="confirmationToken" column="confirmation_token" type="string" nullable="true" />
         
         <field name="roles" column="roles" type="array" />
         
