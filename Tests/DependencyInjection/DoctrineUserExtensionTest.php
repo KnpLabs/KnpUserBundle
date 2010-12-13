@@ -15,8 +15,8 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('Bundle\ExerciseUserBundle\Document\User', 'doctrine_user.model.user.class');
-        $this->assertParameter('Bundle\DoctrineUserBundle\Document\Group', 'doctrine_user.model.group.class');
-        $this->assertParameter('Bundle\DoctrineUserBundle\Document\Permission', 'doctrine_user.model.permission.class');
+        $this->assertParameter('Bundle\ExerciseUserBundle\Document\Group', 'doctrine_user.model.group.class');
+        $this->assertParameter('Bundle\ExerciseUserBundle\Document\Permission', 'doctrine_user.model.permission.class');
     }
 
     public function testDoctrineUserLoadModelClass()
@@ -256,8 +256,8 @@ db_driver: odm
 class:
     model:
         user: Bundle\ExerciseUserBundle\Document\User
-        group: ~
-        permission: ~
+        group: Bundle\ExerciseUserBundle\Document\Group
+        permission: Bundle\ExerciseUserBundle\Document\Permission
     form:
         user: ~
         group: ~
