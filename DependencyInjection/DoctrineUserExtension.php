@@ -52,9 +52,7 @@ class DoctrineUserExtension extends Extension
         ));
 
         if (!$container->getParameter('doctrine_user.template.theme')) {
-            $themes = $container->hasParameter('twig.form.resources')
-                ? $container->getParameter('twig.form.resources')
-                : array('TwigBundle::form.twig');
+            $themes = $container->getParameter('twig.form.resources');
             $container->setParameter('doctrine_user.template.theme', array_pop($themes));
         }
     }
