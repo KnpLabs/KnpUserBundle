@@ -12,6 +12,7 @@ namespace Bundle\DoctrineUserBundle\Model;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\User\AdvancedAccountInterface;
+use Symfony\Component\Security\User\AccountInterface;
 use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
 
 /**
@@ -164,6 +165,12 @@ abstract class User implements AdvancedAccountInterface
      */
     public function eraseCredentials()
     {
+        $this->plainPassword = null;
+    }
+
+    public function equals(AccountInterface $account)
+    {
+        return $account instanceof User && $this->getUsernameLower() === $account->getUsernameLower();
     }
 
     /**
