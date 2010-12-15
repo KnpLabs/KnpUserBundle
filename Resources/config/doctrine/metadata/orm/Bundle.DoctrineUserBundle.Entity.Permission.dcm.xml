@@ -4,10 +4,10 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <mapped-superclass
+    <entity
         name="Bundle\DoctrineUserBundle\Entity\Permission"
         table="doctrine_user_permission"
-        inheritance-type="SINGLE_TABLE"
+        repository-class="Bundle\DoctrineUserBundle\Entity\PermissionRepository"
         >
 
         <id name="id" type="integer" column="id">
@@ -27,6 +27,6 @@
             <lifecycle-callback type="preUpdate" method="incrementUpdatedAt" />
         </lifecycle-callbacks>
 
-    </mapped-superclass>
+    </entity>
 
 </doctrine-mapping>

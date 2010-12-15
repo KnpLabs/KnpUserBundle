@@ -26,14 +26,12 @@ Provides authentication and User persistence for your Symfony2 Project using the
         );
     }
 
-### Create your own classes
+### Create your own user classes
 
-You must create a User class, a Group class and a Permission class that extend the default ones.
+You must create a User class that extend the default one.
 Then you will be able to add logic and mapping in it.
 
-#### ORM classes:
-
-##### User class
+#### ORM class:
 
     // src/Application/MyBundle/Entity/User.php
 
@@ -48,40 +46,7 @@ Then you will be able to add logic and mapping in it.
         // add your stuff here...
     }
 
-##### Group class
-
-    // src/Application/MyBundle/Entity/Group.php
-
-    namespace Application\MyBundle\Entity;
-    use Bundle\DoctrineUserBundle\Entity\Group as BaseGroup;
-
-    /**
-     * @orm:Entity
-     */
-    class Group extends BaseGroup
-    {
-        // add your stuff here...
-    }
-
-##### Permission class
-
-    // src/Application/MyBundle/Entity/Permission.php
-
-    namespace Application\MyBundle\Entity;
-    use Bundle\DoctrineUserBundle\Entity\Permission as BasePermission;
-
-    /**
-     * @orm:Entity
-     */
-    class Permission extends BasePermission
-    {
-        // add your stuff here...
-    }
-
-#### MongoDB classes:
-
-If you use MongoDB you just have to replace Entity by Document in the previous classes.
-For example here is the User class
+#### MongoDB class:
 
     // src/Application/MyBundle/Document/User.php
 
@@ -104,8 +69,6 @@ For example here is the User class
         class:
             model:
                 user: Application\MyBundle\Entity\User # you must define your own User class
-                group: Application\MyBundle\Entity\Group # you must define your own Group class
-                permission: Application\MyBundle\Entity\Permission # you must define your own Permission class
 
 or if you prefer xml
 
@@ -118,8 +81,6 @@ or if you prefer xml
             <doctrine_user:class>
                 <doctrine_user:model
                     user="Application\MyBundle\Entity\User"
-                    group="Application\MyBundle\Entity\Group"
-                    permission="Application\MyBundle\Entity\Permission"
                 />
             </doctrine_user:class>
         </doctrine_user:config>
@@ -323,8 +284,8 @@ All configuration options are listed below:
     class:
         model:
             user: Application\MyBundle\Entity\User
-            group: Application\MyBundle\Entity\Group
-            permission: Application\MyBundle\Entity\Permission
+            group: ~
+            permission: ~
         form:
             user: ~
             group: ~

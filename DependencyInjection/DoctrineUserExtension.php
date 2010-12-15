@@ -31,12 +31,6 @@ class DoctrineUserExtension extends Extension
         if (!isset($config['class']['model']['user'])) {
             throw new \InvalidArgumentException('You must define your user model class');
         }
-        if (!isset($config['class']['model']['group'])) {
-            throw new \InvalidArgumentException('You must define your group model class');
-        }
-        if (!isset($config['class']['model']['permission'])) {
-            throw new \InvalidArgumentException('You must define your permission model class');
-        }
 
         $namespaces = array(
             '' => array(
