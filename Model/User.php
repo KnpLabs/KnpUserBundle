@@ -17,7 +17,7 @@ use Symfony\Component\Security\User\AdvancedAccountInterface;
  * Storage agnostic user object
  * Has validator annotation, but database mapping must be done in a subclass.
  */
-abstract class User implements AdvancedAccountInterface
+abstract class User
 {
     protected $id;
 

@@ -16,7 +16,7 @@ use Bundle\DoctrineUserBundle\Model\UserRepositoryInterface;
 use Symfony\Component\Security\User\UserProviderInterface;
 use Symfony\Component\Security\Exception\UsernameNotFoundException;
 
-class UserRepository extends ObjectRepository implements UserRepositoryInterface, UserProviderInterface
+class UserRepository extends ObjectRepository implements UserRepositoryInterface
 {
     /**
      * @see UserRepositoryInterface::findOneByUsername
