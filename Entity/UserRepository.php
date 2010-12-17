@@ -110,4 +110,20 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
         $userClass = $this->getObjectClass();
         return new $userClass($this->algorithm);
     }
+
+    /**
+     * Required by UserRepositoryInterface, but not used since it is loaded by EntityUserProvider
+     */
+    public function isAggregate()
+    {
+        return false;
+    }
+
+    /**
+     * Required by UserRepositoryInterface, but not used since it is loaded by EntityUserProvider
+     */
+    public function supports($name)
+    {
+        return false;
+    }
 }
