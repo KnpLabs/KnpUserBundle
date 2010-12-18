@@ -15,7 +15,9 @@ namespace Bundle\DoctrineUserBundle\Entity;
 use Symfony\Component\Security\Encoder\PasswordEncoderInterface;
 use Bundle\DoctrineUserBundle\Util\String;
 use Bundle\DoctrineUserBundle\Model\UserRepositoryInterface;
+use Symfony\Component\Security\User\AccountInterface;
 use Symfony\Component\Security\User\UserProviderInterface;
+use Symfony\Component\Security\Exception\UnsupportedAccountException;
 use Symfony\Component\Security\Exception\UsernameNotFoundException;
 
 class UserRepository extends ObjectRepository implements UserRepositoryInterface, UserProviderInterface
@@ -26,14 +28,6 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     public function findOneByUsername($username)
     {
         return $this->findOneBy(array('username' => $username));
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    public function isAggregate()
-    {
-        return false;
     }
 
     /**
@@ -54,7 +48,19 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
             throw new UsernameNotFoundException(sprintf('The user "%s" does not exist', $username));
         }
 
-        return array($user, get_class($this));
+        return $user;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function loadUserByAccount(AccountInterface $account)
+    {
+        if (!$account instanceof User) {
+            throw new UnsupportedAccountException('This account is not supported.');
+        }
+
+        return $this->loadUserByUsername((string) $account);
     }
 
     /**
@@ -83,13 +89,5 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     public function findOneByConfirmationToken($token)
     {
         return $this->findOneBy(array('confirmationToken' => $token));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function supports($providerName)
-    {
-        return get_class($this) === $providerName;
     }
 }

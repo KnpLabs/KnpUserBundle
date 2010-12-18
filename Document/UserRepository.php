@@ -14,7 +14,9 @@ namespace Bundle\DoctrineUserBundle\Document;
 
 use Bundle\DoctrineUserBundle\Util\String;
 use Bundle\DoctrineUserBundle\Model\UserRepositoryInterface;
+use Symfony\Component\Security\User\AccountInterface;
 use Symfony\Component\Security\User\UserProviderInterface;
+use Symfony\Component\Security\Exception\UnsupportedAccountException;
 use Symfony\Component\Security\Exception\UsernameNotFoundException;
 
 class UserRepository extends ObjectRepository implements UserRepositoryInterface, UserProviderInterface
@@ -25,14 +27,6 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
     public function findOneByUsername($username)
     {
         return $this->findOneBy(array('usernameLower' => strtolower($username)));
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    public function isAggregate()
-    {
-        return false;
     }
 
     /**
@@ -54,6 +48,18 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
         }
 
         return array($user, get_class($this));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function loadUserByAccount(AccountInterface $account)
+    {
+        if (!$account instanceof User) {
+            throw new UnsupportedAccountException('This account is not supported.');
+        }
+
+        return $this->loadUserByUsername((string) $account);
     }
 
     /**
@@ -94,10 +100,5 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
         }
 
         return $this->findOneBy(array('rememberMeToken' => $token));
-    }
-
-    public function supports($providerName)
-    {
-        return get_class($this) === $providerName;
     }
 }
