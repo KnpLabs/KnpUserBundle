@@ -36,8 +36,14 @@ class UserController extends Controller
      */
     public function showAction($username)
     {
-        $user = $this->findUserByUsername($username);
+        return $this->doShowAction($this->findUserByUsername($username));
+    }
 
+    /**
+     * @SecureParam(name="user", permissions="VIEW")
+     */
+    protected function doShowAction($user)
+    {
         return $this->render('DoctrineUserBundle:User:show.'.$this->getRenderer(), array('user' => $user));
     }
 
@@ -46,7 +52,14 @@ class UserController extends Controller
      */
     public function editAction($username)
     {
-        $user = $this->findUserByUsername($username);
+        return $this->doEditAction($this->findUserByUsername($username));
+    }
+
+    /**
+     * @SecureParam(name="user", permissions="EDIT")
+     */
+    protected function doEditAction($user)
+    {
         $form = $this->createForm($user);
 
         return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array(
@@ -60,7 +73,14 @@ class UserController extends Controller
      */
     public function updateAction($username)
     {
-        $user = $this->findUserByUsername($username);
+        return $this->doUpdateAction($this->findUserByUsername($username));
+    }
+
+    /**
+     * @SecureParam(name="user", permissions="EDIT")
+     */
+    protected function doUpdateAction($user)
+    {
         $form = $this->createForm($user);
 
         if ($data = $this->get('request')->request->get($form->getName())) {
@@ -211,8 +231,14 @@ class UserController extends Controller
      */
     public function deleteAction($username)
     {
-        $user = $this->findUserByUsername($username);
+        return $this->doDeleteAction($this->findUserByUsername($username));
+    }
 
+    /**
+     * @SecureParam(name="user", permissions="DELETE")
+     */
+    protected function doDeleteAction($user)
+    {
         $objectManager = $this->get('doctrine_user.repository.user')->getObjectManager();
         $objectManager->remove($user);
         $objectManager->flush();
@@ -317,7 +343,7 @@ class UserController extends Controller
             $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
             $user->eraseCredentials();
         }
-        
+
         $objectManager = $this->get('doctrine_user.repository.user')->getObjectManager();
         $objectManager->persist($user);
         $objectManager->flush();
