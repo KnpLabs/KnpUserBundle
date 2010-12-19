@@ -47,7 +47,7 @@ class UserRepository extends ObjectRepository implements UserRepositoryInterface
             throw new UsernameNotFoundException(sprintf('The user "%s" does not exist', $username));
         }
 
-        return array($user, get_class($this));
+        return $user;
     }
 
     /**
