@@ -27,7 +27,7 @@ abstract class User implements AdvancedAccountInterface
 {
     const ROLE_DEFAULT    = 'ROLE_USER';
     const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
-    
+
     protected $id;
 
     /**
@@ -56,25 +56,24 @@ abstract class User implements AdvancedAccountInterface
     protected $email;
 
     /**
-     * @validation:AssertType(type="boolean")
      * @var boolean
      */
     protected $enabled;
 
     /**
      * The algorithm to use for hashing
-     * 
+     *
      * @var string
      */
     protected $algorithm;
-    
+
     /**
      * The salt to use for hashing
-     * 
+     *
      * @var string
      */
     protected $salt;
-    
+
     /**
      * Encrypted password. Must be persisted.
      *
@@ -125,27 +124,27 @@ abstract class User implements AdvancedAccountInterface
      * @var boolean
      */
     protected $locked;
-    
+
     /**
      * @var boolean
      */
     protected $expired;
-    
+
     /**
      * @var DateTime
      */
     protected $expiresAt;
-    
+
     /**
      * @var array
      */
     protected $roles;
-    
+
     /**
      * @var boolean
      */
     protected $credentialsExpired;
-    
+
     /**
      * @var DateTime
      */
@@ -168,7 +167,7 @@ abstract class User implements AdvancedAccountInterface
         if ($role === self::ROLE_DEFAULT) {
             return;
         }
-        
+
         if (!in_array($role, $this->roles, true)) {
             $this->roles[] = $role;
         }
@@ -176,7 +175,7 @@ abstract class User implements AdvancedAccountInterface
 
     /**
      * Implementation of AccountInterface.
-     * 
+     *
      * @param AccountInterface $account
      * @return boolean
      */
@@ -185,7 +184,7 @@ abstract class User implements AdvancedAccountInterface
         if (!$account instanceof User) {
             return false;
         }
-        
+
         if ($this->password !== $account->getPassword()) {
             return false;
         }
@@ -207,10 +206,10 @@ abstract class User implements AdvancedAccountInterface
         if ($this->enabled !== $account->isEnabled()) {
             return false;
         }
-        
-        return true;     
+
+        return true;
     }
-    
+
     /**
      * Removes sensitive data from the user.
      * Implements AccountInterface
@@ -247,7 +246,7 @@ abstract class User implements AdvancedAccountInterface
     {
         return $this->usernameLower;
     }
-    
+
     /**
      * Implementation of AccountInterface
      * @return string
@@ -256,12 +255,12 @@ abstract class User implements AdvancedAccountInterface
     {
         return $this->salt;
     }
-    
+
     public function getAlgorithm()
     {
         return $this->algorithm;
     }
-    
+
     /**
      * Get email
      * @return string
@@ -280,7 +279,7 @@ abstract class User implements AdvancedAccountInterface
     {
         return $this->password;
     }
-    
+
     public function getPlainPassword()
     {
         return $this->plainPassword;
@@ -309,7 +308,7 @@ abstract class User implements AdvancedAccountInterface
     {
         return $this->lastLogin;
     }
-    
+
     /**
      * Get confirmationToken
      * @return string
@@ -318,7 +317,7 @@ abstract class User implements AdvancedAccountInterface
     {
         return $this->confirmationToken;
     }
-    
+
     /**
      * Return the user roles
      * Implements AccountInterface
@@ -328,27 +327,27 @@ abstract class User implements AdvancedAccountInterface
     public function getRoles()
     {
         $roles = $this->roles;
-        
+
         // we need to make sure to have at least one role
         $roles[] = self::ROLE_DEFAULT;
-        
+
         return $roles;
     }
-    
+
     /**
      * Never use this to check if this user has access to anything!
-     * 
+     *
      * Use the SecurityContext, or an implementation of AccessDecisionManager
      * instead, e.g.
-     * 
+     *
      *         $securityContext->vote('ROLE_USER');
-     * 
+     *
      * @param string $role
      * @return void
      */
     public function hasRole($role)
     {
-        return in_array(strtoupper($role), $this->roles, true);
+        return in_array(strtoupper($role), $this->getRoles(), true);
     }
 
     /**
@@ -362,11 +361,11 @@ abstract class User implements AdvancedAccountInterface
         if (true === $this->expired) {
             return false;
         }
-        
+
         if (null !== $this->expiresAt && $this->expiresAt->getTimestamp() < time()) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -392,14 +391,14 @@ abstract class User implements AdvancedAccountInterface
         if (true === $this->credentialsExpired) {
             return false;
         }
-        
+
         if (null !== $this->credentialsExpireAt && $this->credentialsExpireAt->getTimestamp() < time()) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     public function isCredentialsExpired()
     {
         return !$this->isCredentialsNonExpired();
@@ -415,27 +414,27 @@ abstract class User implements AdvancedAccountInterface
     {
         return $this->enabled;
     }
-    
+
     public function isExpired()
     {
         return !$this->isAccountNonExpired();
     }
-    
+
     public function isLocked()
     {
         return $this->locked;
     }
-    
+
     /**
      * @validation:AssertType(type="boolean")
-     * 
+     *
      * @return Boolean
-     */    
+     */
     public function isSuperAdmin()
     {
-       return $this->hasRole(self::ROLE_SUPERADMIN); 
+       return $this->hasRole(self::ROLE_SUPERADMIN);
     }
-    
+
     /**
      * Tell if the the given user is this user
      * Useful when not hydrating all fields.
@@ -460,7 +459,7 @@ abstract class User implements AdvancedAccountInterface
     {
         $this->updatedAt = new \DateTime();
     }
-    
+
     public function removeRole($role)
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true))
@@ -469,7 +468,7 @@ abstract class User implements AdvancedAccountInterface
             $this->roles = array_values($this->roles);
         }
     }
-    
+
     /**
      * @param string $username
      */
@@ -483,12 +482,12 @@ abstract class User implements AdvancedAccountInterface
     {
         $this->algorithm = $algorithm;
     }
-    
+
     public function setCredentialsExpireAt(\DateTime $date)
     {
         $this->credentialsExpireAt = $date;
     }
-    
+
     public function setCredentialsExpired($boolean)
     {
         $this->credentialsExpired = $boolean;
@@ -511,10 +510,10 @@ abstract class User implements AdvancedAccountInterface
     {
         $this->enabled = $boolean;
     }
-    
+
     /**
      * Sets this user to expired
-     * 
+     *
      * @param boolean $boolean
      * @return void
      */
@@ -522,15 +521,15 @@ abstract class User implements AdvancedAccountInterface
     {
         $this->expired = $boolean;
     }
-    
+
     public function setExpiresAt(\DateTime $date)
     {
         $this->expiresAt = $date;
     }
-    
+
     /**
      * Sets the hashed password.
-     * 
+     *
      * @param string $password
      * @return void
      */
@@ -541,7 +540,7 @@ abstract class User implements AdvancedAccountInterface
 
     /**
      * Sets the super admin status
-     * 
+     *
      * @param boolean $boolean
      * @return void
      */
@@ -553,12 +552,12 @@ abstract class User implements AdvancedAccountInterface
             $this->removeRole(self::ROLE_SUPERADMIN);
         }
     }
-    
+
     public function setPlainPassword($password)
     {
         $this->plainPassword = $password;
     }
-    
+
     /**
      * @param \DateTime $time
      */
@@ -566,7 +565,7 @@ abstract class User implements AdvancedAccountInterface
     {
         $this->lastLogin = $time;
     }
-    
+
     public function setLocked($boolean)
     {
         $this->locked = $boolean;
@@ -581,16 +580,16 @@ abstract class User implements AdvancedAccountInterface
     {
         $this->confirmationToken = $confirmationToken;
     }
-    
+
     public function setRoles(array $roles)
     {
           $this->roles = array();
-          
+
         foreach ($roles as $role) {
             $this->addRole($role);
         }
     }
-    
+
     public function __toString()
     {
         return (string) $this->getUsername();
