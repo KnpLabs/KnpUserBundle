@@ -118,16 +118,6 @@ abstract class User implements AdvancedAccountInterface
      */
     protected $rememberMeToken;
 
-    /**
-     * @var Collection
-     */
-    protected $groups;
-
-    /**
-     * @var Collection
-     */
-    protected $permissions;
-
     public function __construct($algorithm)
     {
         $this->algorithm = $algorithm;
