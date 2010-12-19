@@ -356,7 +356,7 @@ class UserController extends Controller
      **/
     public function authenticateUser(User $user)
     {
-        $token = new UsernamePasswordToken($user, null, get_class($this->get('doctrine_user.repository.user')), $user->getRoles());
+        $token = new UsernamePasswordToken($user, null, $user->getRoles());
         $this->get('security.context')->setToken($token);
     }
 
