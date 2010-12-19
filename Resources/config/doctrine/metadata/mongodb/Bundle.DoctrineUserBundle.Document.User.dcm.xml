@@ -17,7 +17,7 @@
         <field name="enabled" fieldName="enabled" type="boolean" />
 
         <field name="algorithm" fieldName="algorithm" type="string" />
-        
+
         <field name="salt" fieldName="salt" type="string" />
 
         <field name="password" fieldName="password" type="string" />
@@ -29,13 +29,13 @@
         <field name="lastLogin" fieldName="lastLogin" type="date" />
 
         <field name="locked" fieldName="locked" type="boolean" />
-        
+
         <field name="expired" fieldName="expired" type="boolean" />
-        
+
         <field name="expiresAt" fieldName="expiresAt" type="date" />
 
         <field name="confirmationToken" fieldName="confirmationToken" type="string" />
-        
+
         <field name="roles" fieldName="roles" type="hash" />
 
         <lifecycle-callbacks>
