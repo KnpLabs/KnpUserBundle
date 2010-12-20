@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB;
+namespace Bundle\FOS\UserBundle\Validator\Doctrine\ODM\MongoDB;
 
 use Symfony\Component\Validator\ConstraintValidator;
 use Doctrine\ODM\MongoDB\DocumentManager;

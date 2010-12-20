@@ -7,11 +7,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\DoctrineUserBundle\Controller;
+namespace Bundle\FOS\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
-use Bundle\DoctrineUserBundle\Model\User;
-use Bundle\DoctrineUserBundle\Form\ChangePassword;
+use Bundle\FOS\UserBundle\Model\User;
+use Bundle\FOS\UserBundle\Form\ChangePassword;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\ForbiddenHttpException;
 use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
@@ -26,9 +26,9 @@ class UserController extends Controller
      **/
     public function listAction()
     {
-        $users = $this->get('doctrine_user.repository.user')->findAll();
+        $users = $this->get('fos_user.repository.user')->findAll();
 
-        return $this->render('DoctrineUserBundle:User:list.'.$this->getRenderer(), array('users' => $users));
+        return $this->render('FOS\UserBundle:User:list.'.$this->getRenderer(), array('users' => $users));
     }
 
     /**
@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     protected function doShowAction($user)
     {
-        return $this->render('DoctrineUserBundle:User:show.'.$this->getRenderer(), array('user' => $user));
+        return $this->render('FOS\UserBundle:User:show.'.$this->getRenderer(), array('user' => $user));
     }
 
     /**
@@ -62,7 +62,7 @@ class UserController extends Controller
     {
         $form = $this->createForm($user);
 
-        return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array(
+        return $this->render('FOS\UserBundle:User:edit.'.$this->getRenderer(), array(
             'form'      => $form,
             'username'  => $username
         ));
@@ -87,13 +87,13 @@ class UserController extends Controller
             $form->bind($data);
             if ($form->isValid()) {
                 $this->saveUser($user);
-                $this->get('session')->setFlash('doctrine_user_user_update', 'success');
-                $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
+                $this->get('session')->setFlash('fos_user_user_update', 'success');
+                $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
                 return $this->redirect($userUrl);
             }
         }
 
-        return $this->render('DoctrineUserBundle:User:edit.'.$this->getRenderer(), array(
+        return $this->render('FOS\UserBundle:User:edit.'.$this->getRenderer(), array(
             'form'      => $form,
             'username'  => $username
         ));
@@ -106,7 +106,7 @@ class UserController extends Controller
     {
         $form = $this->createForm();
 
-        return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array(
+        return $this->render('FOS\UserBundle:User:new.'.$this->getRenderer(), array(
             'form' => $form
         ));
     }
@@ -122,23 +122,23 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $user = $form->getData();
-            if ($this->container->getParameter('doctrine_user.confirmation_email.enabled')) {
+            if ($this->container->getParameter('fos_user.confirmation_email.enabled')) {
                 $user->setEnabled(false);
                 $this->saveUser($user);
-                $this->get('session')->set('doctrine_user_send_confirmation_email/email', $user->getEmail());
-                $url = $this->generateUrl('doctrine_user_user_send_confirmation_email');
+                $this->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
+                $url = $this->generateUrl('fos_user_user_send_confirmation_email');
             } else {
                 $user->setEnabled(true);
                 $this->saveUser($user);
                 $this->authenticateUser($user);
-                $url = $this->generateUrl('doctrine_user_user_confirmed');
+                $url = $this->generateUrl('fos_user_user_confirmed');
             }
 
-            $this->get('session')->setFlash('doctrine_user_user_create', 'success');
+            $this->get('session')->setFlash('fos_user_user_create', 'success');
             return $this->redirect($url);
         }
 
-        return $this->render('DoctrineUserBundle:User:new.'.$this->getRenderer(), array(
+        return $this->render('FOS\UserBundle:User:new.'.$this->getRenderer(), array(
             'form' => $form
         ));
     }
@@ -149,33 +149,33 @@ class UserController extends Controller
      */
     public function sendConfirmationEmailAction()
     {
-        if (!$this->container->getParameter('doctrine_user.confirmation_email.enabled')) {
+        if (!$this->container->getParameter('fos_user.confirmation_email.enabled')) {
             throw new NotFoundHttpException('Email confirmation is disabled');
         }
 
-        $email = $this->get('session')->get('doctrine_user_send_confirmation_email/email');
+        $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
         $user = $this->findUser('email', $email);
 
         $mailer = $this->get('mailer');
         $message = $this->getConfirmationEmailMessage($user);
         $mailer->send($message);
 
-        return $this->redirect($this->generateUrl('doctrine_user_user_check_confirmation_email'));
+        return $this->redirect($this->generateUrl('fos_user_user_check_confirmation_email'));
     }
 
     protected function getConfirmationEmailMessage(User $user)
     {
-        $template = $this->container->getParameter('doctrine_user.confirmation_email.template');
+        $template = $this->container->getParameter('fos_user.confirmation_email.template');
         // Render the email, use the first line as the subject, and the rest as the body
         $rendered = $this->renderView($template.'.'.$this->getRenderer(), array(
             'user' => $user,
-            'confirmationUrl' => $this->generateUrl('doctrine_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
+            'confirmationUrl' => $this->generateUrl('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
         ));
         $renderedLines = explode("\n", trim($rendered));
         $subject = $renderedLines[0];
         $body = implode("\n", array_slice($renderedLines, 1));
 
-        $fromEmail = $this->container->getParameter('doctrine_user.confirmation_email.from_email');
+        $fromEmail = $this->container->getParameter('fos_user.confirmation_email.from_email');
         return \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom($fromEmail)
@@ -188,10 +188,10 @@ class UserController extends Controller
      */
     public function checkConfirmationEmailAction()
     {
-        $email = $this->get('session')->get('doctrine_user_send_confirmation_email/email');
+        $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
         $user = $this->findUser('email', $email);
 
-        return $this->render('DoctrineUserBundle:User:checkConfirmationEmail.'.$this->getRenderer(), array(
+        return $this->render('FOS\UserBundle:User:checkConfirmationEmail.'.$this->getRenderer(), array(
             'user' => $user,
         ));
     }
@@ -208,7 +208,7 @@ class UserController extends Controller
         $this->saveUser($user);
         $this->authenticateUser($user);
 
-        return $this->redirect($this->generateUrl('doctrine_user_user_confirmed'));
+        return $this->redirect($this->generateUrl('fos_user_user_confirmed'));
     }
 
     /**
@@ -221,7 +221,7 @@ class UserController extends Controller
             throw new ForbiddenHttpException(sprintf('No user confirmed'));
         }
 
-        return $this->render('DoctrineUserBundle:User:confirmed.'.$this->getRenderer(), array(
+        return $this->render('FOS\UserBundle:User:confirmed.'.$this->getRenderer(), array(
             'user' => $user,
         ));
     }
@@ -239,12 +239,12 @@ class UserController extends Controller
      */
     protected function doDeleteAction($user)
     {
-        $objectManager = $this->get('doctrine_user.repository.user')->getObjectManager();
+        $objectManager = $this->get('fos_user.repository.user')->getObjectManager();
         $objectManager->remove($user);
         $objectManager->flush();
-        $this->get('session')->setFlash('doctrine_user_user_delete', 'success');
+        $this->get('session')->setFlash('fos_user_user_delete', 'success');
 
-        return $this->redirect($this->generateUrl('doctrine_user_user_list'));
+        return $this->redirect($this->generateUrl('fos_user_user_list'));
     }
 
     /**
@@ -259,7 +259,7 @@ class UserController extends Controller
 
         $form = $this->createChangePasswordForm($user);
 
-        return $this->render('DoctrineUserBundle:User:changePassword.'.$this->getRenderer(), array(
+        return $this->render('FOS\UserBundle:User:changePassword.'.$this->getRenderer(), array(
             'form' => $form
         ));
     }
@@ -277,15 +277,15 @@ class UserController extends Controller
         $form = $this->createChangePasswordForm($user);
         $form->bind($this->get('request')->request->get($form->getName()));
         if ($form->isValid()) {
-            $encoder = $this->get('doctrine_user.encoder');
+            $encoder = $this->get('fos_user.encoder');
             $user->setPassword($encoder->encodePassword($form->getNewPassword(), $user->getSalt()));
 
-            $this->get('doctrine_user.repository.user')->getObjectManager()->flush();
-            $userUrl = $this->generateUrl('doctrine_user_user_show', array('username' => $user->getUsername()));
+            $this->get('fos_user.repository.user')->getObjectManager()->flush();
+            $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
             return $this->redirect($userUrl);
         }
 
-        return $this->render('DoctrineUserBundle:User:changePassword.'.$this->getRenderer(), array(
+        return $this->render('FOS\UserBundle:User:changePassword.'.$this->getRenderer(), array(
             'form' => $form
         ));
     }
@@ -299,7 +299,7 @@ class UserController extends Controller
      **/
     public function findUserByUsername($username)
     {
-        $user = $this->get('doctrine_user.repository.user')->findOneByUsername($username);
+        $user = $this->get('fos_user.repository.user')->findOneByUsername($username);
 
         if (empty($user)) {
             throw new NotFoundHttpException(sprintf('The user with username "%s" does not exist', $username));
@@ -319,7 +319,7 @@ class UserController extends Controller
     protected function findUser($key, $value)
     {
         if (!empty($value)) {
-            $user = $this->get('doctrine_user.repository.user')->{'findOneBy'.ucfirst($key)}($value);
+            $user = $this->get('fos_user.repository.user')->{'findOneBy'.ucfirst($key)}($value);
         }
 
         if (empty($user)) {
@@ -338,13 +338,13 @@ class UserController extends Controller
     public function saveUser(User $user)
     {
         if (0 !== strlen($password = $user->getPlainPassword())) {
-            $encoder = $this->get('doctrine_user.encoder');
-            $user->setAlgorithm($this->container->getParameter('doctrine_user.encoder.algorithm'));
+            $encoder = $this->get('fos_user.encoder');
+            $user->setAlgorithm($this->container->getParameter('fos_user.encoder.algorithm'));
             $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
             $user->eraseCredentials();
         }
 
-        $objectManager = $this->get('doctrine_user.repository.user')->getObjectManager();
+        $objectManager = $this->get('fos_user.repository.user')->getObjectManager();
         $objectManager->persist($user);
         $objectManager->flush();
     }
@@ -364,13 +364,13 @@ class UserController extends Controller
      * Create a UserForm instance and returns it
      *
      * @param User $object
-     * @return Bundle\DoctrineUserBundle\Form\UserForm
+     * @return Bundle\FOS\UserBundle\Form\UserForm
      */
     protected function createForm($object = null)
     {
-        $form = $this->get('doctrine_user.form.user');
+        $form = $this->get('fos_user.form.user');
         if (null === $object) {
-            $object = $this->get('doctrine_user.repository.user')->createObjectInstance();
+            $object = $this->get('fos_user.repository.user')->createObjectInstance();
         }
 
         $form->setData($object);
@@ -380,7 +380,7 @@ class UserController extends Controller
 
     protected function createChangePasswordForm(User $user)
     {
-        $form = $this->get('doctrine_user.form.change_password');
+        $form = $this->get('fos_user.form.change_password');
         $form->setData(new ChangePassword($user));
 
         return $form;
@@ -388,6 +388,6 @@ class UserController extends Controller
 
     protected function getRenderer()
     {
-        return $this->container->getParameter('doctrine_user.template.renderer');
+        return $this->container->getParameter('fos_user.template.renderer');
     }
 }

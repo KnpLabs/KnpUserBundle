@@ -5,13 +5,13 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="doctrine_user.model.user.class">Bundle\DoctrineUserBundle\Document\User</parameter>
-        <parameter key="doctrine_user.validator.unique.class">Bundle\DoctrineUserBundle\Validator\Doctrine\ODM\MongoDB\UniqueValidator</parameter>
+        <parameter key="fos_user.model.user.class">Bundle\FOS\UserBundle\Document\User</parameter>
+        <parameter key="fos_user.validator.unique.class">Bundle\FOS\UserBundle\Validator\Doctrine\ODM\MongoDB\UniqueValidator</parameter>
     </parameters>
 
     <services>
         <!-- Object Manager Service -->
-        <service id="doctrine_user.object_manager" alias="doctrine.odm.mongodb.document_manager" />
+        <service id="fos_user.object_manager" alias="doctrine.odm.mongodb.document_manager" />
     </services>
 
 </container>

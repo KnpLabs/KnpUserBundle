@@ -1,5 +1,5 @@
 {% form_theme form form.getOption('theme') %}
-<form action="{% path 'doctrine_user_user_create' %}" {{ form|render_enctype }} method="POST" class="doctrine_user_user_new">
+<form action="{% path 'fos_user_user_create' %}" {{ form|render_enctype }} method="POST" class="fos_user_user_new">
     {{ form|render }}
     <div>
         <input type="submit" value="{% trans 'Create user' from 'DoctrineUserBundle' %}" />

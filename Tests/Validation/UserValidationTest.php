@@ -1,21 +1,21 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Tests\Validation;
+namespace Bundle\FOS\UserBundle\Tests\Validation;
 
-use Bundle\DoctrineUserBundle\Test\WebTestCase;
+use Bundle\FOS\UserBundle\Test\WebTestCase;
 
 class UserValidationTest extends WebTestCase
 {
     public function testBlankUsernameFail()
     {
-        $user = $this->getService('doctrine_user.repository.user')->createObjectInstance();
+        $user = $this->getService('fos_user.repository.user')->createObjectInstance();
         $violations = $this->getService('validator')->validate($user, 'Registration');
         $this->assertTrue($this->hasViolationForPropertyPath($violations, 'username'));
     }
 
     public function testGoodUsernameValid()
     {
-        $user = $this->getService('doctrine_user.repository.user')->createObjectInstance();
+        $user = $this->getService('fos_user.repository.user')->createObjectInstance();
         $user->setUsername(uniqid());
         $violations = $this->getService('validator')->validate($user, 'Registration');
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'username'));
@@ -24,7 +24,7 @@ class UserValidationTest extends WebTestCase
     public function testDuplicatedUsernameFail()
     {
         $username = uniqid();
-        $repo = $this->getService('doctrine_user.repository.user');
+        $repo = $this->getService('fos_user.repository.user');
         $om = $repo->getObjectManager();
         $validator = $this->getService('validator');
         $userClass = $repo->getObjectClass();
@@ -49,7 +49,7 @@ class UserValidationTest extends WebTestCase
     public function testDuplicatedEmailFail()
     {
         $email = uniqid().'@email.org';
-        $repo = $this->getService('doctrine_user.repository.user');
+        $repo = $this->getService('fos_user.repository.user');
         $om = $repo->getObjectManager();
         $validator = $this->getService('validator');
         $userClass = $repo->getObjectClass();

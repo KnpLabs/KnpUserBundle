@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Model;
+namespace Bundle\FOS\UserBundle\Model;
 
 interface RepositoryInterface
 {

@@ -10,10 +10,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\DoctrineUserBundle\Document;
+namespace Bundle\FOS\UserBundle\Document;
 
-use Bundle\DoctrineUserBundle\Util\String;
-use Bundle\DoctrineUserBundle\Model\UserRepositoryInterface;
+use Bundle\FOS\UserBundle\Util\String;
+use Bundle\FOS\UserBundle\Model\UserRepositoryInterface;
 use Symfony\Component\Security\User\AccountInterface;
 use Symfony\Component\Security\User\UserProviderInterface;
 use Symfony\Component\Security\Exception\UnsupportedAccountException;

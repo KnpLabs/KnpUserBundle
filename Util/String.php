@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Util;
+namespace Bundle\FOS\UserBundle\Util;
 
 class String
 {

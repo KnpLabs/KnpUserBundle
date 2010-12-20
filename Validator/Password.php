@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Validator;
+namespace Bundle\FOS\UserBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
@@ -17,6 +17,6 @@ class Password extends Constraint
     
     public function validatedBy()
     {
-        return 'doctrine_user.validator.password';
+        return 'fos_user.validator.password';
     }
 }

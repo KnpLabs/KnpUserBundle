@@ -1,13 +1,13 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\DependencyInjection;
+namespace Bundle\FOS\UserBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class DoctrineUserExtension extends Extension
+class UserExtension extends Extension
 {
     public function configLoad(array $config, ContainerBuilder $container)
     {
@@ -15,7 +15,7 @@ class DoctrineUserExtension extends Extension
 
         // ensure the db_driver is configured
         if (!isset($config['db_driver'])) {
-            throw new \InvalidArgumentException('You must provide the db_driver parameter in the DoctrineUserBundle configuration');
+            throw new \InvalidArgumentException('You must provide the db_driver parameter in the FOS\UserBundle configuration');
         } elseif (!in_array($config['db_driver'], array('orm', 'odm'))) {
             throw new \InvalidArgumentException(sprintf('The db_driver "%s" is not supported (choose either "odm" or "orm")', $config['db_driver']));
         }
@@ -31,41 +31,41 @@ class DoctrineUserExtension extends Extension
         }
 
         // change authentication provider class to support multiple algorithms
-        $container->setParameter('security.authentication.provider.dao.class', 'Bundle\DoctrineUserBundle\Security\Authentication\Provider\DaoAuthenticationProvider');
-        
+        $container->setParameter('security.authentication.provider.dao.class', 'Bundle\FOS\UserBundle\Security\Authentication\Provider\DaoAuthenticationProvider');
+
         // per default, we use a sha512 encoder, but you may change this here
         if (isset($config['encoder'])) {
             $this->configurePasswordEncoder($config['encoder'], $container);
         }
-        
+
         $this->remapParametersNamespaces($config, $container, array(
-            ''                      => array('session_create_success_route' => 'doctrine_user.session_create.success_route'),
-            'template'              => 'doctrine_user.template.%s',
-            'remember_me'           => 'doctrine_user.remember_me.%s',
-            'form_name'             => 'doctrine_user.form.%s.name',
-            'confirmation_email'    => 'doctrine_user.confirmation_email.%s',
+            ''                      => array('session_create_success_route' => 'fos_user.session_create.success_route'),
+            'template'              => 'fos_user.template.%s',
+            'remember_me'           => 'fos_user.remember_me.%s',
+            'form_name'             => 'fos_user.form.%s.name',
+            'confirmation_email'    => 'fos_user.confirmation_email.%s',
         ));
 
         $this->remapParametersNamespaces($config['class'], $container, array(
-            'model'         => 'doctrine_user.model.%s.class',
-            'form'          => 'doctrine_user.form.%s.class',
-            'controller'    => 'doctrine_user.controller.%s.class'
+            'model'         => 'fos_user.model.%s.class',
+            'form'          => 'fos_user.form.%s.class',
+            'controller'    => 'fos_user.controller.%s.class'
         ));
     }
-    
+
     protected function configurePasswordEncoder($config, ContainerBuilder $container)
     {
         if (!is_array($config)) {
-            $container->setAlias('doctrine_user.encoder', 'security.encoder.'.$config);
+            $container->setAlias('fos_user.encoder', 'security.encoder.'.$config);
         } else {
             if (isset($config['name'])) {
-                $container->setAlias('doctrine_user.encoder', 'security.encoder.'.$config['name']);
+                $container->setAlias('fos_user.encoder', 'security.encoder.'.$config['name']);
             }
-            
+
             $this->remapParameters($config, $container, array(
-                'algorithm' => 'doctrine_user.encoder.algorithm',
-                'encodeHashAsBase64' => 'doctrine_user.encoder.encodeHashAsBase64',
-                'iterations' => 'doctrine_user.encoder.iterations',
+                'algorithm' => 'fos_user.encoder.algorithm',
+                'encodeHashAsBase64' => 'fos_user.encoder.encodeHashAsBase64',
+                'iterations' => 'fos_user.encoder.iterations',
             ));
         }
     }
@@ -127,11 +127,11 @@ class DoctrineUserExtension extends Extension
 
     public function getNamespace()
     {
-        return 'http://www.symfony-project.org/schema/dic/doctrine_user';
+        return 'http://www.symfony-project.org/schema/dic/fos_user';
     }
 
     public function getAlias()
     {
-        return 'doctrine_user';
+        return 'fos_user';
     }
 }

@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\DoctrineUserBundle\Model;
+namespace Bundle\FOS\UserBundle\Model;
 
 abstract class Group
 {

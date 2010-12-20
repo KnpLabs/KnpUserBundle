@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Entity;
+namespace Bundle\FOS\UserBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Bundle\DoctrineUserBundle\Model\RepositoryInterface;
+use Bundle\FOS\UserBundle\Model\RepositoryInterface;
 
 abstract class ObjectRepository extends EntityRepository implements RepositoryInterface
 {

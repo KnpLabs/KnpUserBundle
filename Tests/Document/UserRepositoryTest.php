@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Document;
+namespace Bundle\FOS\UserBundle\Document;
 
 class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -62,7 +62,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadUserByUsernameWithExistingUser()
     {
-        $userMock = $this->getMock('Bundle\DoctrineUserBundle\Document\User', array(), array('sha1'));
+        $userMock = $this->getMock('Bundle\FOS\UserBundle\Document\User', array(), array('sha1'));
 
         $this->repo->expects($this->once())
             ->method('findOneBy')
@@ -102,7 +102,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     protected function getRepositoryMock()
     {
         $methods = array('findOneBy');
-        $repo = $this->getMock('Bundle\DoctrineUserBundle\Document\UserRepository', $methods, array(), '', false);
+        $repo = $this->getMock('Bundle\FOS\UserBundle\Document\UserRepository', $methods, array(), '', false);
         $repo->setAlgorithm('sha1');
 
         return $repo;

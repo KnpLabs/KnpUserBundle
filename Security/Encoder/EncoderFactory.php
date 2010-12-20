@@ -7,9 +7,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\DoctrineUserBundle\Security\Encoder;
+namespace Bundle\FOS\UserBundle\Security\Encoder;
 
-use Bundle\DoctrineUserBundle\Model\User;
+use Bundle\FOS\UserBundle\Model\User;
 
 /**
  * This factory assumes MessageDigestPasswordEncoder's constructor. 

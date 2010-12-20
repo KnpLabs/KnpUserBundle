@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Tests\Model;
+namespace Bundle\FOS\UserBundle\Tests\Model;
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
@@ -24,6 +24,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
     
     protected function getUser()
     {
-        return $this->getMockForAbstractClass('Bundle\DoctrineUserBundle\Model\User');
+        return $this->getMockForAbstractClass('Bundle\FOS\UserBundle\Model\User');
     }
 }

@@ -7,38 +7,48 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\DoctrineUserBundle\Security\Authentication\Provider;
+namespace Bundle\FOS\UserBundle\Security\Authentication\Provider;
 
-use Bundle\DoctrineUserBundle\Security\Encoder\EncoderFactoryAwareInterface;
-use Bundle\DoctrineUserBundle\Security\Encoder\EncoderFactoryInterface;
+use Bundle\FOS\UserBundle\Model\User;
+use Bundle\FOS\UserBundle\Security\Encoder\EncoderFactoryAwareInterface;
+use Bundle\FOS\UserBundle\Security\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\User\AccountInterface;
 use Symfony\Component\Security\Authentication\Provider\DaoAuthenticationProvider as BaseDaoAuthenticationProvider;
 use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
-use Bundle\DoctrineUserBundle\Model\User;
 
 class DaoAuthenticationProvider extends BaseDaoAuthenticationProvider implements EncoderFactoryAwareInterface
 {
     protected $encoderFactory;
-    
+
     public function setEncoderFactory(EncoderFactoryInterface $encoderFactory)
     {
         $this->encoderFactory = $encoderFactory;
     }
-    
+
     protected function checkAuthentication(AccountInterface $account, UsernamePasswordToken $token)
     {
-        if (!$presentedPassword = (string) $token->getCredentials()) {
-            throw new BadCredentialsException('Bad credentials');
-        }
-
-        if ($account instanceof User) {
-            $passwordEncoder = $this->encoderFactory->getEncoder($account);
+        $user = $token->getUser();
+        if ($user instanceof AccountInterface) {
+            if ($account->getPassword() !== $user->getPassword()) {
+                throw new BadCredentialsException('The credentials were changed from another session.');
+            }
         } else {
-            $passwordEncoder = $this->passwordEncoder;
+            if (!$presentedPassword = (string) $token->getCredentials()) {
+                throw new BadCredentialsException('Bad credentials');
+            }
+
+            if ($account instanceof User) {
+                $passwordEncoder = $this->encoderFactory->getEncoder($account);
+            } else {
+                $passwordEncoder = $this->passwordEncoder;
+            }
+
+            if (!$passwordEncoder->isPasswordValid($account->getPassword(), $presentedPassword, $account->getSalt())) {
+                throw new BadCredentialsException('Bad credentials');
+            }
         }
-        
-        if (!$passwordEncoder->isPasswordValid($account->getPassword(), $presentedPassword, $account->getSalt())) {
+        if (!$presentedPassword = (string) $token->getCredentials()) {
             throw new BadCredentialsException('Bad credentials');
         }
     }

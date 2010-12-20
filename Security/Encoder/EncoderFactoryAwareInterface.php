@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\DoctrineUserBundle\Security\Encoder;
+namespace Bundle\FOS\UserBundle\Security\Encoder;
 
 interface EncoderFactoryAwareInterface
 {

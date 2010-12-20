@@ -5,33 +5,33 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="doctrine_user.encoder.algorithm">sha512</parameter>
-        <parameter key="doctrine_user.encoder.encodeHashAsBase64">true</parameter>
-        <parameter key="doctrine_user.encoder.iterations">3</parameter>
-        <parameter key="doctrine_user.encoder.factory.class">Bundle\DoctrineUserBundle\Security\Encoder\EncoderFactory</parameter>
+        <parameter key="fos_user.encoder.algorithm">sha512</parameter>
+        <parameter key="fos_user.encoder.encodeHashAsBase64">true</parameter>
+        <parameter key="fos_user.encoder.iterations">3</parameter>
+        <parameter key="fos_user.encoder.factory.class">Bundle\FOS\UserBundle\Security\Encoder\EncoderFactory</parameter>
     </parameters>
 
     <services>
-        <service id="doctrine_user.encoder.factory" class="%doctrine_user.encoder.factory.class%">
+        <service id="fos_user.encoder.factory" class="%fos_user.encoder.factory.class%">
             <argument>%security.encoder.digest.class%</argument>
-            <argument>%doctrine_user.encoder.encodeHashAsBase64%</argument>
-            <argument>%doctrine_user.encoder.iterations%</argument>
+            <argument>%fos_user.encoder.encodeHashAsBase64%</argument>
+            <argument>%fos_user.encoder.iterations%</argument>
         </service>
     
-        <service id="security.encoder.doctrine_user" class="%security.encoder.digest.class%">
-            <argument>%doctrine_user.encoder.algorithm%</argument>
-            <argument>%doctrine_user.encoder.encodeHashAsBase64%</argument>
-            <argument>%doctrine_user.encoder.iterations%</argument>
+        <service id="security.encoder.fos_user" class="%security.encoder.digest.class%">
+            <argument>%fos_user.encoder.algorithm%</argument>
+            <argument>%fos_user.encoder.encodeHashAsBase64%</argument>
+            <argument>%fos_user.encoder.iterations%</argument>
         </service>
         
         <!-- This encoder will be used for hashing new passwords -->
-        <service id="doctrine_user.encoder" alias="security.encoder.doctrine_user" />
+        <service id="fos_user.encoder" alias="security.encoder.fos_user" />
     </services>
     
     <interfaces>
-        <interface class="Bundle\DoctrineUserBundle\Security\Encoder\EncoderFactoryAwareInterface">
+        <interface class="Bundle\FOS\UserBundle\Security\Encoder\EncoderFactoryAwareInterface">
             <call method="setEncoderFactory">
-                <argument type="service" id="doctrine_user.encoder.factory" />
+                <argument type="service" id="fos_user.encoder.factory" />
             </call>
         </interface>
     </interfaces>

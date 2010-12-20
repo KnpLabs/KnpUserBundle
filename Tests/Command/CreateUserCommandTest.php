@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Tests\Command;
+namespace Bundle\FOS\UserBundle\Tests\Command;
 
-use Bundle\DoctrineUserBundle\Test\WebTestCase;
-use Bundle\DoctrineUserBundle\Model\User;
-use Bundle\DoctrineUserBundle\Command\CreateUserCommand;
+use Bundle\FOS\UserBundle\Test\WebTestCase;
+use Bundle\FOS\UserBundle\Model\User;
+use Bundle\FOS\UserBundle\Command\CreateUserCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Tester\ApplicationTester;
@@ -28,7 +28,7 @@ class CreateUserCommandTest extends WebTestCase
             'email'    => $email,
         ), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
 
-        $userRepo = $this->getService('doctrine_user.repository.user');
+        $userRepo = $this->getService('fos_user.repository.user');
         $user = $userRepo->findOneByUsername($username);
 
         $this->assertTrue($user instanceof User);
@@ -57,7 +57,7 @@ class CreateUserCommandTest extends WebTestCase
             '--super-admin' => true
         ), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
 
-        $userRepo = $this->getService('doctrine_user.repository.user');
+        $userRepo = $this->getService('fos_user.repository.user');
         $user = $userRepo->findOneByUsername($username);
 
         $this->assertTrue($user instanceof User);
@@ -71,7 +71,7 @@ class CreateUserCommandTest extends WebTestCase
 
     public function tearDown()
     {
-        $repo = $this->getService('doctrine_user.repository.user');
+        $repo = $this->getService('fos_user.repository.user');
         $om = $repo->getObjectManager();
         if ($user = $repo->findOneByUsername('test_username')) {
             $om->remove($user);

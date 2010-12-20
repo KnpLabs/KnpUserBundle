@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="doctrine_user.validator.password.class">Bundle\DoctrineUserBundle\Validator\PasswordValidator</parameter>
+        <parameter key="fos_user.validator.password.class">Bundle\FOS\UserBundle\Validator\PasswordValidator</parameter>
     </parameters>
 
     <services>
@@ -14,14 +14,14 @@
             Class parameters are defined in odm.xml, or orm.xml depending of the
             type of driver that you use.
         -->
-        <service id="doctrine_user.validator.unique" class="%doctrine_user.validator.unique.class%">
-            <argument type="service" id="doctrine_user.object_manager" />
-            <tag name="validator.constraint_validator" alias="doctrine_user.validator.unique" />
+        <service id="fos_user.validator.unique" class="%fos_user.validator.unique.class%">
+            <argument type="service" id="fos_user.object_manager" />
+            <tag name="validator.constraint_validator" alias="fos_user.validator.unique" />
         </service>
         
         <!-- Password Validator Service -->
-        <service id="doctrine_user.validator.password" class="%doctrine_user.validator.password.class%">
-            <tag name="validator.contraint_validator" alias="doctrine_user.validator.password" />
+        <service id="fos_user.validator.password" class="%fos_user.validator.password.class%">
+            <tag name="validator.contraint_validator" alias="fos_user.validator.password" />
         </service>
     </services>
 

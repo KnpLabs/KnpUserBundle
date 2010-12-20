@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Tests\Command;
+namespace Bundle\FOS\UserBundle\Tests\Command;
 
-use Bundle\DoctrineUserBundle\Test\WebTestCase;
-use Bundle\DoctrineUserBundle\Model\User;
-use Bundle\DoctrineUserBundle\Command\ActivateUserCommand;
+use Bundle\FOS\UserBundle\Test\WebTestCase;
+use Bundle\FOS\UserBundle\Model\User;
+use Bundle\FOS\UserBundle\Command\ActivateUserCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Tester\ApplicationTester;
@@ -23,7 +23,7 @@ class ActivateUserCommandTest extends WebTestCase
         $password = 'test_password';
         $email    = 'test_email@email.org';
 
-        $userRepo = $this->getService('doctrine_user.repository.user');
+        $userRepo = $this->getService('fos_user.repository.user');
         $userClass = $userRepo->getObjectClass();
 
         $user = $userRepo->createObjectInstance();
@@ -42,7 +42,7 @@ class ActivateUserCommandTest extends WebTestCase
             'username' => $username,
         ), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
 
-        $userRepo = $this->getService('doctrine_user.repository.user');
+        $userRepo = $this->getService('fos_user.repository.user');
         $userRepo->getObjectManager()->clear();
         $user = $userRepo->findOneByUsername($username);
 
@@ -55,7 +55,7 @@ class ActivateUserCommandTest extends WebTestCase
 
     public function tearDown()
     {
-        $repo = $this->getService('doctrine_user.repository.user');
+        $repo = $this->getService('fos_user.repository.user');
         $om = $repo->getObjectManager();
         if ($user = $repo->findOneByUsername('test_username')) {
             $om->remove($user);

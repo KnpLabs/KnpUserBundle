@@ -1,7 +1,7 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Form;
-use Bundle\DoctrineUserBundle\Model\User;
+namespace Bundle\FOS\UserBundle\Form;
+use Bundle\FOS\UserBundle\Model\User;
 
 /**
  * @validation:Password(passwordProperty="current", userProperty="user")

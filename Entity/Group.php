@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Entity;
+namespace Bundle\FOS\UserBundle\Entity;
 
-use Bundle\DoctrineUserBundle\Model\Group as BaseGroup;
+use Bundle\FOS\UserBundle\Model\Group as BaseGroup;
 
 class Group extends BaseGroup
 {

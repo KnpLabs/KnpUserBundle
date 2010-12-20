@@ -6,9 +6,9 @@
 
     <services>
         <!-- User Repository Service -->
-        <service id="doctrine_user.repository.user" class="Bundle\DoctrineUserBundle\DependencyInjection\DoctrineUserExtension" shared="true" factory-method="getRepository">
-            <argument type="service" id="doctrine_user.object_manager" />
-            <argument>%doctrine_user.model.user.class%</argument>
+        <service id="fos_user.repository.user" class="Bundle\FOS\UserBundle\DependencyInjection\UserExtension" shared="true" factory-method="getRepository">
+            <argument type="service" id="fos_user.object_manager" />
+            <argument>%fos_user.model.user.class%</argument>
         </service>
     </services>
 

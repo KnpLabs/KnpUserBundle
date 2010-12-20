@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Document;
+namespace Bundle\FOS\UserBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
-use Bundle\DoctrineUserBundle\Model\RepositoryInterface;
+use Bundle\FOS\UserBundle\Model\RepositoryInterface;
 
 abstract class ObjectRepository extends DocumentRepository implements RepositoryInterface
 {

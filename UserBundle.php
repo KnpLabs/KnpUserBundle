@@ -8,14 +8,10 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\DoctrineUserBundle;
+namespace Bundle\FOS\UserBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle as BaseBundle;
-use Symfony\Component\EventDispatcher\Event;
 
-class DoctrineUserBundle extends BaseBundle
+class UserBundle extends BaseBundle
 {
-    public function boot()
-    {
-    }
 }

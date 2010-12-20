@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Templating\Helper;
+namespace Bundle\FOS\UserBundle\Templating\Helper;
 
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\SecurityHelper as BaseSecurityHelper;
-use Bundle\DoctrineUserBundle\Model\User;
+use Bundle\FOS\UserBundle\Model\User;
 use Symfony\Component\Security\SecurityContext;
 
 /**
@@ -14,7 +14,7 @@ class SecurityHelper extends BaseSecurityHelper
     /**
      * Returns the authenticated user, if any
      *
-     * @return Bundle\DoctrineUserBundle\Model\User
+     * @return Bundle\FOS\UserBundle\Model\User
      */
     public function getUser()
     {
@@ -60,6 +60,6 @@ class SecurityHelper extends BaseSecurityHelper
      */
     public function getName()
     {
-        return 'doctrine_user_security';
+        return 'fos_user_security';
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Validator\Doctrine\ORM;
+namespace Bundle\FOS\UserBundle\Validator\Doctrine\ORM;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

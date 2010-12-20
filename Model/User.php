@@ -8,11 +8,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\DoctrineUserBundle\Model;
+namespace Bundle\FOS\UserBundle\Model;
 
 use Symfony\Component\Security\Role\RoleInterface;
 
-use Bundle\DoctrineUserBundle\Util\String;
+use Bundle\FOS\UserBundle\Util\String;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\User\AccountInterface;

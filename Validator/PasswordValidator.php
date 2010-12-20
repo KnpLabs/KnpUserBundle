@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Validator;
+namespace Bundle\FOS\UserBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
-use Bundle\DoctrineUserBundle\Security\Encoder\EncoderFactoryAwareInterface;
-use Bundle\DoctrineUserBundle\Security\Encoder\EncoderFactoryInterface;
+use Bundle\FOS\UserBundle\Security\Encoder\EncoderFactoryAwareInterface;
+use Bundle\FOS\UserBundle\Security\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class PasswordValidator extends ConstraintValidator implements EncoderFactoryAwareInterface

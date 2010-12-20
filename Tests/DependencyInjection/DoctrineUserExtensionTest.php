@@ -1,12 +1,12 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Tests\DependencyInjection;
+namespace Bundle\FOS\UserBundle\Tests\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Bundle\DoctrineUserBundle\DependencyInjection\DoctrineUserExtension;
+use Bundle\FOS\UserBundle\DependencyInjection\UserExtension;
 use Symfony\Component\Yaml\Parser;
 
-class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
+class UserExtensionTest extends \PHPUnit_Framework_TestCase
 {
     protected $configuration;
 
@@ -14,142 +14,142 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ExerciseUserBundle\Document\User', 'doctrine_user.model.user.class');
+        $this->assertParameter('Bundle\ExerciseUserBundle\Document\User', 'fos_user.model.user.class');
     }
 
     public function testDoctrineUserLoadModelClass()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('user', 'doctrine_user.model.user.class');
+        $this->assertParameter('user', 'fos_user.model.user.class');
     }
 
     public function testDoctrineUserLoadRepositoryClassWithDefaults()
     {
         $this->createEmptyConfiguration();
 
-        $this->assertHasDefinition('doctrine_user.repository.user');
+        $this->assertHasDefinition('fos_user.repository.user');
     }
 
     public function testDoctrineUserLoadRepositoryClass()
     {
         $this->createFullConfiguration();
 
-        $this->assertHasDefinition('doctrine_user.repository.user');
+        $this->assertHasDefinition('fos_user.repository.user');
     }
 
     public function testDoctrineUserLoadFormClassWithDefaults()
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\DoctrineUserBundle\Form\UserForm', 'doctrine_user.form.user.class');
-        $this->assertParameter('Bundle\DoctrineUserBundle\Form\ChangePasswordForm', 'doctrine_user.form.change_password.class');
+        $this->assertParameter('Bundle\FOS\UserBundle\Form\UserForm', 'fos_user.form.user.class');
+        $this->assertParameter('Bundle\FOS\UserBundle\Form\ChangePasswordForm', 'fos_user.form.change_password.class');
     }
 
     public function testDoctrineUserLoadFormClass()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('user', 'doctrine_user.form.user.class');
-        $this->assertParameter('change_password', 'doctrine_user.form.change_password.class');
+        $this->assertParameter('user', 'fos_user.form.user.class');
+        $this->assertParameter('change_password', 'fos_user.form.change_password.class');
     }
 
     public function testDoctrineUserLoadFormNameWithDefaults()
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('doctrine_user_user_form', 'doctrine_user.form.user.name');
-        $this->assertParameter('doctrine_user_change_password_form', 'doctrine_user.form.change_password.name');
+        $this->assertParameter('fos_user_user_form', 'fos_user.form.user.name');
+        $this->assertParameter('fos_user_change_password_form', 'fos_user.form.change_password.name');
     }
 
     public function testDoctrineUserLoadFormName()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('user', 'doctrine_user.form.user.name');
-        $this->assertParameter('change_password', 'doctrine_user.form.change_password.name');
+        $this->assertParameter('user', 'fos_user.form.user.name');
+        $this->assertParameter('change_password', 'fos_user.form.change_password.name');
     }
 
     public function testDoctrineUserLoadFormServiceWithDefaults()
     {
         $this->createEmptyConfiguration();
 
-        $this->assertHasDefinition('doctrine_user.form.user');
-        $this->assertHasDefinition('doctrine_user.form.change_password');
+        $this->assertHasDefinition('fos_user.form.user');
+        $this->assertHasDefinition('fos_user.form.change_password');
     }
 
     public function testDoctrineUserLoadFormService()
     {
         $this->createFullConfiguration();
 
-        $this->assertHasDefinition('doctrine_user.form.user');
-        $this->assertHasDefinition('doctrine_user.form.change_password');
+        $this->assertHasDefinition('fos_user.form.user');
+        $this->assertHasDefinition('fos_user.form.change_password');
     }
 
     public function testDoctrineUserLoadControllerClassWithDefaults()
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\DoctrineUserBundle\Controller\UserController', 'doctrine_user.controller.user.class');
-        $this->assertParameter('Bundle\DoctrineUserBundle\Controller\SecurityController', 'doctrine_user.controller.security.class');
+        $this->assertParameter('Bundle\FOS\UserBundle\Controller\UserController', 'fos_user.controller.user.class');
+        $this->assertParameter('Bundle\FOS\UserBundle\Controller\SecurityController', 'fos_user.controller.security.class');
     }
 
     public function testDoctrineUserLoadControllerClass()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('user', 'doctrine_user.controller.user.class');
-        $this->assertParameter('security', 'doctrine_user.controller.security.class');
+        $this->assertParameter('user', 'fos_user.controller.user.class');
+        $this->assertParameter('security', 'fos_user.controller.security.class');
     }
 
     public function testDoctrineUserLoadControllerServiceWithDefaults()
     {
         $this->createEmptyConfiguration();
 
-        $this->assertHasDefinition('doctrine_user.controller.user');
-        $this->assertHasDefinition('doctrine_user.controller.security');
+        $this->assertHasDefinition('fos_user.controller.user');
+        $this->assertHasDefinition('fos_user.controller.security');
     }
 
     public function testDoctrineUserLoadControllerService()
     {
         $this->createFullConfiguration();
 
-        $this->assertHasDefinition('doctrine_user.controller.user');
-        $this->assertHasDefinition('doctrine_user.controller.security');
+        $this->assertHasDefinition('fos_user.controller.user');
+        $this->assertHasDefinition('fos_user.controller.security');
     }
 
     public function testDoctrineUserLoadConfirmationEmailWithDefaults()
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter(false, 'doctrine_user.confirmation_email.enabled');
-        $this->assertParameter('webmaster@site.org', 'doctrine_user.confirmation_email.from_email');
-        $this->assertParameter('DoctrineUserBundle:User:confirmationEmail', 'doctrine_user.confirmation_email.template');
+        $this->assertParameter(false, 'fos_user.confirmation_email.enabled');
+        $this->assertParameter('webmaster@site.org', 'fos_user.confirmation_email.from_email');
+        $this->assertParameter('FOS\UserBundle:User:confirmationEmail', 'fos_user.confirmation_email.template');
     }
 
     public function testDoctrineUserLoadConfirmationEmail()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('enabled', 'doctrine_user.confirmation_email.enabled');
-        $this->assertParameter('from_email', 'doctrine_user.confirmation_email.from_email');
-        $this->assertParameter('template', 'doctrine_user.confirmation_email.template');
+        $this->assertParameter('enabled', 'fos_user.confirmation_email.enabled');
+        $this->assertParameter('from_email', 'fos_user.confirmation_email.from_email');
+        $this->assertParameter('template', 'fos_user.confirmation_email.template');
     }
 
     public function testDoctrineUserLoadTemplateConfigWithDefaults()
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('twig', 'doctrine_user.template.renderer');
-        $this->assertParameter('TwigBundle::form.twig', 'doctrine_user.template.theme');
+        $this->assertParameter('twig', 'fos_user.template.renderer');
+        $this->assertParameter('TwigBundle::form.twig', 'fos_user.template.theme');
     }
 
     public function testDoctrineUserLoadTemplateConfig()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('renderer', 'doctrine_user.template.renderer');
-        $this->assertParameter('theme', 'doctrine_user.template.theme');
+        $this->assertParameter('renderer', 'fos_user.template.renderer');
+        $this->assertParameter('theme', 'fos_user.template.theme');
     }
 
     /**
@@ -158,7 +158,7 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
     protected function createEmptyConfiguration()
     {
         $this->configuration = new ContainerBuilder();
-        $loader = new DoctrineUserExtension('testkernel');
+        $loader = new UserExtension('testkernel');
         $config = $this->getEmptyConfig();
         $loader->configLoad($config, $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
@@ -170,7 +170,7 @@ class DoctrineUserExtensionTest extends \PHPUnit_Framework_TestCase
     protected function createFullConfiguration()
     {
         $this->configuration = new ContainerBuilder();
-        $loader = new DoctrineUserExtension('testkernel');
+        $loader = new UserExtension('testkernel');
         $config = $this->getFullConfig();
         $loader->configLoad($config, $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
