@@ -103,7 +103,6 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     {
         $methods = array('findOneBy');
         $repo = $this->getMock('Bundle\FOS\UserBundle\Document\UserRepository', $methods, array(), '', false);
-        $repo->setAlgorithm('sha1');
 
         return $repo;
     }
