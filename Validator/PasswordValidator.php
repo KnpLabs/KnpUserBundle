@@ -23,7 +23,7 @@ class PasswordValidator extends ConstraintValidator implements EncoderFactoryAwa
         }
         
         $raw = $object->{$constraint->passwordProperty};
-        $user = null === $contraint->userProperty ? $object : $object->{$constraint->userProperty};
+        $user = null === $constraint->userProperty ? $object : $object->{$constraint->userProperty};
         $encoder = $this->encoderFactory->getEncoder($user);
         
         return $encoder->isPasswordValid($user->getPassword(), $raw, $user->getSalt());
