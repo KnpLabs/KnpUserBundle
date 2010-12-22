@@ -15,14 +15,14 @@ class UserExtension extends Extension
 
         // ensure the db_driver is configured
         if (!isset($config['db_driver'])) {
-            throw new \InvalidArgumentException('You must provide the db_driver parameter in the FOS\UserBundle configuration');
+            throw new \InvalidArgumentException('The db_driver parameter must be defined');
         } elseif (!in_array($config['db_driver'], array('orm', 'odm'))) {
             throw new \InvalidArgumentException(sprintf('The db_driver "%s" is not supported (choose either "odm" or "orm")', $config['db_driver']));
         }
 
         // ensure the user model class is configured
         if (!isset($config['class']['model']['user'])) {
-            throw new \InvalidArgumentException('You must define your user model class');
+            throw new \InvalidArgumentException('The user model class must be defined');
         }
 
         // load all service configuration files (the db_driver first)
