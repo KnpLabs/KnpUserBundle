@@ -32,7 +32,7 @@ Add UserBundle to your application kernel
     {
         return array(
             // ...
-            new Bundle\FOS\UserBundle\UserBundle(),
+            new Bundle\FOS\UserBundle\FOSUserBundle(),
             // ...
         );
     }
@@ -107,7 +107,7 @@ If you want ready to use login and logout pages, include the builtin routes::
 
     # app/config/routing.xml
 
-    <import resource="UserBundle/Resources/config/routing/session.xml"/>
+    <import resource="FOS/UserBundle/Resources/config/routing/session.xml"/>
 
 You now can login at http://app.com/session/new
 
