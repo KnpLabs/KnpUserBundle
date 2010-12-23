@@ -16,6 +16,7 @@ use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\User\AccountInterface;
 use Symfony\Component\Security\Authentication\Provider\DaoAuthenticationProvider as BaseDaoAuthenticationProvider;
 use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
+use Symfony\Component\Security\Exception\BadCredentialsException;
 
 class DaoAuthenticationProvider extends BaseDaoAuthenticationProvider implements EncoderFactoryAwareInterface
 {
