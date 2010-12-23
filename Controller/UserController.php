@@ -64,7 +64,7 @@ class UserController extends Controller
 
         return $this->render('FOS\UserBundle:User:edit.'.$this->getRenderer(), array(
             'form'      => $form,
-            'username'  => $username
+            'username'  => $user->getUsername()
         ));
     }
 
@@ -95,7 +95,7 @@ class UserController extends Controller
 
         return $this->render('FOS\UserBundle:User:edit.'.$this->getRenderer(), array(
             'form'      => $form,
-            'username'  => $username
+            'username'  => $user->getUsername()
         ));
     }
 
