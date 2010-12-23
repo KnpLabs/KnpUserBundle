@@ -11,7 +11,6 @@
 namespace Bundle\FOS\UserBundle\Model;
 
 use Symfony\Component\Security\Role\RoleInterface;
-
 use Bundle\FOS\UserBundle\Util\String;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
