@@ -57,7 +57,7 @@ ORM User class:
     use Bundle\FOS\UserBundle\Entity\User as BaseUser;
 
     /**
-     * @orm:Entity(repositoryClass="Bundle\FOS\UserBundle\Document\UserRepository")
+     * @orm:Entity(repositoryClass="Bundle\FOS\UserBundle\Entity\UserRepository")
      */
     class User extends BaseUser {}
 
@@ -87,9 +87,9 @@ In YAML::
 
     fos_user.config:
         db_driver: orm
-        model:
-            user:
-                class: Application\MyBundle\Entity\User
+        class:
+            model:
+                user: Application\MyBundle\Entity\User
 
 Or if you prefer XML::
 
