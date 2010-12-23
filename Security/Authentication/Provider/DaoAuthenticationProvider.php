@@ -49,8 +49,5 @@ class DaoAuthenticationProvider extends BaseDaoAuthenticationProvider implements
                 throw new BadCredentialsException('Bad credentials');
             }
         }
-        if (!$presentedPassword = (string) $token->getCredentials()) {
-            throw new BadCredentialsException('Bad credentials');
-        }
     }
 }
