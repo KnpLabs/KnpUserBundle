@@ -10,35 +10,35 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
 {
     protected $configuration;
 
-    public function testDoctrineUserLoadModelClassWithDefaults()
+    public function testUserLoadModelClassWithDefaults()
     {
         $this->createEmptyConfiguration();
 
         $this->assertParameter('Bundle\ExerciseUserBundle\Document\User', 'fos_user.model.user.class');
     }
 
-    public function testDoctrineUserLoadModelClass()
+    public function testUserLoadModelClass()
     {
         $this->createFullConfiguration();
 
         $this->assertParameter('user', 'fos_user.model.user.class');
     }
 
-    public function testDoctrineUserLoadRepositoryClassWithDefaults()
+    public function testUserLoadRepositoryClassWithDefaults()
     {
         $this->createEmptyConfiguration();
 
         $this->assertHasDefinition('fos_user.repository.user');
     }
 
-    public function testDoctrineUserLoadRepositoryClass()
+    public function testUserLoadRepositoryClass()
     {
         $this->createFullConfiguration();
 
         $this->assertHasDefinition('fos_user.repository.user');
     }
 
-    public function testDoctrineUserLoadFormClassWithDefaults()
+    public function testUserLoadFormClassWithDefaults()
     {
         $this->createEmptyConfiguration();
 
@@ -46,7 +46,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('Bundle\FOS\UserBundle\Form\ChangePasswordForm', 'fos_user.form.change_password.class');
     }
 
-    public function testDoctrineUserLoadFormClass()
+    public function testUserLoadFormClass()
     {
         $this->createFullConfiguration();
 
@@ -54,7 +54,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('change_password', 'fos_user.form.change_password.class');
     }
 
-    public function testDoctrineUserLoadFormNameWithDefaults()
+    public function testUserLoadFormNameWithDefaults()
     {
         $this->createEmptyConfiguration();
 
@@ -62,7 +62,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('fos_user_change_password_form', 'fos_user.form.change_password.name');
     }
 
-    public function testDoctrineUserLoadFormName()
+    public function testUserLoadFormName()
     {
         $this->createFullConfiguration();
 
@@ -70,7 +70,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('change_password', 'fos_user.form.change_password.name');
     }
 
-    public function testDoctrineUserLoadFormServiceWithDefaults()
+    public function testUserLoadFormServiceWithDefaults()
     {
         $this->createEmptyConfiguration();
 
@@ -78,7 +78,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('fos_user.form.change_password');
     }
 
-    public function testDoctrineUserLoadFormService()
+    public function testUserLoadFormService()
     {
         $this->createFullConfiguration();
 
@@ -86,7 +86,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('fos_user.form.change_password');
     }
 
-    public function testDoctrineUserLoadControllerClassWithDefaults()
+    public function testUserLoadControllerClassWithDefaults()
     {
         $this->createEmptyConfiguration();
 
@@ -94,7 +94,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('Bundle\FOS\UserBundle\Controller\SecurityController', 'fos_user.controller.security.class');
     }
 
-    public function testDoctrineUserLoadControllerClass()
+    public function testUserLoadControllerClass()
     {
         $this->createFullConfiguration();
 
@@ -102,7 +102,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('security', 'fos_user.controller.security.class');
     }
 
-    public function testDoctrineUserLoadControllerServiceWithDefaults()
+    public function testUserLoadControllerServiceWithDefaults()
     {
         $this->createEmptyConfiguration();
 
@@ -110,7 +110,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('fos_user.controller.security');
     }
 
-    public function testDoctrineUserLoadControllerService()
+    public function testUserLoadControllerService()
     {
         $this->createFullConfiguration();
 
@@ -118,7 +118,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('fos_user.controller.security');
     }
 
-    public function testDoctrineUserLoadConfirmationEmailWithDefaults()
+    public function testUserLoadConfirmationEmailWithDefaults()
     {
         $this->createEmptyConfiguration();
 
@@ -127,7 +127,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('FOS\UserBundle:User:confirmationEmail', 'fos_user.confirmation_email.template');
     }
 
-    public function testDoctrineUserLoadConfirmationEmail()
+    public function testUserLoadConfirmationEmail()
     {
         $this->createFullConfiguration();
 
@@ -136,7 +136,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('template', 'fos_user.confirmation_email.template');
     }
 
-    public function testDoctrineUserLoadTemplateConfigWithDefaults()
+    public function testUserLoadTemplateConfigWithDefaults()
     {
         $this->createEmptyConfiguration();
 
@@ -144,7 +144,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('TwigBundle::form.twig', 'fos_user.template.theme');
     }
 
-    public function testDoctrineUserLoadTemplateConfig()
+    public function testUserLoadTemplateConfig()
     {
         $this->createFullConfiguration();
 
