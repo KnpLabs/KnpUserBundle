@@ -275,9 +275,6 @@ class UserController extends Controller
         $form = $this->createChangePasswordForm($user);
         $form->bind($this->get('request')->request->get($form->getName()));
         if ($form->isValid()) {
-            $encoder = $this->get('fos_user.encoder');
-            $user->setPassword($encoder->encodePassword($form->getNewPassword(), $user->getSalt()));
-
             $this->get('fos_user.user_manager')->updateUser($user);
             $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
 
