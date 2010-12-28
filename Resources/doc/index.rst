@@ -195,7 +195,7 @@ All configuration options are listed below::
     db_driver: odm
     class:
         model:
-            user:       Application\MyBundle\Document\User
+            user: Application\MyBundle\Document\User
         form:
             user:            ~
             change_password: ~
