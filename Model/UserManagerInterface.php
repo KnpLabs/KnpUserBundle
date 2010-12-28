@@ -80,6 +80,13 @@ interface UserManagerInterface
     function findUserByConfirmationToken($token);
 
     /**
+     * Returns a collection with all user instances
+     *
+     * @return Traversable
+     */
+    function findUsers();
+
+    /**
      * Returns the user's fully qualified class name
      *
      * @return string

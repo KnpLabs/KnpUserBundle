@@ -52,16 +52,15 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $userRepo = $this->container->get('fos_user.repository.user');
-        $user = $userRepo->findOneByUsername($input->getArgument('username'));
+        $user = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findOneByUsername($input->getArgument('username'));
 
         if (!$user) {
             throw new \InvalidArgumentException(sprintf('The user "%s" does not exist', $input->getArgument('username')));
         }
         $user->setSuperAdmin(false);
 
-        $userRepo->getObjectManager()->persist($user);
-        $userRepo->getObjectManager()->flush();
+        $userManager->updateUser($user);
 
         $output->writeln(sprintf('Super administrator "%s" has been demoted as a simple user.', $user->getUsername()));
     }

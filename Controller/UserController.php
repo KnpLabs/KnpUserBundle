@@ -26,7 +26,7 @@ class UserController extends Controller
      **/
     public function listAction()
     {
-        $users = $this->get('fos_user.repository.user')->findAll();
+        $users = $this->get('fos_user.user_manager')->findUsers();
 
         return $this->render('FOS\UserBundle:User:list.'.$this->getRenderer(), array('users' => $users));
     }
@@ -239,9 +239,7 @@ class UserController extends Controller
      */
     protected function doDeleteAction($user)
     {
-        $objectManager = $this->get('fos_user.repository.user')->getObjectManager();
-        $objectManager->remove($user);
-        $objectManager->flush();
+        $this->get('fos_user.user_manager')->deleteUser($user);
         $this->get('session')->setFlash('fos_user_user_delete', 'success');
 
         return $this->redirect($this->generateUrl('fos_user_user_list'));
@@ -280,8 +278,9 @@ class UserController extends Controller
             $encoder = $this->get('fos_user.encoder');
             $user->setPassword($encoder->encodePassword($form->getNewPassword(), $user->getSalt()));
 
-            $this->get('fos_user.repository.user')->getObjectManager()->flush();
+            $this->get('fos_user.user_manager')->updateUser($user);
             $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
+
             return $this->redirect($userUrl);
         }
 
@@ -299,7 +298,7 @@ class UserController extends Controller
      **/
     public function findUserByUsername($username)
     {
-        $user = $this->get('fos_user.repository.user')->findOneByUsername($username);
+        $user = $this->get('fos_user.user_manager')->findUserByUsername($username);
 
         if (empty($user)) {
             throw new NotFoundHttpException(sprintf('The user with username "%s" does not exist', $username));
@@ -319,7 +318,7 @@ class UserController extends Controller
     protected function findUser($key, $value)
     {
         if (!empty($value)) {
-            $user = $this->get('fos_user.repository.user')->{'findOneBy'.ucfirst($key)}($value);
+            $user = $this->get('fos_user.user_manager')->{'findOneBy'.ucfirst($key)}($value);
         }
 
         if (empty($user)) {
@@ -344,9 +343,7 @@ class UserController extends Controller
             $user->eraseCredentials();
         }
 
-        $objectManager = $this->get('fos_user.repository.user')->getObjectManager();
-        $objectManager->persist($user);
-        $objectManager->flush();
+        $this->get('fos_user.user_manager')->updateUser($user);
     }
 
     /**

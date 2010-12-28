@@ -37,6 +37,14 @@ class UserManager extends BaseUserManager
         return $this->repository->findOneBy($criteria);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function findUsers()
+    {
+        return $this->repository->findAll();
+    }
+
     public function updateUser(BaseUser $user)
     {
         $this->dm->persist($user);

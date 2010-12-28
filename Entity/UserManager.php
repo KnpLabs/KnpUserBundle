@@ -47,6 +47,14 @@ class UserManager extends BaseUserManager
     /**
      * {@inheritDoc}
      */
+    public function findUsers()
+    {
+        return $this->repository->findAll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function updateUser(BaseUser $user)
     {
         $this->em->persist($user);
