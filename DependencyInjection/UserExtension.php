@@ -70,6 +70,7 @@ class UserExtension extends Extension
                     ->setArguments(array(new Reference(sprintf('doctrine.orm.%s_entity_manager', $em)), $config['entity']))
                 ;
 
+                $container->setParameter('fos_user.validator.unique.class', $container->getParameter('fos_user.validator.entity.user.class'));
                 break;
 
             case 'odm':
@@ -83,6 +84,7 @@ class UserExtension extends Extension
                 $arguments[1] = $config['document'];
                 $definition->setArguments($arguments);
 
+                $container->setParameter('fos_user.validator.unique.class', $container->getParameter('fos_user.validator.document.user.class'));
                 break;
 
             default:
