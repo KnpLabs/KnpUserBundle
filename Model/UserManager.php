@@ -15,6 +15,15 @@ use Symfony\Component\Security\User\UserProviderInterface;
  */
 abstract class UserManager implements UserManagerInterface, UserProviderInterface
 {
+    protected $encoder;
+    protected $algorithm;
+
+    public function __construct($encoder, $algorithm)
+    {
+        $this->encoder = $encoder;
+        $this->algorithm = $algorithm;
+    }
+
     /**
      * Returns an empty user instance
      *
@@ -106,5 +115,17 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
         }
 
         return $user;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function updatePassword(User $user)
+    {
+        if (0 !== strlen($password = $user->getPlainPassword())) {
+            $user->setAlgorithm($this->algorithm);
+            $user->setPassword($this->encoder->encodePassword($password, $user->getSalt()));
+            $user->eraseCredentials();
+        }
     }
 }

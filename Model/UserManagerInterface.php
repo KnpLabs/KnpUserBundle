@@ -101,4 +101,13 @@ interface UserManagerInterface
      * @return void
      */
     function updateUser(User $user);
+
+    /**
+     * Updates a user password if a plain password is set
+     *
+     * @SecureParam(name="user", permissions="EDIT")
+     * @param User $user
+     * @return void
+     */
+    function updatePassword(User $user);
 }

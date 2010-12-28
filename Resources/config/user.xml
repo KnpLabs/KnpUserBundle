@@ -10,6 +10,8 @@
 
     <services>
         <service id="fos_user.user_manager" class="%fos_user.user_manager.class%">
+            <argument type="service" id="fos_user.encoder" />
+            <argument>%fos_user.encoder.algorithm%</argument>
             <argument type="service" id="fos_user.object_manager" />
             <argument>%fos_user.model.user.class%</argument>
         </service>

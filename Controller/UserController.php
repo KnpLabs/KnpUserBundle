@@ -86,7 +86,7 @@ class UserController extends Controller
         if ($data = $this->get('request')->request->get($form->getName())) {
             $form->bind($data);
             if ($form->isValid()) {
-                $this->saveUser($user);
+                $this->get('fos_user.user_manager')->updateUser($user);
                 $this->get('session')->setFlash('fos_user_user_update', 'success');
                 $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
                 return $this->redirect($userUrl);
@@ -124,12 +124,12 @@ class UserController extends Controller
             $user = $form->getData();
             if ($this->container->getParameter('fos_user.confirmation_email.enabled')) {
                 $user->setEnabled(false);
-                $this->saveUser($user);
+                $this->get('fos_user.user_manager')->updateUser($user);
                 $this->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
                 $url = $this->generateUrl('fos_user_user_send_confirmation_email');
             } else {
                 $user->setEnabled(true);
-                $this->saveUser($user);
+                $this->get('fos_user.user_manager')->updateUser($user);
                 $this->authenticateUser($user);
                 $url = $this->generateUrl('fos_user_user_confirmed');
             }
@@ -205,7 +205,7 @@ class UserController extends Controller
         $user->setConfirmationToken(null);
         $user->setEnabled(true);
 
-        $this->saveUser($user);
+        $this->get('fos_user.user_manager')->updateUser($user);
         $this->authenticateUser($user);
 
         return $this->redirect($this->generateUrl('fos_user_user_confirmed'));
@@ -326,24 +326,6 @@ class UserController extends Controller
         }
 
         return $user;
-    }
-
-    /**
-     * Save a user in database
-     *
-     * @param User $user
-     * @return null
-     **/
-    public function saveUser(User $user)
-    {
-        if (0 !== strlen($password = $user->getPlainPassword())) {
-            $encoder = $this->get('fos_user.encoder');
-            $user->setAlgorithm($this->container->getParameter('fos_user.encoder.algorithm'));
-            $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
-            $user->eraseCredentials();
-        }
-
-        $this->get('fos_user.user_manager')->updateUser($user);
     }
 
     /**

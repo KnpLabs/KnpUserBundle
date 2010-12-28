@@ -13,15 +13,20 @@ class UserManager extends BaseUserManager
     protected $class;
     protected $repository;
 
-    public function __construct(EntityManager $em, $class)
+    public function __construct($encoder, $algorithm, EntityManager $em, $class)
     {
         $this->em = $em;
         $this->repository = $em->getRepository($class);
 
         $metadata = $em->getClassMetadata($class);
         $this->class = $metadata->namespace.'\\'.$metadata->name;
+
+        parent::__construct($encoder, $algorithm);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function deleteUser(BaseUser $user)
     {
         $this->em->remove($user);
@@ -57,6 +62,8 @@ class UserManager extends BaseUserManager
      */
     public function updateUser(BaseUser $user)
     {
+        $this->updatePassword($user);
+
         $this->em->persist($user);
         $this->em->flush();
     }
