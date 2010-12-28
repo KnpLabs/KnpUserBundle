@@ -52,7 +52,7 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $user = $this->container->get('fos_user.user_manager');
+        $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findOneByUsername($input->getArgument('username'));
 
         if (!$user) {
