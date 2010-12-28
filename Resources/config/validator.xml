@@ -9,11 +9,7 @@
     </parameters>
 
     <services>
-        <!-- 
-            Unique Validator Service:
-            Class parameters are defined in odm.xml, or orm.xml depending of the
-            type of driver that you use.
-        -->
+        <!-- Unique Validator Service -->
         <service id="fos_user.validator.unique" class="%fos_user.validator.unique.class%">
             <argument type="service" id="fos_user.object_manager" />
             <tag name="validator.constraint_validator" alias="fos_user.validator.unique" />

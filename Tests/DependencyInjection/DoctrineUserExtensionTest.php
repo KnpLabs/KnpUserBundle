@@ -184,11 +184,12 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
     protected function getEmptyConfig()
     {
         $yaml = <<<EOF
-db_driver: odm
-password_encoder: sha1
+db_driver: mongodb
+encoder:
+    algorithm: sha1
 class:
     model:
-        user: Bundle\ExerciseUserBundle\Document\User
+        user: Bundle\FooUserBundle\Document\User
     form:
         user: ~
         change_password: ~

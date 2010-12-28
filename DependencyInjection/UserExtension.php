@@ -47,7 +47,7 @@ class UserExtension extends Extension
             throw new \InvalidArgumentException('The db_driver parameter must be defined.');
         }
 
-        if (!in_array(strtolower($config['db_driver']), array('orm', 'odm'))) {
+        if (!in_array(strtolower($config['db_driver']), array('orm', 'mongodb'))) {
             throw new \InvalidArgumentException(sprintf('Invalid db driver "%s".', $config['db_driver']));
         }
 

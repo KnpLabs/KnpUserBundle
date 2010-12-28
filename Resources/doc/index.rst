@@ -116,7 +116,7 @@ In YAML::
     # app/config/config.yml
     fos_user.config:
         db_driver: 
-            name: odm
+            name: mongodb
             
             # alternatively, you can choose an aliased name here
             document: Application\MyBundle\Document\User
@@ -127,7 +127,7 @@ Or if you prefer XML::
 
     <fos_user:config>
         <db_driver 
-            name="odm"
+            name="mongodb"
             document="Application\MyBundle\Document\User"
         />
 
@@ -224,12 +224,13 @@ Configuration example:
 
 All configuration options are listed below::
 
-    db_driver: odm
+    db_driver: mongodb
+    encoder:
+        algorithm: ~
     class:
         model:
             user: Application\MyBundle\Document\User
             group: ~
-            permission: ~
         form:
             user: ~
             group: ~
