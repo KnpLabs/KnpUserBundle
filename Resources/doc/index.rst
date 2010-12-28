@@ -195,24 +195,25 @@ All configuration options are listed below::
     db_driver: odm
     class:
         model:
-            user: Application\MyBundle\Document\User
-            group: ~
-            permission: ~
+            user:       Application\MyBundle\Document\User
         form:
-            user: ~
-            group: ~
+            user:            ~
             change_password: ~
         controller:
-            user: ~
-            group: ~
+            user:     ~
+            security: ~
+    encoder:
+        algorithm:          ~
+        encodeHashAsBase64: ~
+        iterations:         ~
+        name:               ~
     form_name:
-        user: ~
-        group: ~
+        user:            ~
         change_password: ~
     confirmation_email:
-        enabled: ~
+        enabled:    ~
         from_email: ~
-        template: ~
+        template:   ~
     template:
         renderer: ~
-        theme: ~
+        theme:    ~

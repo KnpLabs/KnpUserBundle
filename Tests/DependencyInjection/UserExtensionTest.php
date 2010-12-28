@@ -10,11 +10,44 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
 {
     protected $configuration;
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testUserLoadThrowsExceptionUnlessDatabaseDriverSet()
+    {
+        $loader = new UserExtension('testkernel');
+        $config = $this->getEmptyConfig();
+        unset($config['db_driver']);
+        $loader->configLoad($config, new ContainerBuilder());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testUserLoadThrowsExceptionUnlessDatabaseDriverIsValid()
+    {
+        $loader = new UserExtension('testkernel');
+        $config = $this->getEmptyConfig();
+        $config['db_driver'] = 'foo';
+        $loader->configLoad($config, new ContainerBuilder());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testUserLoadThrowsExceptionUnlessUserModelClassSet()
+    {
+        $loader = new UserExtension('testkernel');
+        $config = $this->getEmptyConfig();
+        unset($config['class']['model']['user']);
+        $loader->configLoad($config, new ContainerBuilder());
+    }
+
     public function testUserLoadModelClassWithDefaults()
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\ExerciseUserBundle\Document\User', 'fos_user.model.user.class');
+        $this->assertParameter('Application\MyBundle\Document\User', 'fos_user.model.user.class');
     }
 
     public function testUserLoadModelClass()
@@ -152,6 +185,25 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter('theme', 'fos_user.template.theme');
     }
 
+    public function testUserLoadEncoderConfigWithDefaults()
+    {
+        $this->createEmptyConfiguration();
+
+        $this->assertParameter('sha512', 'fos_user.encoder.algorithm');
+        $this->assertParameter(true, 'fos_user.encoder.encodeHashAsBase64');
+        $this->assertParameter('3', 'fos_user.encoder.iterations');
+    }
+
+    public function testUserLoadEncoderConfig()
+    {
+        $this->createFullConfiguration();
+
+        $this->assertParameter('algorithm', 'fos_user.encoder.algorithm');
+        $this->assertParameter('encodeHashAsBase64', 'fos_user.encoder.encodeHashAsBase64');
+        $this->assertParameter('iterations', 'fos_user.encoder.iterations');
+        $this->assertAlias('security.encoder.name', 'fos_user.encoder');
+    }
+
     /**
      * @return ContainerBuilder
      */
@@ -185,26 +237,30 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $yaml = <<<EOF
 db_driver: odm
-password_encoder: sha1
 class:
     model:
-        user: Bundle\ExerciseUserBundle\Document\User
+        user: Application\MyBundle\Document\User
     form:
-        user: ~
+        user:            ~
         change_password: ~
     controller:
-        user: ~
+        user:     ~
         security: ~
+encoder:
+    algorithm:          ~
+    encodeHashAsBase64: ~
+    iterations:         ~
+    name:               ~
 form_name:
-    user: ~
+    user:            ~
     change_password: ~
 confirmation_email:
-    enabled: ~
+    enabled:    ~
     from_email: ~
-    template: ~
+    template:   ~
 template:
     renderer: ~
-    theme: ~
+    theme:    ~
 EOF;
         $parser = new Parser();
         return $parser->parse($yaml);
@@ -223,6 +279,11 @@ EOF;
         return $config;
     }
 
+    public function assertAlias($value, $key)
+    {
+        $this->assertEquals($value, $this->configuration->getAlias($key), sprintf('%s alias is correct', $key));
+    }
+
     public function assertParameter($value, $key)
     {
         $this->assertEquals($value, $this->configuration->getParameter($key), sprintf('%s parameter is correct', $key));
@@ -230,7 +291,7 @@ EOF;
 
     public function assertHasDefinition($id)
     {
-        $this->assertTrue(($this->configuration->hasDefinition($id) ? : $this->configuration->hasAlias($id)));
+        $this->assertTrue(($this->configuration->hasDefinition($id) ?: $this->configuration->hasAlias($id)));
     }
 
     public function tearDown()
