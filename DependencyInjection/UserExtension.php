@@ -21,12 +21,6 @@ class UserExtension extends Extension
             }
         }
 
-        // ensure the db_driver is configured
-        if (!isset($config['db_driver'])) {
-            throw new \InvalidArgumentException('The db_driver parameter must be defined.');
-        }
-        $this->configureDbDriver($config['db_driver'], $container);
-
         // change authentication provider class to support multiple algorithms
         $container->setParameter('security.authentication.provider.dao.class', 'Bundle\FOS\UserBundle\Security\Authentication\Provider\DaoAuthenticationProvider');
 
@@ -45,51 +39,19 @@ class UserExtension extends Extension
         $this->remapParametersNamespaces($config['class'], $container, array(
             'model'         => 'fos_user.model.%s.class',
             'form'          => 'fos_user.form.%s.class',
-            'controller'    => 'fos_user.controller.%s.class'
+            'controller'    => 'fos_user.controller.%s.class',
         ));
-    }
 
-    protected function configureDbDriver(array $config, ContainerBuilder $container)
-    {
-        if (!isset($config['name'])) {
-            throw new \InvalidArgumentException('A "name" must be configured for the db driver.');
+        // ensure the db_driver is configured
+        if (!isset($config['db_driver'])) {
+            throw new \InvalidArgumentException('The db_driver parameter must be defined.');
         }
 
-        switch(strtolower($config['name'])) {
-            case 'orm':
-                if (!isset($config['entity'])) {
-                    throw new \InvalidArgumentException('"entity" must be configured for the ORM db driver.');
-                }
-
-                $em = isset($config['em'])? $config['em'] : 'default';
-
-                $container->setAlias('fos_user.user_manager', 'fos_user.entity.user_manager');
-                $container
-                    ->getDefinition('fos_user.entity.user_manager')
-                    ->setArguments(array(new Reference(sprintf('doctrine.orm.%s_entity_manager', $em)), $config['entity']))
-                ;
-
-                $container->setParameter('fos_user.validator.unique.class', $container->getParameter('fos_user.validator.entity.user.class'));
-                break;
-
-            case 'odm':
-                if (!isset($config['document'])) {
-                    throw new \InvalidArgumentException('"document" must be configured for the ODM driver.');
-                }
-
-                $container->setAlias('fos_user.user_manager', 'fos_user.document.user_manager');
-                $definition = $container->getDefinition('fos_user.document.user_manager');
-                $arguments = $definition->getArguments();
-                $arguments[1] = $config['document'];
-                $definition->setArguments($arguments);
-
-                $container->setParameter('fos_user.validator.unique.class', $container->getParameter('fos_user.validator.document.user.class'));
-                break;
-
-            default:
-                throw new \InvalidArgumentException(sprintf('Invalid db driver "%s".', $config['name']));
-
+        if (!in_array(strtolower($config['db_driver']), array('orm', 'odm'))) {
+            throw new \InvalidArgumentException(sprintf('Invalid db driver "%s".', $config['db_driver']));
         }
+
+        $loader->load(sprintf('%s.xml', $config['db_driver']));
     }
 
     protected function configurePasswordEncoder($config, ContainerBuilder $container)

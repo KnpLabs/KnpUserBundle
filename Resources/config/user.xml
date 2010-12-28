@@ -6,27 +6,13 @@
 
     <parameters>
         <parameter key="fos_user.model.user.class">Bundle\FOS\UserBundle\Model\User</parameter>
-        
-        <parameter key="fos_user.entity.user_manager.class">Bundle\FOS\UserBundle\Entity\UserManager</parameter>
-        <parameter key="fos_user.document.user_manager.class">Bundle\FOS\UserBundle\Document\UserManager</parameter>
-        
-        <parameter key="fos_user.validator.entity.user.class">Bundle\FOS\UserBundle\Validator\Doctrine\ORM\UniqueValidator</parameter>
-        <parameter key="fos_user.validator.document.user.class">Bundle\FOS\UserBundle\Validator\Doctrine\ODM\MongoDB\UniqueValidator</parameter>
     </parameters>
 
     <services>
-        <service id="fos_user.document.user_manager" class="%fos_user.document.user_manager.class%">
-            <argument type="service" id="doctrine.odm.mongodb.document_manager" />
-            <argument />
+        <service id="fos_user.user_manager" class="%fos_user.user_manager.class%">
+            <argument type="service" id="fos_user.object_manager" />
+            <argument>%fos_user.model.user.class%</argument>
         </service>
-    
-        <service id="fos_user.entity.user_manager" class="%fos_user.entity.user_manager.class%">
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
-            <argument />
-        </service>
-        
-        <!-- This alias is set by the UserExtension depending on your configuration -->
-        <service id="fos_user.user_manager" alias="fos_user.entity.user_manager" />
     </services>
 
 </container>
