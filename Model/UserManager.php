@@ -120,7 +120,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     /**
      * {@inheritDoc}
      */
-    public function updatePassword(User $user)
+    public function updatePassword(UserInterface $user)
     {
         if (0 !== strlen($password = $user->getPlainPassword())) {
             $user->setAlgorithm($this->algorithm);

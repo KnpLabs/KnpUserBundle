@@ -2,7 +2,7 @@
 
 namespace Bundle\FOS\UserBundle\Document;
 
-use Bundle\FOS\UserBundle\Model\User as BaseUser;
+use Bundle\FOS\UserBundle\Model\UserInterface;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Bundle\FOS\UserBundle\Model\UserManager as BaseUserManager;
 
@@ -26,7 +26,7 @@ class UserManager extends BaseUserManager
     /**
      * {@inheritDoc}
      */
-    public function deleteUser(BaseUser $user)
+    public function deleteUser(UserInterface $user)
     {
         $this->dm->remove($user);
         $this->dm->flush();
@@ -59,7 +59,7 @@ class UserManager extends BaseUserManager
     /**
      * {@inheritDoc}
      */
-    public function updateUser(BaseUser $user)
+    public function updateUser(UserInterface $user)
     {
         $this->updatePassword($user);
 

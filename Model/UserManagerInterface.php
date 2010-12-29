@@ -40,7 +40,7 @@ interface UserManagerInterface
      * @param User $user
      * @return void
      */
-    function deleteUser(User $user);
+    function deleteUser(UserInterface $user);
 
     /**
      * Finds one user by the given criteria
@@ -100,7 +100,7 @@ interface UserManagerInterface
      * @param User $user
      * @return void
      */
-    function updateUser(User $user);
+    function updateUser(UserInterface $user);
 
     /**
      * Updates a user password if a plain password is set
@@ -109,5 +109,5 @@ interface UserManagerInterface
      * @param User $user
      * @return void
      */
-    function updatePassword(User $user);
+    function updatePassword(UserInterface $user);
 }

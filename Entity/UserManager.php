@@ -2,7 +2,7 @@
 
 namespace Bundle\FOS\UserBundle\Entity;
 
-use Bundle\FOS\UserBundle\Model\User as BaseUser;
+use Bundle\FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Security\Exception\UsernameNotFoundException;
 use Doctrine\ORM\EntityManager;
 use Bundle\FOS\UserBundle\Model\UserManager as BaseUserManager;
@@ -27,7 +27,7 @@ class UserManager extends BaseUserManager
     /**
      * {@inheritDoc}
      */
-    public function deleteUser(BaseUser $user)
+    public function deleteUser(UserInterface $user)
     {
         $this->em->remove($user);
         $this->em->flush();
@@ -60,7 +60,7 @@ class UserManager extends BaseUserManager
     /**
      * {@inheritDoc}
      */
-    public function updateUser(BaseUser $user)
+    public function updateUser(UserInterface $user)
     {
         $this->updatePassword($user);
 
