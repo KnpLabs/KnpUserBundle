@@ -9,7 +9,7 @@
 
 namespace Bundle\FOS\UserBundle\Model;
 
-abstract class Group
+abstract class Group implements GroupInterface
 {
     protected $id;
     protected $name;

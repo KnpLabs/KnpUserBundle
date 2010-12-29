@@ -591,6 +591,7 @@ abstract class User implements AdvancedAccountInterface, UserInterface
             $this->addRole($role);
         }
     }
+
     /**
      * Get groups granted to the user
      *
@@ -630,10 +631,10 @@ abstract class User implements AdvancedAccountInterface, UserInterface
     /**
      * Add a group to the user groups
      *
-     * @param Group $group
+     * @param GroupInterface $group
      * @return null
      **/
-    public function addGroup(Group $group)
+    public function addGroup(GroupInterface $group)
     {
         if (!$this->getGroups()->contains($group)) {
             $this->getGroups()->add($group);
@@ -643,10 +644,10 @@ abstract class User implements AdvancedAccountInterface, UserInterface
     /**
      * Remove a group from the user groups
      *
-     * @param Group $group
+     * @param GroupInterface $group
      * @return null
      **/
-    public function removeGroup(Group $group)
+    public function removeGroup(GroupInterface $group)
     {
         if ($this->getGroups()->contains($group)) {
             $this->getGroups()->remove($group);
