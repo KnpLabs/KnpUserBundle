@@ -216,14 +216,3 @@ All configuration options are listed below::
     template:
         renderer: ~
         theme: ~
-
-## CREDITS
-
-Non-exhaustive list of developers who contributed:
-
-- Thibault Duplessis
-- Matthieu Bontemps
-- Gordon Franke
-- Henrik Bjornskov
-- David Ashwood
-- Antoine Hérault
