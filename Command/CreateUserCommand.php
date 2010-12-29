@@ -72,19 +72,15 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $userRepo = $this->container->get('fos_user.repository.user');
-        $encoder = $this->container->get('fos_user.encoder');
-
-        $user = $userRepo->createObjectInstance();
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->createUser();
         $user->setUsername($input->getArgument('username'));
         $user->setEmail($input->getArgument('email'));
-        $user->setAlgorithm($this->container->getParameter('fos_user.encoder.algorithm'));
-        $user->setPassword($encoder->encodePassword($input->getArgument('password'), $user->getSalt()));
+        $user->setPlainPassword($input->getArgument('password'));
         $user->setEnabled(!$input->getOption('inactive'));
         $user->setSuperAdmin(!!$input->getOption('super-admin'));
 
-        $userRepo->getObjectManager()->persist($user);
-        $userRepo->getObjectManager()->flush();
+        $userManager->updateUser($user);
 
         $output->writeln(sprintf('Created user <comment>%s</comment>', $user->getUsername()));
     }

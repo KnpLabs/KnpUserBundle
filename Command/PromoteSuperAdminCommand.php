@@ -53,16 +53,15 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $userRepo = $this->container->get('fos_user.repository.user');
-        $user = $userRepo->findOneByUsername($input->getArgument('username'));
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findOneByUsername($input->getArgument('username'));
 
         if (!$user) {
             throw new \InvalidArgumentException(sprintf('The user "%s" does not exist', $input->getArgument('username')));
         }
         $user->setSuperAdmin(true);
 
-        $userRepo->getObjectManager()->persist($user);
-        $userRepo->getObjectManager()->flush();
+        $userManager->updateUser($user);
 
         $output->writeln(sprintf('User "%s" has been promoted as a super administrator.', $user->getUsername()));
     }

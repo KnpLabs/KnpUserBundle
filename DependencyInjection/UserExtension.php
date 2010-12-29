@@ -2,6 +2,8 @@
 
 namespace Bundle\FOS\UserBundle\DependencyInjection;
 
+use Symfony\Component\DependencyInjection\Reference;
+
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -11,23 +13,12 @@ class UserExtension extends Extension
 {
     public function configLoad(array $config, ContainerBuilder $container)
     {
-        $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
-
-        // ensure the db_driver is configured
-        if (!isset($config['db_driver'])) {
-            throw new \InvalidArgumentException('The db_driver parameter must be defined');
-        } elseif (!in_array($config['db_driver'], array('orm', 'odm'))) {
-            throw new \InvalidArgumentException(sprintf('The db_driver "%s" is not supported (choose either "odm" or "orm")', $config['db_driver']));
-        }
-
-        // ensure the user model class is configured
-        if (!isset($config['class']['model']['user'])) {
-            throw new \InvalidArgumentException('The user model class must be defined');
-        }
-
         // load all service configuration files (the db_driver first)
-        foreach (array($config['db_driver'], 'model', 'controller', 'templating', 'email', 'form', 'validator', 'security') as $basename) {
-            $loader->load(sprintf('%s.xml', $basename));
+        if (!$container->hasDefinition('fos_user.document.user_manager')) {
+            $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
+            foreach (array('controller', 'templating', 'email', 'form', 'validator', 'security') as $basename) {
+                $loader->load(sprintf('%s.xml', $basename));
+            }
         }
 
         // change authentication provider class to support multiple algorithms
@@ -41,7 +32,6 @@ class UserExtension extends Extension
         $this->remapParametersNamespaces($config, $container, array(
             ''                      => array('session_create_success_route' => 'fos_user.session_create.success_route'),
             'template'              => 'fos_user.template.%s',
-            'remember_me'           => 'fos_user.remember_me.%s',
             'form_name'             => 'fos_user.form.%s.name',
             'confirmation_email'    => 'fos_user.confirmation_email.%s',
         ));
@@ -49,8 +39,19 @@ class UserExtension extends Extension
         $this->remapParametersNamespaces($config['class'], $container, array(
             'model'         => 'fos_user.model.%s.class',
             'form'          => 'fos_user.form.%s.class',
-            'controller'    => 'fos_user.controller.%s.class'
+            'controller'    => 'fos_user.controller.%s.class',
         ));
+
+        // ensure the db_driver is configured
+        if (!isset($config['db_driver'])) {
+            throw new \InvalidArgumentException('The db_driver parameter must be defined.');
+        }
+
+        if (!in_array(strtolower($config['db_driver']), array('orm', 'mongodb'))) {
+            throw new \InvalidArgumentException(sprintf('Invalid db driver "%s".', $config['db_driver']));
+        }
+
+        $loader->load(sprintf('%s.xml', $config['db_driver']));
     }
 
     protected function configurePasswordEncoder($config, ContainerBuilder $container)
@@ -100,19 +101,6 @@ class UserExtension extends Extension
                 }
             }
         }
-    }
-
-    /**
-     * Get a (Document|Entity)Repository, based on db driver configuration
-     *
-     * @param  DocumentManager|EntityManager $objectManager
-     * @param  string                        $objectClass
-     *
-     * @return DocumentRepository|EntityRepository
-     */
-    public static function getRepository($objectManager, $objectClass)
-    {
-        return $objectManager->getRepository($objectClass);
     }
 
     /**

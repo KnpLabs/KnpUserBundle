@@ -23,10 +23,10 @@ class UserController extends Controller
 {
     /**
      * Show all users
-     **/
+     */
     public function listAction()
     {
-        $users = $this->get('fos_user.repository.user')->findAll();
+        $users = $this->get('fos_user.user_manager')->findUsers();
 
         return $this->render('FOS\UserBundle:User:list.'.$this->getRenderer(), array('users' => $users));
     }
@@ -36,14 +36,7 @@ class UserController extends Controller
      */
     public function showAction($username)
     {
-        return $this->doShowAction($this->findUserByUsername($username));
-    }
-
-    /**
-     * @SecureParam(name="user", permissions="VIEW")
-     */
-    protected function doShowAction($user)
-    {
+        $user = $this->findUserBy('username', $username);
         return $this->render('FOS\UserBundle:User:show.'.$this->getRenderer(), array('user' => $user));
     }
 
@@ -52,14 +45,7 @@ class UserController extends Controller
      */
     public function editAction($username)
     {
-        return $this->doEditAction($this->findUserByUsername($username));
-    }
-
-    /**
-     * @SecureParam(name="user", permissions="EDIT")
-     */
-    protected function doEditAction($user)
-    {
+        $user = $this->findUserBy('username', $username);
         $form = $this->createForm($user);
 
         return $this->render('FOS\UserBundle:User:edit.'.$this->getRenderer(), array(
@@ -73,24 +59,14 @@ class UserController extends Controller
      */
     public function updateAction($username)
     {
-        return $this->doUpdateAction($this->findUserByUsername($username));
-    }
+        $user = $this->findUserBy('username', $username);
+        $form->bind($this->get('request')->request->get($form->getName()));
 
-    /**
-     * @SecureParam(name="user", permissions="EDIT")
-     */
-    protected function doUpdateAction($user)
-    {
-        $form = $this->createForm($user);
-
-        if ($data = $this->get('request')->request->get($form->getName())) {
-            $form->bind($data);
-            if ($form->isValid()) {
-                $this->saveUser($user);
-                $this->get('session')->setFlash('fos_user_user_update', 'success');
-                $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
-                return $this->redirect($userUrl);
-            }
+        if ($form->isValid()) {
+            $this->get('fos_user.user_manager')->updateUser($user);
+            $this->get('session')->setFlash('fos_user_user_update', 'success');
+            $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
+            return $this->redirect($userUrl);
         }
 
         return $this->render('FOS\UserBundle:User:edit.'.$this->getRenderer(), array(
@@ -124,12 +100,12 @@ class UserController extends Controller
             $user = $form->getData();
             if ($this->container->getParameter('fos_user.confirmation_email.enabled')) {
                 $user->setEnabled(false);
-                $this->saveUser($user);
+                $this->get('fos_user.user_manager')->updateUser($user);
                 $this->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
                 $url = $this->generateUrl('fos_user_user_send_confirmation_email');
             } else {
                 $user->setEnabled(true);
-                $this->saveUser($user);
+                $this->get('fos_user.user_manager')->updateUser($user);
                 $this->authenticateUser($user);
                 $url = $this->generateUrl('fos_user_user_confirmed');
             }
@@ -154,16 +130,13 @@ class UserController extends Controller
         }
 
         $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
-        $user = $this->findUser('email', $email);
-
-        $mailer = $this->get('mailer');
-        $message = $this->getConfirmationEmailMessage($user);
-        $mailer->send($message);
+        $user = $this->findUserBy('email', $email);
+        $this->sendConfirmationEmailMessage($user);
 
         return $this->redirect($this->generateUrl('fos_user_user_check_confirmation_email'));
     }
 
-    protected function getConfirmationEmailMessage(User $user)
+    protected function sendConfirmationEmailMessage(User $user)
     {
         $template = $this->container->getParameter('fos_user.confirmation_email.template');
         // Render the email, use the first line as the subject, and the rest as the body
@@ -174,13 +147,17 @@ class UserController extends Controller
         $renderedLines = explode("\n", trim($rendered));
         $subject = $renderedLines[0];
         $body = implode("\n", array_slice($renderedLines, 1));
-
         $fromEmail = $this->container->getParameter('fos_user.confirmation_email.from_email');
-        return \Swift_Message::newInstance()
+
+        $mailer = $this->get('mailer');
+
+        $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom($fromEmail)
             ->setTo($user->getEmail())
             ->setBody($body);
+
+        $mailer->send($message);
     }
 
     /**
@@ -189,7 +166,7 @@ class UserController extends Controller
     public function checkConfirmationEmailAction()
     {
         $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
-        $user = $this->findUser('email', $email);
+        $user = $this->findUserBy('email', $email);
 
         return $this->render('FOS\UserBundle:User:checkConfirmationEmail.'.$this->getRenderer(), array(
             'user' => $user,
@@ -201,11 +178,11 @@ class UserController extends Controller
      */
     public function confirmAction($token)
     {
-        $user = $this->findUser('confirmationToken', $token);
+        $user = $this->findUserBy('confirmationToken', $token);
         $user->setConfirmationToken(null);
         $user->setEnabled(true);
 
-        $this->saveUser($user);
+        $this->get('fos_user.user_manager')->updateUser($user);
         $this->authenticateUser($user);
 
         return $this->redirect($this->generateUrl('fos_user_user_confirmed'));
@@ -216,11 +193,7 @@ class UserController extends Controller
      */
     public function confirmedAction()
     {
-        $user = $this->get('security.context')->getUser();
-        if (!$user) {
-            throw new ForbiddenHttpException(sprintf('No user confirmed'));
-        }
-
+        $user = $this->getUser();
         return $this->render('FOS\UserBundle:User:confirmed.'.$this->getRenderer(), array(
             'user' => $user,
         ));
@@ -231,17 +204,8 @@ class UserController extends Controller
      */
     public function deleteAction($username)
     {
-        return $this->doDeleteAction($this->findUserByUsername($username));
-    }
-
-    /**
-     * @SecureParam(name="user", permissions="DELETE")
-     */
-    protected function doDeleteAction($user)
-    {
-        $objectManager = $this->get('fos_user.repository.user')->getObjectManager();
-        $objectManager->remove($user);
-        $objectManager->flush();
+        $user = $this->findUserBy('username', $username);
+        $this->get('fos_user.user_manager')->deleteUser($user);
         $this->get('session')->setFlash('fos_user_user_delete', 'success');
 
         return $this->redirect($this->generateUrl('fos_user_user_list'));
@@ -252,11 +216,7 @@ class UserController extends Controller
      */
     public function changePasswordAction()
     {
-        $user = $this->get('security.context')->getUser();
-        if (!$user) {
-            throw new ForbiddenHttpException(sprintf('Must be logged in to change your password'));
-        }
-
+        $user = $this->getUser();
         $form = $this->createChangePasswordForm($user);
 
         return $this->render('FOS\UserBundle:User:changePassword.'.$this->getRenderer(), array(
@@ -269,19 +229,14 @@ class UserController extends Controller
      */
     public function changePasswordUpdateAction()
     {
-        $user = $this->get('security.context')->getUser();
-        if (!$user) {
-            throw new ForbiddenHttpException(sprintf('Must be logged in to change your password'));
-        }
-
+        $user = $this->getUser();
         $form = $this->createChangePasswordForm($user);
         $form->bind($this->get('request')->request->get($form->getName()));
-        if ($form->isValid()) {
-            $encoder = $this->get('fos_user.encoder');
-            $user->setPassword($encoder->encodePassword($form->getNewPassword(), $user->getSalt()));
 
-            $this->get('fos_user.repository.user')->getObjectManager()->flush();
+        if ($form->isValid()) {
+            $this->get('fos_user.user_manager')->updateUser($user);
             $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
+
             return $this->redirect($userUrl);
         }
 
@@ -291,18 +246,16 @@ class UserController extends Controller
     }
 
     /**
-     * Find a username by its lowercased username
+     * Get a user from the security context
      *
-     * @param string $username username
-     * @throw NotFoundException if user does not exist
+     * @throw ForbiddenHttpException if no user is authenticated
      * @return User
-     **/
-    public function findUserByUsername($username)
+     */
+    protected function getUser()
     {
-        $user = $this->get('fos_user.repository.user')->findOneByUsername($username);
-
-        if (empty($user)) {
-            throw new NotFoundHttpException(sprintf('The user with username "%s" does not exist', $username));
+        $user = $this->get('security.context')->getUser();
+        if (!$user) {
+            throw new ForbiddenHttpException(sprintf('Must be logged in to change your password'));
         }
 
         return $user;
@@ -316,10 +269,10 @@ class UserController extends Controller
      * @throw NotFoundException if user does not exist
      * @return User
      */
-    protected function findUser($key, $value)
+    protected function findUserBy($key, $value)
     {
         if (!empty($value)) {
-            $user = $this->get('fos_user.repository.user')->{'findOneBy'.ucfirst($key)}($value);
+            $user = $this->get('fos_user.user_manager')->{'findUserBy'.ucfirst($key)}($value);
         }
 
         if (empty($user)) {
@@ -330,30 +283,10 @@ class UserController extends Controller
     }
 
     /**
-     * Save a user in database
-     *
-     * @param User $user
-     * @return null
-     **/
-    public function saveUser(User $user)
-    {
-        if (0 !== strlen($password = $user->getPlainPassword())) {
-            $encoder = $this->get('fos_user.encoder');
-            $user->setAlgorithm($this->container->getParameter('fos_user.encoder.algorithm'));
-            $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
-            $user->eraseCredentials();
-        }
-
-        $objectManager = $this->get('fos_user.repository.user')->getObjectManager();
-        $objectManager->persist($user);
-        $objectManager->flush();
-    }
-
-    /**
      * Authenticate a user with Symfony Security
      *
      * @return null
-     **/
+     */
     public function authenticateUser(User $user)
     {
         $token = new UsernamePasswordToken($user, null, $user->getRoles());
@@ -370,7 +303,7 @@ class UserController extends Controller
     {
         $form = $this->get('fos_user.form.user');
         if (null === $object) {
-            $object = $this->get('fos_user.repository.user')->createObjectInstance();
+            $object = $this->get('fos_user.user_manager')->createUser();
         }
 
         $form->setData($object);

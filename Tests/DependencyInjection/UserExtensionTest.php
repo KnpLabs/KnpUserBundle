@@ -61,14 +61,14 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertHasDefinition('fos_user.repository.user');
+        $this->assertHasDefinition('fos_user.user_manager');
     }
 
     public function testUserLoadRepositoryClass()
     {
         $this->createFullConfiguration();
 
-        $this->assertHasDefinition('fos_user.repository.user');
+        $this->assertHasDefinition('fos_user.user_manager');
     }
 
     public function testUserLoadFormClassWithDefaults()
@@ -236,7 +236,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
     protected function getEmptyConfig()
     {
         $yaml = <<<EOF
-db_driver: odm
+db_driver: mongodb
 class:
     model:
         user: Application\MyBundle\Document\User

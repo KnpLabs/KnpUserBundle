@@ -57,7 +57,7 @@ ORM User class:
     use Bundle\FOS\UserBundle\Entity\User as BaseUser;
 
     /**
-     * @orm:Entity(repositoryClass="Bundle\FOS\UserBundle\Entity\UserRepository")
+     * @orm:Entity
      */
     class User extends BaseUser {}
 
@@ -72,7 +72,7 @@ MongoDB User class:
     use Bundle\FOS\UserBundle\Document\User as BaseUser;
 
     /**
-     * @mongodb:Document(repositoryClass="Bundle\FOS\UserBundle\Document\UserRepository")
+     * @mongodb:Document
      */
     class User extends BaseUser {}
 
@@ -81,24 +81,56 @@ Choose ORM or ODM database driver
 
 At a minimum, your configuration must define your DB driver ("orm" or "odm") and User class.
 
+ORM
+~~~
+
 In YAML::
 
     # app/config/config.yml
-
     fos_user.config:
-        db_driver: orm
-        class:
-            model:
-                user: Application\MyBundle\Entity\User
+        db_driver: 
+            name: orm
+            
+            # alternatively, you can choose an aliased name here
+            entity: Application\MyBundle\Entity\User
+            
+            # the entity manager to use
+            em: default 
 
 Or if you prefer XML::
 
     # app/config/config.xml
 
-    <fos_user:config
-        db_driver="orm"
-        user_class="Application\MyBundle\Entity\User"
-    />
+    <fos_user:config>
+        <db_driver 
+            name="orm"
+            entity="Application\MyBundle\Entity\User"
+            em="default"
+        />
+
+ODM
+~~~
+
+In YAML::
+
+    # app/config/config.yml
+    fos_user.config:
+        db_driver: 
+            name: mongodb
+            
+            # alternatively, you can choose an aliased name here
+            document: Application\MyBundle\Document\User
+
+Or if you prefer XML::
+
+    # app/config/config.xml
+
+    <fos_user:config>
+        <db_driver 
+            name="mongodb"
+            document="Application\MyBundle\Document\User"
+        />
+
 
 Add authentication routes
 -------------------------
@@ -154,9 +186,9 @@ That's the way UserBundle's internal controllers are built.
 Access the current user class
 -----------------------------
 
-A new instance of your User class can be created by the user repository::
+A new instance of your User class can be created by the user manager:
 
-    $user = $userRepository->createObjectInstance();
+    $user = $userManager->createUser();
 
 `$user` is now an Entity or a Document, depending on the configuration.
 
@@ -192,7 +224,7 @@ Configuration example:
 
 All configuration options are listed below::
 
-    db_driver: odm
+    db_driver: mongodb
     class:
         model:
             user: Application\MyBundle\Document\User

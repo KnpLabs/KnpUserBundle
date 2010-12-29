@@ -11,7 +11,6 @@
 namespace Bundle\FOS\UserBundle\Model;
 
 use Symfony\Component\Security\Role\RoleInterface;
-
 use Bundle\FOS\UserBundle\Util\String;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -23,7 +22,7 @@ use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
  * Storage agnostic user object
  * Has validator annotation, but database mapping must be done in a subclass.
  */
-abstract class User implements AdvancedAccountInterface
+abstract class User implements AdvancedAccountInterface, UserInterface
 {
     const ROLE_DEFAULT    = 'ROLE_USER';
     const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
@@ -442,7 +441,7 @@ abstract class User implements AdvancedAccountInterface
      * @param User $user
      * @return boolean
      */
-    public function is(User $user = null)
+    public function is(UserInterface $user = null)
     {
         return null !== $user && $this->getUsername() === $user->getUsername();
     }
