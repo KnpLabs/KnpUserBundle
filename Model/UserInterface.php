@@ -32,6 +32,8 @@ interface UserInterface
 
     public function setSuperAdmin($boolean);
 
+    public function getConfirmationToken();
+
     public function setConfirmationToken($confirmationToken);
 
     public function hasRole($role);
