@@ -156,7 +156,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter(false, 'fos_user.confirmation_email.enabled');
-        $this->assertParameter('webmaster@site.org', 'fos_user.confirmation_email.from_email');
+        $this->assertParameter('webmaster@example.com', 'fos_user.confirmation_email.from_email');
         $this->assertParameter('FOS\UserBundle:User:confirmationEmail', 'fos_user.confirmation_email.template');
     }
 

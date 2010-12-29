@@ -51,6 +51,11 @@ class UserExtension extends Extension
             throw new \InvalidArgumentException(sprintf('Invalid db driver "%s".', $config['db_driver']));
         }
 
+        // ensure the user model class is configured
+        if (!isset($config['class']['model']['user'])) {
+            throw new \InvalidArgumentException('The user model class must be defined');
+        }
+
         $loader->load(sprintf('%s.xml', $config['db_driver']));
     }
 
