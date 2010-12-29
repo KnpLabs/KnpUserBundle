@@ -36,14 +36,7 @@ class UserController extends Controller
      */
     public function showAction($username)
     {
-        return $this->doShowAction($this->findUserBy('username', $username));
-    }
-
-    /**
-     * @SecureParam(name="user", permissions="VIEW")
-     */
-    protected function doShowAction($user)
-    {
+        $user = $this->findUserBy('username', $username);
         return $this->render('FOS\UserBundle:User:show.'.$this->getRenderer(), array('user' => $user));
     }
 
@@ -52,14 +45,7 @@ class UserController extends Controller
      */
     public function editAction($username)
     {
-        return $this->doEditAction($this->findUserBy('username', $username));
-    }
-
-    /**
-     * @SecureParam(name="user", permissions="EDIT")
-     */
-    protected function doEditAction($user)
-    {
+        $user = $this->findUserBy('username', $username);
         $form = $this->createForm($user);
 
         return $this->render('FOS\UserBundle:User:edit.'.$this->getRenderer(), array(
@@ -73,15 +59,7 @@ class UserController extends Controller
      */
     public function updateAction($username)
     {
-        return $this->doUpdateAction($this->findUserBy('username', $username));
-    }
-
-    /**
-     * @SecureParam(name="user", permissions="EDIT")
-     */
-    protected function doUpdateAction($user)
-    {
-        $form = $this->createForm($user);
+        $user = $this->findUserBy('username', $username);
         $form->bind($this->get('request')->request->get($form->getName()));
 
         if ($form->isValid()) {
@@ -226,14 +204,7 @@ class UserController extends Controller
      */
     public function deleteAction($username)
     {
-        return $this->doDeleteAction($this->findUserBy('username', $username));
-    }
-
-    /**
-     * @SecureParam(name="user", permissions="DELETE")
-     */
-    protected function doDeleteAction($user)
-    {
+        $user = $this->findUserBy('username', $username);
         $this->get('fos_user.user_manager')->deleteUser($user);
         $this->get('session')->setFlash('fos_user_user_delete', 'success');
 
