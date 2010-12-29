@@ -82,15 +82,13 @@ class UserController extends Controller
     protected function doUpdateAction($user)
     {
         $form = $this->createForm($user);
+        $form->bind($this->get('request')->request->get($form->getName()));
 
-        if ($data = $this->get('request')->request->get($form->getName())) {
-            $form->bind($data);
-            if ($form->isValid()) {
-                $this->get('fos_user.user_manager')->updateUser($user);
-                $this->get('session')->setFlash('fos_user_user_update', 'success');
-                $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
-                return $this->redirect($userUrl);
-            }
+        if ($form->isValid()) {
+            $this->get('fos_user.user_manager')->updateUser($user);
+            $this->get('session')->setFlash('fos_user_user_update', 'success');
+            $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
+            return $this->redirect($userUrl);
         }
 
         return $this->render('FOS\UserBundle:User:edit.'.$this->getRenderer(), array(
@@ -262,6 +260,7 @@ class UserController extends Controller
         $user = $this->getUser();
         $form = $this->createChangePasswordForm($user);
         $form->bind($this->get('request')->request->get($form->getName()));
+
         if ($form->isValid()) {
             $this->get('fos_user.user_manager')->updateUser($user);
             $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
