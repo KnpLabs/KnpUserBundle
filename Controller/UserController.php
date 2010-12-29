@@ -216,11 +216,7 @@ class UserController extends Controller
      */
     public function confirmedAction()
     {
-        $user = $this->get('security.context')->getUser();
-        if (!$user) {
-            throw new ForbiddenHttpException(sprintf('No user confirmed'));
-        }
-
+        $user = $this->getUser();
         return $this->render('FOS\UserBundle:User:confirmed.'.$this->getRenderer(), array(
             'user' => $user,
         ));
@@ -250,11 +246,7 @@ class UserController extends Controller
      */
     public function changePasswordAction()
     {
-        $user = $this->get('security.context')->getUser();
-        if (!$user) {
-            throw new ForbiddenHttpException(sprintf('Must be logged in to change your password'));
-        }
-
+        $user = $this->getUser();
         $form = $this->createChangePasswordForm($user);
 
         return $this->render('FOS\UserBundle:User:changePassword.'.$this->getRenderer(), array(
@@ -267,11 +259,7 @@ class UserController extends Controller
      */
     public function changePasswordUpdateAction()
     {
-        $user = $this->get('security.context')->getUser();
-        if (!$user) {
-            throw new ForbiddenHttpException(sprintf('Must be logged in to change your password'));
-        }
-
+        $user = $this->getUser();
         $form = $this->createChangePasswordForm($user);
         $form->bind($this->get('request')->request->get($form->getName()));
         if ($form->isValid()) {
@@ -284,6 +272,22 @@ class UserController extends Controller
         return $this->render('FOS\UserBundle:User:changePassword.'.$this->getRenderer(), array(
             'form' => $form
         ));
+    }
+
+    /**
+     * Get a user from the security context
+     *
+     * @throw ForbiddenHttpException if no user is authenticated
+     * @return User
+     */
+    protected function getUser()
+    {
+        $user = $this->get('security.context')->getUser();
+        if (!$user) {
+            throw new ForbiddenHttpException(sprintf('Must be logged in to change your password'));
+        }
+
+        return $user;
     }
 
     /**
