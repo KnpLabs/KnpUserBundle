@@ -53,4 +53,13 @@ class GroupManager extends BaseGroupManager
     {
         return $this->repository->findAll();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function updateGroup(GroupInterface $group)
+    {
+        $this->dm->persist($group);
+        $this->dm->flush();
+    }
 }
