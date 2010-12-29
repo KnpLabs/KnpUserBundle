@@ -3,7 +3,6 @@
 namespace Bundle\FOS\UserBundle\Entity;
 
 use Bundle\FOS\UserBundle\Model\UserInterface;
-use Symfony\Component\Security\Exception\UsernameNotFoundException;
 use Doctrine\ORM\EntityManager;
 use Bundle\FOS\UserBundle\Model\UserManager as BaseUserManager;
 

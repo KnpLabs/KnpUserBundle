@@ -4,6 +4,7 @@ namespace Bundle\FOS\UserBundle\Model;
 
 use Bundle\FOS\UserBundle\Util\String;
 use Symfony\Component\Security\Exception\UnsupportedAccountException;
+use Symfony\Component\Security\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\User\AccountInterface;
 use Symfony\Component\Security\User\UserProviderInterface;
 
