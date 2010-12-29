@@ -40,8 +40,9 @@ class DemoteSuperAdminCommandTest extends WebTestCase
             'username' => $username,
         ), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
 
+        $this->getService('doctrine.orm.default_entity_manager')->clear();
+
         $userManager = $this->getService('fos_user.user_manager');
-        $userManager->getObjectManager()->clear();
         $user = $userManager->findOneByUsername($username);
 
         $this->assertTrue($user instanceof User);
@@ -52,9 +53,6 @@ class DemoteSuperAdminCommandTest extends WebTestCase
 
     public function tearDown()
     {
-        $userManager = $this->getService('fos_user.user_manager');
-        if ($user = $userManager->findOneByUsername('test_username')) {
-            $userManager->deleteUser($user);
-        }
+        $this->removeTestUser();
     }
 }

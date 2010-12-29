@@ -44,9 +44,6 @@ class PromoteSuperAdminCommandTest extends WebTestCase
 
     public function tearDown()
     {
-        $userManager = $this->getService('fos_user.user_manager');
-        if ($user = $userManager->findOneByUsername('test_username')) {
-            $userManager->deleteUser($user);
-        }
+        $this->removeTestUser();
     }
 }
