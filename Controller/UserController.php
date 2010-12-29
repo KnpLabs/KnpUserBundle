@@ -36,7 +36,7 @@ class UserController extends Controller
      */
     public function showAction($username)
     {
-        return $this->doShowAction($this->findUserByUsername($username));
+        return $this->doShowAction($this->findUserBy('username', $username));
     }
 
     /**
@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function editAction($username)
     {
-        return $this->doEditAction($this->findUserByUsername($username));
+        return $this->doEditAction($this->findUserBy('username', $username));
     }
 
     /**
@@ -73,7 +73,7 @@ class UserController extends Controller
      */
     public function updateAction($username)
     {
-        return $this->doUpdateAction($this->findUserByUsername($username));
+        return $this->doUpdateAction($this->findUserBy('username', $username));
     }
 
     /**
@@ -154,7 +154,7 @@ class UserController extends Controller
         }
 
         $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
-        $user = $this->findUser('email', $email);
+        $user = $this->findUserBy('email', $email);
 
         $mailer = $this->get('mailer');
         $message = $this->getConfirmationEmailMessage($user);
@@ -189,7 +189,7 @@ class UserController extends Controller
     public function checkConfirmationEmailAction()
     {
         $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
-        $user = $this->findUser('email', $email);
+        $user = $this->findUserBy('email', $email);
 
         return $this->render('FOS\UserBundle:User:checkConfirmationEmail.'.$this->getRenderer(), array(
             'user' => $user,
@@ -201,7 +201,7 @@ class UserController extends Controller
      */
     public function confirmAction($token)
     {
-        $user = $this->findUser('confirmationToken', $token);
+        $user = $this->findUserBy('confirmationToken', $token);
         $user->setConfirmationToken(null);
         $user->setEnabled(true);
 
@@ -231,7 +231,7 @@ class UserController extends Controller
      */
     public function deleteAction($username)
     {
-        return $this->doDeleteAction($this->findUserByUsername($username));
+        return $this->doDeleteAction($this->findUserBy('username', $username));
     }
 
     /**
@@ -287,24 +287,6 @@ class UserController extends Controller
     }
 
     /**
-     * Find a username by its lowercased username
-     *
-     * @param string $username username
-     * @throw NotFoundException if user does not exist
-     * @return User
-     **/
-    public function findUserByUsername($username)
-    {
-        $user = $this->get('fos_user.user_manager')->findUserByUsername($username);
-
-        if (empty($user)) {
-            throw new NotFoundHttpException(sprintf('The user with username "%s" does not exist', $username));
-        }
-
-        return $user;
-    }
-
-    /**
      * Find a user by a specific property
      *
      * @param string $key property name
@@ -312,10 +294,10 @@ class UserController extends Controller
      * @throw NotFoundException if user does not exist
      * @return User
      */
-    protected function findUser($key, $value)
+    protected function findUserBy($key, $value)
     {
         if (!empty($value)) {
-            $user = $this->get('fos_user.user_manager')->{'findOneBy'.ucfirst($key)}($value);
+            $user = $this->get('fos_user.user_manager')->{'findUserBy'.ucfirst($key)}($value);
         }
 
         if (empty($user)) {
