@@ -8,14 +8,14 @@ class UserValidationTest extends WebTestCase
 {
     public function testBlankUsernameFail()
     {
-        $user = $this->getService('fos_user.repository.user')->createObjectInstance();
+        $user = $this->getService('fos_user.user_manager')->createUser();
         $violations = $this->getService('validator')->validate($user, 'Registration');
         $this->assertTrue($this->hasViolationForPropertyPath($violations, 'username'));
     }
 
     public function testGoodUsernameValid()
     {
-        $user = $this->getService('fos_user.repository.user')->createObjectInstance();
+        $user = $this->getService('fos_user.user_manager')->createUser();
         $user->setUsername(uniqid());
         $violations = $this->getService('validator')->validate($user, 'Registration');
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'username'));
@@ -24,51 +24,43 @@ class UserValidationTest extends WebTestCase
     public function testDuplicatedUsernameFail()
     {
         $username = uniqid();
-        $repo = $this->getService('fos_user.repository.user');
-        $om = $repo->getObjectManager();
-        $validator = $this->getService('validator');
-        $userClass = $repo->getObjectClass();
-        $user1 = $repo->createObjectInstance();
+        $userManager = $this->getService('fos_user.user_manager');
+        $user1 = $userManager->createUser();
         $user1->setUsername($username);
         $user1->setEmail(uniqid().'@mail.org');
         $user1->setPlainPassword(uniqid());
         $violations = $this->getService('validator')->validate($user1, 'Registration');
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'username'));
-        $om->persist($user1);
-        $om->flush();
-        $user2 = $repo->createObjectInstance();
+        $userManager->updateUser($user1);
+
+        $user2 = $userManager->createUser();
         $user2->setUsername($username);
         $user1->setEmail(uniqid().'@mail.org');
         $user1->setPlainPassword(uniqid());
         $violations = $this->getService('validator')->validate($user2, 'Registration');
         $this->assertTrue($this->hasViolationForPropertyPath($violations, 'username'));
-        $om->remove($user1);
-        $om->flush();
+        $userManager->deleteUser($user1);
     }
 
     public function testDuplicatedEmailFail()
     {
         $email = uniqid().'@email.org';
-        $repo = $this->getService('fos_user.repository.user');
-        $om = $repo->getObjectManager();
-        $validator = $this->getService('validator');
-        $userClass = $repo->getObjectClass();
-        $user1 = $repo->createObjectInstance();
+        $userManager = $this->getService('fos_user.user_manager');
+        $user1 = $userManager->createUser();
         $user1->setUsername(uniqid());
         $user1->setPlainPassword(uniqid());
         $user1->setEmail($email);
         $violations = $this->getService('validator')->validate($user1, 'Registration');
         $this->assertFalse($this->hasViolationForPropertyPath($violations, 'email'));
-        $om->persist($user1);
-        $om->flush();
-        $user2 = $repo->createObjectInstance();
+        $userManager->updateUser($user1);
+
+        $user2 = $userManager->createUser();
         $user2->setUsername(uniqid());
         $user2->setPlainPassword(uniqid());
         $user2->setEmail($email);
         $violations = $this->getService('validator')->validate($user2, 'Registration');
         $this->assertTrue($this->hasViolationForPropertyPath($violations, 'email'));
-        $om->remove($user1);
-        $om->flush();
+        $userManager->deleteUser($user1);
     }
 
     protected function hasViolationForPropertyPath($violations, $propertyPath)
