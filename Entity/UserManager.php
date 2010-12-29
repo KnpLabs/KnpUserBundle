@@ -19,7 +19,7 @@ class UserManager extends BaseUserManager
         $this->repository = $em->getRepository($class);
 
         $metadata = $em->getClassMetadata($class);
-        $this->class = $metadata->namespace.'\\'.$metadata->name;
+        $this->class = $metadata->name;
 
         parent::__construct($encoder, $algorithm);
     }
