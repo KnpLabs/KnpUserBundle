@@ -23,7 +23,7 @@ class UserController extends Controller
 {
     /**
      * Show all users
-     **/
+     */
     public function listAction()
     {
         $users = $this->get('fos_user.user_manager')->findUsers();
@@ -153,15 +153,12 @@ class UserController extends Controller
 
         $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
         $user = $this->findUserBy('email', $email);
-
-        $mailer = $this->get('mailer');
-        $message = $this->getConfirmationEmailMessage($user);
-        $mailer->send($message);
+        $this->sendConfirmationEmailMessage($user);
 
         return $this->redirect($this->generateUrl('fos_user_user_check_confirmation_email'));
     }
 
-    protected function getConfirmationEmailMessage(User $user)
+    protected function sendConfirmationEmailMessage(User $user)
     {
         $template = $this->container->getParameter('fos_user.confirmation_email.template');
         // Render the email, use the first line as the subject, and the rest as the body
@@ -172,13 +169,17 @@ class UserController extends Controller
         $renderedLines = explode("\n", trim($rendered));
         $subject = $renderedLines[0];
         $body = implode("\n", array_slice($renderedLines, 1));
-
         $fromEmail = $this->container->getParameter('fos_user.confirmation_email.from_email');
-        return \Swift_Message::newInstance()
+
+        $mailer = $this->get('mailer');
+
+        $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom($fromEmail)
             ->setTo($user->getEmail())
             ->setBody($body);
+
+        $mailer->send($message);
     }
 
     /**
@@ -314,7 +315,7 @@ class UserController extends Controller
      * Authenticate a user with Symfony Security
      *
      * @return null
-     **/
+     */
     public function authenticateUser(User $user)
     {
         $token = new UsernamePasswordToken($user, null, $user->getRoles());
