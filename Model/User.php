@@ -327,10 +327,14 @@ abstract class User implements AdvancedAccountInterface, UserInterface
     {
         $roles = $this->roles;
 
+        foreach ($this->getGroups() as $group) {
+            $roles = array_merge($roles, $group->getRoles());
+        }
+
         // we need to make sure to have at least one role
         $roles[] = self::ROLE_DEFAULT;
 
-        return $roles;
+        return array_unique($roles);
     }
 
     /**
@@ -585,6 +589,67 @@ abstract class User implements AdvancedAccountInterface, UserInterface
 
         foreach ($roles as $role) {
             $this->addRole($role);
+        }
+    }
+    /**
+     * Get groups granted to the user
+     *
+     * @return Collection
+     */
+    public function getGroups()
+    {
+        return $this->groups ?: $this->groups = new ArrayCollection();
+    }
+
+    /**
+     * Gets the name of the groups which includes the user
+     *
+     * @return array
+     */
+    public function getGroupNames()
+    {
+        $names = array();
+        foreach ($this->getGroups() as $group) {
+            $names[] = $group->getName();
+        }
+
+        return $names;
+    }
+
+    /**
+     * Indicates whether the user belongs to the specified group or not
+     *
+     * @param string $name Name of the group
+     * @return boolean
+     */
+    public function hasGroup($name)
+    {
+        return in_array($name, $this->getGroupNames());
+    }
+
+    /**
+     * Add a group to the user groups
+     *
+     * @param Group $group
+     * @return null
+     **/
+    public function addGroup(Group $group)
+    {
+        if (!$this->getGroups()->contains($group)) {
+            $this->getGroups()->add($group);
+        }
+    }
+
+    /**
+     * Remove a group from the user groups
+     *
+     * @param Group $group
+     * @return null
+     **/
+    public function removeGroup(Group $group)
+    {
+        if ($this->getGroups()->contains($group)) {
+            $this->getGroups()->remove($group);
         }
     }
 
