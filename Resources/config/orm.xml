@@ -10,8 +10,12 @@
     </parameters>
 
     <services>
-        <!-- Object Manager Service -->
-        <service id="fos_user.object_manager" alias="doctrine.orm.default_entity_manager" />
+        <service id="fos_user.user_manager" class="%fos_user.user_manager.class%">
+            <argument type="service" id="fos_user.encoder" />
+            <argument>%fos_user.encoder.algorithm%</argument>
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <argument>%fos_user.model.user.class%</argument>
+        </service>
     </services>
 
 </container>

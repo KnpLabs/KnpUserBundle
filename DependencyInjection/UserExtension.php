@@ -16,7 +16,7 @@ class UserExtension extends Extension
         // load all service configuration files (the db_driver first)
         if (!$container->hasDefinition('fos_user.document.user_manager')) {
             $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
-            foreach (array('user', 'controller', 'templating', 'email', 'form', 'validator', 'security') as $basename) {
+            foreach (array('controller', 'templating', 'email', 'form', 'validator', 'security') as $basename) {
                 $loader->load(sprintf('%s.xml', $basename));
             }
         }
