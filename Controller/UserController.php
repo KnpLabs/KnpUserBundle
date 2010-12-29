@@ -303,7 +303,7 @@ class UserController extends Controller
     {
         $form = $this->get('fos_user.form.user');
         if (null === $object) {
-            $object = $this->get('fos_user.repository.user')->createObjectInstance();
+            $object = $this->get('fos_user.user_manager')->createUser();
         }
 
         $form->setData($object);

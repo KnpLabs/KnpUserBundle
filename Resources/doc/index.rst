@@ -186,9 +186,9 @@ That's the way UserBundle's internal controllers are built.
 Access the current user class
 -----------------------------
 
-A new instance of your User class can be created by the user repository::
+A new instance of your User class can be created by the user manager:
 
-    $user = $userRepository->createObjectInstance();
+    $user = $userManager->createUser();
 
 `$user` is now an Entity or a Document, depending on the configuration.
 
