@@ -69,9 +69,9 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     {
         if (String::isEmail($usernameOrEmail)) {
             return $this->findUserByEmail($usernameOrEmail);
-        } else {
-            return $this->findUserByUsername($usernameOrEmail);
         }
+
+        return $this->findUserByUsername($usernameOrEmail);
     }
 
     public function findUserByConfirmationToken($token)
