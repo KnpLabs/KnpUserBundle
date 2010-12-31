@@ -41,4 +41,14 @@ interface UserInterface
     public function setRoles(array $roles);
 
     public function removeRole($role);
+
+    function getGroups();
+
+    function getGroupNames();
+
+    function hasGroup($name);
+
+    function addGroup(GroupInterface $group);
+
+    function removeGroup(GroupInterface $group);
 }

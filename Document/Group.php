@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Entity;
+namespace Bundle\FOS\UserBundle\Document;
 
 use Bundle\FOS\UserBundle\Model\Group as BaseGroup;
 
