@@ -27,9 +27,8 @@ interface GroupManagerInterface
     function createGroup();
 
     /**
-     * Deletes a user
+     * Deletes a group
      *
-     * @SecureParam(name="user", permissions="DELETE")
      * @param GroupInterface $group
      * @return void
      */
