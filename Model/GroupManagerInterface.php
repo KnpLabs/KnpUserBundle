@@ -22,9 +22,10 @@ interface GroupManagerInterface
     /**
      * Returns an empty group instance
      *
+     * @param string $name
      * @return GroupInterface
      */
-    function createGroup();
+    function createGroup($name);
 
     /**
      * Deletes a group

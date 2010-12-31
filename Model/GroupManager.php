@@ -13,13 +13,14 @@ abstract class GroupManager implements GroupManagerInterface
     /**
      * Returns an empty group instance
      *
+     * @param string $name
      * @return Group
      */
-    public function createGroup()
+    public function createGroup($name)
     {
         $class = $this->getClass();
 
-        return new $class;
+        return new $class($name);
     }
     /**
      * Finds a group by name
