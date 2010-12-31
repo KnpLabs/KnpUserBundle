@@ -476,7 +476,7 @@ abstract class User implements AdvancedAccountInterface, UserInterface
     public function setUsername($username)
     {
         $this->username = $username;
-        $this->usernameLower = mb_strtolower($username);
+        $this->usernameLower = mb_strtolower($username, mb_detect_encoding($username));
     }
 
     public function setAlgorithm($algorithm)
@@ -501,7 +501,7 @@ abstract class User implements AdvancedAccountInterface, UserInterface
      */
     public function setEmail($email)
     {
-        $this->email = mb_strtolower($email);
+        $this->email = mb_strtolower($email, mb_detect_encoding($email));
     }
 
     /**
