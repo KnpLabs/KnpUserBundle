@@ -37,14 +37,32 @@ Add UserBundle to your application kernel
         );
     }
 
+Configure your project
+----------------------
+
+The UserBundle works with the Symfony Security Component so you have to
+enable it in your project.
+
+You also have to declare the UserBundle in your Doctrine mapping
+configuration.
+
+::
+
+    # app/config/config.yml
+    doctrine.orm:
+        mappings:
+            UserBundle: ~
+            # your other bundles
+
+You can of course declare the bundle in the mongodb configuration
+instead to use the bundle with MongoDB.
+
 Create your User class
 --------------------------
 
-You must create a User class that extends either the entity or document abstract User class in UserBundle.
+You must create a User class that extends either the entity or document
+abstract User class in UserBundle.
 Feel free to add your own properties and methods to your custom class.
-
-Note that you will also need to specify the custom repository class, as Doctrine will not extend this definition from the parent class' mappings.
-We do this below using annotations, but YAML and XML may also be used if you prefer.
 
 ORM User class:
 ~~~~~~~~~~~~~~~
@@ -79,83 +97,100 @@ MongoDB User class:
 Choose ORM or ODM database driver
 ---------------------------------
 
-At a minimum, your configuration must define your DB driver ("orm" or "odm") and User class.
+At a minimum, your configuration must define your DB driver ("orm" or
+"odm") and User class.
 
 ORM
 ~~~
 
-In YAML::
+In YAML:
+
+::
 
     # app/config/config.yml
     fos_user.config:
-        db_driver: 
-            name: orm
-            
-            # alternatively, you can choose an aliased name here
-            entity: Application\MyBundle\Entity\User
-            
-            # the entity manager to use
-            em: default 
+        db_driver: orm
+        model:
+            user:
+                class: Application\MyBundle\Entity\User
 
-Or if you prefer XML::
+Or if you prefer XML:
+
+::
 
     # app/config/config.xml
 
-    <fos_user:config>
-        <db_driver 
-            name="orm"
-            entity="Application\MyBundle\Entity\User"
-            em="default"
-        />
+    <fos_user:config db_driver="orm">
+        <fos_user:model>
+            <fos_user:user class="Application\MyBundle\Entity\User" />
+        </fos_user:model>
+    </fos_user:config>
 
 ODM
 ~~~
 
-In YAML::
+In YAML:
+
+::
 
     # app/config/config.yml
     fos_user.config:
-        db_driver: 
-            name: mongodb
-            
-            # alternatively, you can choose an aliased name here
-            document: Application\MyBundle\Document\User
+        db_driver: mongodb
+        model:
+            user:
+                class: Application\MyBundle\Document\User
 
-Or if you prefer XML::
+Or if you prefer XML:
+
+::
 
     # app/config/config.xml
 
-    <fos_user:config>
-        <db_driver 
-            name="mongodb"
-            document="Application\MyBundle\Document\User"
-        />
+    <fos_user:config db_driver="mongodb">
+        <fos_user:model>
+            <fos_user:user class="Application\MyBundle\Document\User" />
+        </fos_user:model>
+    </fos_user:config>
 
 
 Add authentication routes
 -------------------------
 
-If you want ready to use login and logout pages, include the builtin routes::
+If you want ready to use login and logout pages, include the builtin
+routes:
+
+::
+
+    # app/config/routing.yml
+    fos_user_security:
+        resource: FOS/UserBundle/Resources/config/routing/security.xml
+
+::
 
     # app/config/routing.xml
 
-    <import resource="FOS/UserBundle/Resources/config/routing/session.xml"/>
+    <import resource="FOS/UserBundle/Resources/config/routing/security.xml"/>
 
-You now can login at http://app.com/session/new
+You now can login at http://app.com/login
+
+You can also import the user.xml and group.xml file to use the builtin
+controllers to manipulate users and groups.
 
 Command line
 ============
 
-UserBundle provides command line utilities to help manage your application users.
+UserBundle provides command line utilities to help manage your
+application users.
 
 Create user
 -----------
 
 This command creates a new user::
 
-    $ php app/console doctrine:user:create username email password
+    $ php app/console fos:user:create username email password
 
-If you don't provide the required arguments, a interactive prompt will ask them to you::
+If you don't provide the required arguments, a interactive prompt will
+ask them to you::
 
     $ php app/console fos:user:create
 
@@ -166,20 +201,26 @@ This command promotes a user as a super administrator::
 
     $ php app/console fos:user:promote
 
-User repository service
+User manager service
 =======================
 
-UserBundle works with both ORM and ODM. To make it possible, the user repository is a service of the container.
-If you configure the db_driver to orm, this service is an instance of ``Bundle\FOS\UserBundle\Entity\UserRepository``.
-If you configure the db_driver to odm, this service is an instance of ``Bundle\FOS\UserBundle\Document\UserRepository``.
-Both these classes implement ``Bundle\FOS\UserBundle\Model\UserRepositoryInterface``.
+UserBundle works with both ORM and ODM. To make it possible, it wraps 
+all the operation on users in a UserManager. The user manager is a
+service of the container.
 
-Access the repository service
+If you configure the db_driver to orm, this service is an instance of
+``Bundle\FOS\UserBundle\Entity\UserManager``.
+If you configure the db_driver to odm, this service is an instance of
+``Bundle\FOS\UserBundle\Document\UserManager``.
+Both these classes implement ``Bundle\FOS\UserBundle\Model\UserManagerInterface``.
+
+Access the user manager service
 -----------------------------
 
-If you want to manipulate users in a way that will work as well with ORM and ODM, use the fos_user.user_repository service::
+If you want to manipulate users in a way that will work as well with
+ORM and ODM, use the fos_user.user_manager service:
 
-    $userRepository = $container->get('fos_user.user_repository');
+    $userManager = $container->get('fos_user.user_manager');
 
 That's the way UserBundle's internal controllers are built.
 
@@ -192,33 +233,6 @@ A new instance of your User class can be created by the user manager:
 
 `$user` is now an Entity or a Document, depending on the configuration.
 
-Extend the UserRepository
-=========================
-
-Since you've extended the base User class, you can easily replace and extend the User repository, too.
-Simply change the custom repository definition on your User class::
-
-    # Application\MyBundle\Entity\User.php
-
-    /**
-     * @Entity(repositoryClass="Application\MyBundle\Entity\UserRepository")
-     */
-    class User extends BaseUser {}
-
-Then create your custom repository::
-
-    # Application\MyBundle\Entity\UserRepository.php
-
-    namespace Bundle\MyBundle\Entity;
-    use Bundle\FOS\UserBundle\Entity\UserRepository as BaseUserRepository
-
-    class UserRepository extends BaseUserRepository
-    {
-        // add your stuff here
-    }
-
-Of course, to do the same with Doctrine ODM, just replace ``Entity`` with ``Document`` in the previous examples.
-
 Configuration example:
 ======================
 
@@ -230,7 +244,6 @@ All configuration options are listed below::
     class:
         model:
             user: Application\MyBundle\Document\User
-            group: ~
         form:
             user: ~
             group: ~
