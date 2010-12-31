@@ -2,7 +2,6 @@
 
 namespace Bundle\FOS\UserBundle\Model;
 
-use Bundle\FOS\UserBundle\Util\String;
 use Symfony\Component\Security\Exception\UnsupportedAccountException;
 use Symfony\Component\Security\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\User\AccountInterface;
@@ -67,7 +66,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function findUserByUsernameOrEmail($usernameOrEmail)
     {
-        if (String::isEmail($usernameOrEmail)) {
+        if (filter_var($usernameOrEmail, FILTER_VALIDATE_EMAIL)) {
             return $this->findUserByEmail($usernameOrEmail);
         }
 
