@@ -11,7 +11,6 @@
 namespace Bundle\FOS\UserBundle\Model;
 
 use Symfony\Component\Security\Role\RoleInterface;
-use Bundle\FOS\UserBundle\Util\String;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\User\AccountInterface;
@@ -477,7 +476,7 @@ abstract class User implements AdvancedAccountInterface, UserInterface
     public function setUsername($username)
     {
         $this->username = $username;
-        $this->usernameLower = String::strtolower($username);
+        $this->usernameLower = mb_strtolower($username, mb_detect_encoding($username));
     }
 
     public function setAlgorithm($algorithm)
@@ -502,7 +501,7 @@ abstract class User implements AdvancedAccountInterface, UserInterface
      */
     public function setEmail($email)
     {
-        $this->email = String::strtolower($email);
+        $this->email = mb_strtolower($email, mb_detect_encoding($email));
     }
 
     /**
