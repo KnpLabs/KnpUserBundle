@@ -53,6 +53,8 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->container->get('security.context')->setToken(new UsernamePasswordToken('command.line', null, array(User::ROLE_SUPERADMIN)));
+
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserByUsername($input->getArgument('username'));
 
