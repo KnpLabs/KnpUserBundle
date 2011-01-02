@@ -53,7 +53,7 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->findOneByUsername($input->getArgument('username'));
+        $user = $userManager->findUserByUsername($input->getArgument('username'));
 
         if (!$user) {
             throw new \InvalidArgumentException(sprintf('The user "%s" does not exist', $input->getArgument('username')));
