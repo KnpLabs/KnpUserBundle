@@ -123,7 +123,7 @@ class GroupController extends Controller
      *
      * @param string $key property name
      * @param mixed $value property value
-     * @throw NotFoundException if user does not exist
+     * @throws NotFoundException if user does not exist
      * @return Group
      */
     protected function findGroupBy($key, $value)

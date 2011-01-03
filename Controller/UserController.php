@@ -9,12 +9,12 @@
 
 namespace Bundle\FOS\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Bundle\FOS\UserBundle\Model\User;
 use Bundle\FOS\UserBundle\Form\ChangePassword;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\ForbiddenHttpException;
 use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Exception\AccessDeniedException;
 
 /**
  * RESTful controller managing user CRUD
@@ -248,14 +248,14 @@ class UserController extends Controller
     /**
      * Get a user from the security context
      *
-     * @throw ForbiddenHttpException if no user is authenticated
+     * @throws AccessDeniedException if no user is authenticated
      * @return User
      */
     protected function getUser()
     {
         $user = $this->get('security.context')->getUser();
         if (!$user) {
-            throw new ForbiddenHttpException(sprintf('Must be logged in to change your password'));
+            throw new AccessDeniedException('A logged in user is required.');
         }
 
         return $user;
@@ -266,7 +266,7 @@ class UserController extends Controller
      *
      * @param string $key property name
      * @param mixed $value property value
-     * @throw NotFoundException if user does not exist
+     * @throws NotFoundException if user does not exist
      * @return User
      */
     protected function findUserBy($key, $value)
