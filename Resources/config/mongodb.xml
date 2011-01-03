@@ -8,7 +8,6 @@
         <parameter key="fos_user.model.group.class">Bundle\FOS\UserBundle\Document\Group</parameter>
         <parameter key="fos_user.user_manager.class">Bundle\FOS\UserBundle\Document\UserManager</parameter>
         <parameter key="fos_user.group_manager.class">Bundle\FOS\UserBundle\Document\GroupManager</parameter>
-        <parameter key="fos_user.validator.unique.class">Bundle\FOS\UserBundle\Validator\Doctrine\ODM\MongoDB\UniqueValidator</parameter>
     </parameters>
 
     <services>

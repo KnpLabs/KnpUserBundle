@@ -6,12 +6,13 @@
 
     <parameters>
         <parameter key="fos_user.validator.password.class">Bundle\FOS\UserBundle\Validator\PasswordValidator</parameter>
+        <parameter key="fos_user.validator.unique.class">Bundle\FOS\UserBundle\Validator\UniqueValidator</parameter>
     </parameters>
 
     <services>
         <!-- Unique Validator Service -->
         <service id="fos_user.validator.unique" class="%fos_user.validator.unique.class%">
-            <argument type="service" id="fos_user.object_manager" />
+            <argument type="service" id="fos_user.user_manager" />
             <tag name="validator.constraint_validator" alias="fos_user.validator.unique" />
         </service>
         

@@ -8,7 +8,6 @@
         <parameter key="fos_user.model.group.class">Bundle\FOS\UserBundle\Entity\Group</parameter>
         <parameter key="fos_user.user_manager.class">Bundle\FOS\UserBundle\Entity\UserManager</parameter>
         <parameter key="fos_user.group_manager.class">Bundle\FOS\UserBundle\Entity\GroupManager</parameter>
-        <parameter key="fos_user.validator.unique.class">Bundle\FOS\UserBundle\Validator\Doctrine\ORM\UniqueValidator</parameter>
     </parameters>
 
     <services>
