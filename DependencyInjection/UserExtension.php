@@ -113,20 +113,30 @@ class UserExtension extends Extension
     }
 
     /**
-     * Returns the base path for the XSD files.
+     * @see Symfony\Component\DependencyInjection\Extension.ExtensionInterface::getXsdValidationBasePath()
      *
-     * @return string The XSD base path
+     * @codeCoverageIgnore
      */
     public function getXsdValidationBasePath()
     {
         return __DIR__.'/../Resources/config/schema';
     }
 
+    /**
+     * @see Symfony\Component\DependencyInjection\Extension.ExtensionInterface::getNamespace()
+     *
+     * @codeCoverageIgnore
+     */
     public function getNamespace()
     {
         return 'http://www.symfony-project.org/schema/dic/fos_user';
     }
 
+    /**
+     * @see Symfony\Component\DependencyInjection\Extension.ExtensionInterface::getAlias()
+     *
+     * @codeCoverageIgnore
+     */
     public function getAlias()
     {
         return 'fos_user';

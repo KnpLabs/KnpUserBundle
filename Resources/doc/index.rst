@@ -239,37 +239,27 @@ Configuration example:
 All configuration options are listed below::
 
     db_driver: mongodb
-    encoder:
-        algorithm: ~
     class:
         model:
             user: Application\MyBundle\Document\User
         form:
-            user: ~
-            group: ~
+            user:            ~
             change_password: ~
         controller:
-            user: ~
-            group: ~
+            user:     ~
+            security: ~
+    encoder:
+        algorithm:          ~
+        encodeHashAsBase64: ~
+        iterations:         ~
+        name:               ~
     form_name:
-        user: ~
-        group: ~
+        user:            ~
         change_password: ~
     confirmation_email:
-        enabled: ~
+        enabled:    ~
         from_email: ~
-        template: ~
+        template:   ~
     template:
         renderer: ~
-        theme: ~
-
-## CREDITS
-
-Non-exhaustive list of developers who contributed:
-
-- Thibault Duplessis
-- Matthieu Bontemps
-- Gordon Franke
-- Henrik Bjornskov
-- David Ashwood
-- Antoine Hérault
+        theme:    ~
