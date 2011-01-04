@@ -123,32 +123,31 @@ class UserManager extends BaseUserManager
     /**
      * Gets conflictual entities for the given entity and constraint
      *
-     * @param UserInterface $entity
+     * @param UserInterface|string $value
      * @param array $fields
      * @return array
      */
-    protected function getConflictualEntities($entity, array $fields)
+    protected function getConflictualEntities($value, array $fields)
     {
-        return $this->repository->findBy($this->getCriteria($entity, $fields));
+        return $this->repository->findBy($this->getCriteria($value, $fields));
     }
 
     /**
      * Gets the criteria used to find conflictual entities
      *
-     * @param UserInterface $entity
+     * @param UserInterface|string $value
      * @param array $constraint
      * @return array
      */
-    protected function getCriteria($entity, array $fields)
+    protected function getCriteria($value, array $fields)
     {
         $criteria = array();
-        $metadata = $this->em->getClassMetadata(get_class($entity));
+        $metadata = $this->em->getClassMetadata($this->class);
         foreach ($fields as $field) {
-            if ($metadata->hasField($field)) {
-                $criteria[$field] = $metadata->getFieldValue($entity, $field);
-            } else {
-                throw new \InvalidArgumentException(sprintf('The "%s" class metadata does not have any "%s" field or association mapping.', get_class($entity), $field));
+            if (!$metadata->hasField($field)) {
+                throw new \InvalidArgumentException(sprintf('The "%s" class metadata does not have any "%s" field or association mapping.', $this->class, $field));
             }
+            $criteria[$field] = is_string($value) ? $value : $metadata->getFieldValue($value, $field);
         }
 
         return $criteria;
