@@ -5,10 +5,9 @@ Features
 
 - Compatible with Doctrine ORM **and** ODM thanks to a generic repository.
 - Model is extensible at will
-- RESTful authentication
+- REST-ful authentication
 - Current user available in your controllers and views
 - Unit tested and functionally tested
-
 
 Installation
 ============
@@ -115,8 +114,8 @@ block would be the same for MongoDB ODM.
 Choose ORM or ODM database driver
 ---------------------------------
 
-At a minimum, your configuration must define your DB driver ("orm" or
-"odm") and User class.
+At a minimum, your configuration must define your DB driver ("orm" or "odm")
+and User class.
 
 ORM
 ~~~
@@ -174,7 +173,7 @@ Or if you prefer XML:
 Add authentication routes
 -------------------------
 
-If you want ready to use login and logout pages, include the builtin
+If you want ready to use login and logout pages, include the built-in
 routes:
 
 ::
@@ -220,20 +219,22 @@ This command promotes a user as a super administrator::
     $ php app/console fos:user:promote
 
 User manager service
-=======================
+====================
 
-UserBundle works with both ORM and ODM. To make it possible, it wraps 
+UserBundle works with both ORM and ODM. To make it possible, it wraps
 all the operation on users in a UserManager. The user manager is a
 service of the container.
 
 If you configure the db_driver to orm, this service is an instance of
 ``Bundle\FOS\UserBundle\Entity\UserManager``.
+
 If you configure the db_driver to odm, this service is an instance of
 ``Bundle\FOS\UserBundle\Document\UserManager``.
+
 Both these classes implement ``Bundle\FOS\UserBundle\Model\UserManagerInterface``.
 
 Access the user manager service
------------------------------
+-------------------------------
 
 If you want to manipulate users in a way that will work as well with
 ORM and ODM, use the fos_user.user_manager service:
@@ -281,3 +282,35 @@ All configuration options are listed below::
     template:
         renderer: ~
         theme:    ~
+
+Templating
+----------
+
+The template names are not configurable, however Symfony2 by default searches for
+templates according to the ``kernel.bundle_dirs`` container parameter. This means
+its possible to override any FOS\UserBundle template by simply mimicking the
+directory structure inside the Application directory:
+
+For example ``src/Bundle/FOS/UserBundle/Resources/views/User/new.twig`` can be
+replaced inside an application by putting a file with alternative content in
+``src/Application/FOS/UserBundle/Resources/views/User/new.twig``.
+
+Validation
+----------
+
+The ``Resources/config/validation.xml`` file contains definitions for custom
+validator rules for various classes. Optionally these can also be defined
+via annotations by defining the namespace in the annotation configuration.
+
+In YAML:
+
+::
+
+    # app/config/config.xml
+
+    app.config:
+        validation:
+            enabled: true
+            annotations:
+                namespaces:
+                    fosuserbundlevalidation: Bundle\FOS\UserBundle\Validator\
