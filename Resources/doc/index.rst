@@ -40,7 +40,7 @@ Create your User class
 
 You must create a User class that extends either the entity or document
 abstract User class in UserBundle.  All fields on the base class are mapped,
-except for `id`; this is intentional, so you can select the generator that best
+except for ``id``; this is intentional, so you can select the generator that best
 suits your application.  Feel free to add additional properties and methods to
 your custom class.
 
@@ -288,7 +288,7 @@ Templating
 
 The template names are not configurable, however Symfony2 by default searches for
 templates according to the ``kernel.bundle_dirs`` container parameter. This means
-its possible to override any FOS\UserBundle template by simply mimicking the
+it's possible to override any FOS\UserBundle template by simply mimicking the
 directory structure inside the Application directory:
 
 For example ``src/Bundle/FOS/UserBundle/Resources/views/User/new.twig`` can be
@@ -302,9 +302,7 @@ The ``Resources/config/validation.xml`` file contains definitions for custom
 validator rules for various classes. Optionally these can also be defined
 via annotations by defining the namespace in the annotation configuration.
 
-In YAML:
-
-::
+In YAML::
 
     # app/config/config.xml
 
