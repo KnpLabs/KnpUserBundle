@@ -20,7 +20,6 @@ Add UserBundle to your src/Bundle dir
 
     $ git submodule add git://github.com/FriendsOfSymfony/UserBundle.git src/Bundle/FOS/UserBundle
 
-
 Add UserBundle to your application kernel
 -----------------------------------------
 
@@ -36,26 +35,6 @@ Add UserBundle to your application kernel
             // ...
         );
     }
-
-Configure your project
-----------------------
-
-The UserBundle works with the Symfony Security Component so you have to
-enable it in your project.
-
-You also have to declare the UserBundle in your Doctrine mapping
-configuration.
-
-::
-
-    # app/config/config.yml
-    doctrine.orm:
-        mappings:
-            UserBundle: ~
-            # your other bundles
-
-You can of course declare the bundle in the mongodb configuration
-instead to use the bundle with MongoDB.
 
 Create your User class
 --------------------------
@@ -94,6 +73,45 @@ MongoDB User class:
      */
     class User extends BaseUser {}
 
+Configure your project
+----------------------
+
+The UserBundle works with the Symfony Security Component, so make sure that is
+enabled in your project's configuration::
+
+    # app/config/config.yml
+    security.config:
+        providers:
+            fos_user:
+                entity:
+                    class: Application\MyBundle\Entity\User
+
+You also have to include the UserBundle in your Doctrine mapping configuration,
+along with the bundle containing your custom User class::
+
+    # app/config/config.yml
+    doctrine.orm:
+        mappings:
+            UserBundle: ~
+            MyBundle:   ~
+            # your other bundles
+
+The above examples assume an ORM configuration, but the MongoDB configuration
+is very similiar::
+
+    # app/config/config.yml
+    security.config:
+        providers:
+            fos_user:
+                document:
+                    class: Application\MyBundle\Document\User
+
+    doctrine_odm.mongodb:
+        mappings:
+            UserBundle: ~
+            MyBundle:   ~
+            # your other bundles
+
 Choose ORM or ODM database driver
 ---------------------------------
 
@@ -110,9 +128,9 @@ In YAML:
     # app/config/config.yml
     fos_user.config:
         db_driver: orm
-        model:
-            user:
-                class: Application\MyBundle\Entity\User
+        class:
+            model:
+                user: Application\MyBundle\Entity\User
 
 Or if you prefer XML:
 
