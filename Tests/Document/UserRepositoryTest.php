@@ -1,75 +1,75 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Document;
+namespace Bundle\FOS\UserBundle\Document;
 
 class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 {
-    protected $repo;
+    protected $userManager;
 
-    public function testFindOneByUsername()
+    public function testFindUserByUsername()
     {
-        $this->repo->expects($this->once())
-            ->method('findOneBy')
+        $this->userManager->expects($this->once())
+            ->method('findUserBy')
             ->with($this->equalTo(array('usernameLower' => 'jack')));
 
-        $this->repo->findOneByUsername('jack');
+        $this->userManager->findUserByUsername('jack');
     }
 
-    public function testFindOneByUsernameLowercasesTheUsername()
+    public function testFindUserByUsernameLowercasesTheUsername()
     {
-        $this->repo->expects($this->once())
-            ->method('findOneBy')
+        $this->userManager->expects($this->once())
+            ->method('findUserBy')
             ->with($this->equalTo(array('usernameLower' => 'jack')));
 
-        $this->repo->findOneByUsername('JaCk');
+        $this->userManager->findUserByUsername('JaCk');
     }
 
-    public function testFindOneByEmail()
+    public function testFindUserByEmail()
     {
-        $this->repo->expects($this->once())
-            ->method('findOneBy')
+        $this->userManager->expects($this->once())
+            ->method('findUserBy')
             ->with($this->equalTo(array('email' => 'jack@email.org')));
 
-        $this->repo->findOneByEmail('jack@email.org');
+        $this->userManager->findUserByEmail('jack@email.org');
     }
 
-    public function testFindOneByEmailLowercasesTheEmail()
+    public function testFindUserByEmailLowercasesTheEmail()
     {
-        $this->repo->expects($this->once())
-            ->method('findOneBy')
+        $this->userManager->expects($this->once())
+            ->method('findUserBy')
             ->with($this->equalTo(array('email' => 'jack@email.org')));
 
-        $this->repo->findOneByEmail('JaCk@EmAiL.oRg');
+        $this->userManager->findUserByEmail('JaCk@EmAiL.oRg');
     }
 
-    public function testFindOneByUsernameOrEmailWithUsername()
+    public function testFindUserByUsernameOrEmailWithUsername()
     {
-        $this->repo->expects($this->once())
-            ->method('findOneBy')
+        $this->userManager->expects($this->once())
+            ->method('findUserBy')
             ->with($this->equalTo(array('usernameLower' => 'jack')));
 
-        $this->repo->findOneByUsernameOrEmail('JaCk');
+        $this->userManager->findUserByUsernameOrEmail('JaCk');
     }
 
-    public function testFindOneByUsernameOrEmailWithEmail()
+    public function testFindUserByUsernameOrEmailWithEmail()
     {
-        $this->repo->expects($this->once())
-            ->method('findOneBy')
+        $this->userManager->expects($this->once())
+            ->method('findUserBy')
             ->with($this->equalTo(array('email' => 'jack@email.org')));
 
-        $this->repo->findOneByUsernameOrEmail('JaCk@EmAiL.oRg');
+        $this->userManager->findUserByUsernameOrEmail('JaCk@EmAiL.oRg');
     }
 
     public function testLoadUserByUsernameWithExistingUser()
     {
-        $userMock = $this->getMock('Bundle\DoctrineUserBundle\Document\User', array(), array('sha1'));
+        $userMock = $this->getMock('Bundle\FOS\UserBundle\Document\User', array(), array('sha1'));
 
-        $this->repo->expects($this->once())
-            ->method('findOneBy')
+        $this->userManager->expects($this->once())
+            ->method('findUserBy')
             ->with($this->equalTo(array('usernameLower' => 'jack')))
             ->will($this->returnValue($userMock));
 
-        $this->repo->loadUserByUsername('jack');
+        $this->userManager->loadUserByUsername('jack');
     }
 
     /**
@@ -77,34 +77,33 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testLoadUserByUsernameWithMissingUser()
     {
-        $this->repo->expects($this->once())
-            ->method('findOneBy')
+        $this->userManager->expects($this->once())
+            ->method('findUserBy')
             ->with($this->equalTo(array('usernameLower' => 'jack')))
             ->will($this->returnValue(null));
 
-        $this->repo->loadUserByUsername('jack');
+        $this->userManager->loadUserByUsername('jack');
     }
 
     public function setUp()
     {
-        if(!class_exists('\Doctrine\ODM\MongoDB\DocumentManager')) {
+        if (!class_exists('\Doctrine\ODM\MongoDB\DocumentManager')) {
             $this->markTestSkipped('No ODM installed');
         }
 
-        $this->repo = $this->getRepositoryMock();
+        $this->userManager = $this->getRepositoryMock();
     }
 
     public function tearDown()
     {
-        unset($this->repo);
+        unset($this->userManager);
     }
 
     protected function getRepositoryMock()
     {
-        $methods = array('findOneBy');
-        $repo = $this->getMock('Bundle\DoctrineUserBundle\Document\UserRepository', $methods, array(), '', false);
-        $repo->setAlgorithm('sha1');
+        $methods = array('findUserBy');
+        $userManager = $this->getMock('Bundle\FOS\UserBundle\Document\UserRepository', $methods, array(), '', false);
 
-        return $repo;
+        return $userManager;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Validator;
+namespace Bundle\FOS\UserBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
@@ -28,6 +28,6 @@ class Unique extends Constraint
 
     public function validatedBy()
     {
-        return 'doctrine_user.validator.unique';
+        return 'fos_user.validator.unique';
     }
 }

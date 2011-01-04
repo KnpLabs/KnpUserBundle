@@ -5,13 +5,15 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/routing http://www.symfony-project.org/schema/routing/routing-1.0.xsd">
 
     <route id="_security_login" pattern="/login">
-        <default key="_controller">doctrine_user.controller.security:loginAction</default>
+        <default key="_controller">fos_user.controller.security:loginAction</default>
     </route>
 
-    <route id="_security_check" pattern="/login_check" />
+    <route id="_security_check" pattern="/login-check">
+        <default key="_controller">fos_user.controller.security:loginAction</default>
+    </route>
 
     <route id="_security_logout" pattern="/logout">
-        <default key="_controller">doctrine_user.controller.security:loginAction</default>
+        <default key="_controller">fos_user.controller.security:logoutAction</default>
     </route>
 
 </routes>

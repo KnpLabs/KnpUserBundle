@@ -6,7 +6,7 @@
     <body>
         {% for key, flash in _view.session.get('_flash') %}
         <div class="{{ flash }}">
-            {% trans key from 'DoctrineUserBundle' %}
+            {% trans key from 'FOSUserBundle' %}
         </div>
         {% endfor %}
         {% block content %}
