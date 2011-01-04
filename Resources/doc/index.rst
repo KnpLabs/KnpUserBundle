@@ -83,8 +83,7 @@ enabled in your project's configuration::
     security.config:
         providers:
             fos_user:
-                entity:
-                    class: Application\MyBundle\Entity\User
+                id: fos_user.user_manager
 
 You also have to include the UserBundle in your Doctrine mapping configuration,
 along with the bundle containing your custom User class::
@@ -96,21 +95,8 @@ along with the bundle containing your custom User class::
             MyBundle:   ~
             # your other bundles
 
-The above examples assume an ORM configuration, but the MongoDB configuration
-is very similiar::
-
-    # app/config/config.yml
-    security.config:
-        providers:
-            fos_user:
-                document:
-                    class: Application\MyBundle\Document\User
-
-    doctrine_odm.mongodb:
-        mappings:
-            UserBundle: ~
-            MyBundle:   ~
-            # your other bundles
+The above example assumes an ORM configuration, but the `mappings` configuration
+block would be the same for MongoDB ODM.
 
 Choose ORM or ODM database driver
 ---------------------------------
