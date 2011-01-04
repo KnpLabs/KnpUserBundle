@@ -6,10 +6,6 @@
 
     <entity name="Bundle\FOS\UserBundle\Entity\Group" table="fos_user_group">
 
-        <id name="id" type="integer" column="id">
-            <generator strategy="AUTO" />
-        </id>
-
         <field name="name" column="name" type="string" length="255" unique="true" />
 
         <field name="roles" column="roles" type="array" />

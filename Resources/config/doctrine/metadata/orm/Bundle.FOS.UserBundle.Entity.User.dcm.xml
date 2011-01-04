@@ -6,10 +6,6 @@
 
     <mapped-superclass name="Bundle\FOS\UserBundle\Entity\User" table="fos_user_user">
 
-        <id name="id" type="integer" column="id">
-            <generator strategy="AUTO" />
-        </id>
-
         <field name="username" column="username" type="string" length="255" unique="true" />
 
         <field name="usernameLower" column="username_lower" type="string" length="255" unique="true" />

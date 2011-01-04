@@ -37,11 +37,13 @@ Add UserBundle to your application kernel
     }
 
 Create your User class
---------------------------
+----------------------
 
 You must create a User class that extends either the entity or document
-abstract User class in UserBundle.
-Feel free to add your own properties and methods to your custom class.
+abstract User class in UserBundle.  All fields on the base class are mapped,
+except for `id`; this is intentional, so you can select the generator that best
+suits your application.  Feel free to add additional properties and methods to
+your custom class.
 
 ORM User class:
 ~~~~~~~~~~~~~~~
@@ -56,7 +58,15 @@ ORM User class:
     /**
      * @orm:Entity
      */
-    class User extends BaseUser {}
+    class User extends BaseUser
+    {
+        /**
+         * @orm:Id
+         * @orm:Column(type="integer")
+         * @orm:generatedValue(strategy="AUTO")
+         */
+        protected $id;
+    }
 
 MongoDB User class:
 ~~~~~~~~~~~~~~~~~~~
@@ -71,7 +81,11 @@ MongoDB User class:
     /**
      * @mongodb:Document
      */
-    class User extends BaseUser {}
+    class User extends BaseUser
+    {
+        /** @mongodb:Id(strategy="auto") */
+        protected $id;
+    }
 
 Configure your project
 ----------------------
