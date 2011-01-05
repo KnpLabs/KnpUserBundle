@@ -15,7 +15,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\User\AccountInterface;
 use Symfony\Component\Security\User\AdvancedAccountInterface;
-use Symfony\Component\Security\User\AccountInterface;
 use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
 
 /**
