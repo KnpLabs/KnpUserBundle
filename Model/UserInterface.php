@@ -12,35 +12,35 @@ namespace Bundle\FOS\UserBundle\Model;
 
 interface UserInterface
 {
-    public function addRole($role);
+    function addRole($role);
 
-    public function getAlgorithm();
+    function getAlgorithm();
 
-    public function setAlgorithm($algorithm);
+    function setAlgorithm($algorithm);
 
-    public function getPlainPassword();
+    function getPlainPassword();
 
-    public function setPlainPassword($password);
+    function setPlainPassword($password);
 
-    public function setPassword($password);
+    function setPassword($password);
 
-    public function isSuperAdmin();
+    function isSuperAdmin();
 
-    public function is(UserInterface $user = null);
+    function isSame(UserInterface $user = null);
 
-    public function setEnabled($boolean);
+    function setEnabled($boolean);
 
-    public function setSuperAdmin($boolean);
+    function setSuperAdmin($boolean);
 
-    public function getConfirmationToken();
+    function getConfirmationToken();
 
-    public function setConfirmationToken($confirmationToken);
+    function setConfirmationToken($confirmationToken);
 
-    public function hasRole($role);
+    function hasRole($role);
 
-    public function setRoles(array $roles);
+    function setRoles(array $roles);
 
-    public function removeRole($role);
+    function removeRole($role);
 
     function getGroups();
 
