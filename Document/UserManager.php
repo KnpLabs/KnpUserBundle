@@ -75,21 +75,26 @@ class UserManager extends BaseUserManager
     public function validateUnique($value, Constraint $constraint)
     {
         $classMetadata = $this->dm->getClassMetadata($this->class);
+        // TODO: ODM seems to be missing handling for multiple properties
+        // $fields = array_map('trim', explode(',', $constraint->property));
         $query = $this->getQueryArray($classMetadata, $value, $constraint->property);
 
-        if (null === ($document = $this->repository->findOneBy($query))) {
+        $document = $this->repository->findOneBy($query);
+        if (null === $document) {
             return true;
         }
 
         if (is_string($value)) {
             $field = $this->getFieldNameFromPropertyPath($constraint->property);
             $mapping = $classMetadata->fieldMappings[$field];
+
+            // check if document in mongodb has the same property value as supplied
             if ($classMetadata->getFieldValue($document, $mapping['fieldName']) === $value) {
                 return true;
             }
         } else {
             // check if document in mongodb is the same document as the checked one
-            if ($document === $value) {
+            if ($document->isSame($value)) {
                 return true;
             }
             // check if returned document is proxy and initialize the minimum identifier if needed
@@ -118,6 +123,7 @@ class UserManager extends BaseUserManager
         }
 
         $value = is_string($value) ? $value : $classMetadata->getFieldValue($value, $mapping['fieldName']);
+
         switch ($mapping['type']) {
             case 'one':
                 // TODO: implement support for embed one documents
