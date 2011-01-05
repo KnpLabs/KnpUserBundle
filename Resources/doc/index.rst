@@ -87,16 +87,13 @@ MongoDB User class:
     }
 
 
-Create your Group class
-----------------------
+Define Group class id
+---------------------
 
-Defining a custom Group class is optional. It follows the same logic as the
-User class.  Again all fields on the base class are mapped,
-except for ``id``; this is intentional, so you can select the generator that best
-suits your application.  Feel free to add additional properties and methods to
-your custom class.
-
-When you do not want to define a custom Group class you will still need to add an
+The definition of the Group class follows the same logic as the User class.
+Again all fields on the base class are mapped, except for ``id``; this is
+intentional, so you can select the generator that best suits your application.
+However extending the Group class is not possible so you will need to add an
 ``id`` field by simply placing a mapping file into one of your Bundles:
 
     <?xml version="1.0" encoding="UTF-8"?>
