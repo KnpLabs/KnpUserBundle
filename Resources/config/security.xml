@@ -12,13 +12,13 @@
     </parameters>
 
     <services>
-        <service id="fos_user.encoder.factory" class="%fos_user.encoder.factory.class%">
+        <service id="fos_user.encoder.factory" class="%fos_user.encoder.factory.class%" public="false">
             <argument>%security.encoder.digest.class%</argument>
             <argument>%fos_user.encoder.encodeHashAsBase64%</argument>
             <argument>%fos_user.encoder.iterations%</argument>
         </service>
     
-        <service id="security.encoder.fos_user" class="%security.encoder.digest.class%">
+        <service id="security.encoder.fos_user" class="%security.encoder.digest.class%" public="false">
             <argument>%fos_user.encoder.algorithm%</argument>
             <argument>%fos_user.encoder.encodeHashAsBase64%</argument>
             <argument>%fos_user.encoder.iterations%</argument>
