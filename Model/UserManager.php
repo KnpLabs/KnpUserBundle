@@ -32,8 +32,10 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     public function createUser()
     {
         $class = $this->getClass();
+        $user = new $class;
+        $user->setAlgorithm($this->algorithm);
 
-        return new $class;
+        return $user;
     }
 
     /**

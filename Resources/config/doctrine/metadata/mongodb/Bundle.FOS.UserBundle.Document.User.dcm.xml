@@ -6,8 +6,6 @@
 
     <mapped-superclass name="Bundle\FOS\UserBundle\Document\User" collection="fos_user_user">
 
-        <field name="id" fieldName="id" id="true" />
-
         <field name="username" fieldName="username" type="string" />
 
         <field name="usernameLower" fieldName="usernameLower" type="string" />

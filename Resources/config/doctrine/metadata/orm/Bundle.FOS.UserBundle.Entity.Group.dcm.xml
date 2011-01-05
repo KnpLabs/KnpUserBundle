@@ -6,7 +6,7 @@
 
     <entity name="Bundle\FOS\UserBundle\Entity\Group" table="fos_user_group">
 
-        <id name="id" type="integer" column="id">
+        <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
 

@@ -60,6 +60,7 @@ class UserController extends Controller
     public function updateAction($username)
     {
         $user = $this->findUserBy('username', $username);
+        $form = $this->createForm($user);
         $form->bind($this->get('request')->request->get($form->getName()));
 
         if ($form->isValid()) {
