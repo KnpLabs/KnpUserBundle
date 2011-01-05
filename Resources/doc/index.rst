@@ -86,32 +86,14 @@ MongoDB User class:
         protected $id;
     }
 
+Changing default class mappings
+-------------------------------
 
-Define Group class id
----------------------
+In case you want to change some of the default mappings, like for example the
+Group class ``id`` generator strategy one must simply replicate the default
+file inside an Application Bundle and then apply the necessary changes:
 
-The definition of the Group class follows the same logic as the User class.
-Again all fields on the base class are mapped, except for ``id``; this is
-intentional, so you can select the generator that best suits your application.
-However extending the Group class is not possible so you will need to add an
-``id`` field by simply placing a mapping file into one of your Bundles:
-
-    <?xml version="1.0" encoding="UTF-8"?>
-    <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
-                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
-                     http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-
-        <entity name="Bundle\FOS\UserBundle\Entity\Group" table="fos_user_group">
-
-           <id name="id" column="id" type="integer">
-               <generator strategy="IDENTITY" />
-           </id>
-
-       </entity>
-
-    </doctrine-mapping>
-
+    cp src/Bundle/FOS/UserBundle/Resources/config/doctrine/metadata/orm/Bundle.FOS.UserBundle.Entity.Group.dcm src/Application/..
 
 Configure your project
 ----------------------
