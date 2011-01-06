@@ -8,7 +8,7 @@
         <default key="_controller">fos_user.controller.security:loginAction</default>
     </route>
 
-    <route id="_security_check" pattern="/login-check">
+    <route id="_security_check" pattern="/login_check">
         <default key="_controller">fos_user.controller.security:loginAction</default>
     </route>
 
