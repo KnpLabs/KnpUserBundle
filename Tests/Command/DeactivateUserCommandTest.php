@@ -43,7 +43,7 @@ class DeactivateUserCommandTest extends WebTestCase
         $this->getService('doctrine.orm.default_entity_manager')->clear();
 
         $userManager = $this->getService('fos_user.user_manager');
-        $user = $userManager->findOneByUsername($username);
+        $user = $userManager->findUserByUsername($username);
 
         $this->assertTrue($user instanceof User);
         $this->assertFalse($user->isEnabled());

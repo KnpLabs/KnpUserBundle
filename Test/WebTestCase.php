@@ -42,7 +42,7 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
     protected function removeTestUser()
     {
         $userManager = $this->getService('fos_user.user_manager');
-        if ($user = $userManager->findOneByUsername('test_username')) {
+        if ($user = $userManager->findUserByUsername('test_username')) {
             $userManager->deleteUser($user);
         }
     }

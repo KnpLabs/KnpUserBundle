@@ -29,7 +29,7 @@ class CreateUserCommandTest extends WebTestCase
         ), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
 
         $userManager = $this->getService('fos_user.user_manager');
-        $user = $userManager->findOneByUsername($username);
+        $user = $userManager->findUserByUsername($username);
 
         $this->assertTrue($user instanceof User);
         $this->assertEquals($email, $user->getEmail());
@@ -57,7 +57,7 @@ class CreateUserCommandTest extends WebTestCase
         ), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
 
         $userManager = $this->getService('fos_user.user_manager');
-        $user = $userManager->findOneByUsername($username);
+        $user = $userManager->findUserByUsername($username);
 
         $this->assertTrue($user instanceof User);
         $this->assertEquals($email, $user->getEmail());
