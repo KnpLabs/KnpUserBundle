@@ -126,7 +126,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     {
         if (0 !== strlen($password = $user->getPlainPassword())) {
             $user->setAlgorithm($this->algorithm);
-            $user->setPassword($this->encoder->encodePassword($password, $user->getSalt()));
+            $user->setPassword($this->encoder->getEncoder($user)->encodePassword($password, $user->getSalt()));
             $user->eraseCredentials();
         }
     }

@@ -31,7 +31,7 @@ class UserExtension extends Extension
 
         // load all service configuration files (the db_driver first)
         if (!$container->hasDefinition('security.encoder.fos_user')) {
-            foreach (array('controller', 'templating', 'email', 'twig', 'form', 'validator', 'security') as $basename) {
+            foreach (array('controller', 'templating', 'email', 'form', 'validator', 'security') as $basename) {
                 $loader->load(sprintf('%s.xml', $basename));
             }
         }
@@ -45,7 +45,7 @@ class UserExtension extends Extension
         if (isset($config['encoder'])) {
             $this->remapParameters($config['encoder'], $container, array(
                 'algorithm' => 'fos_user.encoder.algorithm',
-                'encodeHashAsBase64' => 'fos_user.encoder.encodeHashAsBase64',
+                'encode-as-base64' => 'fos_user.encoder.encode_hash_as_base64',
                 'iterations' => 'fos_user.encoder.iterations',
             ));
         }
