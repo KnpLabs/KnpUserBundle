@@ -6,33 +6,9 @@
 
     <parameters>
         <parameter key="fos_user.encoder.algorithm">sha512</parameter>
-        <parameter key="fos_user.encoder.encodeHashAsBase64">true</parameter>
+        <parameter key="fos_user.encoder.encode_hash_as_base64">true</parameter>
         <parameter key="fos_user.encoder.iterations">3</parameter>
-        <parameter key="fos_user.encoder.factory.class">Bundle\FOS\UserBundle\Security\Encoder\EncoderFactory</parameter>
+        <parameter key="security.encoder_factory.generic.class">Bundle\FOS\UserBundle\Security\Encoder\EncoderFactory</parameter>
     </parameters>
 
-    <services>
-        <service id="fos_user.encoder.factory" class="%fos_user.encoder.factory.class%" public="false">
-            <argument>%security.encoder.digest.class%</argument>
-            <argument>%fos_user.encoder.encodeHashAsBase64%</argument>
-            <argument>%fos_user.encoder.iterations%</argument>
-        </service>
-    
-        <service id="security.encoder.fos_user" class="%security.encoder.digest.class%" public="false">
-            <argument>%fos_user.encoder.algorithm%</argument>
-            <argument>%fos_user.encoder.encodeHashAsBase64%</argument>
-            <argument>%fos_user.encoder.iterations%</argument>
-        </service>
-        
-        <!-- This encoder will be used for hashing new passwords -->
-        <service id="fos_user.encoder" alias="security.encoder.fos_user" />
-    </services>
-    
-    <interfaces>
-        <interface class="Bundle\FOS\UserBundle\Security\Encoder\EncoderFactoryAwareInterface">
-            <call method="setEncoderFactory">
-                <argument type="service" id="fos_user.encoder.factory" />
-            </call>
-        </interface>
-    </interfaces>
 </container>

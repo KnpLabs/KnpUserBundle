@@ -9,6 +9,9 @@
 
 namespace Bundle\FOS\UserBundle\Security\Encoder;
 
+use Symfony\Component\Security\User\AccountInterface;
+
+use Symfony\Component\Security\Encoder\EncoderFactory as GenericEncoderFactory;
 use Bundle\FOS\UserBundle\Model\User;
 
 /**
@@ -16,28 +19,35 @@ use Bundle\FOS\UserBundle\Model\User;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class EncoderFactory implements EncoderFactoryInterface
+class EncoderFactory extends GenericEncoderFactory
 {
-    protected static $encoders = array();
+    protected $fosEncoders;
     protected $encoderClass;
     protected $encodeHashAsBase64;
     protected $iterations;
 
-    public function __construct($class, $encodeHashAsBase64, $iterations)
+    public function __construct($class, $encodeHashAsBase64, $iterations, array $encoderMap)
     {
+        parent::__construct($encoderMap);
+
         $this->encoderClass = $class;
         $this->encodeHashAsBase64 = $encodeHashAsBase64;
         $this->iterations = $iterations;
+        $this->fosEncoders = array();
     }
 
-    public function getEncoder(User $user)
+    public function getEncoder(AccountInterface $user)
     {
-        if (!isset(self::$encoders[$algorithm = $user->getAlgorithm()])) {
-            $class = $this->encoderClass;
-
-            self::$encoders[$algorithm] = new $class($algorithm, $this->encodeHashAsBase64, $this->iterations);
+        if (!$user instanceof User) {
+            return parent::getEncoder($user);
         }
 
-        return self::$encoders[$algorithm];
+        if (!isset($this->fosEncoders[$algorithm = $user->getAlgorithm()])) {
+            $class = $this->encoderClass;
+
+            $this->fosEncoders[$algorithm] = new $class($algorithm, $this->encodeHashAsBase64, $this->iterations);
+        }
+
+        return $this->fosEncoders[$algorithm];
     }
 }

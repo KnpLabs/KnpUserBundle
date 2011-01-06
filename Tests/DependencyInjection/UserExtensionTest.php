@@ -190,7 +190,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('sha512', 'fos_user.encoder.algorithm');
-        $this->assertParameter(true, 'fos_user.encoder.encodeHashAsBase64');
+        $this->assertParameter(true, 'fos_user.encoder.encode_hash_as_base64');
         $this->assertParameter('3', 'fos_user.encoder.iterations');
     }
 
@@ -199,9 +199,8 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createFullConfiguration();
 
         $this->assertParameter('algorithm', 'fos_user.encoder.algorithm');
-        $this->assertParameter('encodeHashAsBase64', 'fos_user.encoder.encodeHashAsBase64');
+        $this->assertParameter('encode-as-base64', 'fos_user.encoder.encode_hash_as_base64');
         $this->assertParameter('iterations', 'fos_user.encoder.iterations');
-        $this->assertAlias('security.encoder.name', 'fos_user.encoder');
     }
 
     /**
@@ -248,9 +247,8 @@ class:
         security: ~
 encoder:
     algorithm:          ~
-    encodeHashAsBase64: ~
+    encode-as-base64:   ~
     iterations:         ~
-    name:               ~
 form_name:
     user:            ~
     change_password: ~
