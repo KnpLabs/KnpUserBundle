@@ -67,7 +67,7 @@ class UserExtension extends \Twig_Extension
      */
     public function isAnonymous()
     {
-        return false === $this->vote('IS_AUTHENTICATED_FULLY');
+        return false === $this->securityContext->vote('IS_AUTHENTICATED_FULLY');
     }
 
     /**
