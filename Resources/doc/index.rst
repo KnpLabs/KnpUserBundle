@@ -277,9 +277,9 @@ All configuration options are listed below::
             user:     ~
             security: ~
     encoder:
-        algorithm:          ~
-        encode-as-base64:   ~
-        iterations:         ~
+        algorithm:        ~
+        encode_as_base64: ~
+        iterations:       ~
     form_name:
         user:            ~
         change_password: ~

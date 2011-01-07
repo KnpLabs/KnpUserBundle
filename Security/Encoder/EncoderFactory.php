@@ -9,45 +9,70 @@
 
 namespace Bundle\FOS\UserBundle\Security\Encoder;
 
+use Symfony\Component\Security\Encoder\EncoderFactory as BaseEncoderFactory;
 use Symfony\Component\Security\User\AccountInterface;
-
-use Symfony\Component\Security\Encoder\EncoderFactory as GenericEncoderFactory;
-use Bundle\FOS\UserBundle\Model\User;
+use Bundle\FOS\UserBundle\Model\UserInterface;
 
 /**
  * This factory assumes MessageDigestPasswordEncoder's constructor.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
+ * @author Jeremy Mikola <jmikola@gmail.com>
  */
-class EncoderFactory extends GenericEncoderFactory
+class EncoderFactory extends BaseEncoderFactory
 {
     protected $fosEncoders;
-    protected $encoderClass;
-    protected $encodeHashAsBase64;
-    protected $iterations;
+    protected $fosEncoderClass;
+    protected $fosEncoderArgs;
 
-    public function __construct($class, $encodeHashAsBase64, $iterations, array $encoderMap)
+    /**
+     * Constructor.
+     *
+     * @param string $fosEncoderClass Encoder class
+     * @param array  $fosEncoderArgs  Default encoder constructor arguments
+     * @param array  $encoderMap      Encoder map for base EncoderFactory class
+     */
+    public function __construct($fosEncoderClass, array $fosEncoderArgs, array $encoderMap)
     {
         parent::__construct($encoderMap);
 
-        $this->encoderClass = $class;
-        $this->encodeHashAsBase64 = $encodeHashAsBase64;
-        $this->iterations = $iterations;
+        $this->fosEncoderClass = $fosEncoderClass;
+        $this->fosEncoderArgs = $fosEncoderArgs;
         $this->fosEncoders = array();
     }
 
-    public function getEncoder(AccountInterface $user)
+    /**
+     * @see Symfony\Component\Security\Encoder.EncoderFactory::getEncoder()
+     */
+    public function getEncoder(AccountInterface $account)
     {
-        if (!$user instanceof User) {
-            return parent::getEncoder($user);
+        if (!$account instanceof UserInterface) {
+            return parent::getEncoder($account);
         }
 
-        if (!isset($this->fosEncoders[$algorithm = $user->getAlgorithm()])) {
-            $class = $this->encoderClass;
+        $algorithm = $account->getAlgorithm();
 
-            $this->fosEncoders[$algorithm] = new $class($algorithm, $this->encodeHashAsBase64, $this->iterations);
+        if (isset($this->fosEncoders[$algorithm])) {
+            return $this->fosEncoders[$algorithm];
         }
 
-        return $this->fosEncoders[$algorithm];
+        return $this->createFosEncoder($algorithm);
+    }
+
+    /**
+     * Creates an encoder for the given algorithm.
+     *
+     * @param string $algorithm
+     * @return \Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder
+     */
+    protected function createFosEncoder($algorithm)
+    {
+        $arguments = $this->fosEncoderArgs;
+        $arguments[0] = $algorithm;
+
+        $reflection = new \ReflectionClass($this->fosEncoderClass);
+        $this->encoders[$algorithm] = $reflection->newInstanceArgs($arguments);
+
+        return $this->encoders[$algorithm];
     }
 }
