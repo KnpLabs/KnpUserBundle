@@ -189,9 +189,9 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('sha256', 'fos_user.encoder.algorithm');
-        $this->assertParameter(false, 'fos_user.encoder.encode_as_base64');
-        $this->assertParameter(1, 'fos_user.encoder.iterations');
+        $this->assertParameter('sha512', 'fos_user.encoder.algorithm');
+        $this->assertParameter(true, 'fos_user.encoder.encode_as_base64');
+        $this->assertParameter(5, 'fos_user.encoder.iterations');
     }
 
     public function testUserLoadEncoderConfig()

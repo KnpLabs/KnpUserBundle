@@ -15,8 +15,9 @@ class EncoderFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new EncoderFactory(
             'Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder',
-            array('sha256', false, 1),
-            array()
+            false,
+            1,
+            $this->getMock('Symfony\Component\Security\Encoder\EncoderFactoryInterface')
         );
 
         $userAccount = $this->getMock('Bundle\FOS\UserBundle\Model\UserInterface');
@@ -32,13 +33,19 @@ class EncoderFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedEncoder->encodePassword('foo', 'bar'), $encoder->encodePassword('foo', 'bar'));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testGetEncoderWithGenericAccount()
     {
-        $factory = new EncoderFactory(null, array(), array());
+        $genericFactory = $this->getMock('Symfony\Component\Security\Encoder\EncoderFactoryInterface');
+        $encoder = $this->getMock('Symfony\Component\Security\Encoder\PasswordEncoderInterface');
 
-        $factory->getEncoder($this->getMock('Symfony\Component\Security\User\AccountInterface'));
+        $genericFactory
+            ->expects($this->once())
+            ->method('getEncoder')
+            ->will($this->returnValue($encoder))
+        ;
+
+        $factory = new EncoderFactory(null , false, 1, $genericFactory);
+
+        $this->assertSame($encoder, $factory->getEncoder($this->getMock('Symfony\Component\Security\User\AccountInterface')));
     }
 }
