@@ -11,6 +11,13 @@
          syntaxCheck="false"
          bootstrap="../../../autoload.php"
 >
+
+<!--
+    <php>
+        <server name="KERNEL_DIR" value="../../../../app" />
+    </php>
+-->
+
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>./Tests/</directory>
