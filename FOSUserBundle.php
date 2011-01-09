@@ -10,8 +10,6 @@
 
 namespace Bundle\FOS\UserBundle;
 
-use Bundle\FOS\UserBundle\DependencyInjection\Compiler\InjectParametersIntoEncoderFactoryPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle as BaseBundle;
 
 class FOSUserBundle extends BaseBundle
@@ -24,12 +22,5 @@ class FOSUserBundle extends BaseBundle
         if (!extension_loaded('mb_string')) {
             require_once __DIR__.'/Util/mbstring.php';
         }
-    }
-
-    public function registerExtensions(ContainerBuilder $container)
-    {
-        parent::registerExtensions($container);
-
-        $container->addCompilerPass(new InjectParametersIntoEncoderFactoryPass());
     }
 }

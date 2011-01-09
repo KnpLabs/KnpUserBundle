@@ -44,9 +44,9 @@ class UserExtension extends Extension
         // per default, we use a sha512 encoder, but you may change this here
         if (isset($config['encoder'])) {
             $this->remapParameters($config['encoder'], $container, array(
-                'algorithm' => 'fos_user.encoder.algorithm',
-                'encode-as-base64' => 'fos_user.encoder.encode_hash_as_base64',
-                'iterations' => 'fos_user.encoder.iterations',
+                'algorithm'        => 'fos_user.encoder.algorithm',
+                'encode_as_base64' => 'fos_user.encoder.encode_as_base64',
+                'iterations'       => 'fos_user.encoder.iterations',
             ));
         }
 

@@ -18,6 +18,9 @@
         
         <!-- Password Validator Service -->
         <service id="fos_user.validator.password" class="%fos_user.validator.password.class%">
+            <call method="setEncoderFactory">
+                <argument type="service" id="security.encoder_factory" />
+            </call>
             <tag name="validator.constraint_validator" alias="fos_user.validator.password" />
         </service>
     </services>

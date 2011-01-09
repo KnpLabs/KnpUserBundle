@@ -2,12 +2,11 @@
 
 namespace Bundle\FOS\UserBundle\Validator;
 
+use Symfony\Component\Security\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Validator\Constraint;
-use Bundle\FOS\UserBundle\Security\Encoder\EncoderFactoryAwareInterface;
-use Bundle\FOS\UserBundle\Security\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class PasswordValidator extends ConstraintValidator implements EncoderFactoryAwareInterface
+class PasswordValidator extends ConstraintValidator
 {
     protected $encoderFactory;
 

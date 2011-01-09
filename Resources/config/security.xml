@@ -6,9 +6,20 @@
 
     <parameters>
         <parameter key="fos_user.encoder.algorithm">sha512</parameter>
-        <parameter key="fos_user.encoder.encode_hash_as_base64">true</parameter>
-        <parameter key="fos_user.encoder.iterations">3</parameter>
-        <parameter key="security.encoder_factory.generic.class">Bundle\FOS\UserBundle\Security\Encoder\EncoderFactory</parameter>
+        <parameter key="fos_user.encoder.encode_as_base64">false</parameter>
+        <parameter key="fos_user.encoder.iterations">1</parameter>
+        <parameter key="fos_user.encoder_factory.class">Bundle\FOS\UserBundle\Security\Encoder\EncoderFactory</parameter>
     </parameters>
+
+    <services>
+        <service id="fos_user.encoder_factory" class="%fos_user.encoder_factory.class%" public="false">
+            <argument>%security.encoder.digest.class%</argument>
+            <argument>%fos_user.encoder.encode_as_base64%</argument>
+            <argument>%fos_user.encoder.iterations%</argument>
+            <argument type="service" id="security.encoder_factory.generic" />
+        </service>
+        
+        <service id="security.encoder_factory" alias="fos_user.encoder_factory" public="false" />
+    </services>
 
 </container>

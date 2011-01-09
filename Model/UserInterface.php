@@ -10,7 +10,9 @@
 
 namespace Bundle\FOS\UserBundle\Model;
 
-interface UserInterface
+use Symfony\Component\Security\User\AdvancedAccountInterface;
+
+interface UserInterface extends AdvancedAccountInterface
 {
     public function addRole($role);
 

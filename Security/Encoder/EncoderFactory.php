@@ -9,45 +9,71 @@
 
 namespace Bundle\FOS\UserBundle\Security\Encoder;
 
+use Symfony\Component\Security\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\User\AccountInterface;
-
-use Symfony\Component\Security\Encoder\EncoderFactory as GenericEncoderFactory;
-use Bundle\FOS\UserBundle\Model\User;
+use Bundle\FOS\UserBundle\Model\UserInterface;
 
 /**
  * This factory assumes MessageDigestPasswordEncoder's constructor.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
+ * @author Jeremy Mikola <jmikola@gmail.com>
  */
-class EncoderFactory extends GenericEncoderFactory
+class EncoderFactory implements EncoderFactoryInterface
 {
-    protected $fosEncoders;
+    protected $encoders;
     protected $encoderClass;
     protected $encodeHashAsBase64;
     protected $iterations;
+    protected $genericFactory;
 
-    public function __construct($class, $encodeHashAsBase64, $iterations, array $encoderMap)
+    /**
+     * Constructor.
+     *
+     * @param string $encoderClass Encoder class
+     * @param Boolean $encodeHashAsBase64
+     * @param integer $iterations
+     * @param EncoderFactoryInterface $genericFactory
+     */
+    public function __construct($encoderClass, $encodeHashAsBase64, $iterations, EncoderFactoryInterface $genericFactory)
     {
-        parent::__construct($encoderMap);
-
-        $this->encoderClass = $class;
+        $this->encoders = array();
+        $this->encoderClass = $encoderClass;
         $this->encodeHashAsBase64 = $encodeHashAsBase64;
         $this->iterations = $iterations;
-        $this->fosEncoders = array();
+        $this->genericFactory = $genericFactory;
     }
 
-    public function getEncoder(AccountInterface $user)
+    /**
+     * @see Symfony\Component\Security\Encoder.EncoderFactory::getEncoder()
+     */
+    public function getEncoder(AccountInterface $account)
     {
-        if (!$user instanceof User) {
-            return parent::getEncoder($user);
+        if (!$account instanceof UserInterface) {
+            return $this->genericFactory->getEncoder($account);
         }
 
-        if (!isset($this->fosEncoders[$algorithm = $user->getAlgorithm()])) {
-            $class = $this->encoderClass;
-
-            $this->fosEncoders[$algorithm] = new $class($algorithm, $this->encodeHashAsBase64, $this->iterations);
+        if (isset($this->encoders[$algorithm = $account->getAlgorithm()])) {
+            return $this->encoders[$algorithm];
         }
 
-        return $this->fosEncoders[$algorithm];
+        return $this->encoders[$algorithm] = $this->createEncoder($algorithm);
+    }
+
+    /**
+     * Creates an encoder for the given algorithm.
+     *
+     * @param string $algorithm
+     * @return PasswordEncoderInterface
+     */
+    protected function createEncoder($algorithm)
+    {
+        $class = $this->encoderClass;
+
+        return new $class(
+            $algorithm,
+            $this->encodeHashAsBase64,
+            $this->iterations
+        );
     }
 }
