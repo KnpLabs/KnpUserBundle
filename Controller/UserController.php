@@ -286,11 +286,17 @@ class UserController extends Controller
     /**
      * Authenticate a user with Symfony Security
      *
+     * @param Boolean $reAuthenticate
      * @return null
      */
-    public function authenticateUser(User $user)
+    protected function authenticateUser(User $user, $reAuthenticate = false)
     {
-        $token = new UsernamePasswordToken($user, $user->getPassword(), $user->getRoles());
+        $token = new UsernamePasswordToken($user, null, $user->getRoles());
+
+        if (true === $reAuthenticate) {
+            $token->setAuthenticated(false);
+        }
+
         $this->get('security.context')->setToken($token);
     }
 
