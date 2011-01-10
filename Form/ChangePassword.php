@@ -21,10 +21,6 @@ class ChangePassword
     public $current;
 
     /**
-     * @validation:NotBlank()
-     * @validation:MinLength(limit=2)
-     * @validation:MaxLength(limit=255)
-     * 
      * @var string
      */
     public $new;
