@@ -290,7 +290,7 @@ class UserController extends Controller
      */
     public function authenticateUser(User $user)
     {
-        $token = new UsernamePasswordToken($user, null, $user->getRoles());
+        $token = new UsernamePasswordToken($user, $user->getPassword(), $user->getRoles());
         $this->get('security.context')->setToken($token);
     }
 
