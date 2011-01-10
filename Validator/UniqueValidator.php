@@ -4,7 +4,7 @@ namespace Bundle\FOS\UserBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Bundle\FOS\UserBundle\Model\UserManager;
+use Bundle\FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\ValidatorException;
 
@@ -19,11 +19,11 @@ class UniqueValidator extends ConstraintValidator
     protected $userManager;
 
     /**
-     * Contructor
+     * Constructor
      *
-     * @param UserManager $userManager
+     * @param UserManagerInterface $userManager
      */
-    public function __construct(UserManager $userManager)
+    public function __construct(UserManagerInterface $userManager)
     {
         $this->userManager = $userManager;
     }

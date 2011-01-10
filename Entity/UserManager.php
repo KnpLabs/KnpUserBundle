@@ -74,16 +74,16 @@ class UserManager extends BaseUserManager
      */
     public function validateUnique($value, Constraint $constraint)
     {
-        $fields   = $this->extractFieldNames($constraint->property);
-        $entities = $this->getConflictualEntities($value, $fields);
+        $fields = array_map('trim', explode(',', $constraint->property));
+        $users = $this->findConflictualUsers($value, $fields);
 
-        // there is no conflictual entity
-        if (0 === count($entities)) {
+        // there is no conflictual user
+        if (empty($users)) {
             return true;
         }
 
-        // there is no conflictual entity which is not the same as the value
-        if ($this->areAllTheSame($value, $entities)) {
+        // there is no conflictual user which is not the same as the value
+        if ($this->areSame($value, $users)) {
             return true;
         }
 
@@ -91,16 +91,16 @@ class UserManager extends BaseUserManager
     }
 
     /**
-     * Indicates whether the given entity and all compared objects correspond to the same record
+     * Indicates whether the given user and all compared objects correspond to the same record
      *
-     * @param UserInterface $entity
+     * @param UserInterface $user
      * @param array $comparisons
      * @return boolean
      */
-    protected function areAllTheSame($entity, array $comparisons)
+    protected function areSame($user, array $comparisons)
     {
         foreach ($comparisons as $comparison) {
-            if ( ! $this->areTheSame($entity, $comparison)) {
+            if (!$user->isSame($comparison)) {
                 return false;
             }
         }
@@ -109,59 +109,37 @@ class UserManager extends BaseUserManager
     }
 
     /**
-     * Indicates whether the given entity and compared object correspond to the same record
+     * Gets conflictual users for the given user and constraint
      *
-     * @param UserInterface $entity
-     * @param mixed $comparison
-     * @return boolean
-     */
-    protected function areTheSame($entity, $comparison)
-    {
-        return $entity === $comparison;
-    }
-
-    /**
-     * Gets conflictual entities for the given entity and constraint
-     *
-     * @param UserInterface $entity
+     * @param UserInterface|string $value
      * @param array $fields
      * @return array
      */
-    protected function getConflictualEntities($entity, array $fields)
+    protected function findConflictualUsers($value, array $fields)
     {
-        return $this->repository->findBy($this->getCriteria($entity, $fields));
+        return $this->repository->findBy($this->getCriteria($value, $fields));
     }
 
     /**
      * Gets the criteria used to find conflictual entities
      *
-     * @param UserInterface $entity
+     * @param UserInterface|string $value
      * @param array $constraint
      * @return array
      */
-    protected function getCriteria($entity, array $fields)
+    protected function getCriteria($value, array $fields)
     {
+        $metadata = $this->em->getClassMetadata($this->class);
+
         $criteria = array();
-        $metadata = $this->em->getClassMetadata(get_class($entity));
         foreach ($fields as $field) {
-            if ($metadata->hasField($field)) {
-                $criteria[$field] = $metadata->getFieldValue($entity, $field);
-            } else {
-                throw new \InvalidArgumentException(sprintf('The "%s" class metadata does not have any "%s" field or association mapping.', get_class($entity), $field));
+            if (!$metadata->hasField($field)) {
+                throw new \InvalidArgumentException(sprintf('The "%s" class metadata does not have any "%s" field or association mapping.', $this->class, $field));
             }
+
+            $criteria[$field] = is_string($value) ? $value : $metadata->getFieldValue($value, $field);
         }
 
         return $criteria;
-    }
-
-    /**
-     * Extracts field names from the given constraint
-     *
-     * @param  string $fields
-     * @return array
-     */
-    protected function extractFieldNames($fields)
-    {
-        return array_map('trim', explode(',', $fields));
     }
 }

@@ -116,7 +116,7 @@ interface UserManagerInterface
     /**
      * Checks the uniqueness of the given fields
      *
-     * @param UserInterface $value
+     * @param UserInterface|string $value
      * @param Constraint $constraint
      * @return boolean
      */

@@ -20,6 +20,9 @@ use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
 /**
  * Storage agnostic user object
  * Has validator annotation, but database mapping must be done in a subclass.
+ *
+ * @fosuserbundlevalidation:Unique(property="username,email", message="The value for '%property%' already exists.", groups="Registration")
+ * 
  */
 abstract class User implements UserInterface
 {
@@ -29,11 +32,10 @@ abstract class User implements UserInterface
     protected $id;
 
     /**
-     * @validation:Validation({
-     *      @validation:NotBlank(message="Please enter a username", groups="Registration"),
-     *      @validation:MinLength(limit=2, message="The username is too short", groups="Registration"),
-     *      @validation:MaxLength(limit=255, message="The username is too long", groups="Registration")
-     * })
+     * @validation:NotBlank(message="Please enter a username", groups="Registration")
+     * @validation:MinLength(limit=2, message="The username is too short", groups="Registration")
+     * @validation:MaxLength(limit=255, message="The username is too long", groups="Registration")
+     *
      * @var string
      */
     protected $username;
@@ -44,11 +46,10 @@ abstract class User implements UserInterface
     protected $usernameLower;
 
     /**
-     * @validation:Validation({
-     *      @validation:NotBlank(message="Please enter an email", groups="Registration"),
-     *      @validation:Email(message="This is not a valid email", groups="Registration"),
-     *      @validation:MaxLength(limit=255, message="The email is too long", groups="Registration")
-     * })
+     * @validation:NotBlank(message="Please enter an email", groups="Registration")
+     * @validation:Email(message="This is not a valid email", groups="Registration")
+     * @validation:MaxLength(limit=255, message="The email is too long", groups="Registration")
+     *
      * @var string
      */
     protected $email;
@@ -82,11 +83,10 @@ abstract class User implements UserInterface
     /**
      * Plain password. Used for model validation. Must not be persisted.
      *
-     * @validation:Validation({
-     *      @validation:NotBlank(message="Please enter a password", groups="Registration"),
-     *      @validation:MinLength(limit=2, message="The password is too short", groups="Registration"),
-     *      @validation:MaxLength(limit=255, message="The password is too long", groups="Registration")
-     * })
+     * @validation:NotBlank(message="Please enter a password", groups="Registration")
+     * @validation:MinLength(limit=2, message="The password is too short", groups="Registration")
+     * @validation:MaxLength(limit=255, message="The password is too long", groups="Registration")
+     *
      * @var string
      */
     protected $plainPassword;

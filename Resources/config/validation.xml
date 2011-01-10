@@ -7,17 +7,19 @@
     <class name="Bundle\FOS\UserBundle\Model\User">
 
         <constraint name="Bundle\FOS\UserBundle\Validator\Unique">
-            <option name="property">username</option>
-            <option name="message">The provided username was already taken.</option>
-            <option name="groups">Registration</option>
-        </constraint>
-
-        <constraint name="Bundle\FOS\UserBundle\Validator\Unique">
-            <option name="property">email</option>
-            <option name="message">The provided email was already taken.</option>
+            <option name="property">username,email</option>
             <option name="groups">Registration</option>
         </constraint>
 
     </class>
+
+    <class name="Bundle\FOS\UserBundle\Form\ChangePassword">
+        <constraint name="Bundle\FOS\UserBundle\Validator\Password">
+            <option name="passwordProperty">current</option>
+            <option name="userProperty">user</option>
+        </constraint>
+
+    </class>
+
 
 </constraint-mapping>
