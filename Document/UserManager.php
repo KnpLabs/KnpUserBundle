@@ -84,15 +84,7 @@ class UserManager extends BaseUserManager
             return true;
         }
 
-        if (is_string($value)) {
-            $field = $this->getFieldNameFromPropertyPath($constraint->property);
-            $mapping = $classMetadata->fieldMappings[$field];
-
-            // check if document in mongodb has the same property value as supplied
-            if ($classMetadata->getFieldValue($document, $mapping['fieldName']) === $value) {
-                return true;
-            }
-        } else {
+        if ($value instanceOf UserInterface) {
             // check if document in mongodb is the same document as the checked one
             if ($document->isUser($value)) {
                 return true;
@@ -103,6 +95,14 @@ class UserManager extends BaseUserManager
             }
             // check if document has the same identifier as the current one
             if ($classMetadata->getIdentifierValue($document) === $classMetadata->getIdentifierValue($value)) {
+                return true;
+            }
+        } else {
+            $field = $this->getFieldNameFromPropertyPath($constraint->property);
+            $mapping = $classMetadata->fieldMappings[$field];
+
+            // check if document in mongodb has the same property value as supplied
+            if ($classMetadata->getFieldValue($document, $mapping['fieldName']) === $value) {
                 return true;
             }
         }
@@ -122,7 +122,7 @@ class UserManager extends BaseUserManager
             throw new \LogicException('Cannot determine uniqueness of referenced document values');
         }
 
-        $value = is_string($value) ? $value : $classMetadata->getFieldValue($value, $mapping['fieldName']);
+        $criteria[$field] = $value instanceOf UserInterface ? $classMetadata->getFieldValue($value, $field) : $value;
 
         switch ($mapping['type']) {
             case 'one':
