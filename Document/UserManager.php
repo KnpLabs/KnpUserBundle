@@ -79,7 +79,7 @@ class UserManager extends BaseUserManager
         // $fields = array_map('trim', explode(',', $constraint->property));
         $query = $this->getQueryArray($classMetadata, $value, $constraint->property);
 
-        $document = $this->repository->findOneBy($query);
+        $document = $this->findUserBy($query);
         if (null === $document) {
             return true;
         }
@@ -94,7 +94,7 @@ class UserManager extends BaseUserManager
             }
         } else {
             // check if document in mongodb is the same document as the checked one
-            if ($document->isSame($value)) {
+            if ($document->isUser($value)) {
                 return true;
             }
             // check if returned document is proxy and initialize the minimum identifier if needed

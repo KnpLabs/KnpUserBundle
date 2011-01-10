@@ -21,7 +21,10 @@ use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
  * Storage agnostic user object
  * Has validator annotation, but database mapping must be done in a subclass.
  *
- * @fosuserbundlevalidation:Unique(property="username,email", message="The value for '%property%' already exists.", groups="Registration")
+ * @validation:Set({
+ *      @fosuserbundlevalidation:Unique(property="username", groups="Registration"),
+ *      @fosuserbundlevalidation:Unique(property="email", groups="Registration")
+ * })
  * 
  */
 abstract class User implements UserInterface
@@ -444,7 +447,7 @@ abstract class User implements UserInterface
      * @param User $user
      * @return boolean
      */
-    public function is(UserInterface $user = null)
+    public function isUser(UserInterface $user = null)
     {
         return null !== $user && $this->getUsername() === $user->getUsername();
     }

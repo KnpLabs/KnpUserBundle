@@ -83,7 +83,7 @@ class UserManager extends BaseUserManager
         }
 
         // there is no conflictual user which is not the same as the value
-        if ($this->areSame($value, $users)) {
+        if (!is_string($value) && $this->anyIsUser($value, $users)) {
             return true;
         }
 
@@ -97,10 +97,10 @@ class UserManager extends BaseUserManager
      * @param array $comparisons
      * @return boolean
      */
-    protected function areSame($user, array $comparisons)
+    protected function anyIsUser($user, array $comparisons)
     {
         foreach ($comparisons as $comparison) {
-            if (!$user->isSame($comparison)) {
+            if (!$user->isUser($comparison)) {
                 return false;
             }
         }

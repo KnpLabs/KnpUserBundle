@@ -30,7 +30,7 @@ class SecurityHelper extends BaseSecurityHelper
     {
         $authenticatedUser = $this->getUser();
 
-        return $authenticatedUser instanceof User && $authenticatedUser->is($user);
+        return $authenticatedUser instanceof User && $authenticatedUser->isUser($user);
     }
 
     /**

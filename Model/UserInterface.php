@@ -28,7 +28,7 @@ interface UserInterface extends AdvancedAccountInterface
 
     function isSuperAdmin();
 
-    function isSame(UserInterface $user = null);
+    function isUser(UserInterface $user = null);
 
     function setEnabled($boolean);
 
