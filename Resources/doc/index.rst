@@ -147,9 +147,9 @@ Or if you prefer XML:
     # app/config/config.xml
 
     <fos_user:config db_driver="orm">
-        <fos_user:model>
-            <fos_user:user class="Application\MyBundle\Entity\User" />
-        </fos_user:model>
+        <fos_user:class>
+            <fos_user:model user="Application\MyBundle\Entity\User" />
+        </fos_user:class>
     </fos_user:config>
 
 ODM
@@ -162,9 +162,9 @@ In YAML:
     # app/config/config.yml
     fos_user.config:
         db_driver: mongodb
-        model:
-            user:
-                class: Application\MyBundle\Document\User
+        class:
+            model:
+                user: Application\MyBundle\Document\User
 
 Or if you prefer XML:
 
@@ -173,8 +173,8 @@ Or if you prefer XML:
     # app/config/config.xml
 
     <fos_user:config db_driver="mongodb">
-        <fos_user:model>
-            <fos_user:user class="Application\MyBundle\Document\User" />
+        <fos_user:class>
+            <fos_user:model user="Application\MyBundle\Document\User" />
         </fos_user:model>
     </fos_user:config>
 
@@ -307,16 +307,5 @@ Validation
 ----------
 
 The ``Resources/config/validation.xml`` file contains definitions for custom
-validator rules for various classes. Optionally these can also be defined
-via annotations by defining the namespace in the annotation configuration.
-
-In YAML::
-
-    # app/config/config.xml
-
-    app.config:
-        validation:
-            enabled: true
-            annotations:
-                namespaces:
-                    fosuserbundlevalidation: Bundle\FOS\UserBundle\Validator\
+validator rules for various classes. The rules for the ``User`` class are all in
+the ``Registration`` validation group so you can choose not to use them.
