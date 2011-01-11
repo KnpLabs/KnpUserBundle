@@ -35,6 +35,7 @@ class GroupController extends Controller
     public function showAction($groupname)
     {
         $group = $this->findGroupBy('name', $groupname);
+
         return $this->render('FOS\UserBundle:Group:show.'.$this->getRenderer(), array('group' => $group));
     }
 
@@ -57,7 +58,8 @@ class GroupController extends Controller
      */
     public function updateAction($groupname)
     {
-        $user = $this->findGroupBy('name', $groupname);
+        $group = $this->findGroupBy('name', $groupname);
+        $form = $this->createForm($group);
         $form->bind($this->get('request')->request->get($form->getName()));
 
         if ($form->isValid()) {
@@ -149,7 +151,7 @@ class GroupController extends Controller
     {
         $form = $this->get('fos_user.form.group');
         if (null === $object) {
-            $object = $this->get('fos_user.group_manager')->createGroup();
+            $object = $this->get('fos_user.group_manager')->createGroup('');
         }
 
         $form->setData($object);
