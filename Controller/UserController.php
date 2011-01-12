@@ -9,6 +9,9 @@
 
 namespace Bundle\FOS\UserBundle\Controller;
 
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Bundle\FOS\UserBundle\Model\User;
 use Bundle\FOS\UserBundle\Form\ChangePassword;
@@ -109,6 +112,13 @@ class UserController extends Controller
                 $this->get('fos_user.user_manager')->updateUser($user);
                 $this->authenticateUser($user);
                 $url = $this->generateUrl('fos_user_user_confirmed');
+            }
+
+            if ($this->container->has('security.acl.provider')) {
+                $provider = $this->container->get('security.acl.provider');
+                $acl = $provider->createAcl(ObjectIdentity::fromDomainObject($user));
+                $acl->insertObjectAce(UserSecurityIdentity::fromAccount($user), MaskBuilder::MASK_OWNER);
+                $provider->updateAcl($acl);
             }
 
             $this->get('session')->setFlash('fos_user_user_create', 'success');
