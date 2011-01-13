@@ -44,6 +44,9 @@ except for ``id``; this is intentional, so you can select the generator that bes
 suits your application.  Feel free to add additional properties and methods to
 your custom class.
 
+Note if you do not have the mbstring extension installed you will need to
+override the ``canonicalize`` method in the User class.
+
 ORM User class:
 ~~~~~~~~~~~~~~~
 

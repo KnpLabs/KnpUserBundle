@@ -10,7 +10,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->userManager->expects($this->once())
             ->method('findUserBy')
-            ->with($this->equalTo(array('usernameLower' => 'jack')));
+            ->with($this->equalTo(array('usernameCanonical' => 'jack')));
 
         $this->userManager->findUserByUsername('jack');
     }
@@ -19,7 +19,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->userManager->expects($this->once())
             ->method('findUserBy')
-            ->with($this->equalTo(array('usernameLower' => 'jack')));
+            ->with($this->equalTo(array('usernameCanonical' => 'jack')));
 
         $this->userManager->findUserByUsername('JaCk');
     }
@@ -46,7 +46,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->userManager->expects($this->once())
             ->method('findUserBy')
-            ->with($this->equalTo(array('usernameLower' => 'jack')));
+            ->with($this->equalTo(array('usernameCanonical' => 'jack')));
 
         $this->userManager->findUserByUsernameOrEmail('JaCk');
     }
@@ -66,7 +66,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 
         $this->userManager->expects($this->once())
             ->method('findUserBy')
-            ->with($this->equalTo(array('usernameLower' => 'jack')))
+            ->with($this->equalTo(array('usernameCanonical' => 'jack')))
             ->will($this->returnValue($userMock));
 
         $this->userManager->loadUserByUsername('jack');
@@ -79,7 +79,7 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
     {
         $this->userManager->expects($this->once())
             ->method('findUserBy')
-            ->with($this->equalTo(array('usernameLower' => 'jack')))
+            ->with($this->equalTo(array('usernameCanonical' => 'jack')))
             ->will($this->returnValue(null));
 
         $this->userManager->loadUserByUsername('jack');

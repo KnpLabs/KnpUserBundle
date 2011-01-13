@@ -6,11 +6,13 @@
 
     <mapped-superclass name="Bundle\FOS\UserBundle\Entity\User" table="fos_user_user">
 
-        <field name="username" column="username" type="string" length="255" unique="true" />
+        <field name="username" column="username" type="string" length="255" />
 
-        <field name="usernameLower" column="username_lower" type="string" length="255" unique="true" />
+        <field name="usernameCanonical" column="username_canonical" type="string" length="255" unique="true" />
 
-        <field name="email" column="email" type="string" length="255" unique="true" />
+        <field name="email" column="email" type="string" length="255" />
+
+        <field name="emailCanonical" column="email_canonical" type="string" length="255" unique="true" />
 
         <field name="enabled" column="enabled" type="boolean" />
 

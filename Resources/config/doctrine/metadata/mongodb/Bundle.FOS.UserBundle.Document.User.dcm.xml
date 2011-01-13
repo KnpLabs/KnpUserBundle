@@ -8,9 +8,11 @@
 
         <field name="username" fieldName="username" type="string" />
 
-        <field name="usernameLower" fieldName="usernameLower" type="string" />
+        <field name="usernameCanonical" fieldName="usernameCanonical" type="string" />
 
         <field name="email" fieldName="email" type="string" />
+
+        <field name="emailCanonical" fieldName="emailCanonical" type="string" />
 
         <field name="enabled" fieldName="enabled" type="boolean" />
 
@@ -45,11 +47,11 @@
 
         <indexes>
             <index unique="true" dropDups="true">
-                <key name="usernameLower" order="asc" />
+                <key name="usernameCanonical" order="asc" />
                 <option name="safe" value="true" />
             </index>
             <index unique="true" dropDups="true">
-                <key name="email" order="asc" />
+                <key name="emailCanonical" order="asc" />
                 <option name="safe" value="true" />
             </index>
         </indexes>

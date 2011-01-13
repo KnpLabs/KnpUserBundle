@@ -37,12 +37,17 @@ abstract class User implements UserInterface
     /**
      * @var string
      */
-    protected $usernameLower;
+    protected $usernameCanonical;
 
     /**
      * @var string
      */
     protected $email;
+
+    /**
+     * @var string
+     */
+    protected $emailCanonical;
 
     /**
      * @var boolean
@@ -175,7 +180,7 @@ abstract class User implements UserInterface
         if ($this->getSalt() !== $account->getSalt()) {
             return false;
         }
-        if ($this->usernameLower !== $account->getUsernameLower()) {
+        if ($this->usernameCanonical !== $account->getUsernameCanonical()) {
             return false;
         }
         if ($this->isAccountNonExpired() !== $account->isAccountNonExpired()) {
@@ -222,13 +227,13 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Get the username in lowercase used in search and sort queries
+     * Get the canonical username in search and sort queries
      *
      * @return string
      **/
-    public function getUsernameLower()
+    public function getUsernameCanonical()
     {
-        return $this->usernameLower;
+        return $this->usernameCanonical;
     }
 
     /**
@@ -252,6 +257,16 @@ abstract class User implements UserInterface
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Get the canonical email in search and sort queries
+     *
+     * @return string
+     **/
+    public function getEmailCanonical()
+    {
+        return $this->emailCanonical;
     }
 
     /**
@@ -462,7 +477,7 @@ abstract class User implements UserInterface
     public function setUsername($username)
     {
         $this->username = $username;
-        $this->usernameLower = mb_strtolower($username, mb_detect_encoding($username));
+        $this->usernameCanonical = $this->canonicalize($username);
     }
 
     public function setAlgorithm($algorithm)
@@ -487,7 +502,8 @@ abstract class User implements UserInterface
      */
     public function setEmail($email)
     {
-        $this->email = mb_strtolower($email, mb_detect_encoding($email));
+        $this->email = $email;
+        $this->emailCanonical = $this->canonicalize($email);
     }
 
     /**
@@ -637,6 +653,18 @@ abstract class User implements UserInterface
         if ($this->getGroups()->contains($group)) {
             $this->getGroups()->remove($group);
         }
+    }
+
+    /**
+     * Canonicalize a name so that it will be easy to compare in different
+     * ways of spelling, specifically different cases
+     *
+     * @param string $string
+     * @return string canonicalized version of the string
+     **/
+    protected function canonicalize($string)
+    {
+        return mb_convert_case($string, MB_CASE_LOWER, mb_detect_encoding($string));
     }
 
     public function __toString()
