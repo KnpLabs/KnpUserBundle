@@ -655,6 +655,11 @@ abstract class User implements UserInterface
         }
     }
 
+    public function __toString()
+    {
+        return (string) $this->getUsername();
+    }
+
     /**
      * Canonicalize a name so that it will be easy to compare in different
      * ways of spelling, specifically different cases
@@ -665,10 +670,5 @@ abstract class User implements UserInterface
     protected function canonicalize($string)
     {
         return mb_convert_case($string, MB_CASE_LOWER, mb_detect_encoding($string));
-    }
-
-    public function __toString()
-    {
-        return (string) $this->getUsername();
     }
 }
