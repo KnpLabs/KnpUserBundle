@@ -175,7 +175,7 @@ abstract class User implements UserInterface
         if ($this->getSalt() !== $account->getSalt()) {
             return false;
         }
-        if ($this->username !== $account->getUsername()) {
+        if ($this->usernameLower !== $account->getUsernameLower()) {
             return false;
         }
         if ($this->isAccountNonExpired() !== $account->isAccountNonExpired()) {

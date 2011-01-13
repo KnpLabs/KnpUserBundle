@@ -7,7 +7,7 @@
     <class name="Bundle\FOS\UserBundle\Model\User">
 
         <constraint name="Bundle\FOS\UserBundle\Validator\Unique">
-            <option name="property">username</option>
+            <option name="property">usernameLower</option>
             <option name="groups">Registration</option>
         </constraint>
 

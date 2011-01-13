@@ -46,6 +46,8 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function findUserByEmail($email)
     {
+        $email = mb_strtolower($email, mb_detect_encoding($email));
+
         return $this->findUserBy(array('email' => $email));
     }
 
@@ -57,7 +59,9 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function findUserByUsername($username)
     {
-        return $this->findUserBy(array('username' => $username));
+        $username = mb_strtolower($username, mb_detect_encoding($username));
+
+        return $this->findUserBy(array('usernameLower' => $username));
     }
 
     /**
