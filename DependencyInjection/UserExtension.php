@@ -61,6 +61,7 @@ class UserExtension extends Extension
             'model'         => 'fos_user.model.%s.class',
             'form'          => 'fos_user.form.%s.class',
             'controller'    => 'fos_user.controller.%s.class',
+            'util'          => 'fos_user.util.%s.class',
         ));
     }
 

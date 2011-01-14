@@ -44,9 +44,6 @@ except for ``id``; this is intentional, so you can select the generator that bes
 suits your application.  Feel free to add additional properties and methods to
 your custom class.
 
-Note if you do not have the mbstring extension installed you will need to
-override the ``canonicalize`` method in the User class.
-
 ORM User class:
 ~~~~~~~~~~~~~~~
 
@@ -279,6 +276,8 @@ All configuration options are listed below::
         controller:
             user:     ~
             security: ~
+        util:
+            canonicalizer: ~
     encoder:
         algorithm:        ~
         encode_as_base64: ~
@@ -312,3 +311,15 @@ Validation
 The ``Resources/config/validation.xml`` file contains definitions for custom
 validator rules for various classes. The rules for the ``User`` class are all in
 the ``Registration`` validation group so you can choose not to use them.
+
+Canonicalizer
+-------------
+
+The ``Canonicalizer`` is used to canonicalize the username and the email in the
+database. The default one uses ``mb_convert_case``. You can change this
+behavior by changing the canonicalizer in your configuration. The canonicalizer
+must implement ``Bundle\FOS\UserBundle\Util\CanonicalizerInterface``.
+
+..Note::
+    If you do not have the mbstring extension installed you will need to
+    define your own ``canonicalizer``.
