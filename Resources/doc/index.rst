@@ -246,7 +246,7 @@ Access the user manager service
 -------------------------------
 
 If you want to manipulate users in a way that will work as well with
-ORM and ODM, use the fos_user.user_manager service:
+ORM and ODM, use the fos_user.user_manager service::
 
     $userManager = $container->get('fos_user.user_manager');
 
@@ -255,7 +255,7 @@ That's the way UserBundle's internal controllers are built.
 Access the current user class
 -----------------------------
 
-A new instance of your User class can be created by the user manager:
+A new instance of your User class can be created by the user manager::
 
     $user = $userManager->createUser();
 
@@ -320,6 +320,6 @@ database. The default one uses ``mb_convert_case``. You can change this
 behavior by changing the canonicalizer in your configuration. The canonicalizer
 must implement ``Bundle\FOS\UserBundle\Util\CanonicalizerInterface``.
 
-..Note::
+Note::
     If you do not have the mbstring extension installed you will need to
     define your own ``canonicalizer``.
