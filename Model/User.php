@@ -10,6 +10,8 @@
 
 namespace Bundle\FOS\UserBundle\Model;
 
+use Bundle\FOS\UserBundle\Util\CanonicalizerInterface;
+
 use Symfony\Component\Security\Role\RoleInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -26,6 +28,8 @@ abstract class User implements UserInterface
 {
     const ROLE_DEFAULT    = 'ROLE_USER';
     const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
+
+    protected static $canonicalizer;
 
     protected $id;
 
@@ -138,6 +142,11 @@ abstract class User implements UserInterface
      * @var DateTime
      */
     protected $credentialsExpireAt;
+
+    public final static function setCanonicalizer(CanonicalizerInterface $canonicalizer)
+    {
+        self::$canonicalizer = $canonicalizer;
+    }
 
     public function __construct()
     {
@@ -477,7 +486,7 @@ abstract class User implements UserInterface
     public function setUsername($username)
     {
         $this->username = $username;
-        $this->usernameCanonical = $this->canonicalize($username);
+        $this->usernameCanonical = self::$canonicalizer->canonicalize($username);
     }
 
     public function setAlgorithm($algorithm)
@@ -503,7 +512,7 @@ abstract class User implements UserInterface
     public function setEmail($email)
     {
         $this->email = $email;
-        $this->emailCanonical = $this->canonicalize($email);
+        $this->emailCanonical = self::$canonicalizer->canonicalize($email);
     }
 
     /**
@@ -658,17 +667,5 @@ abstract class User implements UserInterface
     public function __toString()
     {
         return (string) $this->getUsername();
-    }
-
-    /**
-     * Canonicalize a name so that it will be easy to compare in different
-     * ways of spelling, specifically different cases
-     *
-     * @param string $string
-     * @return string canonicalized version of the string
-     **/
-    protected function canonicalize($string)
-    {
-        return mb_convert_case($string, MB_CASE_LOWER, mb_detect_encoding($string));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Bundle\FOS\UserBundle\Document;
 
+use Bundle\FOS\UserBundle\Util\CanonicalizerInterface;
 use Bundle\FOS\UserBundle\Model\UserInterface;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Bundle\FOS\UserBundle\Model\UserManager as BaseUserManager;
@@ -14,15 +15,15 @@ class UserManager extends BaseUserManager
     protected $repository;
     protected $class;
 
-    public function __construct($encoder, $algorithm, DocumentManager $dm, $class)
+    public function __construct($encoder, $algorithm, CanonicalizerInterface $canonicalizer, DocumentManager $dm, $class)
     {
+        parent::__construct($encoder, $algorithm, $canonicalizer);
+
         $this->dm = $dm;
         $this->repository = $dm->getRepository($class);
 
         $metadata = $dm->getClassMetadata($class);
         $this->class = $metadata->name;
-
-        parent::__construct($encoder, $algorithm);
     }
 
     /**

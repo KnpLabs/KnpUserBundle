@@ -2,6 +2,7 @@
 
 namespace Bundle\FOS\UserBundle\Entity;
 
+use Bundle\FOS\UserBundle\Util\CanonicalizerInterface;
 use Bundle\FOS\UserBundle\Model\UserInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -14,15 +15,15 @@ class UserManager extends BaseUserManager
     protected $class;
     protected $repository;
 
-    public function __construct($encoder, $algorithm, EntityManager $em, $class)
+    public function __construct($encoder, $algorithm, CanonicalizerInterface $canonicalizer, EntityManager $em, $class)
     {
+        parent::__construct($encoder, $algorithm, $canonicalizer);
+
         $this->em = $em;
         $this->repository = $em->getRepository($class);
 
         $metadata = $em->getClassMetadata($class);
         $this->class = $metadata->name;
-
-        parent::__construct($encoder, $algorithm);
     }
 
     /**

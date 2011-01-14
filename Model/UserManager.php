@@ -2,6 +2,8 @@
 
 namespace Bundle\FOS\UserBundle\Model;
 
+use Symfony\Component\Security\Encoder\EncoderFactoryInterface;
+use Bundle\FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\Exception\UnsupportedAccountException;
 use Symfony\Component\Security\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\User\AccountInterface;
@@ -17,11 +19,13 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
 {
     protected $encoderFactory;
     protected $algorithm;
+    protected $canonicalizer;
 
-    public function __construct($encoderFactory, $algorithm)
+    public function __construct(EncoderFactoryInterface $encoderFactory, $algorithm, CanonicalizerInterface $canonicalizer)
     {
         $this->encoderFactory = $encoderFactory;
         $this->algorithm = $algorithm;
+        $this->canonicalizer = $canonicalizer;
     }
 
     /**
@@ -46,9 +50,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function findUserByEmail($email)
     {
-        $user = $this->createUser();
-        $user->setEmail($email);
-        return $this->findUserBy(array('emailCanonical' => $user->getEmailCanonical()));
+        return $this->findUserBy(array('emailCanonical' => $this->canonicalizer->canonicalize($email)));
     }
 
     /**
@@ -59,9 +61,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function findUserByUsername($username)
     {
-        $user = $this->createUser();
-        $user->setUsername($username);
-        return $this->findUserBy(array('usernameCanonical' => $user->getUsernameCanonical()));
+        return $this->findUserBy(array('usernameCanonical' => $this->canonicalizer->canonicalize($username)));
     }
 
     /**

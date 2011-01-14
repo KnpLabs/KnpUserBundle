@@ -10,10 +10,13 @@
 
 namespace Bundle\FOS\UserBundle\Model;
 
+use Bundle\FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\User\AdvancedAccountInterface;
 
 interface UserInterface extends AdvancedAccountInterface
 {
+    static function setCanonicalizer(CanonicalizerInterface $canonicalizer);
+
     function addRole($role);
 
     function getAlgorithm();
