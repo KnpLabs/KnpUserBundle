@@ -157,7 +157,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertParameter(false, 'fos_user.confirmation_email.enabled');
         $this->assertParameter('webmaster@example.com', 'fos_user.confirmation_email.from_email');
-        $this->assertParameter('FOS\UserBundle:User:confirmationEmail', 'fos_user.confirmation_email.template');
+        $this->assertParameter('FOSUserBundle:User:confirmationEmail', 'fos_user.confirmation_email.template');
     }
 
     public function testUserLoadConfirmationEmail()
@@ -174,7 +174,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('twig', 'fos_user.template.renderer');
-        $this->assertParameter('TwigBundle::form.twig', 'fos_user.template.theme');
+        $this->assertParameter('TwigBundle::form.twig.html', 'fos_user.template.theme');
     }
 
     public function testUserLoadTemplateConfig()
