@@ -6,7 +6,7 @@
 
     <parameters>
         <parameter key="fos_user.template.renderer">twig</parameter>
-        <parameter key="fos_user.template.theme">TwigBundle::form.twig</parameter>
+        <parameter key="fos_user.template.theme">TwigBundle::form.twig.html</parameter>
 
         <parameter key="fos_user.templating.helper.security.class">Bundle\FOS\UserBundle\Templating\Helper\SecurityHelper</parameter>
     </parameters>
