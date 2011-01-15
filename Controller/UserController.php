@@ -151,7 +151,7 @@ class UserController extends Controller
     {
         $template = $this->container->getParameter('fos_user.confirmation_email.template');
         // Render the email, use the first line as the subject, and the rest as the body
-        $rendered = $this->renderView($template.'.'.$this->getRenderer().'.html', array(
+        $rendered = $this->renderView($template.'.'.$this->getRenderer().'.txt', array(
             'user' => $user,
             'confirmationUrl' => $this->generateUrl('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
         ));
