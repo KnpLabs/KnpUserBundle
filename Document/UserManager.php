@@ -125,19 +125,9 @@ class UserManager extends BaseUserManager
             throw new \LogicException('Cannot determine uniqueness of referenced document values');
         }
 
-        switch ($mapping['type']) {
-            case 'one':
-                // TODO: implement support for embed one documents
-            case 'many':
-                // TODO: implement support for embed many documents
-                throw new \RuntimeException('Not Implemented.');
-            case 'hash':
-                return array($fieldName => $this->getFieldValueRecursively($fieldName, $value));
-            case 'collection':
-                return array($mapping['fieldName'] => array('$in' => $value));
-        }
+        $criteria[$field] = $value instanceOf UserInterface ? $classMetadata->getFieldValue($value, $field) : $value;
 
-        return array($mapping['fieldName'] => $value);
+        return $criteria;
     }
 
     /**
@@ -154,15 +144,5 @@ class UserManager extends BaseUserManager
     {
         $pieces = explode('.', $field);
         return $pieces[0];
-    }
-
-    protected function getFieldValueRecursively($fieldName, $value)
-    {
-        $pieces = explode('.', $fieldName);
-        unset($pieces[0]);
-        foreach ($pieces as $piece) {
-            $value = $value[$piece];
-        }
-        return $value;
     }
 }
