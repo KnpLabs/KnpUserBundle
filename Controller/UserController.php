@@ -31,7 +31,7 @@ class UserController extends Controller
     {
         $users = $this->get('fos_user.user_manager')->findUsers();
 
-        return $this->render('FOS\UserBundle:User:list.'.$this->getRenderer(), array('users' => $users));
+        return $this->render('FOSUserBundle:User:list.'.$this->getRenderer().'.html', array('users' => $users));
     }
 
     /**
@@ -40,7 +40,7 @@ class UserController extends Controller
     public function showAction($username)
     {
         $user = $this->findUserBy('username', $username);
-        return $this->render('FOS\UserBundle:User:show.'.$this->getRenderer(), array('user' => $user));
+        return $this->render('FOSUserBundle:User:show.'.$this->getRenderer().'.html', array('user' => $user));
     }
 
     /**
@@ -51,7 +51,7 @@ class UserController extends Controller
         $user = $this->findUserBy('username', $username);
         $form = $this->createForm($user);
 
-        return $this->render('FOS\UserBundle:User:edit.'.$this->getRenderer(), array(
+        return $this->render('FOSUserBundle:User:edit.'.$this->getRenderer().'.html', array(
             'form'      => $form,
             'username'  => $user->getUsername()
         ));
@@ -73,7 +73,7 @@ class UserController extends Controller
             return $this->redirect($userUrl);
         }
 
-        return $this->render('FOS\UserBundle:User:edit.'.$this->getRenderer(), array(
+        return $this->render('FOSUserBundle:User:edit.'.$this->getRenderer().'.html', array(
             'form'      => $form,
             'username'  => $user->getUsername()
         ));
@@ -86,7 +86,7 @@ class UserController extends Controller
     {
         $form = $this->createForm();
 
-        return $this->render('FOS\UserBundle:User:new.'.$this->getRenderer(), array(
+        return $this->render('FOSUserBundle:User:new.'.$this->getRenderer().'.html', array(
             'form' => $form
         ));
     }
@@ -125,7 +125,7 @@ class UserController extends Controller
             return $this->redirect($url);
         }
 
-        return $this->render('FOS\UserBundle:User:new.'.$this->getRenderer(), array(
+        return $this->render('FOSUserBundle:User:new.'.$this->getRenderer().'.html', array(
             'form' => $form
         ));
     }
@@ -151,7 +151,7 @@ class UserController extends Controller
     {
         $template = $this->container->getParameter('fos_user.confirmation_email.template');
         // Render the email, use the first line as the subject, and the rest as the body
-        $rendered = $this->renderView($template.'.'.$this->getRenderer(), array(
+        $rendered = $this->renderView($template.'.'.$this->getRenderer().'.html', array(
             'user' => $user,
             'confirmationUrl' => $this->generateUrl('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
         ));
@@ -179,7 +179,7 @@ class UserController extends Controller
         $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
         $user = $this->findUserBy('email', $email);
 
-        return $this->render('FOS\UserBundle:User:checkConfirmationEmail.'.$this->getRenderer(), array(
+        return $this->render('FOSUserBundle:User:checkConfirmationEmail.'.$this->getRenderer().'.html', array(
             'user' => $user,
         ));
     }
@@ -205,7 +205,7 @@ class UserController extends Controller
     public function confirmedAction()
     {
         $user = $this->getUser();
-        return $this->render('FOS\UserBundle:User:confirmed.'.$this->getRenderer(), array(
+        return $this->render('FOSUserBundle:User:confirmed.'.$this->getRenderer().'.html', array(
             'user' => $user,
         ));
     }
@@ -230,7 +230,7 @@ class UserController extends Controller
         $user = $this->getUser();
         $form = $this->createChangePasswordForm($user);
 
-        return $this->render('FOS\UserBundle:User:changePassword.'.$this->getRenderer(), array(
+        return $this->render('FOSUserBundle:User:changePassword.'.$this->getRenderer().'.html', array(
             'form' => $form
         ));
     }
@@ -251,7 +251,7 @@ class UserController extends Controller
             return $this->redirect($userUrl);
         }
 
-        return $this->render('FOS\UserBundle:User:changePassword.'.$this->getRenderer(), array(
+        return $this->render('FOSUserBundle:User:changePassword.'.$this->getRenderer().'.html', array(
             'form' => $form
         ));
     }

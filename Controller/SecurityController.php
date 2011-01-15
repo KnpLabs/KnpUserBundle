@@ -17,7 +17,7 @@ class SecurityController extends Controller
             $this->get('request')->getSession()->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
 
-        return $this->render('FOS\UserBundle:Security:login.twig', array(
+        return $this->render('FOSUserBundle:Security:login.twig.html', array(
             // last username entered by the user
             'last_username' => $this->get('request')->getSession()->get(SecurityContext::LAST_USERNAME),
             'error'         => $error,
