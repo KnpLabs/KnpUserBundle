@@ -57,12 +57,14 @@ class UserExtension extends Extension
             'confirmation_email'    => 'fos_user.confirmation_email.%s',
         ));
 
-        $this->remapParametersNamespaces($config['class'], $container, array(
-            'model'         => 'fos_user.model.%s.class',
-            'form'          => 'fos_user.form.%s.class',
-            'controller'    => 'fos_user.controller.%s.class',
-            'util'          => 'fos_user.util.%s.class',
-        ));
+        if (isset($config['class'])){
+            $this->remapParametersNamespaces($config['class'], $container, array(
+                'model'         => 'fos_user.model.%s.class',
+                'form'          => 'fos_user.form.%s.class',
+                'controller'    => 'fos_user.controller.%s.class',
+                'util'          => 'fos_user.util.%s.class',
+            ));
+        }
     }
 
     protected function remapParameters(array $config, ContainerBuilder $container, array $map)
