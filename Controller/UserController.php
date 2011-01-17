@@ -148,30 +148,6 @@ class UserController extends Controller
         return $this->redirect($this->generateUrl('fos_user_user_check_confirmation_email'));
     }
 
-    protected function sendConfirmationEmailMessage(User $user)
-    {
-        $template = $this->container->getParameter('fos_user.confirmation_email.template');
-        // Render the email, use the first line as the subject, and the rest as the body
-        $rendered = $this->renderView($template.'.'.$this->getRenderer().'.txt', array(
-            'user' => $user,
-            'confirmationUrl' => $this->generateUrl('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
-        ));
-        $renderedLines = explode("\n", trim($rendered));
-        $subject = $renderedLines[0];
-        $body = implode("\n", array_slice($renderedLines, 1));
-        $fromEmail = $this->container->getParameter('fos_user.confirmation_email.from_email');
-
-        $mailer = $this->get('mailer');
-
-        $message = \Swift_Message::newInstance()
-            ->setSubject($subject)
-            ->setFrom($fromEmail)
-            ->setTo($user->getEmail())
-            ->setBody($body);
-
-        $mailer->send($message);
-    }
-
     /**
      * Tell the user to check his email provider
      */
@@ -335,6 +311,39 @@ class UserController extends Controller
         $form->setData(new ChangePassword($user));
 
         return $form;
+    }
+
+    protected function sendConfirmationEmailMessage(User $user)
+    {
+        $template = $this->container->getParameter('fos_user.confirmation_email.template');
+        // Render the email, use the first line as the subject, and the rest as the body
+        $rendered = $this->renderView($template.'.'.$this->getRenderer().'.txt', array(
+            'user' => $user,
+            'confirmationUrl' => $this->generateUrl('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
+        ));
+        $this->sendEmailMessage($rendered, $this->getSenderEmail('confirmation'));
+    }
+
+    protected function sendEmailMessage($renderedTemplate, $fromEmail)
+    {
+        $renderedLines = explode("\n", trim($renderedTemplate));
+        $subject = $renderedLines[0];
+        $body = implode("\n", array_slice($renderedLines, 1));
+
+        $mailer = $this->get('mailer');
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setFrom($fromEmail)
+            ->setTo($user->getEmail())
+            ->setBody($body);
+
+        $mailer->send($message);
+    }
+
+    protected function getSenderEmail($type)
+    {
+        return $this->container->getParameter('fos_user.confirmation_email.from_email');
     }
 
     protected function getRenderer()
