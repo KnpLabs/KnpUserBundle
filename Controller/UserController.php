@@ -108,6 +108,7 @@ class UserController extends Controller
                 $this->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
                 $url = $this->generateUrl('fos_user_user_send_confirmation_email');
             } else {
+                $user->setConfirmationToken(null);
                 $user->setEnabled(true);
                 $this->get('fos_user.user_manager')->updateUser($user);
                 $this->authenticateUser($user);
