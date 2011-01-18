@@ -240,7 +240,12 @@ class UserController extends Controller
     {
         $user = $this->findUserBy('username', $this->get('request')->request->get('username'));
 
+        if ((null !== $lastRequested = $user->getPasswordRequestedAt()) && $lastRequested->getTimestamp() + 86400 > time()) {
+            return $this->render('FOSUserBundle:User:passwordAlreadyRequested.'.$this->getRenderer().'.html');
+        }
+
         $user->generateConfirmationToken();
+        $user->setPasswordRequestedAt(new \DateTime());
         $this->get('fos_user.user_manager')->updateUser($user);
         $this->get('session')->set('fos_user_send_resetting_email/email', $user->getEmail());
         $this->sendResettingEmailMessage($user);
@@ -269,6 +274,11 @@ class UserController extends Controller
     public function resetPasswordAction($token)
     {
         $user = $this->findUserBy('confirmationToken', $token);
+
+        if ((null === $lastRequested = $user->getPasswordRequestedAt()) || $lastRequested->getTimestamp() + 86400 < time()) {
+            $this->redirect($this->generateUrl('fos_user_user_request_reset_password'));
+        }
+
         $form = $this->createResetPasswordForm($user);
 
         return $this->render('FOSUserBundle:User:resetPassword.'.$this->getRenderer().'.html', array(
@@ -283,6 +293,11 @@ class UserController extends Controller
     public function resetPasswordUpdateAction($token)
     {
         $user = $this->findUserBy('confirmationToken', $token);
+
+        if ((null === $lastRequested = $user->getPasswordRequestedAt()) || $lastRequested->getTimestamp() + 86400 < time()) {
+            $this->redirect($this->generateUrl('fos_user_user_request_reset_password'));
+        }
+
         $form = $this->createResetPasswordForm($user);
         $form->bind($this->get('request')->request->get($form->getName()));
 
