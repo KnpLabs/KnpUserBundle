@@ -106,8 +106,9 @@ class UserController extends Controller
             if ($this->container->getParameter('fos_user.email.confirmation.enabled')) {
                 $user->setEnabled(false);
                 $this->get('fos_user.user_manager')->updateUser($user);
+                $this->sendConfirmationEmailMessage($user);
                 $this->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
-                $url = $this->generateUrl('fos_user_user_send_confirmation_email');
+                $url = $this->generateUrl('fos_user_user_check_confirmation_email');
             } else {
                 $user->setConfirmationToken(null);
                 $user->setEnabled(true);
@@ -130,23 +131,6 @@ class UserController extends Controller
         return $this->render('FOSUserBundle:User:new.'.$this->getRenderer().'.html', array(
             'form' => $form
         ));
-    }
-
-    /**
-     * Send the confirmation email containing a link to the confirmation page,
-     * then redirect the check email page
-     */
-    public function sendConfirmationEmailAction()
-    {
-        if (!$this->container->getParameter('fos_user.email.confirmation.enabled')) {
-            throw new NotFoundHttpException('Email confirmation is disabled');
-        }
-
-        $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
-        $user = $this->findUserBy('email', $email);
-        $this->sendConfirmationEmailMessage($user);
-
-        return $this->redirect($this->generateUrl('fos_user_user_check_confirmation_email'));
     }
 
     /**
