@@ -50,6 +50,9 @@ EOT
 
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->findUserByUsername($input->getArgument('username'));
+        if (!$user) {
+            throw new \InvalidArgumentException(sprintf('User identified by "%s" username does not exist.', $input->getArgument('username')));
+        }
         $user->setPlainPassword($input->getArgument('password'));
         $userManager->updateUser($user);
 
