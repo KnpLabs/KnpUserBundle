@@ -3,9 +3,6 @@
 namespace Bundle\FOS\UserBundle\Form;
 use Bundle\FOS\UserBundle\Model\User;
 
-/**
- * @fosuserbundlevalidation:Password(passwordProperty="current", userProperty="user")
- */
 class ChangePassword
 {
     /**
