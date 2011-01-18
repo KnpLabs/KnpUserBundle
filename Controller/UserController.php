@@ -222,6 +222,7 @@ class UserController extends Controller
         $form->bind($this->get('request')->request->get($form->getName()));
 
         if ($form->isValid()) {
+            $user->setPlainPassword($form->getNewPassword());
             $this->get('fos_user.user_manager')->updateUser($user);
             $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
 
