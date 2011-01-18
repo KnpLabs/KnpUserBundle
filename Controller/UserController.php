@@ -322,10 +322,10 @@ class UserController extends Controller
             'user' => $user,
             'confirmationUrl' => $this->generateUrl('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
         ));
-        $this->sendEmailMessage($rendered, $this->getSenderEmail('confirmation'));
+        $this->sendEmailMessage($rendered, $this->getSenderEmail('confirmation'), $user->getEmail());
     }
 
-    protected function sendEmailMessage($renderedTemplate, $fromEmail)
+    protected function sendEmailMessage($renderedTemplate, $fromEmail, $toEmail)
     {
         $renderedLines = explode("\n", trim($renderedTemplate));
         $subject = $renderedLines[0];
@@ -336,7 +336,7 @@ class UserController extends Controller
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom($fromEmail)
-            ->setTo($user->getEmail())
+            ->setTo($toEmail)
             ->setBody($body);
 
         $mailer->send($message);
