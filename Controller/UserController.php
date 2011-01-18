@@ -102,7 +102,7 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $user = $form->getData();
-            if ($this->container->getParameter('fos_user.confirmation_email.enabled')) {
+            if ($this->container->getParameter('fos_user.email.confirmation.enabled')) {
                 $user->setEnabled(false);
                 $this->get('fos_user.user_manager')->updateUser($user);
                 $this->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
@@ -137,7 +137,7 @@ class UserController extends Controller
      */
     public function sendConfirmationEmailAction()
     {
-        if (!$this->container->getParameter('fos_user.confirmation_email.enabled')) {
+        if (!$this->container->getParameter('fos_user.email.confirmation.enabled')) {
             throw new NotFoundHttpException('Email confirmation is disabled');
         }
 
@@ -315,7 +315,7 @@ class UserController extends Controller
 
     protected function sendConfirmationEmailMessage(User $user)
     {
-        $template = $this->container->getParameter('fos_user.confirmation_email.template');
+        $template = $this->container->getParameter('fos_user.email.confirmation.template');
         // Render the email, use the first line as the subject, and the rest as the body
         $rendered = $this->renderView($template.'.'.$this->getRenderer().'.txt', array(
             'user' => $user,
@@ -343,7 +343,7 @@ class UserController extends Controller
 
     protected function getSenderEmail($type)
     {
-        return $this->container->getParameter('fos_user.confirmation_email.from_email');
+        return $this->container->getParameter('fos_user.email.from_email');
     }
 
     protected function getRenderer()

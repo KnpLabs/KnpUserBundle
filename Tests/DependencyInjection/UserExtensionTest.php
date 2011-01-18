@@ -155,18 +155,20 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter(false, 'fos_user.confirmation_email.enabled');
-        $this->assertParameter('webmaster@example.com', 'fos_user.confirmation_email.from_email');
-        $this->assertParameter('FOSUserBundle:User:confirmationEmail', 'fos_user.confirmation_email.template');
+        $this->assertParameter(false, 'fos_user.email.confirmation.enabled');
+        $this->assertParameter('webmaster@example.com', 'fos_user.email.from_email');
+        $this->assertParameter('FOSUserBundle:User:confirmationEmail', 'fos_user.email.confirmation.template');
+        $this->assertParameter('FOSUserBundle:User:resettingPasswordEmail', 'fos_user.email.resetting_password.template');
     }
 
     public function testUserLoadConfirmationEmail()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('enabled', 'fos_user.confirmation_email.enabled');
-        $this->assertParameter('from_email', 'fos_user.confirmation_email.from_email');
-        $this->assertParameter('template', 'fos_user.confirmation_email.template');
+        $this->assertParameter('enabled', 'fos_user.email.confirmation.enabled');
+        $this->assertParameter('from_email', 'fos_user.email.from_email');
+        $this->assertParameter('template', 'fos_user.email.confirmation.template');
+        $this->assertParameter('template', 'fos_user.email.resetting_password.template');
     }
 
     public function testUserLoadTemplateConfigWithDefaults()
@@ -252,10 +254,13 @@ encoder:
 form_name:
     user:            ~
     change_password: ~
-confirmation_email:
-    enabled:    ~
+email:
     from_email: ~
-    template:   ~
+    confirmation:
+        enabled:    ~
+        template:   ~
+    resetting_password:
+        template:   ~
 template:
     renderer: ~
     theme:    ~
