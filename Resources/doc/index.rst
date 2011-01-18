@@ -273,6 +273,7 @@ All configuration options are listed below::
         form:
             user:            ~
             change_password: ~
+            reset_password:  ~
         controller:
             user:     ~
             security: ~
