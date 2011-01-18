@@ -155,6 +155,7 @@ class UserController extends Controller
     public function checkConfirmationEmailAction()
     {
         $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
+        $this->get('session')->remove('fos_user_send_confirmation_email/email');
         $user = $this->findUserBy('email', $email);
 
         return $this->render('FOSUserBundle:User:checkConfirmationEmail.'.$this->getRenderer().'.html', array(
@@ -264,6 +265,7 @@ class UserController extends Controller
     public function checkResettingEmailAction()
     {
         $email = $this->get('session')->get('fos_user_send_resetting_email/email');
+        $this->get('session')->remove('fos_user_send_resetting_email/email');
         $user = $this->findUserBy('email', $email);
 
         return $this->render('FOSUserBundle:User:checkResettingEmail.'.$this->getRenderer().'.html', array(
@@ -401,7 +403,6 @@ class UserController extends Controller
     protected function sendConfirmationEmailMessage(User $user)
     {
         $template = $this->container->getParameter('fos_user.email.confirmation.template');
-        // Render the email, use the first line as the subject, and the rest as the body
         $rendered = $this->renderView($template.'.'.$this->getRenderer().'.txt', array(
             'user' => $user,
             'confirmationUrl' => $this->generateUrl('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
@@ -412,7 +413,6 @@ class UserController extends Controller
     protected function sendResettingEmailMessage(User $user)
     {
         $template = $this->container->getParameter('fos_user.email.resetting_password.template');
-        // Render the email, use the first line as the subject, and the rest as the body
         $rendered = $this->renderView($template.'.'.$this->getRenderer().'.txt', array(
             'user' => $user,
             'confirmationUrl' => $this->generateUrl('fos_user_user_reset_password', array('token' => $user->getConfirmationToken()), true)
@@ -422,6 +422,7 @@ class UserController extends Controller
 
     protected function sendEmailMessage($renderedTemplate, $fromEmail, $toEmail)
     {
+        // Render the email, use the first line as the subject, and the rest as the body
         $renderedLines = explode("\n", trim($renderedTemplate));
         $subject = $renderedLines[0];
         $body = implode("\n", array_slice($renderedLines, 1));
