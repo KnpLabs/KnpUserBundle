@@ -285,10 +285,13 @@ All configuration options are listed below::
     form_name:
         user:            ~
         change_password: ~
-    confirmation_email:
-        enabled:    ~
+    email:
         from_email: ~
-        template:   ~
+        confirmation:
+            enabled:    ~
+            template:   ~
+        resetting_password:
+            template:   ~
     template:
         renderer: ~
         theme:    ~
