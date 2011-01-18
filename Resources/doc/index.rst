@@ -107,6 +107,17 @@ enabled in your project's configuration::
             fos_user:
                 id: fos_user.user_manager
 
+The login form and all the routes used to create a user and reset the password
+have to be available to unauthenticated users. Assuming you import the user.xml
+routing file with the ``/user`` prefix they will be::
+
+    /login
+    /user/new
+    /user/request-reset-password
+    /user/send-resetting-email
+    /user/check-resetting-email
+    /user/reset-password/{token}
+
 You also have to include the UserBundle in your Doctrine mapping configuration,
 along with the bundle containing your custom User class::
 
@@ -273,6 +284,7 @@ All configuration options are listed below::
         form:
             user:            ~
             change_password: ~
+            reset_password:  ~
         controller:
             user:     ~
             security: ~
@@ -285,10 +297,13 @@ All configuration options are listed below::
     form_name:
         user:            ~
         change_password: ~
-    confirmation_email:
-        enabled:    ~
+    email:
         from_email: ~
-        template:   ~
+        confirmation:
+            enabled:    ~
+            template:   ~
+        resetting_password:
+            template:   ~
     template:
         renderer: ~
         theme:    ~

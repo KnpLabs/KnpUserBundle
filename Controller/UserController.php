@@ -15,6 +15,7 @@ use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Bundle\FOS\UserBundle\Model\User;
 use Bundle\FOS\UserBundle\Form\ChangePassword;
+use Bundle\FOS\UserBundle\Form\ResetPassword;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Exception\AccessDeniedException;
@@ -102,12 +103,13 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $user = $form->getData();
-            if ($this->container->getParameter('fos_user.confirmation_email.enabled')) {
+            if ($this->container->getParameter('fos_user.email.confirmation.enabled')) {
                 $user->setEnabled(false);
                 $this->get('fos_user.user_manager')->updateUser($user);
                 $this->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
                 $url = $this->generateUrl('fos_user_user_send_confirmation_email');
             } else {
+                $user->setConfirmationToken(null);
                 $user->setEnabled(true);
                 $this->get('fos_user.user_manager')->updateUser($user);
                 $this->authenticateUser($user);
@@ -136,7 +138,7 @@ class UserController extends Controller
      */
     public function sendConfirmationEmailAction()
     {
-        if (!$this->container->getParameter('fos_user.confirmation_email.enabled')) {
+        if (!$this->container->getParameter('fos_user.email.confirmation.enabled')) {
             throw new NotFoundHttpException('Email confirmation is disabled');
         }
 
@@ -147,36 +149,13 @@ class UserController extends Controller
         return $this->redirect($this->generateUrl('fos_user_user_check_confirmation_email'));
     }
 
-    protected function sendConfirmationEmailMessage(User $user)
-    {
-        $template = $this->container->getParameter('fos_user.confirmation_email.template');
-        // Render the email, use the first line as the subject, and the rest as the body
-        $rendered = $this->renderView($template.'.'.$this->getRenderer().'.txt', array(
-            'user' => $user,
-            'confirmationUrl' => $this->generateUrl('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
-        ));
-        $renderedLines = explode("\n", trim($rendered));
-        $subject = $renderedLines[0];
-        $body = implode("\n", array_slice($renderedLines, 1));
-        $fromEmail = $this->container->getParameter('fos_user.confirmation_email.from_email');
-
-        $mailer = $this->get('mailer');
-
-        $message = \Swift_Message::newInstance()
-            ->setSubject($subject)
-            ->setFrom($fromEmail)
-            ->setTo($user->getEmail())
-            ->setBody($body);
-
-        $mailer->send($message);
-    }
-
     /**
      * Tell the user to check his email provider
      */
     public function checkConfirmationEmailAction()
     {
         $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
+        $this->get('session')->remove('fos_user_send_confirmation_email/email');
         $user = $this->findUserBy('email', $email);
 
         return $this->render('FOSUserBundle:User:checkConfirmationEmail.'.$this->getRenderer().'.html', array(
@@ -245,6 +224,7 @@ class UserController extends Controller
         $form->bind($this->get('request')->request->get($form->getName()));
 
         if ($form->isValid()) {
+            $user->setPlainPassword($form->getNewPassword());
             $this->get('fos_user.user_manager')->updateUser($user);
             $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
 
@@ -252,6 +232,82 @@ class UserController extends Controller
         }
 
         return $this->render('FOSUserBundle:User:changePassword.'.$this->getRenderer().'.html', array(
+            'form' => $form
+        ));
+    }
+
+    /**
+     * Request reset user password: show form
+     */
+    public function requestResetPasswordAction()
+    {
+        return $this->render('FOSUserBundle:User:requestResetPassword.'.$this->getRenderer().'.html');
+    }
+
+    /**
+     * Request reset user password: submit form and send email
+     */
+    public function sendResettingEmailAction()
+    {
+        $user = $this->findUserBy('username', $this->get('request')->request->get('username'));
+
+        $user->generateConfirmationToken();
+        $this->get('fos_user.user_manager')->updateUser($user);
+        $this->get('session')->set('fos_user_send_resetting_email/email', $user->getEmail());
+        $this->sendResettingEmailMessage($user);
+
+        return $this->redirect($this->generateUrl('fos_user_user_check_resetting_email'));
+    }
+
+    /**
+     * Tell the user to check his email provider
+     */
+    public function checkResettingEmailAction()
+    {
+        $email = $this->get('session')->get('fos_user_send_resetting_email/email');
+        $this->get('session')->remove('fos_user_send_resetting_email/email');
+        $user = $this->findUserBy('email', $email);
+
+        return $this->render('FOSUserBundle:User:checkResettingEmail.'.$this->getRenderer().'.html', array(
+            'user' => $user,
+        ));
+    }
+
+    /**
+     * Reset user password: show form
+     */
+    public function resetPasswordAction($token)
+    {
+        $user = $this->findUserBy('confirmationToken', $token);
+        $form = $this->createResetPasswordForm($user);
+
+        return $this->render('FOSUserBundle:User:resetPassword.'.$this->getRenderer().'.html', array(
+            'token' => $token,
+            'form' => $form
+        ));
+    }
+
+    /**
+     * Reset user password: submit form
+     */
+    public function resetPasswordUpdateAction($token)
+    {
+        $user = $this->findUserBy('confirmationToken', $token);
+        $form = $this->createResetPasswordForm($user);
+        $form->bind($this->get('request')->request->get($form->getName()));
+
+        if ($form->isValid()) {
+            $user->setPlainPassword($form->getNewPassword());
+            $user->setConfirmationToken(null);
+            $this->get('fos_user.user_manager')->updateUser($user);
+            $this->authenticateUser($user);
+            $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
+
+            return $this->redirect($userUrl);
+        }
+
+        return $this->render('FOSUserBundle:User:resetPassword.'.$this->getRenderer().'.html', array(
+            'token' => $token,
             'form' => $form
         ));
     }
@@ -334,6 +390,57 @@ class UserController extends Controller
         $form->setData(new ChangePassword($user));
 
         return $form;
+    }
+
+    protected function createResetPasswordForm(User $user)
+    {
+        $form = $this->get('fos_user.form.reset_password');
+        $form->setData(new ResetPassword($user));
+
+        return $form;
+    }
+
+    protected function sendConfirmationEmailMessage(User $user)
+    {
+        $template = $this->container->getParameter('fos_user.email.confirmation.template');
+        $rendered = $this->renderView($template.'.'.$this->getRenderer().'.txt', array(
+            'user' => $user,
+            'confirmationUrl' => $this->generateUrl('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
+        ));
+        $this->sendEmailMessage($rendered, $this->getSenderEmail('confirmation'), $user->getEmail());
+    }
+
+    protected function sendResettingEmailMessage(User $user)
+    {
+        $template = $this->container->getParameter('fos_user.email.resetting_password.template');
+        $rendered = $this->renderView($template.'.'.$this->getRenderer().'.txt', array(
+            'user' => $user,
+            'confirmationUrl' => $this->generateUrl('fos_user_user_reset_password', array('token' => $user->getConfirmationToken()), true)
+        ));
+        $this->sendEmailMessage($rendered, $this->getSenderEmail('resetting_password'), $user->getEmail());
+    }
+
+    protected function sendEmailMessage($renderedTemplate, $fromEmail, $toEmail)
+    {
+        // Render the email, use the first line as the subject, and the rest as the body
+        $renderedLines = explode("\n", trim($renderedTemplate));
+        $subject = $renderedLines[0];
+        $body = implode("\n", array_slice($renderedLines, 1));
+
+        $mailer = $this->get('mailer');
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setFrom($fromEmail)
+            ->setTo($toEmail)
+            ->setBody($body);
+
+        $mailer->send($message);
+    }
+
+    protected function getSenderEmail($type)
+    {
+        return $this->container->getParameter('fos_user.email.from_email');
     }
 
     protected function getRenderer()
