@@ -151,7 +151,7 @@ abstract class User implements UserInterface
     public function __construct()
     {
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-        $this->confirmationToken = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->confirmationToken = $this->generateConfirmationToken();
         $this->enabled = false;
         $this->locked = false;
         $this->expired = false;
@@ -585,12 +585,25 @@ abstract class User implements UserInterface
 
     /**
      * Set confirmationToken
+     *
      * @param  string
      * @return null
      */
     public function setConfirmationToken($confirmationToken)
     {
         $this->confirmationToken = $confirmationToken;
+    }
+
+    /**
+     * Generate confirmationToken if it is not set
+     *
+     * @return null
+     */
+    public function generateConfirmationToken()
+    {
+        if (null === $this->confirmationToken) {
+            $this->confirmationToken = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        }
     }
 
     public function setRoles(array $roles)
