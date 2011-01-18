@@ -8,7 +8,7 @@
         <parameter key="fos_user.email.confirmation.enabled">false</parameter>
         <parameter key="fos_user.email.from_email">webmaster@example.com</parameter>
         <parameter key="fos_user.email.confirmation.template">FOSUserBundle:User:confirmationEmail</parameter>
-        <parameter key="fos_user.email.resetting_passworg.template">FOSUserBundle:User:resettingPasswordEmail</parameter>
+        <parameter key="fos_user.email.resetting_password.template">FOSUserBundle:User:resettingPasswordEmail</parameter>
     </parameters>
 
 </container>

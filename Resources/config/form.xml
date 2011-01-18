@@ -9,6 +9,8 @@
         <parameter key="fos_user.form.user.name">fos_user_user_form</parameter>
         <parameter key="fos_user.form.change_password.class">Bundle\FOS\UserBundle\Form\ChangePasswordForm</parameter>
         <parameter key="fos_user.form.change_password.name">fos_user_change_password_form</parameter>
+        <parameter key="fos_user.form.reset_password.class">Bundle\FOS\UserBundle\Form\ResetPasswordForm</parameter>
+        <parameter key="fos_user.form.reset_password.name">fos_user_reset_password_form</parameter>
         <parameter key="fos_user.form.group.class">Bundle\FOS\UserBundle\Form\GroupForm</parameter>
         <parameter key="fos_user.form.group.name">fos_user_group_form</parameter>
     </parameters>
@@ -24,6 +26,14 @@
         </service>
         <service id="fos_user.form.change_password" class="%fos_user.form.change_password.class%">
             <argument>%fos_user.form.change_password.name%</argument>
+            <argument></argument>
+            <argument type="service" id="validator" />
+            <argument type="collection">
+                <argument key="theme">%fos_user.template.theme%</argument>
+            </argument>
+        </service>
+        <service id="fos_user.form.reset_password" class="%fos_user.form.reset_password.class%">
+            <argument>%fos_user.form.reset_password.name%</argument>
             <argument></argument>
             <argument type="service" id="validator" />
             <argument type="collection">

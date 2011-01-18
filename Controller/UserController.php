@@ -15,6 +15,7 @@ use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Bundle\FOS\UserBundle\Model\User;
 use Bundle\FOS\UserBundle\Form\ChangePassword;
+use Bundle\FOS\UserBundle\Form\ResetPassword;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Exception\AccessDeniedException;
@@ -235,6 +236,81 @@ class UserController extends Controller
     }
 
     /**
+     * Request reset user password: show form
+     */
+    public function requestResetPasswordAction()
+    {
+        return $this->render('FOSUserBundle:User:requestResetPassword.'.$this->getRenderer().'.html');
+    }
+
+    /**
+     * Request reset user password: submit form and send email
+     */
+    public function sendResettingEmailAction()
+    {
+        $user = $this->findUserBy('username', $this->get('request')->request->get('username'));
+
+        $user->generateConfirmationToken();
+        $this->get('fos_user.user_manager')->updateUser($user);
+        $this->get('session')->set('fos_user_send_resetting_email/email', $user->getEmail());
+        $this->sendResettingEmailMessage($user);
+
+        return $this->redirect($this->generateUrl('fos_user_user_check_resetting_email'));
+    }
+
+    /**
+     * Tell the user to check his email provider
+     */
+    public function checkResettingEmailAction()
+    {
+        $email = $this->get('session')->get('fos_user_send_resetting_email/email');
+        $user = $this->findUserBy('email', $email);
+
+        return $this->render('FOSUserBundle:User:checkResettingEmail.'.$this->getRenderer().'.html', array(
+            'user' => $user,
+        ));
+    }
+
+    /**
+     * Reset user password: show form
+     */
+    public function resetPasswordAction($token)
+    {
+        $user = $this->findUserBy('confirmationToken', $token);
+        $form = $this->createResetPasswordForm($user);
+
+        return $this->render('FOSUserBundle:User:resetPassword.'.$this->getRenderer().'.html', array(
+            'token' => $token,
+            'form' => $form
+        ));
+    }
+
+    /**
+     * Reset user password: submit form
+     */
+    public function resetPasswordUpdateAction($token)
+    {
+        $user = $this->findUserBy('confirmationToken', $token);
+        $form = $this->createResetPasswordForm($user);
+        $form->bind($this->get('request')->request->get($form->getName()));
+
+        if ($form->isValid()) {
+            $user->setPlainPassword($form->getNewPassword());
+            $user->setConfirmationToken(null);
+            $this->get('fos_user.user_manager')->updateUser($user);
+            $this->authenticateUser($user);
+            $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
+
+            return $this->redirect($userUrl);
+        }
+
+        return $this->render('FOSUserBundle:User:resetPassword.'.$this->getRenderer().'.html', array(
+            'token' => $token,
+            'form' => $form
+        ));
+    }
+
+    /**
      * Get a user from the security context
      *
      * @throws AccessDeniedException if no user is authenticated
@@ -314,6 +390,14 @@ class UserController extends Controller
         return $form;
     }
 
+    protected function createResetPasswordForm(User $user)
+    {
+        $form = $this->get('fos_user.form.reset_password');
+        $form->setData(new ResetPassword($user));
+
+        return $form;
+    }
+
     protected function sendConfirmationEmailMessage(User $user)
     {
         $template = $this->container->getParameter('fos_user.email.confirmation.template');
@@ -323,6 +407,17 @@ class UserController extends Controller
             'confirmationUrl' => $this->generateUrl('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
         ));
         $this->sendEmailMessage($rendered, $this->getSenderEmail('confirmation'), $user->getEmail());
+    }
+
+    protected function sendResettingEmailMessage(User $user)
+    {
+        $template = $this->container->getParameter('fos_user.email.resetting_password.template');
+        // Render the email, use the first line as the subject, and the rest as the body
+        $rendered = $this->renderView($template.'.'.$this->getRenderer().'.txt', array(
+            'user' => $user,
+            'confirmationUrl' => $this->generateUrl('fos_user_user_reset_password', array('token' => $user->getConfirmationToken()), true)
+        ));
+        $this->sendEmailMessage($rendered, $this->getSenderEmail('resetting_password'), $user->getEmail());
     }
 
     protected function sendEmailMessage($renderedTemplate, $fromEmail, $toEmail)
