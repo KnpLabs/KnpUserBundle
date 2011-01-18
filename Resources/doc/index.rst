@@ -113,6 +113,9 @@ routing file with the ``/user`` prefix they will be::
 
     /login
     /user/new
+    /user/check-confirmation-email
+    /user/confirm/{token}
+    /user/confirmed
     /user/request-reset-password
     /user/send-resetting-email
     /user/check-resetting-email
