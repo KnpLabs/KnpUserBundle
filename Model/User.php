@@ -151,7 +151,7 @@ abstract class User implements UserInterface
     public function __construct()
     {
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-        $this->confirmationToken = $this->generateConfirmationToken();
+        $this->generateConfirmationToken();
         $this->enabled = false;
         $this->locked = false;
         $this->expired = false;
