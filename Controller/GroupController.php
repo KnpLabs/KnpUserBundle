@@ -64,7 +64,7 @@ class GroupController extends Controller
 
         if ($form->isValid()) {
             $this->get('fos_user.group_manager')->updateGroup($group);
-            $this->get('session')->setFlash('fos_user_group_update', 'success');
+            $this->setFlash('fos_user_group_update', 'success');
             $groupUrl = $this->generateUrl('fos_user_group_show', array('groupname' => $group->getName()));
             return $this->redirect($groupUrl);
         }
@@ -99,7 +99,7 @@ class GroupController extends Controller
             $group = $form->getData();
             $this->get('fos_user.group_manager')->updateGroup($group);
 
-            $this->get('session')->setFlash('fos_user_group_create', 'success');
+            $this->setFlash('fos_user_group_create', 'success');
             return $this->redirect($this->generateUrl('doctrine_user_group_show', array('groupname' => $group->getName())));
         }
 
@@ -115,7 +115,7 @@ class GroupController extends Controller
     {
         $group = $this->findGroupBy('name', $groupname);
         $this->get('fos_user.group_manager')->deleteGroup($group);
-        $this->get('session')->setFlash('fos_user_group_delete', 'success');
+        $this->setFlash('fos_user_group_delete', 'success');
 
         return $this->redirect($this->generateUrl('fos_user_group_list'));
     }
@@ -162,5 +162,10 @@ class GroupController extends Controller
     protected function getRenderer()
     {
         return $this->container->getParameter('fos_user.template.renderer');
+    }
+
+    protected function setFlash($action, $value)
+    {
+        $this->get('session')->setFlash($action, $value);
     }
 }

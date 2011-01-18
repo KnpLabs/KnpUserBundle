@@ -69,7 +69,7 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $this->get('fos_user.user_manager')->updateUser($user);
-            $this->get('session')->setFlash('fos_user_user_update', 'success');
+            $this->setFlash('fos_user_user_update', 'success');
             $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
             return $this->redirect($userUrl);
         }
@@ -124,7 +124,7 @@ class UserController extends Controller
                 $provider->updateAcl($acl);
             }
 
-            $this->get('session')->setFlash('fos_user_user_create', 'success');
+            $this->setFlash('fos_user_user_create', 'success');
             return $this->redirect($url);
         }
 
@@ -141,6 +141,8 @@ class UserController extends Controller
         $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
         $this->get('session')->remove('fos_user_send_confirmation_email/email');
         $user = $this->findUserBy('email', $email);
+
+        $this->setFlash('fos_user_user_confirm', 'success');
 
         return $this->render('FOSUserBundle:User:checkConfirmationEmail.'.$this->getRenderer().'.html', array(
             'user' => $user,
@@ -168,6 +170,7 @@ class UserController extends Controller
     public function confirmedAction()
     {
         $user = $this->getUser();
+        $this->setFlash('fos_user_user_confirmed', 'success');
         return $this->render('FOSUserBundle:User:confirmed.'.$this->getRenderer().'.html', array(
             'user' => $user,
         ));
@@ -180,7 +183,7 @@ class UserController extends Controller
     {
         $user = $this->findUserBy('username', $username);
         $this->get('fos_user.user_manager')->deleteUser($user);
-        $this->get('session')->setFlash('fos_user_user_delete', 'success');
+        $this->setFlash('fos_user_user_delete', 'success');
 
         return $this->redirect($this->generateUrl('fos_user_user_list'));
     }
@@ -210,6 +213,8 @@ class UserController extends Controller
         if ($form->isValid()) {
             $user->setPlainPassword($form->getNewPassword());
             $this->get('fos_user.user_manager')->updateUser($user);
+            $this->setFlash('fos_user_user_password', 'success');
+
             $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
 
             return $this->redirect($userUrl);
@@ -251,6 +256,7 @@ class UserController extends Controller
         $email = $this->get('session')->get('fos_user_send_resetting_email/email');
         $this->get('session')->remove('fos_user_send_resetting_email/email');
         $user = $this->findUserBy('email', $email);
+        $this->setFlash('fos_user_user_reset', 'success');
 
         return $this->render('FOSUserBundle:User:checkResettingEmail.'.$this->getRenderer().'.html', array(
             'user' => $user,
@@ -286,6 +292,7 @@ class UserController extends Controller
             $this->get('fos_user.user_manager')->updateUser($user);
             $this->authenticateUser($user);
             $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
+            $this->setFlash('fos_user_user_resetted', 'success');
 
             return $this->redirect($userUrl);
         }
@@ -420,6 +427,11 @@ class UserController extends Controller
             ->setBody($body);
 
         $mailer->send($message);
+    }
+
+    protected function setFlash($action, $value)
+    {
+        $this->get('session')->setFlash($action, $value);
     }
 
     protected function getSenderEmail($type)
