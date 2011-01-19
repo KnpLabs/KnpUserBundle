@@ -304,6 +304,7 @@ class UserController extends Controller
         if ($form->isValid()) {
             $user->setPlainPassword($form->getNewPassword());
             $user->setConfirmationToken(null);
+            $user->setEnabled(true);
             $this->get('fos_user.user_manager')->updateUser($user);
             $this->authenticateUser($user);
             $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
