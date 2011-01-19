@@ -67,7 +67,7 @@ class CreateUserCommandTest extends WebTestCase
         $userManager->deleteUser($user);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         $this->removeTestUser();
     }

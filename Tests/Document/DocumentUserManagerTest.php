@@ -85,7 +85,7 @@ class DocumentUserManagerTest extends \PHPUnit_Framework_TestCase
         $this->userManager->loadUserByUsername('jack');
     }
 
-    public function setUp()
+    protected function setUp()
     {
         if (!class_exists('\Doctrine\ODM\MongoDB\DocumentManager')) {
             $this->markTestSkipped('No ODM installed');
@@ -94,7 +94,7 @@ class DocumentUserManagerTest extends \PHPUnit_Framework_TestCase
         $this->userManager = $this->getRepositoryMock();
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->userManager);
     }

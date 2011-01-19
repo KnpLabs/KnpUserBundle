@@ -297,7 +297,7 @@ EOF;
         $this->assertTrue(($this->configuration->hasDefinition($id) ?: $this->configuration->hasAlias($id)));
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->configuration);
     }
