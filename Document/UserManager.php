@@ -85,27 +85,17 @@ class UserManager extends BaseUserManager
             return true;
         }
 
-        if ($value instanceOf UserInterface) {
-            // check if document in mongodb is the same document as the checked one
-            if ($document->isUser($value)) {
-                return true;
-            }
-            // check if returned document is proxy and initialize the minimum identifier if needed
-            if ($document instanceof Proxy) {
-                $classMetadata->setIdentifierValue($document, $document->__identifier);
-            }
-            // check if document has the same identifier as the current one
-            if ($classMetadata->getIdentifierValue($document) === $classMetadata->getIdentifierValue($value)) {
-                return true;
-            }
-        } else {
-            $field = $this->getFieldNameFromPropertyPath($constraint->property);
-            $mapping = $classMetadata->fieldMappings[$field];
-
-            // check if document in mongodb has the same property value as supplied
-            if ($classMetadata->getFieldValue($document, $mapping['fieldName']) === $value) {
-                return true;
-            }
+        // check if document in mongodb is the same document as the checked one
+        if ($document->isUser($value)) {
+            return true;
+        }
+        // check if returned document is proxy and initialize the minimum identifier if needed
+        if ($document instanceof Proxy) {
+            $classMetadata->setIdentifierValue($document, $document->__identifier);
+        }
+        // check if document has the same identifier as the current one
+        if ($classMetadata->getIdentifierValue($document) === $classMetadata->getIdentifierValue($value)) {
+            return true;
         }
 
         return false;
@@ -122,8 +112,6 @@ class UserManager extends BaseUserManager
         if (isset($mapping['reference']) && $mapping['reference']) {
             throw new \LogicException('Cannot determine uniqueness of referenced document values');
         }
-
-        $criteria[$field] = $value instanceOf UserInterface ? $classMetadata->getFieldValue($value, $field) : $value;
 
         switch ($mapping['type']) {
             case 'one':

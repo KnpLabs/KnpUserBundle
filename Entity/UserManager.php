@@ -84,7 +84,7 @@ class UserManager extends BaseUserManager
         }
 
         // there is no conflictual user which is not the same as the value
-        if ($value instanceOf UserInterface && $this->anyIsUser($value, $users)) {
+        if ($this->anyIsUser($value, $users)) {
             return true;
         }
 
@@ -138,7 +138,7 @@ class UserManager extends BaseUserManager
                 throw new \InvalidArgumentException(sprintf('The "%s" class metadata does not have any "%s" field or association mapping.', $this->class, $field));
             }
 
-            $criteria[$field] = $value instanceOf UserInterface ? $classMetadata->getFieldValue($value, $field) : $value;
+            $criteria[$field] = $classMetadata->getFieldValue($value, $field);
         }
 
         return $criteria;
