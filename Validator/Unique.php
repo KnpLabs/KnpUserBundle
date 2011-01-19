@@ -23,4 +23,12 @@ class Unique extends Constraint
     {
         return 'fos_user.validator.unique';
     }
+
+    /**
+     * @see Symfony\Component\Validator.Constraint::targets()
+     */
+    public function targets()
+    {
+        return Constraint::CLASS_CONSTRAINT;
+    }
 }
