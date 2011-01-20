@@ -8,11 +8,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\FOS\UserBundle\Controller;
+namespace FOS\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
-use Bundle\FOS\UserBundle\Model\Group;
-use Bundle\FOS\UserBundle\Form\ChangePassword;
+use FOS\UserBundle\Model\Group;
+use FOS\UserBundle\Form\ChangePassword;
 
 /**
  * RESTful controller managing group CRUD
@@ -145,7 +145,7 @@ class GroupController extends Controller
      * Create a GroupForm instance and returns it
      *
      * @param Group $object
-     * @return Bundle\FOS\UserBundle\Form\GroupForm
+     * @return FOS\UserBundle\Form\GroupForm
      */
     protected function createForm($object = null)
     {

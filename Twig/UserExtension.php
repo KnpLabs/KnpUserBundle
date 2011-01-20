@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Twig;
+namespace FOS\UserBundle\Twig;
 
 use Symfony\Component\Security\SecurityContext;
 
@@ -31,7 +31,7 @@ class UserExtension extends \Twig_Extension
     /**
      * Returns the authenticated user, if any
      *
-     * @return Bundle\FOS\UserBundle\Model\User
+     * @return FOS\UserBundle\Model\User
      */
     public function getUser()
     {

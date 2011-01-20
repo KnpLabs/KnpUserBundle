@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Command;
+namespace FOS\UserBundle\Command;
 
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 
@@ -8,7 +8,7 @@ use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 
-use Bundle\FOS\UserBundle\Model\User;
+use FOS\UserBundle\Model\User;
 use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
 use Symfony\Bundle\FrameworkBundle\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;

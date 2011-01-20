@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Util;
+namespace FOS\UserBundle\Util;
 
 interface CanonicalizerInterface
 {

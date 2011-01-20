@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Controller;
+namespace FOS\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\SecurityContext;

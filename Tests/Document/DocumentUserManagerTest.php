@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Document;
+namespace FOS\UserBundle\Document;
 
 class DocumentUserManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -62,7 +62,7 @@ class DocumentUserManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadUserByUsernameWithExistingUser()
     {
-        $userMock = $this->getMock('Bundle\FOS\UserBundle\Document\User', array(), array('sha1'));
+        $userMock = $this->getMock('FOS\UserBundle\Document\User', array(), array('sha1'));
 
         $this->userManager->expects($this->once())
             ->method('findUserBy')
@@ -102,7 +102,7 @@ class DocumentUserManagerTest extends \PHPUnit_Framework_TestCase
     protected function getRepositoryMock()
     {
         $methods = array('findUserBy');
-        $userManager = $this->getMock('Bundle\FOS\UserBundle\Document\UserRepository', $methods, array(), '', false);
+        $userManager = $this->getMock('FOS\UserBundle\Document\UserRepository', $methods, array(), '', false);
 
         return $userManager;
     }

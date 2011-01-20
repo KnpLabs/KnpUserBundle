@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Model;
+namespace FOS\UserBundle\Model;
 
 use Symfony\Component\Security\Encoder\EncoderFactoryInterface;
-use Bundle\FOS\UserBundle\Util\CanonicalizerInterface;
+use FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\Exception\UnsupportedAccountException;
 use Symfony\Component\Security\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\User\AccountInterface;

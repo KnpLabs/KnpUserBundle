@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Entity;
+namespace FOS\UserBundle\Entity;
 
-use Bundle\FOS\UserBundle\Model\GroupInterface;
+use FOS\UserBundle\Model\GroupInterface;
 use Doctrine\ORM\EntityManager;
-use Bundle\FOS\UserBundle\Model\GroupManager as BaseGroupManager;
+use FOS\UserBundle\Model\GroupManager as BaseGroupManager;
 
 class GroupManager extends BaseGroupManager
 {

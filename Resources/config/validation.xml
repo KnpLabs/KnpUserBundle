@@ -4,14 +4,14 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/constraint-mapping
         http://www.symfony-project.org/schema/dic/services/constraint-mapping-1.0.xsd">
 
-    <class name="Bundle\FOS\UserBundle\Model\User">
+    <class name="FOS\UserBundle\Model\User">
 
-        <constraint name="Bundle\FOS\UserBundle\Validator\Unique">
+        <constraint name="FOS\UserBundle\Validator\Unique">
             <option name="property">usernameCanonical</option>
             <option name="groups">Registration</option>
         </constraint>
 
-        <constraint name="Bundle\FOS\UserBundle\Validator\Unique">
+        <constraint name="FOS\UserBundle\Validator\Unique">
             <option name="property">emailCanonical</option>
             <option name="groups">Registration</option>
         </constraint>
@@ -68,8 +68,8 @@
         </property>
     </class>
 
-    <class name="Bundle\FOS\UserBundle\Form\ChangePassword">
-        <constraint name="Bundle\FOS\UserBundle\Validator\Password">
+    <class name="FOS\UserBundle\Form\ChangePassword">
+        <constraint name="FOS\UserBundle\Validator\Password">
             <option name="passwordProperty">current</option>
             <option name="userProperty">user</option>
         </constraint>

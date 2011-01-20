@@ -7,11 +7,11 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\FOS\UserBundle\Security\Encoder;
+namespace FOS\UserBundle\Security\Encoder;
 
 use Symfony\Component\Security\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\User\AccountInterface;
-use Bundle\FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Model\UserInterface;
 
 /**
  * This factory assumes MessageDigestPasswordEncoder's constructor.

@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Command;
+namespace FOS\UserBundle\Command;
 
 use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-use Bundle\FOS\UserBundle\Model\User;
+use FOS\UserBundle\Model\User;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Bundle\FrameworkBundle\Command\Command as BaseCommand;

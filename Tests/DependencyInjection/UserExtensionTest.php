@@ -1,9 +1,9 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Tests\DependencyInjection;
+namespace FOS\UserBundle\Tests\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Bundle\FOS\UserBundle\DependencyInjection\UserExtension;
+use FOS\UserBundle\DependencyInjection\UserExtension;
 use Symfony\Component\Yaml\Parser;
 
 class UserExtensionTest extends \PHPUnit_Framework_TestCase
@@ -75,8 +75,8 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\FOS\UserBundle\Form\UserForm', 'fos_user.form.user.class');
-        $this->assertParameter('Bundle\FOS\UserBundle\Form\ChangePasswordForm', 'fos_user.form.change_password.class');
+        $this->assertParameter('FOS\UserBundle\Form\UserForm', 'fos_user.form.user.class');
+        $this->assertParameter('FOS\UserBundle\Form\ChangePasswordForm', 'fos_user.form.change_password.class');
     }
 
     public function testUserLoadFormClass()
@@ -123,8 +123,8 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Bundle\FOS\UserBundle\Controller\UserController', 'fos_user.controller.user.class');
-        $this->assertParameter('Bundle\FOS\UserBundle\Controller\SecurityController', 'fos_user.controller.security.class');
+        $this->assertParameter('FOS\UserBundle\Controller\UserController', 'fos_user.controller.user.class');
+        $this->assertParameter('FOS\UserBundle\Controller\SecurityController', 'fos_user.controller.security.class');
     }
 
     public function testUserLoadControllerClass()

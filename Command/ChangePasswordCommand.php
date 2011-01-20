@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Command;
+namespace FOS\UserBundle\Command;
 
-use Bundle\FOS\UserBundle\Model\User;
+use FOS\UserBundle\Model\User;
 use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
 use Symfony\Bundle\FrameworkBundle\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;

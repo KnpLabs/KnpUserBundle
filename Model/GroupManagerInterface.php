@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\FOS\UserBundle\Model;
+namespace FOS\UserBundle\Model;
 
 /**
  * Interface to be implemented by group managers. This adds an additional level

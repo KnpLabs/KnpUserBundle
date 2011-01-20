@@ -1,13 +1,13 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Entity;
+namespace FOS\UserBundle\Entity;
 
-use Bundle\FOS\UserBundle\Util\CanonicalizerInterface;
-use Bundle\FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Util\CanonicalizerInterface;
+use FOS\UserBundle\Model\UserInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraint;
-use Bundle\FOS\UserBundle\Model\UserManager as BaseUserManager;
+use FOS\UserBundle\Model\UserManager as BaseUserManager;
 
 class UserManager extends BaseUserManager
 {

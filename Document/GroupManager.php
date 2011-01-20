@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Document;
+namespace FOS\UserBundle\Document;
 
-use Bundle\FOS\UserBundle\Model\GroupInterface;
+use FOS\UserBundle\Model\GroupInterface;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Bundle\FOS\UserBundle\Model\GroupManager as BaseGroupManager;
+use FOS\UserBundle\Model\GroupManager as BaseGroupManager;
 
 class GroupManager extends BaseGroupManager
 {

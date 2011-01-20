@@ -5,9 +5,9 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="fos_user.model.group.class">Bundle\FOS\UserBundle\Document\Group</parameter>
-        <parameter key="fos_user.user_manager.class">Bundle\FOS\UserBundle\Document\UserManager</parameter>
-        <parameter key="fos_user.group_manager.class">Bundle\FOS\UserBundle\Document\GroupManager</parameter>
+        <parameter key="fos_user.model.group.class">FOS\UserBundle\Document\Group</parameter>
+        <parameter key="fos_user.user_manager.class">FOS\UserBundle\Document\UserManager</parameter>
+        <parameter key="fos_user.group_manager.class">FOS\UserBundle\Document\GroupManager</parameter>
     </parameters>
 
     <services>

@@ -1,11 +1,11 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Document;
+namespace FOS\UserBundle\Document;
 
-use Bundle\FOS\UserBundle\Util\CanonicalizerInterface;
-use Bundle\FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Util\CanonicalizerInterface;
+use FOS\UserBundle\Model\UserInterface;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Bundle\FOS\UserBundle\Model\UserManager as BaseUserManager;
+use FOS\UserBundle\Model\UserManager as BaseUserManager;
 use Doctrine\ODM\MongoDB\Proxy\Proxy;
 use Symfony\Component\Validator\Constraint;
 

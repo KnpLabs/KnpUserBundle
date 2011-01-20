@@ -12,12 +12,22 @@ Features
 Installation
 ============
 
-Add UserBundle to your src/Bundle dir
+Add UserBundle to your src/ dir
 -------------------------------------
 
 ::
 
-    $ git submodule add git://github.com/FriendsOfSymfony/UserBundle.git src/Bundle/FOS/UserBundle
+    $ git submodule add git://github.com/FriendsOfSymfony/UserBundle.git src/FOS/UserBundle
+
+Add the FOS namespace to your autoloader
+----------------------------------------
+
+::
+    // src/autoload.php
+    $loader->registerNamespaces(array(
+    'FOS' => __DIR__,
+    // your other namespaces
+    );
 
 Add UserBundle to your application kernel
 -----------------------------------------
@@ -30,7 +40,7 @@ Add UserBundle to your application kernel
     {
         return array(
             // ...
-            new Bundle\FOS\UserBundle\FOSUserBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
             // ...
         );
     }
@@ -52,7 +62,7 @@ ORM User class:
     // src/Application/MyBundle/Entity/User.php
 
     namespace Application\MyBundle\Entity;
-    use Bundle\FOS\UserBundle\Entity\User as BaseUser;
+    use FOS\UserBundle\Entity\User as BaseUser;
 
     /**
      * @orm:Entity
@@ -75,7 +85,7 @@ MongoDB User class:
     // src/Application/MyBundle/Document/User.php
 
     namespace Application\MyBundle\Document;
-    use Bundle\FOS\UserBundle\Document\User as BaseUser;
+    use FOS\UserBundle\Document\User as BaseUser;
 
     /**
      * @mongodb:Document
@@ -249,12 +259,12 @@ all the operation on users in a UserManager. The user manager is a
 service of the container.
 
 If you configure the db_driver to orm, this service is an instance of
-``Bundle\FOS\UserBundle\Entity\UserManager``.
+``FOS\UserBundle\Entity\UserManager``.
 
 If you configure the db_driver to odm, this service is an instance of
-``Bundle\FOS\UserBundle\Document\UserManager``.
+``FOS\UserBundle\Document\UserManager``.
 
-Both these classes implement ``Bundle\FOS\UserBundle\Model\UserManagerInterface``.
+Both these classes implement ``FOS\UserBundle\Model\UserManagerInterface``.
 
 Access the user manager service
 -------------------------------
@@ -336,7 +346,7 @@ Canonicalizer
 The ``Canonicalizer`` is used to canonicalize the username and the email in the
 database. The default one uses ``mb_convert_case``. You can change this
 behavior by changing the canonicalizer in your configuration. The canonicalizer
-must implement ``Bundle\FOS\UserBundle\Util\CanonicalizerInterface``.
+must implement ``FOS\UserBundle\Util\CanonicalizerInterface``.
 
 Note::
     If you do not have the mbstring extension installed you will need to

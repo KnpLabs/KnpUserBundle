@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Document;
+namespace FOS\UserBundle\Document;
 
-use Bundle\FOS\UserBundle\Model\Group as BaseGroup;
+use FOS\UserBundle\Model\Group as BaseGroup;
 
 class Group extends BaseGroup
 {

@@ -8,7 +8,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\FOS\UserBundle\Model;
+namespace FOS\UserBundle\Model;
 
 interface GroupInterface
 {

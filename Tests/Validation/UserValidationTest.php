@@ -1,8 +1,8 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Tests\Validation;
+namespace FOS\UserBundle\Tests\Validation;
 
-use Bundle\FOS\UserBundle\Test\WebTestCase;
+use FOS\UserBundle\Test\WebTestCase;
 
 class UserValidationTest extends WebTestCase
 {

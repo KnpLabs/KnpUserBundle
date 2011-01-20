@@ -8,7 +8,7 @@
         <parameter key="fos_user.encoder.algorithm">sha512</parameter>
         <parameter key="fos_user.encoder.encode_as_base64">false</parameter>
         <parameter key="fos_user.encoder.iterations">1</parameter>
-        <parameter key="fos_user.encoder_factory.class">Bundle\FOS\UserBundle\Security\Encoder\EncoderFactory</parameter>
+        <parameter key="fos_user.encoder_factory.class">FOS\UserBundle\Security\Encoder\EncoderFactory</parameter>
     </parameters>
 
     <services>

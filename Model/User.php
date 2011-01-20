@@ -8,9 +8,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\FOS\UserBundle\Model;
+namespace FOS\UserBundle\Model;
 
-use Bundle\FOS\UserBundle\Util\CanonicalizerInterface;
+use FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\Role\RoleInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;

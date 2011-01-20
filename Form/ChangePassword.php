@@ -1,7 +1,7 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Form;
-use Bundle\FOS\UserBundle\Model\User;
+namespace FOS\UserBundle\Form;
+use FOS\UserBundle\Model\User;
 
 class ChangePassword extends ResetPassword
 {

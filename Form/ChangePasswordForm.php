@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Form;
+namespace FOS\UserBundle\Form;
 
 use Symfony\Component\Form\RepeatedField;
 use Symfony\Component\Form\PasswordField;

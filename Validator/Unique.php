@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Validator;
+namespace FOS\UserBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 

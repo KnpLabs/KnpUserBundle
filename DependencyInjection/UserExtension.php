@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\DependencyInjection;
+namespace FOS\UserBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Reference;
 

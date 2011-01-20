@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Command;
+namespace FOS\UserBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
-use Bundle\FOS\UserBundle\Model\User;
+use FOS\UserBundle\Model\User;
 
 /*
  * This file is part of the FOS\UserBundle

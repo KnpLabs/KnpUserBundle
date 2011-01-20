@@ -7,15 +7,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\FOS\UserBundle\Controller;
+namespace FOS\UserBundle\Controller;
 
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Bundle\FOS\UserBundle\Model\User;
-use Bundle\FOS\UserBundle\Form\ChangePassword;
-use Bundle\FOS\UserBundle\Form\ResetPassword;
+use FOS\UserBundle\Model\User;
+use FOS\UserBundle\Form\ChangePassword;
+use FOS\UserBundle\Form\ResetPassword;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Exception\AccessDeniedException;
@@ -377,7 +377,7 @@ class UserController extends Controller
      * Create a UserForm instance and returns it
      *
      * @param User $object
-     * @return Bundle\FOS\UserBundle\Form\UserForm
+     * @return FOS\UserBundle\Form\UserForm
      */
     protected function createForm($object = null)
     {

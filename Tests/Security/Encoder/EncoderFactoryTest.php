@@ -1,15 +1,15 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Tests\Security\Encoder;
+namespace FOS\UserBundle\Tests\Security\Encoder;
 
 use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
-use Bundle\FOS\UserBundle\Security\Encoder\EncoderFactory;
+use FOS\UserBundle\Security\Encoder\EncoderFactory;
 
 class EncoderFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Bundle\FOS\UserBundle\Security\Encoder\EncoderFactory::getEncoder
-     * @covers Bundle\FOS\UserBundle\Security\Encoder\EncoderFactory::createFosEncoder
+     * @covers FOS\UserBundle\Security\Encoder\EncoderFactory::getEncoder
+     * @covers FOS\UserBundle\Security\Encoder\EncoderFactory::createFosEncoder
      */
     public function testGetEncoderWithUserAccount()
     {
@@ -20,7 +20,7 @@ class EncoderFactoryTest extends \PHPUnit_Framework_TestCase
             $this->getMock('Symfony\Component\Security\Encoder\EncoderFactoryInterface')
         );
 
-        $userAccount = $this->getMock('Bundle\FOS\UserBundle\Model\UserInterface');
+        $userAccount = $this->getMock('FOS\UserBundle\Model\UserInterface');
 
         $userAccount->expects($this->once())
             ->method('getAlgorithm')

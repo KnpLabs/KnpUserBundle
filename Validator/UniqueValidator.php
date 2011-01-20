@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Validator;
+namespace FOS\UserBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Bundle\FOS\UserBundle\Model\UserManagerInterface;
+use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\ValidatorException;
 

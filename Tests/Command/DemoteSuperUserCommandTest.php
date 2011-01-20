@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Tests\Command;
+namespace FOS\UserBundle\Tests\Command;
 
-use Bundle\FOS\UserBundle\Test\WebTestCase;
-use Bundle\FOS\UserBundle\Model\User;
-use Bundle\FOS\UserBundle\Command\DemoteSuperAdminCommand;
+use FOS\UserBundle\Test\WebTestCase;
+use FOS\UserBundle\Model\User;
+use FOS\UserBundle\Command\DemoteSuperAdminCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Tester\ApplicationTester;

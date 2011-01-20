@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Model;
+namespace FOS\UserBundle\Model;
 
 /**
  * Abstract Group Manager implementation which can be used as base class for your
