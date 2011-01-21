@@ -11,7 +11,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class UserExtension extends Extension
 {
-    public function configLoad(array $config, ContainerBuilder $container)
+    public function configLoad(array $configs, ContainerBuilder $container)
+    {
+        foreach ($configs as $config) {
+            $this->doConfigLoad($config, $container);
+        }
+    }
+
+    public function doConfigLoad(array $config, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
 
