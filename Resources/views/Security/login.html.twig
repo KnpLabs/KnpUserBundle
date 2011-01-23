@@ -1,3 +1,6 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block content %}
 {% if error %}
     <div>{{ error }}</div>
 {% endif %}
@@ -17,3 +20,4 @@
 <p>
     <a href="{{ path('fos_user_user_request_reset_password') }}">{% trans 'Forgotten password' from 'FOSUserBundle' %}</a>
 </p>
+{% endblock content %}
