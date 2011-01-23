@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         colors="false"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="true"
-         stopOnFailure="false"
-         syntaxCheck="false"
-         bootstrap="../../../autoload.php"
->
-
+<phpunit bootstrap="./Tests/bootstrap.php" color="true">
 <!--
     <php>
-        <server name="KERNEL_DIR" value="../../../../app" />
+        <server name="SYMFONY" value="../../vendor/symfony/src" />
+        <server name="KERNEL_DIR" value="../../../app" />
     </php>
 -->
-
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>./Tests/</directory>
+        <testsuite name="FOSUserBundle">
+            <directory suffix="Test.php">./Tests</directory>
         </testsuite>
     </testsuites>
 

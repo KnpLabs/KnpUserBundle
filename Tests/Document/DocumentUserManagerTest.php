@@ -91,7 +91,7 @@ class DocumentUserManagerTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('No ODM installed');
         }
 
-        $this->userManager = $this->getRepositoryMock();
+        $this->userManager = $this->getManagerMock();
     }
 
     protected function tearDown()
@@ -99,10 +99,10 @@ class DocumentUserManagerTest extends \PHPUnit_Framework_TestCase
         unset($this->userManager);
     }
 
-    protected function getRepositoryMock()
+    protected function getManagerMock()
     {
         $methods = array('findUserBy');
-        $userManager = $this->getMock('FOS\UserBundle\Document\UserRepository', $methods, array(), '', false);
+        $userManager = $this->getMock('FOS\UserBundle\Document\UserManager', $methods, array(), '', false);
 
         return $userManager;
     }
