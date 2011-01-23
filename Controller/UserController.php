@@ -98,7 +98,8 @@ class UserController extends Controller
     public function createAction()
     {
         $form = $this->createForm();
-        $form->setValidationGroups('Registration');
+        // TODO: fix once the FormFactory is updated
+        // $form->setValidationGroups('Registration');
         $form->bind($this->get('request')->request->get($form->getName()));
 
         if ($form->isValid()) {
