@@ -9,6 +9,7 @@
         <parameter key="fos_user.email.from_email">webmaster@example.com</parameter>
         <parameter key="fos_user.email.confirmation.template">FOSUserBundle:User:confirmationEmail</parameter>
         <parameter key="fos_user.email.resetting_password.template">FOSUserBundle:User:resettingPasswordEmail</parameter>
+        <parameter key="fos_user.email.resetting_password.token_ttl">86400</parameter>
     </parameters>
 
 </container>

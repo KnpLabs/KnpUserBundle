@@ -241,7 +241,7 @@ class UserController extends Controller
     {
         $user = $this->findUserBy('username', $this->get('request')->request->get('username'));
 
-        if ((null !== $lastRequested = $user->getPasswordRequestedAt()) && $lastRequested->getTimestamp() + 86400 > time()) {
+        if ($user->isPasswordRequestNonExpired($this->getPasswordRequestTtl())) {
             return $this->render('FOSUserBundle:User:passwordAlreadyRequested.html.'.$this->getRenderer());
         }
 
@@ -276,7 +276,7 @@ class UserController extends Controller
     {
         $user = $this->findUserBy('confirmationToken', $token);
 
-        if ((null === $lastRequested = $user->getPasswordRequestedAt()) || $lastRequested->getTimestamp() + 86400 < time()) {
+        if (!$user->isPasswordRequestNonExpired($this->getPasswordRequestTtl())) {
             $this->redirect($this->generateUrl('fos_user_user_request_reset_password'));
         }
 
@@ -295,7 +295,7 @@ class UserController extends Controller
     {
         $user = $this->findUserBy('confirmationToken', $token);
 
-        if ((null === $lastRequested = $user->getPasswordRequestedAt()) || $lastRequested->getTimestamp() + 86400 < time()) {
+        if (!$user->isPasswordRequestNonExpired($this->getPasswordRequestTtl())) {
             $this->redirect($this->generateUrl('fos_user_user_request_reset_password'));
         }
 
@@ -449,6 +449,11 @@ class UserController extends Controller
     protected function setFlash($action, $value)
     {
         $this->get('session')->setFlash($action, $value);
+    }
+
+    protected function getPasswordRequestTtl()
+    {
+        return $this->container->getParameter('fos_user.email.resetting_password.token_ttl');
     }
 
     protected function getSenderEmail($type)

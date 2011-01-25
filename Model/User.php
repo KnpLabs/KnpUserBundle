@@ -598,14 +598,36 @@ abstract class User implements UserInterface
         $this->confirmationToken = $confirmationToken;
     }
 
+    /**
+     * Set the timestamp that the user requested a password reset.
+     *
+     * @param DateTime $date
+     */
     public function setPasswordRequestedAt(\DateTime $date)
     {
         $this->passwordRequestedAt = $date;
     }
 
+    /**
+     * Get the timestamp that the user requested a password reset.
+     *
+     * @return DateTime
+     */
     public function getPasswordRequestedAt()
     {
         return $this->passwordRequestedAt;
+    }
+
+    /**
+     * Checks whether the password reset request has expired.
+     *
+     * @param integer $ttl Requests older than this many seconds will be considered expired
+     * @return boolean true if the users's password request is non expired, false otherwise
+     */
+    public function isPasswordRequestNonExpired($ttl)
+    {
+        return $this->passwordRequestedAt instanceof \DateTime &&
+               $this->passwordRequestedAt->getTimestamp() + $ttl > time();
     }
 
     /**
