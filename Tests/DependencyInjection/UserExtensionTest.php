@@ -175,7 +175,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('twig', 'fos_user.template.renderer');
+        $this->assertParameter('twig', 'fos_user.template.engine');
         $this->assertParameter('TwigBundle::form.html.twig', 'fos_user.template.theme');
     }
 
@@ -183,7 +183,7 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('renderer', 'fos_user.template.renderer');
+        $this->assertParameter('engine', 'fos_user.template.engine');
         $this->assertParameter('theme', 'fos_user.template.theme');
     }
 
@@ -262,8 +262,8 @@ email:
     resetting_password:
         template:   ~
 template:
-    renderer: ~
-    theme:    ~
+    engine: ~
+    theme:  ~
 EOF;
         $parser = new Parser();
         return $parser->parse($yaml);

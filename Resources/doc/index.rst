@@ -318,8 +318,8 @@ All configuration options are listed below::
         resetting_password:
             template:   ~
     template:
-        renderer: ~
-        theme:    ~
+        engine: ~
+        theme:  ~
 
 Templating
 ----------

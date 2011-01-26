@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="fos_user.template.renderer">twig</parameter>
+        <parameter key="fos_user.template.engine">twig</parameter>
         <parameter key="fos_user.template.theme">TwigBundle::form.html.twig</parameter>
 
         <parameter key="fos_user.templating.helper.security.class">FOS\UserBundle\Templating\Helper\SecurityHelper</parameter>

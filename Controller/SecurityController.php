@@ -31,6 +31,6 @@ class SecurityController extends Controller
 
     protected function getEngine()
     {
-        return $this->container->getParameter('fos_user.template.renderer');
+        return $this->container->getParameter('fos_user.template.engine');
     }
 }

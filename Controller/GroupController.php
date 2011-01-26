@@ -161,7 +161,7 @@ class GroupController extends Controller
 
     protected function getEngine()
     {
-        return $this->container->getParameter('fos_user.template.renderer');
+        return $this->container->getParameter('fos_user.template.engine');
     }
 
     protected function setFlash($action, $value)
