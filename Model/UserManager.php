@@ -2,12 +2,12 @@
 
 namespace FOS\UserBundle\Model;
 
-use Symfony\Component\Security\Encoder\EncoderFactoryInterface;
 use FOS\UserBundle\Util\CanonicalizerInterface;
-use Symfony\Component\Security\Exception\UnsupportedAccountException;
-use Symfony\Component\Security\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\User\AccountInterface;
-use Symfony\Component\Security\User\UserProviderInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Exception\UnsupportedAccountException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\AccountInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * Abstract User Manager implementation which can be used as base class for your
@@ -134,5 +134,13 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
             $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
             $user->eraseCredentials();
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function supportsClass($class)
+    {
+        return $class === $this->getClass();
     }
 }

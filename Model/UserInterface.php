@@ -11,7 +11,7 @@
 namespace FOS\UserBundle\Model;
 
 use FOS\UserBundle\Util\CanonicalizerInterface;
-use Symfony\Component\Security\User\AdvancedAccountInterface;
+use Symfony\Component\Security\Core\User\AdvancedAccountInterface;
 
 interface UserInterface extends AdvancedAccountInterface
 {

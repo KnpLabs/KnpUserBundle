@@ -2,7 +2,7 @@
 
 namespace FOS\UserBundle\Twig;
 
-use Symfony\Component\Security\SecurityContext;
+use Symfony\Component\Security\Core\SecurityContext;
 
 class UserExtension extends \Twig_Extension
 {
