@@ -2,7 +2,7 @@
 
 namespace FOS\UserBundle\Templating\Helper;
 
-use Symfony\Bundle\FrameworkBundle\Templating\Helper\SecurityHelper as BaseSecurityHelper;
+use Symfony\Bundle\SecurityBundle\Templating\Helper\SecurityHelper as BaseSecurityHelper;
 use FOS\UserBundle\Model\User;
 use Symfony\Component\Security\SecurityContext;
 
