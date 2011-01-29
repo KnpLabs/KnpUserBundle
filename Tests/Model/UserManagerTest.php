@@ -74,7 +74,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
 
     private function getMockEncoderFactory()
     {
-        return $this->getMock('Symfony\Component\Security\Encoder\EncoderFactoryInterface');
+        return $this->getMock('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface');
     }
 
     private function getMockPasswordEncoder()

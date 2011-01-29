@@ -2,7 +2,7 @@
 
 namespace FOS\UserBundle\Validator;
 
-use Symfony\Component\Security\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
