@@ -17,8 +17,8 @@ use FOS\UserBundle\Model\User;
 use FOS\UserBundle\Form\ChangePassword;
 use FOS\UserBundle\Form\ResetPassword;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * RESTful controller managing user CRUD
