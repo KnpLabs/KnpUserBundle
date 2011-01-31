@@ -3,7 +3,7 @@
 namespace FOS\UserBundle\Command;
 
 use FOS\UserBundle\Model\User;
-use Symfony\Component\Security\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Bundle\FrameworkBundle\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

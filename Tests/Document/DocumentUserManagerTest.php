@@ -73,7 +73,7 @@ class DocumentUserManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Security\Exception\UsernameNotFoundException
+     * @expectedException Symfony\Component\Security\Core\Exception\UsernameNotFoundException
      */
     public function testLoadUserByUsernameWithMissingUser()
     {

@@ -45,7 +45,7 @@ class EncoderFactory implements EncoderFactoryInterface
     }
 
     /**
-     * @see Symfony\Component\Security\Encoder.EncoderFactory::getEncoder()
+     * @see Symfony\Component\Security\Core\Encoder\EncoderFactory::getEncoder()
      */
     public function getEncoder(AccountInterface $account)
     {
