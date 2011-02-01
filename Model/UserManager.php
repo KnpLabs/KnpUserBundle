@@ -109,7 +109,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
             throw new UnsupportedAccountException('Account is not supported.');
         }
 
-        return $this->loadUserByUsername((string) $user);
+        return $this->loadUserByUsername($user->getUsername());
     }
 
     /**
