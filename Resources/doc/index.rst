@@ -23,10 +23,10 @@ Add the FOS namespace to your autoloader
 ----------------------------------------
 
 ::
-    // src/autoload.php
+    // app/autoload.php
     $loader->registerNamespaces(array(
-    'FOS' => __DIR__,
-    // your other namespaces
+        'FOS' => __DIR__,
+        // your other namespaces
     );
 
 Add UserBundle to your application kernel
@@ -59,7 +59,7 @@ ORM User class:
 
 ::
 
-    // src/Application/MyBundle/Entity/User.php
+    // src/MyProject/MyBundle/Entity/User.php
 
     namespace Application\MyBundle\Entity;
     use FOS\UserBundle\Entity\User as BaseUser;
@@ -82,7 +82,7 @@ MongoDB User class:
 
 ::
 
-    // src/Application/MyBundle/Document/User.php
+    // src/MyProject/MyBundle/Document/User.php
 
     namespace Application\MyBundle\Document;
     use FOS\UserBundle\Document\User as BaseUser;
@@ -103,7 +103,7 @@ In case you want to change some of the default mappings, like for example the
 Group class ``id`` generator strategy one must simply replicate the default
 file inside an Application Bundle and then apply the necessary changes:
 
-    cp src/Bundle/FOS/UserBundle/Resources/config/doctrine/metadata/orm/Bundle.FOS.UserBundle.Entity.Group.dcm src/Application/..
+    cp src/Bundle/FOS/UserBundle/Resources/config/doctrine/metadata/orm/Bundle.FOS.UserBundle.Entity.Group.dcm src/MyProject/..
 
 Configure your project
 ----------------------
@@ -332,7 +332,7 @@ directory structure inside the Application directory:
 
 For example ``src/Bundle/FOS/UserBundle/Resources/views/User/new.twig`` can be
 replaced inside an application by putting a file with alternative content in
-``src/Application/FOS/UserBundle/Resources/views/User/new.twig``.
+``src/MyProject/FOS/UserBundle/Resources/views/User/new.twig``.
 
 Validation
 ----------
