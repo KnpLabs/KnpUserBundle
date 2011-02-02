@@ -103,7 +103,7 @@ In case you want to change some of the default mappings, like for example the
 Group class ``id`` generator strategy one must simply replicate the default
 file inside an Application Bundle and then apply the necessary changes:
 
-    cp src/Bundle/FOS/UserBundle/Resources/config/doctrine/metadata/orm/Bundle.FOS.UserBundle.Entity.Group.dcm src/MyProject/..
+    cp src/FOS/UserBundle/Resources/config/doctrine/metadata/orm/Bundle.FOS.UserBundle.Entity.Group.dcm src/MyProject/..
 
 Configure your project
 ----------------------
@@ -330,7 +330,7 @@ templates according to the ``kernel.bundle_dirs`` container parameter. This mean
 it's possible to override any FOS\UserBundle template by simply mimicking the
 directory structure inside the Application directory:
 
-For example ``src/Bundle/FOS/UserBundle/Resources/views/User/new.twig`` can be
+For example ``src/FOS/UserBundle/Resources/views/User/new.twig`` can be
 replaced inside an application by putting a file with alternative content in
 ``src/MyProject/FOS/UserBundle/Resources/views/User/new.twig``.
 
