@@ -45,6 +45,9 @@ class GroupController extends Controller
     public function editAction($groupname)
     {
         $group = $this->findGroupBy('name', $groupname);
+        $form = $this->get('fos_user.form.group');
+        $form->setData($group);
+
         $form = $this->createForm($group);
 
         return $this->render('FOSUserBundle:Group:edit.html.'.$this->getEngine(), array(
@@ -59,8 +62,8 @@ class GroupController extends Controller
     public function updateAction($groupname)
     {
         $group = $this->findGroupBy('name', $groupname);
-        $form = $this->createForm($group);
-        $form->bind($this->get('request')->request->get($form->getName()));
+        $form = $this->get('fos_user.form.group');
+        $form->bind($this->get('request'), $group);
 
         if ($form->isValid()) {
             $this->get('fos_user.group_manager')->updateGroup($group);
@@ -80,7 +83,9 @@ class GroupController extends Controller
      */
     public function newAction()
     {
-        $form = $this->createForm();
+        $user = $this->get('fos_user.group_manager')->createGroup('');
+        $form = $this->get('fos_user.form.group');
+        $form->setData($user);
 
         return $this->render('FOSUserBundle:Group:new.html.'.$this->getEngine(), array(
             'form' => $form
@@ -92,8 +97,9 @@ class GroupController extends Controller
      */
     public function createAction()
     {
-        $form = $this->createForm();
-        $form->bind($this->get('request')->request->get($form->getName()));
+        $group = $this->get('fos_user.group_manager')->createGroup('');
+        $form = $this->get('fos_user.form.group');
+        $form->bind($this->get('request'), $group);
 
         if ($form->isValid()) {
             $group = $form->getData();
@@ -139,24 +145,6 @@ class GroupController extends Controller
         }
 
         return $group;
-    }
-
-    /**
-     * Create a GroupForm instance and returns it
-     *
-     * @param Group $object
-     * @return FOS\UserBundle\Form\GroupForm
-     */
-    protected function createForm($object = null)
-    {
-        $form = $this->get('fos_user.form.group');
-        if (null === $object) {
-            $object = $this->get('fos_user.group_manager')->createGroup('');
-        }
-
-        $form->setData($object);
-
-        return $form;
     }
 
     protected function getEngine()

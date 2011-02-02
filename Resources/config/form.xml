@@ -7,6 +7,9 @@
     <parameters>
         <parameter key="fos_user.form.user.class">FOS\UserBundle\Form\UserForm</parameter>
         <parameter key="fos_user.form.user.name">fos_user_user_form</parameter>
+        <parameter key="fos_user.form.user.validation_groups" type="collection">
+            <parameter>Registration</parameter>
+        </parameter>
         <parameter key="fos_user.form.change_password.class">FOS\UserBundle\Form\ChangePasswordForm</parameter>
         <parameter key="fos_user.form.change_password.name">fos_user_change_password_form</parameter>
         <parameter key="fos_user.form.reset_password.class">FOS\UserBundle\Form\ResetPasswordForm</parameter>
@@ -16,38 +19,48 @@
     </parameters>
 
     <services>
-        <service id="fos_user.form.user" class="%fos_user.form.user.class%">
+
+        <service id="fos_user.form.user" factory-method="create" class="%fos_user.form.user.class%">
+            <argument type="service" id="form.context" />
             <argument>%fos_user.form.user.name%</argument>
-            <argument></argument>
-            <argument type="service" id="validator" />
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
             </argument>
         </service>
+
+        <service id="fos_user.form.user_registration" factory-method="create" class="%fos_user.form.user.class%">
+            <argument type="service" id="form.context" />
+            <argument>%fos_user.form.user.name%</argument>
+            <argument type="collection">
+                <argument key="theme">%fos_user.template.theme%</argument>
+                <argument key="validation_groups">%fos_user.form.user.validation_groups%</argument>
+            </argument>
+        </service>
+
         <service id="fos_user.form.change_password" class="%fos_user.form.change_password.class%">
+            <argument type="service" id="form.context" />
             <argument>%fos_user.form.change_password.name%</argument>
-            <argument></argument>
-            <argument type="service" id="validator" />
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
             </argument>
         </service>
+
         <service id="fos_user.form.reset_password" class="%fos_user.form.reset_password.class%">
+            <argument type="service" id="form.context" />
             <argument>%fos_user.form.reset_password.name%</argument>
-            <argument></argument>
-            <argument type="service" id="validator" />
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
             </argument>
         </service>
+
         <service id="fos_user.form.group" class="%fos_user.form.group.class%">
+            <argument type="service" id="form.context" />
             <argument>%fos_user.form.group.name%</argument>
-            <argument></argument>
-            <argument type="service" id="validator" />
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
             </argument>
         </service>
+
     </services>
 
 </container>

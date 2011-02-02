@@ -60,6 +60,7 @@ class UserExtension extends Extension
             ''          => array('session_create_success_route' => 'fos_user.session_create.success_route'),
             'template'  => 'fos_user.template.%s',
             'form_name' => 'fos_user.form.%s.name',
+            'form_validation_groups' => 'fos_user.form.%s.validation_groups',
         ));
 
         if (isset($config['class'])){

@@ -19,11 +19,11 @@ class UserForm extends Form
      * @param ValidatorInterface $validator
      * @param array $options
      */
-    public function __construct($title, $data, ValidatorInterface $validator, array $options = array())
+    public function __construct($title, array $options = array())
     {
         $this->addOption('theme');
 
-        parent::__construct($title, $data, $validator, $options);
+        parent::__construct($title, $options);
     }
 
     public function configure()
