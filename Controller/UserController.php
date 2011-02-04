@@ -87,7 +87,7 @@ class UserController extends Controller
     public function newAction()
     {
         $user = $this->get('fos_user.user_manager')->createUser();
-        $form = $this->get('fos_user.form.user');
+        $form = $this->get('fos_user.form.user_registration');
         $form->setData($user);
 
         return $this->render('FOSUserBundle:User:new.html.'.$this->getEngine(), array(
