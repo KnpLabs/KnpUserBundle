@@ -342,7 +342,7 @@ method inside that new Bundle's definition:
 
         public function getPath()
         {
-            return strtr(__DIR__, '\\', '/');
+            return __DIR__;
         }
 
         public function getParent()
