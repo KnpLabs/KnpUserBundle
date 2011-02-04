@@ -25,7 +25,7 @@ Add the FOS namespace to your autoloader
 ::
     // app/autoload.php
     $loader->registerNamespaces(array(
-        'FOS' => __DIR__,
+        'FOS' => __DIR__.'/../src',
         // your other namespaces
     );
 
@@ -98,6 +98,10 @@ MongoDB User class:
 
 Changing default class mappings
 -------------------------------
+
+** WARNING **
+This probably doesn't work anymore
+** WARNING **
 
 In case you want to change some of the default mappings, like for example the
 Group class ``id`` generator strategy one must simply replicate the default
@@ -325,10 +329,27 @@ All configuration options are listed below::
 Templating
 ----------
 
-The template names are not configurable, however Symfony2 by default searches for
-templates according to the ``kernel.bundle_dirs`` container parameter. This means
-it's possible to override any FOS\UserBundle template by simply mimicking the
-directory structure inside the Application directory:
+The template names are not configurable, however Symfony2 makes it possible
+to extend a bundle by creating a new Bundle and implementing a getParent()
+method inside that new Bundle's definition:
+
+    class MyProjectUserBundle extends Bundle
+    {
+        public function getNamespace()
+        {
+            return __NAMESPACE__;
+        }
+
+        public function getPath()
+        {
+            return strtr(__DIR__, '\\', '/');
+        }
+
+        public function getParent()
+        {
+            return 'FOSUserBundle';
+        }
+    }
 
 For example ``src/FOS/UserBundle/Resources/views/User/new.twig`` can be
 replaced inside an application by putting a file with alternative content in
