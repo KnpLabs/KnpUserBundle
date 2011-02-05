@@ -20,7 +20,7 @@
 
     <services>
 
-        <service id="fos_user.form.user" factory-method="create" class="%fos_user.form.user.class%">
+        <service id="fos_user.form.user" factory-method="create" factory-class="%fos_user.form.user.class%" class="%fos_user.form.user.class%">
             <argument type="service" id="form.context" />
             <argument>%fos_user.form.user.name%</argument>
             <argument type="collection">
@@ -28,7 +28,7 @@
             </argument>
         </service>
 
-        <service id="fos_user.form.user_registration" factory-method="create" class="%fos_user.form.user.class%">
+        <service id="fos_user.form.user_registration" factory-method="create" factory-class="%fos_user.form.user.class%" class="%fos_user.form.user.class%">
             <argument type="service" id="form.context" />
             <argument>%fos_user.form.user.name%</argument>
             <argument type="collection">
