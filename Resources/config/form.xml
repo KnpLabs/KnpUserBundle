@@ -37,7 +37,7 @@
             </argument>
         </service>
 
-        <service id="fos_user.form.change_password" class="%fos_user.form.change_password.class%">
+        <service id="fos_user.form.change_password" factory-method="create" factory-class="%fos_user.form.change_password.class%" class="%fos_user.form.change_password.class%">
             <argument type="service" id="form.context" />
             <argument>%fos_user.form.change_password.name%</argument>
             <argument type="collection">
@@ -45,7 +45,7 @@
             </argument>
         </service>
 
-        <service id="fos_user.form.reset_password" class="%fos_user.form.reset_password.class%">
+        <service id="fos_user.form.reset_password" factory-method="create" factory-class="%fos_user.form.reset_password.class%" class="%fos_user.form.reset_password.class%">
             <argument type="service" id="form.context" />
             <argument>%fos_user.form.reset_password.name%</argument>
             <argument type="collection">
@@ -53,7 +53,7 @@
             </argument>
         </service>
 
-        <service id="fos_user.form.group" class="%fos_user.form.group.class%">
+        <service id="fos_user.form.group" factory-method="create" factory-class="%fos_user.form.group.class%" class="%fos_user.form.group.class%">
             <argument type="service" id="form.context" />
             <argument>%fos_user.form.group.name%</argument>
             <argument type="collection">
