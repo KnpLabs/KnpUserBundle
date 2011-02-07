@@ -14,9 +14,7 @@ class UserForm extends Form
     /**
      * Constructor.
      *
-     * @param string $name
-     * @param array|object $data
-     * @param ValidatorInterface $validator
+     * @param string $title
      * @param array $options
      */
     public function __construct($title, array $options = array())
