@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Tests\Command;
+namespace FOS\UserBundle\Tests\Command;
 
-use Bundle\FOS\UserBundle\Test\WebTestCase;
-use Bundle\FOS\UserBundle\Model\User;
-use Bundle\FOS\UserBundle\Command\CreateUserCommand;
+use FOS\UserBundle\Test\WebTestCase;
+use FOS\UserBundle\Model\User;
+use FOS\UserBundle\Command\CreateUserCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Tester\ApplicationTester;
@@ -28,14 +28,13 @@ class CreateUserCommandTest extends WebTestCase
             'email'    => $email,
         ), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
 
-        $userRepo = $this->getService('fos_user.repository.user');
-        $user = $userRepo->findOneByUsername($username);
+        $userManager = $this->getService('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($username);
 
         $this->assertTrue($user instanceof User);
         $this->assertEquals($email, $user->getEmail());
 
-        $userRepo->getObjectManager()->remove($user);
-        $userRepo->getObjectManager()->flush();
+        $userManager->deleteUser($user);
     }
 
     public function testUserCreationWithOptions()
@@ -57,25 +56,19 @@ class CreateUserCommandTest extends WebTestCase
             '--super-admin' => true
         ), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
 
-        $userRepo = $this->getService('fos_user.repository.user');
-        $user = $userRepo->findOneByUsername($username);
+        $userManager = $this->getService('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($username);
 
         $this->assertTrue($user instanceof User);
         $this->assertEquals($email, $user->getEmail());
         $this->assertFalse($user->isEnabled());
         $this->assertTrue($user->hasRole('ROLE_SUPERADMIN'));
 
-        $userRepo->getObjectManager()->remove($user);
-        $userRepo->getObjectManager()->flush();
+        $userManager->deleteUser($user);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
-        $repo = $this->getService('fos_user.repository.user');
-        $om = $repo->getObjectManager();
-        if ($user = $repo->findOneByUsername('test_username')) {
-            $om->remove($user);
-        }
-        $om->flush();
+        $this->removeTestUser();
     }
 }

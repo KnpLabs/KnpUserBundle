@@ -8,22 +8,21 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\FOS\UserBundle\Model;
+namespace FOS\UserBundle\Model;
 
-use Symfony\Component\Security\Role\RoleInterface;
-
-use Bundle\FOS\UserBundle\Util\String;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Security\User\AccountInterface;
-use Symfony\Component\Security\User\AdvancedAccountInterface;
-use Symfony\Component\Security\Encoder\MessageDigestPasswordEncoder;
+use Symfony\Component\Security\Core\User\AccountInterface;
+use Symfony\Component\Security\Core\User\AdvancedAccountInterface;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 /**
  * Storage agnostic user object
  * Has validator annotation, but database mapping must be done in a subclass.
+ *
  */
-abstract class User implements AdvancedAccountInterface
+abstract class User implements UserInterface
 {
     const ROLE_DEFAULT    = 'ROLE_USER';
     const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
@@ -31,11 +30,6 @@ abstract class User implements AdvancedAccountInterface
     protected $id;
 
     /**
-     * @validation:Validation({
-     *      @validation:NotBlank(message="Please enter a username", groups="Registration"),
-     *      @validation:MinLength(limit=2, message="The username is too short", groups="Registration"),
-     *      @validation:MaxLength(limit=255, message="The username is too long", groups="Registration")
-     * })
      * @var string
      */
     protected $username;
@@ -43,17 +37,17 @@ abstract class User implements AdvancedAccountInterface
     /**
      * @var string
      */
-    protected $usernameLower;
+    protected $usernameCanonical;
 
     /**
-     * @validation:Validation({
-     *      @validation:NotBlank(message="Please enter an email", groups="Registration"),
-     *      @validation:Email(message="This is not a valid email", groups="Registration"),
-     *      @validation:MaxLength(limit=255, message="The email is too long", groups="Registration")
-     * })
      * @var string
      */
     protected $email;
+
+    /**
+     * @var string
+     */
+    protected $emailCanonical;
 
     /**
      * @var boolean
@@ -84,11 +78,6 @@ abstract class User implements AdvancedAccountInterface
     /**
      * Plain password. Used for model validation. Must not be persisted.
      *
-     * @validation:Validation({
-     *      @validation:NotBlank(message="Please enter a password", groups="Registration"),
-     *      @validation:MinLength(limit=2, message="The password is too short", groups="Registration"),
-     *      @validation:MaxLength(limit=255, message="The password is too long", groups="Registration")
-     * })
      * @var string
      */
     protected $plainPassword;
@@ -114,6 +103,11 @@ abstract class User implements AdvancedAccountInterface
      * @var string
      */
     protected $confirmationToken;
+
+    /**
+     * @var \DateTime
+     */
+    protected $passwordRequestedAt;
 
     /**
      * @var Collection
@@ -153,7 +147,7 @@ abstract class User implements AdvancedAccountInterface
     public function __construct()
     {
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
-        $this->confirmationToken = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->generateConfirmationToken();
         $this->enabled = false;
         $this->locked = false;
         $this->expired = false;
@@ -191,7 +185,7 @@ abstract class User implements AdvancedAccountInterface
         if ($this->getSalt() !== $account->getSalt()) {
             return false;
         }
-        if ($this->username !== $account->getUsername()) {
+        if ($this->usernameCanonical !== $account->getUsernameCanonical()) {
             return false;
         }
         if ($this->isAccountNonExpired() !== $account->isAccountNonExpired()) {
@@ -238,13 +232,13 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
-     * Get the username in lowercase used in search and sort queries
+     * Get the canonical username in search and sort queries
      *
      * @return string
      **/
-    public function getUsernameLower()
+    public function getUsernameCanonical()
     {
-        return $this->usernameLower;
+        return $this->usernameCanonical;
     }
 
     /**
@@ -268,6 +262,16 @@ abstract class User implements AdvancedAccountInterface
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Get the canonical email in search and sort queries
+     *
+     * @return string
+     **/
+    public function getEmailCanonical()
+    {
+        return $this->emailCanonical;
     }
 
     /**
@@ -328,10 +332,14 @@ abstract class User implements AdvancedAccountInterface
     {
         $roles = $this->roles;
 
+        foreach ($this->getGroups() as $group) {
+            $roles = array_merge($roles, $group->getRoles());
+        }
+
         // we need to make sure to have at least one role
         $roles[] = self::ROLE_DEFAULT;
 
-        return $roles;
+        return array_unique($roles);
     }
 
     /**
@@ -426,7 +434,7 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
-     * @validation:AssertType(type="boolean")
+     * Tell if the the given user has the super admin role
      *
      * @return Boolean
      */
@@ -442,7 +450,7 @@ abstract class User implements AdvancedAccountInterface
      * @param User $user
      * @return boolean
      */
-    public function is(User $user = null)
+    public function isUser(UserInterface $user = null)
     {
         return null !== $user && $this->getUsername() === $user->getUsername();
     }
@@ -469,12 +477,23 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
+     * Set username.
+     *
      * @param string $username
      */
     public function setUsername($username)
     {
         $this->username = $username;
-        $this->usernameLower = String::strtolower($username);
+    }
+
+    /**
+     * Set usernameCanonical.
+     *
+     * @param string $usernameCanonical
+     */
+    public function setUsernameCanonical($usernameCanonical)
+    {
+        $this->usernameCanonical = $usernameCanonical;
     }
 
     public function setAlgorithm($algorithm)
@@ -493,13 +512,23 @@ abstract class User implements AdvancedAccountInterface
     }
 
     /**
-     * Set email
-     * @param  string
-     * @return null
+     * Set email.
+     *
+     * @param string $email
      */
     public function setEmail($email)
     {
-        $this->email = String::strtolower($email);
+        $this->email = $email;
+    }
+
+    /**
+     * Set emailCanonical.
+     *
+     * @param string $emailCanonical
+     */
+    public function setEmailCanonical($emailCanonical)
+    {
+        $this->emailCanonical = $emailCanonical;
     }
 
     /**
@@ -572,6 +601,7 @@ abstract class User implements AdvancedAccountInterface
 
     /**
      * Set confirmationToken
+     *
      * @param  string
      * @return null
      */
@@ -580,12 +610,132 @@ abstract class User implements AdvancedAccountInterface
         $this->confirmationToken = $confirmationToken;
     }
 
+    /**
+     * Set the timestamp that the user requested a password reset.
+     *
+     * @param DateTime $date
+     */
+    public function setPasswordRequestedAt(\DateTime $date)
+    {
+        $this->passwordRequestedAt = $date;
+    }
+
+    /**
+     * Get the timestamp that the user requested a password reset.
+     *
+     * @return DateTime
+     */
+    public function getPasswordRequestedAt()
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    /**
+     * Checks whether the password reset request has expired.
+     *
+     * @param integer $ttl Requests older than this many seconds will be considered expired
+     * @return boolean true if the users's password request is non expired, false otherwise
+     */
+    public function isPasswordRequestNonExpired($ttl)
+    {
+        return $this->passwordRequestedAt instanceof \DateTime &&
+               $this->passwordRequestedAt->getTimestamp() + $ttl > time();
+    }
+
+    /**
+     * Generate confirmationToken if it is not set
+     *
+     * @return null
+     */
+    public function generateConfirmationToken()
+    {
+        if (null === $this->confirmationToken) {
+            $bytes = false;
+            if (function_exists('openssl_random_pseudo_bytes') && 0 !== stripos(PHP_OS, 'win')) {
+                $bytes = openssl_random_pseudo_bytes(32, $strong);
+
+                if (true !== $strong) {
+                    $bytes = false;
+                }
+            }
+
+            // let's just hope we got a good seed
+            if (false === $bytes) {
+                $bytes = hash('sha256', uniqid(mt_rand(), true), true);
+            }
+
+            $this->confirmationToken = base_convert(bin2hex($bytes), 16, 36);
+        }
+    }
+
     public function setRoles(array $roles)
     {
           $this->roles = array();
 
         foreach ($roles as $role) {
             $this->addRole($role);
+        }
+    }
+
+    /**
+     * Get groups granted to the user
+     *
+     * @return Collection
+     */
+    public function getGroups()
+    {
+        return $this->groups ?: $this->groups = new ArrayCollection();
+    }
+
+    /**
+     * Gets the name of the groups which includes the user
+     *
+     * @return array
+     */
+    public function getGroupNames()
+    {
+        $names = array();
+        foreach ($this->getGroups() as $group) {
+            $names[] = $group->getName();
+        }
+
+        return $names;
+    }
+
+    /**
+     * Indicates whether the user belongs to the specified group or not
+     *
+     * @param string $name Name of the group
+     * @return boolean
+     */
+    public function hasGroup($name)
+    {
+        return in_array($name, $this->getGroupNames());
+    }
+
+    /**
+     * Add a group to the user groups
+     *
+     * @param GroupInterface $group
+     * @return null
+     **/
+    public function addGroup(GroupInterface $group)
+    {
+        if (!$this->getGroups()->contains($group)) {
+            $this->getGroups()->add($group);
+        }
+    }
+
+    /**
+     * Remove a group from the user groups
+     *
+     * @param GroupInterface $group
+     * @return null
+     **/
+    public function removeGroup(GroupInterface $group)
+    {
+        if ($this->getGroups()->contains($group)) {
+            $this->getGroups()->remove($group);
         }
     }
 

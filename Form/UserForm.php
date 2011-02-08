@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Form;
+namespace FOS\UserBundle\Form;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\TextField;
@@ -14,16 +14,14 @@ class UserForm extends Form
     /**
      * Constructor.
      *
-     * @param string $name
-     * @param array|object $data
-     * @param ValidatorInterface $validator
+     * @param string $title
      * @param array $options
      */
-    public function __construct($title, $data, ValidatorInterface $validator, array $options = array())
+    public function __construct($title, array $options = array())
     {
         $this->addOption('theme');
 
-        parent::__construct($title, $data, $validator, $options);
+        parent::__construct($title, $options);
     }
 
     public function configure()

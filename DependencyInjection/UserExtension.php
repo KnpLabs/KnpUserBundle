@@ -1,71 +1,82 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\DependencyInjection;
+namespace FOS\UserBundle\DependencyInjection;
+
+use Symfony\Component\DependencyInjection\Reference;
 
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class UserExtension extends Extension
 {
-    public function configLoad(array $config, ContainerBuilder $container)
+    public function configLoad(array $configs, ContainerBuilder $container)
+    {
+        foreach ($configs as $config) {
+            $this->doConfigLoad($config, $container);
+        }
+    }
+
+    public function doConfigLoad(array $config, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
 
         // ensure the db_driver is configured
-        if (!isset($config['db_driver'])) {
-            throw new \InvalidArgumentException('The db_driver parameter must be defined');
-        } elseif (!in_array($config['db_driver'], array('orm', 'odm'))) {
-            throw new \InvalidArgumentException(sprintf('The db_driver "%s" is not supported (choose either "odm" or "orm")', $config['db_driver']));
+        if (!isset($config['db_driver']) && !$container->hasDefinition('fos_user.user_manager')) {
+            throw new \InvalidArgumentException('The db_driver parameter must be defined.');
         }
-
-        // ensure the user model class is configured
-        if (!isset($config['class']['model']['user'])) {
-            throw new \InvalidArgumentException('The user model class must be defined');
+        if (isset($config['db_driver'])){
+            if (!in_array(strtolower($config['db_driver']), array('orm', 'mongodb'))) {
+                throw new \InvalidArgumentException(sprintf('Invalid db driver "%s".', $config['db_driver']));
+            }
+            if ($container->hasDefinition('fos_user.user_manager')){
+                throw new \InvalidArgumentException('The db_driver parameter cannot be defined twice.');
+            }
+            $loader->load(sprintf('%s.xml', $config['db_driver']));
         }
 
         // load all service configuration files (the db_driver first)
-        foreach (array($config['db_driver'], 'model', 'controller', 'templating', 'email', 'form', 'validator', 'security') as $basename) {
-            $loader->load(sprintf('%s.xml', $basename));
+        if (!$container->hasDefinition('security.encoder.fos_user')) {
+            foreach (array('controller', 'templating', 'email', 'twig', 'form', 'validator', 'security', 'util') as $basename) {
+                $loader->load(sprintf('%s.xml', $basename));
+            }
         }
 
-        // change authentication provider class to support multiple algorithms
-        $container->setParameter('security.authentication.provider.dao.class', 'Bundle\FOS\UserBundle\Security\Authentication\Provider\DaoAuthenticationProvider');
+        // ensure the user model class is configured
+        if (!isset($config['class']['model']['user']) && !$container->hasParameter('fos_user.model.user.class')) {
+            throw new \InvalidArgumentException('The user model class must be defined');
+        }
 
         // per default, we use a sha512 encoder, but you may change this here
         if (isset($config['encoder'])) {
-            $this->configurePasswordEncoder($config['encoder'], $container);
+            $this->remapParameters($config['encoder'], $container, array(
+                'algorithm'        => 'fos_user.encoder.algorithm',
+                'encode_as_base64' => 'fos_user.encoder.encode_as_base64',
+                'iterations'       => 'fos_user.encoder.iterations',
+            ));
         }
 
         $this->remapParametersNamespaces($config, $container, array(
-            ''                      => array('session_create_success_route' => 'fos_user.session_create.success_route'),
-            'template'              => 'fos_user.template.%s',
-            'remember_me'           => 'fos_user.remember_me.%s',
-            'form_name'             => 'fos_user.form.%s.name',
-            'confirmation_email'    => 'fos_user.confirmation_email.%s',
+            ''          => array('session_create_success_route' => 'fos_user.session_create.success_route'),
+            'template'  => 'fos_user.template.%s',
+            'form_name' => 'fos_user.form.%s.name',
+            'form_validation_groups' => 'fos_user.form.%s.validation_groups',
         ));
 
-        $this->remapParametersNamespaces($config['class'], $container, array(
-            'model'         => 'fos_user.model.%s.class',
-            'form'          => 'fos_user.form.%s.class',
-            'controller'    => 'fos_user.controller.%s.class'
-        ));
-    }
+        if (isset($config['class'])){
+            $this->remapParametersNamespaces($config['class'], $container, array(
+                'model'      => 'fos_user.model.%s.class',
+                'form'       => 'fos_user.form.%s.class',
+                'controller' => 'fos_user.controller.%s.class',
+                'util'       => 'fos_user.util.%s.class',
+            ));
+        }
 
-    protected function configurePasswordEncoder($config, ContainerBuilder $container)
-    {
-        if (!is_array($config)) {
-            $container->setAlias('fos_user.encoder', 'security.encoder.'.$config);
-        } else {
-            if (isset($config['name'])) {
-                $container->setAlias('fos_user.encoder', 'security.encoder.'.$config['name']);
-            }
-
-            $this->remapParameters($config, $container, array(
-                'algorithm' => 'fos_user.encoder.algorithm',
-                'encodeHashAsBase64' => 'fos_user.encoder.encodeHashAsBase64',
-                'iterations' => 'fos_user.encoder.iterations',
+        if (isset($config['email'])){
+            $this->remapParametersNamespaces($config['email'], $container, array(
+                ''                   => array('from_email' => 'fos_user.email.from_email'),
+                'confirmation'       => 'fos_user.email.confirmation.%s',
+                'resetting_password' => 'fos_user.email.resetting_password.%s',
             ));
         }
     }
@@ -103,33 +114,30 @@ class UserExtension extends Extension
     }
 
     /**
-     * Get a (Document|Entity)Repository, based on db driver configuration
+     * @see Symfony\Component\DependencyInjection\Extension.ExtensionInterface::getXsdValidationBasePath()
      *
-     * @param  DocumentManager|EntityManager $objectManager
-     * @param  string                        $objectClass
-     *
-     * @return DocumentRepository|EntityRepository
-     */
-    public static function getRepository($objectManager, $objectClass)
-    {
-        return $objectManager->getRepository($objectClass);
-    }
-
-    /**
-     * Returns the base path for the XSD files.
-     *
-     * @return string The XSD base path
+     * @codeCoverageIgnore
      */
     public function getXsdValidationBasePath()
     {
         return __DIR__.'/../Resources/config/schema';
     }
 
+    /**
+     * @see Symfony\Component\DependencyInjection\Extension.ExtensionInterface::getNamespace()
+     *
+     * @codeCoverageIgnore
+     */
     public function getNamespace()
     {
         return 'http://www.symfony-project.org/schema/dic/fos_user';
     }
 
+    /**
+     * @see Symfony\Component\DependencyInjection\Extension.ExtensionInterface::getAlias()
+     *
+     * @codeCoverageIgnore
+     */
     public function getAlias()
     {
         return 'fos_user';

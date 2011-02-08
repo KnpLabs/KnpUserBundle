@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </head>
+    <body>
+        <div>
+            {% if has_role("IS_AUTHENTICATED_FULLY") %}
+                <a href="{{ path('fos_user_user_show', {'username': app.user.getUsername}) }}">
+                    {% trans 'Logged in as %username%' with { '%username%': app.user.getUsername() } from 'FOSUserBundle' %}
+                </a> |
+                <a href="{{ path('_security_logout') }}">
+                    {% trans 'Logout' from 'FOSUserBundle' %}
+                </a>
+            {% else %}
+                <a href="{{ path('_security_login') }}">{% trans 'Login' from 'FOSUserBundle' %}</a> |
+                <a href="{{ path('fos_user_user_new') }}">{% trans 'Register' from 'FOSUserBundle' %}</a>
+            {% endif %}
+        </div>
+
+        {% for key, flash in app.session.getFlashes() %}
+        <div class="{{ flash }}">
+            {% trans key from 'FOSUserBundle' %}
+        </div>
+        {% endfor %}
+
+        <div>
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </body>
+</html>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Command;
+namespace FOS\UserBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -8,6 +8,8 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use FOS\UserBundle\Model\User;
 
 /*
  * This file is part of the FOS\UserBundle
@@ -52,16 +54,17 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $userRepo = $this->container->get('fos_user.repository.user');
-        $user = $userRepo->findOneByUsername($input->getArgument('username'));
+        $this->container->get('security.context')->setToken(new UsernamePasswordToken('command.line', null, array(User::ROLE_SUPERADMIN)));
+
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($input->getArgument('username'));
 
         if (!$user) {
             throw new \InvalidArgumentException(sprintf('The user "%s" does not exist', $input->getArgument('username')));
         }
         $user->setEnabled(true);
 
-        $userRepo->getObjectManager()->persist($user);
-        $userRepo->getObjectManager()->flush();
+        $userManager->updateUser($user);
 
         $output->writeln(sprintf('User "%s" has been activated.', $user->getUsername()));
     }

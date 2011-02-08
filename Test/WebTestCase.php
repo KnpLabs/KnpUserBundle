@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Test;
+namespace FOS\UserBundle\Test;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -39,4 +39,11 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
         return $this->kernel->getContainer()->get($name);
     }
 
+    protected function removeTestUser()
+    {
+        $userManager = $this->getService('fos_user.user_manager');
+        if ($user = $userManager->findUserByUsername('test_username')) {
+            $userManager->deleteUser($user);
+        }
+    }
 }

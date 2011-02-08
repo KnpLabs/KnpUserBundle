@@ -1,0 +1,7 @@
+{% form_theme form form.getOption('theme') %}
+<form action="{{ path('fos_user_user_update', {'username': username} ) }}" {{ form_enctype(form) }} method="POST" class="fos_user_user_edit">
+    {{ form_field(form) }}
+    <div>
+        <input type="submit" value="{% trans 'Update user' from 'FOSUserBundle' %}" />
+    </div>
+</form>

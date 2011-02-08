@@ -4,20 +4,89 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/constraint-mapping
         http://www.symfony-project.org/schema/dic/services/constraint-mapping-1.0.xsd">
 
-    <class name="Bundle\FOS\UserBundle\Model\User">
+    <class name="FOS\UserBundle\Model\User">
 
-        <constraint name="Bundle\FOS\UserBundle\Validator\Unique">
-            <option name="property">username</option>
-            <option name="message">The provided username was already taken.</option>
+        <constraint name="FOS\UserBundle\Validator\Unique">
+            <option name="property">usernameCanonical</option>
             <option name="groups">Registration</option>
         </constraint>
 
-        <constraint name="Bundle\FOS\UserBundle\Validator\Unique">
-            <option name="property">email</option>
-            <option name="message">The provided email was already taken.</option>
+        <constraint name="FOS\UserBundle\Validator\Unique">
+            <option name="property">emailCanonical</option>
             <option name="groups">Registration</option>
         </constraint>
 
+        <property name="username">
+            <constraint name="NotBlank">
+                <option name="message">Please enter an username</option>
+                <option name="groups">Registration</option>
+            </constraint>
+            <constraint name="MinLength">
+                <option name="limit">2</option>
+                <option name="message">The username is too short</option>
+                <option name="groups">Registration</option>
+            </constraint>
+            <constraint name="MaxLength">
+                <option name="limit">255</option>
+                <option name="message">The username is too long</option>
+                <option name="groups">Registration</option>
+            </constraint>
+        </property>
+
+        <property name="email">
+            <constraint name="NotBlank">
+                <option name="message">Please enter an email</option>
+                <option name="groups">Registration</option>
+            </constraint>
+            <constraint name="MinLength">
+                <option name="limit">2</option>
+                <option name="message">The email is too short</option>
+                <option name="groups">Registration</option>
+            </constraint>
+            <constraint name="MaxLength">
+                <option name="limit">255</option>
+                <option name="message">The email is too long</option>
+                <option name="groups">Registration</option>
+            </constraint>
+        </property>
+
+        <property name="plainPassword">
+            <constraint name="NotBlank">
+                <option name="message">Please enter a password</option>
+                <option name="groups">Registration</option>
+            </constraint>
+            <constraint name="MinLength">
+                <option name="limit">2</option>
+                <option name="message">The password is too short</option>
+                <option name="groups">Registration</option>
+            </constraint>
+            <constraint name="MaxLength">
+                <option name="limit">255</option>
+                <option name="message">The password is too long</option>
+                <option name="groups">Registration</option>
+            </constraint>
+        </property>
+    </class>
+
+    <class name="FOS\UserBundle\Form\ChangePassword">
+        <constraint name="FOS\UserBundle\Validator\Password">
+            <option name="passwordProperty">current</option>
+            <option name="userProperty">user</option>
+        </constraint>
+
+        <property name="new">
+            <constraint name="NotBlank">
+                <option name="message">Please enter a new password</option>
+            </constraint>
+            <constraint name="MinLength">
+                <option name="limit">2</option>
+                <option name="message">The new password is too short</option>
+            </constraint>
+            <constraint name="MaxLength">
+                <option name="limit">255</option>
+                <option name="message">The new password is too long</option>
+            </constraint>
+        </property>
     </class>
 
 </constraint-mapping>

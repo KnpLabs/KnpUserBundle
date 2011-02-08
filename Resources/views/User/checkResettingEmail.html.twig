@@ -1,0 +1,10 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block content %}
+{% set email = user.getEmail() %}
+<p>
+{% trans from 'FOSUserBundle' %}
+An email has been sent to %email%. It contains an link you must click to reset your password.
+{% endtrans %}
+</p>
+{% endblock %}

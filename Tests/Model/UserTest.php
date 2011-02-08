@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\FOS\UserBundle\Tests\Model;
+namespace FOS\UserBundle\Tests\Model;
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
@@ -21,9 +21,26 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $user->setEmail('tony@mail.org');
         $this->assertEquals('tony@mail.org', $user->getEmail());
     }
-    
+
+    /**
+     * @covers FOS\UserBundle\Model\User::getPasswordRequestedAt
+     * @covers FOS\UserBundle\Model\User::setPasswordRequestedAt
+     * @covers FOS\UserBundle\Model\User::isPasswordRequestNonExpired
+     */
+    public function testIsPasswordRequestNonExpired()
+    {
+        $user = $this->getUser();
+        $passwordRequestedAt = new \DateTime('-10 seconds');
+
+        $user->setPasswordRequestedAt($passwordRequestedAt);
+
+        $this->assertSame($passwordRequestedAt, $user->getPasswordRequestedAt());
+        $this->assertTrue($user->isPasswordRequestNonExpired(15));
+        $this->assertFalse($user->isPasswordRequestNonExpired(5));
+    }
+
     protected function getUser()
     {
-        return $this->getMockForAbstractClass('Bundle\FOS\UserBundle\Model\User');
+        return $this->getMockForAbstractClass('FOS\UserBundle\Model\User');
     }
 }

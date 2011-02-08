@@ -7,15 +7,15 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\FOS\UserBundle\Model;
+namespace FOS\UserBundle\Model;
 
-abstract class Group
+abstract class Group implements GroupInterface
 {
     protected $id;
     protected $name;
     protected $roles;
 
-    public function __construct($name, array $roles = array())
+    public function __construct($name, $roles = array())
     {
         $this->name = $name;
         $this->roles = $roles;

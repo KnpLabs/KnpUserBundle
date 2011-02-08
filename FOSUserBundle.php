@@ -8,10 +8,19 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\FOS\UserBundle;
+namespace FOS\UserBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle as BaseBundle;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class FOSUserBundle extends BaseBundle
+class FOSUserBundle extends Bundle
 {
+    public function getNamespace()
+    {
+        return __NAMESPACE__;
+    }
+
+    public function getPath()
+    {
+        return __DIR__;
+    }
 }

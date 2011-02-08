@@ -8,9 +8,9 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Bundle\FOS\UserBundle\Entity;
+namespace FOS\UserBundle\Entity;
 
-use Bundle\FOS\UserBundle\Model\User as AbstractUser;
+use FOS\UserBundle\Model\User as AbstractUser;
 
 abstract class User extends AbstractUser
 {
