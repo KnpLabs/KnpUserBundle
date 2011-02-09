@@ -181,7 +181,7 @@ In YAML:
     # app/config/config.yml
     fos_user.config:
         db_driver: orm
-        provider: main
+        provider_key: main
         class:
             model:
                 user: Application\MyBundle\Entity\User
