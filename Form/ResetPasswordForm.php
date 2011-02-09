@@ -18,11 +18,11 @@ class ResetPasswordForm extends Form
      * @param ValidatorInterface $validator
      * @param array $options
      */
-    public function __construct($name, $data, ValidatorInterface $validator, array $options = array())
+    public function __construct($name, array $options = array())
     {
         $this->addOption('theme');
 
-        parent::__construct($name, $data, $validator, $options);
+        parent::__construct($name, $options);
     }
 
     public function configure()
