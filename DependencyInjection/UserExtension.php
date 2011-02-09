@@ -21,6 +21,11 @@ class UserExtension extends Extension
     {
         $loader = new XmlFileLoader($container, __DIR__.'/../Resources/config');
 
+        // ensure the provider_key is configured
+        if (!isset($config['provider_key'])) {
+            throw new \InvalidArgumentException('The provider_key parameter must be defined.');
+        }
+
         // ensure the db_driver is configured
         if (!isset($config['db_driver']) && !$container->hasDefinition('fos_user.user_manager')) {
             throw new \InvalidArgumentException('The db_driver parameter must be defined.');
@@ -57,7 +62,10 @@ class UserExtension extends Extension
         }
 
         $this->remapParametersNamespaces($config, $container, array(
-            ''          => array('session_create_success_route' => 'fos_user.session_create.success_route'),
+            ''          => array(
+                'session_create_success_route' => 'fos_user.session_create.success_route',
+                'provider_key' => 'fos_user.provider_key'
+            ),
             'template'  => 'fos_user.template.%s',
             'form_name' => 'fos_user.form.%s.name',
             'form_validation_groups' => 'fos_user.form.%s.validation_groups',

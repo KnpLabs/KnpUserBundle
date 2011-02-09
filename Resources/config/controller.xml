@@ -5,6 +5,7 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
+        <parameter key="fos_user.provider_key"></parameter>
         <parameter key="fos_user.controller.user.class">FOS\UserBundle\Controller\UserController</parameter>
         <parameter key="fos_user.controller.security.class">FOS\UserBundle\Controller\SecurityController</parameter>
         <parameter key="fos_user.controller.group.class">FOS\UserBundle\Controller\GroupController</parameter>

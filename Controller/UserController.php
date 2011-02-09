@@ -369,7 +369,8 @@ class UserController extends Controller
      */
     protected function authenticateUser(User $user, $reAuthenticate = false)
     {
-        $token = new UsernamePasswordToken($user, null, $user->getRoles());
+        $providerKey = $this->container->getParameter('fos_user.provider_key');
+        $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
 
         if (true === $reAuthenticate) {
             $token->setAuthenticated(false);
