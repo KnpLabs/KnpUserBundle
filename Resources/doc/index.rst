@@ -148,11 +148,28 @@ along with the bundle containing your custom User class::
 The above example assumes an ORM configuration, but the `mappings` configuration
 block would be the same for MongoDB ODM.
 
-Choose ORM or ODM database driver
----------------------------------
+Minimal configuration
+---------------------
 
-At a minimum, your configuration must define your DB driver ("orm" or "odm")
-and User class.
+At a minimum, your configuration must define your DB driver ("orm" or "mongodb"),
+a User class and the provider key. The provider key matches the key in the firewall
+configuration that is used for users with the UserController.
+
+For example for a security configuration like the following the provider_key would
+have to be set to "main", as shown in the proceeding examples:
+
+::
+
+    # app/config/config.yml
+    security.config:
+        providers:
+            fos_userbundle:
+                id: fos_user.user_manager
+
+        firewalls:
+            main:
+                form_login:
+                    provider: fos_userbundle
 
 ORM
 ~~~
@@ -164,6 +181,7 @@ In YAML:
     # app/config/config.yml
     fos_user.config:
         db_driver: orm
+        provider: main
         class:
             model:
                 user: Application\MyBundle\Entity\User
@@ -174,7 +192,7 @@ Or if you prefer XML:
 
     # app/config/config.xml
 
-    <fos_user:config db_driver="orm">
+    <fos_user:config db_driver="orm" provider_key="main">
         <fos_user:class>
             <fos_user:model user="Application\MyBundle\Entity\User" />
         </fos_user:class>
@@ -190,6 +208,7 @@ In YAML:
     # app/config/config.yml
     fos_user.config:
         db_driver: mongodb
+        db_driver: orm
         class:
             model:
                 user: Application\MyBundle\Document\User
@@ -200,7 +219,7 @@ Or if you prefer XML:
 
     # app/config/config.xml
 
-    <fos_user:config db_driver="mongodb">
+    <fos_user:config db_driver="mongodb" provider_key="main">
         <fos_user:class>
             <fos_user:model user="Application\MyBundle\Document\User" />
         </fos_user:model>
