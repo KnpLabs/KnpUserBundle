@@ -61,7 +61,7 @@ ORM User class:
 
     // src/MyProject/MyBundle/Entity/User.php
 
-    namespace Application\MyBundle\Entity;
+    namespace MyProject\MyBundle\Entity;
     use FOS\UserBundle\Entity\User as BaseUser;
 
     /**
@@ -84,7 +84,7 @@ MongoDB User class:
 
     // src/MyProject/MyBundle/Document/User.php
 
-    namespace Application\MyBundle\Document;
+    namespace MyProject\MyBundle\Document;
     use FOS\UserBundle\Document\User as BaseUser;
 
     /**
@@ -141,8 +141,8 @@ along with the bundle containing your custom User class::
     # app/config/config.yml
     doctrine.orm:
         mappings:
-            UserBundle: ~
-            MyBundle:   ~
+            FOSUserBundle: ~
+            MyProjectMyBundle:   ~
             # your other bundles
 
 The above example assumes an ORM configuration, but the `mappings` configuration
@@ -184,7 +184,7 @@ In YAML:
         provider_key: main
         class:
             model:
-                user: Application\MyBundle\Entity\User
+                user: MyProject\MyBundle\Entity\User
 
 Or if you prefer XML:
 
@@ -194,7 +194,7 @@ Or if you prefer XML:
 
     <fos_user:config db_driver="orm" provider_key="main">
         <fos_user:class>
-            <fos_user:model user="Application\MyBundle\Entity\User" />
+            <fos_user:model user="MyProject\MyBundle\Entity\User" />
         </fos_user:class>
     </fos_user:config>
 
@@ -211,7 +211,7 @@ In YAML:
         db_driver: orm
         class:
             model:
-                user: Application\MyBundle\Document\User
+                user: MyProject\MyBundle\Document\User
 
 Or if you prefer XML:
 
@@ -221,7 +221,7 @@ Or if you prefer XML:
 
     <fos_user:config db_driver="mongodb" provider_key="main">
         <fos_user:class>
-            <fos_user:model user="Application\MyBundle\Document\User" />
+            <fos_user:model user="MyProject\MyBundle\Document\User" />
         </fos_user:model>
     </fos_user:config>
 
@@ -236,7 +236,7 @@ routes:
 
     # app/config/routing.yml
     fos_user_security:
-        resource: FOS/UserBundle/Resources/config/routing/security.xml
+        resource: @FOSUserBundle/Resources/config/routing/security.xml
 
 ::
 
@@ -316,7 +316,7 @@ All configuration options are listed below::
     db_driver: mongodb
     class:
         model:
-            user: Application\MyBundle\Document\User
+            user: MyProject\MyBundle\Document\User
         form:
             user:            ~
             change_password: ~
