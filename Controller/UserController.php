@@ -100,22 +100,24 @@ class UserController extends Controller
      */
     public function createAction()
     {
-        $user = $this->get('fos_user.user_manager')->createUser();
+        $manager = $this->get('fos_user.user_manager');
+        $user = $manager->createUser();
         $form = $this->get('fos_user.form.user_registration');
         $form->bind($this->get('request'), $user);
+        $manager->updateCanonicalFields($user);
 
         if ($form->isValid()) {
             $user = $form->getData();
             if ($this->container->getParameter('fos_user.email.confirmation.enabled')) {
                 $user->setEnabled(false);
-                $this->get('fos_user.user_manager')->updateUser($user);
+                $manager->updateUser($user);
                 $this->sendConfirmationEmailMessage($user);
                 $this->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
                 $url = $this->generateUrl('fos_user_user_check_confirmation_email');
             } else {
                 $user->setConfirmationToken(null);
                 $user->setEnabled(true);
-                $this->get('fos_user.user_manager')->updateUser($user);
+                $manager->updateUser($user);
                 $this->authenticateUser($user);
                 $url = $this->generateUrl('fos_user_user_confirmed');
             }
