@@ -213,7 +213,7 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         $form = $this->createChangePasswordForm($user);
-        $form->bind($this->get('request'), $user);
+        $form->bind($this->get('request'));
 
         if ($form->isValid()) {
             $user->setPlainPassword($form->getNewPassword());
@@ -304,7 +304,7 @@ class UserController extends Controller
         }
 
         $form = $this->createResetPasswordForm($user);
-        $form->bind($this->get('request'), $user);
+        $form->bind($this->get('request'));
 
         if ($form->isValid()) {
             $user->setPlainPassword($form->getNewPassword());
