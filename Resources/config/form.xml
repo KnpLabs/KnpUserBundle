@@ -4,20 +4,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="fos_user.form.user.class">FOS\UserBundle\Form\UserForm</parameter>
-        <parameter key="fos_user.form.user.name">fos_user_user_form</parameter>
-        <parameter key="fos_user.form.user.validation_groups" type="collection">
-            <parameter>Registration</parameter>
-        </parameter>
-        <parameter key="fos_user.form.change_password.class">FOS\UserBundle\Form\ChangePasswordForm</parameter>
-        <parameter key="fos_user.form.change_password.name">fos_user_change_password_form</parameter>
-        <parameter key="fos_user.form.reset_password.class">FOS\UserBundle\Form\ResetPasswordForm</parameter>
-        <parameter key="fos_user.form.reset_password.name">fos_user_reset_password_form</parameter>
-        <parameter key="fos_user.form.group.class">FOS\UserBundle\Form\GroupForm</parameter>
-        <parameter key="fos_user.form.group.name">fos_user_group_form</parameter>
-    </parameters>
-
     <services>
 
         <service id="fos_user.form.user" factory-method="create" factory-class="%fos_user.form.user.class%" class="%fos_user.form.user.class%">

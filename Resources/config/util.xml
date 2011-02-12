@@ -4,11 +4,6 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="fos_user.util.email_canonicalizer.class">FOS\UserBundle\Util\Canonicalizer</parameter>
-        <parameter key="fos_user.util.username_canonicalizer.class">FOS\UserBundle\Util\Canonicalizer</parameter>
-    </parameters>
-
     <services>
         <service id="fos_user.util.email_canonicalizer" class="%fos_user.util.email_canonicalizer.class%"></service>
         <service id="fos_user.util.username_canonicalizer" class="%fos_user.util.username_canonicalizer.class%"></service>

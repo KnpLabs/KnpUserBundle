@@ -5,9 +5,6 @@
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="fos_user.encoder.algorithm">sha512</parameter>
-        <parameter key="fos_user.encoder.encode_as_base64">false</parameter>
-        <parameter key="fos_user.encoder.iterations">1</parameter>
         <parameter key="fos_user.encoder_factory.class">FOS\UserBundle\Security\Encoder\EncoderFactory</parameter>
     </parameters>
 
