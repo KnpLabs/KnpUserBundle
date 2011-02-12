@@ -113,7 +113,17 @@ Configure your project
 ----------------------
 
 The UserBundle works with the Symfony Security Component, so make sure that is
-enabled in your project's configuration::
+enabled in your kernel and in your project's configuration::
+
+    // app/AppKernel.php
+    public function registerBundles()
+    {
+        return array(
+            // ...
+            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+            // ...
+        );
+    }
 
     # app/config/config.yml
     security.config:
@@ -122,8 +132,9 @@ enabled in your project's configuration::
                 id: fos_user.user_manager
 
 The login form and all the routes used to create a user and reset the password
-have to be available to unauthenticated users. Assuming you import the user.xml
-routing file with the ``/user`` prefix they will be::
+have to be available to unauthenticated users but using the same firewall as
+the pages you want to securize with the bundle. Assuming you import the
+user.xml routing file with the ``/user`` prefix they will be::
 
     /login
     /user/new
@@ -208,7 +219,7 @@ In YAML:
     # app/config/config.yml
     fos_user.config:
         db_driver: mongodb
-        db_driver: orm
+        provider_key: main
         class:
             model:
                 user: MyProject\MyBundle\Document\User
@@ -313,17 +324,20 @@ Configuration example:
 
 All configuration options are listed below::
 
-    db_driver: mongodb
+    db_driver:    mongodb
+    provider_key: fos_user
     class:
         model:
             user: MyProject\MyBundle\Document\User
         form:
             user:            ~
+            group:           ~
             change_password: ~
             reset_password:  ~
         controller:
             user:     ~
             security: ~
+            group:    ~
         util:
             email_canonicalizer:    ~
             username_canonicalizer: ~
@@ -333,7 +347,11 @@ All configuration options are listed below::
         iterations:       ~
     form_name:
         user:            ~
+        group:           ~
         change_password: ~
+        reset_password:  ~
+    form_validation_groups:
+        user: ~             # This value is an array of groups
     email:
         from_email: ~
         confirmation:
@@ -341,6 +359,7 @@ All configuration options are listed below::
             template:   ~
         resetting_password:
             template:   ~
+            token_ttl:  ~
     template:
         engine: ~
         theme:  ~
@@ -354,16 +373,6 @@ method inside that new Bundle's definition:
 
     class MyProjectUserBundle extends Bundle
     {
-        public function getNamespace()
-        {
-            return __NAMESPACE__;
-        }
-
-        public function getPath()
-        {
-            return __DIR__;
-        }
-
         public function getParent()
         {
             return 'FOSUserBundle';
@@ -373,6 +382,9 @@ method inside that new Bundle's definition:
 For example ``src/FOS/UserBundle/Resources/views/User/new.twig`` can be
 replaced inside an application by putting a file with alternative content in
 ``src/MyProject/FOS/UserBundle/Resources/views/User/new.twig``.
+
+You can use a different templating engine by configuring it but you will have to
+create all the needed templates as only twig templates are provided.
 
 Validation
 ----------
