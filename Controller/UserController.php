@@ -332,7 +332,7 @@ class UserController extends Controller
      */
     protected function getUser()
     {
-        $user = $this->get('security.context')->getUser();
+        $user = $this->get('security.context')->getToken()->getUser();
         if (!$user) {
             throw new AccessDeniedException('A logged in user is required.');
         }
