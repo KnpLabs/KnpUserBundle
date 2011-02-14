@@ -48,6 +48,7 @@ class Configuration
                 ->arrayNode('model')
                     ->isRequired()
                     ->scalarNode('user')->isRequired()->cannotBeEmpty()->end()
+                    ->scalarNode('group')->isRequired()->cannotBeEmpty()->end()
                 ->end()
                 ->arrayNode('form')
                     ->addDefaultsIfNotSet()
