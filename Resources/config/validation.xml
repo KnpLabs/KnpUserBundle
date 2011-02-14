@@ -73,7 +73,9 @@
             <option name="passwordProperty">current</option>
             <option name="userProperty">user</option>
         </constraint>
+    </class>
 
+    <class name="FOS\UserBundle\Form\ResetPassword">
         <property name="new">
             <constraint name="NotBlank">
                 <option name="message">Please enter a new password</option>
