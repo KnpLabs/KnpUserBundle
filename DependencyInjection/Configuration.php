@@ -123,7 +123,11 @@ class Configuration
         $node
             ->arrayNode('email')
                 ->addDefaultsIfNotSet()
-                ->scalarNode('from_email')->defaultValue('webmaster@example.com')->end()
+                ->arrayNode('from_email')
+                    ->addDefaultsIfNotSet()
+                    ->prototype('scalar')->end()
+                    ->defaultValue(array('webmaster@example.com' => 'webmaster'))
+                ->end()
                 ->arrayNode('change_password')
                     ->addDefaultsIfNotSet()
                     ->booleanNode('enabled')->defaultFalse()->end()

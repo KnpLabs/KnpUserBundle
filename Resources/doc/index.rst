@@ -353,7 +353,7 @@ All configuration options are listed below::
     form_validation_groups:
         user: ~             # This value is an array of groups
     email:
-        from_email: ~
+        from_email: ~       # { email: name }
         confirmation:
             enabled:    ~
             template:   ~
