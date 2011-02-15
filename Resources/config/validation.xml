@@ -98,7 +98,7 @@
     <class name="FOS\UserBundle\Model\Group">
         <property name="name">
             <constraint name="NotBlank">
-                <option name="message">Please enter an name</option>
+                <option name="message">Please enter a name</option>
                 <option name="groups">Registration</option>
             </constraint>
             <constraint name="MinLength">
