@@ -92,7 +92,7 @@ class UserExtension extends Extension
      */
     public function getXsdValidationBasePath()
     {
-        return __DIR__.'/../Resources/config/schema';
+        return false;
     }
 
     /**
