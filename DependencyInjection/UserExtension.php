@@ -2,7 +2,6 @@
 
 namespace FOS\UserBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Configuration\Processor;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;

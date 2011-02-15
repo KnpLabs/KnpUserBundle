@@ -11,14 +11,6 @@
             <argument>%fos_user.form.user.name%</argument>
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
-            </argument>
-        </service>
-
-        <service id="fos_user.form.user_registration" factory-method="create" factory-class="%fos_user.form.user.class%" class="%fos_user.form.user.class%">
-            <argument type="service" id="form.context" />
-            <argument>%fos_user.form.user.name%</argument>
-            <argument type="collection">
-                <argument key="theme">%fos_user.template.theme%</argument>
                 <argument key="validation_groups">%fos_user.form.user.validation_groups%</argument>
             </argument>
         </service>
@@ -28,6 +20,7 @@
             <argument>%fos_user.form.change_password.name%</argument>
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
+                <argument key="validation_groups">%fos_user.form.change_password.validation_groups%</argument>
             </argument>
         </service>
 
@@ -36,6 +29,7 @@
             <argument>%fos_user.form.reset_password.name%</argument>
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
+                <argument key="validation_groups">%fos_user.form.reset_password.validation_groups%</argument>
             </argument>
         </service>
 
@@ -44,6 +38,7 @@
             <argument>%fos_user.form.group.name%</argument>
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
+                <argument key="validation_groups">%fos_user.form.group.validation_groups%</argument>
             </argument>
         </service>
 

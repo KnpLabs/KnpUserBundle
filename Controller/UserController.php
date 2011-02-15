@@ -87,7 +87,7 @@ class UserController extends Controller
     public function newAction()
     {
         $user = $this->get('fos_user.user_manager')->createUser();
-        $form = $this->get('fos_user.form.user_registration');
+        $form = $this->get('fos_user.form.user');
         $form->setData($user);
 
         return $this->render('FOSUserBundle:User:new.html.'.$this->getEngine(), array(
@@ -102,7 +102,7 @@ class UserController extends Controller
     {
         $manager = $this->get('fos_user.user_manager');
         $user = $manager->createUser();
-        $form = $this->get('fos_user.form.user_registration');
+        $form = $this->get('fos_user.form.user');
         $form->bind($this->get('request'), $user);
         $manager->updateCanonicalFields($user);
 

@@ -72,6 +72,7 @@
         <constraint name="FOS\UserBundle\Validator\Password">
             <option name="passwordProperty">current</option>
             <option name="userProperty">user</option>
+            <option name="groups">ChangePassword</option>
         </constraint>
     </class>
 
@@ -79,14 +80,36 @@
         <property name="new">
             <constraint name="NotBlank">
                 <option name="message">Please enter a new password</option>
+                <option name="groups">ResetPassword</option>
             </constraint>
             <constraint name="MinLength">
                 <option name="limit">2</option>
                 <option name="message">The new password is too short</option>
+                <option name="groups">ResetPassword</option>
             </constraint>
             <constraint name="MaxLength">
                 <option name="limit">255</option>
                 <option name="message">The new password is too long</option>
+                <option name="groups">ResetPassword</option>
+            </constraint>
+        </property>
+    </class>
+
+    <class name="FOS\UserBundle\Model\Group">
+        <property name="name">
+            <constraint name="NotBlank">
+                <option name="message">Please enter an name</option>
+                <option name="groups">Registration</option>
+            </constraint>
+            <constraint name="MinLength">
+                <option name="limit">2</option>
+                <option name="message">The name is too short</option>
+                <option name="groups">Registration</option>
+            </constraint>
+            <constraint name="MaxLength">
+                <option name="limit">255</option>
+                <option name="message">The name is too long</option>
+                <option name="groups">Registration</option>
             </constraint>
         </property>
     </class>
