@@ -23,7 +23,7 @@ class Configuration
     public function getConfigTree()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('fos_user:config', 'array');
+        $rootNode = $treeBuilder->root('fos_user', 'array');
 
         $rootNode
             ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->cannotBeEmpty()->end()
