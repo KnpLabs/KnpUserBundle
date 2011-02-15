@@ -4,7 +4,7 @@ namespace FOS\UserBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Configuration\Processor;
-use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -83,26 +83,6 @@ class UserExtension extends Extension
                 }
             }
         }
-    }
-
-    /**
-     * @see Symfony\Component\DependencyInjection\Extension.ExtensionInterface::getXsdValidationBasePath()
-     *
-     * @codeCoverageIgnore
-     */
-    public function getXsdValidationBasePath()
-    {
-        return false;
-    }
-
-    /**
-     * @see Symfony\Component\DependencyInjection\Extension.ExtensionInterface::getNamespace()
-     *
-     * @codeCoverageIgnore
-     */
-    public function getNamespace()
-    {
-        return 'http://www.symfony-project.org/schema/dic/fos_user';
     }
 
     /**
