@@ -48,12 +48,11 @@ Add UserBundle to your application kernel
 Create your User class
 ----------------------
 
-You must create a User class that extends either the entity or document
-abstract User class in UserBundle.  All fields on the base class are mapped,
-except for ``id`` and ``groups``; this is intentional, so you can select the generator that best
-suits your application, and are able to use a custom Group model class.
-Feel free to add additional properties and methods to
-your custom class.
+You must create a User class that extends either the entity or document abstract
+User class in UserBundle.  All fields on the base class are mapped, except for
+``id`` and ``groups``; this is intentional, so you can select the generator that
+best suits your application, and are able to use a custom Group model class.
+Feel free to add additional properties and methods to your custom class.
 
 ORM User class:
 ~~~~~~~~~~~~~~~
@@ -109,18 +108,14 @@ MongoDB User class:
         protected $groups;
     }
 
-Changing default class mappings
--------------------------------
+Group class
+-----------
 
-** WARNING **
-This probably doesn't work anymore
-** WARNING **
-
-In case you want to change some of the default mappings, like for example the
-Group class ``id`` generator strategy one must simply replicate the default
-file inside an Application Bundle and then apply the necessary changes:
-
-    cp src/FOS/UserBundle/Resources/config/doctrine/metadata/orm/Bundle.FOS.UserBundle.Entity.Group.dcm src/MyProject/..
+To customize the Group class you can define your own entity extending the mapped
+superclass of the Bundle ``FOS\UserBundle\Entity\Group``. If you don't want to
+extend it you can use the entity provided by the bundle which is
+``FOS\UserBundle\Entity\DefaultGroup``.
+Same is available for MongoDB in the ``Document`` subnamespace.
 
 Configure your project
 ----------------------
@@ -143,6 +138,11 @@ enabled in your kernel and in your project's configuration::
         providers:
             fos_user:
                 id: fos_user.user_manager
+
+Note::
+
+    You need to activate SwiftmailerBundle to be able to use the fonctionnalities
+    using emails (confirmation of the account, resetting of the password).
 
 The login form and all the routes used to create a user and reset the password
 have to be available to unauthenticated users but using the same firewall as
@@ -217,10 +217,12 @@ Or if you prefer XML:
 
     # app/config/config.xml
 
-    <fos_user:config db_driver="orm" provider_key="main">
+    <fos_user:config db-driver="orm" provider-key="main">
         <fos_user:class>
-            <fos_user:model user="MyProject\MyBundle\Entity\User" />
-            <fos_user:model group="FOS\UserBundle\Entity\DefaultGroup" />
+            <fos_user:model
+                user="MyProject\MyBundle\Entity\User"
+                group="FOS\UserBundle\Entity\DefaultGroup"
+            />
         </fos_user:class>
     </fos_user:config>
 
@@ -246,11 +248,13 @@ Or if you prefer XML:
 
     # app/config/config.xml
 
-    <fos_user:config db_driver="mongodb" provider_key="main">
+    <fos_user:config db-driver="mongodb" provider-key="main">
         <fos_user:class>
-            <fos_user:model user="MyProject\MyBundle\Document\User" />
-            <fos_user:model group="FOS\UserBundle\Entity\DefaultGroup" />
-        </fos_user:model>
+            <fos_user:model
+                user="MyProject\MyBundle\Document\User"
+                group="FOS\UserBundle\Entity\DefaultGroup"
+            />
+        </fos_user:class>
     </fos_user:config>
 
 
@@ -345,7 +349,8 @@ All configuration options are listed below::
     provider_key: fos_user
     class:
         model:
-            user: MyProject\MyBundle\Document\User
+            user:  MyProject\MyBundle\Document\User
+            group: MyProject\MyBundle\Document\Group
         form:
             user:            ~
             group:           ~
