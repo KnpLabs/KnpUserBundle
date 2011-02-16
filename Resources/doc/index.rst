@@ -77,10 +77,10 @@ ORM User class:
         protected $id;
 
         /**
-         * @ManyToMany(targetEntity="FOS\UserBundle\Entity\DefaultGroup" field="groups")
-         * @JoinTable(name="fos_user_user_group",
-         *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-         *      inverseJoinColumns={@JoinColumn(name="group_id", referencedColumnName="id")}
+         * @orm:ManyToMany(targetEntity="FOS\UserBundle\Entity\DefaultGroup" field="groups")
+         * @orm:JoinTable(name="fos_user_user_group",
+         *      joinColumns={@orm:JoinColumn(name="user_id", referencedColumnName="id")},
+         *      inverseJoinColumns={@orm:JoinColumn(name="group_id", referencedColumnName="id")}
          * )
          */
         protected $groups;
