@@ -141,7 +141,7 @@ class Configuration
                 ->addDefaultsIfNotSet()
                 ->arrayNode('from_email')
                     ->addDefaultsIfNotSet()
-                    ->useAttributeAsKey('adress')
+                    ->useAttributeAsKey('address')
                     ->prototype('scalar')
                         ->beforeNormalization()
                             ->ifTrue(function ($v) { return is_array($v) && isset ($v['name']); })
