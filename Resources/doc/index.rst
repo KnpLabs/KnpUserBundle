@@ -134,7 +134,7 @@ enabled in your kernel and in your project's configuration::
     }
 
     # app/config/config.yml
-    security.config:
+    security:
         providers:
             fos_user:
                 id: fos_user.user_manager
@@ -163,11 +163,12 @@ You also have to include the UserBundle in your Doctrine mapping configuration,
 along with the bundle containing your custom User class::
 
     # app/config/config.yml
-    doctrine.orm:
-        mappings:
-            FOSUserBundle: ~
-            MyProjectMyBundle:   ~
-            # your other bundles
+    doctrine:
+        orm:
+            mappings:
+                FOSUserBundle: ~
+                MyProjectMyBundle:   ~
+                # your other bundles
 
 The above example assumes an ORM configuration, but the `mappings` configuration
 block would be the same for MongoDB ODM.
@@ -180,12 +181,12 @@ a User class and the provider key. The provider key matches the key in the firew
 configuration that is used for users with the UserController.
 
 For example for a security configuration like the following the provider_key would
-have to be set to "main", as shown in the proceeding examples:
+have to be set to "fos_userbundle", as shown in the proceeding examples:
 
 ::
 
     # app/config/config.yml
-    security.config:
+    security:
         providers:
             fos_userbundle:
                 id: fos_user.user_manager
@@ -203,9 +204,9 @@ In YAML:
 ::
 
     # app/config/config.yml
-    fos_user.config:
+    fos_user:
         db_driver: orm
-        provider_key: main
+        provider_key: fos_userbundle
         class:
             model:
                 user: MyProject\MyBundle\Entity\User
@@ -217,7 +218,7 @@ Or if you prefer XML:
 
     # app/config/config.xml
 
-    <fos_user:config db-driver="orm" provider-key="main">
+    <fos_user:config db-driver="orm" provider-key="fos_userbundle">
         <fos_user:class>
             <fos_user:model
                 user="MyProject\MyBundle\Entity\User"
@@ -234,9 +235,9 @@ In YAML:
 ::
 
     # app/config/config.yml
-    fos_user.config:
+    fos_user:
         db_driver: mongodb
-        provider_key: main
+        provider_key: fos_userbundle
         class:
             model:
                 user: MyProject\MyBundle\Document\User
@@ -248,7 +249,7 @@ Or if you prefer XML:
 
     # app/config/config.xml
 
-    <fos_user:config db-driver="mongodb" provider-key="main">
+    <fos_user:config db-driver="mongodb" provider-key="fos_userbundle">
         <fos_user:class>
             <fos_user:model
                 user="MyProject\MyBundle\Document\User"
@@ -274,7 +275,7 @@ routes:
 
     # app/config/routing.xml
 
-    <import resource="FOS/UserBundle/Resources/config/routing/security.xml"/>
+    <import resource="@FOSUserBundle/Resources/config/routing/security.xml"/>
 
 You now can login at http://app.com/login
 
@@ -345,46 +346,47 @@ Configuration example:
 
 All configuration options are listed below::
 
-    db_driver:    mongodb
-    provider_key: fos_user
-    class:
-        model:
-            user:  MyProject\MyBundle\Document\User
-            group: MyProject\MyBundle\Document\Group
-        form:
+    fos_user:
+        db_driver:    mongodb
+        provider_key: fos_userbundle
+        class:
+            model:
+                user:  MyProject\MyBundle\Document\User
+                group: MyProject\MyBundle\Document\Group
+            form:
+                user:            ~
+                group:           ~
+                change_password: ~
+                reset_password:  ~
+            controller:
+                user:     ~
+                security: ~
+                group:    ~
+            util:
+                email_canonicalizer:    ~
+                username_canonicalizer: ~
+        encoder:
+            algorithm:        ~
+            encode_as_base64: ~
+            iterations:       ~
+        form_name:
             user:            ~
             group:           ~
             change_password: ~
             reset_password:  ~
-        controller:
-            user:     ~
-            security: ~
-            group:    ~
-        util:
-            email_canonicalizer:    ~
-            username_canonicalizer: ~
-    encoder:
-        algorithm:        ~
-        encode_as_base64: ~
-        iterations:       ~
-    form_name:
-        user:            ~
-        group:           ~
-        change_password: ~
-        reset_password:  ~
-    form_validation_groups:
-        user: ~             # This value is an array of groups
-    email:
-        from_email: ~       # { email: name }
-        confirmation:
-            enabled:    ~
-            template:   ~
-        resetting_password:
-            template:   ~
-            token_ttl:  ~
-    template:
-        engine: ~
-        theme:  ~
+        form_validation_groups:
+            user: ~             # This value is an array of groups
+        email:
+            from_email: ~       # { admin@example.com: Sender_name }
+            confirmation:
+                enabled:    ~
+                template:   ~
+            resetting_password:
+                template:   ~
+                token_ttl:  ~
+        template:
+            engine: ~
+            theme:  ~
 
 Templating
 ----------
