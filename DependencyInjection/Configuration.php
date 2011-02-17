@@ -2,8 +2,8 @@
 
 namespace FOS\UserBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\Configuration\Builder\NodeBuilder;
-use Symfony\Component\DependencyInjection\Configuration\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\Builder\NodeBuilder;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 /**
  * This class contains the configuration information for the bundle
