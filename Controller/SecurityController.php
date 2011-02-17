@@ -4,6 +4,7 @@ namespace FOS\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class SecurityController extends Controller
 {
@@ -15,6 +16,11 @@ class SecurityController extends Controller
         } else {
             $error = $this->get('request')->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
             $this->get('request')->getSession()->remove(SecurityContext::AUTHENTICATION_ERROR);
+        }
+
+        if ($error) {
+            // TODO: this is a potential security risk (see http://trac.symfony-project.org/ticket/9523)
+            $error = $error->getMessage();
         }
 
         return $this->render('FOSUserBundle:Security:login.html.'.$this->getEngine(), array(
