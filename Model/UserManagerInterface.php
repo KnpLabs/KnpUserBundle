@@ -123,7 +123,7 @@ interface UserManagerInterface
     function updatePassword(UserInterface $user);
 
     /**
-     * Checks the uniqueness of the given fields
+     * Checks the uniqueness of the given fields, returns true if its unique
      *
      * @param UserInterface $value
      * @param Constraint $constraint

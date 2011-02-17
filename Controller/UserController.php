@@ -103,11 +103,21 @@ class UserController extends Controller
         $manager = $this->get('fos_user.user_manager');
         $user = $manager->createUser();
         $form = $this->get('fos_user.form.user');
-        $form->bind($this->get('request'), $user);
-        $manager->updateCanonicalFields($user);
+        $form->setData($user);
+
+        $request = $this->get('request');
+
+        if ('POST' == $request->getMethod()) {
+            $values = $request->request->get($form->getName(), array());
+            $files = $request->files->get($form->getName(), array());
+
+            $form->submit(array_replace_recursive($values, $files));
+
+            $manager->updateCanonicalFields($user);
+            $form->validate();
+        }
 
         if ($form->isValid()) {
-            $user = $form->getData();
             if ($this->container->getParameter('fos_user.email.confirmation.enabled')) {
                 $user->setEnabled(false);
                 $manager->updateUser($user);
