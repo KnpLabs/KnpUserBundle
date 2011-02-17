@@ -123,7 +123,7 @@ class UserManager extends BaseUserManager
     /**
      * Gets conflictual users for the given user and constraint
      *
-     * @param UserInterface|string $value
+     * @param UserInterface $value
      * @param array $fields
      * @return array
      */
@@ -135,7 +135,7 @@ class UserManager extends BaseUserManager
     /**
      * Gets the criteria used to find conflictual entities
      *
-     * @param UserInterface|string $value
+     * @param UserInterface $value
      * @param array $constraint
      * @return array
      */
