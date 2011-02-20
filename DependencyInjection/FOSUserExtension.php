@@ -84,14 +84,4 @@ class FOSUserExtension extends Extension
             }
         }
     }
-
-    /**
-     * @see Symfony\Component\DependencyInjection\Extension.ExtensionInterface::getAlias()
-     *
-     * @codeCoverageIgnore
-     */
-    public function getAlias()
-    {
-        return 'fos_user';
-    }
 }
