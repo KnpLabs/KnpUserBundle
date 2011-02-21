@@ -77,7 +77,7 @@ ORM User class:
         protected $id;
 
         /**
-         * @orm:ManyToMany(targetEntity="FOS\UserBundle\Entity\DefaultGroup" field="groups")
+         * @orm:ManyToMany(targetEntity="FOS\UserBundle\Entity\DefaultGroup")
          * @orm:JoinTable(name="fos_user_user_group",
          *      joinColumns={@orm:JoinColumn(name="user_id", referencedColumnName="id")},
          *      inverseJoinColumns={@orm:JoinColumn(name="group_id", referencedColumnName="id")}
@@ -141,7 +141,7 @@ enabled in your kernel and in your project's configuration::
 
 Note::
 
-    You need to activate SwiftmailerBundle to be able to use the fonctionnalities
+    You need to activate SwiftmailerBundle to be able to use the functionalities
     using emails (confirmation of the account, resetting of the password).
 
 The login form and all the routes used to create a user and reset the password
@@ -271,16 +271,21 @@ routes:
     fos_user_security:
         resource: @FOSUserBundle/Resources/config/routing/security.xml
 
+    fos_user_user:
+        resource: @FOSUserBundle/Resources/config/routing/user.xml
+        prefix: /user
+
 ::
 
     # app/config/routing.xml
 
     <import resource="@FOSUserBundle/Resources/config/routing/security.xml"/>
+    <import resource="@FOSUserBundle/Resources/config/routing/user.xml" prefix="/user" />
 
 You now can login at http://app.com/login
 
-You can also import the user.xml and group.xml file to use the builtin
-controllers to manipulate users and groups.
+You can also import the group.xml file to use the builtin controllers to
+manipulate the groups.
 
 Command line
 ============
