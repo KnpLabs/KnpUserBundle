@@ -10,23 +10,24 @@
 
 namespace FOS\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller as Controller;
+use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 use FOS\UserBundle\Model\Group;
-use FOS\UserBundle\Form\ChangePassword;
 
 /**
  * RESTful controller managing group CRUD
  */
-class GroupController extends Controller
+class GroupController extends ContainerAware
 {
     /**
      * Show all groups
      */
     public function listAction()
     {
-        $groups = $this->get('fos_user.group_manager')->findGroups();
+        $groups = $this->container->get('fos_user.group_manager')->findGroups();
 
-        return $this->render('FOSUserBundle:Group:list.html.'.$this->getEngine(), array('groups' => $groups));
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:list.html.'.$this->getEngine(), array('groups' => $groups));
     }
 
     /**
@@ -36,7 +37,7 @@ class GroupController extends Controller
     {
         $group = $this->findGroupBy('name', $groupname);
 
-        return $this->render('FOSUserBundle:Group:show.html.'.$this->getEngine(), array('group' => $group));
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:show.html.'.$this->getEngine(), array('group' => $group));
     }
 
     /**
@@ -45,12 +46,12 @@ class GroupController extends Controller
     public function editAction($groupname)
     {
         $group = $this->findGroupBy('name', $groupname);
-        $form = $this->get('fos_user.form.group');
+        $form = $this->container->get('fos_user.form.group');
         $form->setData($group);
 
         $form = $this->createForm($group);
 
-        return $this->render('FOSUserBundle:Group:edit.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:edit.html.'.$this->getEngine(), array(
             'form'      => $form,
             'groupname'  => $group->getName()
         ));
@@ -62,17 +63,17 @@ class GroupController extends Controller
     public function updateAction($groupname)
     {
         $group = $this->findGroupBy('name', $groupname);
-        $form = $this->get('fos_user.form.group');
-        $form->bind($this->get('request'), $group);
+        $form = $this->container->get('fos_user.form.group');
+        $form->bind($this->container->get('request'), $group);
 
         if ($form->isValid()) {
-            $this->get('fos_user.group_manager')->updateGroup($group);
+            $this->container->get('fos_user.group_manager')->updateGroup($group);
             $this->setFlash('fos_user_group_update', 'success');
             $groupUrl = $this->generateUrl('fos_user_group_show', array('groupname' => $group->getName()));
-            return $this->redirect($groupUrl);
+            return new RedirectResponse($groupUrl);
         }
 
-        return $this->render('FOSUserBundle:Group:edit.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:edit.html.'.$this->getEngine(), array(
             'form'      => $form,
             'groupname'  => $group->getName()
         ));
@@ -83,11 +84,11 @@ class GroupController extends Controller
      */
     public function newAction()
     {
-        $user = $this->get('fos_user.group_manager')->createGroup('');
-        $form = $this->get('fos_user.form.group');
+        $user = $this->container->get('fos_user.group_manager')->createGroup('');
+        $form = $this->container->get('fos_user.form.group');
         $form->setData($user);
 
-        return $this->render('FOSUserBundle:Group:new.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:new.html.'.$this->getEngine(), array(
             'form' => $form
         ));
     }
@@ -97,19 +98,19 @@ class GroupController extends Controller
      */
     public function createAction()
     {
-        $group = $this->get('fos_user.group_manager')->createGroup('');
-        $form = $this->get('fos_user.form.group');
-        $form->bind($this->get('request'), $group);
+        $group = $this->container->get('fos_user.group_manager')->createGroup('');
+        $form = $this->container->get('fos_user.form.group');
+        $form->bind($this->container->get('request'), $group);
 
         if ($form->isValid()) {
             $group = $form->getData();
-            $this->get('fos_user.group_manager')->updateGroup($group);
+            $this->container->get('fos_user.group_manager')->updateGroup($group);
 
             $this->setFlash('fos_user_group_create', 'success');
-            return $this->redirect($this->generateUrl('doctrine_user_group_show', array('groupname' => $group->getName())));
+            return new RedirectResponse($this->generateUrl('doctrine_user_group_show', array('groupname' => $group->getName())));
         }
 
-        return $this->render('FOSUserBundle:Group:new.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:new.html.'.$this->getEngine(), array(
             'form' => $form
         ));
     }
@@ -120,10 +121,10 @@ class GroupController extends Controller
     public function deleteAction($groupname)
     {
         $group = $this->findGroupBy('name', $groupname);
-        $this->get('fos_user.group_manager')->deleteGroup($group);
+        $this->container->get('fos_user.group_manager')->deleteGroup($group);
         $this->setFlash('fos_user_group_delete', 'success');
 
-        return $this->redirect($this->generateUrl('fos_user_group_list'));
+        return new RedirectResponse($this->generateUrl('fos_user_group_list'));
     }
 
     /**
@@ -137,7 +138,7 @@ class GroupController extends Controller
     protected function findGroupBy($key, $value)
     {
         if (!empty($value)) {
-            $group = $this->get('fos_user.group_manager')->{'findGroupBy'.ucfirst($key)}($value);
+            $group = $this->container->get('fos_user.group_manager')->{'findGroupBy'.ucfirst($key)}($value);
         }
 
         if (empty($group)) {
@@ -154,6 +155,6 @@ class GroupController extends Controller
 
     protected function setFlash($action, $value)
     {
-        $this->get('session')->setFlash($action, $value);
+        $this->container->get('session')->setFlash($action, $value);
     }
 }

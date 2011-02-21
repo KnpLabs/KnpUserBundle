@@ -2,20 +2,20 @@
 
 namespace FOS\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
-class SecurityController extends Controller
+class SecurityController extends ContainerAware
 {
     public function loginAction()
     {
         // get the error if any (works with forward and redirect -- see below)
-        if ($this->get('request')->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $this->get('request')->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        if ($this->container->get('request')->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $this->container->get('request')->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
         } else {
-            $error = $this->get('request')->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
-            $this->get('request')->getSession()->remove(SecurityContext::AUTHENTICATION_ERROR);
+            $error = $this->container->get('request')->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
+            $this->container->get('request')->getSession()->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
 
         if ($error) {
@@ -23,9 +23,9 @@ class SecurityController extends Controller
             $error = $error->getMessage();
         }
 
-        return $this->render('FOSUserBundle:Security:login.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Security:login.html.'.$this->getEngine(), array(
             // last username entered by the user
-            'last_username' => $this->get('request')->getSession()->get(SecurityContext::LAST_USERNAME),
+            'last_username' => $this->container->get('request')->getSession()->get(SecurityContext::LAST_USERNAME),
             'error'         => $error,
         ));
     }
