@@ -74,7 +74,7 @@ class UserController extends ContainerAware
         if ($form->isValid()) {
             $this->container->get('fos_user.user_manager')->updateUser($user);
             $this->setFlash('fos_user_user_update', 'success');
-            $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
+            $userUrl =  $this->container->get('router')->generate('fos_user_user_show', array('username' => $user->getUsername()));
             return new RedirectResponse($userUrl);
         }
 
@@ -126,13 +126,13 @@ class UserController extends ContainerAware
                 $manager->updateUser($user);
                 $this->sendConfirmationEmailMessage($user);
                 $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
-                $url = $this->generateUrl('fos_user_user_check_confirmation_email');
+                $url =  $this->container->get('router')->generate('fos_user_user_check_confirmation_email');
             } else {
                 $user->setConfirmationToken(null);
                 $user->setEnabled(true);
                 $manager->updateUser($user);
                 $this->authenticateUser($user);
-                $url = $this->generateUrl('fos_user_user_confirmed');
+                $url =  $this->container->get('router')->generate('fos_user_user_confirmed');
             }
 
             if ($this->container->has('security.acl.provider')) {
@@ -179,7 +179,7 @@ class UserController extends ContainerAware
         $this->container->get('fos_user.user_manager')->updateUser($user);
         $this->authenticateUser($user);
 
-        return new RedirectResponse($this->generateUrl('fos_user_user_confirmed'));
+        return new RedirectResponse( $this->container->get('router')->generate('fos_user_user_confirmed'));
     }
 
     /**
@@ -203,7 +203,7 @@ class UserController extends ContainerAware
         $this->container->get('fos_user.user_manager')->deleteUser($user);
         $this->setFlash('fos_user_user_delete', 'success');
 
-        return new RedirectResponse($this->generateUrl('fos_user_user_list'));
+        return new RedirectResponse( $this->container->get('router')->generate('fos_user_user_list'));
     }
 
     /**
@@ -233,7 +233,7 @@ class UserController extends ContainerAware
             $this->container->get('fos_user.user_manager')->updateUser($user);
             $this->setFlash('fos_user_user_password', 'success');
 
-            $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
+            $userUrl =  $this->container->get('router')->generate('fos_user_user_show', array('username' => $user->getUsername()));
 
             return new RedirectResponse($userUrl);
         }
@@ -268,7 +268,7 @@ class UserController extends ContainerAware
         $this->container->get('session')->set('fos_user_send_resetting_email/email', $user->getEmail());
         $this->sendResettingEmailMessage($user);
 
-        return new RedirectResponse($this->generateUrl('fos_user_user_check_resetting_email'));
+        return new RedirectResponse( $this->container->get('router')->generate('fos_user_user_check_resetting_email'));
     }
 
     /**
@@ -294,7 +294,7 @@ class UserController extends ContainerAware
         $user = $this->findUserBy('confirmationToken', $token);
 
         if (!$user->isPasswordRequestNonExpired($this->getPasswordRequestTtl())) {
-            new RedirectResponse($this->generateUrl('fos_user_user_request_reset_password'));
+            new RedirectResponse( $this->container->get('router')->generate('fos_user_user_request_reset_password'));
         }
 
         $form = $this->createResetPasswordForm($user);
@@ -313,7 +313,7 @@ class UserController extends ContainerAware
         $user = $this->findUserBy('confirmationToken', $token);
 
         if (!$user->isPasswordRequestNonExpired($this->getPasswordRequestTtl())) {
-            new RedirectResponse($this->generateUrl('fos_user_user_request_reset_password'));
+            new RedirectResponse( $this->container->get('router')->generate('fos_user_user_request_reset_password'));
         }
 
         $form = $this->createResetPasswordForm($user);
@@ -325,7 +325,7 @@ class UserController extends ContainerAware
             $user->setEnabled(true);
             $this->container->get('fos_user.user_manager')->updateUser($user);
             $this->authenticateUser($user);
-            $userUrl = $this->generateUrl('fos_user_user_show', array('username' => $user->getUsername()));
+            $userUrl =  $this->container->get('router')->generate('fos_user_user_show', array('username' => $user->getUsername()));
             $this->setFlash('fos_user_user_resetted', 'success');
 
             return new RedirectResponse($userUrl);
@@ -413,7 +413,7 @@ class UserController extends ContainerAware
         $template = $this->container->getParameter('fos_user.email.confirmation.template');
         $rendered = $this->renderView($template.'.txt.'.$this->getEngine(), array(
             'user' => $user,
-            'confirmationUrl' => $this->generateUrl('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
+            'confirmationUrl' =>  $this->container->get('router')->generate('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
         ));
         $this->sendEmailMessage($rendered, $this->getSenderEmail('confirmation'), $user->getEmail());
     }
@@ -423,7 +423,7 @@ class UserController extends ContainerAware
         $template = $this->container->getParameter('fos_user.email.resetting_password.template');
         $rendered = $this->renderView($template.'.txt.'.$this->getEngine(), array(
             'user' => $user,
-            'confirmationUrl' => $this->generateUrl('fos_user_user_reset_password', array('token' => $user->getConfirmationToken()), true)
+            'confirmationUrl' =>  $this->container->get('router')->generate('fos_user_user_reset_password', array('token' => $user->getConfirmationToken()), true)
         ));
         $this->sendEmailMessage($rendered, $this->getSenderEmail('resetting_password'), $user->getEmail());
     }

@@ -69,7 +69,7 @@ class GroupController extends ContainerAware
         if ($form->isValid()) {
             $this->container->get('fos_user.group_manager')->updateGroup($group);
             $this->setFlash('fos_user_group_update', 'success');
-            $groupUrl = $this->generateUrl('fos_user_group_show', array('groupname' => $group->getName()));
+            $groupUrl =  $this->container->get('router')->generate('fos_user_group_show', array('groupname' => $group->getName()));
             return new RedirectResponse($groupUrl);
         }
 
@@ -107,7 +107,7 @@ class GroupController extends ContainerAware
             $this->container->get('fos_user.group_manager')->updateGroup($group);
 
             $this->setFlash('fos_user_group_create', 'success');
-            return new RedirectResponse($this->generateUrl('doctrine_user_group_show', array('groupname' => $group->getName())));
+            return new RedirectResponse( $this->container->get('router')->generate('doctrine_user_group_show', array('groupname' => $group->getName())));
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:new.html.'.$this->getEngine(), array(
@@ -124,7 +124,7 @@ class GroupController extends ContainerAware
         $this->container->get('fos_user.group_manager')->deleteGroup($group);
         $this->setFlash('fos_user_group_delete', 'success');
 
-        return new RedirectResponse($this->generateUrl('fos_user_group_list'));
+        return new RedirectResponse( $this->container->get('router')->generate('fos_user_group_list'));
     }
 
     /**
