@@ -47,9 +47,8 @@ class GroupController extends ContainerAware
     {
         $group = $this->findGroupBy('name', $groupname);
         $form = $this->container->get('fos_user.form.group');
-        $form->setData($group);
 
-        $form = $this->createForm($group);
+        $form->process($group);
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:edit.html.'.$this->getEngine(), array(
             'form'      => $form,
@@ -64,10 +63,9 @@ class GroupController extends ContainerAware
     {
         $group = $this->findGroupBy('name', $groupname);
         $form = $this->container->get('fos_user.form.group');
-        $form->bind($this->container->get('request'), $group);
 
-        if ($form->isValid()) {
-            $this->container->get('fos_user.group_manager')->updateGroup($group);
+        $process = $form->process($group);
+        if ($process) {
             $this->setFlash('fos_user_group_update', 'success');
             $groupUrl =  $this->container->get('router')->generate('fos_user_group_show', array('groupname' => $group->getName()));
             return new RedirectResponse($groupUrl);
@@ -84,9 +82,9 @@ class GroupController extends ContainerAware
      */
     public function newAction()
     {
-        $user = $this->container->get('fos_user.group_manager')->createGroup('');
         $form = $this->container->get('fos_user.form.group');
-        $form->setData($user);
+
+        $form->process();
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:new.html.'.$this->getEngine(), array(
             'form' => $form
@@ -98,15 +96,11 @@ class GroupController extends ContainerAware
      */
     public function createAction()
     {
-        $group = $this->container->get('fos_user.group_manager')->createGroup('');
         $form = $this->container->get('fos_user.form.group');
-        $form->bind($this->container->get('request'), $group);
 
-        if ($form->isValid()) {
-            $group = $form->getData();
-            $this->container->get('fos_user.group_manager')->updateGroup($group);
-
-            $this->setFlash('fos_user_group_create', 'success');
+        $process = $form->process();
+        if ($process) {
+            $this->container->get('session')->setFlash('fos_user_group_update', 'success');
             return new RedirectResponse( $this->container->get('router')->generate('doctrine_user_group_show', array('groupname' => $group->getName())));
         }
 

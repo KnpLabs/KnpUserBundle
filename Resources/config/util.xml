@@ -7,6 +7,12 @@
     <services>
         <service id="fos_user.util.email_canonicalizer" class="%fos_user.util.email_canonicalizer.class%"></service>
         <service id="fos_user.util.username_canonicalizer" class="%fos_user.util.username_canonicalizer.class%"></service>
+
+        <service id="fos_user.util.email" class="%fos_user.util.email.class%">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
     </services>
     
 </container>
