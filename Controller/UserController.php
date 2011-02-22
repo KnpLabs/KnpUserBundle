@@ -421,7 +421,7 @@ class UserController extends ContainerAware
     protected function sendResettingEmailMessage(User $user)
     {
         $template = $this->container->getParameter('fos_user.email.resetting_password.template');
-        $rendered = $this->renderView($template.'.txt.'.$this->getEngine(), array(
+        $rendered = $this->get('templating')->render($template.'.txt.'.$this->getEngine(), array(
             'user' => $user,
             'confirmationUrl' =>  $this->container->get('router')->generate('fos_user_user_reset_password', array('token' => $user->getConfirmationToken()), true)
         ));
