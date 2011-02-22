@@ -16,6 +16,4 @@ interface MailerInterface
     function sendConfirmationEmailMessage(UserInterface $user, $engine);
 
     function sendResettingEmailMessage(UserInterface $user, $engine);
-
-    function sendEmailMessage($renderedTemplate, $fromEmail, $toEmail);
 }

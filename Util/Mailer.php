@@ -50,7 +50,7 @@ class Mailer implements MailerInterface
         $this->sendEmailMessage($rendered, $this->getSenderEmail('resetting_password'), $user->getEmail());
     }
 
-    public function sendEmailMessage($renderedTemplate, $fromEmail, $toEmail)
+    protected function sendEmailMessage($renderedTemplate, $fromEmail, $toEmail)
     {
         // Render the email, use the first line as the subject, and the rest as the body
         $renderedLines = explode("\n", trim($renderedTemplate));
