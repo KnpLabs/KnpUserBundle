@@ -143,6 +143,7 @@ Note::
 
     You need to activate SwiftmailerBundle to be able to use the functionalities
     using emails (confirmation of the account, resetting of the password).
+    See the `Emails` section to know how using another mailer.
 
 The login form and all the routes used to create a user and reset the password
 have to be available to unauthenticated users but using the same firewall as
@@ -370,6 +371,9 @@ All configuration options are listed below::
             util:
                 email_canonicalizer:    ~
                 username_canonicalizer: ~
+        service:
+            util:
+                mailer: ~
         encoder:
             algorithm:        ~
             encode_as_base64: ~
@@ -421,6 +425,20 @@ Validation
 The ``Resources/config/validation.xml`` file contains definitions for custom
 validator rules for various classes. The rules for the ``User`` class are all in
 the ``Registration`` validation group so you can choose not to use them.
+
+Emails
+------
+
+The default mailer relies on Swiftmailer to send the mails of the bundle. If you
+want to use another mailer in your project you can change it by defining your
+own service implementing ``FOS\UserBundle\Util\MailerInterface`` and setting its
+id in the configuration::
+
+    fos_user:
+        # ...
+        service:
+            util:
+                mailer: custom_mailer_id
 
 Canonicalization
 ----------------
