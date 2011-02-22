@@ -259,7 +259,11 @@ class UserController extends ContainerAware
     {
         $email = $this->container->get('session')->get('fos_user_send_resetting_email/email');
         $this->container->get('session')->remove('fos_user_send_resetting_email/email');
-        $user = $this->findUserBy('email', $email);
+        $user = $this->container->get('fos_user.user_manager')->findUserByEmail($email);
+        if (empty($user)) {
+            return new RedirectResponse( $this->container->get('router')->generate('fos_user_user_request_reset_password'));
+        }
+
         $this->setFlash('fos_user_user_reset', 'success');
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:checkResettingEmail.html.'.$this->getEngine(), array(
