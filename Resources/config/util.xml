@@ -9,9 +9,17 @@
         <service id="fos_user.util.username_canonicalizer" class="%fos_user.util.username_canonicalizer.class%"></service>
 
         <service id="fos_user.util.mailer" class="%fos_user.util.mailer.class%">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
+            <argument type="service" id="mailer" />
+            <argument type="service" id="router" />
+            <argument type="service" id="templating" />
+            <argument type="collection">
+                <argument key="confirmation.template">%fos_user.email.confirmation.template%</argument>
+                <argument key="resetting_password.template">%fos_user.email.resetting_password.template%</argument>
+                <argument key="from_email" type="collection">
+                    <argument key="confirmation">%fos_user.email.from_email%</argument>
+                    <argument key="resetting_password">%fos_user.email.from_email%</argument>
+                </argument>
+            </argument>
         </service>
     </services>
     

@@ -9,26 +9,43 @@
 
 namespace FOS\UserBundle\Util;
 
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\Routing\RouterInterface;
 use FOS\UserBundle\Model\UserInterface;
 
-class Mailer extends ContainerAware implements MailerInterface
+class Mailer implements MailerInterface
 {
+    protected $mailer;
+    protected $router;
+    protected $templating;
+    protected $parameters;
+
+    public function __construct($mailer, RouterInterface $router, EngineInterface $templating, array $parameters)
+    {
+        $this->mailer = $mailer;
+        $this->router = $router;
+        $this->templating = $templating;
+        $this->parameters = $parameters;
+    }
+
     public function sendConfirmationEmailMessage(UserInterface $user, $engine)
     {
-        $template = $this->container->getParameter('fos_user.email.confirmation.template');
-        $rendered = $this->renderView($template.'.txt.'.$engine, array(
+        $template = $this->parameters['confirmation.template'];
+        $url = $this->router->generate('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true);
+        $rendered = $this->templating->render($template.'.txt.'.$engine, array(
             'user' => $user,
-            'confirmationUrl' =>  $this->container->get('router')->generate('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
+            'confirmationUrl' =>  $url
         ));
         $this->sendEmailMessage($rendered, $this->getSenderEmail('confirmation'), $user->getEmail());
     }
 
     public function sendResettingEmailMessage(UserInterface $user, $engine)
     {
-        $template = $this->container->getParameter('fos_user.email.resetting_password.template');
-        $rendered = $this->renderView($template.'.txt.'.$engine, array(
+        $template = $this->parameters['resetting_password.template'];
+        $url = $this->router->generate('fos_user_user_reset_password', array('token' => $user->getConfirmationToken()), true);
+        $rendered = $this->templating->render($template.'.txt.'.$engine, array(
             'user' => $user,
-            'confirmationUrl' =>  $this->container->get('router')->generate('fos_user_user_reset_password', array('token' => $user->getConfirmationToken()), true)
+            'confirmationUrl' => $url
         ));
         $this->sendEmailMessage($rendered, $this->getSenderEmail('resetting_password'), $user->getEmail());
     }
@@ -40,19 +57,17 @@ class Mailer extends ContainerAware implements MailerInterface
         $subject = $renderedLines[0];
         $body = implode("\n", array_slice($renderedLines, 1));
 
-        $mailer = $this->container->get('mailer');
-
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom($fromEmail)
             ->setTo($toEmail)
             ->setBody($body);
 
-        $mailer->send($message);
+        $this->mailer->send($message);
     }
 
     protected function getSenderEmail($type)
     {
-        return $this->container->getParameter('fos_user.email.from_email');
+        return $this->$this->parameters['from_email'][$type];
     }
 }
