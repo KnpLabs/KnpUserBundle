@@ -274,8 +274,8 @@ class UserController extends ContainerAware
     {
         $user = $this->findUserBy('confirmationToken', $token);
 
-        if (($response = $this->isPasswordRequestExpired($user))) {
-            return $response;
+        if ($user->isPasswordRequestNonExpired($this->getPasswordRequestTtl())) {
+            return new RedirectResponse( $this->container->get('router')->generate('fos_user_user_request_reset_password'));
         }
 
         $form = $this->container->get('fos_user.form.reset_password');
@@ -294,8 +294,8 @@ class UserController extends ContainerAware
     {
         $user = $this->findUserBy('confirmationToken', $token);
 
-        if (($response = $this->isPasswordRequestExpired($user))) {
-            return $response;
+        if ($user->isPasswordRequestNonExpired($this->getPasswordRequestTtl())) {
+            return new RedirectResponse( $this->container->get('router')->generate('fos_user_user_request_reset_password'));
         }
 
         $form = $this->container->get('fos_user.form.reset_password');
@@ -375,13 +375,14 @@ class UserController extends ContainerAware
         $this->container->get('session')->setFlash($action, $value);
     }
 
-    protected function isPasswordRequestExpired(UserInterface $user)
+    protected function getPasswordRequestTtl()
     {
-        if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.email.resetting_password.token_ttl'))) {
-            return new RedirectResponse( $this->container->get('router')->generate('fos_user_user_request_reset_password'));
-        }
+        return $this->container->getParameter('fos_user.email.resetting_password.token_ttl');
+    }
 
-        return false;
+    protected function getSenderEmail($type)
+    {
+        return $this->container->getParameter('fos_user.email.from_email');
     }
 
     protected function getEngine()
