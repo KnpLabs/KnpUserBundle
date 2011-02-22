@@ -65,7 +65,7 @@ class Configuration
                 ->end()
                 ->arrayNode('util')
                     ->addDefaultsIfNotSet()
-                    ->scalarNode('email')->defaultValue('FOS\\UserBundle\\Util\\Email')->end()
+                    ->scalarNode('mailer')->defaultValue('FOS\\UserBundle\\Util\\Mailer')->end()
                     ->scalarNode('email_canonicalizer')->defaultValue('FOS\\UserBundle\\Util\\Canonicalizer')->end()
                     ->scalarNode('username_canonicalizer')->defaultValue('FOS\\UserBundle\\Util\\Canonicalizer')->end()
                 ->end()

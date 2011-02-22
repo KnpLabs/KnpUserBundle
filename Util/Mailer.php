@@ -11,7 +11,7 @@ namespace FOS\UserBundle\Util;
 
 use FOS\UserBundle\Model\UserInterface;
 
-class Email extends ContainerAware
+class Mailer extends ContainerAware implements MailerInterface
 {
     public function sendConfirmationEmailMessage(UserInterface $user, $engine)
     {
@@ -49,5 +49,10 @@ class Email extends ContainerAware
             ->setBody($body);
 
         $mailer->send($message);
+    }
+
+    protected function getSenderEmail($type)
+    {
+        return $this->container->getParameter('fos_user.email.from_email');
     }
 }
