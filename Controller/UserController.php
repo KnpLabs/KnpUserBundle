@@ -411,7 +411,7 @@ class UserController extends ContainerAware
     protected function sendConfirmationEmailMessage(User $user)
     {
         $template = $this->container->getParameter('fos_user.email.confirmation.template');
-        $rendered = $this->renderView($template.'.txt.'.$this->getEngine(), array(
+        $rendered = $this->container->get('templating')->render($template.'.txt.'.$this->getEngine(), array(
             'user' => $user,
             'confirmationUrl' =>  $this->container->get('router')->generate('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true)
         ));
