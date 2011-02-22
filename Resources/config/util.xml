@@ -4,15 +4,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="fos_user.util.mailer.class">FOS\UserBundle\Util\Mailer</parameter>
-    </parameters>
-
     <services>
         <service id="fos_user.util.email_canonicalizer" class="%fos_user.util.email_canonicalizer.class%"></service>
         <service id="fos_user.util.username_canonicalizer" class="%fos_user.util.username_canonicalizer.class%"></service>
 
-        <service id="fos_user.util.mailer.real" class="%fos_user.util.mailer.class%" public="false">
+        <service id="fos_user.util.mailer.real" class="FOS\UserBundle\Util\Mailer" public="false">
             <argument type="service" id="mailer" />
             <argument type="service" id="router" />
             <argument type="service" id="templating" />
@@ -25,7 +21,7 @@
                 </argument>
             </argument>
         </service>
-        <service id="fos_user.util.mailer" alias="fos_user.util.mailer.real">
+        <service id="fos_user.util.mailer" alias="fos_user.util.mailer.real" />
     </services>
     
 </container>
