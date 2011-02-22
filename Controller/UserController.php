@@ -384,11 +384,6 @@ class UserController extends ContainerAware
         return $this->container->getParameter('fos_user.email.resetting_password.token_ttl');
     }
 
-    protected function getSenderEmail($type)
-    {
-        return $this->container->getParameter('fos_user.email.from_email');
-    }
-
     protected function getEngine()
     {
         return $this->container->getParameter('fos_user.template.engine');
