@@ -29,9 +29,8 @@ class FOSUserExtension extends Extension
             $loader->load(sprintf('%s.xml', $basename));
         }
 
-        if (!empty($config['util']['mailer'])) {
-            $container->setAlias('fos_user.util.mailer', $config['util']['mailer']);
-            unset ($config['util']['mailer']);
+        if (!empty($config['service']['util']['mailer'])) {
+            $container->setAlias('fos_user.util.mailer', $config['service']['util']['mailer']);
         }
 
         $this->remapParametersNamespaces($config, $container, array(

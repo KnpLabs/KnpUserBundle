@@ -30,6 +30,7 @@ class Configuration
             ->scalarNode('provider_key')->isRequired()->cannotBeEmpty()->end();
 
         $this->addClassSection($rootNode);
+        $this->addServiceSection($rootNode);
         $this->addEncoderSection($rootNode);
         $this->addFormNameSection($rootNode);
         $this->addFormValidationGroupsSection($rootNode);
@@ -65,9 +66,18 @@ class Configuration
                 ->end()
                 ->arrayNode('util')
                     ->addDefaultsIfNotSet()
-                    ->scalarNode('mailer')->end()
                     ->scalarNode('email_canonicalizer')->defaultValue('FOS\\UserBundle\\Util\\Canonicalizer')->end()
                     ->scalarNode('username_canonicalizer')->defaultValue('FOS\\UserBundle\\Util\\Canonicalizer')->end()
+                ->end()
+            ->end();
+    }
+
+    private function addServiceSection(NodeBuilder $node)
+    {
+        $node
+            ->arrayNode('service')
+                ->arrayNode('util')
+                    ->scalarNode('mailer')->end()
                 ->end()
             ->end();
     }
