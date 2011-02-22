@@ -68,6 +68,6 @@ class Mailer implements MailerInterface
 
     protected function getSenderEmail($type)
     {
-        return $this->$this->parameters['from_email'][$type];
+        return $this->parameters['from_email'][$type];
     }
 }
