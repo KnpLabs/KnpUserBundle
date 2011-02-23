@@ -48,6 +48,10 @@
                 <option name="message">The email is too long</option>
                 <option name="groups">Registration</option>
             </constraint>
+            <constraint name="Email">
+                <option name="message">The email is not valid</option>
+                <option name="groups">Registration</option>
+            </constraint>
         </property>
 
         <property name="plainPassword">
