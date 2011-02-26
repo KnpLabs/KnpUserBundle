@@ -3,10 +3,10 @@
 namespace FOS\UserBundle\Tests\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use FOS\UserBundle\DependencyInjection\UserExtension;
+use FOS\UserBundle\DependencyInjection\FOSUserExtension;
 use Symfony\Component\Yaml\Parser;
 
-class UserExtensionTest extends \PHPUnit_Framework_TestCase
+class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 {
     protected $configuration;
 
@@ -15,10 +15,10 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testUserLoadThrowsExceptionUnlessDatabaseDriverSet()
     {
-        $loader = new UserExtension('testkernel');
+        $loader = new FOSUserExtension('testkernel');
         $config = $this->getEmptyConfig();
         unset($config['db_driver']);
-        $loader->configLoad(array($config), new ContainerBuilder());
+        $loader->load(array($config), new ContainerBuilder());
     }
 
     /**
@@ -26,10 +26,10 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testUserLoadThrowsExceptionUnlessDatabaseDriverIsValid()
     {
-        $loader = new UserExtension('testkernel');
+        $loader = new FOSUserExtension('testkernel');
         $config = $this->getEmptyConfig();
         $config['db_driver'] = 'foo';
-        $loader->configLoad(array($config), new ContainerBuilder());
+        $loader->load(array($config), new ContainerBuilder());
     }
 
     /**
@@ -37,10 +37,10 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testUserLoadThrowsExceptionUnlessUserModelClassSet()
     {
-        $loader = new UserExtension('testkernel');
+        $loader = new FOSUserExtension('testkernel');
         $config = $this->getEmptyConfig();
         unset($config['class']['model']['user']);
-        $loader->configLoad(array($config), new ContainerBuilder());
+        $loader->load(array($config), new ContainerBuilder());
     }
 
     public function testUserLoadModelClassWithDefaults()
@@ -227,9 +227,9 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
     protected function createEmptyConfiguration()
     {
         $this->configuration = new ContainerBuilder();
-        $loader = new UserExtension('testkernel');
+        $loader = new FOSUserExtension('testkernel');
         $config = $this->getEmptyConfig();
-        $loader->configLoad(array($config), $this->configuration);
+        $loader->load(array($config), $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
     }
 
@@ -239,9 +239,9 @@ class UserExtensionTest extends \PHPUnit_Framework_TestCase
     protected function createFullConfiguration()
     {
         $this->configuration = new ContainerBuilder();
-        $loader = new UserExtension('testkernel');
+        $loader = new FOSUserExtension('testkernel');
         $config = $this->getFullConfig();
-        $loader->configLoad(array($config), $this->configuration);
+        $loader->load(array($config), $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
     }
 
