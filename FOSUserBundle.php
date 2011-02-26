@@ -14,4 +14,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class FOSUserBundle extends Bundle
 {
+    public function boot()
+    {
+        $this->container->get('fos_user.security.interactive_login_listener')->register($this->container->get('event_dispatcher'));
+    }
 }
