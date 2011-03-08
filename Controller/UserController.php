@@ -278,7 +278,7 @@ class UserController extends ContainerAware
     {
         $user = $this->findUserBy('confirmationToken', $token);
 
-        if ($user->isPasswordRequestNonExpired($this->getPasswordRequestTtl())) {
+        if (!$user->isPasswordRequestNonExpired($this->getPasswordRequestTtl())) {
             return new RedirectResponse( $this->container->get('router')->generate('fos_user_user_request_reset_password'));
         }
 
@@ -298,7 +298,7 @@ class UserController extends ContainerAware
     {
         $user = $this->findUserBy('confirmationToken', $token);
 
-        if ($user->isPasswordRequestNonExpired($this->getPasswordRequestTtl())) {
+        if (!$user->isPasswordRequestNonExpired($this->getPasswordRequestTtl())) {
             return new RedirectResponse( $this->container->get('router')->generate('fos_user_user_request_reset_password'));
         }
 
