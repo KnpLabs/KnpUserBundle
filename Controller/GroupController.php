@@ -101,7 +101,7 @@ class GroupController extends ContainerAware
         $process = $form->process();
         if ($process) {
             $this->container->get('session')->setFlash('fos_user_group_update', 'success');
-            return new RedirectResponse( $this->container->get('router')->generate('fos_user_group_show', array('groupname' => $group->getName())));
+            return new RedirectResponse( $this->container->get('router')->generate('fos_user_group_show', array('groupname' => $form->getData('group')->getName())));
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:new.html.'.$this->getEngine(), array(
