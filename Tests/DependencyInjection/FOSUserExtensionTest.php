@@ -11,11 +11,11 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     protected $configuration;
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
     public function testUserLoadThrowsExceptionUnlessDatabaseDriverSet()
     {
-        $loader = new FOSUserExtension('testkernel');
+        $loader = new FOSUserExtension();
         $config = $this->getEmptyConfig();
         unset($config['db_driver']);
         $loader->load(array($config), new ContainerBuilder());
@@ -26,18 +26,40 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
      */
     public function testUserLoadThrowsExceptionUnlessDatabaseDriverIsValid()
     {
-        $loader = new FOSUserExtension('testkernel');
+        $loader = new FOSUserExtension();
         $config = $this->getEmptyConfig();
         $config['db_driver'] = 'foo';
         $loader->load(array($config), new ContainerBuilder());
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testUserLoadThrowsExceptionUnlessProviderKeySet()
+    {
+        $loader = new FOSUserExtension();
+        $config = $this->getEmptyConfig();
+        unset($config['provider_key']);
+        $loader->load(array($config), new ContainerBuilder());
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     */
+    public function testUserLoadThrowsExceptionUnlessGroupModelClassSet()
+    {
+        $loader = new FOSUserExtension();
+        $config = $this->getEmptyConfig();
+        unset($config['class']['model']['group']);
+        $loader->load(array($config), new ContainerBuilder());
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
     public function testUserLoadThrowsExceptionUnlessUserModelClassSet()
     {
-        $loader = new FOSUserExtension('testkernel');
+        $loader = new FOSUserExtension();
         $config = $this->getEmptyConfig();
         unset($config['class']['model']['user']);
         $loader->load(array($config), new ContainerBuilder());
@@ -47,14 +69,14 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('Application\MyBundle\Document\User', 'fos_user.model.user.class');
+        $this->assertParameter('Acme\MyBundle\Document\User', 'fos_user.model.user.class');
     }
 
     public function testUserLoadModelClass()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('user', 'fos_user.model.user.class');
+        $this->assertParameter('Acme\MyBundle\Entity\User', 'fos_user.model.user.class');
     }
 
     public function testUserLoadManagerClassWithDefaults()
@@ -76,15 +98,19 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('FOS\UserBundle\Form\UserForm', 'fos_user.form.user.class');
+        $this->assertParameter('FOS\UserBundle\Form\GroupForm', 'fos_user.form.group.class');
         $this->assertParameter('FOS\UserBundle\Form\ChangePasswordForm', 'fos_user.form.change_password.class');
+        $this->assertParameter('FOS\UserBundle\Form\ResetPasswordForm', 'fos_user.form.reset_password.class');
     }
 
     public function testUserLoadFormClass()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('user', 'fos_user.form.user.class');
-        $this->assertParameter('change_password', 'fos_user.form.change_password.class');
+        $this->assertParameter('Acme\MyBundle\Form\User', 'fos_user.form.user.class');
+        $this->assertParameter('Acme\MyBundle\Form\Group', 'fos_user.form.group.class');
+        $this->assertParameter('Acme\MyBundle\Form\ChangePassword', 'fos_user.form.change_password.class');
+        $this->assertParameter('Acme\MyBundle\Form\ResetPassword', 'fos_user.form.reset_password.class');
     }
 
     public function testUserLoadFormNameWithDefaults()
@@ -92,15 +118,19 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('fos_user_user_form', 'fos_user.form.user.name');
+        $this->assertParameter('fos_user_group_form', 'fos_user.form.group.name');
         $this->assertParameter('fos_user_change_password_form', 'fos_user.form.change_password.name');
+        $this->assertParameter('fos_user_reset_password_form', 'fos_user.form.reset_password.name');
     }
 
     public function testUserLoadFormName()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('user', 'fos_user.form.user.name');
-        $this->assertParameter('change_password', 'fos_user.form.change_password.name');
+        $this->assertParameter('acme_user_form', 'fos_user.form.user.name');
+        $this->assertParameter('acme_group_form', 'fos_user.form.group.name');
+        $this->assertParameter('acme_change_form', 'fos_user.form.change_password.name');
+        $this->assertParameter('acme_reset_form', 'fos_user.form.reset_password.name');
     }
 
     public function testUserLoadFormServiceWithDefaults()
@@ -108,7 +138,9 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertHasDefinition('fos_user.form.user');
+        $this->assertHasDefinition('fos_user.form.group');
         $this->assertHasDefinition('fos_user.form.change_password');
+        $this->assertHasDefinition('fos_user.form.reset_password');
     }
 
     public function testUserLoadFormService()
@@ -116,7 +148,9 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createFullConfiguration();
 
         $this->assertHasDefinition('fos_user.form.user');
+        $this->assertHasDefinition('fos_user.form.group');
         $this->assertHasDefinition('fos_user.form.change_password');
+        $this->assertHasDefinition('fos_user.form.reset_password');
     }
 
     public function testUserLoadControllerClassWithDefaults()
@@ -124,6 +158,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('FOS\UserBundle\Controller\UserController', 'fos_user.controller.user.class');
+        $this->assertParameter('FOS\UserBundle\Controller\GroupController', 'fos_user.controller.group.class');
         $this->assertParameter('FOS\UserBundle\Controller\SecurityController', 'fos_user.controller.security.class');
     }
 
@@ -131,8 +166,9 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('user', 'fos_user.controller.user.class');
-        $this->assertParameter('security', 'fos_user.controller.security.class');
+        $this->assertParameter('Acme\MyBundle\Controller\UserController', 'fos_user.controller.user.class');
+        $this->assertParameter('Acme\MyBundle\Controller\GroupController', 'fos_user.controller.group.class');
+        $this->assertParameter('Acme\MyBundle\Controller\SecurityController', 'fos_user.controller.security.class');
     }
 
     public function testUserLoadControllerServiceWithDefaults()
@@ -140,6 +176,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertHasDefinition('fos_user.controller.user');
+        $this->assertHasDefinition('fos_user.controller.group');
         $this->assertHasDefinition('fos_user.controller.security');
     }
 
@@ -148,6 +185,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createFullConfiguration();
 
         $this->assertHasDefinition('fos_user.controller.user');
+        $this->assertHasDefinition('fos_user.controller.group');
         $this->assertHasDefinition('fos_user.controller.security');
     }
 
@@ -159,16 +197,18 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter(array('webmaster@example.com' => 'webmaster'), 'fos_user.email.from_email');
         $this->assertParameter('FOSUserBundle:User:confirmationEmail', 'fos_user.email.confirmation.template');
         $this->assertParameter('FOSUserBundle:User:resettingPasswordEmail', 'fos_user.email.resetting_password.template');
+        $this->assertParameter(86400, 'fos_user.email.resetting_password.token_ttl');
     }
 
     public function testUserLoadConfirmationEmail()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('enabled', 'fos_user.email.confirmation.enabled');
-        $this->assertParameter('from_email', 'fos_user.email.from_email');
-        $this->assertParameter('template', 'fos_user.email.confirmation.template');
-        $this->assertParameter('template', 'fos_user.email.resetting_password.template');
+        $this->assertParameter(true, 'fos_user.email.confirmation.enabled');
+        $this->assertParameter(array('admin@acme.org' => 'Acme Corp'), 'fos_user.email.from_email');
+        $this->assertParameter('AcmeMyBundle:Mail:confirmation', 'fos_user.email.confirmation.template');
+        $this->assertParameter('AcmeMyBundle:Mail:resetting', 'fos_user.email.resetting_password.template');
+        $this->assertParameter(1800, 'fos_user.email.resetting_password.token_ttl');
     }
 
     public function testUserLoadTemplateConfigWithDefaults()
@@ -183,8 +223,8 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('engine', 'fos_user.template.engine');
-        $this->assertParameter('theme', 'fos_user.template.theme');
+        $this->assertParameter('php', 'fos_user.template.engine');
+        $this->assertParameter('AcmeMyBundle:Form:theme.html.twig', 'fos_user.template.theme');
     }
 
     public function testUserLoadEncoderConfigWithDefaults()
@@ -200,9 +240,9 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('algorithm', 'fos_user.encoder.algorithm');
-        $this->assertParameter('encode_as_base64', 'fos_user.encoder.encode_as_base64');
-        $this->assertParameter('iterations', 'fos_user.encoder.iterations');
+        $this->assertParameter('sha1', 'fos_user.encoder.algorithm');
+        $this->assertParameter(true, 'fos_user.encoder.encode_as_base64');
+        $this->assertParameter(3, 'fos_user.encoder.iterations');
     }
 
     public function testUserLoadUtilClassWithDefaults()
@@ -217,8 +257,22 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('email_canonicalizer', 'fos_user.util.email_canonicalizer.class');
-        $this->assertParameter('username_canonicalizer', 'fos_user.util.username_canonicalizer.class');
+        $this->assertParameter('Acme\MyBundle\Util\EmailCanonicalizer', 'fos_user.util.email_canonicalizer.class');
+        $this->assertParameter('Acme\MyBundle\Util\UsernameCanonicalizer', 'fos_user.util.username_canonicalizer.class');
+    }
+
+    public function testUserLoadUtilServiceWithDefaults()
+    {
+        $this->createEmptyConfiguration();
+
+        $this->assertAlias('fos_user.util.mailer.real', 'fos_user.util.mailer');
+    }
+
+    public function testUserLoadUtilService()
+    {
+        $this->createFullConfiguration();
+
+        $this->assertAlias('acme_my.util.mailer', 'fos_user.util.mailer');
     }
 
     /**
@@ -227,7 +281,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     protected function createEmptyConfiguration()
     {
         $this->configuration = new ContainerBuilder();
-        $loader = new FOSUserExtension('testkernel');
+        $loader = new FOSUserExtension();
         $config = $this->getEmptyConfig();
         $loader->load(array($config), $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
@@ -239,7 +293,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     protected function createFullConfiguration()
     {
         $this->configuration = new ContainerBuilder();
-        $loader = new FOSUserExtension('testkernel');
+        $loader = new FOSUserExtension();
         $config = $this->getFullConfig();
         $loader->load(array($config), $this->configuration);
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
@@ -254,56 +308,75 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $yaml = <<<EOF
 db_driver: mongodb
+provider_key: fos_user
 class:
     model:
-        user: Application\MyBundle\Document\User
-    form:
-        user:            ~
-        change_password: ~
-    controller:
-        user:     ~
-        security: ~
-    util:
-        email_canonicalizer:    ~
-        username_canonicalizer: ~
-encoder:
-    algorithm:        ~
-    encode_as_base64: ~
-    iterations:       ~
-form_name:
-    user:            ~
-    change_password: ~
-email:
-    from_email: ~
-    confirmation:
-        enabled:    ~
-        template:   ~
-    resetting_password:
-        template:   ~
-template:
-    engine: ~
-    theme:  ~
+        user:  Acme\MyBundle\Document\User
+        group: FOS\UserBundle\Document\DefaultGroup
 EOF;
         $parser = new Parser();
+
         return $parser->parse($yaml);
     }
 
     protected function getFullConfig()
     {
-        $config = $this->getEmptyConfig();
-        array_walk_recursive($config, function(&$item, $key) {
-            if (!is_array($item)) {
-                $item = $key;
-            }
-        });
-        $config['db_driver'] = 'orm';
+        $yaml = <<<EOF
+db_driver: orm
+provider_key: fos_user
+class:
+    model:
+        user: Acme\MyBundle\Entity\User
+        group: FOS\UserBundle\Entity\DefaultGroup
+    form:
+        user:            Acme\MyBundle\Form\User
+        group:           Acme\MyBundle\Form\Group
+        change_password: Acme\MyBundle\Form\ChangePassword
+        reset_password:  Acme\MyBundle\Form\ResetPassword
+    controller:
+        user:     Acme\MyBundle\Controller\UserController
+        group:    Acme\MyBundle\Controller\GroupController
+        security: Acme\MyBundle\Controller\SecurityController
+    util:
+        email_canonicalizer:    Acme\MyBundle\Util\EmailCanonicalizer
+        username_canonicalizer: Acme\MyBundle\Util\UsernameCanonicalizer
+service:
+    util:
+        mailer: acme_my.util.mailer
+encoder:
+    algorithm:        sha1
+    encode_as_base64: true
+    iterations:       3
+form_name:
+    user:            acme_user_form
+    group:           acme_group_form
+    change_password: acme_change_form
+    reset_password:  acme_reset_form
+form_validation_groups:
+    user:            [test]
+    group:           [acme]
+    change_password: [acme]
+    reset_password:  [acme]
+email:
+    from_email: { admin@acme.org: Acme Corp }
+    confirmation:
+        enabled:    true
+        template:   AcmeMyBundle:Mail:confirmation
+    resetting_password:
+        template:   AcmeMyBundle:Mail:resetting
+        token_ttl:  1800
+template:
+    engine: php
+    theme:  AcmeMyBundle:Form:theme.html.twig
+EOF;
+        $parser = new Parser();
 
-        return $config;
+        return  $parser->parse($yaml);
     }
 
     public function assertAlias($value, $key)
     {
-        $this->assertEquals($value, $this->configuration->getAlias($key), sprintf('%s alias is correct', $key));
+        $this->assertEquals($value, (string) $this->configuration->getAlias($key), sprintf('%s alias is correct', $key));
     }
 
     public function assertParameter($value, $key)
