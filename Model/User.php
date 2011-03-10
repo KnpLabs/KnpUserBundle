@@ -452,7 +452,7 @@ abstract class User implements UserInterface
      */
     public function isUser(UserInterface $user = null)
     {
-        return null !== $user && $this->getUsername() === $user->getUsername();
+        return null !== $user && $this->getId() === $user->getId();
     }
 
     public function incrementCreatedAt()

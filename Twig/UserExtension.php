@@ -3,8 +3,10 @@
 namespace FOS\UserBundle\Twig;
 
 use Symfony\Component\Security\Core\SecurityContext;
+use Twig_Function_Method;
+use Twig_Extension;
 
-class UserExtension extends \Twig_Extension
+class UserExtension extends Twig_Extension
 {
     protected $securityContext;
 
@@ -21,10 +23,10 @@ class UserExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'fos_user_getUser'         => new \Twig_Function_Method($this, 'getUser'),
-            'fos_user_isUser'          => new \Twig_Function_Method($this, 'isUser'),
-            'fos_user_isAuthenticated' => new \Twig_Function_Method($this, 'isAuthenticated'),
-            'fos_user_isAnonymous'     => new \Twig_Function_Method($this, 'isAnonymous'),
+            'fos_user_getUser'         => new Twig_Function_Method($this, 'getUser'),
+            'fos_user_isUser'          => new Twig_Function_Method($this, 'isUser'),
+            'fos_user_isAuthenticated' => new Twig_Function_Method($this, 'isAuthenticated'),
+            'fos_user_isAnonymous'     => new Twig_Function_Method($this, 'isAnonymous'),
         );
     }
 
@@ -35,7 +37,7 @@ class UserExtension extends \Twig_Extension
      */
     public function getUser()
     {
-        return $this->securityContext->getUser();
+        return $this->securityContext->getToken()->getUser();
     }
 
     /**

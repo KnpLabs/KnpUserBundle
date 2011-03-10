@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<constraint-mapping xmlns="http://www.symfony-project.org/schema/dic/constraint-mapping"
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/constraint-mapping
-        http://www.symfony-project.org/schema/dic/services/constraint-mapping-1.0.xsd">
+    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        http://symfony.com/schema/dic/services/constraint-mapping-1.0.xsd">
 
     <class name="FOS\UserBundle\Model\User">
 
@@ -48,6 +48,10 @@
                 <option name="message">The email is too long</option>
                 <option name="groups">Registration</option>
             </constraint>
+            <constraint name="Email">
+                <option name="message">The email is not valid</option>
+                <option name="groups">Registration</option>
+            </constraint>
         </property>
 
         <property name="plainPassword">
@@ -72,19 +76,44 @@
         <constraint name="FOS\UserBundle\Validator\Password">
             <option name="passwordProperty">current</option>
             <option name="userProperty">user</option>
+            <option name="groups">ChangePassword</option>
         </constraint>
+    </class>
 
+    <class name="FOS\UserBundle\Form\ResetPassword">
         <property name="new">
             <constraint name="NotBlank">
                 <option name="message">Please enter a new password</option>
+                <option name="groups">ResetPassword</option>
             </constraint>
             <constraint name="MinLength">
                 <option name="limit">2</option>
                 <option name="message">The new password is too short</option>
+                <option name="groups">ResetPassword</option>
             </constraint>
             <constraint name="MaxLength">
                 <option name="limit">255</option>
                 <option name="message">The new password is too long</option>
+                <option name="groups">ResetPassword</option>
+            </constraint>
+        </property>
+    </class>
+
+    <class name="FOS\UserBundle\Model\Group">
+        <property name="name">
+            <constraint name="NotBlank">
+                <option name="message">Please enter a name</option>
+                <option name="groups">Registration</option>
+            </constraint>
+            <constraint name="MinLength">
+                <option name="limit">2</option>
+                <option name="message">The name is too short</option>
+                <option name="groups">Registration</option>
+            </constraint>
+            <constraint name="MaxLength">
+                <option name="limit">255</option>
+                <option name="message">The name is too long</option>
+                <option name="groups">Registration</option>
             </constraint>
         </property>
     </class>

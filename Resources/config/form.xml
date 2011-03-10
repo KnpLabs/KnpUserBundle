@@ -1,64 +1,69 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<container xmlns="http://www.symfony-project.org/schema/dic/services"
+<container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
-
-    <parameters>
-        <parameter key="fos_user.form.user.class">FOS\UserBundle\Form\UserForm</parameter>
-        <parameter key="fos_user.form.user.name">fos_user_user_form</parameter>
-        <parameter key="fos_user.form.user.validation_groups" type="collection">
-            <parameter>Registration</parameter>
-        </parameter>
-        <parameter key="fos_user.form.change_password.class">FOS\UserBundle\Form\ChangePasswordForm</parameter>
-        <parameter key="fos_user.form.change_password.name">fos_user_change_password_form</parameter>
-        <parameter key="fos_user.form.reset_password.class">FOS\UserBundle\Form\ResetPasswordForm</parameter>
-        <parameter key="fos_user.form.reset_password.name">fos_user_reset_password_form</parameter>
-        <parameter key="fos_user.form.group.class">FOS\UserBundle\Form\GroupForm</parameter>
-        <parameter key="fos_user.form.group.name">fos_user_group_form</parameter>
-    </parameters>
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
 
-        <service id="fos_user.form.user" factory-method="create" factory-class="%fos_user.form.user.class%" class="%fos_user.form.user.class%">
-            <argument type="service" id="form.context" />
-            <argument>%fos_user.form.user.name%</argument>
-            <argument type="collection">
-                <argument key="theme">%fos_user.template.theme%</argument>
-            </argument>
-        </service>
-
-        <service id="fos_user.form.user_registration" factory-method="create" factory-class="%fos_user.form.user.class%" class="%fos_user.form.user.class%">
+        <service id="fos_user.form.user" factory-method="create" factory-class="%fos_user.form.user.class%" class="%fos_user.form.user.class%" scope="request">
             <argument type="service" id="form.context" />
             <argument>%fos_user.form.user.name%</argument>
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
                 <argument key="validation_groups">%fos_user.form.user.validation_groups%</argument>
             </argument>
+            <call method="setRequest">
+                <argument type="service" id="request" />
+            </call>
+            <call method="setUserManager">
+                <argument type="service" id="fos_user.user_manager" />
+            </call>
         </service>
 
-        <service id="fos_user.form.change_password" factory-method="create" factory-class="%fos_user.form.change_password.class%" class="%fos_user.form.change_password.class%">
+        <service id="fos_user.form.change_password" factory-method="create" factory-class="%fos_user.form.change_password.class%" class="%fos_user.form.change_password.class%" scope="request">
             <argument type="service" id="form.context" />
             <argument>%fos_user.form.change_password.name%</argument>
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
+                <argument key="validation_groups">%fos_user.form.change_password.validation_groups%</argument>
             </argument>
+            <call method="setRequest">
+                <argument type="service" id="request" />
+            </call>
+            <call method="setUserManager">
+                <argument type="service" id="fos_user.user_manager" />
+            </call>
         </service>
 
-        <service id="fos_user.form.reset_password" factory-method="create" factory-class="%fos_user.form.reset_password.class%" class="%fos_user.form.reset_password.class%">
+        <service id="fos_user.form.reset_password" factory-method="create" factory-class="%fos_user.form.reset_password.class%" class="%fos_user.form.reset_password.class%" scope="request">
             <argument type="service" id="form.context" />
             <argument>%fos_user.form.reset_password.name%</argument>
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
+                <argument key="validation_groups">%fos_user.form.reset_password.validation_groups%</argument>
             </argument>
+            <call method="setRequest">
+                <argument type="service" id="request" />
+            </call>
+            <call method="setUserManager">
+                <argument type="service" id="fos_user.user_manager" />
+            </call>
         </service>
 
-        <service id="fos_user.form.group" factory-method="create" factory-class="%fos_user.form.group.class%" class="%fos_user.form.group.class%">
+        <service id="fos_user.form.group" factory-method="create" factory-class="%fos_user.form.group.class%" class="%fos_user.form.group.class%" scope="request">
             <argument type="service" id="form.context" />
             <argument>%fos_user.form.group.name%</argument>
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
+                <argument key="validation_groups">%fos_user.form.group.validation_groups%</argument>
             </argument>
+            <call method="setRequest">
+                <argument type="service" id="request" />
+            </call>
+            <call method="setGroupManager">
+                <argument type="service" id="fos_user.group_manager" />
+            </call>
         </service>
 
     </services>

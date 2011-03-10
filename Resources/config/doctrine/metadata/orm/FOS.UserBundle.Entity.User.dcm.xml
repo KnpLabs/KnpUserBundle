@@ -27,33 +27,22 @@
         <field name="updatedAt" column="updated_at" type="datetime" />
 
         <field name="lastLogin" column="last_login" type="datetime" nullable="true" />
-        
-        <field name="locked" column="locked" type="boolean" />
-        
-        <field name="expired" column="expired" type="boolean" />
-        
-        <field name="expiresAt" column="expires_at" type="datetime" nullable="true" />
-        
-        <field name="confirmationToken" column="confirmation_token" type="string" nullable="true" />
-        
-        <field name="passwordRequestedAt" column="password_requested_at" type="datetime" nullable="true" />
-        
-        <field name="roles" column="roles" type="array" />
-        
-        <field name="credentialsExpired" column="credentials_expired" type="boolean" />
-        
-        <field name="credentialsExpireAt" column="credentials_expire_at" type="datetime" nullable="true" />
 
-        <many-to-many target-entity="Group" field="groups">
-            <join-table name="fos_user_user_group">
-                <join-columns>
-                    <join-column name="user_id" referenced-column-name="id" />
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="group_id" referenced-column-name="id" />
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
+        <field name="locked" column="locked" type="boolean" />
+
+        <field name="expired" column="expired" type="boolean" />
+
+        <field name="expiresAt" column="expires_at" type="datetime" nullable="true" />
+
+        <field name="confirmationToken" column="confirmation_token" type="string" nullable="true" />
+
+        <field name="passwordRequestedAt" column="password_requested_at" type="datetime" nullable="true" />
+
+        <field name="roles" column="roles" type="array" />
+
+        <field name="credentialsExpired" column="credentials_expired" type="boolean" />
+
+        <field name="credentialsExpireAt" column="credentials_expire_at" type="datetime" nullable="true" />
 
         <lifecycle-callbacks>
             <lifecycle-callback type="prePersist" method="incrementCreatedAt" />
