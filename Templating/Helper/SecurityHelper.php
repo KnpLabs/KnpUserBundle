@@ -3,7 +3,7 @@
 namespace FOS\UserBundle\Templating\Helper;
 
 use Symfony\Bundle\SecurityBundle\Templating\Helper\SecurityHelper as BaseSecurityHelper;
-use FOS\UserBundle\Model\User;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Security\Core\SecurityContext;
 
 /**
@@ -24,13 +24,14 @@ class SecurityHelper extends BaseSecurityHelper
     /**
      * Tells whether the authenticated user is this user
      *
+     * @param UserInterface $user
      * @return bool
      **/
-    public function isUser(User $user)
+    public function isUser(UserInterface $user)
     {
         $authenticatedUser = $this->getUser();
 
-        return $authenticatedUser instanceof User && $authenticatedUser->isUser($user);
+        return $authenticatedUser instanceof UserInterface && $authenticatedUser->isUser($user);
     }
 
     /**
@@ -50,7 +51,7 @@ class SecurityHelper extends BaseSecurityHelper
      **/
     public function isAnonymous()
     {
-        return false === $this->vote('IS_AUTHENTICATED_FULLY');
+        return false === $this->isGranted('IS_AUTHENTICATED_FULLY');
     }
 
     /**

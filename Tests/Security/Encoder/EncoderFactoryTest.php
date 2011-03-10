@@ -46,6 +46,6 @@ class EncoderFactoryTest extends \PHPUnit_Framework_TestCase
 
         $factory = new EncoderFactory(null , false, 1, $genericFactory);
 
-        $this->assertSame($encoder, $factory->getEncoder($this->getMock('Symfony\Component\Security\Core\User\AccountInterface')));
+        $this->assertSame($encoder, $factory->getEncoder($this->getMock('Symfony\Component\Security\Core\User\UserInterface')));
     }
 }

@@ -13,8 +13,7 @@ namespace FOS\UserBundle\Model;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Security\Core\User\AccountInterface;
-use Symfony\Component\Security\Core\User\AdvancedAccountInterface;
+use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 /**
@@ -170,10 +169,10 @@ abstract class User implements UserInterface
     /**
      * Implementation of AccountInterface.
      *
-     * @param AccountInterface $account
+     * @param SecurityUserInterface $account
      * @return boolean
      */
-    public function equals(AccountInterface $account)
+    public function equals(SecurityUserInterface $account)
     {
         if (!$account instanceof User) {
             return false;

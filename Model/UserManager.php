@@ -4,9 +4,9 @@ namespace FOS\UserBundle\Model;
 
 use FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Exception\UnsupportedAccountException;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\User\AccountInterface;
+use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
@@ -100,13 +100,13 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * It is strongly discouraged to use this method manually as it bypasses
      * all ACL checks.
      *
-     * @param AccountInterface $user
+     * @param SecurityUserInterface $user
      * @return User
      */
-    public function loadUserByAccount(AccountInterface $user)
+    public function loadUser(SecurityUserInterface $user)
     {
         if (!$user instanceof User) {
-            throw new UnsupportedAccountException('Account is not supported.');
+            throw new UnsupportedUserException('Account is not supported.');
         }
 
         return $this->loadUserByUsername($user->getUsername());
@@ -120,7 +120,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      *
      * @RunAs(roles="ROLE_SUPERADMIN")
      * @param string $username
-     * @return AccountInterface
+     * @return SecurityUserInterface
      */
     public function loadUserByUsername($username)
     {

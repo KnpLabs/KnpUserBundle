@@ -3,6 +3,7 @@
 namespace FOS\UserBundle\Twig;
 
 use Symfony\Component\Security\Core\SecurityContext;
+use FOS\UserBundle\Model\UserInterface;
 use Twig_Function_Method;
 use Twig_Extension;
 
@@ -43,13 +44,14 @@ class UserExtension extends Twig_Extension
     /**
      * Tells whether the authenticated user is this user
      *
+     * @param UserInterface $user
      * @return bool
      */
-    public function isUser(User $user)
+    public function isUser(UserInterface $user)
     {
         $authenticatedUser = $this->getUser();
 
-        return $authenticatedUser instanceof User && $authenticatedUser->isUser($user);
+        return $authenticatedUser instanceof UserInterface && $authenticatedUser->isUser($user);
     }
 
     /**
@@ -69,7 +71,7 @@ class UserExtension extends Twig_Extension
      */
     public function isAnonymous()
     {
-        return false === $this->securityContext->vote('IS_AUTHENTICATED_FULLY');
+        return false === $this->securityContext->isGranted('IS_AUTHENTICATED_FULLY');
     }
 
     /**
