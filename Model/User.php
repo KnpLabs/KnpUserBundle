@@ -347,7 +347,7 @@ abstract class User implements UserInterface
      * Use the SecurityContext, or an implementation of AccessDecisionManager
      * instead, e.g.
      *
-     *         $securityContext->vote('ROLE_USER');
+     *         $securityContext->isGranted('ROLE_USER');
      *
      * @param string $role
      * @return void
