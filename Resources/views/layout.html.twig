@@ -5,7 +5,7 @@
     </head>
     <body>
         <div>
-            {% if has_role("IS_AUTHENTICATED_FULLY") %}
+            {% if is_granted("IS_AUTHENTICATED_FULLY") %}
                 <a href="{{ path('fos_user_user_show', {'username': app.user.getUsername}) }}">
                     {% trans 'Logged in as %username%' with { '%username%': app.user.getUsername() } from 'FOSUserBundle' %}
                 </a> |
