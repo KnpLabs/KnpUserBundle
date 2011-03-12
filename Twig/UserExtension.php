@@ -71,7 +71,7 @@ class UserExtension extends Twig_Extension
      */
     public function isAnonymous()
     {
-        return false === $this->securityContext->isGranted('IS_AUTHENTICATED_FULLY');
+        return false === $this->securityContext->isGranted('ROLE_USER');
     }
 
     /**
