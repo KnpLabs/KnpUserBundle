@@ -51,7 +51,7 @@ class SecurityHelper extends BaseSecurityHelper
      **/
     public function isAnonymous()
     {
-        return false === $this->isGranted('ROLE_USER');
+        return false === $this->isGranted('IS_AUTHENTICATED_REMEMBERED');
     }
 
     /**
