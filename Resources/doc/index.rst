@@ -402,7 +402,7 @@ Templating
 
 The template names are not configurable, however Symfony2 makes it possible
 to extend a bundle by creating a new Bundle and implementing a getParent()
-method inside that new Bundle's definition:
+method inside that new Bundle's definition::
 
     class MyProjectUserBundle extends Bundle
     {
