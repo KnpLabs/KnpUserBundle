@@ -47,13 +47,13 @@ class EncoderFactory implements EncoderFactoryInterface
     /**
      * @see Symfony\Component\Security\Core\Encoder\EncoderFactory::getEncoder()
      */
-    public function getEncoder(SecurityUserInterface $account)
+    public function getEncoder(SecurityUserInterface $user)
     {
-        if (!$account instanceof UserInterface) {
-            return $this->genericFactory->getEncoder($account);
+        if (!$user instanceof UserInterface) {
+            return $this->genericFactory->getEncoder($user);
         }
 
-        if (isset($this->encoders[$algorithm = $account->getAlgorithm()])) {
+        if (isset($this->encoders[$algorithm = $user->getAlgorithm()])) {
             return $this->encoders[$algorithm];
         }
 

@@ -167,36 +167,36 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Implementation of AccountInterface.
+     * Implementation of SecurityUserInterface.
      *
      * @param SecurityUserInterface $account
      * @return boolean
      */
-    public function equals(SecurityUserInterface $account)
+    public function equals(SecurityUserInterface $user)
     {
-        if (!$account instanceof User) {
+        if (!$user instanceof User) {
             return false;
         }
 
-        if ($this->password !== $account->getPassword()) {
+        if ($this->password !== $user->getPassword()) {
             return false;
         }
-        if ($this->getSalt() !== $account->getSalt()) {
+        if ($this->getSalt() !== $user->getSalt()) {
             return false;
         }
-        if ($this->usernameCanonical !== $account->getUsernameCanonical()) {
+        if ($this->usernameCanonical !== $user->getUsernameCanonical()) {
             return false;
         }
-        if ($this->isAccountNonExpired() !== $account->isAccountNonExpired()) {
+        if ($this->isAccountNonExpired() !== $user->isAccountNonExpired()) {
             return false;
         }
-        if (!$this->locked !== $account->isAccountNonLocked()) {
+        if (!$this->locked !== $user->isAccountNonLocked()) {
             return false;
         }
-        if ($this->isCredentialsNonExpired() !== $account->isCredentialsNonExpired()) {
+        if ($this->isCredentialsNonExpired() !== $user->isCredentialsNonExpired()) {
             return false;
         }
-        if ($this->enabled !== $account->isEnabled()) {
+        if ($this->enabled !== $user->isEnabled()) {
             return false;
         }
 
@@ -205,7 +205,7 @@ abstract class User implements UserInterface
 
     /**
      * Removes sensitive data from the user.
-     * Implements AccountInterface
+     * Implements SecurityUserInterface
      */
     public function eraseCredentials()
     {
@@ -241,7 +241,7 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Implementation of AccountInterface
+     * Implementation of SecurityUserInterface
      * @return string
      */
     public function getSalt()
@@ -274,7 +274,7 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Implements AccountInterface
+     * Implements SecurityUserInterface
      * Get the encrypted password
      * @return string
      */
@@ -323,7 +323,7 @@ abstract class User implements UserInterface
 
     /**
      * Return the user roles
-     * Implements AccountInterface
+     * Implements SecurityUserInterface
      *
      * @return array The roles
      **/
@@ -359,7 +359,7 @@ abstract class User implements UserInterface
 
     /**
      * Checks whether the user's account has expired.
-     * Implements AdvancedAccountInterface
+     * Implements AdvancedUserInterface
      *
      * @return Boolean true if the user's account is non expired, false otherwise
      */
@@ -378,7 +378,7 @@ abstract class User implements UserInterface
 
     /**
      * Checks whether the user is locked.
-     * Implements AdvancedAccountInterface
+     * Implements AdvancedUserInterface
      *
      * @return Boolean true if the user is not locked, false otherwise
      */
@@ -389,7 +389,7 @@ abstract class User implements UserInterface
 
     /**
      * Checks whether the user's credentials (password) has expired.
-     * Implements AdvancedAccountInterface
+     * Implements AdvancedUserInterface
      *
      * @return Boolean true if the user's credentials are non expired, false otherwise
      */
@@ -413,7 +413,7 @@ abstract class User implements UserInterface
 
     /**
      * Checks whether the user is enabled.
-     * Implements AdvancedAccountInterface
+     * Implements AdvancedUserInterface
      *
      * @return Boolean true if the user is enabled, false otherwise
      */
