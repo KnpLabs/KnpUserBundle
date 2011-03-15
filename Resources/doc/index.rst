@@ -136,7 +136,8 @@ enabled in your kernel and in your project's configuration::
     # app/config/config.yml
     security:
         providers:
-            fos_user:
+            # the naming of a security provider is up to you, we chose "fos_userbundle"
+            fos_userbundle:
                 id: fos_user.user_manager
 
 Note::
