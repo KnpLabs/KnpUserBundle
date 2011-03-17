@@ -12,12 +12,12 @@ Features
 Installation
 ============
 
-Add UserBundle to your src/ dir
+Add UserBundle to your vendor/bundles/ dir
 -------------------------------------
 
 ::
 
-    $ git submodule add git://github.com/FriendsOfSymfony/UserBundle.git src/FOS/UserBundle
+    $ git submodule add git://github.com/FriendsOfSymfony/UserBundle.git vendor/bundles/FOS/UserBundle
 
 Add the FOS namespace to your autoloader
 ----------------------------------------
@@ -25,7 +25,7 @@ Add the FOS namespace to your autoloader
 ::
     // app/autoload.php
     $loader->registerNamespaces(array(
-        'FOS' => __DIR__.'/../src',
+        'FOS' => __DIR__.'/../vendor/bundles',
         // your other namespaces
     );
 
