@@ -183,8 +183,14 @@ At a minimum, your configuration must define your DB driver ("orm" or "mongodb")
 a User class and the provider key. The provider key matches the key in the firewall
 configuration that is used for users with the UserController.
 
+The provider key needs to be configured so that the UserBundle can determine
+against what firewall the user should be authenticated after activating the
+account for example. This means that out of the box UserBundle only supports
+being used for a single firewall, though with a custom Controller this limitation
+can be circumvented.
+
 For example for a security configuration like the following the provider_key would
-have to be set to "fos_userbundle", as shown in the proceeding examples:
+have to be set to "main", as shown in the proceeding examples:
 
 ::
 
@@ -209,7 +215,7 @@ In YAML:
     # app/config/config.yml
     fos_user:
         db_driver: orm
-        provider_key: fos_userbundle
+        provider_key: main
         class:
             model:
                 user: MyProject\MyBundle\Entity\User
