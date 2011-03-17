@@ -413,7 +413,7 @@ method inside that new Bundle's definition::
         }
     }
 
-For example ``src/FOS/UserBundle/Resources/views/User/new.twig`` can be
+For example ``vendor/bundles/FOS/UserBundle/Resources/views/User/new.twig`` can be
 replaced inside an application by putting a file with alternative content in
 ``src/MyProject/FOS/UserBundle/Resources/views/User/new.twig``.
 
