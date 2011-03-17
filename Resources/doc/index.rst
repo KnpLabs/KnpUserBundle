@@ -23,6 +23,7 @@ Add the FOS namespace to your autoloader
 ----------------------------------------
 
 ::
+
     // app/autoload.php
     $loader->registerNamespaces(array(
         'FOS' => __DIR__.'/../vendor/bundles',
@@ -353,6 +354,7 @@ Configuration example:
 
 All configuration options are listed below::
 
+    # app/config/config.yml
     fos_user:
         db_driver:    mongodb
         provider_key: fos_userbundle
@@ -398,6 +400,55 @@ All configuration options are listed below::
             engine: ~
             theme:  ~
 
+Security configuration
+----------------------
+
+Here is an example of a full security configuration using FOSUserBundle::
+
+    # app/config/security.yml
+    security:
+        providers:
+            fos_userbundle:
+                id: fos_user.user_manager
+
+        firewalls:
+            main:
+                pattern:      .*
+                form-login:
+                    provider:       fos_userbundle
+                    login_path:     /login
+                    use_forward:    false
+                    check_path:     /login_check
+                    failure_path:   null
+                logout:       true
+                anonymous:    true
+
+        access_control:
+            # The WDT has to be allowed to anonymous users to avoid requiring the login with the AJAX request
+            - { path: /_wdt/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: /_profiler/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            # URL of the bundles which need to be available to anonymous users
+            - { path: /login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: /login_check, role: IS_AUTHENTICATED_ANONYMOUSLY } # for the case of a failed login
+            - { path: /user/new, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: /user/check-confirmation-email, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: /user/confirm/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: /user/confirmed, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: /user/request-reset-password, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: /user/send-resetting-email, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: /user/check-resetting-email, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: /user/reset-password/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            # Secured part of the site (all site here and an admin part for admin users)
+            - { path: /admin/.*, role: ROLE_ADMIN }
+            - { path: /.*, role: ROLE_USER }
+
+        role_hierarchy:
+            ROLE_ADMIN:       ROLE_USER
+            ROLE_SUPERADMIN:  ROLE_ADMIN
+
+Replacing some part by your own implementation:
+===============================================
+
 Templating
 ----------
 
@@ -415,7 +466,7 @@ method inside that new Bundle's definition::
 
 For example ``vendor/bundles/FOS/UserBundle/Resources/views/User/new.twig`` can be
 replaced inside an application by putting a file with alternative content in
-``src/MyProject/FOS/UserBundle/Resources/views/User/new.twig``.
+``src/MyProject/UserBundle/Resources/views/User/new.twig``.
 
 You can use a different templating engine by configuring it but you will have to
 create all the needed templates as only twig templates are provided.
@@ -450,5 +501,6 @@ in the same manner using ``mb_convert_case()``. You may configure your own class
 for each field provided it implements ``FOS\UserBundle\Util\CanonicalizerInterface``.
 
 Note::
+
     If you do not have the mbstring extension installed you will need to
     define your own ``canonicalizer``.
