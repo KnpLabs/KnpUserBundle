@@ -3,9 +3,8 @@
 namespace FOS\UserBundle\Security;
 
 use FOS\UserBundle\Model\UserManagerInterface;
-use FOS\UserBundle\Model\User;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\EventDispatcher\Event;
+use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use DateTime;
 
 class InteractiveLoginListener
@@ -17,11 +16,11 @@ class InteractiveLoginListener
         $this->userManager = $userManager;
     }
 
-    public function listenToInteractiveLogin(Event $event)
+    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {
-        $user = $event->get('token')->getUser();
+        $user = $event->getAuthenticationToken()->getUser();
 
-        if ($user instanceof User) {
+        if ($user instanceof UserInterface) {
             $user->setLastLogin(new DateTime());
             $this->userManager->updateUser($user);
         }
