@@ -359,7 +359,7 @@ template:
     theme:  AcmeMyBundle:Form:theme.html.twig
 group:
     class:
-        model:      FOS\UserBundle\Entity\DefaultGroup
+        model:      Acme\MyBundle\Entity\Group
         form:       Acme\MyBundle\Form\Group
         controller: Acme\MyBundle\Controller\GroupController
     form_name:              acme_group_form
