@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="fos_user.form.group" factory-method="create" factory-class="%fos_user.form.group.class%" class="%fos_user.form.group.class%" scope="request">
+            <argument type="service" id="form.context" />
+            <argument>%fos_user.form.group.name%</argument>
+            <argument type="collection">
+                <argument key="theme">%fos_user.template.theme%</argument>
+                <argument key="validation_groups">%fos_user.form.group.validation_groups%</argument>
+            </argument>
+            <call method="setRequest">
+                <argument type="service" id="request" />
+            </call>
+            <call method="setGroupManager">
+                <argument type="service" id="fos_user.group_manager" />
+            </call>
+        </service>
+
+        <service id="fos_user.controller.group" class="%fos_user.controller.group.class%">
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
+        </service>
+
+    </services>
+
+</container>

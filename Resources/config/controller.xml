@@ -15,10 +15,5 @@
                 <argument type="service" id="service_container" />
             </call>
         </service>
-        <service id="fos_user.controller.group" class="%fos_user.controller.group.class%">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
-        </service>
     </services>
 </container>

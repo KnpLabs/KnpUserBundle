@@ -6,7 +6,6 @@
 
     <parameters>
         <parameter key="fos_user.user_manager.class">FOS\UserBundle\Document\UserManager</parameter>
-        <parameter key="fos_user.group_manager.class">FOS\UserBundle\Document\GroupManager</parameter>
     </parameters>
 
     <services>
@@ -17,10 +16,6 @@
             <argument type="service" id="fos_user.util.email_canonicalizer" />
             <argument type="service" id="doctrine.odm.mongodb.document_manager" />
             <argument>%fos_user.model.user.class%</argument>
-        </service>
-        <service id="fos_user.group_manager" class="%fos_user.group_manager.class%">
-            <argument type="service" id="doctrine.odm.mongodb.document_manager" />
-            <argument>%fos_user.model.group.class%</argument>
         </service>
     </services>
 

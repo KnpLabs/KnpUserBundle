@@ -6,7 +6,6 @@
 
     <parameters>
         <parameter key="fos_user.user_manager.class">FOS\UserBundle\Entity\UserManager</parameter>
-        <parameter key="fos_user.group_manager.class">FOS\UserBundle\Entity\GroupManager</parameter>
     </parameters>
 
     <services>
@@ -15,12 +14,8 @@
             <argument>%fos_user.encoder.algorithm%</argument>
             <argument type="service" id="fos_user.util.username_canonicalizer" />
             <argument type="service" id="fos_user.util.email_canonicalizer" />
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%fos_user.model.user.class%</argument>
-        </service>
-        <service id="fos_user.group_manager" class="%fos_user.group_manager.class%">
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
-            <argument>%fos_user.model.group.class%</argument>
         </service>
     </services>
 

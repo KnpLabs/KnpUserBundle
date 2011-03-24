@@ -38,6 +38,7 @@ class Configuration
         $this->addFormValidationGroupsSection($rootNode);
         $this->addEmailSection($rootNode);
         $this->addTemplateSection($rootNode);
+        $this->addGroupSection($rootNode);
 
         return $treeBuilder->buildTree();
     }
@@ -54,14 +55,12 @@ class Configuration
                             ->isRequired()
                             ->children()
                                 ->scalarNode('user')->isRequired()->cannotBeEmpty()->end()
-                                ->scalarNode('group')->isRequired()->cannotBeEmpty()->end()
                             ->end()
                         ->end()
                         ->arrayNode('form')
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->scalarNode('user')->defaultValue('FOS\\UserBundle\\Form\\UserForm')->end()
-                                ->scalarNode('group')->defaultValue('FOS\\UserBundle\\Form\\GroupForm')->end()
                                 ->scalarNode('change_password')->defaultValue('FOS\\UserBundle\\Form\\ChangePasswordForm')->end()
                                 ->scalarNode('reset_password')->defaultValue('FOS\\UserBundle\\Form\\ResetPasswordForm')->end()
                             ->end()
@@ -70,7 +69,6 @@ class Configuration
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->scalarNode('user')->defaultValue('FOS\\UserBundle\\Controller\\UserController')->end()
-                                ->scalarNode('group')->defaultValue('FOS\\UserBundle\\Controller\\GroupController')->end()
                                 ->scalarNode('security')->defaultValue('FOS\\UserBundle\\Controller\\SecurityController')->end()
                             ->end()
                         ->end()
@@ -128,10 +126,6 @@ class Configuration
                             ->defaultValue('fos_user_user_form')
                             ->cannotBeEmpty()
                         ->end()
-                        ->scalarNode('group')
-                            ->defaultValue('fos_user_group_form')
-                            ->cannotBeEmpty()
-                        ->end()
                         ->scalarNode('change_password')
                             ->defaultValue('fos_user_change_password_form')
                             ->cannotBeEmpty()
@@ -166,11 +160,6 @@ class Configuration
                             ->addDefaultsIfNotSet()
                             ->prototype('scalar')->end()
                             ->defaultValue(array('ResetPassword'))
-                        ->end()
-                        ->arrayNode('group')
-                            ->addDefaultsIfNotSet()
-                            ->prototype('scalar')->end()
-                            ->defaultValue(array('Registration'))
                         ->end()
                     ->end()
                 ->end()
@@ -223,6 +212,35 @@ class Configuration
                     ->children()
                         ->scalarNode('engine')->defaultValue('twig')->end()
                         ->scalarNode('theme')->defaultValue('TwigBundle::form.html.twig')->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    private function addGroupSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->canBeUnset()
+            ->children()
+                ->arrayNode('group')
+                    ->children()
+                        ->arrayNode('class')
+                            ->isRequired()
+                            ->children()
+                                ->scalarNode('model')->isRequired()->cannotBeEmpty()->end()
+                                ->scalarNode('form')->defaultValue('FOS\\UserBundle\\Form\\GroupForm')->end()
+                                ->scalarNode('controller')->defaultValue('FOS\\UserBundle\\Controller\\GroupController')->end()
+                            ->end()
+                        ->end()
+                        ->scalarNode('form_name')
+                            ->defaultValue('fos_user_group_form')
+                            ->cannotBeEmpty()
+                        ->end()
+                        ->arrayNode('form_validation_groups')
+                            ->addDefaultsIfNotSet()
+                            ->prototype('scalar')->end()
+                            ->defaultValue(array('Registration'))
+                        ->end()
                     ->end()
                 ->end()
             ->end();

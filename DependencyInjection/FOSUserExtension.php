@@ -32,6 +32,18 @@ class FOSUserExtension extends Extension
             $container->setAlias('fos_user.util.mailer', $config['service']['util']['mailer']);
         }
 
+        if (!empty($config['group'])) {
+            $loader->load('group.xml');
+            $loader->load(sprintf('%s_group.xml', $config['db_driver']));
+            $this->remapParametersNamespaces($config['group'], $container, array(
+                'class' => 'fos_user.%s.group.class',
+                '' => array(
+                    'form_name' => 'fos_user.form.group.name',
+                    'form_validation_groups' => 'fos_user.form.group.validation_groups'
+                ),
+            ));
+        }
+
         $this->remapParametersNamespaces($config, $container, array(
             ''          => array(
                 'provider_key' => 'fos_user.provider_key'
