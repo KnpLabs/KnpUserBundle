@@ -327,6 +327,19 @@ A new instance of your User class can be created by the user manager::
 
 `$user` is now an Entity or a Document, depending on the configuration.
 
+Updating a User object
+----------------------
+
+When creating or updating a User object you need to call the ``updateUser``
+method of the user manager to update some fields (encoded password, canonical
+fields...). This will also persist the entity.
+
+.. note::
+
+    The default behavior is to flush the changes when calling this method. You
+    can disable the flush when using the ORM and the MongoDB implementations by
+    passing a second argument set to ``false``.
+
 Using groups
 ============
 

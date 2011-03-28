@@ -70,15 +70,22 @@ class UserManager extends BaseUserManager
     }
 
     /**
-     * {@inheritDoc}
+     * Updates a user
+     *
+     * @SecureParam(name="user", permissions="EDIT")
+     * @param User $user
+     * @param Boolean $andFlush Whether to flush the changes (default true)
+     * @return void
      */
-    public function updateUser(UserInterface $user)
+    public function updateUser(UserInterface $user, $andFlush = true)
     {
         $this->updateCanonicalFields($user);
         $this->updatePassword($user);
 
         $this->em->persist($user);
-        $this->em->flush();
+        if ($andFlush) {
+            $this->em->flush();
+        }
     }
 
     /**

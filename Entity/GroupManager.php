@@ -55,11 +55,17 @@ class GroupManager extends BaseGroupManager
     }
 
     /**
-     * {@inheritDoc}
+     * Updates a group
+     *
+     * @param GroupInterface $group
+     * @param Boolean $andFlush Whether to flush the changes (default true)
+     * @return void
      */
-    public function updateGroup(GroupInterface $group)
+    public function updateGroup(GroupInterface $group, $andFlush = true)
     {
         $this->em->persist($group);
-        $this->em->flush();
+        if ($andFlush) {
+            $this->em->flush();
+        }
     }
 }
