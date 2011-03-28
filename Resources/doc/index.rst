@@ -563,22 +563,22 @@ Here is an example of a full security configuration using FOSUserBundle::
 
         access_control:
             # The WDT has to be allowed to anonymous users to avoid requiring the login with the AJAX request
-            - { path: /_wdt/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: /_profiler/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/_wdt/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/_profiler/, role: IS_AUTHENTICATED_ANONYMOUSLY }
             # URL of the bundles which need to be available to anonymous users
-            - { path: /login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: /login_check, role: IS_AUTHENTICATED_ANONYMOUSLY } # for the case of a failed login
-            - { path: /user/new, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: /user/check-confirmation-email, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: /user/confirm/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: /user/confirmed, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: /user/request-reset-password, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: /user/send-resetting-email, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: /user/check-resetting-email, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: /user/reset-password/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY } # for the case of a failed login
+            - { path: ^/user/new$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/user/check-confirmation-email$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/user/confirm/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/user/confirmed$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/user/request-reset-password$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/user/send-resetting-email$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/user/check-resetting-email$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/user/reset-password/, role: IS_AUTHENTICATED_ANONYMOUSLY }
             # Secured part of the site (all site here and an admin part for admin users)
-            - { path: /admin/.*, role: ROLE_ADMIN }
-            - { path: /.*, role: ROLE_USER }
+            - { path: ^/admin/, role: ROLE_ADMIN }
+            - { path: ^/.*, role: ROLE_USER }
 
         role_hierarchy:
             ROLE_ADMIN:       ROLE_USER
