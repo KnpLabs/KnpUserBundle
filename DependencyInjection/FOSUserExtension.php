@@ -24,7 +24,7 @@ class FOSUserExtension extends Extension
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array('controller', 'templating', 'twig', 'form', 'validator', 'security', 'util', 'listener') as $basename) {
+        foreach (array('controller', 'form', 'validator', 'security', 'util', 'listener') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
