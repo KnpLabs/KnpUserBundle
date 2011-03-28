@@ -27,7 +27,7 @@ class GroupController extends ContainerAware
     {
         $groups = $this->container->get('fos_user.group_manager')->findGroups();
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:list.html.'.$this->getEngine(), array('groups' => $groups));
+        return $this->container->get('templating')->renderResponse('FOSUser:Group:list.html.'.$this->getEngine(), array('groups' => $groups));
     }
 
     /**
@@ -37,7 +37,7 @@ class GroupController extends ContainerAware
     {
         $group = $this->findGroupBy('name', $groupname);
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:show.html.'.$this->getEngine(), array('group' => $group));
+        return $this->container->get('templating')->renderResponse('FOSUser:Group:show.html.'.$this->getEngine(), array('group' => $group));
     }
 
     /**
@@ -50,7 +50,7 @@ class GroupController extends ContainerAware
 
         $form->process($group);
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:edit.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUser:Group:edit.html.'.$this->getEngine(), array(
             'form'      => $form,
             'groupname'  => $group->getName()
         ));
@@ -71,7 +71,7 @@ class GroupController extends ContainerAware
             return new RedirectResponse($groupUrl);
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:edit.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUser:Group:edit.html.'.$this->getEngine(), array(
             'form'      => $form,
             'groupname'  => $group->getName()
         ));
@@ -86,7 +86,7 @@ class GroupController extends ContainerAware
 
         $form->process();
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:new.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUser:Group:new.html.'.$this->getEngine(), array(
             'form' => $form
         ));
     }
@@ -106,7 +106,7 @@ class GroupController extends ContainerAware
             return new RedirectResponse($url);
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:new.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUser:Group:new.html.'.$this->getEngine(), array(
             'form' => $form
         ));
     }

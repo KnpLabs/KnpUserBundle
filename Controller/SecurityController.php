@@ -23,7 +23,7 @@ class SecurityController extends ContainerAware
             $error = $error->getMessage();
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Security:login.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUser:Security:login.html.'.$this->getEngine(), array(
             // last username entered by the user
             'last_username' => $this->container->get('request')->getSession()->get(SecurityContext::LAST_USERNAME),
             'error'         => $error,

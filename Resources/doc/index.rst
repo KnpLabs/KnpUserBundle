@@ -148,8 +148,8 @@ along with the bundle containing your custom User class::
     doctrine:
         orm:
             mappings:
-                FOSUserBundle: ~
-                MyProjectMyBundle:   ~
+                FOSUser: ~
+                MyProjectMy:   ~
                 # your other bundles
 
 The above example assumes an ORM configuration, but the ``mappings``
@@ -253,18 +253,18 @@ routes:
 
     # app/config/routing.yml
     fos_user_security:
-        resource: @FOSUserBundle/Resources/config/routing/security.xml
+        resource: @FOSUser/Resources/config/routing/security.xml
 
     fos_user_user:
-        resource: @FOSUserBundle/Resources/config/routing/user.xml
+        resource: @FOSUser/Resources/config/routing/user.xml
         prefix: /user
 
 ::
 
     # app/config/routing.xml
 
-    <import resource="@FOSUserBundle/Resources/config/routing/security.xml"/>
-    <import resource="@FOSUserBundle/Resources/config/routing/user.xml" prefix="/user" />
+    <import resource="@FOSUser/Resources/config/routing/security.xml"/>
+    <import resource="@FOSUser/Resources/config/routing/user.xml" prefix="/user" />
 
 You now can login at http://app.com/login
 
@@ -578,20 +578,14 @@ Templating
 ----------
 
 The template names are not configurable, however Symfony2 makes it possible
-to extend a bundle by creating a new Bundle and implementing a getParent()
-method inside that new Bundle's definition::
-
-    class MyProjectUserBundle extends Bundle
-    {
-        public function getParent()
-        {
-            return 'FOSUserBundle';
-        }
-    }
+to extend a bundle by defining a template in the app/ directory.
 
 For example ``vendor/bundles/FOS/UserBundle/Resources/views/User/new.twig`` can be
 replaced inside an application by putting a file with alternative content in
-``src/MyProject/UserBundle/Resources/views/User/new.twig``.
+``app/Resources/FOSUser/views/User/new.twig``.
+
+You could also create a bundle defined as child of FOSUserBundle and placing the
+templates in it.
 
 You can use a different templating engine by configuring it but you will have to
 create all the needed templates as only twig templates are provided.
@@ -621,9 +615,10 @@ Canonicalization
 ----------------
 
 ``Canonicalizer`` services are used to canonicalize the username and the email
-fields for database storage. By default, username and email fields are canonicalized
-in the same manner using ``mb_convert_case()``. You may configure your own class
-for each field provided it implements ``FOS\UserBundle\Util\CanonicalizerInterface``.
+fields for database storage. By default, username and email fields are
+canonicalized in the same manner using ``mb_convert_case()``. You may configure
+your own class for each field provided it implements
+``FOS\UserBundle\Util\CanonicalizerInterface``.
 
 Note::
 
