@@ -211,7 +211,7 @@ class Configuration
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('engine')->defaultValue('twig')->end()
-                        ->scalarNode('theme')->defaultValue('TwigBundle::form.html.twig')->end()
+                        ->scalarNode('theme')->defaultValue('Twig::form.html.twig')->end()
                     ->end()
                 ->end()
             ->end();

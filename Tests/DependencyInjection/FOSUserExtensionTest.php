@@ -201,8 +201,8 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertParameter(true, 'fos_user.email.confirmation.enabled');
         $this->assertParameter(array('admin@acme.org' => 'Acme Corp'), 'fos_user.email.from_email');
-        $this->assertParameter('AcmeMyBundle:Mail:confirmation', 'fos_user.email.confirmation.template');
-        $this->assertParameter('AcmeMyBundle:Mail:resetting', 'fos_user.email.resetting_password.template');
+        $this->assertParameter('AcmeMy:Mail:confirmation', 'fos_user.email.confirmation.template');
+        $this->assertParameter('AcmeMy:Mail:resetting', 'fos_user.email.resetting_password.template');
         $this->assertParameter(1800, 'fos_user.email.resetting_password.token_ttl');
     }
 
@@ -211,7 +211,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('twig', 'fos_user.template.engine');
-        $this->assertParameter('TwigBundle::form.html.twig', 'fos_user.template.theme');
+        $this->assertParameter('Twig::form.html.twig', 'fos_user.template.theme');
     }
 
     public function testUserLoadTemplateConfig()
@@ -219,7 +219,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createFullConfiguration();
 
         $this->assertParameter('php', 'fos_user.template.engine');
-        $this->assertParameter('AcmeMyBundle:Form:theme.html.twig', 'fos_user.template.theme');
+        $this->assertParameter('AcmeMy:Form:theme.html.twig', 'fos_user.template.theme');
     }
 
     public function testUserLoadEncoderConfigWithDefaults()
@@ -350,13 +350,13 @@ email:
     from_email: { admin@acme.org: Acme Corp }
     confirmation:
         enabled:    true
-        template:   AcmeMyBundle:Mail:confirmation
+        template:   AcmeMy:Mail:confirmation
     resetting_password:
-        template:   AcmeMyBundle:Mail:resetting
+        template:   AcmeMy:Mail:resetting
         token_ttl:  1800
 template:
     engine: php
-    theme:  AcmeMyBundle:Form:theme.html.twig
+    theme:  AcmeMy:Form:theme.html.twig
 group:
     class:
         model:      Acme\MyBundle\Entity\Group
