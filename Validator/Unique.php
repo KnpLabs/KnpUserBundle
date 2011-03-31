@@ -25,10 +25,10 @@ class Unique extends Constraint
     }
 
     /**
-     * @see Symfony\Component\Validator.Constraint::targets()
+     * {@inheritDoc}
      */
-    public function targets()
+    public function getTargets()
     {
-        return Constraint::CLASS_CONSTRAINT;
+        return self::CLASS_CONSTRAINT;
     }
 }

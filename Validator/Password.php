@@ -19,9 +19,11 @@ class Password extends Constraint
     {
         return 'fos_user.validator.password';
     }
-
-    public function targets()
+    /**
+     * {@inheritDoc}
+     */
+    public function getTargets()
     {
-        return Constraint::CLASS_CONSTRAINT;
+        return self::CLASS_CONSTRAINT;
     }
 }
