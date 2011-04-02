@@ -72,7 +72,7 @@ class UserManager extends BaseUserManager
     /**
      * Updates a user
      *
-     * @SecureParam(name="user", permissions="EDIT")
+     * @extra:SecureParam(name="user", permissions="EDIT")
      * @param User $user
      * @param Boolean $andFlush Whether to flush the changes (default true)
      * @return void

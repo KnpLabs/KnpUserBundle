@@ -38,7 +38,7 @@ interface UserManagerInterface
     /**
      * Deletes a user
      *
-     * @SecureParam(name="user", permissions="DELETE")
+     * @extra:SecureParam(name="user", permissions="DELETE")
      * @param User $user
      * @return void
      */
@@ -47,7 +47,7 @@ interface UserManagerInterface
     /**
      * Finds one user by the given criteria
      *
-     * @SecureReturn(permissions="VIEW")
+     * @extra:SecureReturn(permissions="VIEW")
      * @param array $criteria
      * @return User
      */
@@ -98,7 +98,7 @@ interface UserManagerInterface
     /**
      * Updates a user
      *
-     * @SecureParam(name="user", permissions="EDIT")
+     * @extra:SecureParam(name="user", permissions="EDIT")
      * @param User $user
      * @return void
      */
@@ -107,7 +107,7 @@ interface UserManagerInterface
     /**
      * Updates the canonical username and email fields for a user
      *
-     * @SecureParam(name="user", permissions="EDIT")
+     * @extra:SecureParam(name="user", permissions="EDIT")
      * @param User $user
      * @return void
      */
@@ -116,7 +116,7 @@ interface UserManagerInterface
     /**
      * Updates a user password if a plain password is set
      *
-     * @SecureParam(name="user", permissions="EDIT")
+     * @extra:SecureParam(name="user", permissions="EDIT")
      * @param User $user
      * @return void
      */
