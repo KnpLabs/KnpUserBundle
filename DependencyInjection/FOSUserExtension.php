@@ -46,7 +46,7 @@ class FOSUserExtension extends Extension
 
         $this->remapParametersNamespaces($config, $container, array(
             ''          => array(
-                'provider_key' => 'fos_user.provider_key'
+                'firewall_name' => 'fos_user.firewall_name'
             ),
             'encoder'   => 'fos_user.encoder.%s',
             'template'  => 'fos_user.template.%s',

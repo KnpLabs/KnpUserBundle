@@ -364,7 +364,7 @@ class UserController extends ContainerAware
      */
     protected function authenticateUser(UserInterface $user, $reAuthenticate = false)
     {
-        $providerKey = $this->container->getParameter('fos_user.provider_key');
+        $providerKey = $this->container->getParameter('fos_user.firewall_name');
         $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
 
         if (true === $reAuthenticate) {

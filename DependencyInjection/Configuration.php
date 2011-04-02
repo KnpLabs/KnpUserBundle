@@ -28,7 +28,7 @@ class Configuration
         $rootNode
             ->children()
                 ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->cannotBeEmpty()->end()
-                ->scalarNode('provider_key')->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('firewall_name')->isRequired()->cannotBeEmpty()->end()
             ->end();
 
         $this->addClassSection($rootNode);

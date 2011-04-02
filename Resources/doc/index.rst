@@ -168,7 +168,7 @@ account for example. This means that out of the box UserBundle only supports
 being used for a single firewall, though with a custom Controller this
 limitation can be circumvented.
 
-For example for a security configuration like the following the provider_key
+For example for a security configuration like the following the firewall_name
 would have to be set to "main", as shown in the proceeding examples:
 
 ::
@@ -194,7 +194,7 @@ In YAML:
     # app/config/config.yml
     fos_user:
         db_driver: orm
-        provider_key: main
+        firewall_name: main
         class:
             model:
                 user: MyProject\MyBundle\Entity\User
@@ -205,7 +205,7 @@ Or if you prefer XML:
 
     # app/config/config.xml
 
-    <fos_user:config db-driver="orm" provider-key="main">
+    <fos_user:config db-driver="orm" firewall-name="main">
         <fos_user:class>
             <fos_user:model
                 user="MyProject\MyBundle\Entity\User"
@@ -223,7 +223,7 @@ In YAML:
     # app/config/config.yml
     fos_user:
         db_driver: mongodb
-        provider_key: main
+        firewall_name: main
         class:
             model:
                 user: MyProject\MyBundle\Document\User
@@ -234,7 +234,7 @@ Or if you prefer XML:
 
     # app/config/config.xml
 
-    <fos_user:config db-driver="mongodb" provider-key="main">
+    <fos_user:config db-driver="mongodb" firewall-name="main">
         <fos_user:class>
             <fos_user:model
                 user="MyProject\MyBundle\Document\User"
@@ -354,7 +354,7 @@ In YAML:
     # app/config/config.yml
     fos_user:
         db_driver: orm
-        provider_key: main
+        firewall_name: main
         class:
             model:
                 user: MyProject\MyBundle\Entity\User
@@ -368,7 +368,7 @@ Or if you prefer XML:
 
     # app/config/config.xml
 
-    <fos_user:config db-driver="orm" provider-key="main">
+    <fos_user:config db-driver="orm" firewall-name="main">
         <fos_user:class>
             <fos_user:model
                 user="MyProject\MyBundle\Entity\User"
@@ -491,8 +491,8 @@ All configuration options are listed below::
 
     # app/config/config.yml
     fos_user:
-        db_driver:    mongodb
-        provider_key: fos_userbundle
+        db_driver:     mongodb
+        firewall_name: main
         class:
             model:
                 user:  MyProject\MyBundle\Document\User

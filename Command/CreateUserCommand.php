@@ -80,7 +80,7 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->container->get('security.context')->setToken(new UsernamePasswordToken('command.line', null, $this->container->getParameter('fos_user.provider_key'), array(User::ROLE_SUPERADMIN)));
+        $this->container->get('security.context')->setToken(new UsernamePasswordToken('command.line', null, $this->container->getParameter('fos_user.firewall_name'), array(User::ROLE_SUPERADMIN)));
 
         $userManager = $this->container->get('fos_user.user_manager');
         $user = $userManager->createUser();

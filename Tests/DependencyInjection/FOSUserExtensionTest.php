@@ -35,11 +35,11 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     /**
      * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
      */
-    public function testUserLoadThrowsExceptionUnlessProviderKeySet()
+    public function testUserLoadThrowsExceptionUnlessFirewallNameSet()
     {
         $loader = new FOSUserExtension();
         $config = $this->getEmptyConfig();
-        unset($config['provider_key']);
+        unset($config['firewall_name']);
         $loader->load(array($config), new ContainerBuilder());
     }
 
@@ -303,7 +303,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $yaml = <<<EOF
 db_driver: mongodb
-provider_key: fos_user
+firewall_name: fos_user
 class:
     model:
         user:  Acme\MyBundle\Document\User
@@ -317,7 +317,7 @@ EOF;
     {
         $yaml = <<<EOF
 db_driver: orm
-provider_key: fos_user
+firewall_name: fos_user
 class:
     model:
         user: Acme\MyBundle\Entity\User
