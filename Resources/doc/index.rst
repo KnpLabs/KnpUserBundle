@@ -253,18 +253,18 @@ routes:
 
     # app/config/routing.yml
     fos_user_security:
-        resource: @FOSUser/Resources/config/routing/security.xml
+        resource: @FOSUserBundle/Resources/config/routing/security.xml
 
     fos_user_user:
-        resource: @FOSUser/Resources/config/routing/user.xml
+        resource: @FOSUserBundle/Resources/config/routing/user.xml
         prefix: /user
 
 ::
 
     # app/config/routing.xml
 
-    <import resource="@FOSUser/Resources/config/routing/security.xml"/>
-    <import resource="@FOSUser/Resources/config/routing/user.xml" prefix="/user" />
+    <import resource="@FOSUserBundle/Resources/config/routing/security.xml"/>
+    <import resource="@FOSUserBundle/Resources/config/routing/user.xml" prefix="/user" />
 
 You now can login at http://app.com/login
 
