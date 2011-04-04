@@ -148,8 +148,8 @@ along with the bundle containing your custom User class::
     doctrine:
         orm:
             mappings:
-                FOSUser: ~
-                MyProjectMy:   ~
+                FOSUserBundle: ~
+                MyProjectMyBundle:   ~
                 # your other bundles
 
 The above example assumes an ORM configuration, but the ``mappings``
