@@ -4,6 +4,7 @@ namespace FOS\UserBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * This class contains the configuration information for the bundle
@@ -13,14 +14,14 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-class Configuration
+class Configuration implements ConfigurationInterface
 {
     /**
      * Generates the configuration tree.
      *
-     * @return \Symfony\Component\DependencyInjection\Configuration\NodeInterface
+     * @return TreeBuilder
      */
-    public function getConfigTree()
+    public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('fos_user');
@@ -40,7 +41,7 @@ class Configuration
         $this->addTemplateSection($rootNode);
         $this->addGroupSection($rootNode);
 
-        return $treeBuilder->buildTree();
+        return $treeBuilder;
     }
 
     private function addClassSection(ArrayNodeDefinition $node)

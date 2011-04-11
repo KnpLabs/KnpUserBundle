@@ -15,7 +15,7 @@ class FOSUserExtension extends Extension
         $processor = new Processor();
         $configuration = new Configuration();
 
-        $config = $processor->process($configuration->getConfigTree(), $configs);
+        $config = $processor->processConfiguration($configuration, $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
