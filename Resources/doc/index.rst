@@ -13,7 +13,7 @@ Installation
 ============
 
 Add UserBundle to your vendor/bundles/ dir
--------------------------------------
+------------------------------------------
 
 ::
 
@@ -55,8 +55,8 @@ User class in UserBundle.  All fields on the base class are mapped, except for
 your application. Feel free to add additional properties and methods to your
 custom class.
 
-ORM User class:
-~~~~~~~~~~~~~~~
+ORM User class
+~~~~~~~~~~~~~~
 
 ::
 
@@ -78,8 +78,8 @@ ORM User class:
         protected $id;
     }
 
-MongoDB User class:
-~~~~~~~~~~~~~~~~~~~
+MongoDB User class
+~~~~~~~~~~~~~~~~~~
 
 ::
 
@@ -120,7 +120,7 @@ enabled in your kernel and in your project's configuration::
             fos_userbundle:
                 id: fos_user.user_manager
 
-Note::
+.. note::
 
     You need to activate SwiftmailerBundle to be able to use the functionalities
     using emails (confirmation of the account, resetting of the password).
@@ -140,6 +140,11 @@ user.xml routing file with the ``/user`` prefix they will be::
     /user/send-resetting-email
     /user/check-resetting-email
     /user/reset-password/{token}
+
+.. note::
+
+    You can look at the end of the doc for a working security configuration
+    achieving this.
 
 You also have to include the UserBundle in your Doctrine mapping configuration,
 along with the bundle containing your custom User class::
@@ -484,8 +489,8 @@ Enabling the routing for the GroupController
 You can also the group.xml file to use the builtin controller to manipulate the
 groups.
 
-Configuration example:
-======================
+Configuration reference
+=======================
 
 All configuration options are listed below::
 
@@ -538,10 +543,28 @@ All configuration options are listed below::
             form_name: ~
             form_validation_groups: ~
 
+Configuration example
+=====================
+
+This section provides a working configuration for the bundle and the security.
+
+FOSUserBundle configuration
+---------------------------
+
+::
+
+    # app/config/config.yml
+    fos_user:
+        db_driver:     orm
+        firewall_name: main
+        class:
+            model:
+                user:  MyProject\MyBundle\Entity\User
+
 Security configuration
 ----------------------
 
-Here is an example of a full security configuration using FOSUserBundle::
+::
 
     # app/config/security.yml
     security:
@@ -565,7 +588,10 @@ Here is an example of a full security configuration using FOSUserBundle::
             # The WDT has to be allowed to anonymous users to avoid requiring the login with the AJAX request
             - { path: ^/_wdt/, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/_profiler/, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            # URL of the bundles which need to be available to anonymous users
+            # AsseticBundle paths used when using the controller for assets
+            - { path: ^/js/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/css/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            # URL of FOSUserBundle which need to be available to anonymous users
             - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY } # for the case of a failed login
             - { path: ^/user/new$, role: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -576,7 +602,9 @@ Here is an example of a full security configuration using FOSUserBundle::
             - { path: ^/user/send-resetting-email$, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/user/check-resetting-email$, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/user/reset-password/, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            # Secured part of the site (all site here and an admin part for admin users)
+            # Secured part of the site
+            # This config requires being logged for the whole site and having the admin role for the admin part.
+            # Change these rules to adapt them to your needs
             - { path: ^/admin/, role: ROLE_ADMIN }
             - { path: ^/.*, role: ROLE_USER }
 
@@ -584,8 +612,8 @@ Here is an example of a full security configuration using FOSUserBundle::
             ROLE_ADMIN:       ROLE_USER
             ROLE_SUPERADMIN:  ROLE_ADMIN
 
-Replacing some part by your own implementation:
-===============================================
+Replacing some part by your own implementation
+==============================================
 
 Templating
 ----------
@@ -595,7 +623,7 @@ to extend a bundle by defining a template in the app/ directory.
 
 For example ``vendor/bundles/FOS/UserBundle/Resources/views/User/new.twig`` can be
 replaced inside an application by putting a file with alternative content in
-``app/Resources/FOSUser/views/User/new.twig``.
+``app/Resources/FOSUserBundle/views/User/new.twig``.
 
 You could also create a bundle defined as child of FOSUserBundle and placing the
 templates in it.
@@ -633,7 +661,7 @@ canonicalized in the same manner using ``mb_convert_case()``. You may configure
 your own class for each field provided it implements
 ``FOS\UserBundle\Util\CanonicalizerInterface``.
 
-Note::
+.. note::
 
     If you do not have the mbstring extension installed you will need to
     define your own ``canonicalizer``.
