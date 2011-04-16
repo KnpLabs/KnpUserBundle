@@ -2,6 +2,6 @@
 <form action="{{ path('fos_user_group_update', {'groupname': groupname} ) }}" {{ form_enctype(form) }} method="POST" class="fos_user_group_edit">
     {{ form_field(form) }}
     <div>
-        <input type="submit" value="{% trans 'Update group' from 'FOSUserBundle' %}" />
+        <input type="submit" value="{% trans 'group.edit.submit' from 'FOSUserBundle' %}" />
     </div>
 </form>

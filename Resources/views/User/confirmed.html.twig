@@ -1,4 +1,2 @@
 {% set username = user.getUsername() %}
-{% trans from 'FOSUserBundle' %}
-    Congrats %username%, your account is now confirmed.
-{% endtrans %}
+{% trans "user.confirmed.message" from 'FOSUserBundle' %}
