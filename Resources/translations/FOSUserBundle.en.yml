@@ -1,0 +1,31 @@
+group.edit.submit: Update group
+group.show.name: Group name
+group.new.submit: Create group
+
+security.login.username: "Username:"
+security.login.password: "Password:"
+security.login.remember_me: Remember me
+security.login.submit: Login
+security.login.request_reset_password: Forgotten password
+
+user.change_password.submit: Change password
+user.check_confirmation_email.message: An email has been sent to %email%. It contains an activation link you must click to activate your account.
+user.check_resetting_email.sent: An email has been sent to %email%. It contains an link you must click to reset your password.
+user.confirmed.message: Congrats %username%, your account is now confirmed.
+
+user.show.username: Username
+user.show.email: Email
+user.new.submit: Create user
+user.edit.submit: Update user
+user.password_already_requested: The password for this user has already been requested within the last 24 hours.
+user.password_request_reset.username: "Username:"
+user.password_request_reset.submit: Reset password
+user.reset_password.submit: Change password
+
+user.email.resetting_password: "Welcome %username%!\nHello %username%!\n\nTo reset your password - please visit %confirmationUrl%\n\nRegards,\nthe Team."
+user.email.confirmation: "Welcome %username%!\nHello %username%!\n\nTo finish validating your account - please visit %confir\mationUrl%n\nRegards,\n\nthe Team."
+
+layout.logout: Logout
+layout.login: Login
+layout.register: Register
+layout.logged_in_as: Logged in as %username%
