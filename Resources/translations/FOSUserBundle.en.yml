@@ -25,7 +25,22 @@ user.reset_password.submit: Change password
 user.email.resetting_password: "Welcome %username%!\nHello %username%!\n\nTo reset your password - please visit %confirmationUrl%\n\nRegards,\nthe Team."
 user.email.confirmation: "Welcome %username%!\nHello %username%!\n\nTo finish validating your account - please visit %confir\mationUrl%n\nRegards,\n\nthe Team."
 
+# Global strings
 layout.logout: Logout
 layout.login: Login
 layout.register: Register
 layout.logged_in_as: Logged in as %username%
+
+# Form field labels
+fos_user_group_form_name: "Group name:"
+
+fos_user_user_form_username: "Username:"
+fos_user_user_form_email: "Email:"
+fos_user_user_form_plainPassword: "Password (enter twice):"
+fos_user_user_form_plainPassword_first: "Password:"
+fos_user_user_form_plainPassword_second: "Verification:"
+
+fos_user_reset_password_form_new: "New password:"
+
+fos_user_change_password_form_new: "New password:"
+fos_user_change_password_form_current: "Current password:"
