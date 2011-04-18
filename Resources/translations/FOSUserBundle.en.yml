@@ -22,8 +22,23 @@ user.password_request_reset.username: "Username:"
 user.password_request_reset.submit: Reset password
 user.reset_password.submit: Change password
 
-user.email.resetting_password: "Welcome %username%!\nHello %username%!\n\nTo reset your password - please visit %confirmationUrl%\n\nRegards,\nthe Team."
-user.email.confirmation: "Welcome %username%!\nHello %username%!\n\nTo finish validating your account - please visit %confir\mationUrl%n\nRegards,\n\nthe Team."
+user.email.resetting_password: |
+    Welcome %username%!
+    Hello %username%!
+
+    To reset your password - please visit %confirmationUrl%
+
+    Regards,
+    the Team.
+
+user.email.confirmation: |
+    Welcome %username%!
+    Hello %username%!
+
+    To finish validating your account - please visit %confirmationUrl%
+
+    Regards,
+    the Team.
 
 # Global strings
 layout.logout: Logout
