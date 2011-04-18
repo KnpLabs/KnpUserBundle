@@ -1,7 +1,7 @@
-{% form_theme form form.getOption('theme') %}
+{% form_theme form 'FOSUserBundle::form.html.twig' %}
 <form action="{{ path('fos_user_group_create') }}" {{ form_enctype(form) }} method="POST" class="fos_user_group_new">
     {{ form_field(form) }}
     <div>
-        <input type="submit" value="{% trans 'Create group' from 'FOSUserBundle' %}" />
+        <input type="submit" value="{% trans 'group.new.submit' from 'FOSUserBundle' %}" />
     </div>
 </form>

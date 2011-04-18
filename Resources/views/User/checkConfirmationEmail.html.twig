@@ -1,4 +1,2 @@
 {% set email = user.getEmail() %}
-{% trans from 'FOSUserBundle' %}
-An email has been sent to %email%. It contains an activation link you must click to activate your account.
-{% endtrans %}
+{% trans "user.check_confirmation_email.message" from 'FOSUserBundle' %}
