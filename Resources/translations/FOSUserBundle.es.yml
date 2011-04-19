@@ -1,0 +1,61 @@
+group.edit.submit: Actualizar grupo
+group.show.name: Nombre de grupo
+group.new.submit: Crear grupo
+
+security.login.username: "Nombre de usuario:"
+security.login.password: "Contraseña:"
+security.login.remember_me: Recordar
+security.login.submit: Entrar
+security.login.request_reset_password: Olvidé mi contraseña
+
+user.change_password.submit: Cambiar contraseña
+user.check_confirmation_email.message: Un email ha sido enviado a %email%. Contiene un enlace de activación que debes presionar para activar tu cuenta.
+user.check_resetting_email.sent: Un email ha sido enviado a %email%. Contiene un enlace de activación que debes presionar para restablecer tu contraseña.
+user.confirmed.message: Felicidades %username%, tu cuenta está ahora confirmada.
+
+user.show.username: Nombre de usuario
+user.show.email: Email
+user.new.submit: Crear usuario
+user.edit.submit: Actualizar usuario
+user.password_already_requested: La contraseña para este usuario ya ha sido solicitada dentro de las 24 horas.
+user.password_request_reset.username: "Nombre de usuario:"
+user.password_request_reset.submit: Restablecer contraseña
+user.reset_password.submit: Cambiar contraseña
+
+user.email.resetting_password: |
+    Bienvenido %username%!
+    Hola %username%!
+
+    Para restablecer tu contraseña - por favor visita %confirmationUrl%
+
+    Atentamente,
+    el Equipo.
+
+user.email.confirmation: |
+    Bienvenido %username%!
+    Hola %username%!
+
+    Para completar la validación de tu cuenta - por favor visita %confirmationUrl%
+
+    Atentamente,
+    el Equipo.
+
+# Global strings
+layout.logout: Salir
+layout.login: Entrar
+layout.register: Registrar
+layout.logged_in_as: Entrado como %username%
+
+# Form field labels
+fos_user_group_form_name: "Nombre de grupo:"
+
+fos_user_user_form_username: "Nombre de usuario:"
+fos_user_user_form_email: "Email:"
+fos_user_user_form_plainPassword: "Contraseña (entrar doble):"
+fos_user_user_form_plainPassword_first: "Contraseña:"
+fos_user_user_form_plainPassword_second: "Verificación:"
+
+fos_user_reset_password_form_new: "Nueva contraseña:"
+
+fos_user_change_password_form_new: "Nueva contraseña:"
+fos_user_change_password_form_current: "Actual contraseña:"
