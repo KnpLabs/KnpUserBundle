@@ -1,0 +1,61 @@
+group.edit.submit: Mettre à jour le groupe
+group.show.name: Nom du groupe
+group.new.submit: Créer le groupe
+
+security.login.username: "Nom d'utilisateur:"
+security.login.password: "Mot de passe:"
+security.login.remember_me: Se souvenir de moi
+security.login.submit: Connexion
+security.login.request_reset_password: Mot de passe oublié
+
+user.change_password.submit: Modifier le mot de passe
+user.check_confirmation_email.message: Un message électronique a été envoyé à %email%. Il contient un lien qu'il faut cliquer pour activer ton compte.
+user.check_resetting_email.sent: Un message électronique a été envoyé à %email%. Il contient un lien qu'il faut cliquer pour réinitialiser ton mot de passe.
+user.confirmed.message: Félicitations %username%, ton compte d'utilisateur est maintenant confirmé.
+
+user.show.username: Nom d'utilisateur
+user.show.email: Adresse e-mail
+user.new.submit: Créer l'utilisateur
+user.edit.submit: Mettre à jour l'utilisateur
+user.password_already_requested: Un nouveau mot de passe a déjà été demandé pour cet utilisateur dans les 24 heures passées.
+user.password_request_reset.username: "Nom d'utilisateur:"
+user.password_request_reset.submit: Réinitialiser le mot de passe
+user.reset_password.submit: Modifier le mot de passe
+
+user.email.resetting_password: |
+    Bienvenue %username%!
+    Bonjour %username%!
+
+    Pour réinitialiser ton mot de passe, prière de visiter %confirmationUrl%
+
+    Salutations,
+    l'équipe.
+
+user.email.confirmation: |
+    Bienvenue %username%!
+    Bonjour %username%!
+
+    Pour valider ton compte d'utilisateur, prière de visiter %confirmationUrl%
+
+    Salutations,
+    l'équipe.
+
+# Global strings
+layout.logout: Déconnexion
+layout.login: Connexion
+layout.register: Enregistrer
+layout.logged_in_as: Connecté comme %username%
+
+# Form field labels
+fos_user_group_form_name: "Nom du groupe:"
+
+fos_user_user_form_username: "Nom d'utilisateur:"
+fos_user_user_form_email: "Adresse e-mail:"
+fos_user_user_form_plainPassword: "Mot de passe (saisir deux fois):"
+fos_user_user_form_plainPassword_first: "Mot de passe:"
+fos_user_user_form_plainPassword_second: "Vérification:"
+
+fos_user_reset_password_form_new: "Nouveau mot de passe:"
+
+fos_user_change_password_form_new: "Nouveau mot de passe:"
+fos_user_change_password_form_current: "Mot de passe actuel:"

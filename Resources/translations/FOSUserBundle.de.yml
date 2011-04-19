@@ -1,0 +1,61 @@
+group.edit.submit: Gruppe aktualisieren
+group.show.name: Gruppenname
+group.new.submit: Gruppe erstellen
+
+security.login.username: "Benutzername:"
+security.login.password: "Passwort:"
+security.login.remember_me: An mich erinnern
+security.login.submit: Anmelden
+security.login.request_reset_password: Passwort vergessen
+
+user.change_password.submit: Passwort ändern
+user.check_confirmation_email.message: Eine Email wurde an %email% gesendet. Sie enthält einen Link den Du anklicken musst, um dein Benutzerkonto zu bestätigen.
+user.check_resetting_email.sent: Eine Email wurde an %email% gesendet. Sie enthält einen Link den Du anklicken musst, um dein Passwort zurückzusetzen.
+user.confirmed.message: Glückwunsch %username%, dein Benutzerkonto ist jetzt bestätigt.
+
+user.show.username: Benutzername
+user.show.email: Email
+user.new.submit: Benutzer erstellen
+user.edit.submit: Benutzer aktualisieren
+user.password_already_requested: Ein neues Passwort wurde in den vergangenene 24 Stunden für diesen Benutzer bereits einmal beantragt.
+user.password_request_reset.username: "Benutzername:"
+user.password_request_reset.submit: Passwort zurücksetzen
+user.reset_password.submit: Passwort ändern
+
+user.email.resetting_password: |
+    Willkommen %username%!
+    Hallo %username%!
+
+    Um Dein Passwort zurückzusetzen, besuche bitte die Seite %confirmationUrl%
+
+    Mit besten Grüßen,
+    das Team.
+
+user.email.confirmation: |
+    Willkommen %username%!
+    Hallo %username%!
+
+    Um Dein Benutzerkonto zu bestätigen, besuche bitte die Seite %confirmationUrl%
+
+    Mit besten Grüßen,
+    das Team.
+
+# Global strings
+layout.logout: Abmelden
+layout.login: Anmelden
+layout.register: Einschreiben
+layout.logged_in_as: Angemeldet als %username%
+
+# Form field labels
+fos_user_group_form_name: "Gruppenname:"
+
+fos_user_user_form_username: "Benutzername:"
+fos_user_user_form_email: "Email-Adresse:"
+fos_user_user_form_plainPassword: "Passwort (zweimal eingeben):"
+fos_user_user_form_plainPassword_first: "Passwort:"
+fos_user_user_form_plainPassword_second: "Bestätigung:"
+
+fos_user_reset_password_form_new: "Neues Passwort:"
+
+fos_user_change_password_form_new: "Neues Passwort:"
+fos_user_change_password_form_current: "Derzeitiges Passwort:"
