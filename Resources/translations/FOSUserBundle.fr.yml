@@ -9,42 +9,42 @@ security.login.submit: Connexion
 security.login.request_reset_password: Mot de passe oublié
 
 user.change_password.submit: Modifier le mot de passe
-user.check_confirmation_email.message: Un message électronique a été envoyé à %email%. Il contient un lien qu'il faut cliquer pour activer ton compte.
-user.check_resetting_email.sent: Un message électronique a été envoyé à %email%. Il contient un lien qu'il faut cliquer pour réinitialiser ton mot de passe.
-user.confirmed.message: Félicitations %username%, ton compte d'utilisateur est maintenant confirmé.
+user.check_confirmation_email.message: Un e-mail a été envoyé à l'adresse %email%. Veuillez suivre les instructions qui vous y sont indiquées.
+user.check_resetting_email.sent: Un e-mail a été envoyé à l'adresse %email%. Veuillez suivre les instructions qui vous y sont indiquées.
+user.confirmed.message: Félicitations %username%, votre compte est maintenant activé.
 
 user.show.username: Nom d'utilisateur
 user.show.email: Adresse e-mail
 user.new.submit: Créer l'utilisateur
 user.edit.submit: Mettre à jour l'utilisateur
-user.password_already_requested: Un nouveau mot de passe a déjà été demandé pour cet utilisateur dans les 24 heures passées.
+user.password_already_requested: Un nouveau mot de passe a déjà été demandé pour cet utilisateur dans les dernières 24 heures.
 user.password_request_reset.username: "Nom d'utilisateur:"
 user.password_request_reset.submit: Réinitialiser le mot de passe
 user.reset_password.submit: Modifier le mot de passe
 
 user.email.resetting_password: |
-    Bienvenue %username%!
-    Bonjour %username%!
+    Bienvenue %username% !
+    Bonjour %username% !
 
-    Pour réinitialiser ton mot de passe, prière de visiter %confirmationUrl%
+    Pour réinitialiser votre mot de passe, merci de vous rendre sur %confirmationUrl%
 
-    Salutations,
-    l'équipe.
+    Cordialement,
+    L'équipe.
 
 user.email.confirmation: |
-    Bienvenue %username%!
-    Bonjour %username%!
+    Bienvenue %username% !
+    Bonjour %username% !
 
-    Pour valider ton compte d'utilisateur, prière de visiter %confirmationUrl%
+    Pour valider votre compte utilisateur, merci de vous rendre sur %confirmationUrl%
 
-    Salutations,
-    l'équipe.
+    Cordialement,
+    L'équipe.
 
 # Global strings
 layout.logout: Déconnexion
 layout.login: Connexion
 layout.register: Enregistrer
-layout.logged_in_as: Connecté comme %username%
+layout.logged_in_as: Connecté en tant que %username%
 
 # Form field labels
 fos_user_group_form_name: "Nom du groupe:"
