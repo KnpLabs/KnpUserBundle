@@ -2,6 +2,6 @@
 <form action="{{ path('fos_user_group_create') }}" {{ form_enctype(form) }} method="POST" class="fos_user_group_new">
     {{ form_field(form) }}
     <div>
-        <input type="submit" value="{% trans 'group.new.submit' from 'FOSUserBundle' %}" />
+        <input type="submit" value="{% trans from 'FOSUserBundle' %}group.new.submit{% endtrans %}" />
     </div>
 </form>
