@@ -1,4 +1,4 @@
 <div class="fos_user_user_show">
-    <p>{% trans "user.show.username" from 'FOSUserBundle' %}: {{ user.getUsername() }}</p>
-    <p>{% trans "user.show.email" from 'FOSUserBundle' %}: {{ user.getEmail() }}</p>
+    <p>{{ user.show.username|trans([] 'FOSUserBundle') }}: {{ user.getUsername() }}</p>
+    <p>{{ user.show.email|trans([], 'FOSUserBundle') }}: {{ user.getEmail() }}</p>
 </div>
