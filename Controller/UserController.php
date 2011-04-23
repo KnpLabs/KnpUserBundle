@@ -52,11 +52,12 @@ class UserController extends ContainerAware
     {
         $user = $this->findUserBy('username', $username);
         $form = $this->container->get('fos_user.form.user');
+        $formHandler = $this->container->get('fos_user.form.user.handler');
 
-        $form->process($user);
+        $formHandler->process($user);
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:edit.html.'.$this->getEngine(), array(
-            'form'      => $form,
+            'form'      => $form->createView(),
             'username'  => $user->getUsername()
         ));
     }
@@ -68,8 +69,9 @@ class UserController extends ContainerAware
     {
         $user = $this->findUserBy('username', $username);
         $form = $this->container->get('fos_user.form.user');
+        $formHandler = $this->container->get('fos_user.form.user.handler');
 
-        $process = $form->process($user);
+        $process = $formHandler->process($user);
         if ($process) {
             $this->setFlash('fos_user_user_update', 'success');
             $userUrl =  $this->container->get('router')->generate('fos_user_user_show', array('username' => $user->getUsername()));
@@ -77,7 +79,7 @@ class UserController extends ContainerAware
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:edit.html.'.$this->getEngine(), array(
-            'form'      => $form,
+            'form'      => $form->createView(),
             'username'  => $user->getUsername()
         ));
     }
@@ -88,11 +90,12 @@ class UserController extends ContainerAware
     public function newAction()
     {
         $form = $this->container->get('fos_user.form.user');
+        $formHandler = $this->container->get('fos_user.form.user.handler');
 
-        $form->process();
+        $formHandler->process();
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:new.html.'.$this->getEngine(), array(
-            'form' => $form
+            'form' => $form->createView()
         ));
     }
 
@@ -102,8 +105,9 @@ class UserController extends ContainerAware
     public function createAction()
     {
         $form = $this->container->get('fos_user.form.user');
+        $formHandler = $this->container->get('fos_user.form.user.handler');
 
-        $process = $form->process(null, $this->container->getParameter('fos_user.email.confirmation.enabled'));
+        $process = $formHandler->process(null, $this->container->getParameter('fos_user.email.confirmation.enabled'));
         if ($process) {
 
             $user = $form->getData();
@@ -130,7 +134,7 @@ class UserController extends ContainerAware
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:new.html.'.$this->getEngine(), array(
-            'form' => $form
+            'form' => $form->createView()
         ));
     }
 
@@ -200,7 +204,7 @@ class UserController extends ContainerAware
         $form->process($user);
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:changePassword.html.'.$this->getEngine(), array(
-            'form' => $form
+            'form' => $form->createView()
         ));
     }
 
@@ -220,7 +224,7 @@ class UserController extends ContainerAware
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:changePassword.html.'.$this->getEngine(), array(
-            'form' => $form
+            'form' => $form->createView()
         ));
     }
 
@@ -287,7 +291,7 @@ class UserController extends ContainerAware
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:resetPassword.html.'.$this->getEngine(), array(
             'token' => $token,
-            'form' => $form
+            'form' => $form->createView()
         ));
     }
 
@@ -315,7 +319,7 @@ class UserController extends ContainerAware
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:resetPassword.html.'.$this->getEngine(), array(
             'token' => $token,
-            'form' => $form
+            'form' => $form->createView()
         ));
     }
 

@@ -3,6 +3,7 @@
 namespace FOS\UserBundle\Form;
 
 use Symfony\Component\Form\Type\AbstractType;
+use Symfony\Component\Form\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilder;
 
 class UserFormType extends AbstractType
@@ -12,8 +13,7 @@ class UserFormType extends AbstractType
         $builder
             ->add('username')
             ->add('email')
+            ->add('plainPassword', 'repeated', array('type' => 'password'))
         ->end();
-
-        //$this->add(new RepeatedField(new PasswordField('plainPassword')));
     }
 }

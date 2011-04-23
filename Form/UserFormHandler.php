@@ -8,10 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 
-class UserForm extends Form
+class UserFormHandler
 {
     protected $request;
     protected $userManager;
+    protected $form;
+
+    public function __construct(Form $form)
+    {
+        $this->form = $form;
+    }
 
     public function setRequest(Request $request)
     {
@@ -23,43 +29,19 @@ class UserForm extends Form
         $this->userManager = $userManager;
     }
 
-    public function bind($data = null)
-    {
-        if (!$this->getName()) {
-            throw new FormException('You cannot bind anonymous forms. Please give this form a name');
-        }
-
-        // Store object from which to read the default values and where to
-        // write the submitted values
-        if (null !== $data) {
-            $this->setData($data);
-        }
-
-        // Store the submitted data in case of a post request
-        if ('POST' == $this->request->getMethod()) {
-            $values = $this->request->request->get($this->getName(), array());
-            $files = $this->request->files->get($this->getName(), array());
-
-            $this->submit(self::deepArrayUnion($values, $files));
-
-            $this->userManager->updateCanonicalFields($this->getData());
-
-            $this->validate();
-        }
-    }
-
     public function process(UserInterface $user = null, $confirmation = null)
     {
         if (null === $user) {
             $user = $this->userManager->createUser();
         }
 
-        $this->setData($user);
+        $this->form->setData($user);
 
         if ('POST' == $this->request->getMethod()) {
-            $this->bind($this->request);
+            $this->form->bindRequest($this->request);
+            $this->userManager->updateCanonicalFields($this->form->getData());
 
-            if ($this->isValid()) {
+            if ($this->form->isValid()) {
                 if (true === $confirmation) {
                     $user->setEnabled(false);
                 } else if (false === $confirmation) {
