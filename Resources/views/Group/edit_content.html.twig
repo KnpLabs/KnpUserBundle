@@ -1,6 +1,6 @@
 {% form_theme form 'FOSUserBundle::form.html.twig' %}
 <form action="{{ path('fos_user_group_update', {'groupname': groupname} ) }}" {{ form_enctype(form) }} method="POST" class="fos_user_group_edit">
-    {{ form_field(form) }}
+    {{ form_widget(form) }}
     <div>
         <input type="submit" value="{% trans from 'FOSUserBundle' %}group.edit.submit{% endtrans %}" />
     </div>

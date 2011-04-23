@@ -201,7 +201,8 @@ class UserController extends ContainerAware
     {
         $user = $this->getUser();
         $form = $this->container->get('fos_user.form.change_password');
-        $form->process($user);
+        $formHandler = $this->container->get('fos_user.form.handler.change_password');
+        $formHandler->process($user);
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:changePassword.html.'.$this->getEngine(), array(
             'form' => $form->createView()
@@ -215,8 +216,9 @@ class UserController extends ContainerAware
     {
         $user = $this->getUser();
         $form = $this->container->get('fos_user.form.change_password');
+        $formHandler = $this->container->get('fos_user.form.handler.change_password');
 
-        $process = $form->process($user);
+        $process = $formHandler->process($user);
         if ($process) {
             $this->setFlash('fos_user_user_password', 'success');
             $url =  $this->container->get('router')->generate('fos_user_user_show', array('username' => $user->getUsername()));
@@ -287,7 +289,8 @@ class UserController extends ContainerAware
         }
 
         $form = $this->container->get('fos_user.form.reset_password');
-        $form->process($user);
+        $formHandler = $this->container->get('fos_user.form.handler.reset_password');
+        $formHandler->process($user);
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:resetPassword.html.'.$this->getEngine(), array(
             'token' => $token,
@@ -307,8 +310,9 @@ class UserController extends ContainerAware
         }
 
         $form = $this->container->get('fos_user.form.reset_password');
+        $formHandler = $this->container->get('fos_user.form.handler.reset_password');
 
-        $process = $form->process($user);
+        $process = $formHandler->process($user);
         if ($process) {
             $this->authenticateUser($user);
 

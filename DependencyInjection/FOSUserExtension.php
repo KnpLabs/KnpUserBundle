@@ -38,6 +38,8 @@ class FOSUserExtension extends Extension
             $this->remapParametersNamespaces($config['group'], $container, array(
                 'class' => 'fos_user.%s.group.class',
                 '' => array(
+                    'form' => 'fos_user.form.type.group.class',
+                    'form_handler' => 'fos_user.form.handler.group.class',
                     'form_name' => 'fos_user.form.group.name',
                     'form_validation_groups' => 'fos_user.form.group.validation_groups'
                 ),
