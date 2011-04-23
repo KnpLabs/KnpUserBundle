@@ -3,11 +3,6 @@
 namespace FOS\UserBundle\Form;
 
 use Symfony\Component\Form\Form;
-use Symfony\Component\Form\TextField;
-use Symfony\Component\Form\RepeatedField;
-use Symfony\Component\Form\PasswordField;
-
-use Symfony\Component\Validator\ValidatorInterface;
 
 use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\Model\UserInterface;
@@ -17,19 +12,6 @@ class UserForm extends Form
 {
     protected $request;
     protected $userManager;
-
-    /**
-     * Constructor.
-     *
-     * @param string $title
-     * @param array $options
-     */
-    public function __construct($title, array $options = array())
-    {
-        $this->addOption('theme');
-
-        parent::__construct($title, $options);
-    }
 
     public function setRequest(Request $request)
     {
@@ -41,14 +23,7 @@ class UserForm extends Form
         $this->userManager = $userManager;
     }
 
-    public function configure()
-    {
-        $this->add(new TextField('username'));
-        $this->add(new TextField('email'));
-        $this->add(new RepeatedField(new PasswordField('plainPassword')));
-    }
-
-    public function bind(Request $request, $data = null)
+    public function bind($data = null)
     {
         if (!$this->getName()) {
             throw new FormException('You cannot bind anonymous forms. Please give this form a name');
@@ -61,9 +36,9 @@ class UserForm extends Form
         }
 
         // Store the submitted data in case of a post request
-        if ('POST' == $request->getMethod()) {
-            $values = $request->request->get($this->getName(), array());
-            $files = $request->files->get($this->getName(), array());
+        if ('POST' == $this->request->getMethod()) {
+            $values = $this->request->request->get($this->getName(), array());
+            $files = $this->request->files->get($this->getName(), array());
 
             $this->submit(self::deepArrayUnion($values, $files));
 
