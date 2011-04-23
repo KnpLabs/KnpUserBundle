@@ -55,10 +55,11 @@ class FOSUserExtension extends Extension
         ));
 
         $this->remapParametersNamespaces($config['class'], $container, array(
-            'model'      => 'fos_user.model.%s.class',
-            'form'       => 'fos_user.form.%s.class',
-            'controller' => 'fos_user.controller.%s.class',
-            'util'       => 'fos_user.util.%s.class',
+            'model'         => 'fos_user.model.%s.class',
+            'form'          => 'fos_user.form.type.%s.class',
+            'form_handler'  => 'fos_user.form.handler.%s.class',
+            'controller'    => 'fos_user.controller.%s.class',
+            'util'          => 'fos_user.util.%s.class',
         ));
 
         $this->remapParametersNamespaces($config['email'], $container, array(

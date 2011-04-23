@@ -7,7 +7,7 @@
     <services>
 
         <service id="fos_user.form.user" factory-method="create" factory-service="form.factory" class="%form.factory.class%" scope="request">
-            <argument type="service" id="fos_user.form.user.type" />
+            <argument type="service" id="fos_user.form.type.user" />
             <argument />
             <argument type="collection">
                 <argument key="data_class">%fos_user.model.user.class%</argument>
@@ -15,7 +15,7 @@
             </argument>
         </service>
 
-        <service id="fos_user.form.user.type" class="FOS\UserBundle\Form\UserFormType" scope="request">
+        <service id="fos_user.form.type.user" class="%fos_user.form.type.user.class%" scope="request">
             <argument>%fos_user.form.user.name%</argument>
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
@@ -23,9 +23,8 @@
             <tag name="form.type" />
         </service>
 
-        <service id="fos_user.form.user.handler" class="FOS\UserBundle\Form\UserFormHandler" scope="request">
+        <service id="fos_user.form.handler.user" class="%fos_user.form.handler.user.class%" scope="request">
             <argument type="service" id="fos_user.form.user" />
-            <argument type="service" id="validator" />
             <call method="setRequest">
                 <argument type="service" id="request" />
             </call>
@@ -34,12 +33,25 @@
             </call>
         </service>
 
-        <service id="fos_user.form.change_password" factory-method="create" factory-class="%fos_user.form.change_password.class%" class="%fos_user.form.change_password.class%" scope="request">
+        <service id="fos_user.form.change_password" factory-method="create" factory-service="form.factory" class="%form.factory.class%" scope="request">
+            <argument type="service" id="fos_user.form.type.change_password" />
+            <argument />
+            <argument type="collection">
+                <argument key="data_class">%fos_user.model.user.class%</argument>
+                <argument key="validation_groups">%fos_user.form.change_password.validation_groups%</argument>
+            </argument>
+        </service>
+
+        <service id="fos_user.form.type.change_password" class="%fos_user.form.type.change_password.class%" scope="request">
             <argument>%fos_user.form.change_password.name%</argument>
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
-                <argument key="validation_groups">%fos_user.form.change_password.validation_groups%</argument>
             </argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="fos_user.form.handler.change_password" class="%fos_user.form.handler.change_password.class%" scope="request">
+            <argument type="service" id="fos_user.form.change_password" />
             <call method="setRequest">
                 <argument type="service" id="request" />
             </call>
@@ -48,12 +60,25 @@
             </call>
         </service>
 
-        <service id="fos_user.form.reset_password" factory-method="create" factory-class="%fos_user.form.reset_password.class%" class="%fos_user.form.reset_password.class%" scope="request">
+        <service id="fos_user.form.reset_password" factory-method="create" factory-service="form.factory" class="%form.factory.class%" scope="request">
+            <argument type="service" id="fos_user.form.type.reset_password" />
+            <argument />
+            <argument type="collection">
+                <argument key="data_class">%fos_user.model.user.class%</argument>
+                <argument key="validation_groups">%fos_user.form.reset_password.validation_groups%</argument>
+            </argument>
+        </service>
+
+        <service id="fos_user.form.type.reset_password" class="%fos_user.form.type.reset_password.class%" scope="request">
             <argument>%fos_user.form.reset_password.name%</argument>
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
-                <argument key="validation_groups">%fos_user.form.reset_password.validation_groups%</argument>
             </argument>
+            <tag name="form.type" />
+        </service>
+
+        <service id="fos_user.form.handler.reset_password" class="%fos_user.form.handler.reset_password.class%" scope="request">
+            <argument type="service" id="fos_user.form.reset_password" />
             <call method="setRequest">
                 <argument type="service" id="request" />
             </call>

@@ -52,7 +52,7 @@ class UserController extends ContainerAware
     {
         $user = $this->findUserBy('username', $username);
         $form = $this->container->get('fos_user.form.user');
-        $formHandler = $this->container->get('fos_user.form.user.handler');
+        $formHandler = $this->container->get('fos_user.form.handler.user');
 
         $formHandler->process($user);
 
@@ -69,7 +69,7 @@ class UserController extends ContainerAware
     {
         $user = $this->findUserBy('username', $username);
         $form = $this->container->get('fos_user.form.user');
-        $formHandler = $this->container->get('fos_user.form.user.handler');
+        $formHandler = $this->container->get('fos_user.form.handler.user');
 
         $process = $formHandler->process($user);
         if ($process) {
@@ -90,7 +90,7 @@ class UserController extends ContainerAware
     public function newAction()
     {
         $form = $this->container->get('fos_user.form.user');
-        $formHandler = $this->container->get('fos_user.form.user.handler');
+        $formHandler = $this->container->get('fos_user.form.handler.user');
 
         $formHandler->process();
 
@@ -105,7 +105,7 @@ class UserController extends ContainerAware
     public function createAction()
     {
         $form = $this->container->get('fos_user.form.user');
-        $formHandler = $this->container->get('fos_user.form.user.handler');
+        $formHandler = $this->container->get('fos_user.form.handler.user');
 
         $process = $formHandler->process(null, $this->container->getParameter('fos_user.email.confirmation.enabled'));
         if ($process) {
