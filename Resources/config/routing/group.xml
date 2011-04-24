@@ -11,7 +11,6 @@
 
     <route id="fos_user_group_new" pattern="/new">
         <default key="_controller">fos_user.controller.group:newAction</default>
-        <requirement key="_method">GET</requirement>
     </route>
 
     <route id="fos_user_group_show" pattern="/{groupname}">
@@ -21,7 +20,6 @@
 
     <route id="fos_user_group_edit" pattern="/{groupname}/edit">
         <default key="_controller">fos_user.controller.group:editAction</default>
-        <requirement key="_method">GET</requirement>
     </route>
 
     <route id="fos_user_group_delete" pattern="/{groupname}/delete">
