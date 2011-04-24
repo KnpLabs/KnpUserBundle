@@ -9,7 +9,7 @@
         <service id="fos_user.util.username_canonicalizer" class="%fos_user.util.username_canonicalizer.class%"></service>
 
         <service id="fos_user.util.mailer.real" class="FOS\UserBundle\Util\Mailer" public="false">
-            <argument type="service" id="mailer" />
+            <argument type="service" id="mailer" on-invalid="null" />
             <argument type="service" id="router" />
             <argument type="service" id="templating" />
             <argument type="collection">
@@ -23,5 +23,5 @@
         </service>
         <service id="fos_user.util.mailer" alias="fos_user.util.mailer.real" />
     </services>
-    
+
 </container>
