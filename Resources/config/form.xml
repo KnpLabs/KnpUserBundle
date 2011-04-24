@@ -25,12 +25,8 @@
 
         <service id="fos_user.form.handler.user" class="%fos_user.form.handler.user.class%" scope="request">
             <argument type="service" id="fos_user.form.user" />
-            <call method="setRequest">
-                <argument type="service" id="request" />
-            </call>
-            <call method="setUserManager">
-                <argument type="service" id="fos_user.user_manager" />
-            </call>
+            <argument type="service" id="request" />
+            <argument type="service" id="fos_user.user_manager" />
         </service>
 
         <service id="fos_user.form.change_password" factory-method="create" factory-service="form.factory" class="%form.factory.class%" scope="request">
@@ -52,12 +48,8 @@
 
         <service id="fos_user.form.handler.change_password" class="%fos_user.form.handler.change_password.class%" scope="request">
             <argument type="service" id="fos_user.form.change_password" />
-            <call method="setRequest">
-                <argument type="service" id="request" />
-            </call>
-            <call method="setUserManager">
-                <argument type="service" id="fos_user.user_manager" />
-            </call>
+            <argument type="service" id="request" />
+            <argument type="service" id="fos_user.user_manager" />
         </service>
 
         <service id="fos_user.form.reset_password" factory-method="create" factory-service="form.factory" class="%form.factory.class%" scope="request">
@@ -79,12 +71,8 @@
 
         <service id="fos_user.form.handler.reset_password" class="%fos_user.form.handler.reset_password.class%" scope="request">
             <argument type="service" id="fos_user.form.reset_password" />
-            <call method="setRequest">
-                <argument type="service" id="request" />
-            </call>
-            <call method="setUserManager">
-                <argument type="service" id="fos_user.user_manager" />
-            </call>
+            <argument type="service" id="request" />
+            <argument type="service" id="fos_user.user_manager" />
         </service>
 
     </services>

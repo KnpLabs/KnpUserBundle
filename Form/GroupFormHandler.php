@@ -3,8 +3,8 @@
 namespace FOS\UserBundle\Form;
 
 use Symfony\Component\Form\Form;
-
 use Symfony\Component\HttpFoundation\Request;
+
 use FOS\UserBundle\Model\GroupInterface;
 use FOS\UserBundle\Model\GroupManagerInterface;
 
@@ -14,18 +14,10 @@ class GroupFormHandler
     protected $groupManager;
     protected $form;
 
-    public function __construct(Form $form)
+    public function __construct(Form $form, Request $request, GroupManagerInterface $groupManager)
     {
         $this->form = $form;
-    }
-
-    public function setRequest(Request $request)
-    {
         $this->request = $request;
-    }
-
-    public function setGroupManager(GroupManagerInterface $groupManager)
-    {
         $this->groupManager = $groupManager;
     }
 

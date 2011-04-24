@@ -3,8 +3,8 @@
 namespace FOS\UserBundle\Form;
 
 use Symfony\Component\Form\Form;
-
 use Symfony\Component\HttpFoundation\Request;
+
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 
@@ -14,18 +14,10 @@ class UserFormHandler
     protected $userManager;
     protected $form;
 
-    public function __construct(Form $form)
+    public function __construct(Form $form, Request $request, UserManagerInterface $userManager)
     {
         $this->form = $form;
-    }
-
-    public function setRequest(Request $request)
-    {
         $this->request = $request;
-    }
-
-    public function setUserManager(UserManagerInterface $userManager)
-    {
         $this->userManager = $userManager;
     }
 
