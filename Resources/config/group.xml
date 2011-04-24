@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="fos_user.form.group" factory-method="create" factory-service="form.factory" class="%form.factory.class%" scope="request">
+        <service id="fos_user.form.group" factory-method="create" factory-service="form.factory" class="%form.factory.class%">
             <argument type="service" id="fos_user.form.type.group" />
             <argument />
             <argument type="collection">
@@ -15,7 +15,7 @@
             </argument>
         </service>
 
-        <service id="fos_user.form.type.group" class="%fos_user.form.type.group.class%" scope="request">
+        <service id="fos_user.form.type.group" class="%fos_user.form.type.group.class%">
             <argument>%fos_user.form.group.name%</argument>
             <argument type="collection">
                 <argument key="theme">%fos_user.template.theme%</argument>
