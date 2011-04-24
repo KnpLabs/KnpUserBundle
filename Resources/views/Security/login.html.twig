@@ -6,18 +6,18 @@
 {% endif %}
 
 <form action="{{ path("_security_check") }}" method="post">
-    <label for="username">{% trans from 'FOSUserBundle' %}security.login.username{% endtrans %}</label>
+    <label for="username">{% trans "security.login.username" from 'FOSUserBundle' %}</label>
     <input type="text" id="username" name="_username" value="{{ last_username }}" />
 
-    <label for="password">{% trans from 'FOSUserBundle' %}security.login.password{% endtrans %}</label>
+    <label for="password">{% trans "security.login.password" from 'FOSUserBundle' %}</label>
     <input type="password" id="password" name="_password" />
 
     <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{% trans from 'FOSUserBundle' %}security.login.remember_me{% endtrans %}</label>
+    <label for="remember_me">{% trans "security.login.remember_me" from 'FOSUserBundle' %}</label>
 
-    <input type="submit" name="{% trans from 'FOSUserBundle' %}security.login.submit{% endtrans %}" />
+    <input type="submit" name="{% trans "security.login.submit" from 'FOSUserBundle' %}" />
 </form>
 <p>
-    <a href="{{ path('fos_user_user_request_reset_password') }}">{% trans from 'FOSUserBundle' %}security.login.request_reset_password{% endtrans %}</a>
+    <a href="{{ path('fos_user_user_request_reset_password') }}">{% trans 'security.login.request_reset_password' from 'FOSUserBundle' %}</a>
 </p>
 {% endblock content %}
