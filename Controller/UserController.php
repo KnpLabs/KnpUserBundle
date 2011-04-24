@@ -54,23 +54,6 @@ class UserController extends ContainerAware
         $form = $this->container->get('fos_user.form.user');
         $formHandler = $this->container->get('fos_user.form.handler.user');
 
-        $formHandler->process($user);
-
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:User:edit.html.'.$this->getEngine(), array(
-            'form'      => $form->createView(),
-            'username'  => $user->getUsername()
-        ));
-    }
-
-    /**
-     * Update a user
-     */
-    public function updateAction($username)
-    {
-        $user = $this->findUserBy('username', $username);
-        $form = $this->container->get('fos_user.form.user');
-        $formHandler = $this->container->get('fos_user.form.handler.user');
-
         $process = $formHandler->process($user);
         if ($process) {
             $this->setFlash('fos_user_user_update', 'success');
@@ -88,21 +71,6 @@ class UserController extends ContainerAware
      * Show the new form
      */
     public function newAction()
-    {
-        $form = $this->container->get('fos_user.form.user');
-        $formHandler = $this->container->get('fos_user.form.handler.user');
-
-        $formHandler->process();
-
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:User:new.html.'.$this->getEngine(), array(
-            'form' => $form->createView()
-        ));
-    }
-
-    /**
-     * Create a user and send a confirmation email
-     */
-    public function createAction()
     {
         $form = $this->container->get('fos_user.form.user');
         $formHandler = $this->container->get('fos_user.form.handler.user');
