@@ -14,6 +14,7 @@ class ResetPasswordFormHandler
     protected $request;
     protected $userManager;
     protected $form;
+
     public function __construct(Form $form)
     {
         $this->form = $form;

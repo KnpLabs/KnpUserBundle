@@ -3,7 +3,6 @@
 namespace FOS\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilder;
 
 class GroupFormType extends AbstractType
