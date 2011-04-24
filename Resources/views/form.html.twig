@@ -1,5 +1,5 @@
 {% form_theme form form.getOption('theme') %}
 
 {% block label %}
-    <label for="{{ field.id }}">{% trans field.id from 'FOSUserBundle' %}</label>
+    <label for="{{ field.id }}">{{ field.id|trans([], 'FOSUserBundle') }}</label>
 {% endblock label %}

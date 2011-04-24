@@ -3,6 +3,6 @@
 {% block content %}
 {% set email = user.getEmail() %}
 <p>
-{% trans "user.check_resetting_email.message" from 'FOSUserBundle' %}
+{% user.check_resetting_email.message|trans([], 'FOSUserBundle') }}
 </p>
 {% endblock %}

@@ -1,3 +1,3 @@
 <div class="fos_user_group_show">
-    <p>{% trans "group.show.name" from 'FOSUserBundle' %}: {{ group.getName() }}</p>
+    <p>{{ group.show.name|trans([], 'FOSUserBundle') }}: {{ group.getName() }}</p>
 </div>
