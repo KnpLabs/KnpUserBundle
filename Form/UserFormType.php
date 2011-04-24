@@ -12,7 +12,6 @@ class UserFormType extends AbstractType
         $builder
             ->add('username')
             ->add('email')
-            ->add('plainPassword', 'repeated', array('type' => 'password'))
-        ->end();
+            ->add('plainPassword', 'repeated', array('type' => 'password'));
     }
 }

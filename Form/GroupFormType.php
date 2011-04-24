@@ -9,6 +9,6 @@ class GroupFormType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->add('name')->end();
+        $builder->add('name');
     }
 }
