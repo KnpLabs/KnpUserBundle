@@ -24,13 +24,11 @@ class FOSUserExtension extends Extension
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array('controller', 'form', 'validator', 'security', 'util', 'listener') as $basename) {
+        foreach (array('controller', 'form', 'validator', 'security', 'util', 'mailer', 'listener') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
-        if (!empty($config['service']['util']['mailer'])) {
-            $container->setAlias('fos_user.util.mailer', $config['service']['util']['mailer']);
-        }
+        $container->setAlias('fos_user.mailer', $config['service']['mailer']);
 
         if (!empty($config['group'])) {
             $loader->load('group.xml');

@@ -20,7 +20,7 @@ class Mailer implements MailerInterface
     protected $templating;
     protected $parameters;
 
-    public function __construct($mailer = null, RouterInterface $router, EngineInterface $templating, array $parameters)
+    public function __construct($mailer, RouterInterface $router, EngineInterface $templating, array $parameters)
     {
         $this->mailer = $mailer;
         $this->router = $router;
@@ -30,9 +30,6 @@ class Mailer implements MailerInterface
 
     public function sendConfirmationEmailMessage(UserInterface $user, $engine)
     {
-        if (!$this->mailer) {
-            return;
-        }
         $template = $this->parameters['confirmation.template'];
         $url = $this->router->generate('fos_user_user_confirm', array('token' => $user->getConfirmationToken()), true);
         $rendered = $this->templating->render($template.'.txt.'.$engine, array(
@@ -44,9 +41,6 @@ class Mailer implements MailerInterface
 
     public function sendResettingEmailMessage(UserInterface $user, $engine)
     {
-        if (!$this->mailer) {
-            return;
-        }
         $template = $this->parameters['resetting_password.template'];
         $url = $this->router->generate('fos_user_user_reset_password', array('token' => $user->getConfirmationToken()), true);
         $rendered = $this->templating->render($template.'.txt.'.$engine, array(

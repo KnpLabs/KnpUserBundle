@@ -113,7 +113,7 @@ class UserController extends ContainerAware
             $user = $form->getData();
 
             if ($this->container->getParameter('fos_user.email.confirmation.enabled')) {
-                $this->container->get('fos_user.util.mailer')->sendConfirmationEmailMessage($user, $this->getEngine());
+                $this->container->get('fos_user.mailer')->sendConfirmationEmailMessage($user, $this->getEngine());
                 $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
                 $route = 'fos_user_user_check_confirmation_email';
             } else {
@@ -253,7 +253,7 @@ class UserController extends ContainerAware
         $user->setPasswordRequestedAt(new \DateTime());
         $this->container->get('fos_user.user_manager')->updateUser($user);
         $this->container->get('session')->set('fos_user_send_resetting_email/email', $user->getEmail());
-        $this->container->get('fos_user.util.mailer')->sendResettingEmailMessage($user, $this->getEngine());
+        $this->container->get('fos_user.mailer')->sendResettingEmailMessage($user, $this->getEngine());
 
         return new RedirectResponse( $this->container->get('router')->generate('fos_user_user_check_resetting_email'));
     }

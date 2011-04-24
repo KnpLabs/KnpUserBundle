@@ -96,13 +96,12 @@ class Configuration implements ConfigurationInterface
     private function addServiceSection(ArrayNodeDefinition $node)
     {
         $node
+            ->addDefaultsIfNotSet()
             ->children()
                 ->arrayNode('service')
-                    ->children()
-                        ->arrayNode('util')
-                            ->children()
-                                ->scalarNode('mailer')->end()
-                            ->end()
+                    ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('mailer')->defaultValue('fos_user.mailer.default')->end()
                         ->end()
                     ->end()
                 ->end()

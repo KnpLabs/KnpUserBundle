@@ -260,14 +260,14 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertAlias('fos_user.util.mailer.real', 'fos_user.util.mailer');
+        $this->assertAlias('fos_user.mailer.real', 'fos_user.mailer');
     }
 
     public function testUserLoadUtilService()
     {
         $this->createFullConfiguration();
 
-        $this->assertAlias('acme_my.util.mailer', 'fos_user.util.mailer');
+        $this->assertAlias('acme_my.mailer', 'fos_user.mailer');
     }
 
     /**
@@ -333,7 +333,7 @@ class:
         username_canonicalizer: Acme\MyBundle\Util\UsernameCanonicalizer
 service:
     util:
-        mailer: acme_my.util.mailer
+        mailer: acme_my.mailer
 encoder:
     algorithm:        sha1
     encode_as_base64: true
