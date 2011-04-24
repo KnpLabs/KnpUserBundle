@@ -1,5 +1,5 @@
 {% form_theme form 'FOSUserBundle::form.html.twig' %}
-<form action="{{ path('fos_user_user_create') }}" {{ form_enctype(form) }} method="POST" class="fos_user_user_new">
+<form action="{{ path('fos_user_user_new') }}" {{ form_enctype(form) }} method="POST" class="fos_user_user_new">
     {{ form_widget(form) }}
     <div>
         <input type="submit" value="{% trans from 'FOSUserBundle' %}user.new.submit{% endtrans %}" />
