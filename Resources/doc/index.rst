@@ -508,11 +508,10 @@ All configuration options are listed below::
             controller:
                 user:     ~
                 security: ~
-            util:
-                email_canonicalizer:    ~
-                username_canonicalizer: ~
         service:
             mailer: ~
+            email_canonicalizer:    ~
+            username_canonicalizer: ~
         encoder:
             algorithm:        ~
             encode_as_base64: ~
