@@ -3,8 +3,8 @@
 <phpunit bootstrap="./Tests/bootstrap.php" color="true">
 <!--
     <php>
-        <server name="SYMFONY" value="../../vendor/symfony/src" />
-        <server name="KERNEL_DIR" value="../../../app" />
+        <server name="SYMFONY" value="../../../symfony/src" />
+        <server name="KERNEL_DIR" value="../../../../app" />
     </php>
 -->
     <testsuites>
