@@ -7,11 +7,12 @@
  * with this source code in the file LICENSE.
  */
 
-namespace FOS\UserBundle\Util;
+namespace FOS\UserBundle\Mailer;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Routing\RouterInterface;
 use FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Mailer\MailerInterface;
 
 class Mailer implements MailerInterface
 {

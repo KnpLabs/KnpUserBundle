@@ -1,4 +1,7 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
-{% set username = user.getUsername() %}
-{{ 'user.confirmed.message'|trans([], 'FOSUserBundle') }}
+{% block content %}
+
+    {{ 'user.confirmed.message'|trans({'%username%': user.getUsername()}, 'FOSUserBundle') }}
+    
+{% endblock content %}
