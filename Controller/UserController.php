@@ -52,24 +52,9 @@ class UserController extends ContainerAware
     {
         $user = $this->findUserBy('username', $username);
         $form = $this->container->get('fos_user.form.user');
+        $formHandler = $this->container->get('fos_user.form.handler.user');
 
-        $form->process($user);
-
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:User:edit.html.'.$this->getEngine(), array(
-            'form'      => $form,
-            'username'  => $user->getUsername()
-        ));
-    }
-
-    /**
-     * Update a user
-     */
-    public function updateAction($username)
-    {
-        $user = $this->findUserBy('username', $username);
-        $form = $this->container->get('fos_user.form.user');
-
-        $process = $form->process($user);
+        $process = $formHandler->process($user);
         if ($process) {
             $this->setFlash('fos_user_user_update', 'success');
             $userUrl =  $this->container->get('router')->generate('fos_user_user_show', array('username' => $user->getUsername()));
@@ -77,7 +62,7 @@ class UserController extends ContainerAware
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:edit.html.'.$this->getEngine(), array(
-            'form'      => $form,
+            'form'      => $form->createView(),
             'username'  => $user->getUsername()
         ));
     }
@@ -88,28 +73,15 @@ class UserController extends ContainerAware
     public function newAction()
     {
         $form = $this->container->get('fos_user.form.user');
+        $formHandler = $this->container->get('fos_user.form.handler.user');
 
-        $form->process();
-
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:User:new.html.'.$this->getEngine(), array(
-            'form' => $form
-        ));
-    }
-
-    /**
-     * Create a user and send a confirmation email
-     */
-    public function createAction()
-    {
-        $form = $this->container->get('fos_user.form.user');
-
-        $process = $form->process(null, $this->container->getParameter('fos_user.email.confirmation.enabled'));
+        $process = $formHandler->process(null, $this->container->getParameter('fos_user.email.confirmation.enabled'));
         if ($process) {
 
             $user = $form->getData();
 
             if ($this->container->getParameter('fos_user.email.confirmation.enabled')) {
-                $this->container->get('fos_user.util.mailer')->sendConfirmationEmailMessage($user, $this->getEngine());
+                $this->container->get('fos_user.mailer')->sendConfirmationEmailMessage($user, $this->getEngine());
                 $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
                 $route = 'fos_user_user_check_confirmation_email';
             } else {
@@ -130,7 +102,7 @@ class UserController extends ContainerAware
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:new.html.'.$this->getEngine(), array(
-            'form' => $form
+            'form' => $form->createView()
         ));
     }
 
@@ -197,10 +169,11 @@ class UserController extends ContainerAware
     {
         $user = $this->getUser();
         $form = $this->container->get('fos_user.form.change_password');
-        $form->process($user);
+        $formHandler = $this->container->get('fos_user.form.handler.change_password');
+        $formHandler->process($user);
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:changePassword.html.'.$this->getEngine(), array(
-            'form' => $form
+            'form' => $form->createView()
         ));
     }
 
@@ -211,8 +184,9 @@ class UserController extends ContainerAware
     {
         $user = $this->getUser();
         $form = $this->container->get('fos_user.form.change_password');
+        $formHandler = $this->container->get('fos_user.form.handler.change_password');
 
-        $process = $form->process($user);
+        $process = $formHandler->process($user);
         if ($process) {
             $this->setFlash('fos_user_user_password', 'success');
             $url =  $this->container->get('router')->generate('fos_user_user_show', array('username' => $user->getUsername()));
@@ -220,7 +194,7 @@ class UserController extends ContainerAware
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:changePassword.html.'.$this->getEngine(), array(
-            'form' => $form
+            'form' => $form->createView()
         ));
     }
 
@@ -247,7 +221,7 @@ class UserController extends ContainerAware
         $user->setPasswordRequestedAt(new \DateTime());
         $this->container->get('fos_user.user_manager')->updateUser($user);
         $this->container->get('session')->set('fos_user_send_resetting_email/email', $user->getEmail());
-        $this->container->get('fos_user.util.mailer')->sendResettingEmailMessage($user, $this->getEngine());
+        $this->container->get('fos_user.mailer')->sendResettingEmailMessage($user, $this->getEngine());
 
         return new RedirectResponse( $this->container->get('router')->generate('fos_user_user_check_resetting_email'));
     }
@@ -283,11 +257,12 @@ class UserController extends ContainerAware
         }
 
         $form = $this->container->get('fos_user.form.reset_password');
-        $form->process($user);
+        $formHandler = $this->container->get('fos_user.form.handler.reset_password');
+        $formHandler->process($user);
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:resetPassword.html.'.$this->getEngine(), array(
             'token' => $token,
-            'form' => $form
+            'form' => $form->createView()
         ));
     }
 
@@ -303,8 +278,9 @@ class UserController extends ContainerAware
         }
 
         $form = $this->container->get('fos_user.form.reset_password');
+        $formHandler = $this->container->get('fos_user.form.handler.reset_password');
 
-        $process = $form->process($user);
+        $process = $formHandler->process($user);
         if ($process) {
             $this->authenticateUser($user);
 
@@ -315,7 +291,7 @@ class UserController extends ContainerAware
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:resetPassword.html.'.$this->getEngine(), array(
             'token' => $token,
-            'form' => $form
+            'form' => $form->createView()
         ));
     }
 

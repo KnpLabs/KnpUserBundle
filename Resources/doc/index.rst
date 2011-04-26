@@ -508,12 +508,10 @@ All configuration options are listed below::
             controller:
                 user:     ~
                 security: ~
-            util:
-                email_canonicalizer:    ~
-                username_canonicalizer: ~
         service:
-            util:
-                mailer: ~
+            mailer: ~
+            email_canonicalizer:    ~
+            username_canonicalizer: ~
         encoder:
             algorithm:        ~
             encode_as_base64: ~
@@ -643,14 +641,18 @@ Emails
 
 The default mailer relies on Swiftmailer to send the mails of the bundle. If you
 want to use another mailer in your project you can change it by defining your
-own service implementing ``FOS\UserBundle\Util\MailerInterface`` and setting its
+own service implementing ``FOS\UserBundle\Mailer\MailerInterface`` and setting its
 id in the configuration::
 
     fos_user:
         # ...
         service:
-            util:
-                mailer: custom_mailer_id
+            mailer: custom_mailer_id
+
+This bundle comes with two mailer implementations.
+
+- `fos_user.mailer.default` is the default implementation, and uses swiftmailer to send emails.
+- `fos_user.mailer.noop` does nothing and can be used if your project does not depend on swiftmailer.
 
 Canonicalization
 ----------------

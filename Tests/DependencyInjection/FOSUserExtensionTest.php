@@ -240,34 +240,18 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter(3, 'fos_user.encoder.iterations');
     }
 
-    public function testUserLoadUtilClassWithDefaults()
-    {
-        $this->createEmptyConfiguration();
-
-        $this->assertParameter('FOS\UserBundle\Util\Canonicalizer', 'fos_user.util.email_canonicalizer.class');
-        $this->assertParameter('FOS\UserBundle\Util\Canonicalizer', 'fos_user.util.username_canonicalizer.class');
-    }
-
-    public function testUserLoadUtilClass()
-    {
-        $this->createFullConfiguration();
-
-        $this->assertParameter('Acme\MyBundle\Util\EmailCanonicalizer', 'fos_user.util.email_canonicalizer.class');
-        $this->assertParameter('Acme\MyBundle\Util\UsernameCanonicalizer', 'fos_user.util.username_canonicalizer.class');
-    }
-
     public function testUserLoadUtilServiceWithDefaults()
     {
         $this->createEmptyConfiguration();
 
-        $this->assertAlias('fos_user.util.mailer.real', 'fos_user.util.mailer');
+        $this->assertAlias('fos_user.mailer.real', 'fos_user.mailer');
     }
 
     public function testUserLoadUtilService()
     {
         $this->createFullConfiguration();
 
-        $this->assertAlias('acme_my.util.mailer', 'fos_user.util.mailer');
+        $this->assertAlias('acme_my.mailer', 'fos_user.mailer');
     }
 
     /**
@@ -328,12 +312,11 @@ class:
     controller:
         user:     Acme\MyBundle\Controller\UserController
         security: Acme\MyBundle\Controller\SecurityController
-    util:
-        email_canonicalizer:    Acme\MyBundle\Util\EmailCanonicalizer
-        username_canonicalizer: Acme\MyBundle\Util\UsernameCanonicalizer
 service:
     util:
-        mailer: acme_my.util.mailer
+        mailer: acme_my.mailer
+        email_canonicalizer:    acme_my.email_canonicalizer
+        username_canonicalizer: acme_my.username_canonicalizer
 encoder:
     algorithm:        sha1
     encode_as_base64: true

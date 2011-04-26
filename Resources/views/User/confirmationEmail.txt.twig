@@ -1,2 +1,1 @@
-{% set username = user.getUsername() %}
-{% trans from 'FOSUserBundle' %}user.email.confirmation{% endtrans %}
+{{ 'user.email.confirmation'|trans({'%username%': user.getUsername(), '%confirmationUrl%': confirmationUrl}, 'FOSUserBundle') }}

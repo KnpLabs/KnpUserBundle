@@ -47,24 +47,9 @@ class GroupController extends ContainerAware
     {
         $group = $this->findGroupBy('name', $groupname);
         $form = $this->container->get('fos_user.form.group');
+        $formHandler = $this->container->get('fos_user.form.handler.group');
 
-        $form->process($group);
-
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:edit.html.'.$this->getEngine(), array(
-            'form'      => $form,
-            'groupname'  => $group->getName()
-        ));
-    }
-
-    /**
-     * Update a group
-     */
-    public function updateAction($groupname)
-    {
-        $group = $this->findGroupBy('name', $groupname);
-        $form = $this->container->get('fos_user.form.group');
-
-        $process = $form->process($group);
+        $process = $formHandler->process($group);
         if ($process) {
             $this->setFlash('fos_user_group_update', 'success');
             $groupUrl =  $this->container->get('router')->generate('fos_user_group_show', array('groupname' => $group->getName()));
@@ -72,7 +57,7 @@ class GroupController extends ContainerAware
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:edit.html.'.$this->getEngine(), array(
-            'form'      => $form,
+            'form'      => $form->createview(),
             'groupname'  => $group->getName()
         ));
     }
@@ -83,22 +68,9 @@ class GroupController extends ContainerAware
     public function newAction()
     {
         $form = $this->container->get('fos_user.form.group');
+        $formHandler = $this->container->get('fos_user.form.handler.group');
 
-        $form->process();
-
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:new.html.'.$this->getEngine(), array(
-            'form' => $form
-        ));
-    }
-
-    /**
-     * Create a group
-     */
-    public function createAction()
-    {
-        $form = $this->container->get('fos_user.form.group');
-
-        $process = $form->process();
+        $process = $formHandler->process();
         if ($process) {
             $this->container->get('session')->setFlash('fos_user_group_update', 'success');
             $parameters = array('groupname' => $form->getData('group')->getName());
@@ -107,7 +79,7 @@ class GroupController extends ContainerAware
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:new.html.'.$this->getEngine(), array(
-            'form' => $form
+            'form' => $form->createview()
         ));
     }
 

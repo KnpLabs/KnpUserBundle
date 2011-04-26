@@ -5,23 +5,8 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="fos_user.util.email_canonicalizer" class="%fos_user.util.email_canonicalizer.class%"></service>
-        <service id="fos_user.util.username_canonicalizer" class="%fos_user.util.username_canonicalizer.class%"></service>
-
-        <service id="fos_user.util.mailer.real" class="FOS\UserBundle\Util\Mailer" public="false">
-            <argument type="service" id="mailer" />
-            <argument type="service" id="router" />
-            <argument type="service" id="templating" />
-            <argument type="collection">
-                <argument key="confirmation.template">%fos_user.email.confirmation.template%</argument>
-                <argument key="resetting_password.template">%fos_user.email.resetting_password.template%</argument>
-                <argument key="from_email" type="collection">
-                    <argument key="confirmation">%fos_user.email.from_email%</argument>
-                    <argument key="resetting_password">%fos_user.email.from_email%</argument>
-                </argument>
-            </argument>
-        </service>
-        <service id="fos_user.util.mailer" alias="fos_user.util.mailer.real" />
+        <service id="fos_user.util.email_canonicalizer.default" class="FOS\UserBundle\Util\Canonicalizer" public="false" />
+        <service id="fos_user.util.username_canonicalizer.default" class="FOS\UserBundle\Util\Canonicalizer" public="false" />
     </services>
-    
+
 </container>
