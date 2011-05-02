@@ -2,12 +2,12 @@
 
 namespace FOS\UserBundle\Tests;
 
-use FOS\UserBundle\UserPasswordChanger;
+use FOS\UserBundle\UserPromoter;
 use FOS\UserBundle\Tests\TestUser;
 
-class UserPasswordChangerTest extends \PHPUnit_Framework_TestCase
+class UserPromoterTest extends \PHPUnit_Framework_TestCase
 {
-    public function testChangeWithValidUsername()
+    public function testPromoteWithValidUsername()
     {
         $userManagerMock = $this->createUserManagerMock(array('findUserByUsername', 'updateUser'));
 
@@ -15,11 +15,9 @@ class UserPasswordChangerTest extends \PHPUnit_Framework_TestCase
         $user->setId(77);
 
         $username    = 'test_username';
-        $password    = 'test_password';
-        $oldpassword = 'old_password';
 
         $user->setUsername($username);
-        $user->setPlainPassword($oldpassword);
+        $user->setSuperAdmin(false);
 
         $userManagerMock->expects($this->once())
             ->method('findUserByUsername')
@@ -31,32 +29,30 @@ class UserPasswordChangerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($user))
             ->with($this->isInstanceOf('FOS\UserBundle\Tests\TestUser'));
 
-        $changer = new UserPasswordChanger($userManagerMock);
+        $promoter = new UserPromoter($userManagerMock);
 
-        $changer->change($username, $password);
+        $promoter->promote($username);
 
         $this->assertEquals($username, $user->getUsername());
-        $this->assertEquals($password, $user->getPlainPassword());
+        $this->assertEquals(true, $user->isSuperAdmin());
 
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testChangeWithInvalidUsername()
+    public function testPromoteWithInvalidUsername()
     {
         $userManagerMock = $this->createUserManagerMock(array('findUserByUsername', 'updateUser'));
 
         $user = new TestUser();
         $user->setId(77);
 
-        $username         = 'test_username';
-        $invalidusername  = 'invalid_username';
-        $password         = 'test_password';
-        $oldpassword      = 'old_password';
+        $username    = 'test_username';
+        $invalidusername    = 'invalid_username';
 
         $user->setUsername($username);
-        $user->setPlainPassword($oldpassword);
+        $user->setSuperAdmin(false);
 
         $userManagerMock->expects($this->once())
             ->method('findUserByUsername')
@@ -66,9 +62,9 @@ class UserPasswordChangerTest extends \PHPUnit_Framework_TestCase
         $userManagerMock->expects($this->never())
             ->method('updateUser');
 
-        $changer = new UserPasswordChanger($userManagerMock);
+        $promoter = new UserPromoter($userManagerMock);
 
-        $changer->change($invalidusername, $password);
+        $promoter->promote($invalidusername);
 
     }
 
