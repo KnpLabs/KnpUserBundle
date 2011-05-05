@@ -9,7 +9,7 @@ class EncoderFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers FOS\UserBundle\Security\Encoder\EncoderFactory::getEncoder
-     * @covers FOS\UserBundle\Security\Encoder\EncoderFactory::createFosEncoder
+     * @covers FOS\UserBundle\Security\Encoder\EncoderFactory::createEncoder
      */
     public function testGetEncoderWithUserAccount()
     {
