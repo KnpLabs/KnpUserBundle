@@ -1,8 +1,8 @@
 <?php
 
-namespace FOS\UserBundle\Tests;
+namespace FOS\UserBundle\Tests\Util;
 
-use FOS\UserBundle\AcesInstaller;
+use FOS\UserBundle\Util\AcesInstaller;
 use FOS\UserBundle\Tests\TestUser;
 use Symfony\Component\Security\Acl\Domain\Acl;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;

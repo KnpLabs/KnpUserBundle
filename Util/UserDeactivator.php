@@ -1,14 +1,14 @@
 <?php
 
-namespace FOS\UserBundle;
+namespace FOS\UserBundle\Util;
 
 use FOS\UserBundle\Model\User;
 use FOS\UserBundle\Model\UserManagerInterface;
 
 /**
- * Activates a given user
+ * Deactivates a given user
  */
-class UserActivator
+class UserDeactivator
 {
     /**
      * User manager
@@ -23,18 +23,18 @@ class UserActivator
     }
 
     /**
-     * Activates a given user
+     * Deactivates given user
      *
      * @param string $username
      */
-    public function activate($username)
+    public function deactivate($username)
     {
         $user = $this->userManager->findUserByUsername($username);
 
         if (!$user) {
             throw new \InvalidArgumentException(sprintf('User identified by "%s" username does not exist.', $username));
         }
-        $user->setEnabled(true);
+        $user->setEnabled(false);
         $this->userManager->updateUser($user);
     }
 

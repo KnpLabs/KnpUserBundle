@@ -1,13 +1,13 @@
 <?php
 
-namespace FOS\UserBundle\Tests;
+namespace FOS\UserBundle\Tests\Util;
 
-use FOS\UserBundle\UserActivator;
+use FOS\UserBundle\Util\UserDeactivator;
 use FOS\UserBundle\Tests\TestUser;
 
-class UserActivatorTest extends \PHPUnit_Framework_TestCase
+class UserDeactivatorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testActivateWithValidUsername()
+    public function testDeactivateWithValidUsername()
     {
         $userManagerMock = $this->createUserManagerMock(array('findUserByUsername', 'updateUser'));
 
@@ -17,7 +17,7 @@ class UserActivatorTest extends \PHPUnit_Framework_TestCase
         $username    = 'test_username';
 
         $user->setUsername($username);
-        $user->setEnabled(false);
+        $user->setEnabled(true);
 
         $userManagerMock->expects($this->once())
             ->method('findUserByUsername')
@@ -29,19 +29,19 @@ class UserActivatorTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($user))
             ->with($this->isInstanceOf('FOS\UserBundle\Tests\TestUser'));
 
-        $activator = new UserActivator($userManagerMock);
+        $deactivator = new UserDeactivator($userManagerMock);
 
-        $activator->activate($username);
+        $deactivator->deactivate($username);
 
         $this->assertEquals($username, $user->getUsername());
-        $this->assertEquals(true, $user->isEnabled());
+        $this->assertEquals(false, $user->isEnabled());
 
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testActivateWithInvalidUsername()
+    public function testDeactivateWithInvalidUsername()
     {
         $userManagerMock = $this->createUserManagerMock(array('findUserByUsername', 'updateUser'));
 
@@ -52,7 +52,7 @@ class UserActivatorTest extends \PHPUnit_Framework_TestCase
         $invalidusername    = 'invalid_username';
 
         $user->setUsername($username);
-        $user->setEnabled(false);
+        $user->setEnabled(true);
 
         $userManagerMock->expects($this->once())
             ->method('findUserByUsername')
@@ -62,9 +62,9 @@ class UserActivatorTest extends \PHPUnit_Framework_TestCase
         $userManagerMock->expects($this->never())
             ->method('updateUser');
 
-        $activator = new UserActivator($userManagerMock);
+        $deactivator = new UserDeactivator($userManagerMock);
 
-        $activator->activate($invalidusername);
+        $deactivator->deactivate($invalidusername);
 
     }
 

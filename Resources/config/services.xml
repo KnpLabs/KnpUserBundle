@@ -5,26 +5,26 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="fos_user.user_creator" class="FOS\UserBundle\UserCreator">
+        <service id="fos_user.user_creator" class="FOS\UserBundle\Util\UserCreator">
             <argument type="service" id="fos_user.user_manager" />
             <argument type="service" id="security.acl.provider" on-invalid="ignore" />
         </service>
-        <service id="fos_user.user_password_changer" class="FOS\UserBundle\UserPasswordChanger">
+        <service id="fos_user.user_password_changer" class="FOS\UserBundle\Util\UserPasswordChanger">
             <argument type="service" id="fos_user.user_manager" />
         </service>
-        <service id="fos_user.user_activator" class="FOS\UserBundle\UserActivator">
+        <service id="fos_user.user_activator" class="FOS\UserBundle\Util\UserActivator">
             <argument type="service" id="fos_user.user_manager" />
         </service>
-        <service id="fos_user.user_deactivator" class="FOS\UserBundle\UserDeactivator">
+        <service id="fos_user.user_deactivator" class="FOS\UserBundle\Util\UserDeactivator">
             <argument type="service" id="fos_user.user_manager" />
         </service>
-        <service id="fos_user.user_demoter" class="FOS\UserBundle\UserDemoter">
+        <service id="fos_user.user_demoter" class="FOS\UserBundle\Util\UserDemoter">
             <argument type="service" id="fos_user.user_manager" />
         </service>
-        <service id="fos_user.user_promoter" class="FOS\UserBundle\UserPromoter">
+        <service id="fos_user.user_promoter" class="FOS\UserBundle\Util\UserPromoter">
             <argument type="service" id="fos_user.user_manager" />
         </service>
-        <service id="fos_user.aces_installer" class="FOS\UserBundle\AcesInstaller">
+        <service id="fos_user.aces_installer" class="FOS\UserBundle\Util\AcesInstaller">
             <argument type="service" id="fos_user.user_manager" />
             <argument type="service" id="security.acl.provider" on-invalid="ignore" />
         </service>

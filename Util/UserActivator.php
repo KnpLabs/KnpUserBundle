@@ -1,14 +1,14 @@
 <?php
 
-namespace FOS\UserBundle;
+namespace FOS\UserBundle\Util;
 
 use FOS\UserBundle\Model\User;
 use FOS\UserBundle\Model\UserManagerInterface;
 
 /**
- * Promotes a given user
+ * Activates a given user
  */
-class UserPromoter
+class UserActivator
 {
     /**
      * User manager
@@ -23,18 +23,18 @@ class UserPromoter
     }
 
     /**
-     * Promotes given user
+     * Activates a given user
      *
      * @param string $username
      */
-    public function promote($username)
+    public function activate($username)
     {
         $user = $this->userManager->findUserByUsername($username);
 
         if (!$user) {
             throw new \InvalidArgumentException(sprintf('User identified by "%s" username does not exist.', $username));
         }
-        $user->setSuperAdmin(true);
+        $user->setEnabled(true);
         $this->userManager->updateUser($user);
     }
 

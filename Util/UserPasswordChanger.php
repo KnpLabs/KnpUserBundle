@@ -1,6 +1,6 @@
 <?php
 
-namespace FOS\UserBundle;
+namespace FOS\UserBundle\Util;
 
 use FOS\UserBundle\Model\User;
 use FOS\UserBundle\Model\UserManagerInterface;

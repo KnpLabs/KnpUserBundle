@@ -1,13 +1,13 @@
 <?php
 
-namespace FOS\UserBundle\Tests;
+namespace FOS\UserBundle\Tests\Util;
 
-use FOS\UserBundle\UserPromoter;
+use FOS\UserBundle\Util\UserActivator;
 use FOS\UserBundle\Tests\TestUser;
 
-class UserPromoterTest extends \PHPUnit_Framework_TestCase
+class UserActivatorTest extends \PHPUnit_Framework_TestCase
 {
-    public function testPromoteWithValidUsername()
+    public function testActivateWithValidUsername()
     {
         $userManagerMock = $this->createUserManagerMock(array('findUserByUsername', 'updateUser'));
 
@@ -17,7 +17,7 @@ class UserPromoterTest extends \PHPUnit_Framework_TestCase
         $username    = 'test_username';
 
         $user->setUsername($username);
-        $user->setSuperAdmin(false);
+        $user->setEnabled(false);
 
         $userManagerMock->expects($this->once())
             ->method('findUserByUsername')
@@ -29,19 +29,19 @@ class UserPromoterTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($user))
             ->with($this->isInstanceOf('FOS\UserBundle\Tests\TestUser'));
 
-        $promoter = new UserPromoter($userManagerMock);
+        $activator = new UserActivator($userManagerMock);
 
-        $promoter->promote($username);
+        $activator->activate($username);
 
         $this->assertEquals($username, $user->getUsername());
-        $this->assertEquals(true, $user->isSuperAdmin());
+        $this->assertEquals(true, $user->isEnabled());
 
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testPromoteWithInvalidUsername()
+    public function testActivateWithInvalidUsername()
     {
         $userManagerMock = $this->createUserManagerMock(array('findUserByUsername', 'updateUser'));
 
@@ -52,7 +52,7 @@ class UserPromoterTest extends \PHPUnit_Framework_TestCase
         $invalidusername    = 'invalid_username';
 
         $user->setUsername($username);
-        $user->setSuperAdmin(false);
+        $user->setEnabled(false);
 
         $userManagerMock->expects($this->once())
             ->method('findUserByUsername')
@@ -62,9 +62,9 @@ class UserPromoterTest extends \PHPUnit_Framework_TestCase
         $userManagerMock->expects($this->never())
             ->method('updateUser');
 
-        $promoter = new UserPromoter($userManagerMock);
+        $activator = new UserActivator($userManagerMock);
 
-        $promoter->promote($invalidusername);
+        $activator->activate($invalidusername);
 
     }
 

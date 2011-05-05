@@ -1,13 +1,13 @@
 <?php
 
-namespace FOS\UserBundle\Tests;
+namespace FOS\UserBundle\Tests\Util;
 
-use FOS\UserBundle\UserDemoter;
+use FOS\UserBundle\Util\UserPromoter;
 use FOS\UserBundle\Tests\TestUser;
 
-class UserDemoterTest extends \PHPUnit_Framework_TestCase
+class UserPromoterTest extends \PHPUnit_Framework_TestCase
 {
-    public function testDemoteWithValidUsername()
+    public function testPromoteWithValidUsername()
     {
         $userManagerMock = $this->createUserManagerMock(array('findUserByUsername', 'updateUser'));
 
@@ -17,7 +17,7 @@ class UserDemoterTest extends \PHPUnit_Framework_TestCase
         $username    = 'test_username';
 
         $user->setUsername($username);
-        $user->setSuperAdmin(true);
+        $user->setSuperAdmin(false);
 
         $userManagerMock->expects($this->once())
             ->method('findUserByUsername')
@@ -29,19 +29,19 @@ class UserDemoterTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($user))
             ->with($this->isInstanceOf('FOS\UserBundle\Tests\TestUser'));
 
-        $demoter = new UserDemoter($userManagerMock);
+        $promoter = new UserPromoter($userManagerMock);
 
-        $demoter->demote($username);
+        $promoter->promote($username);
 
         $this->assertEquals($username, $user->getUsername());
-        $this->assertEquals(false, $user->isSuperAdmin());
+        $this->assertEquals(true, $user->isSuperAdmin());
 
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testDemoteWithInvalidUsername()
+    public function testPromoteWithInvalidUsername()
     {
         $userManagerMock = $this->createUserManagerMock(array('findUserByUsername', 'updateUser'));
 
@@ -52,7 +52,7 @@ class UserDemoterTest extends \PHPUnit_Framework_TestCase
         $invalidusername    = 'invalid_username';
 
         $user->setUsername($username);
-        $user->setSuperAdmin(true);
+        $user->setSuperAdmin(false);
 
         $userManagerMock->expects($this->once())
             ->method('findUserByUsername')
@@ -62,9 +62,9 @@ class UserDemoterTest extends \PHPUnit_Framework_TestCase
         $userManagerMock->expects($this->never())
             ->method('updateUser');
 
-        $demoter = new UserDemoter($userManagerMock);
+        $promoter = new UserPromoter($userManagerMock);
 
-        $demoter->demote($invalidusername);
+        $promoter->promote($invalidusername);
 
     }
 

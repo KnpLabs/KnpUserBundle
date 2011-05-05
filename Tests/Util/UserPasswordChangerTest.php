@@ -1,13 +1,13 @@
 <?php
 
-namespace FOS\UserBundle\Tests;
+namespace FOS\UserBundle\Tests\Util;
 
-use FOS\UserBundle\UserDeactivator;
+use FOS\UserBundle\Util\UserPasswordChanger;
 use FOS\UserBundle\Tests\TestUser;
 
-class UserActivatorTest extends \PHPUnit_Framework_TestCase
+class UserPasswordChangerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testDeactivateWithValidUsername()
+    public function testChangeWithValidUsername()
     {
         $userManagerMock = $this->createUserManagerMock(array('findUserByUsername', 'updateUser'));
 
@@ -15,9 +15,11 @@ class UserActivatorTest extends \PHPUnit_Framework_TestCase
         $user->setId(77);
 
         $username    = 'test_username';
+        $password    = 'test_password';
+        $oldpassword = 'old_password';
 
         $user->setUsername($username);
-        $user->setEnabled(true);
+        $user->setPlainPassword($oldpassword);
 
         $userManagerMock->expects($this->once())
             ->method('findUserByUsername')
@@ -29,30 +31,32 @@ class UserActivatorTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($user))
             ->with($this->isInstanceOf('FOS\UserBundle\Tests\TestUser'));
 
-        $deactivator = new UserDeactivator($userManagerMock);
+        $changer = new UserPasswordChanger($userManagerMock);
 
-        $deactivator->deactivate($username);
+        $changer->change($username, $password);
 
         $this->assertEquals($username, $user->getUsername());
-        $this->assertEquals(false, $user->isEnabled());
+        $this->assertEquals($password, $user->getPlainPassword());
 
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testDeactivateWithInvalidUsername()
+    public function testChangeWithInvalidUsername()
     {
         $userManagerMock = $this->createUserManagerMock(array('findUserByUsername', 'updateUser'));
 
         $user = new TestUser();
         $user->setId(77);
 
-        $username    = 'test_username';
-        $invalidusername    = 'invalid_username';
+        $username         = 'test_username';
+        $invalidusername  = 'invalid_username';
+        $password         = 'test_password';
+        $oldpassword      = 'old_password';
 
         $user->setUsername($username);
-        $user->setEnabled(true);
+        $user->setPlainPassword($oldpassword);
 
         $userManagerMock->expects($this->once())
             ->method('findUserByUsername')
@@ -62,9 +66,9 @@ class UserActivatorTest extends \PHPUnit_Framework_TestCase
         $userManagerMock->expects($this->never())
             ->method('updateUser');
 
-        $deactivator = new UserDeactivator($userManagerMock);
+        $changer = new UserPasswordChanger($userManagerMock);
 
-        $deactivator->deactivate($invalidusername);
+        $changer->change($invalidusername, $password);
 
     }
 
