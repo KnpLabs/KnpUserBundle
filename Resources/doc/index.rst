@@ -76,6 +76,12 @@ ORM User class
          * @orm:generatedValue(strategy="AUTO")
          */
         protected $id;
+
+        public function __construct()
+        {
+            parent::__construct();
+            // your own logic
+        }
     }
 
 MongoDB User class
@@ -95,7 +101,18 @@ MongoDB User class
     {
         /** @mongodb:Id(strategy="auto") */
         protected $id;
+
+        public function __construct()
+        {
+            parent::__construct();
+            // your own logic
+        }
     }
+
+.. warning::
+
+    Take care to call the parent constructor when you overwrite it in your own
+    entity as it initializes some fields.
 
 Configure your project
 ----------------------
@@ -405,6 +422,12 @@ ORM
      */
     class Group extends BaseGroup
     {
+        /**
+         * @orm:Id
+         * @orm:Column(type="integer")
+         * @orm:generatedValue(strategy="AUTO")
+         */
+        protected $id;
     }
 
 ODM
@@ -422,6 +445,8 @@ ODM
      */
     class Group extends BaseGroup
     {
+        /** @mongodb:Id(strategy="auto") */
+        protected $id;
     }
 
 Defining the relation
