@@ -6,13 +6,22 @@
 
     <services>
 
-        <service id="fos_user.form.user" factory-method="create" factory-service="form.factory" class="%form.factory.class%">
+        <service id="fos_user.form.user" factory-method="getForm" factory-service="fos_user.form_builder.user" class="Symfony\Component\Form\Form" />
+
+        <service id="fos_user.form_builder.user" factory-method="createBuilder" factory-service="form.factory" class="Symfony\Component\Form\FormBuilder">
             <argument type="service" id="fos_user.form.type.user" />
             <argument />
             <argument type="collection">
                 <argument key="data_class">%fos_user.model.user.class%</argument>
                 <argument key="validation_groups">%fos_user.form.user.validation_groups%</argument>
             </argument>
+            <call method="addEventSubscriber">
+                <argument type="service" id="fos_user.form.listener.user_canonical_fields" />
+            </call>
+        </service>
+
+        <service id="fos_user.form.listener.user_canonical_fields" class="FOS\UserBundle\Form\UpdateCanonicalFieldsListener" public="false">
+            <argument type="service" id="fos_user.user_manager" />
         </service>
 
         <service id="fos_user.form.type.user" class="%fos_user.form.type.user.class%">
