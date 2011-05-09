@@ -58,7 +58,7 @@ class UniqueValidator extends ConstraintValidator
     {
         if (!$this->getUserManager()->validateUnique($value, $constraint)) {
             $this->setMessage($constraint->message, array(
-                'property' => $constraint->property
+                '%property%' => $constraint->property
             ));
             return false;
         }
