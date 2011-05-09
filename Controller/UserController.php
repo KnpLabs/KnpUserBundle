@@ -218,10 +218,10 @@ class UserController extends ContainerAware
         }
 
         $user->generateConfirmationToken();
-        $user->setPasswordRequestedAt(new \DateTime());
-        $this->container->get('fos_user.user_manager')->updateUser($user);
         $this->container->get('session')->set('fos_user_send_resetting_email/email', $user->getEmail());
         $this->container->get('fos_user.mailer')->sendResettingEmailMessage($user, $this->getEngine());
+        $user->setPasswordRequestedAt(new \DateTime());
+        $this->container->get('fos_user.user_manager')->updateUser($user);
 
         return new RedirectResponse( $this->container->get('router')->generate('fos_user_user_check_resetting_email'));
     }
