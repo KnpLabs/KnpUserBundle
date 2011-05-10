@@ -367,6 +367,37 @@ fields...). This will also persist the entity.
     can disable the flush when using the ORM and the MongoDB implementations by
     passing a second argument set to ``false``.
 
+If you don't want to need calling the ``updateUser`` method each time you do
+a change, you can also activate the Doctrine listener doing it behind the
+scene.
+
+In YAML:
+
+::
+
+    # app/config/config.yml
+    fos_user:
+        db_driver: orm
+        firewall_name: main
+        use_listener: true
+        class:
+            model:
+                user: MyProject\MyBundle\Entity\User
+
+Or if you prefer XML:
+
+::
+
+    # app/config/config.xml
+
+    <fos_user:config db-driver="orm" firewall-name="main" use-listener="true">
+        <fos_user:class>
+            <fos_user:model
+                user="MyProject\MyBundle\Entity\User"
+            />
+        </fos_user:class>
+    </fos_user:config>
+
 Using groups
 ============
 
@@ -528,6 +559,7 @@ All configuration options are listed below::
     fos_user:
         db_driver:     mongodb
         firewall_name: main
+        use_listener:  false
         class:
             model:
                 user:  MyProject\MyBundle\Document\User
