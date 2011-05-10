@@ -31,7 +31,6 @@ class UserFormHandler
 
         if ('POST' == $this->request->getMethod()) {
             $this->form->bindRequest($this->request);
-            $this->userManager->updateCanonicalFields($this->form->getData());
 
             if ($this->form->isValid()) {
                 if (true === $confirmation) {
