@@ -280,10 +280,10 @@ routes:
 
     # app/config/routing.yml
     fos_user_security:
-        resource: @FOSUserBundle/Resources/config/routing/security.xml
+        resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
     fos_user_user:
-        resource: @FOSUserBundle/Resources/config/routing/user.xml
+        resource: "@FOSUserBundle/Resources/config/routing/user.xml"
         prefix: /user
 
 ::
@@ -559,7 +559,7 @@ All configuration options are listed below::
     fos_user:
         db_driver:     mongodb
         firewall_name: main
-        use_listener:  false
+        use_listener:  true
         class:
             model:
                 user:  MyProject\MyBundle\Document\User
