@@ -19,7 +19,7 @@
         </service>
 
         <service id="fos_user.user_listener" class="FOS\UserBundle\Entity\UserListener" public="false">
-            <argument type="service" id="fos_user.user_listener">
+            <argument type="service" id="fos_user.user_listener" />
         </service>
     </services>
 
