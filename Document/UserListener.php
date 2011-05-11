@@ -7,23 +7,28 @@ use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
 use FOS\UserBundle\Model\UserInterface;
-use FOS\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class UserListener implements EventSubscriber
 {
     /**
-     * @var UserManagerInterface
+     * @var \FOS\UserBundle\Model\UserManagerInterface
      */
     private $userManager;
 
     /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    /**
      * Constructor
      *
-     * @param UserManagerInterface $userManager
+     * @param ContainerInterface $container
      */
-    public function __construct(UserManagerInterface $userManager)
+    public function __construct(ContainerInterface $container)
     {
-        $this->userManager = $userManager;
+        $this->container = $container;
     }
 
     public function getSubscribedEvents()
@@ -36,15 +41,20 @@ class UserListener implements EventSubscriber
 
     public function prePersist(LifecycleEventArgs $args)
     {
-        $entity = $args->getDocument();
-        if ($entity instanceof UserInterface) {
-            $this->userManager->updateCanonicalFields($entity);
-            $this->userManager->updatePassword($entity);
-        }
+        $this->handleEvent($args);
     }
 
     public function preUpdate(PreUpdateEventArgs $args)
     {
+        $this->handleEvent($args);
+    }
+
+    private function handleEvent(LifecycleEventArgs $args)
+    {
+        if (null === $this->userManager) {
+            $this->userManager = $this->container->get('fos_user.user_manager');
+        }
+
         $entity = $args->getDocument();
         if ($entity instanceof UserInterface) {
             $this->userManager->updateCanonicalFields($entity);
