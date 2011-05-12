@@ -53,11 +53,22 @@ class UserCreator
         $user->setSuperAdmin((bool)$superadmin);
         $this->userManager->updateUser($user);
 
-        if ($this->aclProvider) {
-            $oid = ObjectIdentity::fromDomainObject($user);
-            $acl = $this->aclProvider->createAcl($oid);
-            $acl->insertObjectAce(UserSecurityIdentity::fromAccount($user), MaskBuilder::MASK_OWNER);
-            $this->aclProvider->updateAcl($acl);
+        $this->createAcl($user);
+    }
+
+    /**
+     * Creates the user ACL *if* an acl provider is available
+     *
+     * @return null
+     **/
+    public function createAcl(User $user)
+    {
+        if (!$this->aclProvider) {
+            return;
         }
+        $oid = ObjectIdentity::fromDomainObject($user);
+        $acl = $this->aclProvider->createAcl($oid);
+        $acl->insertObjectAce(UserSecurityIdentity::fromAccount($user), MaskBuilder::MASK_OWNER);
+        $this->aclProvider->updateAcl($acl);
     }
 }

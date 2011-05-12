@@ -89,12 +89,7 @@ class UserController extends ContainerAware
                 $route = 'fos_user_user_confirmed';
             }
 
-            if ($this->container->has('security.acl.provider')) {
-                $provider = $this->container->get('security.acl.provider');
-                $acl = $provider->createAcl(ObjectIdentity::fromDomainObject($user));
-                $acl->insertObjectAce(UserSecurityIdentity::fromAccount($user), MaskBuilder::MASK_OWNER);
-                $provider->updateAcl($acl);
-            }
+            $this->container->get('fos_user.user_creator')->createAcl($user);
 
             $this->setFlash('fos_user_user_create', 'success');
             $url = $this->container->get('router')->generate($route);
