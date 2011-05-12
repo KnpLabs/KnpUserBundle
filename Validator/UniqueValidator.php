@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Exception\ValidatorException;
 class UniqueValidator extends ConstraintValidator
 {
     /**
-     * @var UserManager
+     * @var UserManagerInterface
      */
     protected $userManager;
 
@@ -31,9 +31,9 @@ class UniqueValidator extends ConstraintValidator
     /**
      * Sets the user manager
      *
-     * @param UserManager $userManager
+     * @param UserManagerInterface $userManager
      */
-    public function setUserManager(UserManager $userManager)
+    public function setUserManager(UserManagerInterface $userManager)
     {
         $this->userManager = $userManager;
     }
@@ -41,7 +41,7 @@ class UniqueValidator extends ConstraintValidator
     /**
      * Gets the user manager
      *
-     * @return UserManager
+     * @return UserManagerInterface
      */
     public function getUserManager()
     {

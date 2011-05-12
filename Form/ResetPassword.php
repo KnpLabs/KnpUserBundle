@@ -1,14 +1,15 @@
 <?php
 
 namespace FOS\UserBundle\Form;
-use FOS\UserBundle\Model\User;
+
+use FOS\UserBundle\Model\UserInterface;
 
 class ResetPassword
 {
     /**
      * User whose password is changed
      *
-     * @var User
+     * @var UserInterface
      */
     public $user;
 
@@ -17,7 +18,7 @@ class ResetPassword
      */
     public $new;
 
-    public function __construct(User $user)
+    public function __construct(UserInterface $user)
     {
         $this->user = $user;
     }
