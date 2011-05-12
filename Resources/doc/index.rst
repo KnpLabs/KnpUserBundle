@@ -72,6 +72,7 @@ ORM User class
 
     /**
      * @orm:Entity
+     * @orm:Table(name="fos_user")
      */
     class User extends BaseUser
     {
@@ -88,6 +89,10 @@ ORM User class
             // your own logic
         }
     }
+
+.. note::
+
+    ``User`` is a reserved keyword in SQL so you cannot use it as table name.
 
 MongoDB User class
 ~~~~~~~~~~~~~~~~~~
@@ -455,6 +460,7 @@ ORM
 
     /**
      * @orm:Entity
+     * @orm:Table(name="fos_group")
      */
     class Group extends BaseGroup
     {
@@ -465,6 +471,10 @@ ORM
          */
         protected $id;
     }
+
+.. note::
+
+    ``Group`` is also a reserved keyword in SQL so it cannot be used either.
 
 ODM
 ~~~
@@ -502,6 +512,7 @@ ORM
 
     /**
      * @orm:Entity
+     * @orm:Table(name="fos_user")
      */
     class User extends BaseUser
     {
