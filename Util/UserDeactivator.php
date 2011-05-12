@@ -37,5 +37,4 @@ class UserDeactivator
         $user->setEnabled(false);
         $this->userManager->updateUser($user);
     }
-
 }

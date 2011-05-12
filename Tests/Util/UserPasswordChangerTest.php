@@ -37,7 +37,6 @@ class UserPasswordChangerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($username, $user->getUsername());
         $this->assertEquals($password, $user->getPlainPassword());
-
     }
 
     /**
@@ -69,16 +68,11 @@ class UserPasswordChangerTest extends \PHPUnit_Framework_TestCase
         $changer = new UserPasswordChanger($userManagerMock);
 
         $changer->change($invalidusername, $password);
-
     }
 
     protected function createUserManagerMock(array $methods)
     {
-        $userManager = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        return $userManager;
+        return $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
     }
 
 }

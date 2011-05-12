@@ -2,17 +2,17 @@
 
 namespace FOS\UserBundle\Command;
 
-use FOS\UserBundle\Model\User;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Bundle\FrameworkBundle\Command\Command as BaseCommand;
+use Symfony\Bundle\FrameworkBundle\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use FOS\UserBundle\Model\User;
 
 /**
  * CreateUserCommand
  */
-class ChangePasswordCommand extends BaseCommand
+class ChangePasswordCommand extends Command
 {
     /**
      * @see Command

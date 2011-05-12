@@ -38,5 +38,4 @@ class UserPasswordChanger
         $user->setPlainPassword($password);
         $this->userManager->updateUser($user);
     }
-
 }

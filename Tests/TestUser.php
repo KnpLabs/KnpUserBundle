@@ -10,6 +10,4 @@ class TestUser extends User
     {
         $this->id = $id;
     }
-        
-
 }

@@ -53,6 +53,7 @@ class GroupController extends ContainerAware
         if ($process) {
             $this->setFlash('fos_user_group_update', 'success');
             $groupUrl =  $this->container->get('router')->generate('fos_user_group_show', array('groupname' => $group->getName()));
+
             return new RedirectResponse($groupUrl);
         }
 
@@ -75,6 +76,7 @@ class GroupController extends ContainerAware
             $this->container->get('session')->setFlash('fos_user_group_update', 'success');
             $parameters = array('groupname' => $form->getData('group')->getName());
             $url = $this->container->get('router')->generate('fos_user_group_show', $parameters);
+
             return new RedirectResponse($url);
         }
 

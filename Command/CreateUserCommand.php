@@ -2,14 +2,13 @@
 
 namespace FOS\UserBundle\Command;
 
-use FOS\UserBundle\Model\User;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Bundle\FrameworkBundle\Command\Command as BaseCommand;
+use Symfony\Bundle\FrameworkBundle\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\Output;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use FOS\UserBundle\Model\User;
 
 /*
  * This file is part of the FOS\UserBundle
@@ -22,7 +21,7 @@ use Symfony\Component\Console\Output\Output;
  * with this source code in the file LICENSE.
  */
 
-class CreateUserCommand extends BaseCommand
+class CreateUserCommand extends Command
 {
     /**
      * @see Command

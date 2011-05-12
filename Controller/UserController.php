@@ -42,6 +42,7 @@ class UserController extends ContainerAware
     public function showAction($username)
     {
         $user = $this->findUserBy('username', $username);
+
         return $this->container->get('templating')->renderResponse('FOSUserBundle:User:show.html.'.$this->getEngine(), array('user' => $user));
     }
 
@@ -58,6 +59,7 @@ class UserController extends ContainerAware
         if ($process) {
             $this->setFlash('fos_user_user_update', 'success');
             $userUrl =  $this->container->get('router')->generate('fos_user_user_show', array('username' => $user->getUsername()));
+
             return new RedirectResponse($userUrl);
         }
 

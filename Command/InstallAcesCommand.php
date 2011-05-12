@@ -2,17 +2,10 @@
 
 namespace FOS\UserBundle\Command;
 
-use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
-use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-use FOS\UserBundle\Model\User;
-use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Bundle\FrameworkBundle\Command\Command as BaseCommand;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
+use Symfony\Bundle\FrameworkBundle\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\Output;
+use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
 
 /*
  * This file is part of the FOS\UserBundle
@@ -29,7 +22,7 @@ use Symfony\Component\Console\Output\Output;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-class InstallAcesCommand extends BaseCommand
+class InstallAcesCommand extends Command
 {
     /**
      * @see Command
@@ -50,11 +43,9 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $acesInstaller = $this->container->get('fos_user.aces_installer');
 
-        if (!$acesInstaller->hasAclProvider())
-        {
+        if (!$acesInstaller->hasAclProvider()) {
             $output->writeln('You must setup the ACL system, see the Symfony2 documentation for how to do this.');
             return;
         }

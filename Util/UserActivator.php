@@ -37,5 +37,4 @@ class UserActivator
         $user->setEnabled(true);
         $this->userManager->updateUser($user);
     }
-
 }

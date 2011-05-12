@@ -37,5 +37,4 @@ class UserPromoter
         $user->setSuperAdmin(true);
         $this->userManager->updateUser($user);
     }
-
 }

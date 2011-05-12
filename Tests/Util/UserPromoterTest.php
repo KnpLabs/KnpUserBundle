@@ -35,7 +35,6 @@ class UserPromoterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($username, $user->getUsername());
         $this->assertEquals(true, $user->isSuperAdmin());
-
     }
 
     /**
@@ -65,16 +64,11 @@ class UserPromoterTest extends \PHPUnit_Framework_TestCase
         $promoter = new UserPromoter($userManagerMock);
 
         $promoter->promote($invalidusername);
-
     }
 
     protected function createUserManagerMock(array $methods)
     {
-        $userManager = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        return $userManager;
+        return $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
     }
 
 }

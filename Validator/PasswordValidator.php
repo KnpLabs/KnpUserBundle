@@ -25,6 +25,7 @@ class PasswordValidator extends ConstraintValidator
         $encoder = $this->encoderFactory->getEncoder($user);
         if (!$encoder->isPasswordValid($user->getPassword(), $raw, $user->getSalt())) {
             $this->setMessage($constraint->message);
+
             return false;
         }
 

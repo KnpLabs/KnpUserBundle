@@ -19,6 +19,7 @@ class Password extends Constraint
     {
         return 'fos_user.validator.password';
     }
+
     /**
      * {@inheritDoc}
      */

@@ -58,16 +58,11 @@ class UserCreatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($email, $user->getEmail());
         $this->assertEquals($inactive, !$user->isEnabled());
         $this->assertEquals($superadmin, $user->isSuperAdmin());
-
     }
 
     protected function createUserManagerMock(array $methods)
     {
-        return $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        return $userManager;
+        return $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
     }
 
     protected function createProviderMock(array $methods)

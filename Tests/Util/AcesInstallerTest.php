@@ -41,21 +41,15 @@ class AcesInstallerTest extends \PHPUnit_Framework_TestCase
         $installer = new AcesInstaller($userManagerMock, $aclProviderMock);
 
         $installer->install();
-
     }
 
     protected function createUserManagerMock(array $methods)
     {
-        return $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        return $userManager;
+        return $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
     }
 
     protected function createProviderMock(array $methods)
     {
         return $this->getMock('Symfony\Component\Security\Acl\Dbal\AclProvider', $methods, array(), '', false);
     }
-
 }

@@ -35,7 +35,6 @@ class UserActivatorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($username, $user->getUsername());
         $this->assertEquals(true, $user->isEnabled());
-
     }
 
     /**
@@ -65,16 +64,10 @@ class UserActivatorTest extends \PHPUnit_Framework_TestCase
         $activator = new UserActivator($userManagerMock);
 
         $activator->activate($invalidusername);
-
     }
 
     protected function createUserManagerMock(array $methods)
     {
-        $userManager = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        return $userManager;
+        return $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
     }
-
 }

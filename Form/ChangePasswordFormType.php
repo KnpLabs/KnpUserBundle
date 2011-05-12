@@ -5,7 +5,7 @@ namespace FOS\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
-class ChangePasswordFormType extends abstractType
+class ChangePasswordFormType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {

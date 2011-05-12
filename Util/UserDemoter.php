@@ -37,5 +37,4 @@ class UserDemoter
         $user->setSuperAdmin(false);
         $this->userManager->updateUser($user);
     }
-
 }
