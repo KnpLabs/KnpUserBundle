@@ -2,13 +2,13 @@
 
 namespace FOS\UserBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
-class ChangePasswordFormType extends AbstractType
+class ChangePasswordFormType extends ResetPasswordFormType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('current', 'password');
+        parent::buildForm($builder, $options);
     }
 }

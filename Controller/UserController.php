@@ -306,8 +306,8 @@ class UserController extends ContainerAware
     protected function getUser()
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
-        if (!$user) {
-            throw new AccessDeniedException('A logged in user is required.');
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
         }
 
         return $user;
