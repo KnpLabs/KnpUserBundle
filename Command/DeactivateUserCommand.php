@@ -58,9 +58,8 @@ EOT
 
         $username = $input->getArgument('username');
 
-        $deactivator = $this->container->get('fos_user.user_deactivator');
-
-        $deactivator->deactivate($username);
+        $manipulator = $this->container->get('fos_user.user_manipulator');
+        $manipulator->deactivate($username);
 
         $output->writeln(sprintf('User "%s" has been deactivated.', $username));
     }

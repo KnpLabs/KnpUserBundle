@@ -58,9 +58,8 @@ EOT
 
         $username = $input->getArgument('username');
 
-        $demoter = $this->container->get('fos_user.user_demoter');
-
-        $demoter->demote($username);
+        $manipulator = $this->container->get('fos_user.user_manipulator');
+        $manipulator->demote($username);
 
         $output->writeln(sprintf('Super administrator "%s" has been demoted as a simple user.', $username));
     }

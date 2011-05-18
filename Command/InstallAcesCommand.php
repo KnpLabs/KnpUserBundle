@@ -43,15 +43,16 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $acesInstaller = $this->container->get('fos_user.aces_installer');
+        $aceManager = $this->container->get('fos_user.ace_manager');
+        $userClass = $this->container->get('fos_user.user_manager')->getClass();
 
-        if (!$acesInstaller->hasAclProvider()) {
+        if (!$aceManager->hasAclProvider()) {
             $output->writeln('You must setup the ACL system, see the Symfony2 documentation for how to do this.');
             return;
         }
 
         try {
-            $acesInstaller->install();
+            $aceManager->installAces($userClass);
         } catch (AclAlreadyExistsException $exists) {
             $output->writeln('You already installed the global ACEs.');
             return;

@@ -9,9 +9,6 @@
 
 namespace FOS\UserBundle\Controller;
 
-use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -91,7 +88,7 @@ class UserController extends ContainerAware
                 $route = 'fos_user_user_confirmed';
             }
 
-            $this->container->get('fos_user.user_creator')->createAcl($user);
+            $this->container->get('fos_user.ace_manager')->createUserAce($user);
 
             $this->setFlash('fos_user_user_create', 'success');
             $url = $this->container->get('router')->generate($route);

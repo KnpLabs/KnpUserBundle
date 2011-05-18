@@ -58,9 +58,8 @@ EOT
 
         $username = $input->getArgument('username');
 
-        $activator = $this->container->get('fos_user.user_activator');
-
-        $activator->activate($username);
+        $manipulator = $this->container->get('fos_user.user_manipulator');
+        $manipulator->activate($username);
 
         $output->writeln(sprintf('User "%s" has been activated.', $username));
     }

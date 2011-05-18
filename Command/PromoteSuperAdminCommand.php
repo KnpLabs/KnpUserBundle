@@ -59,9 +59,8 @@ EOT
 
         $username = $input->getArgument('username');
 
-        $promoter = $this->container->get('fos_user.user_promoter');
-
-        $promoter->promote($username);
+        $manipulator = $this->container->get('fos_user.user_manipulator');
+        $manipulator->promote($username);
 
         $output->writeln(sprintf('User "%s" has been promoted as a super administrator.', $username));
     }
