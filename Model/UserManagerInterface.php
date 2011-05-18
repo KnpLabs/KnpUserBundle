@@ -29,105 +29,104 @@ use Symfony\Component\Validator\Constraint;
 interface UserManagerInterface
 {
     /**
-     * Creates an empty user instance
+     * Creates an empty user instance.
      *
-     * @return User
+     * @return UserInterface
      */
     function createUser();
 
     /**
-     * Deletes a user
+     * Deletes a user.
      *
      * @extra:SecureParam(name="user", permissions="DELETE")
-     * @param User $user
-     * @return void
+     * @param UserInterface $user
      */
     function deleteUser(UserInterface $user);
 
     /**
-     * Finds one user by the given criteria
+     * Finds one user by the given criteria.
      *
      * @extra:SecureReturn(permissions="VIEW")
      * @param array $criteria
-     * @return User
+     * @return UserInterface
      */
     function findUserBy(array $criteria);
 
     /**
-     * Find a user by its username
-     * @param   string  $username
-     * @return  User or null if user does not exist
+     * Find a user by its username.
+     *
+     * @param string  $username
+     * @return UserInterface or null if user does not exist
      */
     function findUserByUsername($username);
 
     /**
-     * Find a user by its email
-     * @param   string  $email
-     * @return  User or null if user does not exist
+     * Finds a user by its email.
+     *
+     * @param string  $email
+     * @return UserInterface or null if user does not exist
      */
     function findUserByEmail($email);
 
     /**
-     * Find a user by its username or email
-     * @param   string  $usernameOrEmail
-     * @return  User or null if user does not exist
+     * Finds a user by its username or email.
+     *
+     * @param string  $usernameOrEmail
+     * @return UserInterface or null if user does not exist
      */
     function findUserByUsernameOrEmail($usernameOrEmail);
 
     /**
-     * Find a user by its confirmationToken
-     * @param   string  $token
-     * @return  User or null if user does not exist
+     * Finds a user by its confirmationToken.
+     * @param string  $token
+     * @return UserInterface or null if user does not exist
      */
     function findUserByConfirmationToken($token);
 
     /**
-     * Returns a collection with all user instances
+     * Returns a collection with all user instances.
      *
-     * @return Traversable
+     * @return \Traversable
      */
     function findUsers();
 
     /**
-     * Returns the user's fully qualified class name
+     * Returns the user's fully qualified class name.
      *
      * @return string
      */
     function getClass();
 
     /**
-     * Updates a user
+     * Updates a user.
      *
      * @extra:SecureParam(name="user", permissions="EDIT")
-     * @param User $user
-     * @return void
+     * @param UserInterface $user
      */
     function updateUser(UserInterface $user);
 
     /**
-     * Updates the canonical username and email fields for a user
+     * Updates the canonical username and email fields for a user.
      *
      * @extra:SecureParam(name="user", permissions="EDIT")
-     * @param User $user
-     * @return void
+     * @param UserInterface $user
      */
     function updateCanonicalFields(UserInterface $user);
 
     /**
-     * Updates a user password if a plain password is set
+     * Updates a user password if a plain password is set.
      *
      * @extra:SecureParam(name="user", permissions="EDIT")
-     * @param User $user
-     * @return void
+     * @param UserInterface $user
      */
     function updatePassword(UserInterface $user);
 
     /**
-     * Checks the uniqueness of the given fields, returns true if its unique
+     * Checks the uniqueness of the given fields, returns true if its unique.
      *
      * @param UserInterface $value
      * @param Constraint $constraint
-     * @return boolean
+     * @return Boolean
      */
     function validateUnique($value, Constraint $constraint);
 }

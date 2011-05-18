@@ -70,12 +70,11 @@ class UserManager extends BaseUserManager
     }
 
     /**
-     * Updates a user
+     * Updates a user.
      *
      * @extra:SecureParam(name="user", permissions="EDIT")
-     * @param User $user
+     * @param UserInterface $user
      * @param Boolean $andFlush Whether to flush the changes (default true)
-     * @return void
      */
     public function updateUser(UserInterface $user, $andFlush = true)
     {
@@ -110,11 +109,11 @@ class UserManager extends BaseUserManager
     }
 
     /**
-     * Indicates whether the given user and all compared objects correspond to the same record
+     * Indicates whether the given user and all compared objects correspond to the same record.
      *
      * @param UserInterface $user
      * @param array $comparisons
-     * @return boolean
+     * @return Boolean
      */
     protected function anyIsUser($user, array $comparisons)
     {
@@ -128,7 +127,7 @@ class UserManager extends BaseUserManager
     }
 
     /**
-     * Gets conflictual users for the given user and constraint
+     * Gets conflictual users for the given user and constraint.
      *
      * @param UserInterface $value
      * @param array $fields
@@ -140,7 +139,7 @@ class UserManager extends BaseUserManager
     }
 
     /**
-     * Gets the criteria used to find conflictual entities
+     * Gets the criteria used to find conflictual entities.
      *
      * @param UserInterface $value
      * @param array $constraint

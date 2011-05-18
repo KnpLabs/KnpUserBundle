@@ -41,7 +41,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     /**
      * Returns an empty user instance
      *
-     * @return User
+     * @return UserInterface
      */
     public function createUser()
     {
@@ -56,7 +56,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * Finds a user by email
      *
      * @param string $email
-     * @return User
+     * @return UserInterface
      */
     public function findUserByEmail($email)
     {
@@ -67,7 +67,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * Finds a user by username
      *
      * @param string $username
-     * @return User
+     * @return UserInterface
      */
     public function findUserByUsername($username)
     {
@@ -78,7 +78,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * Finds a user either by email, or username
      *
      * @param string $usernameOrEmail
-     * @return User
+     * @return UserInterface
      */
     public function findUserByUsernameOrEmail($usernameOrEmail)
     {
@@ -89,6 +89,12 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
         return $this->findUserByUsername($usernameOrEmail);
     }
 
+    /**
+     * Finds a user either by confirmation token
+     *
+     * @param string $token
+     * @return UserInterface
+     */
     public function findUserByConfirmationToken($token)
     {
         return $this->findUserBy(array('confirmationToken' => $token));
@@ -101,11 +107,11 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * all ACL checks.
      *
      * @param SecurityUserInterface $user
-     * @return User
+     * @return UserInterface
      */
     public function loadUser(SecurityUserInterface $user)
     {
-        if (!$user instanceof User) {
+        if (!$user instanceof UserInterface) {
             throw new UnsupportedUserException('Account is not supported.');
         }
 
@@ -120,7 +126,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      *
      * @extra:RunAs(roles="ROLE_SUPERADMIN")
      * @param string $username
-     * @return SecurityUserInterface
+     * @return UserInterface
      */
     public function loadUserByUsername($username)
     {

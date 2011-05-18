@@ -114,17 +114,17 @@ abstract class User implements UserInterface
     protected $groups;
 
     /**
-     * @var boolean
+     * @var Boolean
      */
     protected $locked;
 
     /**
-     * @var boolean
+     * @var Boolean
      */
     protected $expired;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      */
     protected $expiresAt;
 
@@ -134,12 +134,12 @@ abstract class User implements UserInterface
     protected $roles;
 
     /**
-     * @var boolean
+     * @var Boolean
      */
     protected $credentialsExpired;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      */
     protected $credentialsExpireAt;
 
@@ -205,6 +205,7 @@ abstract class User implements UserInterface
 
     /**
      * Removes sensitive data from the user.
+     *
      * Implements SecurityUserInterface
      */
     public function eraseCredentials()
@@ -213,7 +214,7 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Return the user unique id
+     * Returns the user unique id.
      *
      * @return mixed
      */
@@ -231,10 +232,10 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Get the canonical username in search and sort queries
+     * Gets the canonical username in search and sort queries.
      *
      * @return string
-     **/
+     */
     public function getUsernameCanonical()
     {
         return $this->usernameCanonical;
@@ -242,6 +243,7 @@ abstract class User implements UserInterface
 
     /**
      * Implementation of SecurityUserInterface
+     *
      * @return string
      */
     public function getSalt()
@@ -255,7 +257,8 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Get email
+     * Gets email.
+     *
      * @return string
      */
     public function getEmail()
@@ -264,18 +267,19 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Get the canonical email in search and sort queries
+     * Gets the canonical email in search and sort queries.
      *
      * @return string
-     **/
+     */
     public function getEmailCanonical()
     {
         return $this->emailCanonical;
     }
 
     /**
+     * Gets the encrypted password.
+     *
      * Implements SecurityUserInterface
-     * Get the encrypted password
      * @return string
      */
     public function getPassword()
@@ -313,7 +317,8 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Get confirmationToken
+     * Gets the confirmation token.
+     *
      * @return string
      */
     public function getConfirmationToken()
@@ -322,7 +327,8 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Return the user roles
+     * Returns the user roles
+     *
      * Implements SecurityUserInterface
      *
      * @return array The roles
@@ -350,7 +356,7 @@ abstract class User implements UserInterface
      *         $securityContext->isGranted('ROLE_USER');
      *
      * @param string $role
-     * @return void
+     * @return Boolean
      */
     public function hasRole($role)
     {
@@ -359,6 +365,7 @@ abstract class User implements UserInterface
 
     /**
      * Checks whether the user's account has expired.
+     *
      * Implements AdvancedUserInterface
      *
      * @return Boolean true if the user's account is non expired, false otherwise
@@ -378,6 +385,7 @@ abstract class User implements UserInterface
 
     /**
      * Checks whether the user is locked.
+     *
      * Implements AdvancedUserInterface
      *
      * @return Boolean true if the user is not locked, false otherwise
@@ -389,6 +397,7 @@ abstract class User implements UserInterface
 
     /**
      * Checks whether the user's credentials (password) has expired.
+     *
      * Implements AdvancedUserInterface
      *
      * @return Boolean true if the user's credentials are non expired, false otherwise
@@ -413,6 +422,7 @@ abstract class User implements UserInterface
 
     /**
      * Checks whether the user is enabled.
+     *
      * Implements AdvancedUserInterface
      *
      * @return Boolean true if the user is enabled, false otherwise
@@ -433,7 +443,7 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Tell if the the given user has the super admin role
+     * Tells if the the given user has the super admin role.
      *
      * @return Boolean
      */
@@ -443,11 +453,12 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Tell if the the given user is this user
+     * Tells if the the given user is this user.
+     *
      * Useful when not hydrating all fields.
      *
-     * @param User $user
-     * @return boolean
+     * @param UserInterface $user
+     * @return Boolean
      */
     public function isUser(UserInterface $user = null)
     {
@@ -476,7 +487,7 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Set username.
+     * Sets the username.
      *
      * @param string $username
      */
@@ -486,7 +497,7 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Set usernameCanonical.
+     * Sets the canonical username.
      *
      * @param string $usernameCanonical
      */
@@ -511,7 +522,7 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Set email.
+     * Sets the email.
      *
      * @param string $email
      */
@@ -521,7 +532,7 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Set emailCanonical.
+     * Set the canonical email.
      *
      * @param string $emailCanonical
      */
@@ -531,22 +542,21 @@ abstract class User implements UserInterface
     }
 
     /**
-     * @param bool $boolean
+     * @param Boolean $boolean
      */
     public function setEnabled($boolean)
     {
-        $this->enabled = $boolean;
+        $this->enabled = (Boolean)$boolean;
     }
 
     /**
-     * Sets this user to expired
+     * Sets this user to expired.
      *
-     * @param boolean $boolean
-     * @return void
+     * @param Boolean $boolean
      */
     public function setExpired($boolean)
     {
-        $this->expired = $boolean;
+        $this->expired = (Boolean)$boolean;
     }
 
     public function setExpiresAt(\DateTime $date)
@@ -558,7 +568,6 @@ abstract class User implements UserInterface
      * Sets the hashed password.
      *
      * @param string $password
-     * @return void
      */
     public function setPassword($password)
     {
@@ -568,8 +577,7 @@ abstract class User implements UserInterface
     /**
      * Sets the super admin status
      *
-     * @param boolean $boolean
-     * @return void
+     * @param Boolean $boolean
      */
     public function setSuperAdmin($boolean)
     {
@@ -599,10 +607,9 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Set confirmationToken
+     * Sets the confirmation token
      *
-     * @param  string
-     * @return null
+     * @param string $confirmationToken
      */
     public function setConfirmationToken($confirmationToken)
     {
@@ -610,9 +617,9 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Set the timestamp that the user requested a password reset.
+     * Sets the timestamp that the user requested a password reset.
      *
-     * @param DateTime $date
+     * @param \DateTime $date
      */
     public function setPasswordRequestedAt(\DateTime $date)
     {
@@ -620,9 +627,9 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Get the timestamp that the user requested a password reset.
+     * Gets the timestamp that the user requested a password reset.
      *
-     * @return DateTime
+     * @return \DateTime
      */
     public function getPasswordRequestedAt()
     {
@@ -633,7 +640,7 @@ abstract class User implements UserInterface
      * Checks whether the password reset request has expired.
      *
      * @param integer $ttl Requests older than this many seconds will be considered expired
-     * @return boolean true if the users's password request is non expired, false otherwise
+     * @return Boolean true if the users's password request is non expired, false otherwise
      */
     public function isPasswordRequestNonExpired($ttl)
     {
@@ -642,9 +649,7 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Generate confirmationToken if it is not set
-     *
-     * @return null
+     * Generates the confirmation token if it is not set.
      */
     public function generateConfirmationToken()
     {
@@ -677,7 +682,7 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Get groups granted to the user
+     * Gets the groups granted to the user.
      *
      * @return Collection
      */
@@ -687,7 +692,7 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Gets the name of the groups which includes the user
+     * Gets the name of the groups which includes the user.
      *
      * @return array
      */
@@ -702,10 +707,10 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Indicates whether the user belongs to the specified group or not
+     * Indicates whether the user belongs to the specified group or not.
      *
      * @param string $name Name of the group
-     * @return boolean
+     * @return Boolean
      */
     public function hasGroup($name)
     {
@@ -713,10 +718,9 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Add a group to the user groups
+     * Add a group to the user groups.
      *
      * @param GroupInterface $group
-     * @return null
      **/
     public function addGroup(GroupInterface $group)
     {
@@ -726,10 +730,9 @@ abstract class User implements UserInterface
     }
 
     /**
-     * Remove a group from the user groups
+     * Remove a group from the user groups.
      *
      * @param GroupInterface $group
-     * @return null
      **/
     public function removeGroup(GroupInterface $group)
     {

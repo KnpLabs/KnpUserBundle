@@ -71,12 +71,11 @@ class UserManager extends BaseUserManager
     }
 
     /**
-     * Updates a user
+     * Updates a user.
      *
      * @extra:SecureParam(name="user", permissions="EDIT")
-     * @param User $user
+     * @param UserInterface $user
      * @param Boolean $andFlush Whether to flush the changes (default true)
-     * @return void
      */
     public function updateUser(UserInterface $user, $andFlush = true)
     {
@@ -138,7 +137,7 @@ class UserManager extends BaseUserManager
     }
 
     /**
-     * Returns the actual document field value
+     * Returns the actual document field value.
      *
      * E.g. document.someVal -> document
      *      user.emails      -> user

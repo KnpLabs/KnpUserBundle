@@ -20,7 +20,7 @@ namespace FOS\UserBundle\Model;
 interface GroupManagerInterface
 {
     /**
-     * Returns an empty group instance
+     * Returns an empty group instance.
      *
      * @param string $name
      * @return GroupInterface
@@ -28,7 +28,7 @@ interface GroupManagerInterface
     function createGroup($name);
 
     /**
-     * Deletes a group
+     * Deletes a group.
      *
      * @param GroupInterface $group
      * @return void
@@ -36,7 +36,7 @@ interface GroupManagerInterface
     function deleteGroup(GroupInterface $group);
 
     /**
-     * Finds one group by the given criteria
+     * Finds one group by the given criteria.
      *
      * @param array $criteria
      * @return GroupInterface
@@ -44,7 +44,7 @@ interface GroupManagerInterface
     function findGroupBy(array $criteria);
 
     /**
-     * Finds a group by name
+     * Finds a group by name.
      *
      * @param string $name
      * @return GroupInterface
@@ -52,24 +52,23 @@ interface GroupManagerInterface
     function findGroupByName($name);
 
     /**
-     * Returns a collection with all user instances
+     * Returns a collection with all user instances.
      *
-     * @return Traversable
+     * @return \Traversable
      */
     function findGroups();
 
     /**
-     * Returns the group's fully qualified class name
+     * Returns the group's fully qualified class name.
      *
      * @return string
      */
     function getClass();
 
     /**
-     * Updates a group
+     * Updates a group.
      *
      * @param GroupInterface $group
-     * @return void
      */
     function updateGroup(GroupInterface $group);
 }
