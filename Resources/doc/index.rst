@@ -69,17 +69,18 @@ ORM User class
 
     namespace MyProject\MyBundle\Entity;
     use FOS\UserBundle\Entity\User as BaseUser;
+    use Doctrine\ORM\Mapping as ORM;
 
     /**
-     * @orm:Entity
-     * @orm:Table(name="fos_user")
+     * @ORM\Entity
+     * @ORM\Table(name="fos_user")
      */
     class User extends BaseUser
     {
         /**
-         * @orm:Id
-         * @orm:Column(type="integer")
-         * @orm:generatedValue(strategy="AUTO")
+         * @ORM\Id
+         * @ORM\Column(type="integer")
+         * @ORM\generatedValue(strategy="AUTO")
          */
         protected $id;
 
@@ -103,13 +104,14 @@ MongoDB User class
 
     namespace MyProject\MyBundle\Document;
     use FOS\UserBundle\Document\User as BaseUser;
+    use Doctrine\ODM\MongoDB\Mapping as MongoDB;
 
     /**
-     * @mongodb:Document
+     * @MongoDB\Document
      */
     class User extends BaseUser
     {
-        /** @mongodb:Id(strategy="auto") */
+        /** @MongoDB\Id(strategy="auto") */
         protected $id;
 
         public function __construct()
@@ -457,17 +459,18 @@ ORM
 
     namespace MyProject\MyBundle\Entity;
     use FOS\UserBundle\Entity\Group as BaseGroup;
+    use Doctrine\ORM\Mapping as ORM;
 
     /**
-     * @orm:Entity
-     * @orm:Table(name="fos_group")
+     * @ORM\Entity
+     * @ORM\Table(name="fos_group")
      */
     class Group extends BaseGroup
     {
         /**
-         * @orm:Id
-         * @orm:Column(type="integer")
-         * @orm:generatedValue(strategy="AUTO")
+         * @ORM\Id
+         * @ORM\Column(type="integer")
+         * @ORM\generatedValue(strategy="AUTO")
          */
         protected $id;
     }
@@ -485,13 +488,14 @@ ODM
 
     namespace MyProject\MyBundle\Document;
     use FOS\UserBundle\Document\Group as BaseGroup;
+    use Doctrine\ODM\MongoDB\Mapping as MongoDB;
 
     /**
-     * @mongodb:Document
+     * @MongoDB\Document
      */
     class Group extends BaseGroup
     {
-        /** @mongodb:Id(strategy="auto") */
+        /** @MongoDB\Id(strategy="auto") */
         protected $id;
     }
 
@@ -509,25 +513,26 @@ ORM
 
     namespace MyProject\MyBundle\Entity;
     use FOS\UserBundle\Entity\User as BaseUser;
+    use Doctrine\ORM\Mapping as ORM;
 
     /**
-     * @orm:Entity
-     * @orm:Table(name="fos_user")
+     * @ORM\Entity
+     * @ORM\Table(name="fos_user")
      */
     class User extends BaseUser
     {
         /**
-         * @orm:Id
-         * @orm:Column(type="integer")
-         * @orm:generatedValue(strategy="AUTO")
+         * @ORM\Id
+         * @ORM\Column(type="integer")
+         * @ORM\generatedValue(strategy="AUTO")
          */
         protected $id;
 
         /**
-         * @orm:ManyToMany(targetEntity="MyProject\MyBundle\Entity\Group")
-         * @orm:JoinTable(name="fos_user_user_group",
-         *      joinColumns={@orm:JoinColumn(name="user_id", referencedColumnName="id")},
-         *      inverseJoinColumns={@orm:JoinColumn(name="group_id", referencedColumnName="id")}
+         * @ORM\ManyToMany(targetEntity="MyProject\MyBundle\Entity\Group")
+         * @ORM\JoinTable(name="fos_user_user_group",
+         *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+         *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
          * )
          */
         protected $groups;
@@ -542,16 +547,17 @@ ODM
 
     namespace MyProject\MyBundle\Document;
     use FOS\UserBundle\Document\User as BaseUser;
+    use Doctrine\ODM\MongoDB\Mapping as MongoDB;
 
     /**
-     * @mongodb:Document
+     * @MongoDB\Document
      */
     class User extends BaseUser
     {
-        /** @mongodb:Id(strategy="auto") */
+        /** @MongoDB\Id(strategy="auto") */
         protected $id;
 
-        /** @mongodb:ReferenceMany(targetDocument="MyProject\MyBundle\Document\Group") */
+        /** @MongoDB\ReferenceMany(targetDocument="MyProject\MyBundle\Document\Group") */
         protected $groups;
     }
 
