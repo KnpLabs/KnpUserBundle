@@ -79,7 +79,6 @@ class Configuration implements ConfigurationInterface
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->scalarNode('user')->defaultValue('FOS\\UserBundle\\Controller\\UserController')->end()
-                                ->scalarNode('security')->defaultValue('FOS\\UserBundle\\Controller\\SecurityController')->end()
                             ->end()
                         ->end()
                     ->end()
