@@ -191,7 +191,7 @@ class Configuration implements ConfigurationInterface
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->booleanNode('enabled')->defaultFalse()->end()
-                                ->scalarNode('template')->defaultValue('FOSUserBundle:User:confirmationEmail')->end()
+                                ->scalarNode('template')->defaultValue('FOSUserBundle:Registration:email')->end()
                             ->end()
                         ->end()
                         ->arrayNode('resetting_password')

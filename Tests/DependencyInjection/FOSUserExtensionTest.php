@@ -155,7 +155,6 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertParameter('FOS\UserBundle\Controller\UserController', 'fos_user.controller.user.class');
-        $this->assertParameter('FOS\UserBundle\Controller\SecurityController', 'fos_user.controller.security.class');
     }
 
     public function testUserLoadControllerClass()
@@ -164,7 +163,6 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertParameter('Acme\MyBundle\Controller\UserController', 'fos_user.controller.user.class');
         $this->assertParameter('Acme\MyBundle\Controller\GroupController', 'fos_user.controller.group.class');
-        $this->assertParameter('Acme\MyBundle\Controller\SecurityController', 'fos_user.controller.security.class');
     }
 
     public function testUserLoadControllerServiceWithDefaults()
@@ -172,7 +170,6 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertHasDefinition('fos_user.controller.user');
-        $this->assertHasDefinition('fos_user.controller.security');
     }
 
     public function testUserLoadControllerService()
@@ -181,7 +178,6 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertHasDefinition('fos_user.controller.user');
         $this->assertHasDefinition('fos_user.controller.group');
-        $this->assertHasDefinition('fos_user.controller.security');
     }
 
     public function testUserLoadConfirmationEmailWithDefaults()
@@ -190,7 +186,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertParameter(false, 'fos_user.email.confirmation.enabled');
         $this->assertParameter(array('webmaster@example.com' => 'webmaster'), 'fos_user.email.from_email');
-        $this->assertParameter('FOSUserBundle:User:confirmationEmail', 'fos_user.email.confirmation.template');
+        $this->assertParameter('FOSUserBundle:Registration:email', 'fos_user.email.confirmation.template');
         $this->assertParameter('FOSUserBundle:Resetting:email', 'fos_user.email.resetting_password.template');
         $this->assertParameter(86400, 'fos_user.email.resetting_password.token_ttl');
     }
@@ -311,7 +307,6 @@ class:
         reset_password:  Acme\MyBundle\Form\ResetPasswordFormType
     controller:
         user:     Acme\MyBundle\Controller\UserController
-        security: Acme\MyBundle\Controller\SecurityController
 service:
     mailer: acme_my.mailer
     email_canonicalizer:    acme_my.email_canonicalizer

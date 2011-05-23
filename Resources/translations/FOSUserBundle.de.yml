@@ -6,18 +6,19 @@ security.login.username: "Benutzername:"
 security.login.password: "Passwort:"
 security.login.remember_me: An mich erinnern
 security.login.submit: Anmelden
-security.login.request_reset_password: Passwort vergessen
 
 user.change_password.submit: Passwort ändern
-user.check_confirmation_email.message: Eine E-Mail wurde an %email% gesendet. Sie enthält einen Link den Du anklicken musst, um dein Benutzerkonto zu bestätigen.
-user.confirmed.message: Glückwunsch %username%, dein Benutzerkonto ist jetzt bestätigt.
 
 user.show.username: Benutzername
 user.show.email: E-Mail
-user.new.submit: Benutzer erstellen
 user.edit.submit: Benutzer aktualisieren
 
-user.email.confirmation: |
+# Registration
+registration.check_email: Eine E-Mail wurde an %email% gesendet. Sie enthält einen Link den Du anklicken musst, um dein Benutzerkonto zu bestätigen.
+registration.confirmed: Glückwunsch %username%, dein Benutzerkonto ist jetzt bestätigt.
+registration.submit: Registrieren
+
+registration.email: |
     Willkommen %username%!
     Hallo %username%!
 

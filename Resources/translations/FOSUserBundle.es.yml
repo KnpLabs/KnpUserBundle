@@ -6,18 +6,19 @@ security.login.username: "Nombre de usuario:"
 security.login.password: "Contraseña:"
 security.login.remember_me: Recordar
 security.login.submit: Entrar
-security.login.request_reset_password: Olvidé mi contraseña
 
 user.change_password.submit: Cambiar contraseña
-user.check_confirmation_email.message: Un email ha sido enviado a %email%. Contiene un enlace de activación que debes presionar para activar tu cuenta.
-user.confirmed.message: Felicidades %username%, tu cuenta está ahora confirmada.
 
 user.show.username: Nombre de usuario
 user.show.email: Email
-user.new.submit: Crear usuario
 user.edit.submit: Actualizar usuario
 
-user.email.confirmation: |
+# Registration
+registration.check_email: Un email ha sido enviado a %email%. Contiene un enlace de activación que debes presionar para activar tu cuenta.
+registration.confirmed: Felicidades %username%, tu cuenta está ahora confirmada.
+registration.submit: Registrar
+
+registration.email: |
     Bienvenido %username%!
     Hola %username%!
 

@@ -6,18 +6,19 @@ security.login.username: "Username:"
 security.login.password: "Password:"
 security.login.remember_me: Remember me
 security.login.submit: Login
-security.login.request_reset_password: Forgotten password
 
 user.change_password.submit: Change password
-user.check_confirmation_email.message: An email has been sent to %email%. It contains an activation link you must click to activate your account.
-user.confirmed.message: Congrats %username%, your account is now confirmed.
 
 user.show.username: Username
 user.show.email: Email
-user.new.submit: Create user
 user.edit.submit: Update user
 
-user.email.confirmation: |
+# Registration
+registration.check_email: An email has been sent to %email%. It contains an activation link you must click to activate your account.
+registration.confirmed: Congrats %username%, your account is now confirmed.
+registration.submit: Register
+
+registration.email: |
     Welcome %username%!
     Hello %username%!
 
