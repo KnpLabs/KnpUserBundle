@@ -12,7 +12,11 @@ Features
 Warning
 =======
 
-The supplied Controller and routing configuration files expose as much functionality as possible to illustrate how to use the Bundle. However using these exposes a lot of functionality which requires additional configuration to secure properly. As such its not recommended to ever go into production while using one of the default routing configuration files. Furthermore it may be necessary to extend or even replace the default Controllers with custom code to achieve the exact desired behavior. Trying to cover every possible use case is not feasible as it would complicate the Bundle to the point of being unmaintainable and impossible to comprehend in a reasonable amount of time.
+The supplied Controller and routing configuration files expose as much functionality as possible to illustrate how to use the Bundle. However using these exposes a lot of functionality which requires additional configuration to secure properly (for example delete, list etc). As such its not recommended to ever go into production while using one of the default routing configuration files.
+
+The implementation of ACL checks via the JMSSecurityExtraBundle is also currently incomplete (see issue #53) and activation of this Bundle is also not enforced.
+
+Furthermore it may be necessary to extend or even replace the default Controllers with custom code to achieve the exact desired behavior. Trying to cover every possible use case is not feasible as it would complicate the Bundle to the point of being unmaintainable and impossible to comprehend in a reasonable amount of time.
 
 Installation
 ============
