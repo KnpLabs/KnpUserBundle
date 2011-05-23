@@ -71,7 +71,7 @@ class ResettingController extends ContainerAware
     }
 
     /**
-     * Reset user password: show form
+     * Reset user password
      */
     public function resetAction($token)
     {
@@ -83,29 +83,8 @@ class ResettingController extends ContainerAware
 
         $form = $this->container->get('fos_user.form.reset_password');
         $formHandler = $this->container->get('fos_user.form.handler.reset_password');
-        $formHandler->process($user);
-
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:reset.html.'.$this->getEngine(), array(
-            'token' => $token,
-            'form' => $form->createView()
-        ));
-    }
-
-    /**
-     * Reset user password: submit form
-     */
-    public function resetUpdateAction($token)
-    {
-        $user = $this->findUserBy('confirmationToken', $token);
-
-        if (!$user->isPasswordRequestNonExpired($this->getPasswordRequestTtl())) {
-            return new RedirectResponse( $this->container->get('router')->generate('fos_user_resetting_request'));
-        }
-
-        $form = $this->container->get('fos_user.form.reset_password');
-        $formHandler = $this->container->get('fos_user.form.handler.reset_password');
-
         $process = $formHandler->process($user);
+
         if ($process) {
             $this->authenticateUser($user);
 
