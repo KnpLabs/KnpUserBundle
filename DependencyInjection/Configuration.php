@@ -198,7 +198,7 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('resetting_password')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('template')->defaultValue('FOSUserBundle:User:resettingPasswordEmail')->end()
+                                ->scalarNode('template')->defaultValue('FOSUserBundle:Resetting:email')->end()
                                 ->scalarNode('token_ttl')->defaultValue(86400)->end()
                             ->end()
                         ->end()

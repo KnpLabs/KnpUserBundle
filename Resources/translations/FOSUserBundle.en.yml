@@ -10,32 +10,34 @@ security.login.request_reset_password: Forgotten password
 
 user.change_password.submit: Change password
 user.check_confirmation_email.message: An email has been sent to %email%. It contains an activation link you must click to activate your account.
-user.check_resetting_email.sent: An email has been sent to %email%. It contains an link you must click to reset your password.
 user.confirmed.message: Congrats %username%, your account is now confirmed.
 
 user.show.username: Username
 user.show.email: Email
 user.new.submit: Create user
 user.edit.submit: Update user
-user.password_already_requested: The password for this user has already been requested within the last 24 hours.
-user.password_request_reset.username: "Username:"
-user.password_request_reset.submit: Reset password
-user.reset_password.submit: Change password
-
-user.email.resetting_password: |
-    Welcome %username%!
-    Hello %username%!
-
-    To reset your password - please visit %confirmationUrl%
-
-    Regards,
-    the Team.
 
 user.email.confirmation: |
     Welcome %username%!
     Hello %username%!
 
     To finish validating your account - please visit %confirmationUrl%
+
+    Regards,
+    the Team.
+
+# Password resetting
+resetting.password_already_requested: The password for this user has already been requested within the last 24 hours.
+resetting.check_email: An email has been sent to %email%. It contains an link you must click to reset your password.
+resetting.request.username: "Username:"
+resetting.request.submit: Reset password
+resetting.reset.submit: Change password
+
+resetting.email: |
+    Welcome %username%!
+    Hello %username%!
+
+    To reset your password - please visit %confirmationUrl%
 
     Regards,
     the Team.

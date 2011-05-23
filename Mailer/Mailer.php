@@ -43,7 +43,7 @@ class Mailer implements MailerInterface
     public function sendResettingEmailMessage(UserInterface $user, $engine)
     {
         $template = $this->parameters['resetting_password.template'];
-        $url = $this->router->generate('fos_user_user_reset_password', array('token' => $user->getConfirmationToken()), true);
+        $url = $this->router->generate('fos_user_resetting_reset', array('token' => $user->getConfirmationToken()), true);
         $rendered = $this->templating->render($template.'.txt.'.$engine, array(
             'user' => $user,
             'confirmationUrl' => $url

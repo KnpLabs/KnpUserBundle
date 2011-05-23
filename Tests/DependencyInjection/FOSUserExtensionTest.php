@@ -191,7 +191,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter(false, 'fos_user.email.confirmation.enabled');
         $this->assertParameter(array('webmaster@example.com' => 'webmaster'), 'fos_user.email.from_email');
         $this->assertParameter('FOSUserBundle:User:confirmationEmail', 'fos_user.email.confirmation.template');
-        $this->assertParameter('FOSUserBundle:User:resettingPasswordEmail', 'fos_user.email.resetting_password.template');
+        $this->assertParameter('FOSUserBundle:Resetting:email', 'fos_user.email.resetting_password.template');
         $this->assertParameter(86400, 'fos_user.email.resetting_password.token_ttl');
     }
 
