@@ -7,11 +7,12 @@ security.login.password: "Senha:"
 security.login.remember_me: Lembrete de senha
 security.login.submit: Entrar
 
-user.change_password.submit: Alterar senha
-
 user.show.username: Usuário
 user.show.email: Email
 user.edit.submit: Atualizar conta
+
+# Password change
+change_password.submit: Alterar senha
 
 # Registration
 registration.check_email: Foi enviado um email para %email%. Para para ativar a sua conta, clique no link da mensagem.

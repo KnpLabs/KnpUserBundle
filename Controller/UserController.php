@@ -11,11 +11,7 @@ namespace FOS\UserBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
 use FOS\UserBundle\Model\UserInterface;
 
 /**
@@ -76,58 +72,6 @@ class UserController extends ContainerAware
         $this->setFlash('fos_user_user_delete', 'success');
 
         return new RedirectResponse( $this->container->get('router')->generate('fos_user_user_list'));
-    }
-
-    /**
-     * Change user password: show form
-     */
-    public function changePasswordAction()
-    {
-        $user = $this->getUser();
-        $form = $this->container->get('fos_user.form.change_password');
-        $formHandler = $this->container->get('fos_user.form.handler.change_password');
-        $formHandler->process($user);
-
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:User:changePassword.html.'.$this->getEngine(), array(
-            'form' => $form->createView()
-        ));
-    }
-
-    /**
-     * Change user password: submit form
-     */
-    public function changePasswordUpdateAction()
-    {
-        $user = $this->getUser();
-        $form = $this->container->get('fos_user.form.change_password');
-        $formHandler = $this->container->get('fos_user.form.handler.change_password');
-
-        $process = $formHandler->process($user);
-        if ($process) {
-            $this->setFlash('fos_user_user_password', 'success');
-            $url =  $this->container->get('router')->generate('fos_user_user_show', array('username' => $user->getUsername()));
-            return new RedirectResponse($url);
-        }
-
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:User:changePassword.html.'.$this->getEngine(), array(
-            'form' => $form->createView()
-        ));
-    }
-
-    /**
-     * Get a user from the security context
-     *
-     * @throws AccessDeniedException if no user is authenticated
-     * @return User
-     */
-    protected function getUser()
-    {
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-
-        return $user;
     }
 
     /**

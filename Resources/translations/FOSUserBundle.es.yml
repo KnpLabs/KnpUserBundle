@@ -7,11 +7,12 @@ security.login.password: "Contraseña:"
 security.login.remember_me: Recordar
 security.login.submit: Entrar
 
-user.change_password.submit: Cambiar contraseña
-
 user.show.username: Nombre de usuario
 user.show.email: Email
 user.edit.submit: Actualizar usuario
+
+# Password change
+change_password.submit: Cambiar contraseña
 
 # Registration
 registration.check_email: Un email ha sido enviado a %email%. Contiene un enlace de activación que debes presionar para activar tu cuenta.

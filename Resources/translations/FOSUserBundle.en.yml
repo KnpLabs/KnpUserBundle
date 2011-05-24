@@ -7,11 +7,12 @@ security.login.password: "Password:"
 security.login.remember_me: Remember me
 security.login.submit: Login
 
-user.change_password.submit: Change password
-
 user.show.username: Username
 user.show.email: Email
 user.edit.submit: Update user
+
+# Password change
+change_password.submit: Change password
 
 # Registration
 registration.check_email: An email has been sent to %email%. It contains an activation link you must click to activate your account.
