@@ -1,10 +1,12 @@
 <?php
 
-/**
- * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
+/*
+ * This file is part of the FOSUserBundle package.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace FOS\UserBundle\Mailer;
@@ -14,6 +16,9 @@ use Symfony\Component\Routing\RouterInterface;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Mailer\MailerInterface;
 
+/**
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ */
 class Mailer implements MailerInterface
 {
     protected $mailer;
