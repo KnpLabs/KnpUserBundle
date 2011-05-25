@@ -9,7 +9,7 @@ security.login.submit: Connexion
 
 user.show.username: Nom d'utilisateur
 user.show.email: Adresse e-mail
-user.edit.submit: Mettre à jour l'utilisateur
+user.edit.submit: Mettre à jour
 
 # Password change
 change_password.submit: Modifier le mot de passe

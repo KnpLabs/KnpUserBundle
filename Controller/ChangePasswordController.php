@@ -40,7 +40,7 @@ class ChangePasswordController extends ContainerAware
         $process = $formHandler->process($user);
         if ($process) {
             $this->setFlash('fos_user_change_password', 'success');
-            $url =  $this->container->get('router')->generate('fos_user_user_show', array('username' => $user->getUsername()));
+            $url =  $this->container->get('router')->generate('fos_user_user_show');
             return new RedirectResponse($url);
         }
 
