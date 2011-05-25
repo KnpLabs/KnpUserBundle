@@ -159,33 +159,17 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('fos_user.form.reset_password');
     }
 
-    public function testUserLoadControllerClassWithDefaults()
-    {
-        $this->createEmptyConfiguration();
-
-        $this->assertParameter('FOS\UserBundle\Controller\UserController', 'fos_user.controller.user.class');
-    }
-
     public function testUserLoadControllerClass()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('Acme\MyBundle\Controller\UserController', 'fos_user.controller.user.class');
         $this->assertParameter('Acme\MyBundle\Controller\GroupController', 'fos_user.controller.group.class');
-    }
-
-    public function testUserLoadControllerServiceWithDefaults()
-    {
-        $this->createEmptyConfiguration();
-
-        $this->assertHasDefinition('fos_user.controller.user');
     }
 
     public function testUserLoadControllerService()
     {
         $this->createFullConfiguration();
 
-        $this->assertHasDefinition('fos_user.controller.user');
         $this->assertHasDefinition('fos_user.controller.group');
     }
 
@@ -314,8 +298,6 @@ class:
         user:            Acme\MyBundle\Form\UserFormType
         change_password: Acme\MyBundle\Form\ChangePasswordFormType
         reset_password:  Acme\MyBundle\Form\ResetPasswordFormType
-    controller:
-        user:     Acme\MyBundle\Controller\UserController
 service:
     mailer: acme_my.mailer
     email_canonicalizer:    acme_my.email_canonicalizer
