@@ -94,7 +94,10 @@ class RegistrationController extends ContainerAware
      */
     public function confirmedAction()
     {
-        $user = $this->getUser();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
 
         $this->setFlash('fos_user_registration_confirmed', 'success');
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:confirmed.html.'.$this->getEngine(), array(
@@ -103,28 +106,12 @@ class RegistrationController extends ContainerAware
     }
 
     /**
-     * Get a user from the security context
-     *
-     * @throws AccessDeniedException if no user is authenticated
-     * @return User
-     */
-    protected function getUser()
-    {
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-
-        return $user;
-    }
-
-    /**
      * Find a user by a specific property
      *
      * @param string $key property name
      * @param mixed $value property value
      * @throws NotFoundException if user does not exist
-     * @return User
+     * @return UserInterface
      */
     protected function findUserBy($key, $value)
     {
@@ -143,7 +130,6 @@ class RegistrationController extends ContainerAware
      * Authenticate a user with Symfony Security
      *
      * @param Boolean $reAuthenticate
-     * @return null
      */
     protected function authenticateUser(UserInterface $user, $reAuthenticate = false)
     {

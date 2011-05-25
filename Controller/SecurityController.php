@@ -32,7 +32,7 @@ class SecurityController extends ContainerAware
             $error = $error->getMessage();
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Security:login.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Security:login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
             // last username entered by the user
             'last_username' => $this->container->get('request')->getSession()->get(SecurityContext::LAST_USERNAME),
             'error'         => $error,
@@ -47,10 +47,5 @@ class SecurityController extends ContainerAware
     public function logoutAction()
     {
         throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
-    }
-
-    protected function getEngine()
-    {
-        return $this->container->getParameter('fos_user.template.engine');
     }
 }

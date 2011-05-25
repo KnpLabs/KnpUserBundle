@@ -29,7 +29,11 @@ class ChangePasswordController extends ContainerAware
      */
     public function changePasswordAction()
     {
-        $user = $this->getUser();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+
         $form = $this->container->get('fos_user.form.change_password');
         $formHandler = $this->container->get('fos_user.form.handler.change_password');
 
@@ -40,34 +44,14 @@ class ChangePasswordController extends ContainerAware
             return new RedirectResponse($url);
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:ChangePassword:changePassword.html.'.$this->getEngine(), array(
-            'form' => $form->createView()
-        ));
-    }
-
-    /**
-     * Get a user from the security context
-     *
-     * @throws AccessDeniedException if no user is authenticated
-     * @return UserInterface
-     */
-    protected function getUser()
-    {
-        $user = $this->container->get('security.context')->getToken()->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-
-        return $user;
+        return $this->container->get('templating')->renderResponse(
+            'FOSUserBundle:ChangePassword:changePassword.html.'.$this->container->getParameter('fos_user.template.engine'),
+            array('form' => $form->createView())
+        );
     }
 
     protected function setFlash($action, $value)
     {
         $this->container->get('session')->setFlash($action, $value);
-    }
-
-    protected function getEngine()
-    {
-        return $this->container->getParameter('fos_user.template.engine');
     }
 }
