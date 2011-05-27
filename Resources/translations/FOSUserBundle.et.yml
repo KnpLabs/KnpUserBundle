@@ -6,34 +6,36 @@ security.login.username: "Kasutajanimi:"
 security.login.password: "Salasõna:"
 security.login.remember_me: Jäta mind meelde
 security.login.submit: Sisene
-security.login.request_reset_password: Unustasid salasõna
-
-user.change_password.submit: Muuda salasõna
-user.check_confirmation_email.message: E-mail on saadetud aadressile %email%. Selles sisaldub viide, mis tuleb konto aktiveerimiseks avada.
-user.check_resetting_email.sent: E-mail on saadetud aadressile %email%. Selles sisaldub viide, mis tuleb salasõna muutmiseks avada.
-user.confirmed.message: Palju õnne %username%, Sinu konto on aktiveeritud.
 
 user.show.username: Kasutajanimi
 user.show.email: E-mail
-user.new.submit: Uus kasutaja
-user.edit.submit: Muuda kasutaja
-user.password_already_requested: Kasutaja salasõna on juba viimase 24 tunni jooksul küsitud.
-user.password_request_reset.username: "Kasutajanimi:"
-user.password_request_reset.submit: Saada salasõna
-user.reset_password.submit: Muuda salasõna
+user.edit.submit: Uuenda
 
-user.email.resetting_password: |
+# Password change
+change_password.submit: Muuda salasõna
+
+# Registration
+registration.check_email: E-mail on saadetud aadressile %email%. Selles sisaldub viide, mis tuleb konto aktiveerimiseks avada.
+registration.confirmed: Palju õnne %username%, Sinu konto on aktiveeritud.
+registration.submit: Registreeri
+registration.email: |
     Tere %username%!
 
-    Salasõna muutmiseks palun vajutage viitel %confirmationUrl%
+    Konto valideerimise edukaks lõpetamiseks palun vajutage viitel %confirmationUrl%
 
     Parimatega,
     Tiim.
 
-user.email.confirmation: |
+# Password resetting
+resetting.password_already_requested: Kasutaja salasõna on juba viimase 24 tunni jooksul küsitud.
+resetting.check_email: E-mail on saadetud aadressile %email%. Selles sisaldub viide, mis tuleb salasõna muutmiseks avada.
+resetting.request.username: "Kasutajanimi:"
+resetting.request.submit: Saada salasõna
+resetting.reset.submit: Muuda salasõna
+resetting.email: |
     Tere %username%!
 
-    Konto valideerimise edukaks lõpetamiseks palun vajutage viitel %confirmationUrl%
+    Salasõna muutmiseks palun vajutage viitel %confirmationUrl%
 
     Parimatega,
     Tiim.
@@ -51,6 +53,7 @@ user_username:             "Kasutajanimi:"
 user_email:                "E-mail:"
 user_plainPassword_first:  "Salasõna:"
 user_plainPassword_second: "Salasõna uuesti:"
+#fos_user_user_form_plainPassword: "Salasõna (sisesta topelt):"
 
 fos_user_reset_password_form_new: "Uus salasõna:"
 
