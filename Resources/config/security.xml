@@ -15,8 +15,8 @@
             <argument>%fos_user.encoder.iterations%</argument>
             <argument type="service" id="security.encoder_factory.generic" />
         </service>
-        
-        <service id="security.encoder_factory" alias="fos_user.encoder_factory" public="false" />
+
+        <service id="security.encoder_factory" alias="fos_user.encoder_factory" />
     </services>
 
 </container>
