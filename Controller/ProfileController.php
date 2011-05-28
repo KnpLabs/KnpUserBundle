@@ -21,7 +21,7 @@ use FOS\UserBundle\Model\UserInterface;
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-class UserController extends ContainerAware
+class ProfileController extends ContainerAware
 {
     /**
      * Show the user
@@ -33,7 +33,7 @@ class UserController extends ContainerAware
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:User:show.html.'.$this->container->getParameter('fos_user.template.engine'), array('user' => $user));
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.'.$this->container->getParameter('fos_user.template.engine'), array('user' => $user));
     }
 
     /**
@@ -53,12 +53,11 @@ class UserController extends ContainerAware
         if ($process) {
             $this->setFlash('fos_user_user_update', 'success');
 
-            return new RedirectResponse($this->container->get('router')->generate('fos_user_user_show'));
+            return new RedirectResponse($this->container->get('router')->generate('fos_user_profile_show'));
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:User:edit.html.'.$this->container->getParameter('fos_user.template.engine'), array(
-            'form'      => $form->createView(),
-            'username'  => $user->getUsername()
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:edit.html.'.$this->container->getParameter('fos_user.template.engine'), array(
+            'form'      => $form->createView()
         ));
     }
 

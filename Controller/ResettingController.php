@@ -92,7 +92,7 @@ class ResettingController extends ContainerAware
             $this->authenticateUser($user);
 
             $this->setFlash('fos_user_resetted', 'success');
-            $url =  $this->container->get('router')->generate('fos_user_user_show');
+            $url =  $this->container->get('router')->generate('fos_user_profile_show');
             return new RedirectResponse($url);
         }
 

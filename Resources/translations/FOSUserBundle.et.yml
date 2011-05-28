@@ -7,9 +7,10 @@ security.login.password: "Salasõna:"
 security.login.remember_me: Jäta mind meelde
 security.login.submit: Sisene
 
-user.show.username: Kasutajanimi
-user.show.email: E-mail
-user.edit.submit: Uuenda
+# Profile
+profile.show.username: Kasutajanimi
+profile.show.email: E-mail
+profile.edit.submit: Uuenda
 
 # Password change
 change_password.submit: Muuda salasõna

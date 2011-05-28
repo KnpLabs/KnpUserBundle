@@ -7,9 +7,10 @@ security.login.password: "Password:"
 security.login.remember_me: Remember me
 security.login.submit: Login
 
-user.show.username: Username
-user.show.email: Email
-user.edit.submit: Update
+# Profile
+profile.show.username: Username
+profile.show.email: Email
+profile.edit.submit: Update
 
 # Password change
 change_password.submit: Change password

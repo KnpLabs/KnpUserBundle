@@ -7,9 +7,10 @@ security.login.password: "Mot de passe:"
 security.login.remember_me: Se souvenir de moi
 security.login.submit: Connexion
 
-user.show.username: Nom d'utilisateur
-user.show.email: Adresse e-mail
-user.edit.submit: Mettre à jour
+# Profile
+profile.show.username: Nom d'utilisateur
+profile.show.email: Adresse e-mail
+profile.edit.submit: Mettre à jour
 
 # Password change
 change_password.submit: Modifier le mot de passe

@@ -7,9 +7,10 @@ security.login.password: "Hasło:"
 security.login.remember_me: Nie wylogowuj mnie
 security.login.submit: Zaloguj
 
-user.show.username: Nazwa użytkownika
-user.show.email: E-mail
-user.edit.submit: Edytuj użytkownika
+# Profile
+profile.show.username: Nazwa użytkownika
+profile.show.email: E-mail
+profile.edit.submit: Edytuj użytkownika
 
 # Password change
 change_password.submit: Zmień hasło
