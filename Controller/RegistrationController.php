@@ -28,12 +28,11 @@ class RegistrationController extends ContainerAware
 {
     public function registerAction()
     {
-        $form = $this->container->get('fos_user.form.user');
-        $formHandler = $this->container->get('fos_user.form.handler.user');
+        $form = $this->container->get('fos_user.form.registration');
+        $formHandler = $this->container->get('fos_user.form.handler.registration');
 
-        $process = $formHandler->process(null, $this->container->getParameter('fos_user.email.confirmation.enabled'));
+        $process = $formHandler->process($this->container->getParameter('fos_user.email.confirmation.enabled'));
         if ($process) {
-
             $user = $form->getData();
 
             if ($this->container->getParameter('fos_user.email.confirmation.enabled')) {
@@ -86,7 +85,7 @@ class RegistrationController extends ContainerAware
         $this->container->get('fos_user.user_manager')->updateUser($user);
         $this->authenticateUser($user);
 
-        return new RedirectResponse( $this->container->get('router')->generate('fos_user_registration_confirmed'));
+        return new RedirectResponse($this->container->get('router')->generate('fos_user_registration_confirmed'));
     }
 
     /**

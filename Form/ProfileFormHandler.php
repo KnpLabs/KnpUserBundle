@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 
-class UserFormHandler
+class ProfileFormHandler
 {
     protected $request;
     protected $userManager;
@@ -30,25 +30,14 @@ class UserFormHandler
         $this->userManager = $userManager;
     }
 
-    public function process(UserInterface $user = null, $confirmation = null)
+    public function process(UserInterface $user)
     {
-        if (null === $user) {
-            $user = $this->userManager->createUser();
-        }
-
         $this->form->setData($user);
 
         if ('POST' == $this->request->getMethod()) {
             $this->form->bindRequest($this->request);
 
             if ($this->form->isValid()) {
-                if (true === $confirmation) {
-                    $user->setEnabled(false);
-                } else if (false === $confirmation) {
-                    $user->setConfirmationToken(null);
-                    $user->setEnabled(true);
-                }
-
                 $this->userManager->updateUser($user);
 
                 return true;

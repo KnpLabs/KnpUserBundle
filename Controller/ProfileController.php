@@ -46,8 +46,8 @@ class ProfileController extends ContainerAware
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $form = $this->container->get('fos_user.form.user');
-        $formHandler = $this->container->get('fos_user.form.handler.user');
+        $form = $this->container->get('fos_user.form.profile');
+        $formHandler = $this->container->get('fos_user.form.handler.profile');
 
         $process = $formHandler->process($user);
         if ($process) {
@@ -56,9 +56,10 @@ class ProfileController extends ContainerAware
             return new RedirectResponse($this->container->get('router')->generate('fos_user_profile_show'));
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:edit.html.'.$this->container->getParameter('fos_user.template.engine'), array(
-            'form'      => $form->createView()
-        ));
+        return $this->container->get('templating')->renderResponse(
+            'FOSUserBundle:Profile:edit.html.'.$this->container->getParameter('fos_user.template.engine'),
+            array('form' => $form->createView())
+        );
     }
 
     protected function setFlash($action, $value)
