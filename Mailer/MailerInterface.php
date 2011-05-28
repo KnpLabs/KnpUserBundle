@@ -22,15 +22,13 @@ interface MailerInterface
      * Send an email to a user to confirm the account creation
      *
      * @param UserInterface $user
-     * @param string $engine the templating engine name, generally 'twig' or 'php'
      */
-    function sendConfirmationEmailMessage(UserInterface $user, $engine);
+    function sendConfirmationEmailMessage(UserInterface $user);
 
     /**
      * Send an email to a user to confirm the password reset
      *
      * @param UserInterface $user
-     * @param string $engine the templating engine name, generally 'twig' or 'php'
      */
-    function sendResettingEmailMessage(UserInterface $user, $engine);
+    function sendResettingEmailMessage(UserInterface $user);
 }

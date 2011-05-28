@@ -34,22 +34,22 @@ class Mailer implements MailerInterface
         $this->parameters = $parameters;
     }
 
-    public function sendConfirmationEmailMessage(UserInterface $user, $engine)
+    public function sendConfirmationEmailMessage(UserInterface $user)
     {
         $template = $this->parameters['confirmation.template'];
         $url = $this->router->generate('fos_user_registration_confirm', array('token' => $user->getConfirmationToken()), true);
-        $rendered = $this->templating->render($template.'.txt.'.$engine, array(
+        $rendered = $this->templating->render($template, array(
             'user' => $user,
             'confirmationUrl' =>  $url
         ));
         $this->sendEmailMessage($rendered, $this->getSenderEmail('confirmation'), $user->getEmail());
     }
 
-    public function sendResettingEmailMessage(UserInterface $user, $engine)
+    public function sendResettingEmailMessage(UserInterface $user)
     {
         $template = $this->parameters['resetting_password.template'];
         $url = $this->router->generate('fos_user_resetting_reset', array('token' => $user->getConfirmationToken()), true);
-        $rendered = $this->templating->render($template.'.txt.'.$engine, array(
+        $rendered = $this->templating->render($template, array(
             'user' => $user,
             'confirmationUrl' => $url
         ));

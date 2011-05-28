@@ -179,8 +179,8 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertParameter(false, 'fos_user.email.confirmation.enabled');
         $this->assertParameter(array('webmaster@example.com' => 'webmaster'), 'fos_user.email.from_email');
-        $this->assertParameter('FOSUserBundle:Registration:email', 'fos_user.email.confirmation.template');
-        $this->assertParameter('FOSUserBundle:Resetting:email', 'fos_user.email.resetting_password.template');
+        $this->assertParameter('FOSUserBundle:Registration:email.txt.twig', 'fos_user.email.confirmation.template');
+        $this->assertParameter('FOSUserBundle:Resetting:email.txt.twig', 'fos_user.email.resetting_password.template');
         $this->assertParameter(86400, 'fos_user.email.resetting_password.token_ttl');
     }
 
@@ -190,8 +190,8 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertParameter(true, 'fos_user.email.confirmation.enabled');
         $this->assertParameter(array('admin@acme.org' => 'Acme Corp'), 'fos_user.email.from_email');
-        $this->assertParameter('AcmeMyBundle:Mail:confirmation', 'fos_user.email.confirmation.template');
-        $this->assertParameter('AcmeMyBundle:Mail:resetting', 'fos_user.email.resetting_password.template');
+        $this->assertParameter('AcmeMyBundle:Mail:confirmation.txt.twig', 'fos_user.email.confirmation.template');
+        $this->assertParameter('AcmeMyBundle:Mail:resetting.txt.twig', 'fos_user.email.resetting_password.template');
         $this->assertParameter(1800, 'fos_user.email.resetting_password.token_ttl');
     }
 
@@ -318,9 +318,9 @@ email:
     from_email: { admin@acme.org: Acme Corp }
     confirmation:
         enabled:    true
-        template:   AcmeMyBundle:Mail:confirmation
+        template:   AcmeMyBundle:Mail:confirmation.txt.twig
     resetting_password:
-        template:   AcmeMyBundle:Mail:resetting
+        template:   AcmeMyBundle:Mail:resetting.txt.twig
         token_ttl:  1800
 template:
     engine: php

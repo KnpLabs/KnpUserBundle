@@ -11,24 +11,23 @@
 
 namespace FOS\UserBundle\Mailer;
 
-/**
- * @author Thibault Duplessis <thibault.duplessis@gmail.com>
- */
 use FOS\UserBundle\Model\UserInterface;
 
 /**
  * This mailer does nothing.
  * It is used when the 'email' configuration is not set,
  * and allows to use this bundle without swiftmailer.
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  */
 class NoopMailer implements MailerInterface
 {
-    public function sendConfirmationEmailMessage(UserInterface $user, $engine)
+    public function sendConfirmationEmailMessage(UserInterface $user)
     {
         // nothing happens.
     }
 
-    public function sendResettingEmailMessage(UserInterface $user, $engine)
+    public function sendResettingEmailMessage(UserInterface $user)
     {
         // nothing happens.
     }
