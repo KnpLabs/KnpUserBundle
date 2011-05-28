@@ -80,6 +80,14 @@ class UserManager extends BaseUserManager
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function refreshUser(UserInterface $user)
+    {
+        $this->dm->refresh($user);
+    }
+
+    /**
      * Updates a user.
      *
      * @extra:SecureParam(name="user", permissions="EDIT")

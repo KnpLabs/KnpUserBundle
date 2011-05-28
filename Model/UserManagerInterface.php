@@ -98,6 +98,14 @@ interface UserManagerInterface
     function getClass();
 
     /**
+     * Refreshes a user.
+     *
+     * @extra:SecureParam(permissions="VIEW")
+     * @param UserInterface $user
+     */
+    function refreshUser(UserInterface $user);
+
+    /**
      * Updates a user.
      *
      * @extra:SecureParam(name="user", permissions="EDIT")
