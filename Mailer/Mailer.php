@@ -42,18 +42,18 @@ class Mailer implements MailerInterface
             'user' => $user,
             'confirmationUrl' =>  $url
         ));
-        $this->sendEmailMessage($rendered, $this->getSenderEmail('confirmation'), $user->getEmail());
+        $this->sendEmailMessage($rendered, $this->parameters['from_email']['confirmation'], $user->getEmail());
     }
 
     public function sendResettingEmailMessage(UserInterface $user)
     {
-        $template = $this->parameters['resetting_password.template'];
+        $template = $this->parameters['resetting.template'];
         $url = $this->router->generate('fos_user_resetting_reset', array('token' => $user->getConfirmationToken()), true);
         $rendered = $this->templating->render($template, array(
             'user' => $user,
             'confirmationUrl' => $url
         ));
-        $this->sendEmailMessage($rendered, $this->getSenderEmail('resetting_password'), $user->getEmail());
+        $this->sendEmailMessage($rendered, $this->parameters['from_email']['resetting'], $user->getEmail());
     }
 
     protected function sendEmailMessage($renderedTemplate, $fromEmail, $toEmail)
@@ -70,10 +70,5 @@ class Mailer implements MailerInterface
             ->setBody($body);
 
         $this->mailer->send($message);
-    }
-
-    protected function getSenderEmail($type)
-    {
-        return $this->parameters['from_email'][$type];
     }
 }

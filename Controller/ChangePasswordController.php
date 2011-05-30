@@ -34,8 +34,8 @@ class ChangePasswordController extends ContainerAware
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $form = $this->container->get('fos_user.form.change_password');
-        $formHandler = $this->container->get('fos_user.form.handler.change_password');
+        $form = $this->container->get('fos_user.change_password.form');
+        $formHandler = $this->container->get('fos_user.change_password.form.handler');
 
         $process = $formHandler->process($user);
         if ($process) {

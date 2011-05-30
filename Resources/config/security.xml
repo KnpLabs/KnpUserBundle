@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="fos_user.encoder_factory.class">FOS\UserBundle\Security\Encoder\EncoderFactory</parameter>
+        <parameter key="fos_user.security.interactive_login_listener.class">FOS\UserBundle\Security\InteractiveLoginListener</parameter>
     </parameters>
 
     <services>
@@ -15,8 +16,13 @@
             <argument>%fos_user.encoder.iterations%</argument>
             <argument type="service" id="security.encoder_factory.generic" />
         </service>
-        
+
         <service id="security.encoder_factory" alias="fos_user.encoder_factory" public="false" />
+        
+        <service id="fos_user.security.interactive_login_listener" class="%fos_user.security.interactive_login_listener.class%">
+            <argument type="service" id="fos_user.user_manager" />
+            <tag name="kernel.listener" event="onSecurityInteractiveLogin" priority="0" />
+        </service>
     </services>
 
 </container>

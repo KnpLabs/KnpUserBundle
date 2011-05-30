@@ -18,7 +18,7 @@ use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Form\ResetPassword;
 
-class ResetPasswordFormHandler
+class ResettingFormHandler
 {
     protected $request;
     protected $userManager;

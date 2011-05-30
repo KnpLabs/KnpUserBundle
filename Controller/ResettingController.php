@@ -40,7 +40,7 @@ class ResettingController extends ContainerAware
     {
         $user = $this->container->get('fos_user.user_manager')->findUserByUsername($this->container->get('request')->get('username'));
 
-        if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.email.resetting_password.token_ttl'))) {
+        if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
             return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:passwordAlreadyRequested.html.'.$this->getEngine());
         }
 
@@ -80,12 +80,12 @@ class ResettingController extends ContainerAware
     {
         $user = $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
 
-        if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.email.resetting_password.token_ttl'))) {
+        if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
             return new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
         }
 
-        $form = $this->container->get('fos_user.form.reset_password');
-        $formHandler = $this->container->get('fos_user.form.handler.reset_password');
+        $form = $this->container->get('fos_user.resetting.form');
+        $formHandler = $this->container->get('fos_user.resetting.form.handler');
         $process = $formHandler->process($user);
 
         if ($process) {
