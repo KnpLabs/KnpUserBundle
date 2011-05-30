@@ -74,6 +74,46 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $loader->load(array($config), new ContainerBuilder());
     }
 
+    public function testDisableRegistration()
+    {
+        $this->configuration = new ContainerBuilder();
+        $loader = new FOSUserExtension();
+        $config = $this->getEmptyConfig();
+        $config['registration'] = false;
+        $loader->load(array($config), $this->configuration);
+        $this->assertNotHasDefinition('fos_user.registration.form');
+    }
+
+    public function testDisableResetting()
+    {
+        $this->configuration = new ContainerBuilder();
+        $loader = new FOSUserExtension();
+        $config = $this->getEmptyConfig();
+        $config['resetting'] = false;
+        $loader->load(array($config), $this->configuration);
+        $this->assertNotHasDefinition('fos_user.resetting.form');
+    }
+
+    public function testDisableProfile()
+    {
+        $this->configuration = new ContainerBuilder();
+        $loader = new FOSUserExtension();
+        $config = $this->getEmptyConfig();
+        $config['profile'] = false;
+        $loader->load(array($config), $this->configuration);
+        $this->assertNotHasDefinition('fos_user.profile.form');
+    }
+
+    public function testDisableChangePassword()
+    {
+        $this->configuration = new ContainerBuilder();
+        $loader = new FOSUserExtension();
+        $config = $this->getEmptyConfig();
+        $config['change_password'] = false;
+        $loader->load(array($config), $this->configuration);
+        $this->assertNotHasDefinition('fos_user.change_password.form');
+    }
+
     public function testUserLoadModelClassWithDefaults()
     {
         $this->createEmptyConfiguration();
