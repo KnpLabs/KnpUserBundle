@@ -43,7 +43,7 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $aceManager = $this->container->get('fos_user.ace_manager');
+        $aceManager = $this->container->get('fos_user.util.ace_manager');
         $userClass = $this->container->get('fos_user.user_manager')->getClass();
 
         if (!$aceManager->hasAclProvider()) {

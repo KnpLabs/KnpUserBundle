@@ -78,9 +78,9 @@ EOT
         $inactive   = $input->getOption('inactive');
         $superadmin = $input->getOption('super-admin');
 
-        $manipulator = $this->container->get('fos_user.user_manipulator');
+        $manipulator = $this->container->get('fos_user.util.user_manipulator');
         $user = $manipulator->create($username, $password, $email, !$inactive, $superadmin);
-        $this->container->get('fos_user.ace_manager')->createUserAce($user);
+        $this->container->get('fos_user.util.ace_manager')->createUserAce($user);
 
         $output->writeln(sprintf('Created user <comment>%s</comment>', $username));
     }
