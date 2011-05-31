@@ -40,14 +40,25 @@ class ChangePasswordController extends ContainerAware
         $process = $formHandler->process($user);
         if ($process) {
             $this->setFlash('fos_user_change_password', 'success');
-            $url =  $this->container->get('router')->generate('fos_user_profile_show');
-            return new RedirectResponse($url);
+
+            return new RedirectResponse($this->getRedirectionUrl($user));
         }
 
         return $this->container->get('templating')->renderResponse(
             'FOSUserBundle:ChangePassword:changePassword.html.'.$this->container->getParameter('fos_user.template.engine'),
             array('form' => $form->createView(), 'theme' => $this->container->getParameter('fos_user.template.theme'))
         );
+    }
+
+    /**
+     * Generate the redirection url when the resetting is completed.
+     *
+     * @param UserInterface $user
+     * @return string
+     */
+    protected function getRedirectionUrl(UserInterface $user)
+    {
+        return $this->container->get('router')->generate('fos_user_profile_show');
     }
 
     protected function setFlash($action, $value)

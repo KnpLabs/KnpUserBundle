@@ -92,8 +92,8 @@ class ResettingController extends ContainerAware
             $this->authenticateUser($user);
 
             $this->setFlash('fos_user_resetted', 'success');
-            $url =  $this->container->get('router')->generate('fos_user_profile_show');
-            return new RedirectResponse($url);
+
+            return new RedirectResponse($this->getRedirectionUrl($user));
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:reset.html.'.$this->getEngine(), array(
@@ -119,6 +119,17 @@ class ResettingController extends ContainerAware
         }
 
         $this->container->get('security.context')->setToken($token);
+    }
+
+    /**
+     * Generate the redirection url when the resetting is completed.
+     *
+     * @param UserInterface $user
+     * @return string
+     */
+    protected function getRedirectionUrl(UserInterface $user)
+    {
+        return $this->container->get('router')->generate('fos_user_profile_show');
     }
 
     protected function setFlash($action, $value)
