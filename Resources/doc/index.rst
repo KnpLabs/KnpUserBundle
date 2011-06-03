@@ -12,17 +12,40 @@ Features
 Warning
 =======
 
-The supplied Controller and routing configuration files expose as much functionality as possible to illustrate how to use the Bundle. However using these exposes a lot of functionality which requires additional configuration to secure properly (for example delete, list etc). As such its not recommended to ever go into production while using one of the default routing configuration files.
+The core SecurityBundle is required to use this bundle.
 
-The implementation of ACL checks via the JMSSecurityExtraBundle is also currently incomplete (see issue #53) and activation of this Bundle is also not enforced.
+The supplied Controller and routing configuration files expose as much functionality
+as possible to illustrate how to use the Bundle. However using these exposes
+a lot of functionality which requires additional configuration to secure
+properly (for example delete, list etc). As such its not recommended to
+ever go into production while using one of the default routing configuration
+files.
 
-Furthermore it may be necessary to extend or even replace the default Controllers with custom code to achieve the exact desired behavior. Trying to cover every possible use case is not feasible as it would complicate the Bundle to the point of being unmaintainable and impossible to comprehend in a reasonable amount of time.
+The implementation of ACL checks via the JMSSecurityExtraBundle is also
+currently incomplete (see issue #53) and activation of this Bundle is also
+not enforced.
+
+Furthermore it may be necessary to extend or even replace the default Controllers
+with custom code to achieve the exact desired behavior. Trying to cover
+every possible use case is not feasible as it would complicate the Bundle
+to the point of being unmaintainable and impossible to comprehend in a reasonable
+amount of time.
 
 Installation
 ============
 
-Add UserBundle to your vendor/bundles/ dir
+Add FOSUserBundle to your vendor/bundles/ dir
 ------------------------------------------
+
+Using the vendors.php script
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Add the following line in your ``bin/deps`` file::
+
+    /bundles/FOS    UserBundle      git://github.com/FriendsOfSymfony/UserBundle.git
+
+Using submodules
+~~~~~~~~~~~~~~~~
 
 ::
 
@@ -49,6 +72,7 @@ Add UserBundle to your application kernel
     public function registerBundles()
     {
         return array(
+            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             // ...
             new FOS\UserBundle\FOSUserBundle(),
             // ...
@@ -134,24 +158,8 @@ Configure your project
 ----------------------
 
 The UserBundle works with the Symfony Security Component, so make sure that is
-enabled in your kernel and in your project's configuration::
-
-    // app/AppKernel.php
-    public function registerBundles()
-    {
-        return array(
-            // ...
-            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
-            // ...
-        );
-    }
-
-    # app/config/security.yml
-    security:
-        providers:
-            # the naming of a security provider is up to you, we chose "fos_userbundle"
-            fos_userbundle:
-                id: fos_user.user_manager
+enabled in your kernel and in your project's configuration. A working security
+configuration using FOSUserBundle is available at the end of the doc.
 
 .. note::
 
@@ -162,33 +170,18 @@ enabled in your kernel and in your project's configuration::
 The login form and all the routes used to create a user and reset the password
 have to be available to unauthenticated users but using the same firewall as
 the pages you want to securize with the bundle. Assuming you import the
-user.xml routing file with the ``/user`` prefix they will be::
+registration.xml routing file with the ``/register`` prefix and resetting.xml
+with the ``/resetting`` prefix they will be::
 
     /login
-    /user/new
-    /user/check-confirmation-email
-    /user/confirm/{token}
-    /user/confirmed
-    /user/request-reset-password
-    /user/send-resetting-email
-    /user/check-resetting-email
-    /user/reset-password/{token}
-
-.. note::
-
-    You can look at the end of the doc for a working security configuration
-    achieving this.
-
-You also have to include the UserBundle in your Doctrine mapping configuration,
-along with the bundle containing your custom User class::
-
-    # app/config/config.yml
-    doctrine:
-        orm:
-            mappings:
-                FOSUserBundle: ~
-                MyProjectMyBundle:   ~
-                # your other bundles
+    /register/
+    /register/check-email
+    /register/confirm/{token}
+    /register/confirmed
+    /resetting/request
+    /resetting/send-email
+    /resetting/check-email
+    /resetting/reset/{token}
 
 The above example assumes an ORM configuration, but the ``mappings``
 configuration block would be the same for MongoDB ODM.
@@ -197,12 +190,13 @@ Minimal configuration
 ---------------------
 
 At a minimum, your configuration must define your DB driver ("orm" or "mongodb"),
-a User class and the provider key. The provider key matches the key in the
-firewall configuration that is used for users with the UserController.
+a User class and the firewall name. The firewall name matches the key in the
+firewall configuration that is used for users with the controllers of the
+bundle.
 
-The provider key needs to be configured so that the UserBundle can determine
-against what firewall the user should be authenticated after activating the
-account for example. This means that out of the box UserBundle only supports
+The firewall name needs to be configured so that the FOSUserBundle can determine
+against which firewall the user should be authenticated after activating the
+account for instance. This means that out of the box FOSUserBundle only supports
 being used for a single firewall, though with a custom Controller this
 limitation can be circumvented.
 
@@ -233,9 +227,7 @@ In YAML:
     fos_user:
         db_driver: orm
         firewall_name: main
-        class:
-            model:
-                user: MyProject\MyBundle\Entity\User
+        user_class: MyProject\MyBundle\Entity\User
 
 Or if you prefer XML:
 
@@ -243,13 +235,11 @@ Or if you prefer XML:
 
     # app/config/config.xml
 
-    <fos_user:config db-driver="orm" firewall-name="main">
-        <fos_user:class>
-            <fos_user:model
-                user="MyProject\MyBundle\Entity\User"
-            />
-        </fos_user:class>
-    </fos_user:config>
+    <fos_user:config
+        db-driver="orm"
+        firewall-name="main"
+        user-class="MyProject\MyBundle\Entity\User"
+    />
 
 ODM
 ~~~
@@ -262,9 +252,7 @@ In YAML:
     fos_user:
         db_driver: mongodb
         firewall_name: main
-        class:
-            model:
-                user: MyProject\MyBundle\Document\User
+        user_class: MyProject\MyBundle\Document\User
 
 Or if you prefer XML:
 
@@ -272,13 +260,11 @@ Or if you prefer XML:
 
     # app/config/config.xml
 
-    <fos_user:config db-driver="mongodb" firewall-name="main">
-        <fos_user:class>
-            <fos_user:model
-                user="MyProject\MyBundle\Document\User"
-            />
-        </fos_user:class>
-    </fos_user:config>
+    <fos_user:config
+        db-driver="mongodb"
+        firewall-name="main">
+        user-class="MyProject\MyBundle\Document\User"
+    />
 
 
 Add authentication routes
@@ -294,22 +280,37 @@ routes:
         resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
     fos_user_user:
-        resource: "@FOSUserBundle/Resources/config/routing/user.xml"
-        prefix: /user
+        resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+        prefix: /profile
+
+    fos_user_user:
+        resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+        prefix: /register
+
+    fos_user_user:
+        resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+        prefix: /resetting
+
+    fos_user_user:
+        resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+        prefix: /change-password
 
 ::
 
     # app/config/routing.xml
 
     <import resource="@FOSUserBundle/Resources/config/routing/security.xml"/>
-    <import resource="@FOSUserBundle/Resources/config/routing/user.xml" prefix="/user" />
+    <import resource="@FOSUserBundle/Resources/config/routing/profile.xml" prefix="/profile" />
+    <import resource="@FOSUserBundle/Resources/config/routing/registration.xml" prefix="/register" />
+    <import resource="@FOSUserBundle/Resources/config/routing/resetting.xml" prefix="/resetting" />
+    <import resource="@FOSUserBundle/Resources/config/routing/change_password.xml" prefix="/change-password" />
 
-You now can login at http://app.com/login
+You now can login at http://app.com/app_dev.php/login
 
 Command line
 ============
 
-UserBundle provides command line utilities to help manage your
+FOSUserBundle provides command line utilities to help manage your
 application users.
 
 Create user
@@ -334,9 +335,9 @@ This command promotes a user as a super administrator::
 User manager service
 ====================
 
-UserBundle works with both ORM and ODM. To make it possible, it wraps
-all the operation on users in a UserManager. The user manager is a
-service of the container.
+FOSUserBundle works with both ORM and ODM. To make it possible, it wraps
+all the operation on users in a UserManager. The user manager is a service
+of the container.
 
 If you configure the db_driver to orm, this service is an instance of
 ``FOS\UserBundle\Entity\UserManager``.
@@ -354,7 +355,7 @@ ORM and ODM, use the fos_user.user_manager service::
 
     $userManager = $container->get('fos_user.user_manager');
 
-That's the way UserBundle's internal controllers are built.
+That's the way FOSUserBundle's internal controllers are built.
 
 Access the current user class
 -----------------------------
@@ -385,9 +386,7 @@ In YAML:
         db_driver: orm
         firewall_name: main
         use_listener: false
-        class:
-            model:
-                user: MyProject\MyBundle\Entity\User
+        user_class: MyProject\MyBundle\Entity\User
 
 Or if you prefer XML:
 
@@ -395,13 +394,12 @@ Or if you prefer XML:
 
     # app/config/config.xml
 
-    <fos_user:config db-driver="orm" firewall-name="main" use-listener="false">
-        <fos_user:class>
-            <fos_user:model
-                user="MyProject\MyBundle\Entity\User"
-            />
-        </fos_user:class>
-    </fos_user:config>
+    <fos_user:config
+        db-driver="orm"
+        firewall-name="main"
+        use-listener="false">
+        user-class="MyProject\MyBundle\Entity\User"
+    />
 
 .. note::
 
@@ -424,12 +422,9 @@ In YAML:
     fos_user:
         db_driver: orm
         firewall_name: main
-        class:
-            model:
-                user: MyProject\MyBundle\Entity\User
+        user_class: MyProject\MyBundle\Entity\User
         group:
-            class:
-                model: MyProject\MyBundle\Entity\Group
+            group_class: MyProject\MyBundle\Entity\Group
 
 Or if you prefer XML:
 
@@ -437,15 +432,12 @@ Or if you prefer XML:
 
     # app/config/config.xml
 
-    <fos_user:config db-driver="orm" firewall-name="main">
-        <fos_user:class>
-            <fos_user:model
-                user="MyProject\MyBundle\Entity\User"
-            />
-        </fos_user:class>
-        <fos_user:group>
-            <fos_user:class model="MyProject\MyBundle\Entity\Group" />
-        </fos_user:group>
+    <fos_user:config
+        db-driver="orm"
+        firewall-name="main">
+        user-class="MyProject\MyBundle\Entity\User"
+    >
+        <fos_user:group group-class model="MyProject\MyBundle\Entity\Group" />
     </fos_user:config>
 
 The Group class
@@ -578,53 +570,62 @@ All configuration options are listed below::
 
     # app/config/config.yml
     fos_user:
-        db_driver:     mongodb
-        firewall_name: main
-        use_listener:  true
-        class:
-            model:
-                user:  MyProject\MyBundle\Document\User
+        db_driver:      ~ # Required
+        firewall_name:  ~ # Required
+        user_class:     ~ # Required
+        use_listener:   true
+        from_email:     { webmaster@example.com: Admin }
+        profile:
             form:
-                user:            ~
-                change_password: ~
-                reset_password:  ~
-            controller:
-                user:     ~
-                security: ~
-        service:
-            mailer: ~
-            email_canonicalizer:    ~
-            username_canonicalizer: ~
-        encoder:
-            algorithm:        ~
-            encode_as_base64: ~
-            iterations:       ~
-        form_name:
-            user:            ~
-            change_password: ~
-            reset_password:  ~
-        form_validation_groups:
-            user: ~             # This value is an array of groups
-            change_password: ~  # This value is an array of groups
-            reset_password: ~   # This value is an array of groups
-        email:
-            from_email: ~       # { admin@example.com: Sender_name }
+                type:               FOS\UserBundle\Form\ProfileFormType
+                handler:            FOS\UserBundle\Form\ProfileFormHandler
+                name:               fos_user_profile_form
+                validation_groups:  [Profile]
+        change_password:
+            form:
+                type:               FOS\UserBundle\Form\ChangePasswordFormType
+                handler:            FOS\UserBundle\Form\ChangePasswordFormHandler
+                name:               fos_user_change_password_form
+                validation_groups:  [ChangePassword]
+        registration:
             confirmation:
-                enabled:    ~
-                template:   ~
-            resetting_password:
-                template:   ~
-                token_ttl:  ~
+                from_email: ~
+                enabled:    false
+                template:   FOSUserBundle:Registration:email.txt.twig
+            form:
+                type:               FOS\UserBundle\Form\RegistrationFormType
+                handler:            FOS\UserBundle\Form\RegistrationFormHandler
+                name:               fos_user_registration_form
+                validation_groups:  [Registration]
+        resetting:
+            token_ttl: 86400
+            email:
+                from_email: ~
+                template:   FOSUserBundle:Resetting:email.txt.twig
+            form:
+                type:               FOS\UserBundle\Form\ResettingFormType
+                handler:            FOS\UserBundle\Form\ResettingFormHandler
+                name:               fos_user_resetting_form
+                validation_groups:  [ResetPassword]
+        service:
+            mailer:                 fos_user.util.mailer.default
+            email_canonicalizer:    fos_user.util.email_canonicalizer.default
+            username_canonicalizer: fos_user.util.username_canonicalizer.default
+        encoder:
+            algorithm:          sha512
+            encode_as_base64:   false
+            iterations:         1
         template:
-            engine: ~
-            theme:  ~
+            engine: twig
+            theme:  FOSUserBundle::form.html.twig
         group:
-            class:
-                model: MyProject\MyBundle\Document\Group
-                controller: ~
-                form: ~
-            form_name: ~
-            form_validation_groups: ~
+            group_class:    ~ # Required when using groups
+            controller:     FOS\UserBundle\Controller\GroupController
+            form:
+                type:               FOS\UserBundle\Form\GroupFormType
+                handler:            FOS\UserBundle\Form\GroupHandler
+                name:               fos_user_group_form
+                validation_groups:  [Registration]
 
 Configuration example
 =====================
@@ -640,9 +641,7 @@ FOSUserBundle configuration
     fos_user:
         db_driver:     orm
         firewall_name: main
-        class:
-            model:
-                user:  MyProject\MyBundle\Entity\User
+        user_class:  MyProject\MyBundle\Entity\User
 
 Security configuration
 ----------------------
@@ -676,15 +675,8 @@ Security configuration
             - { path: ^/css/, role: IS_AUTHENTICATED_ANONYMOUSLY }
             # URL of FOSUserBundle which need to be available to anonymous users
             - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY } # for the case of a failed login
-            - { path: ^/user/new$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/user/check-confirmation-email$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/user/confirm/, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/user/confirmed$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/user/request-reset-password$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/user/send-resetting-email$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/user/check-resetting-email$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/user/reset-password/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
             # Secured part of the site
             # This config requires being logged for the whole site and having the admin role for the admin part.
             # Change these rules to adapt them to your needs
@@ -714,20 +706,26 @@ templates in it.
 You can use a different templating engine by configuring it but you will have to
 create all the needed templates as only twig templates are provided.
 
+Controller
+----------
+
+To overwrite a controller, create a bundle defined a child of FOSUserBundle
+and create a controller with the same name in this bundle.
+
 Validation
 ----------
 
 The ``Resources/config/validation.xml`` file contains definitions for custom
-validator rules for various classes. The rules for the ``User`` class are all in
-the ``Registration`` validation group so you can choose not to use them.
+validator rules for various classes. The rules defined by FOSUserBundle are
+all in a validation group so you can choose not to use them.
 
 Emails
 ------
 
-The default mailer relies on Swiftmailer to send the mails of the bundle. If you
-want to use another mailer in your project you can change it by defining your
-own service implementing ``FOS\UserBundle\Mailer\MailerInterface`` and setting its
-id in the configuration::
+The default mailer relies on Swiftmailer to send the mails of the bundle.
+If you want to use another mailer in your project you can change it by defining
+your own service implementing ``FOS\UserBundle\Mailer\MailerInterface`` and
+setting its id in the configuration::
 
     fos_user:
         # ...
