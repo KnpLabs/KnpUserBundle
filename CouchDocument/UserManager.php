@@ -1,6 +1,6 @@
 <?php
 
-namespace FOS\UserBundle\Document;
+namespace FOS\UserBundle\CouchDocument;
 
 use Doctrine\ODM\CouchDB\DocumentManager;
 use Doctrine\ODM\CouchDB\Proxy\Proxy;
