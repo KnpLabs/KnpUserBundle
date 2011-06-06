@@ -146,7 +146,6 @@ class FOSUserExtension extends Extension
             $this->remapParametersNamespaces($config['group'], $container, array(
                 '' => array(
                     'group_class' => 'fos_user.model.group.class',
-                    'controller' => 'fos_user.controller.group.class',
                 ),
                 'form' => 'fos_user.form.%s.group.class',
             ));

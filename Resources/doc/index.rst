@@ -626,7 +626,6 @@ All configuration options are listed below::
             theme:  FOSUserBundle::form.html.twig
         group:
             group_class:    ~ # Required when using groups
-            controller:     FOS\UserBundle\Controller\GroupController
             form:
                 type:               FOS\UserBundle\Form\GroupFormType
                 handler:            FOS\UserBundle\Form\GroupHandler

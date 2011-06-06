@@ -236,7 +236,6 @@ class Configuration implements ConfigurationInterface
                     ->canBeUnset()
                     ->children()
                         ->scalarNode('group_class')->isRequired()->cannotBeEmpty()->end()
-                        ->scalarNode('controller')->defaultValue('FOS\UserBundle\Controller\GroupController')->end()
                         ->arrayNode('form')
                             ->children()
                                 ->scalarNode('type')->defaultValue('FOS\UserBundle\Form\GroupFormType')->end()

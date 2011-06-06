@@ -208,20 +208,6 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('fos_user.resetting.form');
     }
 
-    public function testUserLoadControllerClass()
-    {
-        $this->createFullConfiguration();
-
-        $this->assertParameter('Acme\MyBundle\Controller\GroupController', 'fos_user.controller.group.class');
-    }
-
-    public function testUserLoadControllerService()
-    {
-        $this->createFullConfiguration();
-
-        $this->assertHasDefinition('fos_user.controller.group');
-    }
-
     public function testUserLoadConfirmationEmailWithDefaults()
     {
         $this->createEmptyConfiguration();
@@ -392,7 +378,6 @@ template:
     theme: AcmeMyBundle:Form:theme.html.twig
 group:
     group_class: Acme\MyBundle\Entity\Group
-    controller: Acme\MyBundle\Controller\GroupController
     form:
         type: Acme\MyBundle\Form\GroupFormType
         handler: Acme\MyBundle\Form\GroupHandler
