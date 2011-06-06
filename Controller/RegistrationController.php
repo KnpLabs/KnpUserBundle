@@ -29,7 +29,7 @@ class RegistrationController extends ContainerAware
     public function registerAction()
     {
         $form = $this->container->get('fos_user.registration.form');
-        $formHandler = $this->container->get('fos_user.form.handler.registration');
+        $formHandler = $this->container->get('fos_user.registration.form.handler');
 
         $process = $formHandler->process($this->container->getParameter('fos_user.registration.confirmation.enabled'));
         if ($process) {
