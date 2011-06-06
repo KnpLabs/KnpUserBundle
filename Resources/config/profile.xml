@@ -8,8 +8,9 @@
 
         <service id="fos_user.profile.form" factory-method="getForm" factory-service="fos_user.profile.form.builder" class="Symfony\Component\Form\Form" />
 
-        <service id="fos_user.profile.form.builder" factory-method="createBuilder" factory-service="form.factory" class="Symfony\Component\Form\FormBuilder">
+        <service id="fos_user.profile.form.builder" factory-method="createNamedBuilder" factory-service="form.factory" class="Symfony\Component\Form\FormBuilder">
             <argument type="service" id="fos_user.profile.form.type" />
+            <argument>%fos_user.profile.form.name%</argument>
             <argument />
             <argument type="collection">
                 <argument key="data_class">%fos_user.model.user.class%</argument>
@@ -21,10 +22,6 @@
         </service>
 
         <service id="fos_user.profile.form.type" class="%fos_user.profile.form.type.class%">
-            <argument>%fos_user.profile.form.name%</argument>
-            <argument type="collection">
-                <argument key="theme">%fos_user.template.theme%</argument>
-            </argument>
             <tag name="form.type" />
         </service>
 
