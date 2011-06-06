@@ -32,6 +32,7 @@ registration.email: |
 # Password resetting
 resetting.password_already_requested: Un nouveau mot de passe a déjà été demandé pour cet utilisateur dans les dernières 24 heures.
 resetting.check_email: Un e-mail a été envoyé à l'adresse %email%. Veuillez suivre les instructions qui vous y sont indiquées.
+resetting.request.invalid_username: L'utilisateur "%username%" n'existe pas.
 resetting.request.username: "Nom d'utilisateur:"
 resetting.request.submit: Réinitialiser le mot de passe
 resetting.reset.submit: Modifier le mot de passe

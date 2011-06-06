@@ -42,7 +42,7 @@ class ResettingController extends ContainerAware
         $user = $this->container->get('fos_user.user_manager')->findUserByUsername($username);
 
         if(null === $user){
-            throw new NotFoundHttpException(sprintf('The user with username "%s" does not exist', $username));
+            return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:request.html.'.$this->getEngine(), array('invalid_username' => $username));
         }
 
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
