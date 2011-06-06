@@ -65,7 +65,11 @@ class RegistrationController extends ContainerAware
     {
         $email = $this->container->get('session')->get('fos_user_send_confirmation_email/email');
         $this->container->get('session')->remove('fos_user_send_confirmation_email/email');
-        $user = $this->findUserBy('email', $email);
+        $user = $this->container->get('fos_user.user_manager')->findUserByEmail($email);
+
+        if (null === $user) {
+            throw new NotFoundHttpException(sprintf('The user with email "%s" does not exist', $email));
+        }
 
         $this->setFlash('fos_user_registration_confirm', 'success');
 
@@ -79,7 +83,12 @@ class RegistrationController extends ContainerAware
      */
     public function confirmAction($token)
     {
-        $user = $this->findUserBy('confirmationToken', $token);
+        $user = $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
+
+        if (null === $user) {
+            throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
+        }
+
         $user->setConfirmationToken(null);
         $user->setEnabled(true);
 
@@ -106,39 +115,14 @@ class RegistrationController extends ContainerAware
     }
 
     /**
-     * Find a user by a specific property
-     *
-     * @param string $key property name
-     * @param mixed $value property value
-     * @throws NotFoundException if user does not exist
-     * @return UserInterface
-     */
-    protected function findUserBy($key, $value)
-    {
-        if (!empty($value)) {
-            $user = $this->container->get('fos_user.user_manager')->{'findUserBy'.ucfirst($key)}($value);
-        }
-
-        if (empty($user)) {
-            throw new NotFoundHttpException(sprintf('The user with "%s" does not exist for value "%s"', $key, $value));
-        }
-
-        return $user;
-    }
-
-    /**
      * Authenticate a user with Symfony Security
      *
      * @param Boolean $reAuthenticate
      */
-    protected function authenticateUser(UserInterface $user, $reAuthenticate = false)
+    protected function authenticateUser(UserInterface $user)
     {
         $providerKey = $this->container->getParameter('fos_user.firewall_name');
         $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
-
-        if (true === $reAuthenticate) {
-            $token->setAuthenticated(false);
-        }
 
         $this->container->get('security.context')->setToken($token);
     }

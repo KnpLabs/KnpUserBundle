@@ -116,16 +116,11 @@ class ResettingController extends ContainerAware
      * Authenticate a user with Symfony Security
      *
      * @param UserInterface $user
-     * @param Boolean $reAuthenticate
      */
-    protected function authenticateUser(UserInterface $user, $reAuthenticate = false)
+    protected function authenticateUser(UserInterface $user)
     {
         $providerKey = $this->container->getParameter('fos_user.firewall_name');
         $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
-
-        if (true === $reAuthenticate) {
-            $token->setAuthenticated(false);
-        }
 
         $this->container->get('security.context')->setToken($token);
     }
