@@ -38,7 +38,12 @@ class ResettingController extends ContainerAware
      */
     public function sendEmailAction()
     {
-        $user = $this->container->get('fos_user.user_manager')->findUserByUsername($this->container->get('request')->get('username'));
+        $username = $this->container->get('request')->request->get('username');
+        $user = $this->container->get('fos_user.user_manager')->findUserByUsername($username);
+
+        if(null === $user){
+            throw new NotFoundHttpException(sprintf('The user with username "%s" does not exist', $username));
+        }
 
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
             return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:passwordAlreadyRequested.html.'.$this->getEngine());
@@ -79,6 +84,10 @@ class ResettingController extends ContainerAware
     public function resetAction($token)
     {
         $user = $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
+
+        if(null === $user){
+            throw new NotFoundHttpException(sprintf('The user with "confirmation token" does not exist for value "%s"', $token));
+        }
 
         if (!$user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
             return new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
