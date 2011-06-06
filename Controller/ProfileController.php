@@ -51,7 +51,7 @@ class ProfileController extends ContainerAware
 
         $process = $formHandler->process($user);
         if ($process) {
-            $this->setFlash('fos_user_user_update', 'success');
+            $this->setFlash('fos_user_profile_updated', 'success');
 
             return new RedirectResponse($this->container->get('router')->generate('fos_user_profile_show'));
         }

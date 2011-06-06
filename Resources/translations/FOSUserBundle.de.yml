@@ -54,13 +54,19 @@ layout.logged_in_as: Angemeldet als %username%
 # Form field labels
 fos_user_group_form_name: "Gruppenname:"
 
-user_username:             "Benutzername:"
-user_email:                "E-Mail-Adresse:"
-user_plainPassword_first:  "Passwort:"
-user_plainPassword_second: "Bestätigung:"
-#fos_user_user_form_plainPassword: "Passwort (zweimal eingeben):"
+fos_user_profile_form_username:             "Benutzername:"
+fos_user_profile_form_email:                "E-Mail-Adresse:"
+fos_user_profile_form_plainPassword_first:  "Passwort:"
+fos_user_profile_form_plainPassword_second: "Bestätigung:"
 
-fos_user_reset_password_form_new: "Neues Passwort:"
+fos_user_registration_form_username:             "Benutzername:"
+fos_user_registration_form_email:                "E-Mail-Adresse:"
+fos_user_registration_form_plainPassword_first:  "Passwort:"
+fos_user_registration_form_plainPassword_second: "Bestätigung:"
 
-fos_user_change_password_form_new: "Neues Passwort:"
-fos_user_change_password_form_current: "Derzeitiges Passwort:"
+fos_user_resetting_form_new_first:  "Neues Passwort:"
+fos_user_resetting_form_new_second: "Bestätigung:"
+
+fos_user_change_password_form_first:    "Neues Passwort:"
+fos_user_change_password_form_second:   "Bestätigung:"
+fos_user_change_password_form_current:  "Derzeitiges Passwort:"

@@ -46,7 +46,7 @@ class RegistrationController extends ContainerAware
 
             $this->container->get('fos_user.util.ace_manager')->createUserAce($user);
 
-            $this->setFlash('fos_user_registration_create', 'success');
+            $this->setFlash('fos_user_registration_created', 'success');
             $url = $this->container->get('router')->generate($route);
 
             return new RedirectResponse($url);
@@ -70,8 +70,6 @@ class RegistrationController extends ContainerAware
         if (null === $user) {
             throw new NotFoundHttpException(sprintf('The user with email "%s" does not exist', $email));
         }
-
-        $this->setFlash('fos_user_registration_confirm', 'success');
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:checkEmail.html.'.$this->getEngine(), array(
             'user' => $user,
@@ -108,7 +106,6 @@ class RegistrationController extends ContainerAware
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $this->setFlash('fos_user_registration_confirmed', 'success');
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:confirmed.html.'.$this->getEngine(), array(
             'user' => $user,
         ));

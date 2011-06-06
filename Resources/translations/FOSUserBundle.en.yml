@@ -51,16 +51,35 @@ layout.login: Login
 layout.register: Register
 layout.logged_in_as: Logged in as %username%
 
+# Flash messages
+fos_user_change_password: The password has been changed
+
+fos_user_group_updated: The group has been updated
+fos_user_group_created: The group has been created
+fos_user_group_deleted: The group has been deleted
+
+fos_user_profile_updated: The profile has been updated
+
+fos_user_registration_created: The user has been created successfully
+
+fos_user_resetted: The password has resetted successfully
+
 # Form field labels
 fos_user_group_form_name: "Group name:"
 
-user_username:             "Username:"
-user_email:                "Email:"
-user_plainPassword_first:  "Password:"
-user_plainPassword_second: "Verification:"
-#fos_user_user_form_plainPassword: "Password (enter twice):"
+fos_user_profile_form_username:             "Username:"
+fos_user_profile_form_email:                "Email:"
+fos_user_profile_form_plainPassword_first:  "Password:"
+fos_user_profile_form_plainPassword_second: "Verification:"
 
-fos_user_reset_password_form_new: "New password:"
+fos_user_registration_form_username:             "Username:"
+fos_user_registration_form_email:                "Email:"
+fos_user_registration_form_plainPassword_first:  "Password:"
+fos_user_registration_form_plainPassword_second: "Verification:"
 
-fos_user_change_password_form_new: "New password:"
-fos_user_change_password_form_current: "Current password:"
+fos_user_resetting_form_new_first:  "New password:"
+fos_user_resetting_form_new_second: "Verification:"
+
+fos_user_change_password_form_first:    "New password:"
+fos_user_change_password_form_second:   "Verification:"
+fos_user_change_password_form_current:  "Current password:"

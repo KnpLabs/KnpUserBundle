@@ -51,16 +51,35 @@ layout.login: Connexion
 layout.register: Enregistrer
 layout.logged_in_as: Connecté en tant que %username%
 
+# Flash messages
+fos_user_change_password: Le mot de passe a été modifié
+
+fos_user_group_updated: Le groupe a été mis à jour
+fos_user_group_created: Le groupe a été créé
+fos_user_group_deleted: Le groupe a été supprimé
+
+fos_user_profile_updated: Le profil a été mis à jour
+
+fos_user_registration_created: L'utilisateur a été créé avec succès
+
+fos_user_resetted: Le mot de passe a été réinitialisé avec succès
+
 # Form field labels
-fos_user_group_form_name:  "Nom du groupe:"
+fos_user_group_form_name: "Nom du groupe:"
 
-user_username:             "Nom d'utilisateur:"
-user_email:                "Adresse e-mail:"
-user_plainPassword_first:  "Mot de passe:"
-user_plainPassword_second: "Vérification:"
-# fos_user_user_form_plainPassword: "Mot de passe (saisir deux fois):"
+fos_user_profile_form_username:             "Nom d'utilisateur:"
+fos_user_profile_form_email:                "Adresse e-mail:"
+fos_user_profile_form_plainPassword_first:  "Mot de passe:"
+fos_user_profile_form_plainPassword_second: "Vérification:"
 
-fos_user_reset_password_form_new: "Nouveau mot de passe:"
+fos_user_registration_form_username:             "Nom d'utilisateur:"
+fos_user_registration_form_email:                "Adresse e-mail:"
+fos_user_registration_form_plainPassword_first:  "Mot de passe:"
+fos_user_registration_form_plainPassword_second: "Vérification:"
 
-fos_user_change_password_form_new: "Nouveau mot de passe:"
-fos_user_change_password_form_current: "Mot de passe actuel:"
+fos_user_resetting_form_new_first:  "Nouveau mot de passe:"
+fos_user_resetting_form_new_second: "Vérification:"
+
+fos_user_change_password_form_first:    "Nouveau mot de passe:"
+fos_user_change_password_form_second:   "Vérification:"
+fos_user_change_password_form_current:  "Mot de passe actuel:"

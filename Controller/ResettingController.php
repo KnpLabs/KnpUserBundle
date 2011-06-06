@@ -71,8 +71,6 @@ class ResettingController extends ContainerAware
             return new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
         }
 
-        $this->setFlash('fos_user_resetting', 'success');
-
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:checkEmail.html.'.$this->getEngine(), array(
             'user' => $user,
         ));
