@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSUserBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\UserBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\Command;
@@ -52,7 +61,7 @@ EOT
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
 
-        $manipulator = $this->container->get('fos_user.user_manipulator');
+        $manipulator = $this->container->get('fos_user.util.user_manipulator');
         $manipulator->changePassword($username, $password);
 
         $output->writeln(sprintf('Changed password for user <comment>%s</comment>', $username));
