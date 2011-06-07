@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="fos_user.form.group" factory-method="createNamed" factory-service="form.factory" class="%form.factory.class%">
+        <service id="fos_user.form.group" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
             <argument type="service" id="fos_user.form.type.group" />
             <argument>%fos_user.form.group.name%</argument>
             <argument />

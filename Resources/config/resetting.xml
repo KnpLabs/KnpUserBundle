@@ -6,7 +6,7 @@
 
     <services>
 
-        <service id="fos_user.resetting.form" factory-method="createNamed" factory-service="form.factory" class="%form.factory.class%">
+        <service id="fos_user.resetting.form" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
             <argument type="service" id="fos_user.resetting.form.type" />
             <argument>%fos_user.resetting.form.name%</argument>
             <argument />
