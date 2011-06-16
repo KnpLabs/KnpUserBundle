@@ -15,16 +15,15 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 
-abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestCase
+abstract class WebTestCase extends BaseWebTestCase
 {
-    protected $kernel;
-
     protected function runCommand($name, array $params = array())
     {
         \array_unshift($params, $name);
 
-        $kernel = $this->createKernel();
+        $kernel = self::createKernel();
         $kernel->boot();
 
         $application = new Application($kernel);
@@ -38,19 +37,9 @@ abstract class WebTestCase extends \Symfony\Bundle\FrameworkBundle\Test\WebTestC
         $application->run($input, $ouput);
     }
 
-    protected function getService($name)
-    {
-        if (null === $this->kernel) {
-            $this->kernel = $this->createKernel();
-            $this->kernel->boot();
-        }
-
-        return $this->kernel->getContainer()->get($name);
-    }
-
     protected function removeTestUser()
     {
-        $userManager = $this->getService('fos_user.user_manager');
+        $userManager = self::createKernel()->getContainer()->getService('fos_user.user_manager');
         if ($user = $userManager->findUserByUsername('test_username')) {
             $userManager->deleteUser($user);
         }
