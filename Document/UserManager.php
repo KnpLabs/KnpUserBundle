@@ -82,7 +82,7 @@ class UserManager extends BaseUserManager
     /**
      * {@inheritDoc}
      */
-    public function refreshUser(UserInterface $user)
+    public function reloadUser(UserInterface $user)
     {
         $this->dm->refresh($user);
     }

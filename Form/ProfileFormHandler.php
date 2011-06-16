@@ -43,10 +43,10 @@ class ProfileFormHandler
                 return true;
             }
 
-            // Refreshes the user to reset its username. This is needed when the
+            // Reloads the user to reset its username. This is needed when the
             // username or password have been changed to avoid issues with the
             // security layer.
-            $this->userManager->refreshUser($user);
+            $this->userManager->reloadUser($user);
         }
 
         return false;

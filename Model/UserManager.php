@@ -118,7 +118,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * @param SecurityUserInterface $user
      * @return UserInterface
      */
-    public function loadUser(SecurityUserInterface $user)
+    public function refreshUser(SecurityUserInterface $user)
     {
         if (!$user instanceof UserInterface) {
             throw new UnsupportedUserException('Account is not supported.');
