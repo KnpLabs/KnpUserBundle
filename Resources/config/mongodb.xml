@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="fos_user.user_manager.default" class="FOS\UserBundle\Document\UserManager">
+        <service id="fos_user.user_manager.default" class="FOS\UserBundle\Document\UserManager" public="false">
             <argument type="service" id="security.encoder_factory" />
             <argument>%fos_user.encoder.algorithm%</argument>
             <argument type="service" id="fos_user.util.username_canonicalizer" />
