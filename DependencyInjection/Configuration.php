@@ -193,6 +193,7 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('mailer')->defaultValue('fos_user.mailer.default')->end()
                             ->scalarNode('email_canonicalizer')->defaultValue('fos_user.util.email_canonicalizer.default')->end()
                             ->scalarNode('username_canonicalizer')->defaultValue('fos_user.util.username_canonicalizer.default')->end()
+                            ->scalarNode('user_manager')->defaultValue('fos_user.user_manager.default')->end()
                         ->end()
                     ->end()
                 ->end()

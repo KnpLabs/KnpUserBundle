@@ -621,6 +621,7 @@ All configuration options are listed below::
             mailer:                 fos_user.util.mailer.default
             email_canonicalizer:    fos_user.util.email_canonicalizer.default
             username_canonicalizer: fos_user.util.username_canonicalizer.default
+            user_manager:           fos_user.user_manager.default
         encoder:
             algorithm:          sha512
             encode_as_base64:   false
