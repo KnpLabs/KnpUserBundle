@@ -209,7 +209,7 @@ abstract class User implements UserInterface
     /**
      * Serializes the user.
      *
-     * The serialized data have to contain the fields used byt the equals method.
+     * The serialized data have to contain the fields used by the equals method.
      *
      * @return string
      */
