@@ -229,7 +229,7 @@ abstract class User implements UserInterface
     /**
      * Unserializes the user.
      *
-     * @return string
+     * @param string $serialized
      */
     public function unserialize($serialized)
     {
