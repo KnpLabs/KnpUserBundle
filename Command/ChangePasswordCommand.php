@@ -11,7 +11,7 @@
 
 namespace FOS\UserBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\Command;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,7 +21,7 @@ use FOS\UserBundle\Model\User;
 /**
  * CreateUserCommand
  */
-class ChangePasswordCommand extends Command
+class ChangePasswordCommand extends ContainerAwareCommand
 {
     /**
      * @see Command
@@ -55,13 +55,13 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $cliToken = new UsernamePasswordToken('command.line', null, $this->container->getParameter('fos_user.firewall_name'), array(User::ROLE_SUPER_ADMIN));
-        $this->container->get('security.context')->setToken($cliToken);
+        $cliToken = new UsernamePasswordToken('command.line', null, $this->getContainer()->getParameter('fos_user.firewall_name'), array(User::ROLE_SUPER_ADMIN));
+        $this->getContainer()->get('security.context')->setToken($cliToken);
 
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
 
-        $manipulator = $this->container->get('fos_user.util.user_manipulator');
+        $manipulator = $this->getContainer()->get('fos_user.util.user_manipulator');
         $manipulator->changePassword($username, $password);
 
         $output->writeln(sprintf('Changed password for user <comment>%s</comment>', $username));

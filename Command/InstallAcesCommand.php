@@ -11,7 +11,7 @@
 
 namespace FOS\UserBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\Command;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
@@ -22,7 +22,7 @@ use Symfony\Component\Security\Acl\Exception\AclAlreadyExistsException;
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  * @author Luis Cordova <cordoval@gmail.com>
  */
-class InstallAcesCommand extends Command
+class InstallAcesCommand extends ContainerAwareCommand
 {
     /**
      * @see Command
@@ -43,8 +43,8 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $aceManager = $this->container->get('fos_user.util.ace_manager');
-        $userClass = $this->container->get('fos_user.user_manager')->getClass();
+        $aceManager = $this->getContainer()->get('fos_user.util.ace_manager');
+        $userClass = $this->getContainer()->get('fos_user.user_manager')->getClass();
 
         if (!$aceManager->hasAclProvider()) {
             $output->writeln('You must setup the ACL system, see the Symfony2 documentation for how to do this.');

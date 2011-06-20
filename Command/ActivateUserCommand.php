@@ -11,7 +11,7 @@
 
 namespace FOS\UserBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\Command;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,7 +21,7 @@ use FOS\UserBundle\Model\User;
 /**
  * @author Antoine Hérault <antoine.herault@gmail.com>
  */
-class ActivateUserCommand extends Command
+class ActivateUserCommand extends ContainerAwareCommand
 {
     /**
      * @see Command
@@ -47,12 +47,12 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $cliToken = new UsernamePasswordToken('command.line', null, $this->container->getParameter('fos_user.firewall_name'), array(User::ROLE_SUPER_ADMIN));
-        $this->container->get('security.context')->setToken($cliToken);
+        $cliToken = new UsernamePasswordToken('command.line', null, $this->getContainer()->getParameter('fos_user.firewall_name'), array(User::ROLE_SUPER_ADMIN));
+        $this->getContainer()->get('security.context')->setToken($cliToken);
 
         $username = $input->getArgument('username');
 
-        $manipulator = $this->container->get('fos_user.util.user_manipulator');
+        $manipulator = $this->getContainer()->get('fos_user.util.user_manipulator');
         $manipulator->activate($username);
 
         $output->writeln(sprintf('User "%s" has been activated.', $username));
