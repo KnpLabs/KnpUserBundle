@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSUserBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\UserBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Processor;
@@ -24,27 +33,14 @@ class FOSUserExtension extends Extension
         }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
-        foreach (array('services', 'controller', 'form', 'validator', 'security', 'util', 'mailer', 'listener') as $basename) {
+        foreach (array('validator', 'security', 'util', 'mailer') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
         $container->setAlias('fos_user.mailer', $config['service']['mailer']);
         $container->setAlias('fos_user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
         $container->setAlias('fos_user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
-
-        if (!empty($config['group'])) {
-            $loader->load('group.xml');
-            $loader->load(sprintf('%s_group.xml', $config['db_driver']));
-            $this->remapParametersNamespaces($config['group'], $container, array(
-                'class' => 'fos_user.%s.group.class',
-                '' => array(
-                    'form' => 'fos_user.form.type.group.class',
-                    'form_handler' => 'fos_user.form.handler.group.class',
-                    'form_name' => 'fos_user.form.group.name',
-                    'form_validation_groups' => 'fos_user.form.group.validation_groups'
-                ),
-            ));
-        }
+        $container->setAlias('fos_user.user_manager', $config['service']['user_manager']);
 
         if ($config['use_listener']) {
             switch ($config['db_driver']) {
@@ -67,26 +63,98 @@ class FOSUserExtension extends Extension
 
         $this->remapParametersNamespaces($config, $container, array(
             ''          => array(
-                'firewall_name' => 'fos_user.firewall_name'
+                'firewall_name' => 'fos_user.firewall_name',
+                'user_class' => 'fos_user.model.user.class',
             ),
             'encoder'   => 'fos_user.encoder.%s',
             'template'  => 'fos_user.template.%s',
-            'form_name' => 'fos_user.form.%s.name',
-            'form_validation_groups' => 'fos_user.form.%s.validation_groups',
         ));
+        $container->setParameter('fos_user.registration.confirmation.from_email', $config['from_email']);
+        $container->setParameter('fos_user.resetting.email.from_email', $config['from_email']);
 
-        $this->remapParametersNamespaces($config['class'], $container, array(
-            'model'         => 'fos_user.model.%s.class',
-            'form'          => 'fos_user.form.type.%s.class',
-            'form_handler'  => 'fos_user.form.handler.%s.class',
-            'controller'    => 'fos_user.controller.%s.class',
-        ));
+        if (!empty($config['profile'])) {
+            $loader->load('profile.xml');
 
-        $this->remapParametersNamespaces($config['email'], $container, array(
-            ''                   => array('from_email' => 'fos_user.email.from_email'),
-            'confirmation'       => 'fos_user.email.confirmation.%s',
-            'resetting_password' => 'fos_user.email.resetting_password.%s',
-        ));
+            $container->setParameter('fos_user.profile.form.validation_groups', $config['profile']['form']['validation_groups']);
+            unset($config['profile']['form']['validation_groups']);
+            $container->setParameter('fos_user.profile.form.name', $config['profile']['form']['name']);
+            unset($config['profile']['form']['name']);
+
+            $this->remapParametersNamespaces($config['profile'], $container, array(
+                'form' => 'fos_user.profile.form.%s.class',
+            ));
+        }
+
+        if (!empty($config['registration'])) {
+            $loader->load('registration.xml');
+
+            $container->setParameter('fos_user.registration.form.validation_groups', $config['registration']['form']['validation_groups']);
+            unset($config['registration']['form']['validation_groups']);
+            $container->setParameter('fos_user.registration.form.name', $config['registration']['form']['name']);
+            unset($config['registration']['form']['name']);
+
+            if (!empty($config['registration']['confirmation']['from_email'])) {
+                $container->setParameter('fos_user.registration.confirmation.from_email', $config['registration']['confirmation']['from_email']);
+            }
+            unset($config['registration']['confirmation']['from_email']);
+
+            $this->remapParametersNamespaces($config['registration'], $container, array(
+                'confirmation' => 'fos_user.registration.confirmation.%s',
+                'form' => 'fos_user.registration.form.%s.class',
+            ));
+        }
+
+        if (!empty($config['change_password'])) {
+            $loader->load('change_password.xml');
+
+            $container->setParameter('fos_user.change_password.form.validation_groups', $config['change_password']['form']['validation_groups']);
+            unset($config['change_password']['form']['validation_groups']);
+            $container->setParameter('fos_user.change_password.form.name', $config['change_password']['form']['name']);
+            unset($config['change_password']['form']['name']);
+
+            $this->remapParametersNamespaces($config['change_password'], $container, array(
+                'form' => 'fos_user.change_password.form.%s.class',
+            ));
+        }
+
+        if (!empty($config['resetting'])) {
+            $loader->load('resetting.xml');
+
+            $container->setParameter('fos_user.resetting.form.validation_groups', $config['resetting']['form']['validation_groups']);
+            unset($config['resetting']['form']['validation_groups']);
+            $container->setParameter('fos_user.resetting.form.name', $config['resetting']['form']['name']);
+            unset($config['resetting']['form']['name']);
+
+            if (!empty($config['resetting']['email']['from_email'])) {
+                $container->setParameter('fos_user.resetting.email.from_email', $config['resetting']['email']['from_email']);
+            }
+            unset($config['resetting']['email']['from_email']);
+
+            $this->remapParametersNamespaces($config['resetting'], $container, array(
+                '' => array (
+                    'token_ttl' => 'fos_user.resetting.token_ttl',
+                ),
+                'email' => 'fos_user.resetting.email.%s',
+                'form' => 'fos_user.resetting.form.%s.class',
+            ));
+        }
+
+        if (!empty($config['group'])) {
+            $loader->load('group.xml');
+            $loader->load(sprintf('%s_group.xml', $config['db_driver']));
+
+            $container->setParameter('fos_user.form.group.validation_groups', $config['group']['form']['validation_groups']);
+            unset($config['group']['form']['validation_groups']);
+            $container->setParameter('fos_user.form.group.name', $config['group']['form']['name']);
+            unset($config['group']['form']['name']);
+
+            $this->remapParametersNamespaces($config['group'], $container, array(
+                '' => array(
+                    'group_class' => 'fos_user.model.group.class',
+                ),
+                'form' => 'fos_user.form.%s.group.class',
+            ));
+        }
     }
 
     protected function remapParameters(array $config, ContainerBuilder $container, array $map)

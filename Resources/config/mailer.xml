@@ -10,11 +10,11 @@
             <argument type="service" id="router" />
             <argument type="service" id="templating" />
             <argument type="collection">
-                <argument key="confirmation.template">%fos_user.email.confirmation.template%</argument>
-                <argument key="resetting_password.template">%fos_user.email.resetting_password.template%</argument>
+                <argument key="confirmation.template">%fos_user.registration.confirmation.template%</argument>
+                <argument key="resetting.template">%fos_user.resetting.email.template%</argument>
                 <argument key="from_email" type="collection">
-                    <argument key="confirmation">%fos_user.email.from_email%</argument>
-                    <argument key="resetting_password">%fos_user.email.from_email%</argument>
+                    <argument key="confirmation">%fos_user.registration.confirmation.from_email%</argument>
+                    <argument key="resetting">%fos_user.resetting.email.from_email%</argument>
                 </argument>
             </argument>
         </service>

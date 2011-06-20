@@ -6,36 +6,42 @@ security.login.username: "Username:"
 security.login.password: "Password:"
 security.login.remember_me: Remember me
 security.login.submit: Login
-security.login.request_reset_password: Forgotten password
 
-user.change_password.submit: Change password
-user.check_confirmation_email.message: An email has been sent to %email%. It contains an activation link you must click to activate your account.
-user.check_resetting_email.sent: An email has been sent to %email%. It contains an link you must click to reset your password.
-user.confirmed.message: Congrats %username%, your account is now confirmed.
+# Profile
+profile.show.username: Username
+profile.show.email: Email
+profile.edit.submit: Update
 
-user.show.username: Username
-user.show.email: Email
-user.new.submit: Create user
-user.edit.submit: Update user
-user.password_already_requested: The password for this user has already been requested within the last 24 hours.
-user.password_request_reset.username: "Username:"
-user.password_request_reset.submit: Reset password
-user.reset_password.submit: Change password
+# Password change
+change_password.submit: Change password
 
-user.email.resetting_password: |
-    Welcome %username%!
-    Hello %username%!
+# Registration
+registration.check_email: An email has been sent to %email%. It contains an activation link you must click to activate your account.
+registration.confirmed: Congrats %username%, your account is now confirmed.
+registration.submit: Register
 
-    To reset your password - please visit %confirmationUrl%
-
-    Regards,
-    the Team.
-
-user.email.confirmation: |
+registration.email: |
     Welcome %username%!
     Hello %username%!
 
     To finish validating your account - please visit %confirmationUrl%
+
+    Regards,
+    the Team.
+
+# Password resetting
+resetting.password_already_requested: The password for this user has already been requested within the last 24 hours.
+resetting.check_email: An email has been sent to %email%. It contains an link you must click to reset your password.
+resetting.request.invalid_username: The user "%username%" does not exist.
+resetting.request.username: "Username:"
+resetting.request.submit: Reset password
+resetting.reset.submit: Change password
+
+resetting.email: |
+    Reset Password
+    Hello %username%!
+
+    To reset your password - please visit %confirmationUrl%
 
     Regards,
     the Team.
@@ -46,16 +52,35 @@ layout.login: Login
 layout.register: Register
 layout.logged_in_as: Logged in as %username%
 
+# Flash messages
+fos_user_change_password: The password has been changed
+
+fos_user_group_updated: The group has been updated
+fos_user_group_created: The group has been created
+fos_user_group_deleted: The group has been deleted
+
+fos_user_profile_updated: The profile has been updated
+
+fos_user_registration_created: The user has been created successfully
+
+fos_user_resetted: The password has resetted successfully
+
 # Form field labels
 fos_user_group_form_name: "Group name:"
 
-user_username:             "Username:"
-user_email:                "Email:"
-user_plainPassword_first:  "Password:"
-user_plainPassword_second: "Verification:"
-#fos_user_user_form_plainPassword: "Password (enter twice):"
+fos_user_profile_form_username:             "Username:"
+fos_user_profile_form_email:                "Email:"
+fos_user_profile_form_plainPassword_first:  "Password:"
+fos_user_profile_form_plainPassword_second: "Verification:"
 
-fos_user_reset_password_form_new: "New password:"
+fos_user_registration_form_username:             "Username:"
+fos_user_registration_form_email:                "Email:"
+fos_user_registration_form_plainPassword_first:  "Password:"
+fos_user_registration_form_plainPassword_second: "Verification:"
 
-fos_user_change_password_form_new: "New password:"
-fos_user_change_password_form_current: "Current password:"
+fos_user_resetting_form_new_first:  "New password:"
+fos_user_resetting_form_new_second: "Verification:"
+
+fos_user_change_password_form_new_first:    "New password:"
+fos_user_change_password_form_new_second:   "Verification:"
+fos_user_change_password_form_current:  "Current password:"

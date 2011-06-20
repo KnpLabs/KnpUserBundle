@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSUserBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\UserBundle\Model;
 
 use FOS\UserBundle\Util\CanonicalizerInterface;
@@ -60,7 +69,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function findUserByEmail($email)
     {
-        return $this->findUserBy(array('emailCanonical' => $this->emailCanonicalizer->canonicalize($email)));
+        return $this->findUserBy(array('emailCanonical' => $this->canonicalizeEmail($email)));
     }
 
     /**
@@ -71,7 +80,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function findUserByUsername($username)
     {
-        return $this->findUserBy(array('usernameCanonical' => $this->usernameCanonicalizer->canonicalize($username)));
+        return $this->findUserBy(array('usernameCanonical' => $this->canonicalizeUsername($username)));
     }
 
     /**
@@ -109,7 +118,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * @param SecurityUserInterface $user
      * @return UserInterface
      */
-    public function loadUser(SecurityUserInterface $user)
+    public function refreshUser(SecurityUserInterface $user)
     {
         if (!$user instanceof UserInterface) {
             throw new UnsupportedUserException('Account is not supported.');
@@ -124,7 +133,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * It is strongly discouraged to call this method manually as it bypasses
      * all ACL checks.
      *
-     * @extra:RunAs(roles="ROLE_SUPERADMIN")
+     * @extra:RunAs(roles="ROLE_SUPER_ADMIN")
      * @param string $username
      * @return UserInterface
      */
@@ -144,8 +153,8 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function updateCanonicalFields(UserInterface $user)
     {
-        $user->setUsernameCanonical($this->usernameCanonicalizer->canonicalize($user->getUsername()));
-        $user->setEmailCanonical($this->emailCanonicalizer->canonicalize($user->getEmail()));
+        $user->setUsernameCanonical($this->canonicalizeUsername($user->getUsername()));
+        $user->setEmailCanonical($this->canonicalizeEmail($user->getEmail()));
     }
 
     /**
@@ -159,6 +168,28 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
             $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
             $user->eraseCredentials();
         }
+    }
+
+    /**
+     * Canonicalizes an email
+     *
+     * @param string $email
+     * @return string
+     */
+    protected function canonicalizeEmail($email)
+    {
+        return $this->emailCanonicalizer->canonicalize($email);
+    }
+
+    /**
+     * Canonicalizes a username
+     *
+     * @param string $username
+     * @return string
+     */
+    protected function canonicalizeUsername($username)
+    {
+        return $this->usernameCanonicalizer->canonicalize($username);
     }
 
     protected function getEncoder(UserInterface $user)

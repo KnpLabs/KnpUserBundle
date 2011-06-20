@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSUserBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\UserBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -29,57 +38,143 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('firewall_name')->isRequired()->cannotBeEmpty()->end()
                 ->booleanNode('use_listener')->defaultTrue()->end()
+                ->arrayNode('from_email')
+                    ->useAttributeAsKey('address')
+                    ->prototype('scalar')->end()
+                    ->defaultValue(array('webmaster@example.com' => 'webmaster'))
+                ->end()
             ->end();
 
-        $this->addClassSection($rootNode);
+        $this->addProfileSection($rootNode);
+        $this->addChangePasswordSection($rootNode);
+        $this->addRegistrationSection($rootNode);
+        $this->addResettingSection($rootNode);
         $this->addServiceSection($rootNode);
         $this->addEncoderSection($rootNode);
-        $this->addFormNameSection($rootNode);
-        $this->addFormValidationGroupsSection($rootNode);
-        $this->addEmailSection($rootNode);
         $this->addTemplateSection($rootNode);
         $this->addGroupSection($rootNode);
 
         return $treeBuilder;
     }
 
-    private function addClassSection(ArrayNodeDefinition $node)
+    private function addProfileSection(ArrayNodeDefinition $node)
     {
         $node
             ->children()
-                ->arrayNode('class')
-                    ->isRequired()
+                ->arrayNode('profile')
                     ->addDefaultsIfNotSet()
+                    ->canBeUnset()
                     ->children()
-                        ->arrayNode('model')
-                            ->isRequired()
+                        ->arrayNode('form')
+                            ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('user')->isRequired()->cannotBeEmpty()->end()
+                                ->scalarNode('type')->defaultValue('FOS\UserBundle\Form\ProfileFormType')->end()
+                                ->scalarNode('handler')->defaultValue('FOS\UserBundle\Form\ProfileFormHandler')->end()
+                                ->scalarNode('name')->defaultValue('fos_user_profile_form')->cannotBeEmpty()->end()
+                                ->arrayNode('validation_groups')
+                                    ->prototype('scalar')->end()
+                                    ->defaultValue(array('Profile'))
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    private function addRegistrationSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('registration')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->arrayNode('confirmation')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->booleanNode('enabled')->defaultFalse()->end()
+                                ->scalarNode('template')->defaultValue('FOSUserBundle:Registration:email.txt.twig')->end()
+                                ->arrayNode('from_email')
+                                    ->useAttributeAsKey('address')
+                                    ->prototype('scalar')->end()
+                                ->end()
                             ->end()
                         ->end()
                         ->arrayNode('form')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('user')->defaultValue('FOS\\UserBundle\\Form\\UserFormType')->end()
-                                ->scalarNode('change_password')->defaultValue('FOS\\UserBundle\\Form\\ChangePasswordFormType')->end()
-                                ->scalarNode('reset_password')->defaultValue('FOS\\UserBundle\\Form\\ResetPasswordFormType')->end()
+                                ->scalarNode('type')->defaultValue('FOS\UserBundle\Form\RegistrationFormType')->end()
+                                ->scalarNode('handler')->defaultValue('FOS\UserBundle\Form\RegistrationFormHandler')->end()
+                                ->scalarNode('name')->defaultValue('fos_user_registration_form')->cannotBeEmpty()->end()
+                                ->arrayNode('validation_groups')
+                                    ->prototype('scalar')->end()
+                                    ->defaultValue(array('Registration'))
+                                ->end()
                             ->end()
                         ->end()
-                        ->arrayNode('form_handler')
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    private function addResettingSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('resetting')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->scalarNode('token_ttl')->defaultValue(86400)->end()
+                        ->arrayNode('email')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('user')->defaultValue('FOS\\UserBundle\\Form\\UserFormHandler')->end()
-                                ->scalarNode('change_password')->defaultValue('FOS\\UserBundle\\Form\\ChangePasswordFormHandler')->end()
-                                ->scalarNode('reset_password')->defaultValue('FOS\\UserBundle\\Form\\ResetPasswordFormHandler')->end()
+                                ->scalarNode('template')->defaultValue('FOSUserBundle:Resetting:email.txt.twig')->end()
+                                ->arrayNode('from_email')
+                                    ->useAttributeAsKey('address')
+                                    ->prototype('scalar')->end()
+                                ->end()
                             ->end()
                         ->end()
-                        ->arrayNode('controller')
+                        ->arrayNode('form')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('user')->defaultValue('FOS\\UserBundle\\Controller\\UserController')->end()
-                                ->scalarNode('security')->defaultValue('FOS\\UserBundle\\Controller\\SecurityController')->end()
+                                ->scalarNode('type')->defaultValue('FOS\UserBundle\Form\ResettingFormType')->end()
+                                ->scalarNode('handler')->defaultValue('FOS\UserBundle\Form\ResettingFormHandler')->end()
+                                ->scalarNode('name')->defaultValue('fos_user_resetting_form')->cannotBeEmpty()->end()
+                                ->arrayNode('validation_groups')
+                                    ->prototype('scalar')->end()
+                                    ->defaultValue(array('ResetPassword'))
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    private function addChangePasswordSection(ArrayNodeDefinition $node)
+    {
+        $node
+            ->children()
+                ->arrayNode('change_password')
+                    ->addDefaultsIfNotSet()
+                    ->canBeUnset()
+                    ->children()
+                        ->arrayNode('form')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('type')->defaultValue('FOS\UserBundle\Form\ChangePasswordFormType')->end()
+                                ->scalarNode('handler')->defaultValue('FOS\UserBundle\Form\ChangePasswordFormHandler')->end()
+                                ->scalarNode('name')->defaultValue('fos_user_change_password_form')->cannotBeEmpty()->end()
+                                ->arrayNode('validation_groups')
+                                    ->prototype('scalar')->end()
+                                    ->defaultValue(array('ChangePassword'))
+                                ->end()
                             ->end()
                         ->end()
                     ->end()
@@ -98,6 +193,7 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('mailer')->defaultValue('fos_user.mailer.default')->end()
                             ->scalarNode('email_canonicalizer')->defaultValue('fos_user.util.email_canonicalizer.default')->end()
                             ->scalarNode('username_canonicalizer')->defaultValue('fos_user.util.username_canonicalizer.default')->end()
+                            ->scalarNode('user_manager')->defaultValue('fos_user.user_manager.default')->end()
                         ->end()
                     ->end()
                 ->end()
@@ -119,94 +215,6 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
-    private function addFormNameSection(ArrayNodeDefinition $node)
-    {
-        $node
-            ->children()
-                ->arrayNode('form_name')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('user')
-                            ->defaultValue('fos_user_user_form')
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->scalarNode('change_password')
-                            ->defaultValue('fos_user_change_password_form')
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->scalarNode('reset_password')
-                            ->defaultValue('fos_user_reset_password_form')
-                            ->cannotBeEmpty()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end();
-    }
-
-    private function addFormValidationGroupsSection(ArrayNodeDefinition $node)
-    {
-        $node
-            ->children()
-                ->arrayNode('form_validation_groups')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('user')
-                            ->addDefaultsIfNotSet()
-                            ->prototype('scalar')->end()
-                            ->defaultValue(array('Registration'))
-                        ->end()
-                        ->arrayNode('change_password')
-                            ->addDefaultsIfNotSet()
-                            ->prototype('scalar')->end()
-                            ->defaultValue(array('ChangePassword'))
-                        ->end()
-                        ->arrayNode('reset_password')
-                            ->addDefaultsIfNotSet()
-                            ->prototype('scalar')->end()
-                            ->defaultValue(array('ResetPassword'))
-                        ->end()
-                    ->end()
-                ->end()
-            ->end();
-    }
-
-    private function addEmailSection(ArrayNodeDefinition $node)
-    {
-        $node
-            ->children()
-                ->arrayNode('email')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('from_email')
-                            ->addDefaultsIfNotSet()
-                            ->useAttributeAsKey('address')
-                            ->prototype('scalar')
-                                ->beforeNormalization()
-                                    ->ifTrue(function ($v) { return is_array($v) && isset ($v['name']); })
-                                    ->then(function ($v) { return $v['name']; })
-                                ->end()
-                            ->end()
-                            ->defaultValue(array('webmaster@example.com' => 'webmaster'))
-                        ->end()
-                        ->arrayNode('confirmation')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->booleanNode('enabled')->defaultFalse()->end()
-                                ->scalarNode('template')->defaultValue('FOSUserBundle:User:confirmationEmail')->end()
-                            ->end()
-                        ->end()
-                        ->arrayNode('resetting_password')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('template')->defaultValue('FOSUserBundle:User:resettingPasswordEmail')->end()
-                                ->scalarNode('token_ttl')->defaultValue(86400)->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end();
-    }
-
     private function addTemplateSection(ArrayNodeDefinition $node)
     {
         $node
@@ -215,7 +223,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('engine')->defaultValue('twig')->end()
-                        ->scalarNode('theme')->defaultValue('TwigBundle::form.html.twig')->end()
+                        ->scalarNode('theme')->defaultValue('FOSUserBundle::form.html.twig')->end()
                     ->end()
                 ->end()
             ->end();
@@ -224,27 +232,22 @@ class Configuration implements ConfigurationInterface
     private function addGroupSection(ArrayNodeDefinition $node)
     {
         $node
-            ->canBeUnset()
             ->children()
                 ->arrayNode('group')
+                    ->canBeUnset()
                     ->children()
-                        ->arrayNode('class')
-                            ->isRequired()
-                            ->children()
-                                ->scalarNode('model')->isRequired()->cannotBeEmpty()->end()
-                                ->scalarNode('controller')->defaultValue('FOS\\UserBundle\\Controller\\GroupController')->end()
-                            ->end()
-                        ->end()
-                        ->scalarNode('form')->defaultValue('FOS\\UserBundle\\Form\\GroupFormType')->end()
-                        ->scalarNode('form_handler')->defaultValue('FOS\\UserBundle\\Form\\GroupFormHandler')->end()
-                        ->scalarNode('form_name')
-                            ->defaultValue('fos_user_group_form')
-                            ->cannotBeEmpty()
-                        ->end()
-                        ->arrayNode('form_validation_groups')
+                        ->scalarNode('group_class')->isRequired()->cannotBeEmpty()->end()
+                        ->arrayNode('form')
                             ->addDefaultsIfNotSet()
-                            ->prototype('scalar')->end()
-                            ->defaultValue(array('Registration'))
+                            ->children()
+                                ->scalarNode('type')->defaultValue('FOS\UserBundle\Form\GroupFormType')->end()
+                                ->scalarNode('handler')->defaultValue('FOS\UserBundle\Form\GroupFormHandler')->end()
+                                ->scalarNode('name')->defaultValue('fos_user_group_form')->cannotBeEmpty()->end()
+                                ->arrayNode('validation_groups')
+                                    ->prototype('scalar')->end()
+                                    ->defaultValue(array('Registration'))
+                                ->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()

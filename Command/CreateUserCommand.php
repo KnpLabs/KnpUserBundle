@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSUserBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\UserBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\Command;
@@ -10,17 +19,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use FOS\UserBundle\Model\User;
 
-/*
- * This file is part of the FOS\UserBundle
- *
- * (c) Matthieu Bontemps <matthieu@knplabs.com>
- * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
- * (c) Luis Cordova <cordoval@gmail.com>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+/**
+ * @author Matthieu Bontemps <matthieu@knplabs.com>
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ * @author Luis Cordova <cordoval@gmail.com>
  */
-
 class CreateUserCommand extends Command
 {
     /**
@@ -66,7 +69,7 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $cliToken = new UsernamePasswordToken('command.line', null, $this->container->getParameter('fos_user.firewall_name'), array(User::ROLE_SUPERADMIN));
+        $cliToken = new UsernamePasswordToken('command.line', null, $this->container->getParameter('fos_user.firewall_name'), array(User::ROLE_SUPER_ADMIN));
         $this->container->get('security.context')->setToken($cliToken);
 
         $username   = $input->getArgument('username');
@@ -75,9 +78,9 @@ EOT
         $inactive   = $input->getOption('inactive');
         $superadmin = $input->getOption('super-admin');
 
-        $manipulator = $this->container->get('fos_user.user_manipulator');
+        $manipulator = $this->container->get('fos_user.util.user_manipulator');
         $user = $manipulator->create($username, $password, $email, !$inactive, $superadmin);
-        $this->container->get('fos_user.ace_manager')->createUserAce($user);
+        $this->container->get('fos_user.util.ace_manager')->createUserAce($user);
 
         $output->writeln(sprintf('Created user <comment>%s</comment>', $username));
     }

@@ -6,36 +6,42 @@ security.login.username: "Benutzername:"
 security.login.password: "Passwort:"
 security.login.remember_me: An mich erinnern
 security.login.submit: Anmelden
-security.login.request_reset_password: Passwort vergessen
 
-user.change_password.submit: Passwort ändern
-user.check_confirmation_email.message: Eine E-Mail wurde an %email% gesendet. Sie enthält einen Link den Du anklicken musst, um dein Benutzerkonto zu bestätigen.
-user.check_resetting_email.sent: Eine E-Mail wurde an %email% gesendet. Sie enthält einen Link den Du anklicken musst, um dein Passwort zurückzusetzen.
-user.confirmed.message: Glückwunsch %username%, dein Benutzerkonto ist jetzt bestätigt.
+# Profile
+profile.show.username: Benutzername
+profile.show.email: E-Mail
+profile.edit.submit: Benutzer aktualisieren
 
-user.show.username: Benutzername
-user.show.email: E-Mail
-user.new.submit: Benutzer erstellen
-user.edit.submit: Benutzer aktualisieren
-user.password_already_requested: Ein neues Passwort wurde in den vergangenen 24 Stunden für diesen Benutzer bereits einmal beantragt.
-user.password_request_reset.username: "Benutzername:"
-user.password_request_reset.submit: Passwort zurücksetzen
-user.reset_password.submit: Passwort ändern
+# Password change
+change_password.submit: Passwort ändern
 
-user.email.resetting_password: |
-    Willkommen %username%!
-    Hallo %username%!
+# Registration
+registration.check_email: Eine E-Mail wurde an %email% gesendet. Sie enthält einen Link den Du anklicken musst, um Dein Benutzerkonto zu bestätigen.
+registration.confirmed: Glückwunsch %username%, Dein Benutzerkonto ist jetzt bestätigt.
+registration.submit: Registrieren
 
-    Um Dein Passwort zurückzusetzen, besuche bitte die Seite %confirmationUrl%
-
-    Mit besten Grüßen,
-    das Team.
-
-user.email.confirmation: |
+registration.email: |
     Willkommen %username%!
     Hallo %username%!
 
     Um Dein Benutzerkonto zu bestätigen, besuche bitte die Seite %confirmationUrl%
+
+    Mit besten Grüßen,
+    das Team.
+
+# Password resetting
+resetting.password_already_requested: Ein neues Passwort wurde in den vergangenen 24 Stunden für diesen Benutzer bereits einmal beantragt.
+resetting.check_email: Eine E-Mail wurde an %email% gesendet. Sie enthält einen Link den Du anklicken musst, um Dein Passwort zurückzusetzen.
+resetting.request.invalid_username: Der Benutzer "%username%" existiert nicht.
+resetting.request.username: "Benutzername:"
+resetting.request.submit: Passwort zurücksetzen
+resetting.reset.submit: Passwort ändern
+
+resetting.email: |
+    Willkommen %username%!
+    Hallo %username%!
+
+    Um Dein Passwort zurückzusetzen, besuche bitte die Seite %confirmationUrl%
 
     Mit besten Grüßen,
     das Team.
@@ -46,16 +52,35 @@ layout.login: Anmelden
 layout.register: Registrieren
 layout.logged_in_as: Angemeldet als %username%
 
+# Flash messages
+fos_user_change_password: Das Passwort wurde geändert
+
+fos_user_group_updated: Die Gruppe wurde aktualisiert
+fos_user_group_created: Die Gruppe wurde erstellt
+fos_user_group_deleted: Die Gruppe wurde gelöscht
+
+fos_user_profile_updated: Das Benutzerprofil wurde aktualisiert
+
+fos_user_registration_created: Der Benutzer wurde erfolgreich erstellt
+
+fos_user_resetted: Das Passwort wurde erfolgreich zurückgesetzt
+
 # Form field labels
 fos_user_group_form_name: "Gruppenname:"
 
-user_username:             "Benutzername:"
-user_email:                "E-Mail-Adresse:"
-user_plainPassword_first:  "Passwort:"
-user_plainPassword_second: "Bestätigung:"
-#fos_user_user_form_plainPassword: "Passwort (zweimal eingeben):"
+fos_user_profile_form_username:             "Benutzername:"
+fos_user_profile_form_email:                "E-Mail-Adresse:"
+fos_user_profile_form_plainPassword_first:  "Passwort:"
+fos_user_profile_form_plainPassword_second: "Bestätigung:"
 
-fos_user_reset_password_form_new: "Neues Passwort:"
+fos_user_registration_form_username:             "Benutzername:"
+fos_user_registration_form_email:                "E-Mail-Adresse:"
+fos_user_registration_form_plainPassword_first:  "Passwort:"
+fos_user_registration_form_plainPassword_second: "Bestätigung:"
 
-fos_user_change_password_form_new: "Neues Passwort:"
-fos_user_change_password_form_current: "Derzeitiges Passwort:"
+fos_user_resetting_form_new_first:  "Neues Passwort:"
+fos_user_resetting_form_new_second: "Bestätigung:"
+
+fos_user_change_password_form_new_first:    "Neues Passwort:"
+fos_user_change_password_form_new_second:   "Bestätigung:"
+fos_user_change_password_form_current:  "Derzeitiges Passwort:"

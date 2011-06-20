@@ -1,11 +1,12 @@
 <?php
 
-/**
- * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
- * (c) Johannes M. Schmitt <schmittjoh@gmail.com>
+/*
+ * This file is part of the FOSUserBundle package.
  *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace FOS\UserBundle\Model;
@@ -20,11 +21,13 @@ use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
  * Storage agnostic user object
  * Has validator annotation, but database mapping must be done in a subclass.
  *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
 abstract class User implements UserInterface
 {
     const ROLE_DEFAULT    = 'ROLE_USER';
-    const ROLE_SUPERADMIN = 'ROLE_SUPERADMIN';
+    const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     protected $id;
 
@@ -449,7 +452,7 @@ abstract class User implements UserInterface
      */
     public function isSuperAdmin()
     {
-       return $this->hasRole(self::ROLE_SUPERADMIN);
+       return $this->hasRole(self::ROLE_SUPER_ADMIN);
     }
 
     /**
@@ -582,9 +585,9 @@ abstract class User implements UserInterface
     public function setSuperAdmin($boolean)
     {
         if (true === $boolean) {
-            $this->addRole(self::ROLE_SUPERADMIN);
+            $this->addRole(self::ROLE_SUPER_ADMIN);
         } else {
-            $this->removeRole(self::ROLE_SUPERADMIN);
+            $this->removeRole(self::ROLE_SUPER_ADMIN);
         }
     }
 
@@ -654,21 +657,7 @@ abstract class User implements UserInterface
     public function generateConfirmationToken()
     {
         if (null === $this->confirmationToken) {
-            $bytes = false;
-            if (function_exists('openssl_random_pseudo_bytes') && 0 !== stripos(PHP_OS, 'win')) {
-                $bytes = openssl_random_pseudo_bytes(32, $strong);
-
-                if (true !== $strong) {
-                    $bytes = false;
-                }
-            }
-
-            // let's just hope we got a good seed
-            if (false === $bytes) {
-                $bytes = hash('sha256', uniqid(mt_rand(), true), true);
-            }
-
-            $this->confirmationToken = base_convert(bin2hex($bytes), 16, 36);
+            $this->confirmationToken = $this->generateToken();
         }
     }
 
@@ -744,5 +733,27 @@ abstract class User implements UserInterface
     public function __toString()
     {
         return (string) $this->getUsername();
+    }
+
+    /**
+     * Generates a token.
+     */
+    protected function generateToken()
+    {
+        $bytes = false;
+        if (function_exists('openssl_random_pseudo_bytes') && 0 !== stripos(PHP_OS, 'win')) {
+            $bytes = openssl_random_pseudo_bytes(32, $strong);
+
+            if (true !== $strong) {
+                $bytes = false;
+            }
+        }
+
+        // let's just hope we got a good seed
+        if (false === $bytes) {
+            $bytes = hash('sha256', uniqid(mt_rand(), true), true);
+        }
+
+        return base_convert(bin2hex($bytes), 16, 36);
     }
 }

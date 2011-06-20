@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSUserBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\UserBundle\Util;
 
 use FOS\UserBundle\Model\User;
@@ -12,6 +21,9 @@ use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 
 /**
  * Installs Access Control Entities
+ *
+ * @author Christophe Coevoet <stof@notk.org>
+ * @author Luis Cordova <cordoval@gmail.com>
  */
 class AceManager
 {
@@ -41,7 +53,7 @@ class AceManager
         $acl = $this->aclProvider->createAcl($oid);
 
         // insert ACEs for the super admin
-        $sid = new RoleSecurityIdentity(User::ROLE_SUPERADMIN);
+        $sid = new RoleSecurityIdentity(User::ROLE_SUPER_ADMIN);
         $acl->insertClassAce($sid, MaskBuilder::MASK_IDDQD);
         $this->aclProvider->updateAcl($acl);
     }

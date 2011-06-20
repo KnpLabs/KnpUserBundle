@@ -6,8 +6,9 @@
 
     <services>
 
-        <service id="fos_user.form.group" factory-method="create" factory-service="form.factory" class="%form.factory.class%">
+        <service id="fos_user.form.group" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
             <argument type="service" id="fos_user.form.type.group" />
+            <argument>%fos_user.form.group.name%</argument>
             <argument />
             <argument type="collection">
                 <argument key="data_class">%fos_user.model.group.class%</argument>
@@ -16,10 +17,6 @@
         </service>
 
         <service id="fos_user.form.type.group" class="%fos_user.form.type.group.class%">
-            <argument>%fos_user.form.group.name%</argument>
-            <argument type="collection">
-                <argument key="theme">%fos_user.template.theme%</argument>
-            </argument>
             <tag name="form.type" />
         </service>
 
@@ -27,12 +24,6 @@
             <argument type="service" id="fos_user.form.group" />
             <argument type="service" id="request" />
             <argument type="service" id="fos_user.group_manager" />
-        </service>
-
-        <service id="fos_user.controller.group" class="%fos_user.controller.group.class%">
-            <call method="setContainer">
-                <argument type="service" id="service_container" />
-            </call>
         </service>
 
     </services>

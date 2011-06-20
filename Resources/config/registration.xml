@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="fos_user.registration.form" factory-method="getForm" factory-service="fos_user.registration.form.builder" class="Symfony\Component\Form\Form" />
+
+        <service id="fos_user.registration.form.builder" factory-method="createNamedBuilder" factory-service="form.factory" class="Symfony\Component\Form\FormBuilder">
+            <argument type="service" id="fos_user.registration.form.type" />
+            <argument>%fos_user.registration.form.name%</argument>
+            <argument />
+            <argument type="collection">
+                <argument key="data_class">%fos_user.model.user.class%</argument>
+                <argument key="validation_groups">%fos_user.registration.form.validation_groups%</argument>
+            </argument>
+            <call method="addEventSubscriber">
+                <argument type="service" id="fos_user.form.listener.user_canonical_fields" />
+            </call>
+        </service>
+
+        <service id="fos_user.registration.form.type" class="%fos_user.registration.form.type.class%">
+            <tag name="form.type" />
+        </service>
+
+        <service id="fos_user.registration.form.handler" class="%fos_user.registration.form.handler.class%" scope="request">
+            <argument type="service" id="fos_user.registration.form" />
+            <argument type="service" id="request" />
+            <argument type="service" id="fos_user.user_manager" />
+        </service>
+
+    </services>
+
+</container>

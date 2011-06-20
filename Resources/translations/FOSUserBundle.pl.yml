@@ -6,36 +6,42 @@ security.login.username: "Nazwa użytkownika:"
 security.login.password: "Hasło:"
 security.login.remember_me: Nie wylogowuj mnie
 security.login.submit: Zaloguj
-security.login.request_reset_password: Nie pamiętam hasła
 
-user.change_password.submit: Zmień hasło
-user.check_confirmation_email.message: Na adres %email% wysłano wiadomość e-mail. Zawiera ona link w którego należy kliknąć aby aktywować konto.
-user.check_resetting_email.sent: Na adres %email% Wysłano wiadomość e-mail. Zawiera ona link w którego należy kliknąć aby zresetować hasło.
-user.confirmed.message: Gratulacje %username%, potwierdziłeś konto.
+# Profile
+profile.show.username: Nazwa użytkownika
+profile.show.email: E-mail
+profile.edit.submit: Edytuj użytkownika
 
-user.show.username: Nazwa użytkownika
-user.show.email: E-mail
-user.new.submit: Utwórz użytkownika
-user.edit.submit: Edytuj użytkownika
-user.password_already_requested: W przeciągu ostatnich 24 godzin nastąpiła już próba odzyskania hasła.
-user.password_request_reset.username: "Nazwa użytkownika:"
-user.password_request_reset.submit: Resetuj hasło
-user.reset_password.submit: Zmień hasło
+# Password change
+change_password.submit: Zmień hasło
 
-user.email.resetting_password: |
-    Witaj %username%!
-    Cześć %username%!
+# Registration
+registration.check_email: Na adres %email% wysłano wiadomość e-mail. Zawiera ona link w którego należy kliknąć aby aktywować konto.
+registration.confirmed: Gratulacje %username%, potwierdziłeś konto.
+registration.submit: Zarejestruj
 
-    Aby zresetować hasło - proszę przejść do %confirmationUrl%
-
-    Pozdrawiamy,
-    Zespół.
-
-user.email.confirmation: |
+registration.email: |
     Witaj %username%!
     Cześć %username%!
 
     Aby potwierdzić swoje konto - proszę przejść do %confirmationUrl%
+
+    Pozdrawiamy,
+    Zespół.
+
+# Password resetting
+resetting.password_already_requested: W przeciągu ostatnich 24 godzin nastąpiła już próba odzyskania hasła.
+resetting.check_email: Na adres %email% Wysłano wiadomość e-mail. Zawiera ona link w którego należy kliknąć aby zresetować hasło.
+resetting.request.invalid_username: Użytkownik "%username%" nie istnieje.
+resetting.request.username: "Nazwa użytkownika:"
+resetting.request.submit: Resetuj hasło
+resetting.reset.submit: Zmień hasło
+
+resetting.email: |
+    Witaj %username%!
+    Cześć %username%!
+
+    Aby zresetować hasło - proszę przejść do %confirmationUrl%
 
     Pozdrawiamy,
     Zespół.
@@ -46,16 +52,35 @@ layout.login: Zaloguj
 layout.register: Zarejestruj
 layout.logged_in_as: Zalogowano jako %username%
 
+# Flash messages
+fos_user_change_password: Hasło zostało zmienione
+
+fos_user_group_updated: Grupa została zaktualizowana
+fos_user_group_created: Grupa została utworzona
+fos_user_group_deleted: Grupa została usunięta
+
+fos_user_profile_updated: Zapisano zmiany w profilu
+
+fos_user_registration_created: Stworzono użytkownika
+
+fos_user_resetted: Hasło zostało zresetowane
+
 # Form field labels
 fos_user_group_form_name: "Nazwa grupy:"
 
-user_username:             "Nazwa użytkownika:"
-user_email:                "E-mail:"
-user_plainPassword_first:  "Hasło:"
-user_plainPassword_second: "Weryfikacja:"
-#fos_user_user_form_plainPassword: "Hasło (wpisz dwa razy):"
+fos_user_profile_form_username:             "Nazwa użytkownika:"
+fos_user_profile_form_email:                "E-mail:"
+fos_user_profile_form_plainPassword_first:  "Hasło:"
+fos_user_profile_form_plainPassword_second: "Weryfikacja:"
 
-fos_user_reset_password_form_new: "Nowe hasło:"
+fos_user_registration_form_username:             "Nazwa użytkownika:"
+fos_user_registration_form_email:                "E-mail:"
+fos_user_registration_form_plainPassword_first:  "Hasło:"
+fos_user_registration_form_plainPassword_second: "Weryfikacja:"
 
-fos_user_change_password_form_new: "Nowe hasło:"
-fos_user_change_password_form_current: "Obecne hasło:"
+fos_user_resetting_form_new_first:  "Nowe hasło:"
+fos_user_resetting_form_new_second: "Weryfikacja:"
+
+fos_user_change_password_form_new_first:    "Nowe hasło:"
+fos_user_change_password_form_new_second:   "Weryfikacja:"
+fos_user_change_password_form_current:  "Obecne hasło:"
