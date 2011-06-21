@@ -106,7 +106,7 @@ class UserManager extends BaseUserManager
         return true;
     }
     
-    function reloadUser(UserInterface $user)
+    public function reloadUser(UserInterface $user)
     {
         $this->dm->refresh($user);
     }
