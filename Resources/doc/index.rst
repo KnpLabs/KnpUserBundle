@@ -40,9 +40,11 @@ Add FOSUserBundle to your vendor/bundles/ dir
 Using the vendors script
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Add the following line in your ``deps`` file::
+Add the following lines in your ``deps`` file::
 
-    UserBundle            /bundles/FOS            git://github.com/FriendsOfSymfony/UserBundle.git
+    [FOSUserBundle]
+        git=git://github.com/FriendsOfSymfony/UserBundle.git
+        target=/bundles/FOS/UserBundle
 
 Run the vendors script::
 
