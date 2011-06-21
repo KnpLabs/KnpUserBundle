@@ -77,7 +77,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class DummyUser extends \FOS\UserBundle\CouchDocument\User
+class DummyUser extends \FOS\UserBundle\Document\User
 {
     
 }
