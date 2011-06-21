@@ -3,7 +3,7 @@
 namespace FOS\UserBundle\CouchDocument;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\ODM\CouchDB\Events;
+use Doctrine\ODM\CouchDB\Event;
 use Doctrine\ODM\CouchDB\Events\LifecycleEventArgs;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -33,8 +33,8 @@ class UserListener implements EventSubscriber
     public function getSubscribedEvents()
     {
         return array(
-            Events::prePersist,
-            Events::preUpdate,
+            Event::prePersist,
+            Event::preUpdate,
         );
     }
 

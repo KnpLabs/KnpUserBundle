@@ -105,5 +105,10 @@ class UserManager extends BaseUserManager
         // for now unique checks are not implemented in Doctrine CouchDB yet
         return true;
     }
+    
+    function reloadUser(UserInterface $user)
+    {
+        $this->dm->refresh($user);
+    }
 }
 
