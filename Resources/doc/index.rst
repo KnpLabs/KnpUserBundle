@@ -40,9 +40,11 @@ Add FOSUserBundle to your vendor/bundles/ dir
 Using the vendors script
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Add the following line in your ``deps`` file::
+Add the following lines in your ``deps`` file::
 
-    UserBundle            /bundles/FOS            git://github.com/FriendsOfSymfony/UserBundle.git
+    [FOSUserBundle]
+        git=git://github.com/FriendsOfSymfony/UserBundle.git
+        target=/bundles/FOS/UserBundle
 
 Run the vendors script::
 
@@ -819,8 +821,28 @@ create all the needed templates as only twig templates are provided.
 Controller
 ----------
 
-To overwrite a controller, create a bundle defined a child of FOSUserBundle
-and create a controller with the same name in this bundle.
+Create a bundle defined as child of FOSUserBundle::
+
+    // src/Acme/UserBundle/AcmeUserBundle.php
+    <?php
+
+    namespace Acme\UserBundle;
+
+    use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+    class AcmeUserBundle extends Bundle
+    {
+        public function getParent()
+        {
+            return 'FOSUserBundle';
+        }
+    }
+
+Then overwritting a controller is just a matter of creating a controller
+with the same name in this bundle (e.g. ``Acme\UserBundle\Controller\ProfileController``
+to overwrite the ProfileController provided by FOSUserBundle).
+You can of course make your controller extend the controller of the bundle
+if you want to change only some methods.
 
 Validation
 ----------

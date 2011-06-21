@@ -11,7 +11,7 @@
 
 namespace FOS\UserBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\Command;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
@@ -24,7 +24,7 @@ use FOS\UserBundle\Model\User;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Luis Cordova <cordoval@gmail.com>
  */
-class CreateUserCommand extends Command
+class CreateUserCommand extends ContainerAwareCommand
 {
     /**
      * @see Command
@@ -69,8 +69,8 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $cliToken = new UsernamePasswordToken('command.line', null, $this->container->getParameter('fos_user.firewall_name'), array(User::ROLE_SUPER_ADMIN));
-        $this->container->get('security.context')->setToken($cliToken);
+        $cliToken = new UsernamePasswordToken('command.line', null, $this->getContainer()->getParameter('fos_user.firewall_name'), array(User::ROLE_SUPER_ADMIN));
+        $this->getContainer()->get('security.context')->setToken($cliToken);
 
         $username   = $input->getArgument('username');
         $email      = $input->getArgument('email');
@@ -78,9 +78,9 @@ EOT
         $inactive   = $input->getOption('inactive');
         $superadmin = $input->getOption('super-admin');
 
-        $manipulator = $this->container->get('fos_user.util.user_manipulator');
+        $manipulator = $this->getContainer()->get('fos_user.util.user_manipulator');
         $user = $manipulator->create($username, $password, $email, !$inactive, $superadmin);
-        $this->container->get('fos_user.util.ace_manager')->createUserAce($user);
+        $this->getContainer()->get('fos_user.util.ace_manager')->createUserAce($user);
 
         $output->writeln(sprintf('Created user <comment>%s</comment>', $username));
     }
