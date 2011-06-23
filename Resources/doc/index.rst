@@ -167,7 +167,7 @@ CouchDB User class
 
 ::
 
-    // src/MyProject/MyBundle/CouchDocument/User.php
+    // src/MyProject/MyBundle/Document/User.php
 
     namespace MyProject\MyBundle\Document;
     use FOS\UserBundle\Document\User as BaseUser;
@@ -311,7 +311,7 @@ In YAML:
     fos_user:
         db_driver: couchdb
         firewall_name: main
-        user_class: MyProject\MyBundle\CouchDocument\User
+        user_class: MyProject\MyBundle\Document\User
 
 Or if you prefer XML:
 
@@ -321,8 +321,8 @@ Or if you prefer XML:
 
     <fos_user:config
         db-driver="couchdb"
-        firewall-name="main">
-        user-class="MyProject\MyBundle\CouchDocument\User"
+        firewall-name="main"
+        user-class="MyProject\MyBundle\Document\User"
     />
 
 Add authentication routes
@@ -458,7 +458,7 @@ Or if you prefer XML:
     <fos_user:config
         db-driver="orm"
         firewall-name="main"
-        use-listener="false">
+        use-listener="false"
         user-class="MyProject\MyBundle\Entity\User"
     />
 
@@ -495,7 +495,7 @@ Or if you prefer XML:
 
     <fos_user:config
         db-driver="orm"
-        firewall-name="main">
+        firewall-name="main"
         user-class="MyProject\MyBundle\Entity\User"
     >
         <fos_user:group group-class model="MyProject\MyBundle\Entity\Group" />
@@ -563,9 +563,9 @@ CouchDB
 
 ::
 
-    // src/MyProject/MyBundle/CouchDocument/Group.php
+    // src/MyProject/MyBundle/Document/Group.php
 
-    namespace MyProject\MyBundle\CouchDocument;
+    namespace MyProject\MyBundle\Document;
     use FOS\UserBundle\Document\Group as BaseGroup;
     use Doctrine\ODM\CouchDB\Mapping as MongoDB;
 
@@ -647,9 +647,9 @@ CouchDB
 
 ::
 
-    // src/MyProject/MyBundle/CouchDocument/User.php
+    // src/MyProject/MyBundle/Document/User.php
 
-    namespace MyProject\MyBundle\CouchDocument;
+    namespace MyProject\MyBundle\Document;
     use FOS\UserBundle\Document\User as BaseUser;
     use Doctrine\ODM\CouchDB\Mapping as CouchDB;
 
@@ -804,9 +804,9 @@ Templating
 The template names are not configurable, however Symfony2 makes it possible
 to extend a bundle by defining a template in the app/ directory.
 
-For example ``vendor/bundles/FOS/UserBundle/Resources/views/User/new.twig`` can be
+For example ``vendor/bundles/FOS/UserBundle/Resources/views/Registration/register.html.twig`` can be
 replaced inside an application by putting a file with alternative content in
-``app/Resources/FOSUserBundle/views/User/new.twig``.
+``app/Resources/FOSUserBundle/views/Registration/register.html.twig``.
 
 You could also create a bundle defined as child of FOSUserBundle and placing the
 templates in it.
