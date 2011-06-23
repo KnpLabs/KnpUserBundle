@@ -209,7 +209,7 @@ abstract class User implements UserInterface
     /**
      * Serializes the user.
      *
-     * The serialized data have to contain the fields used by the equals method.
+     * The serialized data have to contain the fields used by the equals method and the username.
      *
      * @return string
      */
@@ -219,6 +219,7 @@ abstract class User implements UserInterface
             $this->password,
             $this->salt,
             $this->usernameCanonical,
+            $this->username,
             $this->expired,
             $this->locked,
             $this->credentialsExpired,
@@ -237,6 +238,7 @@ abstract class User implements UserInterface
             $this->password,
             $this->salt,
             $this->usernameCanonical,
+            $this->username,
             $this->expired,
             $this->locked,
             $this->credentialsExpired,
