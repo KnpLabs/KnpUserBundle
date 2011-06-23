@@ -6,8 +6,7 @@ Features
 - Compatible with Doctrine ORM, MongoDB and CouchDB ODM thanks to a generic repository.
 - Model is extensible at will
 - REST-ful authentication
-- Current user available in your controllers and views
-- Unit tested and functionally tested
+- Unit tested tested
 
 Warning
 =======
