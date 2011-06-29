@@ -136,5 +136,5 @@ interface UserManagerInterface
      * @param Constraint $constraint
      * @return Boolean
      */
-    function validateUnique($value, Constraint $constraint);
+    function validateUnique(UserInterface $value, Constraint $constraint);
 }
