@@ -42,7 +42,7 @@ Using the vendors script
 Add the following lines in your ``deps`` file::
 
     [FOSUserBundle]
-        git=git://github.com/FriendsOfSymfony/UserBundle.git
+        git=git://github.com/FriendsOfSymfony/FOSUserBundle.git
         target=/bundles/FOS/UserBundle
 
 Run the vendors script::
@@ -54,7 +54,7 @@ Using submodules
 
 ::
 
-    $ git submodule add git://github.com/FriendsOfSymfony/UserBundle.git vendor/bundles/FOS/UserBundle
+    $ git submodule add git://github.com/FriendsOfSymfony/FOSUserBundle.git vendor/bundles/FOS/UserBundle
 
 Add the FOS namespace to your autoloader
 ----------------------------------------
