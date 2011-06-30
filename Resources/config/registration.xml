@@ -6,9 +6,7 @@
 
     <services>
 
-        <service id="fos_user.registration.form" factory-method="getForm" factory-service="fos_user.registration.form.builder" class="Symfony\Component\Form\Form" />
-
-        <service id="fos_user.registration.form.builder" factory-method="createNamedBuilder" factory-service="form.factory" class="Symfony\Component\Form\FormBuilder">
+        <service id="fos_user.registration.form" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
             <argument type="service" id="fos_user.registration.form.type" />
             <argument>%fos_user.registration.form.name%</argument>
             <argument />
