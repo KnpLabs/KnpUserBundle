@@ -69,8 +69,14 @@ class FOSUserExtension extends Extension
             'encoder'   => 'fos_user.encoder.%s',
             'template'  => 'fos_user.template.%s',
         ));
-        $container->setParameter('fos_user.registration.confirmation.from_email', $config['from_email']);
-        $container->setParameter('fos_user.resetting.email.from_email', $config['from_email']);
+        $container->setParameter(
+            'fos_user.registration.confirmation.from_email',
+            array($config['from_email']['address'] => $config['from_email']['sender_name'])
+        );
+        $container->setParameter(
+            'fos_user.resetting.email.from_email',
+            array($config['from_email']['address'] => $config['from_email']['sender_name'])
+        );
 
         if (!empty($config['profile'])) {
             $loader->load('profile.xml');
@@ -94,7 +100,10 @@ class FOSUserExtension extends Extension
             unset($config['registration']['form']['name']);
 
             if (!empty($config['registration']['confirmation']['from_email'])) {
-                $container->setParameter('fos_user.registration.confirmation.from_email', $config['registration']['confirmation']['from_email']);
+                $container->setParameter(
+                    'fos_user.registration.confirmation.from_email',
+                    array($config['registration']['confirmation']['from_email']['address'] => $config['registration']['confirmation']['from_email']['sender_name'])
+                );
             }
             unset($config['registration']['confirmation']['from_email']);
 
@@ -126,7 +135,10 @@ class FOSUserExtension extends Extension
             unset($config['resetting']['form']['name']);
 
             if (!empty($config['resetting']['email']['from_email'])) {
-                $container->setParameter('fos_user.resetting.email.from_email', $config['resetting']['email']['from_email']);
+                $container->setParameter(
+                    'fos_user.resetting.email.from_email',
+                    array($config['resetting']['email']['from_email']['address'] => $config['resetting']['email']['from_email']['sender_name'])
+                );
             }
             unset($config['resetting']['email']['from_email']);
 

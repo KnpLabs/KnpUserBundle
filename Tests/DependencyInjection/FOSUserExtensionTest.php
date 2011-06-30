@@ -332,7 +332,9 @@ db_driver: orm
 firewall_name: fos_user
 use_listener: true
 user_class: Acme\MyBundle\Entity\User
-from_email: { admin@acme.org: Acme Corp } # 1st solution
+from_email:
+    address: admin@acme.org
+    sender_name: Acme Corp
 profile:
     form:
         type: Acme\MyBundle\Form\ProfileFormType
@@ -347,7 +349,9 @@ change_password:
         validation_groups: [acme_change_password]
 registration:
     confirmation:
-        from_email: { register@acme.org: Acme Corp } # 2nd solution
+        from_email:
+            address: register@acme.org
+            sender_name: Acme Corp
         enabled: true
         template: AcmeMyBundle:Registration:mail.txt.twig
     form:
@@ -358,7 +362,9 @@ registration:
 resetting:
     token_ttl: 1800
     email:
-        from_email: { reset@acme.org: Acme Corp } # 2nd solution
+        from_email:
+            address: reset@acme.org
+            sender_name: Acme Corp
         template: AcmeMyBundle:Resetting:mail.txt.twig
     form:
         type: Acme\MyBundle\Form\ResettingFormType
@@ -413,5 +419,4 @@ EOF;
     {
         unset($this->configuration);
     }
-
 }
