@@ -8,6 +8,7 @@
 
         <constraint name="FOS\UserBundle\Validator\Unique">
             <option name="property">usernameCanonical</option>
+            <option name="message">The username is already used</option>
             <option name="groups">
                 <value>Registration</value>
                 <value>Profile</value>
@@ -16,6 +17,7 @@
 
         <constraint name="FOS\UserBundle\Validator\Unique">
             <option name="property">emailCanonical</option>
+            <option name="message">The email is already used</option>
             <option name="groups">
                 <value>Registration</value>
                 <value>Profile</value>
