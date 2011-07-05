@@ -1,7 +1,7 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
-{% block content %}
+{% block fos_user_content %}
 
     {{ 'registration.confirmed'|trans({'%username%': user.username}, 'FOSUserBundle') }}
 
-{% endblock content %}
+{% endblock fos_user_content %}
