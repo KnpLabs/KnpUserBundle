@@ -23,4 +23,9 @@ class ProfileFormType extends AbstractType
             ->add('email')
         ;
     }
+
+    public function getName()
+    {
+        return 'fos_user_profile';
+    }
 }

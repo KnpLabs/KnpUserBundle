@@ -20,4 +20,9 @@ class GroupFormType extends AbstractType
     {
         $builder->add('name');
     }
+
+    public function getName()
+    {
+        return 'fos_user_group';
+    }
 }

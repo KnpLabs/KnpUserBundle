@@ -23,4 +23,9 @@ class RegistrationFormType extends AbstractType
             ->add('email')
             ->add('plainPassword', 'repeated', array('type' => 'password'));
     }
+
+    public function getName()
+    {
+        return 'fos_user_registration';
+    }
 }

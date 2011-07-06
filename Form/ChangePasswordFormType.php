@@ -21,4 +21,9 @@ class ChangePasswordFormType extends AbstractType
         $builder->add('current', 'password');
         $builder->add('new', 'repeated', array('type' => 'password'));
     }
+
+    public function getName()
+    {
+        return 'fos_user_change_password';
+    }
 }

@@ -20,4 +20,9 @@ class ResettingFormType extends AbstractType
     {
         $builder->add('new', 'repeated', array('type' => 'password'));
     }
+
+    public function getName()
+    {
+        return 'fos_user_resetting';
+    }
 }
