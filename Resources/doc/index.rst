@@ -20,10 +20,6 @@ properly (for example delete, list etc). As such its not recommended to
 ever go into production while using one of the default routing configuration
 files.
 
-The implementation of ACL checks via the JMSSecurityExtraBundle is also
-currently incomplete (see issue #53) and activation of this Bundle is also
-not enforced.
-
 Furthermore it may be necessary to extend or even replace the default Controllers
 with custom code to achieve the exact desired behavior. Trying to cover
 every possible use case is not feasible as it would complicate the Bundle
@@ -34,10 +30,10 @@ Installation
 ============
 
 Add FOSUserBundle to your vendor/bundles/ dir
-------------------------------------------
+---------------------------------------------
 
 Using the vendors script
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Add the following lines in your ``deps`` file::
 
@@ -92,6 +88,11 @@ User class in UserBundle.  All fields on the base class are mapped, except for
 ``id``; this is intentional, so you can select the generator that best suits
 your application. Feel free to add additional properties and methods to your
 custom class.
+
+.. warning::
+
+    Take care to call the parent constructor when you overwrite it in your own
+    entity as it initializes some fields.
 
 ORM User class
 ~~~~~~~~~~~~~~
@@ -155,11 +156,6 @@ MongoDB User class
             // your own logic
         }
     }
-
-.. warning::
-
-    Take care to call the parent constructor when you overwrite it in your own
-    entity as it initializes some fields.
 
 CouchDB User class
 ~~~~~~~~~~~~~~~~~~
@@ -670,70 +666,6 @@ Enabling the routing for the GroupController
 You can also the group.xml file to use the builtin controller to manipulate the
 groups.
 
-Configuration reference
-=======================
-
-All configuration options are listed below::
-
-    # app/config/config.yml
-    fos_user:
-        db_driver:      ~ # Required
-        firewall_name:  ~ # Required
-        user_class:     ~ # Required
-        use_listener:   true
-        from_email:     { webmaster@example.com: Admin }
-        profile:
-            form:
-                type:               FOS\UserBundle\Form\ProfileFormType
-                handler:            FOS\UserBundle\Form\ProfileFormHandler
-                name:               fos_user_profile_form
-                validation_groups:  [Profile]
-        change_password:
-            form:
-                type:               FOS\UserBundle\Form\ChangePasswordFormType
-                handler:            FOS\UserBundle\Form\ChangePasswordFormHandler
-                name:               fos_user_change_password_form
-                validation_groups:  [ChangePassword]
-        registration:
-            confirmation:
-                from_email: ~
-                enabled:    false
-                template:   FOSUserBundle:Registration:email.txt.twig
-            form:
-                type:               FOS\UserBundle\Form\RegistrationFormType
-                handler:            FOS\UserBundle\Form\RegistrationFormHandler
-                name:               fos_user_registration_form
-                validation_groups:  [Registration]
-        resetting:
-            token_ttl: 86400
-            email:
-                from_email: ~
-                template:   FOSUserBundle:Resetting:email.txt.twig
-            form:
-                type:               FOS\UserBundle\Form\ResettingFormType
-                handler:            FOS\UserBundle\Form\ResettingFormHandler
-                name:               fos_user_resetting_form
-                validation_groups:  [ResetPassword]
-        service:
-            mailer:                 fos_user.util.mailer.default
-            email_canonicalizer:    fos_user.util.email_canonicalizer.default
-            username_canonicalizer: fos_user.util.username_canonicalizer.default
-            user_manager:           fos_user.user_manager.default
-        encoder:
-            algorithm:          sha512
-            encode_as_base64:   false
-            iterations:         1
-        template:
-            engine: twig
-            theme:  FOSUserBundle::form.html.twig
-        group:
-            group_class:    ~ # Required when using groups
-            form:
-                type:               FOS\UserBundle\Form\GroupFormType
-                handler:            FOS\UserBundle\Form\GroupHandler
-                name:               fos_user_group_form
-                validation_groups:  [Registration]
-
 Configuration example
 =====================
 
@@ -762,6 +694,11 @@ Security configuration
                 id: fos_user.user_manager
 
         firewalls:
+            # Disabling the security for the web debug toolbar, the profiler and Assetic.
+            dev:
+                pattern:  ^/(_(profiler|wdt)|css|images|js)/
+                security: false
+
             main:
                 pattern:      .*
                 form_login:
@@ -774,12 +711,6 @@ Security configuration
                 anonymous:    true
 
         access_control:
-            # The WDT has to be allowed to anonymous users to avoid requiring the login with the AJAX request
-            - { path: ^/_wdt/, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/_profiler/, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            # AsseticBundle paths used when using the controller for assets
-            - { path: ^/js/, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/css/, role: IS_AUTHENTICATED_ANONYMOUSLY }
             # URL of FOSUserBundle which need to be available to anonymous users
             - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
@@ -797,18 +728,30 @@ Security configuration
 Replacing some part by your own implementation
 ==============================================
 
+User Manager
+------------
+
+You can replace the default implementation of the user manager by defining
+a service implementing ``FOS\UserBundle\Model\UserManagerInterface`` and
+setting its id in the configuration::
+
+    fos_user:
+        # ...
+        service:
+            user_manager: custom_user_manager_id
+
 Templating
 ----------
 
 The template names are not configurable, however Symfony2 makes it possible
 to extend a bundle by defining a template in the app/ directory.
 
-For example ``vendor/bundles/FOS/UserBundle/Resources/views/Registration/register.html.twig`` can be
-replaced inside an application by putting a file with alternative content in
-``app/Resources/FOSUserBundle/views/Registration/register.html.twig``.
+For example ``vendor/bundles/FOS/UserBundle/Resources/views/Registration/register.html.twig``
+can be replaced inside an application by putting a file with alternative content
+in ``app/Resources/FOSUserBundle/views/Registration/register.html.twig``.
 
 You could also create a bundle defined as child of FOSUserBundle and placing the
-templates in it.
+templates in it as ``src/Acme/ChildBundle/Resources/views/Registration/register.html.twig``.
 
 You can use a different templating engine by configuring it but you will have to
 create all the needed templates as only twig templates are provided.
@@ -818,14 +761,14 @@ Controller
 
 Create a bundle defined as child of FOSUserBundle::
 
-    // src/Acme/UserBundle/AcmeUserBundle.php
+    // src/Acme/ChildBundle/AcmeChildBundle.php
     <?php
 
-    namespace Acme\UserBundle;
+    namespace Acme\ChildBundle;
 
     use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-    class AcmeUserBundle extends Bundle
+    class AcmeChildBundle extends Bundle
     {
         public function getParent()
         {
@@ -834,7 +777,7 @@ Create a bundle defined as child of FOSUserBundle::
     }
 
 Then overwritting a controller is just a matter of creating a controller
-with the same name in this bundle (e.g. ``Acme\UserBundle\Controller\ProfileController``
+with the same name in this bundle (e.g. ``Acme\ChildBundle\Controller\ProfileController``
 to overwrite the ProfileController provided by FOSUserBundle).
 You can of course make your controller extend the controller of the bundle
 if you want to change only some methods.
@@ -844,7 +787,7 @@ Validation
 
 The ``Resources/config/validation.xml`` file contains definitions for custom
 validator rules for various classes. The rules defined by FOSUserBundle are
-all in a validation group so you can choose not to use them.
+all in validation groups so you can choose not to use them.
 
 Emails
 ------
@@ -877,3 +820,73 @@ your own class for each field provided it implements
 
     If you do not have the mbstring extension installed you will need to
     define your own ``canonicalizer``.
+
+Configuration reference
+=======================
+
+All available configuration options are listed below with their default values::
+
+    # app/config/config.yml
+    fos_user:
+        db_driver:      ~ # Required
+        firewall_name:  ~ # Required
+        user_class:     ~ # Required
+        use_listener:   true
+        from_email:
+            address:        webmaster@example.com
+            sender_name:    Admin
+        profile:
+            form:
+                type:               fos_user_profile
+                handler:            fos_user.profile.form.handler.default
+                name:               fos_user_profile_form
+                validation_groups:  [Profile]
+        change_password:
+            form:
+                type:               fos_user_change_password
+                handler:            fos_user.change_password.form.handler.default
+                name:               fos_user_change_password_form
+                validation_groups:  [ChangePassword]
+        registration:
+            confirmation:
+                from_email: # Use this node only if you don't want the global email address for the confirmation email
+                    address:        ...
+                    sender_name:    ...
+                enabled:    false
+                template:   FOSUserBundle:Registration:email.txt.twig
+            form:
+                type:               fos_user_registration
+                handler:            fos_user.registration.form.handler.default
+                name:               fos_user_registration_form
+                validation_groups:  [Registration]
+        resetting:
+            token_ttl: 86400
+            email:
+                from_email: # Use this node only if you don't want the global email address for the resetting email
+                    address:        ...
+                    sender_name:    ...
+                template:   FOSUserBundle:Resetting:email.txt.twig
+            form:
+                type:               fos_user_resetting
+                handler:            fos_user.resetting.form.handler.default
+                name:               fos_user_resetting_form
+                validation_groups:  [ResetPassword]
+        service:
+            mailer:                 fos_user.util.mailer.default
+            email_canonicalizer:    fos_user.util.email_canonicalizer.default
+            username_canonicalizer: fos_user.util.username_canonicalizer.default
+            user_manager:           fos_user.user_manager.default
+        encoder:
+            algorithm:          sha512
+            encode_as_base64:   false
+            iterations:         1
+        template:
+            engine: twig
+            theme:  FOSUserBundle::form.html.twig
+        group:
+            group_class:    ~ # Required when using groups
+            form:
+                type:               fos_user_group
+                handler:            fos_user.group.form.handler.default
+                name:               fos_user_group_form
+                validation_groups:  [Registration]
