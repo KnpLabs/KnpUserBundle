@@ -14,10 +14,8 @@
             <argument>%security.encoder.digest.class%</argument>
             <argument>%fos_user.encoder.encode_as_base64%</argument>
             <argument>%fos_user.encoder.iterations%</argument>
-            <argument type="service" id="security.encoder_factory.generic" />
+            <argument type="service" id="fos_user.encoder_factory.parent" />
         </service>
-
-        <service id="security.encoder_factory" alias="fos_user.encoder_factory" />
 
         <service id="fos_user.security.interactive_login_listener" class="%fos_user.security.interactive_login_listener.class%">
             <argument type="service" id="fos_user.user_manager" />
