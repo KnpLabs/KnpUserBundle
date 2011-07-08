@@ -96,14 +96,6 @@
                     <value>Profile</value>
                 </option>
             </constraint>
-            <constraint name="MaxLength">
-                <option name="limit">255</option>
-                <option name="message">The password is too long</option>
-                <option name="groups">
-                    <value>Registration</value>
-                    <value>Profile</value>
-                </option>
-            </constraint>
         </property>
     </class>
 
@@ -127,14 +119,6 @@
             <constraint name="MinLength">
                 <option name="limit">2</option>
                 <option name="message">The new password is too short</option>
-                <option name="groups">
-                    <value>ResetPassword</value>
-                    <value>ChangePassword</value>
-                </option>
-            </constraint>
-            <constraint name="MaxLength">
-                <option name="limit">255</option>
-                <option name="message">The new password is too long</option>
                 <option name="groups">
                     <value>ResetPassword</value>
                     <value>ChangePassword</value>
