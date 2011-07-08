@@ -9,23 +9,23 @@
  * file that was distributed with this source code.
  */
 
-namespace FOS\UserBundle\Form;
+namespace FOS\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
-class RegistrationFormType extends AbstractType
+class ProfileFormType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('username')
             ->add('email')
-            ->add('plainPassword', 'repeated', array('type' => 'password'));
+        ;
     }
 
     public function getName()
     {
-        return 'fos_user_registration';
+        return 'fos_user_profile';
     }
 }

@@ -9,15 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace FOS\UserBundle\Form;
+namespace FOS\UserBundle\Form\Handler;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
+use FOS\UserBundle\Form\Model\ChangePassword;
 
-class ProfileFormHandler
+class ChangePasswordFormHandler
 {
     protected $request;
     protected $userManager;
@@ -30,23 +31,24 @@ class ProfileFormHandler
         $this->userManager = $userManager;
     }
 
+    public function getNewPassword()
+    {
+        return $this->form->getData()->new;
+    }
+
     public function process(UserInterface $user)
     {
-        $this->form->setData($user);
+        $this->form->setData(new ChangePassword($user));
 
         if ('POST' == $this->request->getMethod()) {
             $this->form->bindRequest($this->request);
 
             if ($this->form->isValid()) {
+                $user->setPlainPassword($this->getNewPassword());
                 $this->userManager->updateUser($user);
 
                 return true;
             }
-
-            // Reloads the user to reset its username. This is needed when the
-            // username or password have been changed to avoid issues with the
-            // security layer.
-            $this->userManager->reloadUser($user);
         }
 
         return false;

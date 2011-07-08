@@ -132,7 +132,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertHasDefinition('fos_user.user_manager');
+        $this->assertAlias('fos_user.user_manager.default', 'fos_user.user_manager');
         $this->assertNotHasDefinition('fos_user.group_manager');
     }
 
@@ -140,7 +140,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFullConfiguration();
 
-        $this->assertHasDefinition('fos_user.user_manager');
+        $this->assertAlias('acme_my.user_manager', 'fos_user.user_manager');
         $this->assertHasDefinition('fos_user.group_manager');
     }
 
@@ -148,10 +148,10 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('FOS\UserBundle\Form\ProfileFormType', 'fos_user.profile.form.type.class');
-        $this->assertParameter('FOS\UserBundle\Form\RegistrationFormType', 'fos_user.registration.form.type.class');
-        $this->assertParameter('FOS\UserBundle\Form\ChangePasswordFormType', 'fos_user.change_password.form.type.class');
-        $this->assertParameter('FOS\UserBundle\Form\ResettingFormType', 'fos_user.resetting.form.type.class');
+        $this->assertParameter('FOS\UserBundle\Form\Type\ProfileFormType', 'fos_user.profile.form.type.class');
+        $this->assertParameter('FOS\UserBundle\Form\Type\RegistrationFormType', 'fos_user.registration.form.type.class');
+        $this->assertParameter('FOS\UserBundle\Form\Type\ChangePasswordFormType', 'fos_user.change_password.form.type.class');
+        $this->assertParameter('FOS\UserBundle\Form\Type\ResettingFormType', 'fos_user.resetting.form.type.class');
     }
 
     public function testUserLoadFormClass()
@@ -375,6 +375,7 @@ service:
     mailer: acme_my.mailer
     email_canonicalizer: acme_my.email_canonicalizer
     username_canonicalizer: acme_my.username_canonicalizer
+    user_manager: acme_my.user_manager
 encoder:
     algorithm: sha1
     encode_as_base64: true

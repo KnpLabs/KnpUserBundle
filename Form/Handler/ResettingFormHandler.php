@@ -9,15 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace FOS\UserBundle\Form;
+namespace FOS\UserBundle\Form\Handler;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
+use FOS\UserBundle\Form\Model\ResetPassword;
 
-class ChangePasswordFormHandler
+class ResettingFormHandler
 {
     protected $request;
     protected $userManager;
@@ -37,13 +38,15 @@ class ChangePasswordFormHandler
 
     public function process(UserInterface $user)
     {
-        $this->form->setData(new ChangePassword($user));
+        $this->form->setData(new ResetPassword($user));
 
         if ('POST' == $this->request->getMethod()) {
             $this->form->bindRequest($this->request);
 
             if ($this->form->isValid()) {
                 $user->setPlainPassword($this->getNewPassword());
+                $user->setConfirmationToken(null);
+                $user->setEnabled(true);
                 $this->userManager->updateUser($user);
 
                 return true;

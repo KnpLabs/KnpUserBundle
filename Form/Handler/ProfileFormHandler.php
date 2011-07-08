@@ -9,13 +9,15 @@
  * file that was distributed with this source code.
  */
 
-namespace FOS\UserBundle\Form;
+namespace FOS\UserBundle\Form\Handler;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
+
+use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 
-class RegistrationFormHandler
+class ProfileFormHandler
 {
     protected $request;
     protected $userManager;
@@ -28,26 +30,23 @@ class RegistrationFormHandler
         $this->userManager = $userManager;
     }
 
-    public function process($confirmation = null)
+    public function process(UserInterface $user)
     {
-        $user = $this->userManager->createUser();
         $this->form->setData($user);
 
         if ('POST' == $this->request->getMethod()) {
             $this->form->bindRequest($this->request);
 
             if ($this->form->isValid()) {
-                if (true === $confirmation) {
-                    $user->setEnabled(false);
-                } else if (false === $confirmation) {
-                    $user->setConfirmationToken(null);
-                    $user->setEnabled(true);
-                }
-
                 $this->userManager->updateUser($user);
 
                 return true;
             }
+
+            // Reloads the user to reset its username. This is needed when the
+            // username or password have been changed to avoid issues with the
+            // security layer.
+            $this->userManager->reloadUser($user);
         }
 
         return false;
