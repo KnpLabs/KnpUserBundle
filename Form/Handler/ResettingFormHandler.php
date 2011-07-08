@@ -38,7 +38,7 @@ class ResettingFormHandler
 
     public function process(UserInterface $user)
     {
-        $this->form->setData(new ResetPassword($user));
+        $this->form->setData(new ResetPassword());
 
         if ('POST' == $this->request->getMethod()) {
             $this->form->bindRequest($this->request);

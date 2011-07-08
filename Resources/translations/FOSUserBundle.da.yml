@@ -68,19 +68,18 @@ fos_user_resetted: Kodeordet er blevet nulstillet
 # Form field labels
 fos_user_group_form_name: "Gruppe navn:"
 
-fos_user_profile_form_username:             "Brugernavn:"
-fos_user_profile_form_email:                "Email:"
-fos_user_profile_form_plainPassword_first:  "Kodeord:"
-fos_user_profile_form_plainPassword_second: "Verificering:"
+fos_user_profile_form_user_username: "Brugernavn:"
+fos_user_profile_form_user_email: "Email:"
+fos_user_profile_form_current: "Nuværende kodeord:"
 
-fos_user_registration_form_username:             "Brugernavn:"
-fos_user_registration_form_email:                "Email:"
-fos_user_registration_form_plainPassword_first:  "Kodeord:"
+fos_user_registration_form_username: "Brugernavn:"
+fos_user_registration_form_email: "Email:"
+fos_user_registration_form_plainPassword_first: "Kodeord:"
 fos_user_registration_form_plainPassword_second: "Verificering:"
 
-fos_user_resetting_form_new_first:  "Nyt kodeord:"
+fos_user_resetting_form_new_first: "Nyt kodeord:"
 fos_user_resetting_form_new_second: "Verificering:"
 
-fos_user_change_password_form_new_first:    "Nyt kodeord:"
-fos_user_change_password_form_new_second:   "Verificering:"
-fos_user_change_password_form_current:  "Nuværende kodeord:"
+fos_user_change_password_form_new_first: "Nyt kodeord:"
+fos_user_change_password_form_new_second: "Verificering:"
+fos_user_change_password_form_current: "Nuværende kodeord:"

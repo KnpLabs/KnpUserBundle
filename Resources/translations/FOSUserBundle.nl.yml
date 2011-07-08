@@ -68,19 +68,18 @@ fos_user_resetted: Het wachtworod is succesvol gereset
 # Form field labels
 fos_user_group_form_name: "Groep naam:"
 
-fos_user_profile_form_username:             "Gebruikersnaam:"
-fos_user_profile_form_email:                "Email:"
-fos_user_profile_form_plainPassword_first:  "Wachtwoord:"
-fos_user_profile_form_plainPassword_second: "Verificatie:"
+fos_user_profile_form_user_username: "Gebruikersnaam:"
+fos_user_profile_form_user_email: "Email:"
+fos_user_profile_form_current: "Huidig wachtwoord:"
 
-fos_user_registration_form_username:             "Gebruikersnaam:"
-fos_user_registration_form_email:                "Email:"
-fos_user_registration_form_plainPassword_first:  "Wachtwoord:"
+fos_user_registration_form_username: "Gebruikersnaam:"
+fos_user_registration_form_email: "Email:"
+fos_user_registration_form_plainPassword_first: "Wachtwoord:"
 fos_user_registration_form_plainPassword_second: "Verificatie:"
 
-fos_user_resetting_form_new_first:  "Nieuw wachtwoord:"
+fos_user_resetting_form_new_first: "Nieuw wachtwoord:"
 fos_user_resetting_form_new_second: "Verificatie:"
 
-fos_user_change_password_form_new_first:    "Nieuw wachtwoord:"
-fos_user_change_password_form_new_second:   "Verificatie:"
-fos_user_change_password_form_current:  "Huidig wachtwoord:"
+fos_user_change_password_form_new_first: "Nieuw wachtwoord:"
+fos_user_change_password_form_new_second: "Verificatie:"
+fos_user_change_password_form_current: "Huidig wachtwoord:"

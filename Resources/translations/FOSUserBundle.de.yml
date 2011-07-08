@@ -68,19 +68,18 @@ fos_user_resetted: Das Passwort wurde erfolgreich zurückgesetzt
 # Form field labels
 fos_user_group_form_name: "Gruppenname:"
 
-fos_user_profile_form_username:             "Benutzername:"
-fos_user_profile_form_email:                "E-Mail-Adresse:"
-fos_user_profile_form_plainPassword_first:  "Passwort:"
-fos_user_profile_form_plainPassword_second: "Bestätigung:"
+fos_user_profile_form_user_username: "Benutzername:"
+fos_user_profile_form_user_email: "E-Mail-Adresse:"
+fos_user_profile_form_current: "Derzeitiges Passwort:"
 
-fos_user_registration_form_username:             "Benutzername:"
-fos_user_registration_form_email:                "E-Mail-Adresse:"
-fos_user_registration_form_plainPassword_first:  "Passwort:"
+fos_user_registration_form_username: "Benutzername:"
+fos_user_registration_form_email: "E-Mail-Adresse:"
+fos_user_registration_form_plainPassword_first: "Passwort:"
 fos_user_registration_form_plainPassword_second: "Bestätigung:"
 
-fos_user_resetting_form_new_first:  "Neues Passwort:"
+fos_user_resetting_form_new_first: "Neues Passwort:"
 fos_user_resetting_form_new_second: "Bestätigung:"
 
-fos_user_change_password_form_new_first:    "Neues Passwort:"
-fos_user_change_password_form_new_second:   "Bestätigung:"
-fos_user_change_password_form_current:  "Derzeitiges Passwort:"
+fos_user_change_password_form_new_first: "Neues Passwort:"
+fos_user_change_password_form_new_second: "Bestätigung:"
+fos_user_change_password_form_current: "Derzeitiges Passwort:"

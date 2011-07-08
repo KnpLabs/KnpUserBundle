@@ -68,19 +68,18 @@ fos_user_resetted: The password has been reset successfully
 # Form field labels
 fos_user_group_form_name: "Group name:"
 
-fos_user_profile_form_username:             "Username:"
-fos_user_profile_form_email:                "Email:"
-fos_user_profile_form_plainPassword_first:  "Password:"
-fos_user_profile_form_plainPassword_second: "Verification:"
+fos_user_profile_form_user_username: "Username:"
+fos_user_profile_form_user_email: "Email:"
+fos_user_profile_form_current: "Current Password:"
 
-fos_user_registration_form_username:             "Username:"
-fos_user_registration_form_email:                "Email:"
-fos_user_registration_form_plainPassword_first:  "Password:"
+fos_user_registration_form_username: "Username:"
+fos_user_registration_form_email: "Email:"
+fos_user_registration_form_plainPassword_first: "Password:"
 fos_user_registration_form_plainPassword_second: "Verification:"
 
-fos_user_resetting_form_new_first:  "New password:"
+fos_user_resetting_form_new_first: "New password:"
 fos_user_resetting_form_new_second: "Verification:"
 
-fos_user_change_password_form_new_first:    "New password:"
-fos_user_change_password_form_new_second:   "Verification:"
-fos_user_change_password_form_current:  "Current password:"
+fos_user_change_password_form_new_first: "New password:"
+fos_user_change_password_form_new_second: "Verification:"
+fos_user_change_password_form_current: "Current password:"

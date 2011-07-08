@@ -11,10 +11,10 @@
 
 namespace FOS\UserBundle\Form\Model;
 
-class ChangePassword extends ResetPassword
+class ChangePassword extends CheckPassword
 {
     /**
      * @var string
      */
-    public $current;
+    public $new;
 }

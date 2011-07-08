@@ -19,6 +19,7 @@ change_password.submit: Muuda salasõna
 registration.check_email: E-mail on saadetud aadressile %email%. Selles sisaldub viide, mis tuleb konto aktiveerimiseks avada.
 registration.confirmed: Palju õnne %username%, Sinu konto on aktiveeritud.
 registration.submit: Registreeri
+
 registration.email: |
     Tere %username%!
 
@@ -33,6 +34,7 @@ resetting.check_email: E-mail on saadetud aadressile %email%. Selles sisaldub vi
 resetting.request.username: "Kasutajanimi:"
 resetting.request.submit: Saada salasõna
 resetting.reset.submit: Muuda salasõna
+
 resetting.email: |
     Tere %username%!
 
@@ -50,13 +52,18 @@ layout.logged_in_as: "Sisse logitud: %username%"
 # Form field labels
 fos_user_group_form_name: "Grupi nimi:"
 
-user_username:             "Kasutajanimi:"
-user_email:                "E-mail:"
-user_plainPassword_first:  "Salasõna:"
-user_plainPassword_second: "Salasõna uuesti:"
-#fos_user_user_form_plainPassword: "Salasõna (sisesta topelt):"
+fos_user_profile_form_user_username: "Kasutajanimi:"
+fos_user_profile_form_user_email: "E-mail:"
+fos_user_profile_form_current: "Vana salasõna:"
 
-fos_user_reset_password_form_new: "Uus salasõna:"
+fos_user_registration_form_username: "Kasutajanimi:"
+fos_user_registration_form_email: "E-mail:"
+fos_user_registration_form_plainPassword_first: "Salasõna:"
+fos_user_registration_form_plainPassword_second: "Salasõna uuesti:"
 
-fos_user_change_password_form_new: "Uus salasõna:"
+fos_user_resetting_form_new_first: "Uus salasõna:"
+fos_user_resetting_form_new_second: "Salasõna uuesti:"
+
+fos_user_change_password_form_new_first: "Uus salasõna:"
+fos_user_change_password_form_new_second: "Salasõna uuesti:"
 fos_user_change_password_form_current: "Vana salasõna:"

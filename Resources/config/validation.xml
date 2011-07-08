@@ -99,29 +99,41 @@
         </property>
     </class>
 
-    <class name="FOS\UserBundle\Form\ChangePassword">
+    <class name="FOS\UserBundle\Form\Model\CheckPassword">
         <constraint name="FOS\UserBundle\Validator\Password">
             <option name="passwordProperty">current</option>
             <option name="userProperty">user</option>
-            <option name="groups">ChangePassword</option>
+            <option name="groups">
+                <value>ChangePassword</value>
+                <value>Profile</value>
+            </option>
         </constraint>
     </class>
 
-    <class name="FOS\UserBundle\Form\ResetPassword">
+    <class name="FOS\UserBundle\Form\Model\ChangePassword">
         <property name="new">
             <constraint name="NotBlank">
                 <option name="message">Please enter a new password</option>
-                <option name="groups">
-                    <value>ResetPassword</value>
-                    <value>ChangePassword</value>
-                </option>
+                <option name="groups">ChangePassword</option>
             </constraint>
             <constraint name="MinLength">
                 <option name="limit">2</option>
                 <option name="message">The new password is too short</option>
-                <option name="groups">
-                    <value>ResetPassword</value>
-                    <value>ChangePassword</value>
+                <option name="groups">ChangePassword</option>
+            </constraint>
+        </property>
+    </class>
+
+    <class name="FOS\UserBundle\Form\Model\ResetPassword">
+        <property name="new">
+            <constraint name="NotBlank">
+                <option name="message">Please enter a new password</option>
+                <option name="groups">ResetPassword</option>
+            </constraint>
+            <constraint name="MinLength">
+                <option name="limit">2</option>
+                <option name="message">The new password is too short</option>
+                <option name="groups">ResetPasswor
                 </option>
             </constraint>
         </property>

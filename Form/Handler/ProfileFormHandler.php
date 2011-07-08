@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
+use FOS\UserBundle\Form\Model\CheckPassword;
 
 class ProfileFormHandler
 {
@@ -32,7 +33,7 @@ class ProfileFormHandler
 
     public function process(UserInterface $user)
     {
-        $this->form->setData($user);
+        $this->form->setData(new CheckPassword($user));
 
         if ('POST' == $this->request->getMethod()) {
             $this->form->bindRequest($this->request);
