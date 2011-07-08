@@ -7,7 +7,7 @@
     <services>
 
         <service id="fos_user.profile.form" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
-            <argument type="service" id="fos_user.profile.form.type" />
+            <argument>%fos_user.profile.form.type%</argument>
             <argument>%fos_user.profile.form.name%</argument>
             <argument />
             <argument type="collection">
@@ -16,11 +16,11 @@
             </argument>
         </service>
 
-        <service id="fos_user.profile.form.type" class="%fos_user.profile.form.type.class%">
-            <tag name="form.type" />
+        <service id="fos_user.profile.form.type" class="FOS\UserBundle\Form\Type\ProfileFormType">
+            <tag name="form.type" alias="fos_user_profile" />
         </service>
 
-        <service id="fos_user.profile.form.handler" class="%fos_user.profile.form.handler.class%" scope="request">
+        <service id="fos_user.profile.form.handler.default" class="FOS\UserBundle\Form\Handler\ProfileFormHandler" scope="request" public="false">
             <argument type="service" id="fos_user.profile.form" />
             <argument type="service" id="request" />
             <argument type="service" id="fos_user.user_manager" />

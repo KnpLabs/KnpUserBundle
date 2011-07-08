@@ -81,23 +81,19 @@ class FOSUserExtension extends Extension
         if (!empty($config['profile'])) {
             $loader->load('profile.xml');
 
-            $container->setParameter('fos_user.profile.form.validation_groups', $config['profile']['form']['validation_groups']);
-            unset($config['profile']['form']['validation_groups']);
-            $container->setParameter('fos_user.profile.form.name', $config['profile']['form']['name']);
-            unset($config['profile']['form']['name']);
+            $container->setAlias('fos_user.profile.form.handler', $config['profile']['form']['handler']);
+            unset($config['profile']['form']['handler']);
 
             $this->remapParametersNamespaces($config['profile'], $container, array(
-                'form' => 'fos_user.profile.form.%s.class',
+                'form' => 'fos_user.profile.form.%s',
             ));
         }
 
         if (!empty($config['registration'])) {
             $loader->load('registration.xml');
 
-            $container->setParameter('fos_user.registration.form.validation_groups', $config['registration']['form']['validation_groups']);
-            unset($config['registration']['form']['validation_groups']);
-            $container->setParameter('fos_user.registration.form.name', $config['registration']['form']['name']);
-            unset($config['registration']['form']['name']);
+            $container->setAlias('fos_user.registration.form.handler', $config['registration']['form']['handler']);
+            unset($config['registration']['form']['handler']);
 
             if (!empty($config['registration']['confirmation']['from_email'])) {
                 $container->setParameter(
@@ -109,30 +105,26 @@ class FOSUserExtension extends Extension
 
             $this->remapParametersNamespaces($config['registration'], $container, array(
                 'confirmation' => 'fos_user.registration.confirmation.%s',
-                'form' => 'fos_user.registration.form.%s.class',
+                'form' => 'fos_user.registration.form.%s',
             ));
         }
 
         if (!empty($config['change_password'])) {
             $loader->load('change_password.xml');
 
-            $container->setParameter('fos_user.change_password.form.validation_groups', $config['change_password']['form']['validation_groups']);
-            unset($config['change_password']['form']['validation_groups']);
-            $container->setParameter('fos_user.change_password.form.name', $config['change_password']['form']['name']);
-            unset($config['change_password']['form']['name']);
+            $container->setAlias('fos_user.change_password.form.handler', $config['change_password']['form']['handler']);
+            unset($config['change_password']['form']['handler']);
 
             $this->remapParametersNamespaces($config['change_password'], $container, array(
-                'form' => 'fos_user.change_password.form.%s.class',
+                'form' => 'fos_user.change_password.form.%s',
             ));
         }
 
         if (!empty($config['resetting'])) {
             $loader->load('resetting.xml');
 
-            $container->setParameter('fos_user.resetting.form.validation_groups', $config['resetting']['form']['validation_groups']);
-            unset($config['resetting']['form']['validation_groups']);
-            $container->setParameter('fos_user.resetting.form.name', $config['resetting']['form']['name']);
-            unset($config['resetting']['form']['name']);
+            $container->setAlias('fos_user.resetting.form.handler', $config['resetting']['form']['handler']);
+            unset($config['resetting']['form']['handler']);
 
             if (!empty($config['resetting']['email']['from_email'])) {
                 $container->setParameter(
@@ -147,7 +139,7 @@ class FOSUserExtension extends Extension
                     'token_ttl' => 'fos_user.resetting.token_ttl',
                 ),
                 'email' => 'fos_user.resetting.email.%s',
-                'form' => 'fos_user.resetting.form.%s.class',
+                'form' => 'fos_user.resetting.form.%s',
             ));
         }
 
@@ -155,16 +147,14 @@ class FOSUserExtension extends Extension
             $loader->load('group.xml');
             $loader->load(sprintf('%s_group.xml', $config['db_driver']));
 
-            $container->setParameter('fos_user.form.group.validation_groups', $config['group']['form']['validation_groups']);
-            unset($config['group']['form']['validation_groups']);
-            $container->setParameter('fos_user.form.group.name', $config['group']['form']['name']);
-            unset($config['group']['form']['name']);
+            $container->setAlias('fos_user.group.form.handler', $config['group']['form']['handler']);
+            unset($config['group']['form']['handler']);
 
             $this->remapParametersNamespaces($config['group'], $container, array(
                 '' => array(
                     'group_class' => 'fos_user.model.group.class',
                 ),
-                'form' => 'fos_user.form.%s.group.class',
+                'form' => 'fos_user.group.form.%s',
             ));
         }
     }

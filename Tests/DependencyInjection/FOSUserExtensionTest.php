@@ -148,21 +148,21 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertParameter('FOS\UserBundle\Form\Type\ProfileFormType', 'fos_user.profile.form.type.class');
-        $this->assertParameter('FOS\UserBundle\Form\Type\RegistrationFormType', 'fos_user.registration.form.type.class');
-        $this->assertParameter('FOS\UserBundle\Form\Type\ChangePasswordFormType', 'fos_user.change_password.form.type.class');
-        $this->assertParameter('FOS\UserBundle\Form\Type\ResettingFormType', 'fos_user.resetting.form.type.class');
+        $this->assertParameter('fos_user_profile', 'fos_user.profile.form.type');
+        $this->assertParameter('fos_user_registration', 'fos_user.registration.form.type');
+        $this->assertParameter('fos_user_change_password', 'fos_user.change_password.form.type');
+        $this->assertParameter('fos_user_resetting', 'fos_user.resetting.form.type');
     }
 
     public function testUserLoadFormClass()
     {
         $this->createFullConfiguration();
 
-        $this->assertParameter('Acme\MyBundle\Form\ProfileFormType', 'fos_user.profile.form.type.class');
-        $this->assertParameter('Acme\MyBundle\Form\RegistrationFormType', 'fos_user.registration.form.type.class');
-        $this->assertParameter('Acme\MyBundle\Form\GroupFormType', 'fos_user.form.type.group.class');
-        $this->assertParameter('Acme\MyBundle\Form\ChangePasswordFormType', 'fos_user.change_password.form.type.class');
-        $this->assertParameter('Acme\MyBundle\Form\ResettingFormType', 'fos_user.resetting.form.type.class');
+        $this->assertParameter('acme_my_profile', 'fos_user.profile.form.type');
+        $this->assertParameter('acme_my_registration', 'fos_user.registration.form.type');
+        $this->assertParameter('acme_my_group', 'fos_user.group.form.type');
+        $this->assertParameter('acme_my_change_password', 'fos_user.change_password.form.type');
+        $this->assertParameter('acme_my_resetting', 'fos_user.resetting.form.type');
     }
 
     public function testUserLoadFormNameWithDefaults()
@@ -181,7 +181,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertParameter('acme_profile_form', 'fos_user.profile.form.name');
         $this->assertParameter('acme_registration_form', 'fos_user.registration.form.name');
-        $this->assertParameter('acme_group_form', 'fos_user.form.group.name');
+        $this->assertParameter('acme_group_form', 'fos_user.group.form.name');
         $this->assertParameter('acme_change_password_form', 'fos_user.change_password.form.name');
         $this->assertParameter('acme_resetting_form', 'fos_user.resetting.form.name');
     }
@@ -192,7 +192,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertHasDefinition('fos_user.profile.form');
         $this->assertHasDefinition('fos_user.registration.form');
-        $this->assertNotHasDefinition('fos_user.form.group');
+        $this->assertNotHasDefinition('fos_user.group.form');
         $this->assertHasDefinition('fos_user.change_password.form');
         $this->assertHasDefinition('fos_user.resetting.form');
     }
@@ -203,7 +203,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertHasDefinition('fos_user.profile.form');
         $this->assertHasDefinition('fos_user.registration.form');
-        $this->assertHasDefinition('fos_user.form.group');
+        $this->assertHasDefinition('fos_user.group.form');
         $this->assertHasDefinition('fos_user.change_password.form');
         $this->assertHasDefinition('fos_user.resetting.form');
     }
@@ -337,14 +337,14 @@ from_email:
     sender_name: Acme Corp
 profile:
     form:
-        type: Acme\MyBundle\Form\ProfileFormType
-        handler: Acme\MyBundle\Form\ProfileFormHandler
+        type: acme_my_profile
+        handler: acme_my.form.handler.profile
         name: acme_profile_form
         validation_groups: [acme_profile]
 change_password:
     form:
-        type: Acme\MyBundle\Form\ChangePasswordFormType
-        handler: Acme\MyBundle\Form\ChangePasswordFormHandler
+        type: acme_my_change_password
+        handler: acme_my.form.handler.change_password
         name: acme_change_password_form
         validation_groups: [acme_change_password]
 registration:
@@ -355,8 +355,8 @@ registration:
         enabled: true
         template: AcmeMyBundle:Registration:mail.txt.twig
     form:
-        type: Acme\MyBundle\Form\RegistrationFormType
-        handler: Acme\MyBundle\Form\RegistrationFormHandler
+        type: acme_my_registration
+        handler: acme_my.form.handler.registration
         name: acme_registration_form
         validation_groups: [acme_registration]
 resetting:
@@ -367,8 +367,8 @@ resetting:
             sender_name: Acme Corp
         template: AcmeMyBundle:Resetting:mail.txt.twig
     form:
-        type: Acme\MyBundle\Form\ResettingFormType
-        handler: Acme\MyBundle\Form\ResettingFormHandler
+        type: acme_my_resetting
+        handler: acme_my.form.handler.resetting
         name: acme_resetting_form
         validation_groups: [acme_resetting]
 service:
@@ -386,8 +386,8 @@ template:
 group:
     group_class: Acme\MyBundle\Entity\Group
     form:
-        type: Acme\MyBundle\Form\GroupFormType
-        handler: Acme\MyBundle\Form\GroupHandler
+        type: acme_my_group
+        handler: acme_my.form.handler.group
         name: acme_group_form
         validation_groups: [acme_group]
 EOF;
