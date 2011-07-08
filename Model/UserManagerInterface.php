@@ -38,7 +38,6 @@ interface UserManagerInterface
     /**
      * Deletes a user.
      *
-     * @extra:SecureParam(name="user", permissions="DELETE")
      * @param UserInterface $user
      */
     function deleteUser(UserInterface $user);
@@ -46,7 +45,6 @@ interface UserManagerInterface
     /**
      * Finds one user by the given criteria.
      *
-     * @extra:SecureReturn(permissions="VIEW")
      * @param array $criteria
      * @return UserInterface
      */
@@ -78,6 +76,7 @@ interface UserManagerInterface
 
     /**
      * Finds a user by its confirmationToken.
+     *
      * @param string  $token
      * @return UserInterface or null if user does not exist
      */
@@ -100,7 +99,6 @@ interface UserManagerInterface
     /**
      * Reloads a user.
      *
-     * @extra:SecureParam(permissions="VIEW")
      * @param UserInterface $user
      */
     function reloadUser(UserInterface $user);
@@ -108,7 +106,6 @@ interface UserManagerInterface
     /**
      * Updates a user.
      *
-     * @extra:SecureParam(name="user", permissions="EDIT")
      * @param UserInterface $user
      */
     function updateUser(UserInterface $user);
@@ -116,7 +113,6 @@ interface UserManagerInterface
     /**
      * Updates the canonical username and email fields for a user.
      *
-     * @extra:SecureParam(name="user", permissions="EDIT")
      * @param UserInterface $user
      */
     function updateCanonicalFields(UserInterface $user);
@@ -124,7 +120,6 @@ interface UserManagerInterface
     /**
      * Updates a user password if a plain password is set.
      *
-     * @extra:SecureParam(name="user", permissions="EDIT")
      * @param UserInterface $user
      */
     function updatePassword(UserInterface $user);

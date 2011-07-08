@@ -55,9 +55,6 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $cliToken = new UsernamePasswordToken('command.line', null, $this->getContainer()->getParameter('fos_user.firewall_name'), array(User::ROLE_SUPER_ADMIN));
-        $this->getContainer()->get('security.context')->setToken($cliToken);
-
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
 

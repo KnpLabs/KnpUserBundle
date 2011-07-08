@@ -69,9 +69,6 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $cliToken = new UsernamePasswordToken('command.line', null, $this->getContainer()->getParameter('fos_user.firewall_name'), array(User::ROLE_SUPER_ADMIN));
-        $this->getContainer()->get('security.context')->setToken($cliToken);
-
         $username   = $input->getArgument('username');
         $email      = $input->getArgument('email');
         $password   = $input->getArgument('password');
@@ -79,8 +76,7 @@ EOT
         $superadmin = $input->getOption('super-admin');
 
         $manipulator = $this->getContainer()->get('fos_user.util.user_manipulator');
-        $user = $manipulator->create($username, $password, $email, !$inactive, $superadmin);
-        $this->getContainer()->get('fos_user.util.ace_manager')->createUserAce($user);
+        $manipulator->create($username, $password, $email, !$inactive, $superadmin);
 
         $output->writeln(sprintf('Created user <comment>%s</comment>', $username));
     }

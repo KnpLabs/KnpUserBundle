@@ -44,8 +44,6 @@ class RegistrationController extends ContainerAware
                 $route = 'fos_user_registration_confirmed';
             }
 
-            $this->container->get('fos_user.util.ace_manager')->createUserAce($user);
-
             $this->setFlash('fos_user_registration_created', 'success');
             $url = $this->container->get('router')->generate($route);
 

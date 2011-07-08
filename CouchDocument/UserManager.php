@@ -3,7 +3,6 @@
 namespace FOS\UserBundle\CouchDocument;
 
 use Doctrine\ODM\CouchDB\DocumentManager;
-use Doctrine\ODM\CouchDB\Proxy\Proxy;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManager as BaseUserManager;
 use FOS\UserBundle\Util\CanonicalizerInterface;
@@ -82,7 +81,6 @@ class UserManager extends BaseUserManager
     /**
      * Updates a user.
      *
-     * @extra:SecureParam(name="user", permissions="EDIT")
      * @param UserInterface $user
      * @param Boolean $andFlush Whether to flush the changes (default true)
      */
@@ -105,7 +103,7 @@ class UserManager extends BaseUserManager
         // for now unique checks are not implemented in Doctrine CouchDB yet
         return true;
     }
-    
+
     public function reloadUser(UserInterface $user)
     {
         $this->dm->refresh($user);
