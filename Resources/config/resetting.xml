@@ -11,7 +11,7 @@
             <argument>%fos_user.resetting.form.name%</argument>
             <argument />
             <argument type="collection">
-                <argument key="data_class">FOS\UserBundle\Form\ResetPassword</argument>
+                <argument key="data_class">FOS\UserBundle\Form\Model\ResetPassword</argument>
                 <argument key="validation_groups">%fos_user.resetting.form.validation_groups%</argument>
             </argument>
         </service>

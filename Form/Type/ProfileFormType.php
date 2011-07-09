@@ -16,9 +16,19 @@ use Symfony\Component\Form\FormBuilder;
 
 class ProfileFormType extends AbstractType
 {
+    private $class;
+
+    /**
+     * @param string $class The User class name
+     */
+    public function __construct($class)
+    {
+        $this->class = $class;
+    }
+
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $child = $builder->create('user', 'form');
+        $child = $builder->create('user', 'form', array('data_class' => $this->class));
         $this->buildUserForm($child, $options);
 
         $builder
