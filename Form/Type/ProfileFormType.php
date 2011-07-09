@@ -18,11 +18,9 @@ class ProfileFormType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $child = $builder
-            ->create('user', 'form')
-            ->add('username')
-            ->add('email')
-        ;
+        $child = $builder->create('user', 'form');
+        $this->buildUserForm($child, $options);
+
         $builder
             ->add($child)
             ->add('current', 'password')
@@ -32,5 +30,19 @@ class ProfileFormType extends AbstractType
     public function getName()
     {
         return 'fos_user_profile';
+    }
+
+    /**
+     * Builds the embedded form representing the user.
+     *
+     * @param FormBuilder $builder
+     * @param array $options
+     */
+    protected function buildUserForm(FormBuilder $builder, array $options)
+    {
+        $builder
+            ->add('username')
+            ->add('email')
+        ;
     }
 }
