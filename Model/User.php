@@ -26,7 +26,7 @@ use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
  */
 abstract class User implements UserInterface
 {
-    const ROLE_DEFAULT    = 'ROLE_USER';
+    const ROLE_DEFAULT = 'ROLE_USER';
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     protected $id;
@@ -157,6 +157,11 @@ abstract class User implements UserInterface
         $this->credentialsExpired = false;
     }
 
+    /**
+     * Adds a role to the user.
+     *
+     * @param string $role
+     */
     public function addRole($role)
     {
         $role = strtoupper($role);
@@ -172,8 +177,8 @@ abstract class User implements UserInterface
     /**
      * Implementation of SecurityUserInterface.
      *
-     * @param SecurityUserInterface $account
-     * @return boolean
+     * @param SecurityUserInterface $user
+     * @return Boolean
      */
     public function equals(SecurityUserInterface $user)
     {
@@ -294,6 +299,11 @@ abstract class User implements UserInterface
         return $this->salt;
     }
 
+    /**
+     * Gets the algorithm used to encode the password.
+     *
+     * @return string
+     */
     public function getAlgorithm()
     {
         return $this->algorithm;
@@ -330,6 +340,11 @@ abstract class User implements UserInterface
         return $this->password;
     }
 
+    /**
+     * Gets the plain password.
+     *
+     * @return string
+     */
     public function getPlainPassword()
     {
         return $this->plainPassword;
@@ -352,6 +367,8 @@ abstract class User implements UserInterface
     }
 
     /**
+     * Gets the last login time.
+     *
      * @return \DateTime
      */
     public function getLastLogin()
@@ -375,7 +392,7 @@ abstract class User implements UserInterface
      * Implements SecurityUserInterface
      *
      * @return array The roles
-     **/
+     */
     public function getRoles()
     {
         $roles = $this->roles;
@@ -492,7 +509,7 @@ abstract class User implements UserInterface
      */
     public function isSuperAdmin()
     {
-       return $this->hasRole(self::ROLE_SUPER_ADMIN);
+        return $this->hasRole(self::ROLE_SUPER_ADMIN);
     }
 
     /**
@@ -521,6 +538,11 @@ abstract class User implements UserInterface
         $this->updatedAt = new \DateTime();
     }
 
+    /**
+     * Removes a role to the user.
+     *
+     * @param string $role
+     */
     public function removeRole($role)
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
@@ -549,6 +571,11 @@ abstract class User implements UserInterface
         $this->usernameCanonical = $usernameCanonical;
     }
 
+    /**
+     * Sets the algorithm
+     *
+     * @param string $algorithm
+     */
     public function setAlgorithm($algorithm)
     {
         $this->algorithm = $algorithm;
@@ -589,7 +616,7 @@ abstract class User implements UserInterface
      */
     public function setEnabled($boolean)
     {
-        $this->enabled = (Boolean)$boolean;
+        $this->enabled = (Boolean) $boolean;
     }
 
     /**
@@ -599,7 +626,7 @@ abstract class User implements UserInterface
      */
     public function setExpired($boolean)
     {
-        $this->expired = (Boolean)$boolean;
+        $this->expired = (Boolean) $boolean;
     }
 
     public function setExpiresAt(\DateTime $date)
@@ -631,12 +658,19 @@ abstract class User implements UserInterface
         }
     }
 
+    /**
+     * Sets the plain password.
+     *
+     * @param string $password
+     */
     public function setPlainPassword($password)
     {
         $this->plainPassword = $password;
     }
 
     /**
+     * Sets the last login time
+     *
      * @param \DateTime $time
      */
     public function setLastLogin(\DateTime $time)
@@ -644,6 +678,11 @@ abstract class User implements UserInterface
         $this->lastLogin = $time;
     }
 
+    /**
+     * Sets the locking status of the user.
+     *
+     * @param Boolean $boolean
+     */
     public function setLocked($boolean)
     {
         $this->locked = $boolean;
@@ -683,7 +722,7 @@ abstract class User implements UserInterface
      * Checks whether the password reset request has expired.
      *
      * @param integer $ttl Requests older than this many seconds will be considered expired
-     * @return Boolean true if the users's password request is non expired, false otherwise
+     * @return Boolean true if the user's password request is non expired, false otherwise
      */
     public function isPasswordRequestNonExpired($ttl)
     {
@@ -701,9 +740,16 @@ abstract class User implements UserInterface
         }
     }
 
+    /**
+     * Sets the roles of the user.
+     *
+     * This overwrites any previous roles.
+     *
+     * @param array $roles
+     */
     public function setRoles(array $roles)
     {
-          $this->roles = array();
+        $this->roles = array();
 
         foreach ($roles as $role) {
             $this->addRole($role);
@@ -750,7 +796,7 @@ abstract class User implements UserInterface
      * Add a group to the user groups.
      *
      * @param GroupInterface $group
-     **/
+     */
     public function addGroup(GroupInterface $group)
     {
         if (!$this->getGroups()->contains($group)) {
@@ -762,7 +808,7 @@ abstract class User implements UserInterface
      * Remove a group from the user groups.
      *
      * @param GroupInterface $group
-     **/
+     */
     public function removeGroup(GroupInterface $group)
     {
         if ($this->getGroups()->contains($group)) {
@@ -777,6 +823,8 @@ abstract class User implements UserInterface
 
     /**
      * Generates a token.
+     *
+     * @return string
      */
     protected function generateToken()
     {
