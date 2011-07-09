@@ -29,22 +29,22 @@ class ChangePasswordCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('fos:user:changePassword')
+            ->setName('fos:user:change-password')
             ->setDescription('Change the password of a user.')
             ->setDefinition(array(
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
                 new InputArgument('password', InputArgument::REQUIRED, 'The password'),
             ))
             ->setHelp(<<<EOT
-The <info>fos:user:changePassword</info> command changes the password of a user:
+The <info>fos:user:change-password</info> command changes the password of a user:
 
-  <info>php app/console fos:user:changePassword matthieu</info>
+  <info>php app/console fos:user:change-password matthieu</info>
 
 This interactive shell will first ask you for a password.
 
 You can alternatively specify the password as a second argument:
 
-  <info>php app/console fos:user:changePassword matthieu mypassword</info>
+  <info>php app/console fos:user:change-password matthieu mypassword</info>
 
 EOT
             );

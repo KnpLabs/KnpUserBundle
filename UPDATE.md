@@ -6,6 +6,8 @@ the next one. It only discusses changes that need to be done when using
 the "public" API of the bundle. If you "hack" the core, you should probably
 follow the timeline closely anyway.
 
+* The `fos:user:changePassword` command has been renamed to `fos:user:change-password`.
+
 * The way to configure the forms has been refactored to give more flexibility:
 
     * The configuration of the type now accepts the name of the type. You can
