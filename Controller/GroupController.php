@@ -50,8 +50,8 @@ class GroupController extends ContainerAware
     public function editAction($groupname)
     {
         $group = $this->findGroupBy('name', $groupname);
-        $form = $this->container->get('fos_user.form.group');
-        $formHandler = $this->container->get('fos_user.form.handler.group');
+        $form = $this->container->get('fos_user.group.form');
+        $formHandler = $this->container->get('fos_user.group.form.handler');
 
         $process = $formHandler->process($group);
         if ($process) {
@@ -73,8 +73,8 @@ class GroupController extends ContainerAware
      */
     public function newAction()
     {
-        $form = $this->container->get('fos_user.form.group');
-        $formHandler = $this->container->get('fos_user.form.handler.group');
+        $form = $this->container->get('fos_user.group.form');
+        $formHandler = $this->container->get('fos_user.group.form.handler');
 
         $process = $formHandler->process();
         if ($process) {
