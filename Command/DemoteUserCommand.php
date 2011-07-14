@@ -60,6 +60,10 @@ EOT
             throw new \InvalidArgumentException('You can pass either the role or the --super option (but not both simultaneously).');
         }
 
+        if (null === $role && !$super) {
+            throw new \RuntimeException('Not enough arguments.');
+        }
+
         $manipulator = $this->getContainer()->get('fos_user.util.user_manipulator');
         if ($super) {
             $manipulator->demote($username);
