@@ -854,7 +854,7 @@ All available configuration options are listed below with their default values::
         firewall_name:  ~ # Required
         user_class:     ~ # Required
         use_listener:   true
-        use_username_form_type: true
+        use_username_form_type: false
         from_email:
             address:        webmaster@example.com
             sender_name:    Admin

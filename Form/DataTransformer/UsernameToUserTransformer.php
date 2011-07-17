@@ -36,7 +36,7 @@ class UsernameToUserTransformer implements DataTransformerInterface
             return null;
         }
         if (!$value instanceof UserInterface) {
-            throw new UnexpectedTypeException($value, 'UserInterface');
+            throw new UnexpectedTypeException($value, 'FOS\UserBundle\Model\UserInterface');
         }
 
         return $value->getUsername();
