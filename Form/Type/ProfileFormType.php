@@ -52,7 +52,7 @@ class ProfileFormType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('email')
+            ->add('email', 'email')
         ;
     }
 }
