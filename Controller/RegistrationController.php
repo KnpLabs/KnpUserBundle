@@ -105,11 +105,8 @@ class RegistrationController extends ContainerAware
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $targetUrl = $this->container->get('request')->getSession()->get('_security.target_path');
-
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:confirmed.html.'.$this->getEngine(), array(
             'user' => $user,
-            'targetUrl' => $targetUrl,
         ));
     }
 
