@@ -156,6 +156,7 @@ class UserManipulator
         }
         $user->addRole($role);
         $this->userManager->updateUser($user);
+        
         return true;
     }
     /**
@@ -177,6 +178,7 @@ class UserManipulator
         }
         $user->removeRole($role);
         $this->userManager->updateUser($user);
+        
         return true;
     }
     
