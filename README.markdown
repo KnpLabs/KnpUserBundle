@@ -1,23 +1,31 @@
-**Caution:** This bundles is developed in sync with [symfony's repository](https://github.com/symfony/symfony)
+FOSUserBundle
+=============
 
-FOSUserBundle provides user persistence for your Symfony2 Project.
+The FOSUserBundle adds support for a database-backed user system in Symfony2.
+It provides a flexible framework for user management that aims to handle
+common tasks such as user login, registration and forgot password.
 
-Features
-========
+Features include:
 
-- Compatible with Doctrine ORM, MongoDB and CouchDB ODM thanks to a generic repository.
-- Model is extensible at will
+- Users can be stored via Doctrine ORM, MongoDB or CouchDB ODM
 - REST-ful authentication
-- Unit tested tested
+- Registration and password reset support
+- Unit tested
+
+**Caution:** This bundles is developed in sync with [symfony's repository](https://github.com/symfony/symfony)
 
 Documentation
 -------------
 
-The documentation is available in the bundle:
+The bulk of the documentation is stored in the `Resources/doc/index.rst`
+file in this bundle:
 
-    Resources/doc/index.rst
+[Read the Documentation](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.rst)
 
-See on github: https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.rst
+Installation
+------------
+
+All the installation instructions are located in [documentation](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.rst).
 
 License
 -------

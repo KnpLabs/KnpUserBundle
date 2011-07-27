@@ -1,200 +1,224 @@
-Provides user persistence for your Symfony2 Project.
+FOSUserBundle Documentation
+===========================
 
-Features
-========
+The Symfony2 security component provides a flexible security framework that
+allows you to load users from configuration, a database, or anywhere else
+you can imagine. The FOSUserBundle builds on top of this to make it quick
+and easy to store users in a database.
 
-- Compatible with Doctrine ORM, MongoDB and CouchDB ODM thanks to a generic repository.
-- Model is extensible at will
-- REST-ful authentication
-- Unit tested tested
+So, if you need to persist and fetch the users in your system to and from
+a database, then you're in the right place.
 
-Warning
-=======
+## Installation
 
-The core SecurityBundle is required to use this bundle.
 
-The supplied Controller and routing configuration files expose as much functionality
-as possible to illustrate how to use the Bundle. However using these exposes
-a lot of functionality which requires additional configuration to secure
-properly (for example delete, list etc). As such its not recommended to
-ever go into production while using one of the default routing configuration
-files.
+Installation is a quick (I promise) 5 step process:
 
-Furthermore it may be necessary to extend or even replace the default Controllers
-with custom code to achieve the exact desired behavior. Trying to cover
-every possible use case is not feasible as it would complicate the Bundle
-to the point of being unmaintainable and impossible to comprehend in a reasonable
-amount of time.
+1. Download FOSUserBundle
+2. Configure the Autoloader
+3. Enable the Bundle
+4. Create your User class
+5. Configure your application
 
-Installation
-============
+### Step 1: Download FOSUserBundle
 
-Add FOSUserBundle to your vendor/bundles/ dir
----------------------------------------------
+Ultimately, the FOSUserBundle files should be downloaded to the `vendor/bundles/FOS/UserBundle`
+directory.
 
-Using the vendors script
-~~~~~~~~~~~~~~~~~~~~~~~~
+This can be done in several ways, depending on your preference. The first
+method is the standard Symfony method for doing this
 
-Add the following lines in your ``deps`` file::
+**Using the vendors script**
+
+Add the following lines in your `deps` file:
 
     [FOSUserBundle]
         git=git://github.com/FriendsOfSymfony/FOSUserBundle.git
         target=bundles/FOS/UserBundle
 
-Run the vendors script::
+Now, run the vendors script to download the bundle:
 
-    ./bin/vendors install
+    php bin/vendors install
 
-Using submodules
-~~~~~~~~~~~~~~~~
+**Using submodules**
 
-::
+If you prefer instead to use git submodules, the run the following:
 
-    $ git submodule add git://github.com/FriendsOfSymfony/FOSUserBundle.git vendor/bundles/FOS/UserBundle
+``` bash
+$ git submodule add git://github.com/FriendsOfSymfony/FOSUserBundle.git vendor/bundles/FOS/UserBundle
+$ git submodule update --init
+```
 
-Add the FOS namespace to your autoloader
-----------------------------------------
+### Step 2: Configure the Autoloader
 
-::
+Add the `FOS` namespace to your autoloader:
 
-    // app/autoload.php
-    $loader->registerNamespaces(array(
-        'FOS' => __DIR__.'/../vendor/bundles',
-        // your other namespaces
+``` php
+<?php
+// app/autoload.php
+
+$loader->registerNamespaces(array(
+    // ...
+
+    'FOS' => __DIR__.'/../vendor/bundles',
+));
+```
+
+### Step3: Enable the bundle
+
+Finally, enable the bundle in the kernel:
+
+``` php
+<?php
+// app/AppKernel.php
+
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+
+        new FOS\UserBundle\FOSUserBundle(),
     );
+}
+```
 
-Add UserBundle to your application kernel
------------------------------------------
+### Step4: Create your User class
 
-::
+The goal of this bundle is to persist some `User` class to a database (MySql,
+MongoDB, CouchDB, etc). Your first job, then, is to create the `User` class
+for your application. This class can look and act however you want: add any
+properties or methods you find useful. This is *your* `User` class.
 
-    // app/AppKernel.php
+This class has just two requirements, which allow it to take advantage of
+all of the functionality in the FOSUserBundle:
 
-    public function registerBundles()
-    {
-        return array(
-            new Symfony\Bundle\SecurityBundle\SecurityBundle(),
-            // ...
-            new FOS\UserBundle\FOSUserBundle(),
-            // ...
-        );
-    }
+1. It must extend one of the base `User` classes from the bundle
+2. It must have an `id` field
 
-Create your User class
-----------------------
+In the following sections, you'll see examples of how your `User` class should
+look, depending on how you're storing your users (Doctrine ORM, MongoDB ODM,
+or CouchDB ODM).
 
-You must create a User class that extends either the entity or document abstract
-User class in UserBundle.  All fields on the base class are mapped, except for
-``id``; this is intentional, so you can select the generator that best suits
-your application. Feel free to add additional properties and methods to your
-custom class.
+Your `User` class can live inside any bundle in your application. For example,
+if you work at "Acme" company, then you might create a bundle called `AcmeUserBundle`
+and place your `User` class in it.
 
 .. warning::
 
-    Take care to call the parent constructor when you overwrite it in your own
-    entity as it initializes some fields.
+    If you override the `__construct()` method in your `User` class, be sure
+    to call `parent::__construct()`, as the base `User` class depends on
+    this to initialize some fields.
 
-ORM User class
-~~~~~~~~~~~~~~
+**a) Doctrine ORM User class**
 
-::
+If you're persisting your users via the Doctrine ORM, then your `User` class
+should live in the `Entity` namespace of your bundle and look like this to
+start:
 
-    // src/MyProject/MyBundle/Entity/User.php
+``` php
+<?php
+// src/Acme/UserBundle/Entity/User.php
 
-    <?php
-    namespace MyProject\MyBundle\Entity;
-    use FOS\UserBundle\Entity\User as BaseUser;
-    use Doctrine\ORM\Mapping as ORM;
+namespace Acme\UserBundle\Entity;
+use FOS\UserBundle\Entity\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
+ */
+class User extends BaseUser
+{
     /**
-     * @ORM\Entity
-     * @ORM\Table(name="fos_user")
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    class User extends BaseUser
+    protected $id;
+
+    public function __construct()
     {
-        /**
-         * @ORM\Id
-         * @ORM\Column(type="integer")
-         * @ORM\GeneratedValue(strategy="AUTO")
-         */
-        protected $id;
-
-        public function __construct()
-        {
-            parent::__construct();
-            // your own logic
-        }
+        parent::__construct();
+        // your own logic
     }
+}
+```
 
-.. note::
+**Note**: `User` is a reserved keyword in SQL so you cannot use it as table name.
 
-    ``User`` is a reserved keyword in SQL so you cannot use it as table name.
+**b) MongoDB User class**
 
-MongoDB User class
-~~~~~~~~~~~~~~~~~~
+If you're persisting your users via the Doctrine MongoDB ODM, then your `User`
+class should live in the `Document` namespace of your bundle and look like
+this to start:
 
-::
+``` php
+<?php
+// src/Acme/UserBundle/Document/User.php
 
-    // src/MyProject/MyBundle/Document/User.php
+namespace Acme\UserBundle\Document;
+use FOS\UserBundle\Document\User as BaseUser;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
-    <?php
-    namespace MyProject\MyBundle\Document;
-    use FOS\UserBundle\Document\User as BaseUser;
-    use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+/**
+ * @MongoDB\Document
+ */
+class User extends BaseUser
+{
+    /** @MongoDB\Id(strategy="auto") */
+    protected $id;
 
-    /**
-     * @MongoDB\Document
-     */
-    class User extends BaseUser
+    public function __construct()
     {
-        /** @MongoDB\Id(strategy="auto") */
-        protected $id;
-
-        public function __construct()
-        {
-            parent::__construct();
-            // your own logic
-        }
+        parent::__construct();
+        // your own logic
     }
+}
+```
 
-CouchDB User class
-~~~~~~~~~~~~~~~~~~
+**c) CouchDB User class**
 
-::
+If you're persisting your users via the Doctrine CouchDB ODM, then your `User`
+class should live in the `Document` namespace of your bundle and look like
+this to start:
 
-    // src/MyProject/MyBundle/Document/User.php
+``` php
+<?php
+// src/Acme/UserBundle/Document/User.php
 
-    namespace MyProject\MyBundle\Document;
-    use FOS\UserBundle\Document\User as BaseUser;
-    use Doctrine\ODM\CouchDB\Mapping as CouchDB;
+namespace Acme\UserBundle\Document;
+use FOS\UserBundle\Document\User as BaseUser;
+use Doctrine\ODM\CouchDB\Mapping as CouchDB;
 
-    /**
-     * @CouchDB\Document
-     */
-    class User extends BaseUser
+/**
+ * @CouchDB\Document
+ */
+class User extends BaseUser
+{
+    /** @CouchDB\Id */
+    protected $id;
+
+    public function __construct()
     {
-        /** @CouchDB\Id */
-        protected $id;
-
-        public function __construct()
-        {
-            parent::__construct();
-            // your own logic
-        }
+        parent::__construct();
+        // your own logic
     }
+}
+```
 
-Configure your project
-----------------------
+### Step 5: Configure your project
+
+Now that you've activated the bundle and created your `User` class, the
+final step is to configure to work with the bundle.
+
+* Cover the import of the routes
+* Cover the security.yml setup, including with the user provider
+
+**Note**:
 
 The UserBundle works with the Symfony Security Component, so make sure that is
 enabled in your kernel and in your project's configuration. A working security
 configuration using FOSUserBundle is available at the end of the doc.
-
-.. note::
-
-    You need to activate SwiftmailerBundle to be able to use the functionalities
-    using emails (confirmation of the account, resetting of the password).
-    See the `Emails` section to know how using another mailer.
 
 The login form and all the routes used to create a user and reset the password
 have to be available to unauthenticated users but using the same firewall as
@@ -214,6 +238,12 @@ with the ``/resetting`` prefix they will be::
 
 The above example assumes an ORM configuration, but the ``mappings``
 configuration block would be the same for MongoDB ODM.
+
+.. note::
+
+    You need to activate SwiftmailerBundle to be able to use the functionalities
+    using emails (confirmation of the account, resetting of the password).
+    See the `Emails` section to know how using another mailer.
 
 Minimal configuration
 ---------------------
