@@ -16,12 +16,27 @@ use Symfony\Component\Form\FormBuilder;
 
 class RegistrationFormType extends AbstractType
 {
+    private $class;
+
+    /**
+     * @param string $class The User class name
+     */
+    public function __construct($class)
+    {
+        $this->class = $class;
+    }
+
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('username')
             ->add('email', 'email')
             ->add('plainPassword', 'repeated', array('type' => 'password'));
+    }
+
+    public function getDefaultOptions($options)
+    {
+        return array('data_class' => $this->class);
     }
 
     public function getName()

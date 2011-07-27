@@ -21,6 +21,11 @@ class ResettingFormType extends AbstractType
         $builder->add('new', 'repeated', array('type' => 'password'));
     }
 
+    public function getDefaultOptions($options)
+    {
+        return array('data_class' => 'FOS\UserBundle\Form\Model\ResetPassword');
+    }
+
     public function getName()
     {
         return 'fos_user_resetting';

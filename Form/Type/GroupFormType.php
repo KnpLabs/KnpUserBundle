@@ -16,9 +16,24 @@ use Symfony\Component\Form\FormBuilder;
 
 class GroupFormType extends AbstractType
 {
+    private $class;
+
+    /**
+     * @param string $class The Group class name
+     */
+    public function __construct($class)
+    {
+        $this->class = $class;
+    }
+
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('name');
+    }
+
+    public function getDefaultOptions($options)
+    {
+        return array('data_class' => $this->class);
     }
 
     public function getName()

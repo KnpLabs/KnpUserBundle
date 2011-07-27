@@ -11,7 +11,6 @@
             <argument>%fos_user.profile.form.name%</argument>
             <argument />
             <argument type="collection">
-                <argument key="data_class">FOS\UserBundle\Form\Model\CheckPassword</argument>
                 <argument key="validation_groups">%fos_user.profile.form.validation_groups%</argument>
             </argument>
         </service>
