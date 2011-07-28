@@ -370,10 +370,8 @@ For a verbose bundle configuration reference, please see the section titled
 Now that you have activated and configured the bundle, all that is left to do is 
 import the `FOSUserBundle` routing files.
 
-**a) Import FOSUserBundle routing files**
-
-If you want ready to use login and logout pages, include the built-in
-routes:
+By importing the routing files you will have ready made pages for things such as 
+logging in, logging out, creating users, etc.
 
 In YAML:
 
@@ -412,7 +410,7 @@ Or if you prefer XML:
 
 The login form and all the routes used to create a user and reset the password
 have to be available to unauthenticated users but using the same firewall as
-the pages you want to securize with the bundle. Assuming you import the
+the pages you want to secure with the bundle. Assuming you imported the
 `registration.xml` routing file with the `/register` prefix and `resetting.xml`
 with the `/resetting` prefix they will be:
 
