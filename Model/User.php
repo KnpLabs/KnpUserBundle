@@ -15,7 +15,6 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
-use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
 
 /**
  * Storage agnostic user object
@@ -23,7 +22,7 @@ use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-abstract class User implements UserInterface
+abstract class User implements GroupAwareUserInterface
 {
     const ROLE_DEFAULT = 'ROLE_USER';
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
@@ -176,7 +175,7 @@ abstract class User implements UserInterface
     /**
      * Implementation of SecurityUserInterface.
      *
-     * @param SecurityUserInterface $user
+     * @param \Symfony\Component\Security\Core\User\UserInterface $user
      * @return Boolean
      */
     public function equals(SecurityUserInterface $user)
