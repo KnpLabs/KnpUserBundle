@@ -524,6 +524,7 @@ fos_user:
     firewall_name: main
     use_listener: false
     user_class: MyProject\MyBundle\Entity\User
+```
 
 Or if you prefer XML:
 
@@ -535,6 +536,7 @@ Or if you prefer XML:
     use-listener="false"
     user-class="MyProject\MyBundle\Entity\User"
 />
+```
 
 **Note:**
 
@@ -561,6 +563,7 @@ fos_user:
     user_class: MyProject\MyBundle\Entity\User
     group:
         group_class: MyProject\MyBundle\Entity\Group
+```
 
 Or if you prefer XML:
 
@@ -573,7 +576,7 @@ Or if you prefer XML:
 >
     <fos_user:group group-class model="MyProject\MyBundle\Entity\Group" />
 </fos_user:config>
-
+```
 ## The Group class
 
 The simpliest way to create a Group class is to extend the mapped superclass 
@@ -651,8 +654,9 @@ class Group extends BaseGroup
      */
     protected $id;
 }
+```
 
-## Defining the relation
+## Defining the User-Group relation
 
 The next step is to map the relation in your `User` class.
 
@@ -710,7 +714,9 @@ class User extends BaseUser
     /** @MongoDB\Id(strategy="auto") */
     protected $id;
 
-    /** @MongoDB\ReferenceMany(targetDocument="MyProject\MyBundle\Document\Group") */
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="MyProject\MyBundle\Document\Group")
+     */
     protected $groups;
 }
 ```
@@ -731,10 +737,14 @@ use Doctrine\ODM\CouchDB\Mapping as CouchDB;
  */
 class User extends BaseUser
 {
-    /** @CouchDB\Id */
+    /**
+     * @CouchDB\Id
+     */
     protected $id;
 
-    /** @CouchDB\ReferenceMany(targetDocument="MyProject\MyBundle\Document\Group") */
+    /**
+     * @CouchDB\ReferenceMany(targetDocument="MyProject\MyBundle\Document\Group")
+     */
     protected $groups;
 }
 ```
