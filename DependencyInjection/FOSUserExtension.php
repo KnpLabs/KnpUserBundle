@@ -178,7 +178,7 @@ class FOSUserExtension extends Extension
     protected function remapParameters(array $config, ContainerBuilder $container, array $map)
     {
         foreach ($map as $name => $paramName) {
-            if (isset($config[$name])) {
+            if (array_key_exists($name, $config)) {
                 $container->setParameter($paramName, $config[$name]);
             }
         }
@@ -188,7 +188,7 @@ class FOSUserExtension extends Extension
     {
         foreach ($namespaces as $ns => $map) {
             if ($ns) {
-                if (!isset($config[$ns])) {
+                if (!array_key_exists($ns, $config)) {
                     continue;
                 }
                 $namespaceConfig = $config[$ns];
@@ -199,9 +199,7 @@ class FOSUserExtension extends Extension
                 $this->remapParameters($namespaceConfig, $container, $map);
             } else {
                 foreach ($namespaceConfig as $name => $value) {
-                    if (null !== $value) {
-                        $container->setParameter(sprintf($map, $name), $value);
-                    }
+                    $container->setParameter(sprintf($map, $name), $value);
                 }
             }
         }
