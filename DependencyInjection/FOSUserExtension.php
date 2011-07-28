@@ -162,6 +162,7 @@ class FOSUserExtension extends Extension
             $loader->load('group.xml');
             $loader->load(sprintf('%s_group.xml', $config['db_driver']));
 
+            $container->setAlias('fos_user.group_manager', $config['group']['group_manager']);
             $container->setAlias('fos_user.group.form.handler', $config['group']['form']['handler']);
             unset($config['group']['form']['handler']);
 

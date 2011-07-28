@@ -247,6 +247,7 @@ class Configuration implements ConfigurationInterface
                     ->canBeUnset()
                     ->children()
                         ->scalarNode('group_class')->isRequired()->cannotBeEmpty()->end()
+                        ->scalarNode('group_manager')->defaultValue('fos_user.group_manager.default')->end()
                         ->arrayNode('form')
                             ->addDefaultsIfNotSet()
                             ->children()

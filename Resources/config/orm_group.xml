@@ -9,7 +9,7 @@
     </parameters>
 
     <services>
-        <service id="fos_user.group_manager" class="%fos_user.group_manager.class%">
+        <service id="fos_user.group_manager.default" class="%fos_user.group_manager.class%" public="false">
             <argument type="service" id="fos_user.entity_manager" />
             <argument>%fos_user.model.group.class%</argument>
         </service>
