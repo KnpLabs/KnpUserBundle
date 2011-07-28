@@ -85,16 +85,6 @@ abstract class User implements GroupAwareUserInterface
     /**
      * @var \DateTime
      */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime
-     */
-    protected $updatedAt;
-
-    /**
-     * @var \DateTime
-     */
     protected $lastLogin;
 
     /**
@@ -349,22 +339,6 @@ abstract class User implements GroupAwareUserInterface
     }
 
     /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
      * Gets the last login time.
      *
      * @return \DateTime
@@ -521,19 +495,6 @@ abstract class User implements GroupAwareUserInterface
     public function isUser(UserInterface $user = null)
     {
         return null !== $user && $this->getId() === $user->getId();
-    }
-
-    public function incrementCreatedAt()
-    {
-        if (null === $this->createdAt) {
-            $this->createdAt = new \DateTime();
-        }
-        $this->updatedAt = new \DateTime();
-    }
-
-    public function incrementUpdatedAt()
-    {
-        $this->updatedAt = new \DateTime();
     }
 
     /**
