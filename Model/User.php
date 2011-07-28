@@ -22,7 +22,7 @@ use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-abstract class User implements GroupAwareUserInterface
+abstract class User implements UserInterface, GroupableInterface
 {
     const ROLE_DEFAULT = 'ROLE_USER';
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';

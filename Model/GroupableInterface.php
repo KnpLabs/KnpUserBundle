@@ -16,7 +16,7 @@ namespace FOS\UserBundle\Model;
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  * @author Christophe Coevoet <stof@notk.org>
  */
-interface GroupAwareUserInterface extends UserInterface
+interface GroupableInterface
 {
     /**
      * Gets the groups granted to the user.
