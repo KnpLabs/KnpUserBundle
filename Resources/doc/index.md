@@ -3,7 +3,7 @@ FOSUserBundle Documentation
 
 The Symfony2 security component provides a flexible security framework that
 allows you to load users from configuration, a database, or anywhere else
-you can imagine. The FOSUserBundle builds on top of this to make it quick
+you can imagine. The `FOSUserBundle` builds on top of this to make it quick
 and easy to store users in a database.
 
 So, if you need to persist and fetch the users in your system to and from
@@ -11,19 +11,20 @@ a database, then you're in the right place.
 
 ## Installation
 
-
-Installation is a quick (I promise) 5 step process:
+Installation is a quick (I promise) 7 step process:
 
 1. Download FOSUserBundle
 2. Configure the Autoloader
 3. Enable the Bundle
 4. Create your User class
-5. Configure your application
+5. Configure your application's security.yml
+6. Configure the FOSUserBundle
+7. Import FOSUserBundle routing
 
 ### Step 1: Download FOSUserBundle
 
-Ultimately, the FOSUserBundle files should be downloaded to the `vendor/bundles/FOS/UserBundle`
-directory.
+Ultimately, the FOSUserBundle files should be downloaded to the 
+`vendor/bundles/FOS/UserBundle` directory.
 
 This can be done in several ways, depending on your preference. The first
 method is the standard Symfony method for doing this
@@ -41,7 +42,7 @@ Now, run the vendors script to download the bundle:
     php bin/vendors install
 
 **Using submodules**
-
+ 
 If you prefer instead to use git submodules, the run the following:
 
 ``` bash
@@ -64,7 +65,7 @@ $loader->registerNamespaces(array(
 ));
 ```
 
-### Step3: Enable the bundle
+### Step 3: Enable the bundle
 
 Finally, enable the bundle in the kernel:
 
@@ -82,7 +83,7 @@ public function registerBundles()
 }
 ```
 
-### Step4: Create your User class
+### Step 4: Create your User class
 
 The goal of this bundle is to persist some `User` class to a database (MySql,
 MongoDB, CouchDB, etc). Your first job, then, is to create the `User` class
@@ -103,7 +104,7 @@ Your `User` class can live inside any bundle in your application. For example,
 if you work at "Acme" company, then you might create a bundle called `AcmeUserBundle`
 and place your `User` class in it.
 
-.. warning::
+**Warning:**
 
     If you override the `__construct()` method in your `User` class, be sure
     to call `parent::__construct()`, as the base `User` class depends on
@@ -120,6 +121,7 @@ start:
 // src/Acme/UserBundle/Entity/User.php
 
 namespace Acme\UserBundle\Entity;
+
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -157,6 +159,7 @@ this to start:
 // src/Acme/UserBundle/Document/User.php
 
 namespace Acme\UserBundle\Document;
+
 use FOS\UserBundle\Document\User as BaseUser;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
@@ -165,7 +168,9 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  */
 class User extends BaseUser
 {
-    /** @MongoDB\Id(strategy="auto") */
+    /** 
+     * @MongoDB\Id(strategy="auto")
+     */
     protected $id;
 
     public function __construct()
@@ -187,6 +192,7 @@ this to start:
 // src/Acme/UserBundle/Document/User.php
 
 namespace Acme\UserBundle\Document;
+
 use FOS\UserBundle\Document\User as BaseUser;
 use Doctrine\ODM\CouchDB\Mapping as CouchDB;
 
@@ -195,7 +201,9 @@ use Doctrine\ODM\CouchDB\Mapping as CouchDB;
  */
 class User extends BaseUser
 {
-    /** @CouchDB\Id */
+    /** 
+     * @CouchDB\Id 
+     */
     protected $id;
 
     public function __construct()
@@ -206,189 +214,228 @@ class User extends BaseUser
 }
 ```
 
-### Step 5: Configure your project
+### Step 5: Configure your application's security.yml
 
-Now that you've activated the bundle and created your `User` class, the
-final step is to configure to work with the bundle.
-
-* Cover the import of the routes
-* Cover the security.yml setup, including with the user provider
+In order to for the security component of Symfony2 to use FOSUserBundle, you must 
+tell it to do so in the `security.yml` file. The `security.yml` file is where the 
+basic configuration for the security for your application is contained.
 
 **Note**:
 
-The UserBundle works with the Symfony Security Component, so make sure that is
-enabled in your kernel and in your project's configuration. A working security
-configuration using FOSUserBundle is available at the end of the doc.
+```
+The UserBundle works with the Symfony Security Component, so make sure that the 
+`SecurityBundle` is registered in your `AppKernel` and enabled in your application's 
+configuration. A working security configuration using `FOSUserBundle` is available 
+at the end of this document.
+```
 
-The login form and all the routes used to create a user and reset the password
-have to be available to unauthenticated users but using the same firewall as
-the pages you want to securize with the bundle. Assuming you import the
-registration.xml routing file with the ``/register`` prefix and resetting.xml
-with the ``/resetting`` prefix they will be::
+Below is the minimum configuration necessary in your application's `security.yml` 
+file to get the bundle up and running:
 
-    /login
-    /register/
-    /register/check-email
-    /register/confirm/{token}
-    /register/confirmed
-    /resetting/request
-    /resetting/send-email
-    /resetting/check-email
-    /resetting/reset/{token}
+``` yml
+# app/config/security.yml
+security:
+    providers:
+        fos_userbundle:
+            id: fos_user.user_manager
 
-The above example assumes an ORM configuration, but the ``mappings``
-configuration block would be the same for MongoDB ODM.
+    firewalls:
+        main:
+            pattern: .*
+            form_login:
+                provider: fos_userbundle
+            logout:       true
+            anonymous:    true
+```
 
-.. note::
+Let's quickly go over the configuration above. First, under the `providers` section, 
+you have created a new user provider with the id of `fos_userbundle`. This 
+is simply the name used to identify this provider throughout the rest of the configuration 
+file. By specifying `id: fos_user.user_manager`, you have told the Symfony2 framework 
+to use the service configured in the Dependency Injection Container (DIC) with the id of 
+`fos_user.user_manager` as the actual object instance to perform the duties of the user 
+provider. These duties include loading a user from the datastore, etc.
 
-    You need to activate SwiftmailerBundle to be able to use the functionalities
-    using emails (confirmation of the account, resetting of the password).
-    See the `Emails` section to know how using another mailer.
+Now that we have declared our new user provider, lets examine the `firewalls` section. 
+Here we have declared a firewall named `main`. By specifying `form_login`, you have told 
+the Symfony2 framework that any time a request is made to this firewall that leads to 
+the user needeing to authenticate himself, the user will be redirected to a form where he 
+will be able to enter his credentials. It should come as no surprise then that you have 
+specified the user provider we declared earlier as the provider for the firewall to use 
+as part of the authentication process.
 
-Minimal configuration
----------------------
+In order to actually secure a routing pattern you must configure the `access_control` 
+section of the security configuration. Please see the section titled 
+`Verbose Security Configuration` at the bottom of this document for examples.
 
-At a minimum, your configuration must define your DB driver ("orm" or "mongodb"),
-a User class and the firewall name. The firewall name matches the key in the
-firewall configuration that is used for users with the controllers of the
-bundle.
+For more information on configuring the `security.yml` file please read the Symfony2 
+security component [documentation](http://symfony.com/doc/current/book/security.html).
 
-The firewall name needs to be configured so that the FOSUserBundle can determine
-against which firewall the user should be authenticated after activating the
-account for instance. This means that out of the box FOSUserBundle only supports
-being used for a single firewall, though with a custom Controller this
-limitation can be circumvented.
+**Note:**
 
-For example for a security configuration like the following the firewall_name
-would have to be set to "main", as shown in the proceeding examples:
+```
+Pay close attention to the name, `main`, that we have given to the firewall which 
+the FOSUserBundle is configured in. You will use this in the next step when you 
+configure the FOSUserBundle.
+```
 
-::
+### Step 6: Configure the FOSUserBundle
 
-    # app/config/security.yml
-    security:
-        providers:
-            fos_userbundle:
-                id: fos_user.user_manager
+Now that you have properly configured your application `security.yml` file for use 
+with the `FOSUserBundle`, you can move on to configuring the bundle to work with 
+the specific needs of your application.
 
-        firewalls:
-            main:
-                form_login:
-                    provider: fos_userbundle
+The `FOSUserBundle` has many configuration options, but for now we will take a look 
+at the minimal configuration required to get you up and running.
 
-ORM
-~~~
+Your configuration must define your DB driver ("orm", "mongodb", or "couchdb"), 
+the fully qualified class name (FQCN) of the `User` class which you created in Step 2, 
+and the firewall name which you configured in Step 5.
 
-In YAML:
+Now lets take a look at the minimal configuration necessary for the bundle:
 
-::
+**a) FOSUserBundle config for ORM**
 
-    # app/config/config.yml
-    fos_user:
-        db_driver: orm
-        firewall_name: main
-        user_class: MyProject\MyBundle\Entity\User
-
-Or if you prefer XML:
-
-::
-
-    # app/config/config.xml
-
-    <fos_user:config
-        db-driver="orm"
-        firewall-name="main"
-        user-class="MyProject\MyBundle\Entity\User"
-    />
-
-MongoDB
-~~~~~~~
-
-In YAML:
-
-::
-
-    # app/config/config.yml
-    fos_user:
-        db_driver: mongodb
-        firewall_name: main
-        user_class: MyProject\MyBundle\Document\User
+``` yml
+# app/config/config.yml
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: MyProject\MyBundle\Entity\User
+```
 
 Or if you prefer XML:
 
-::
+``` xml
+# app/config/config.xml
+<fos_user:config
+    db-driver="orm"
+    firewall-name="main"
+    user-class="MyProject\MyBundle\Entity\User"
+/>
+```
 
-    # app/config/config.xml
-
-    <fos_user:config
-        db-driver="mongodb"
-        firewall-name="main">
-        user-class="MyProject\MyBundle\Document\User"
-    />
-
-CouchDB
-~~~~~~~
+**b) FOSUserBundle config for MongoDB**
 
 In YAML:
 
-::
-
-    # app/config/config.yml
-    fos_user:
-        db_driver: couchdb
-        firewall_name: main
-        user_class: MyProject\MyBundle\Document\User
+``` yml
+# app/config/config.yml
+fos_user:
+    db_driver: mongodb
+    firewall_name: main
+    user_class: MyProject\MyBundle\Document\User
+```
 
 Or if you prefer XML:
 
-::
+``` xml
+# app/config/config.xml
+<fos_user:config
+    db-driver="mongodb"
+    firewall-name="main">
+    user-class="MyProject\MyBundle\Document\User"
+/>
+```
 
-    # app/config/config.xml
+**CouchDB**
 
-    <fos_user:config
-        db-driver="couchdb"
-        firewall-name="main"
-        user-class="MyProject\MyBundle\Document\User"
-    />
+In YAML:
 
-Add authentication routes
--------------------------
+``` yml
+# app/config/config.yml
+fos_user:
+    db_driver: couchdb
+    firewall_name: main
+    user_class: MyProject\MyBundle\Document\User
+```
+
+Or if you prefer XML:
+
+``` xml
+# app/config/config.xml
+<fos_user:config
+    db-driver="couchdb"
+    firewall-name="main"
+    user-class="MyProject\MyBundle\Document\User"
+/>
+```
+
+That's it. The minimal configuration of the bundle itself is very straightforward. 
+For a verbose bundle configuration reference, please see the section titled 
+`Verbose FOSUserBundle Configuration` located at the bottom of this document.
+
+### Step 7: Import FOSUserBundle routing files
+
+Now that you have activated and configured the bundle, all that is left to do is 
+import the `FOSUserBundle` routing files.
+
+**a) Import FOSUserBundle routing files**
 
 If you want ready to use login and logout pages, include the built-in
 routes:
 
-::
+In YAML:
 
-    # app/config/routing.yml
-    fos_user_security:
-        resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+``` yml
+# app/config/routing.yml
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
-    fos_user_profile:
-        resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-        prefix: /profile
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
 
-    fos_user_register:
-        resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-        prefix: /register
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
 
-    fos_user_resetting:
-        resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-        prefix: /resetting
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
 
-    fos_user_change_password:
-        resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-        prefix: /change-password
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /change-password
+```
 
-::
+Or if you prefer XML:
 
-    # app/config/routing.xml
+``` xml
+# app/config/routing.xml
+<import resource="@FOSUserBundle/Resources/config/routing/security.xml"/>
+<import resource="@FOSUserBundle/Resources/config/routing/profile.xml" prefix="/profile" />
+<import resource="@FOSUserBundle/Resources/config/routing/registration.xml" prefix="/register" />
+<import resource="@FOSUserBundle/Resources/config/routing/resetting.xml" prefix="/resetting" />
+<import resource="@FOSUserBundle/Resources/config/routing/change_password.xml" prefix="/change-password" />
+```
 
-    <import resource="@FOSUserBundle/Resources/config/routing/security.xml"/>
-    <import resource="@FOSUserBundle/Resources/config/routing/profile.xml" prefix="/profile" />
-    <import resource="@FOSUserBundle/Resources/config/routing/registration.xml" prefix="/register" />
-    <import resource="@FOSUserBundle/Resources/config/routing/resetting.xml" prefix="/resetting" />
-    <import resource="@FOSUserBundle/Resources/config/routing/change_password.xml" prefix="/change-password" />
+The login form and all the routes used to create a user and reset the password
+have to be available to unauthenticated users but using the same firewall as
+the pages you want to securize with the bundle. Assuming you import the
+`registration.xml` routing file with the `/register` prefix and `resetting.xml`
+with the `/resetting` prefix they will be:
 
-You now can login at http://app.com/app_dev.php/login
+```
+/login
+/register/
+/register/check-email
+/register/confirm/{token}
+/register/confirmed
+/resetting/request
+/resetting/send-email
+/resetting/check-email
+/resetting/reset/{token}
+```
+
+You now can login at `http://app.com/app_dev.php/login`.
+
+**Note:**
+
+```
+You need to activate SwiftmailerBundle to be able to use the functionalities
+using emails (confirmation of the account, resetting of the password).
+```
 
 Command line
 ============
