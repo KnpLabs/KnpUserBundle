@@ -14,8 +14,12 @@
             <argument>%fos_user.encoder.algorithm%</argument>
             <argument type="service" id="fos_user.util.username_canonicalizer" />
             <argument type="service" id="fos_user.util.email_canonicalizer" />
-            <argument type="service" id="doctrine_couchdb.odm.document_manager" />
+            <argument type="service" id="fos_user.document_manager" />
             <argument>%fos_user.model.user.class%</argument>
+        </service>
+
+        <service id="fos_user.document_manager" factory-service="doctrine_couchdb" factory-method="getObjectManager" class="Doctrine\ODM\CouchDB\DocumentManager" public="false">
+            <argument>%fos_user.model_manager_name%</argument>
         </service>
 
         <service id="fos_user.user_listener" class="FOS\UserBundle\CouchDocument\UserListener" public="false">

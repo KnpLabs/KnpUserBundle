@@ -10,8 +10,12 @@
             <argument>%fos_user.encoder.algorithm%</argument>
             <argument type="service" id="fos_user.util.username_canonicalizer" />
             <argument type="service" id="fos_user.util.email_canonicalizer" />
-            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="fos_user.entity_manager" />
             <argument>%fos_user.model.user.class%</argument>
+        </service>
+
+        <service id="fos_user.entity_manager" factory-service="doctrine" factory-method="getEntityManager" class="Doctrine\ORM\EntityManager" public="false">
+            <argument>%fos_user.model_manager_name%</argument>
         </service>
 
         <service id="fos_user.user_listener" class="FOS\UserBundle\Entity\UserListener" public="false">
