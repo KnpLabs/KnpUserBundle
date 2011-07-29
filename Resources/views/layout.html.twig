@@ -15,9 +15,9 @@
             {% endif %}
         </div>
 
-        {% for key, flash in app.session.getFlashes() %}
-        <div class="{{ flash }}">
-            {{ key|trans({}, 'FOSUserBundle') }}
+        {% for key, message in app.session.getFlashes() %}
+        <div class="{{ key }}">
+            {{ message|trans({}, 'FOSUserBundle') }}
         </div>
         {% endfor %}
 

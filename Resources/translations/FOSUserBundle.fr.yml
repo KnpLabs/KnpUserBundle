@@ -1,7 +1,12 @@
+# Group
 group.edit.submit: Mettre à jour le groupe
 group.show.name: Nom du groupe
 group.new.submit: Créer le groupe
+group.flash.updated: Le groupe a été mis à jour
+group.flash.created: Le groupe a été créé
+group.flash.deleted: Le groupe a été supprimé
 
+# Security
 security.login.username: "Nom d'utilisateur:"
 security.login.password: "Mot de passe:"
 security.login.remember_me: Se souvenir de moi
@@ -11,15 +16,18 @@ security.login.submit: Connexion
 profile.show.username: Nom d'utilisateur
 profile.show.email: Adresse e-mail
 profile.edit.submit: Mettre à jour
+profile.flash.updated: Le profil a été mis à jour
 
 # Password change
 change_password.submit: Modifier le mot de passe
+change_password.flash.success: Le mot de passe a été modifié
 
 # Registration
 registration.check_email: Un e-mail a été envoyé à l'adresse %email%. Veuillez suivre les instructions qui vous y sont indiquées.
 registration.confirmed: Félicitations %username%, votre compte est maintenant activé.
 registration.back: Retour à la page précédente.
 registration.submit: Enregistrer
+registration.flash.user_created: L'utilisateur a été créé avec succès
 
 registration.email: |
     Bienvenue %username% !
@@ -37,6 +45,7 @@ resetting.request.invalid_username: Le nom d'utilisateur ou l'adresse e-mail "%u
 resetting.request.username: "Nom d'utilisateur ou adresse e-mail:"
 resetting.request.submit: Réinitialiser le mot de passe
 resetting.reset.submit: Modifier le mot de passe
+resetting.flash.success: Le mot de passe a été réinitialisé avec succès
 
 resetting.email: |
     Bienvenue %username% !
@@ -52,19 +61,6 @@ layout.logout: Déconnexion
 layout.login: Connexion
 layout.register: Enregistrer
 layout.logged_in_as: Connecté en tant que %username%
-
-# Flash messages
-fos_user_change_password: Le mot de passe a été modifié
-
-fos_user_group_updated: Le groupe a été mis à jour
-fos_user_group_created: Le groupe a été créé
-fos_user_group_deleted: Le groupe a été supprimé
-
-fos_user_profile_updated: Le profil a été mis à jour
-
-fos_user_registration_created: L'utilisateur a été créé avec succès
-
-fos_user_resetted: Le mot de passe a été réinitialisé avec succès
 
 # Form field labels
 fos_user_group_form_name: "Nom du groupe:"

@@ -14,8 +14,6 @@ namespace FOS\UserBundle\Controller;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-use FOS\UserBundle\Model\Group;
-
 /**
  * RESTful controller managing group CRUD
  *
@@ -55,7 +53,7 @@ class GroupController extends ContainerAware
 
         $process = $formHandler->process($group);
         if ($process) {
-            $this->setFlash('fos_user_group_updated', 'success');
+            $this->setFlash('fos_user_success', 'group.flash.updated');
             $groupUrl =  $this->container->get('router')->generate('fos_user_group_show', array('groupname' => $group->getName()));
 
             return new RedirectResponse($groupUrl);
@@ -78,7 +76,7 @@ class GroupController extends ContainerAware
 
         $process = $formHandler->process();
         if ($process) {
-            $this->setFlash('fos_user_group_created', 'success');
+            $this->setFlash('fos_user_success', 'group.flash.created');
             $parameters = array('groupname' => $form->getData('group')->getName());
             $url = $this->container->get('router')->generate('fos_user_group_show', $parameters);
 
@@ -98,7 +96,7 @@ class GroupController extends ContainerAware
     {
         $group = $this->findGroupBy('name', $groupname);
         $this->container->get('fos_user.group_manager')->deleteGroup($group);
-        $this->setFlash('fos_user_group_deleted', 'success');
+        $this->setFlash('fos_user_success', 'group.flash.deleted');
 
         return new RedirectResponse( $this->container->get('router')->generate('fos_user_group_list'));
     }
@@ -109,7 +107,7 @@ class GroupController extends ContainerAware
      * @param string $key property name
      * @param mixed $value property value
      * @throws NotFoundException if user does not exist
-     * @return Group
+     * @return \FOS\UserBundle\Model\GroupInterface
      */
     protected function findGroupBy($key, $value)
     {

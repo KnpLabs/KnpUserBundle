@@ -99,7 +99,7 @@ class ResettingController extends ContainerAware
         if ($process) {
             $this->authenticateUser($user);
 
-            $this->setFlash('fos_user_resetted', 'success');
+            $this->setFlash('fos_user_success', 'resetting.flash.success');
 
             return new RedirectResponse($this->getRedirectionUrl($user));
         }

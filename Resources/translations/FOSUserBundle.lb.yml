@@ -1,7 +1,12 @@
+# Group
 group.edit.submit: Grupp aktualiséieren
 group.show.name: Gruppennumm
 group.new.submit: Grupp creéieren
+group.flash.updated: D'Grupp gouf aktualiséiert
+group.flash.created: D'Grupp gouf creéiert
+group.flash.deleted: D'Grupp gouf geläscht
 
+# Security
 security.login.username: "Benotzernumm:"
 security.login.password: "Passwuert:"
 security.login.remember_me: U mech erënneren
@@ -11,14 +16,18 @@ security.login.submit: Umellen
 profile.show.username: Benotzernumm
 profile.show.email: E-Mail
 profile.edit.submit: Benotzer aktualiséieren
+profile.flash.updated: De Benotzerprofil gouf aktualiséiert
 
 # Password change
 change_password.submit: Passwuert ännern
+change_password.flash.success: D'Passwuert gouf geännert
 
 # Registration
 registration.check_email: Eng E-Mail gouf un %email% geschéckt. Se enthält e Link deen s Du uklicke muss, fir Däi Benotzerkonto ze bestätegen.
 registration.confirmed: Gléckwonsch %username%, Däi Benutzerkonto ass elo bestätegt.
+#registration.back: Back to the previous page.
 registration.submit: Registréieren
+registration.flash.user_created: De Benotzer gouf erfollegräich creéiert
 
 registration.email: |
     Wëllkomm %username%!
@@ -36,6 +45,7 @@ resetting.request.invalid_username: De Benotzer "%username%" existéiert net.
 resetting.request.username: "Benotzernumm:"
 resetting.request.submit: Passwuert zerécksetzen
 resetting.reset.submit: Passwuert ännern
+resetting.flash.success: D'Passwuert gouf erfollegräich zeréckgesat
 
 resetting.email: |
     Wëllkomm %username%!
@@ -51,19 +61,6 @@ layout.logout: Ofmellen
 layout.login: Umellen
 layout.register: Registréieren
 layout.logged_in_as: Ugemellt als %username%
-
-# Flash messages
-fos_user_change_password: D'Passwuert gouf geännert
-
-fos_user_group_updated: D'Grupp gouf aktualiséiert
-fos_user_group_created: D'Grupp gouf creéiert
-fos_user_group_deleted: D'Grupp gouf geläscht
-
-fos_user_profile_updated: De Benotzerprofil gouf aktualiséiert
-
-fos_user_registration_created: De Benotzer gouf erfollegräich creéiert
-
-fos_user_resetted: D'Passwuert gouf erfollegräich zeréckgesat
 
 # Form field labels
 fos_user_group_form_name: "Gruppennumm:"
