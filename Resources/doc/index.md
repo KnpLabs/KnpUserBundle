@@ -1,5 +1,5 @@
-FOSUserBundle Documentation
-===========================
+Getting Started With FOSUserBundle
+==================================
 
 The Symfony2 security component provides a flexible security framework that
 allows you to load users from configuration, a database, or anywhere else
@@ -11,7 +11,7 @@ a database, then you're in the right place.
 
 ## Installation
 
-Installation is a quick (I promise) 7 step process:
+Installation is a quick (I promise!) 7 step process:
 
 1. Download FOSUserBundle
 2. Configure the Autoloader
@@ -216,21 +216,12 @@ class User extends BaseUser
 
 ### Step 5: Configure your application's security.yml
 
-In order to for the security component of Symfony2 to use FOSUserBundle, you must 
+In order for Symfony's security component to use the FOSUserBundle, you must 
 tell it to do so in the `security.yml` file. The `security.yml` file is where the 
 basic configuration for the security for your application is contained.
 
-**Note**:
-
-```
-The UserBundle works with the Symfony Security Component, so make sure that the 
-`SecurityBundle` is registered in your `AppKernel` and enabled in your application's 
-configuration. A working security configuration using `FOSUserBundle` is available 
-at the end of this document.
-```
-
-Below is the minimum configuration necessary in your application's `security.yml` 
-file to get the bundle up and running:
+Below is a minimal example of the configuration necessary to use the FOSUserBundle 
+in your application:
 
 ``` yaml
 # app/config/security.yml
@@ -241,32 +232,45 @@ security:
 
     firewalls:
         main:
-            pattern: .*
+            pattern: ^/
             form_login:
                 provider: fos_userbundle
             logout:       true
             anonymous:    true
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_ADMIN }
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN:  ROLE_ADMIN
 ```
 
-Let's quickly go over the configuration above. First, under the `providers` section, 
-you have created a new user provider with the id of `fos_userbundle`. This 
-is simply the name used to identify this provider throughout the rest of the configuration 
-file. By specifying `id: fos_user.user_manager`, you have told the Symfony2 framework 
-to use the service configured in the Dependency Injection Container (DIC) with the id of 
-`fos_user.user_manager` as the actual object instance to perform the duties of the user 
-provider. These duties include loading a user from the datastore, etc.
+Under the `providers` section, you are making the bundle's packaged user provider 
+service available via the alias `fos_userbundle`. The id of the bundle's user 
+provider service is `fos_user.user_manager`.
 
-Now that we have declared our new user provider, lets examine the `firewalls` section. 
-Here we have declared a firewall named `main`. By specifying `form_login`, you have told 
-the Symfony2 framework that any time a request is made to this firewall that leads to 
-the user needeing to authenticate himself, the user will be redirected to a form where he 
-will be able to enter his credentials. It should come as no surprise then that you have 
-specified the user provider we declared earlier as the provider for the firewall to use 
-as part of the authentication process.
+Now that you have declared the FOSUserBundle user provider, lets examine the 
+`firewalls` section. Here we have declared a firewall named `main`. By 
+specifying `form_login`, you have told the Symfony framework that any time a 
+request is made to this firewall that leads to the user needing to authenticate 
+himself, the user will be redirected to a form where he will be able to enter 
+his credentials. It should come as no surprise then that you have specified 
+the user provider we declared earlier as the provider for the firewall to use as 
+part of the authentication process.
 
-In order to actually secure a routing pattern you must configure the `access_control` 
-section of the security configuration. Please see the section titled 
-`Verbose Security Configuration` at the bottom of this document for examples.
+The `access_control` section is where you specify the credentials necessary for 
+users trying to access specific parts of your application. The bundle requires 
+that the login form and all the routes used to create a user and reset the password
+be available to unauthenticated users but use the same firewall as
+the pages you want to secure with the bundle. This is why you have specified that 
+the any request matching the `/login` pattern or starting with `/register` or 
+`/resetting` have been made available to anonymouse users. You have also specified 
+that any request beginning with `/admin` will require a user to have the 
+`ROLE_ADMIN` role.
 
 For more information on configuring the `security.yml` file please read the Symfony2 
 security component [documentation](http://symfony.com/doc/current/book/security.html).
@@ -281,89 +285,40 @@ configure the FOSUserBundle.
 
 ### Step 6: Configure the FOSUserBundle
 
-Now that you have properly configured your application `security.yml` file for use 
-with the `FOSUserBundle`, you can move on to configuring the bundle to work with 
+Now that you have properly configured your application's `security.yml` to work 
+with the `FOSUserBundle`, the next step is to configure the bundle to work with 
 the specific needs of your application.
 
-The `FOSUserBundle` has many configuration options, but for now we will take a look 
-at the minimal configuration required to get you up and running.
-
-Your configuration must define your DB driver ("orm", "mongodb", or "couchdb"), 
-the fully qualified class name (FQCN) of the `User` class which you created in Step 2, 
-and the firewall name which you configured in Step 5.
-
-Now lets take a look at the minimal configuration necessary for the bundle:
-
-**a) FOSUserBundle config for ORM**
+Add the following configuration to your `config.yml` file according to which type 
+of datastore you are using.
 
 ``` yaml
 # app/config/config.yml
 fos_user:
-    db_driver: orm
+    db_driver: orm # other valid values are 'mongodb', 'couchdb'
     firewall_name: main
-    user_class: MyProject\MyBundle\Entity\User
+    user_class: Acme\UserBundle\Entity\User
 ```
 
 Or if you prefer XML:
 
 ``` xml
 # app/config/config.xml
+<!-- app/config/config.xml -->
+
+<!-- other valid 'db-driver' values are 'mongodb' and 'couchdb' -->
 <fos_user:config
     db-driver="orm"
     firewall-name="main"
-    user-class="MyProject\MyBundle\Entity\User"
+    user-class="Acme\UserBundle\Entity\User"
 />
 ```
 
-**b) FOSUserBundle config for MongoDB**
+Only three configuration values are required to use the bundle:
 
-In YAML:
-
-``` yaml
-# app/config/config.yml
-fos_user:
-    db_driver: mongodb
-    firewall_name: main
-    user_class: MyProject\MyBundle\Document\User
-```
-
-Or if you prefer XML:
-
-``` xml
-# app/config/config.xml
-<fos_user:config
-    db-driver="mongodb"
-    firewall-name="main"
-    user-class="MyProject\MyBundle\Document\User"
-/>
-```
-
-**CouchDB**
-
-In YAML:
-
-``` yaml
-# app/config/config.yml
-fos_user:
-    db_driver: couchdb
-    firewall_name: main
-    user_class: MyProject\MyBundle\Document\User
-```
-
-Or if you prefer XML:
-
-``` xml
-# app/config/config.xml
-<fos_user:config
-    db-driver="couchdb"
-    firewall-name="main"
-    user-class="MyProject\MyBundle\Document\User"
-/>
-```
-
-That's it. The minimal configuration of the bundle itself is very straightforward. 
-For a verbose bundle configuration reference, please see the section titled 
-`Verbose FOSUserBundle Configuration` located at the bottom of this document.
+* The type of datastore you are using (`orm`, `mongodb`, or `couchdb`).
+* The firewall name which you configured in Step 5.
+* The fully qualified class name (FQCN) of the `User` class which you created in Step 2
 
 ### Step 7: Import FOSUserBundle routing files
 
@@ -371,7 +326,7 @@ Now that you have activated and configured the bundle, all that is left to do is
 import the `FOSUserBundle` routing files.
 
 By importing the routing files you will have ready made pages for things such as 
-logging in, logging out, creating users, etc.
+logging in, creating users, etc.
 
 In YAML:
 
@@ -400,7 +355,7 @@ fos_user_change_password:
 Or if you prefer XML:
 
 ``` xml
-# app/config/routing.xml
+<!-- app/config/routing.xml -->
 <import resource="@FOSUserBundle/Resources/config/routing/security.xml"/>
 <import resource="@FOSUserBundle/Resources/config/routing/profile.xml" prefix="/profile" />
 <import resource="@FOSUserBundle/Resources/config/routing/registration.xml" prefix="/register" />
@@ -408,620 +363,11 @@ Or if you prefer XML:
 <import resource="@FOSUserBundle/Resources/config/routing/change_password.xml" prefix="/change-password" />
 ```
 
-The login form and all the routes used to create a user and reset the password
-have to be available to unauthenticated users but using the same firewall as
-the pages you want to secure with the bundle. Assuming you imported the
-`registration.xml` routing file with the `/register` prefix and `resetting.xml`
-with the `/resetting` prefix they will be:
-
-```
-/login
-/register/
-/register/check-email
-/register/confirm/{token}
-/register/confirmed
-/resetting/request
-/resetting/send-email
-/resetting/check-email
-/resetting/reset/{token}
-```
-
-You now can login at `http://app.com/app_dev.php/login`.
+You now can login at `http://app.com/app_dev.php/login`!
 
 **Note:**
 
 ```
-You need to activate SwiftmailerBundle to be able to use the functionalities
-using emails (confirmation of the account, resetting of the password).
-```
-
-Command Line Tools
-==================
-
-FOSUserBundle provides command line utilities to help manage your
-application's users.
-
-### Create a User
-
-This command creates a new user.
-
-``` bash
-$ php app/console fos:user:create username email password
-```
-
-If you don't provide the required arguments, a interactive prompt will
-ask you to enter them.
-
-``` bash
-$ php app/console fos:user:create
-```
-
-### Promote a User to Super Administrator
-
-This command promotes a user as a super administrator.
-
-``` bash
-$ php app/console fos:user:promote
-```
-
-User Manager Service
-====================
-
-FOSUserBundle works with both ORM and ODM. To make this possible, it wraps
-all the operation on users in a UserManager. The user manager is configured 
-as a service in the container.
-
-If you configure the db_driver to `orm`, this service is an instance of
-`FOS\UserBundle\Entity\UserManager`.
-
-If you configure the db_driver to `mongodb`, this service is an instance of
-`FOS\UserBundle\Document\UserManager`.
-
-If you configure the db_driver to `couchdb`, this service is an instance of
-`FOS\UserBundle\CouchDocument\UserManager`.
-
-All these classes implement `FOS\UserBundle\Model\UserManagerInterface`.
-
-## Access the User Manager service
-
-If you want to manipulate users in a way that will work as well with
-ORM and ODM, use the `fos_user.user_manager` service.
-
-``` php
-$userManager = $container->get('fos_user.user_manager');
-```
-
-That's the way FOSUserBundle's internal controllers are built.
-
-## Create a new User
-
-A new instance of your User class can be created by the user manager.
-
-``` php
-$user = $userManager->createUser();
-```
-
-`$user` is now an Entity or a Document, depending on the configuration.
-
-## Updating a User object
-
-When creating or updating a User object you need to update the encoded password
-and the canonical fields. To make it easier, the bundle comes with a Doctrine
-listener handling this for you behind the scenes.
-
-If you don't want to use the Doctrine listener, you can disable it. In this case
-you will have to call the `updateUser` method of the user manager each time
-you make a change to your entity.
-
-In YAML:
-
-``` yaml
-# app/config/config.yml
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    use_listener: false
-    user_class: MyProject\MyBundle\Entity\User
-```
-
-Or if you prefer XML:
-
-``` xml
-# app/config/config.xml
-<fos_user:config
-    db-driver="orm"
-    firewall-name="main"
-    use-listener="false"
-    user-class="MyProject\MyBundle\Entity\User"
-/>
-```
-
-**Note:**
-
-```
-The default behavior is to flush the changes when calling this method. You
-can disable the flush when using the ORM and the MongoDB implementations by
-passing a second argument set to `false`.
-```
-
-Using Groups
-============
-
-The bundle allows to optionally use groups. You need to explicitly
-enable it in your configuration by giving the Group class which must
-implement `FOS\UserBundle\Model\GroupInterface`.
-
-In YAML:
-
-``` yaml
-# app/config/config.yml
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: MyProject\MyBundle\Entity\User
-    group:
-        group_class: MyProject\MyBundle\Entity\Group
-```
-
-Or if you prefer XML:
-
-``` xml
-# app/config/config.xml
-<fos_user:config
-    db-driver="orm"
-    firewall-name="main"
-    user-class="MyProject\MyBundle\Entity\User"
->
-    <fos_user:group group-class model="MyProject\MyBundle\Entity\Group" />
-</fos_user:config>
-```
-## The Group class
-
-The simpliest way to create a Group class is to extend the mapped superclass 
-provided by the bundle.
-
-**a) ORM Group class implementation**
-
-``` php
-// src/MyProject/MyBundle/Entity/Group.php
-<?php
-
-namespace MyProject\MyBundle\Entity;
-
-use FOS\UserBundle\Entity\Group as BaseGroup;
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * @ORM\Entity
- * @ORM\Table(name="fos_group")
- */
-class Group extends BaseGroup
-{
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\generatedValue(strategy="AUTO")
-     */
-     protected $id;
-}
-```
-
-**Note:** `Group` is a reserved keyword in SQL so it cannot be used as the table name.
-
-**b) MongoDB Group class implementation**
-
-``` php
-// src/MyProject/MyBundle/Document/Group.php
-<?php
-
-namespace MyProject\MyBundle\Document;
-
-use FOS\UserBundle\Document\Group as BaseGroup;
-use Doctrine\ODM\MongoDB\Mapping as MongoDB;
-
-/**
- * @MongoDB\Document
- */
-class Group extends BaseGroup
-{
-    /** 
-     * @MongoDB\Id(strategy="auto")
-     */
-    protected $id;
-}
-```
-
-**c) CouchDB Group class implementation**
-
-``` php
-// src/MyProject/MyBundle/Document/Group.php
-<?php
-
-namespace MyProject\MyBundle\Document;
-
-use FOS\UserBundle\Document\Group as BaseGroup;
-use Doctrine\ODM\CouchDB\Mapping as MongoDB;
-
-/**
- * @CouchDB\Document
- */
-class Group extends BaseGroup
-{
-    /**
-     * @CouchDB\Id
-     */
-    protected $id;
-}
-```
-
-## Defining the User-Group relation
-
-The next step is to map the relation in your `User` class.
-
-**a) ORM User-Group mapping**
-
-``` php
-// src/MyProject/MyBundle/Entity/User.php
-<?php
-    
-namespace MyProject\MyBundle\Entity;
-    
-use FOS\UserBundle\Entity\User as BaseUser;
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * @ORM\Entity
- * @ORM\Table(name="fos_user")
- */
-class User extends BaseUser
-{
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\generatedValue(strategy="AUTO")
-     */
-    protected $id;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="MyProject\MyBundle\Entity\Group")
-     * @ORM\JoinTable(name="fos_user_user_group",
-     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
-     * )
-     */
-    protected $groups;
-}
-```
-
-**b) MongoDB User-Group mapping**
-
-``` php
-// src/MyProject/MyBundle/Document/User.php
-<?php
-    
-namespace MyProject\MyBundle\Document;
-    
-use FOS\UserBundle\Document\User as BaseUser;
-use Doctrine\ODM\MongoDB\Mapping as MongoDB;
-
-/**
- * @MongoDB\Document
- */
-class User extends BaseUser
-{
-    /** @MongoDB\Id(strategy="auto") */
-    protected $id;
-
-    /**
-     * @MongoDB\ReferenceMany(targetDocument="MyProject\MyBundle\Document\Group")
-     */
-    protected $groups;
-}
-```
-
-**c) CouchDB User-Group mapping**
-
-``` php
-// src/MyProject/MyBundle/Document/User.php
-<?php
-
-namespace MyProject\MyBundle\Document;
-
-use FOS\UserBundle\Document\User as BaseUser;
-use Doctrine\ODM\CouchDB\Mapping as CouchDB;
-
-/**
- * @CouchDB\Document
- */
-class User extends BaseUser
-{
-    /**
-     * @CouchDB\Id
-     */
-    protected $id;
-
-    /**
-     * @CouchDB\ReferenceMany(targetDocument="MyProject\MyBundle\Document\Group")
-     */
-    protected $groups;
-}
-```
-
-## Enabling the routing for the GroupController
-
-You can import the routing file `group.xml` to use the builtin controller to 
-manipulate the groups.
-
-In YAML:
-
-``` yaml
-# app/config/routing.yml
-fos_user_group:
-    resource: "@FOSUserBundle/Resources/config/routing/group.xml"
-    prefix: /group
-
-```
-
-Configuration Example
-=====================
-
-This section provides a working configuration for the bundle and the security.
-
-## FOSUserBundle configuration
-
-In YAML:
-
-``` yaml
-# app/config/config.yml
-fos_user:
-    db_driver:     orm
-    firewall_name: main
-    user_class:  MyProject\MyBundle\Entity\User
-```
-
-## Security configuration
-
-In YAML:
-
-``` yaml
-# app/config/security.yml
-security:
-    providers:
-        fos_userbundle:
-            id: fos_user.user_manager
-
-    firewalls:
-        # Disabling the security for the web debug toolbar, the profiler and Assetic.
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        main:
-            pattern:      .*
-            form_login:
-                provider:       fos_userbundle
-                login_path:     /login
-                use_forward:    false
-                check_path:     /login_check
-                failure_path:   null
-            logout:       true
-            anonymous:    true
-
-    access_control:
-        # URL of FOSUserBundle which need to be available to anonymous users
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        # Secured part of the site
-        # This config requires being logged for the whole site and having the admin role for the admin part.
-        # Change these rules to adapt them to your needs
-        - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/.*, role: ROLE_USER }
-
-    role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN:  ROLE_ADMIN
-```
-
-Replacing some part by your own implementation
-==============================================
-
-## User Manager
-
-You can replace the default implementation of the user manager by defining
-a service implementing `FOS\UserBundle\Model\UserManagerInterface` and
-setting its id in the configuration.
-
-In YAML:
-
-``` yaml
-fos_user:
-    # ...
-    service:
-        user_manager: custom_user_manager_id
-```
-
-## Templating
-
-The template names are not configurable, however Symfony2 makes it possible
-to extend a bundle by defining a template in the `app/Resources` directory.
-
-For example `vendor/bundles/FOS/UserBundle/Resources/views/Registration/register.html.twig`
-can be replaced inside an application by putting a file with alternative content
-in `app/Resources/FOSUserBundle/views/Registration/register.html.twig`.
-
-You could also create a bundle defined as child of FOSUserBundle and placing the
-templates in it as `src/Acme/ChildBundle/Resources/views/Registration/register.html.twig`.
-
-You can use a different templating engine by configuring it but you will have to
-create all the needed templates as only twig templates are provided.
-
-## Controller
-
-Create a bundle defined as child of FOSUserBundle.
-
-``` php
-// src/Acme/ChildBundle/AcmeChildBundle.php
-<?php
-
-namespace Acme\ChildBundle;
-
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-class AcmeChildBundle extends Bundle
-{
-    public function getParent()
-    {
-        return 'FOSUserBundle';
-    }
-}
-```
-
-Then overwritting a controller is just a matter of creating a controller
-with the same name in this bundle (e.g. `Acme\ChildBundle\Controller\ProfileController`
-to overwrite the `ProfileController` provided by FOSUserBundle).
-You can of course make your controller extend the controller of the bundle
-if you want to change only some methods.
-
-## Validation
-
-The `Resources/config/validation.xml` file contains definitions for custom
-validator rules for various classes. The rules defined by FOSUserBundle are
-all in validation groups so you can choose not to use them.
-
-## Emails
-
-The default mailer relies on Swiftmailer to send the mails of the bundle.
-If you want to use another mailer in your project you can change it by defining
-your own service implementing `FOS\UserBundle\Mailer\MailerInterface` and
-setting its id in the configuration.
-
-In YAML:
-
-``` yaml
-fos_user:
-    # ...
-    service:
-        mailer: custom_mailer_id
-```
-
-This bundle comes with two mailer implementations.
-
-- `fos_user.mailer.default` is the default implementation, and uses Swiftmailer to send emails.
-- `fos_user.mailer.noop` does nothing and can be used if your project does not depend on Swiftmailer.
-
-## Canonicalization
-
-`Canonicalizer` services are used to canonicalize the username and the email
-fields for database storage. By default, username and email fields are
-canonicalized in the same manner using `mb_convert_case()`. You may configure
-your own class for each field provided it implements
-`FOS\UserBundle\Util\CanonicalizerInterface`.
-
-**Note:**
-
-```
-If you do not have the mbstring extension installed you will need to define your 
-own `canonicalizer`.
-```
-
-Use the username form type
-==========================
-
-The bundle also provides a convenient username form type.
-It appears as a text input, accepts usernames and convert them to a User instance.
-
-You can enable this feature from the configuration.
-
-In YAML:
-
-``` yaml
-# app/config/config.yml
-fos_user:
-    use_username_form_type: true
-```
-
-And then use it in your forms.
-
-``` php
-class MessageFormType extends AbstractType
-{
-    public function buildForm(FormBuilder $builder, array $options)
-    {
-        $builder->add('recipient', 'fos_user_username');
-    }
-```
-
-Configuration Reference
-=======================
-
-All available configuration options are listed below with their default values::
-
-``` yaml
-# app/config/config.yml
-fos_user:
-    db_driver:      ~ # Required
-    firewall_name:  ~ # Required
-    user_class:     ~ # Required
-    use_listener:   true
-    use_username_form_type: false
-    model_manager_name: null  # change it to the name of your entity/document manager if you don't want to use the default one.
-    from_email:
-        address:        webmaster@example.com
-        sender_name:    Admin
-    profile:
-        form:
-            type:               fos_user_profile
-            handler:            fos_user.profile.form.handler.default
-            name:               fos_user_profile_form
-            validation_groups:  [Profile]
-    change_password:
-        form:
-            type:               fos_user_change_password
-            handler:            fos_user.change_password.form.handler.default
-            name:               fos_user_change_password_form
-            validation_groups:  [ChangePassword]
-    registration:
-        confirmation:
-            from_email: # Use this node only if you don't want the global email address for the confirmation email
-                address:        ...
-                sender_name:    ...
-            enabled:    false
-            template:   FOSUserBundle:Registration:email.txt.twig
-        form:
-            type:               fos_user_registration
-            handler:            fos_user.registration.form.handler.default
-            name:               fos_user_registration_form
-            validation_groups:  [Registration]
-    resetting:
-        token_ttl: 86400
-        email:
-            from_email: # Use this node only if you don't want the global email address for the resetting email
-                address:        ...
-                sender_name:    ...
-            template:   FOSUserBundle:Resetting:email.txt.twig
-        form:
-            type:               fos_user_resetting
-            handler:            fos_user.resetting.form.handler.default
-            name:               fos_user_resetting_form
-            validation_groups:  [ResetPassword]
-    service:
-        mailer:                 fos_user.util.mailer.default
-        email_canonicalizer:    fos_user.util.email_canonicalizer.default
-        username_canonicalizer: fos_user.util.username_canonicalizer.default
-        user_manager:           fos_user.user_manager.default
-    encoder:
-        algorithm:          sha512
-        encode_as_base64:   false
-        iterations:         1
-    template:
-        engine: twig
-        theme:  FOSUserBundle::form.html.twig
-    group:
-        group_class:    ~ # Required when using groups
-        form:
-            type:               fos_user_group
-            handler:            fos_user.group.form.handler.default
-            name:               fos_user_group_form
-            validation_groups:  [Registration]
+You must activate the SwiftmailerBundle to be able to use the email functionality 
+provided by the bundle (confirmation of the account, resetting of the password).
 ```
