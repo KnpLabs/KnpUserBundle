@@ -342,34 +342,6 @@ public function MainController extends Controller
 }
 ```
 
-Overriding Default FOSUserBundle Controllers
-============================================
-
-Create a bundle defined as child of FOSUserBundle.
-
-``` php
-// src/Acme/UserBundle/AcmeUserBundle.php
-<?php
-
-namespace Acme\UserBundle;
-
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-class AcmeUserBundle extends Bundle
-{
-    public function getParent()
-    {
-        return 'FOSUserBundle';
-    }
-}
-```
-
-Then overriding a controller is just a matter of creating a controller
-with the same name in this bundle (e.g. `Acme\UserBundle\Controller\ProfileController`
-to overwrite the `ProfileController` provided by FOSUserBundle).
-You can of course make your controller extend the controller of the bundle
-if you want to change only some methods.
-
 Overriding Default User Manager
 ===============================
 
