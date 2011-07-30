@@ -3,20 +3,16 @@ FOSUserBundle
 
 The FOSUserBundle adds support for a database-backed user system in Symfony2.
 It provides a flexible framework for user management that aims to handle
-common tasks such as user login, registration and forgot password.
+common tasks such as user login, registration and password retrieval.
 
 Features include:
 
 - Users can be stored via Doctrine ORM, MongoDB or CouchDB ODM
 - REST-ful authentication
-<<<<<<< HEAD
 - Registration and password reset support
 - Unit tested
 
 **Caution:** This bundles is developed in sync with [symfony's repository](https://github.com/symfony/symfony)
-=======
-- Unit tested
->>>>>>> upstream/master
 
 Documentation
 -------------
@@ -29,11 +25,7 @@ file in this bundle:
 Installation
 ------------
 
-<<<<<<< HEAD
 All the installation instructions are located in [documentation](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md).
-=======
-See on GitHub: https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.rst
->>>>>>> upstream/master
 
 License
 -------
@@ -51,9 +43,9 @@ See also the list of [contributors](https://github.com/FriendsOfSymfony/FOSUserB
 Reporting an issue or a feature request
 ---------------------------------------
 
-Issues and feature requests are tracked in the [GitHub issue tracker](https://github.com/FriendsOfSymfony/FOSUserBundle/issues).
+Issues and feature requests are tracked in the [Github issue tracker](https://github.com/FriendsOfSymfony/FOSUserBundle/issues).
 
 When reporting a bug, it may be a good idea to reproduce it in a basic project
-built using the [Symfony Standard Edition](https://github.com/symfony/symfony-standard)
+build using the [Symfony Standard Edition](https://github.com/symfony/symfony-standard)
 to allow developers of the bundle to reproduce the issue by simply cloning it
 and following some steps.
