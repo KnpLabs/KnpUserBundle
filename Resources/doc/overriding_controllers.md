@@ -8,7 +8,7 @@ specific needs of your application.
 
 The first step to overriding a controller in the bundle is to create a child 
 bundle whose parent is FOSUserBundle. The following code snippet creates a new 
-bundle named `AcmeUserBundle` that declares itself of a child of FOSUserBundle.
+bundle named `AcmeUserBundle` that declares itself a child of FOSUserBundle.
 
 ``` php
 // src/Acme/UserBundle/AcmeUserBundle.php
@@ -33,6 +33,9 @@ example overrides the `RegistrationController` by extending the FOSUserBundle
 `RegistrationController` class and simply overriding the method that needs the extra 
 functionality.
 
+The example below overrides the `registerAction` method. It uses the code from 
+the base controller and adds logging a new user registration to it.
+
 ``` php
 // src/Acme/UserBundle/Controller/RegistrationController.php
 <?php
@@ -45,8 +48,39 @@ class RegistrationController extends Controller
 {
     public function registerAction()
     {
-        // now this method will be called for the register action 
-        // instead of the method in the FOSUserBundle
+        $form = $this->container->get('fos_user.registration.form');
+        $formHandler = $this->container->get('fos_user.registration.form.handler');
+        $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');
+
+        $process = $formHandler->process($confirmationEnabled);
+        if ($process) {
+            $user = $form->getData();
+
+            /*****************************************************
+             * Add new functionality (e.g. log the registration) *
+             *****************************************************/
+            $this->get('logger')->info(
+                sprintf('New user registration: %s', $user)
+            );
+
+            if ($confirmationEnabled) {
+                $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
+                $route = 'fos_user_registration_check_email';
+            } else {
+                $this->authenticateUser($user);
+                $route = 'fos_user_registration_confirmed';
+            }
+
+            $this->setFlash('fos_user_success', 'registration.flash.user_created');
+            $url = $this->container->get('router')->generate($route);
+
+            return new RedirectResponse($url);
+        }
+
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
+            'form' => $form->createView(),
+            'theme' => $this->container->getParameter('fos_user.template.theme'),
+        ));
     }
 }
 ```
