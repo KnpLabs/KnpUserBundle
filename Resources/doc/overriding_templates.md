@@ -50,14 +50,34 @@ Here is the default `layout.html.twig` provided by the FOSUserBundle:
 </html>
 ```
 
-As you can see its pretty basic and doesnt really have much structure, so you will 
+As you can see its pretty basic and doesn't really have much structure, so you will 
 want to replace it with a layout file that is appropriate for your application. The 
 main thing to note in this template is the block named `fos_user_content`. This is 
 the block where the content from each of the different bundle's actions will be 
 displayed, so you must make sure to include this block in the layout file you will 
 use to override the default one.
 
-a) Define New Template In app/Resources
+The following Twig template file is an example of a layout file that might be used 
+to override the one provided by the bundle.
+
+``` twig
+{% extends 'AcmeDemoBundle::layout.html.twig' %}
+
+{% block title %}Acme Demo Application{% endblock %}
+
+{% block content %}
+    {% block fos_user_content %}{% endblock %}
+{% endblock %}
+```
+
+This example extends the layout template from a fictional application bundle named 
+`AcmeDemoBundle`. The `content` block is where the main content of each page is rendered. 
+This is why the `fos_user_content` block has been placed inside of it. This will 
+lead to the desired effect of having the output from the FOSUserBundle actions 
+integrated into our applications layout, preserving the look and feel of the 
+application.
+
+**a) Define New Template In app/Resources**
 
 The easiest way to override a bundle's template is to simply place a new one in 
 your `app/Resources` folder. To override the layout template located at 
@@ -69,7 +89,15 @@ create a folder with the name of the bundle class in the `app/Resources` directo
 Then add your new template to this folder, preserving the directory structure from the 
 original bundle.
 
-b) Create A Child Bundle And Override Template
+**b) Create A Child Bundle And Override Template**
+
+**Note:** 
+
+```
+This method is more complicated than the one outlined above. Unless  you are 
+planning to override the controllers as well as the templates, it is recommended 
+that you use the other method.
+```
 
 As listed above, you can also create a bundle defined as child of FOSUserBundle 
 and place the new template in the same location that is resides in the FOSUserBundle. 
@@ -105,10 +133,19 @@ does in the FOSUserBundle.
 Overriding all of the other templates provided by the FOSUserBundle can be done 
 in a similar fashion using either of the two methods shown in this document.
 
-**Note:**
+### Configuring A Templating Engine Other Than Twig
 
+You can configure a templating engine other than Twig using the bundle's configuration. 
+Below is an example configuration for using the PHP templating engine.
+
+``` yaml
+fos_user:
+    # ...
+    template:
+        engine: php
 ```
-You can configure a templating engine other than Twig using the bundle's configuration, 
-but you will have to create all the necessary templates as only Twig templates are 
-provided by the bundle.
-```
+
+The FOSUserBundle only provides default templates for the Twig templating engine, 
+so you will have to create all of the templates that you are using. The names and 
+locations will be the same except that the file extension will be `.php` instead of 
+`.twig`
