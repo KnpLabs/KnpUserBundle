@@ -132,6 +132,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
+        $this->assertParameter(null, 'fos_user.model_manager_name');
         $this->assertAlias('fos_user.user_manager.default', 'fos_user.user_manager');
         $this->assertNotHasDefinition('fos_user.group_manager');
     }
@@ -140,8 +141,9 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFullConfiguration();
 
+        $this->assertParameter('custom', 'fos_user.model_manager_name');
         $this->assertAlias('acme_my.user_manager', 'fos_user.user_manager');
-        $this->assertHasDefinition('fos_user.group_manager');
+        $this->assertAlias('fos_user.group_manager.default', 'fos_user.group_manager');
     }
 
     public function testUserLoadFormClassWithDefaults()
@@ -332,6 +334,7 @@ db_driver: orm
 firewall_name: fos_user
 use_listener: true
 user_class: Acme\MyBundle\Entity\User
+model_manager_name: custom
 from_email:
     address: admin@acme.org
     sender_name: Acme Corp

@@ -1,7 +1,12 @@
+# Group
 group.edit.submit: Atualizar Grupo
 group.show.name: Nome do Grupo
 group.new.submit: Criar Grupo
+#group.flash.updated: The group has been updated
+#group.flash.created: The group has been created
+#group.flash.deleted: The group has been deleted
 
+# Security
 security.login.username: "Utilizador:"
 security.login.password: "Password:"
 security.login.remember_me: Lembrar-me
@@ -11,14 +16,18 @@ security.login.submit: Entrar
 profile.show.username: Utilizador
 profile.show.email: Email
 profile.edit.submit: Atualizar conta
+#profile.flash.updated: The profile has been updated
 
 # Password change
 change_password.submit: Mudar a password
+#change_password.flash.success: The password has been changed
 
 # Registration
 registration.check_email: Foi enviado um email para %email%. Este contém um link de ativação que terá de visitar para ativar a sua conta.
 registration.confirmed: Parabéns %username%, a sua conta foi confirmada.
+#registration.back: Back to the previous page.
 registration.submit: Registar
+#registration.flash.user_created: The user has been created successfully
 
 registration.email: |
     Bem-vindo(a) %username%!
@@ -32,9 +41,11 @@ registration.email: |
 # Password resetting
 resetting.password_already_requested: Uma password para este utilizador já foi requisitada nas últimas 24 horas.
 resetting.check_email: Foi enviado um email para %email%. Este contém um link que terá de visitar para puder recuperar a sua password.
+#resetting.request.invalid_username: The username or email address "%username%" does not exist.
 resetting.request.username: "Utilizador:"
 resetting.request.submit: Recuperar password
 resetting.reset.submit: Alterar passord
+#resetting.flash.success: The password has been reset successfully
 
 resetting.email: |
     Bem-vindo(a) %username%!
@@ -54,13 +65,18 @@ layout.logged_in_as: Entrou como %username%
 # Form field labels
 fos_user_group_form_name: "Nome do Grupo:"
 
-user_username:             "Utilizador:"
-user_email:                "Email:"
-user_plainPassword_first:  "Password:"
-user_plainPassword_second: "Verificar:"
-#fos_user_user_form_plainPassword: "Password (repita):"
+fos_user_profile_form_user_username: "Utilizador:"
+fos_user_profile_form_user_email: "Email:"
+fos_user_profile_form_current: "Password atual:"
 
-fos_user_reset_password_form_new: "Nova password:"
+fos_user_registration_form_username: "Utilizador:"
+fos_user_registration_form_email: "Email:"
+fos_user_registration_form_plainPassword_first: "Password:"
+fos_user_registration_form_plainPassword_second: "Verificar:"
 
-fos_user_change_password_form_new: "Nova password:"
+fos_user_resetting_form_new_first: "Nova password:"
+fos_user_resetting_form_new_second: "Verificar:"
+
+fos_user_change_password_form_new_first: "Nova password:"
+fos_user_change_password_form_new_second: "Verificar:"
 fos_user_change_password_form_current: "Password atual:"

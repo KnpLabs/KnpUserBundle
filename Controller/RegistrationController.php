@@ -37,7 +37,6 @@ class RegistrationController extends ContainerAware
             $user = $form->getData();
 
             if ($confirmationEnabled) {
-                $this->container->get('fos_user.mailer')->sendConfirmationEmailMessage($user);
                 $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
                 $route = 'fos_user_registration_check_email';
             } else {
@@ -45,7 +44,7 @@ class RegistrationController extends ContainerAware
                 $route = 'fos_user_registration_confirmed';
             }
 
-            $this->setFlash('fos_user_registration_created', 'success');
+            $this->setFlash('fos_user_success', 'registration.flash.user_created');
             $url = $this->container->get('router')->generate($route);
 
             return new RedirectResponse($url);

@@ -1,7 +1,12 @@
+# Group
 group.edit.submit: Update group
 group.show.name: Group name
 group.new.submit: Create group
+group.flash.updated: The group has been updated
+group.flash.created: The group has been created
+group.flash.deleted: The group has been deleted
 
+# Security
 security.login.username: "Username:"
 security.login.password: "Password:"
 security.login.remember_me: Remember me
@@ -11,15 +16,18 @@ security.login.submit: Login
 profile.show.username: Username
 profile.show.email: Email
 profile.edit.submit: Update
+profile.flash.updated: The profile has been updated
 
 # Password change
 change_password.submit: Change password
+change_password.flash.success: The password has been changed
 
 # Registration
 registration.check_email: An email has been sent to %email%. It contains an activation link you must click to activate your account.
 registration.confirmed: Congrats %username%, your account is now confirmed.
 registration.back: Back to the previous page.
 registration.submit: Register
+registration.flash.user_created: The user has been created successfully
 
 registration.email: |
     Welcome %username%!
@@ -33,10 +41,11 @@ registration.email: |
 # Password resetting
 resetting.password_already_requested: The password for this user has already been requested within the last 24 hours.
 resetting.check_email: An email has been sent to %email%. It contains an link you must click to reset your password.
-resetting.request.invalid_username: The user "%username%" does not exist.
-resetting.request.username: "Username:"
+resetting.request.invalid_username: The username or email address "%username%" does not exist.
+resetting.request.username: "Username or email address:"
 resetting.request.submit: Reset password
 resetting.reset.submit: Change password
+resetting.flash.success: The password has been reset successfully
 
 resetting.email: |
     Reset Password
@@ -52,19 +61,6 @@ layout.logout: Logout
 layout.login: Login
 layout.register: Register
 layout.logged_in_as: Logged in as %username%
-
-# Flash messages
-fos_user_change_password: The password has been changed
-
-fos_user_group_updated: The group has been updated
-fos_user_group_created: The group has been created
-fos_user_group_deleted: The group has been deleted
-
-fos_user_profile_updated: The profile has been updated
-
-fos_user_registration_created: The user has been created successfully
-
-fos_user_resetted: The password has been reset successfully
 
 # Form field labels
 fos_user_group_form_name: "Group name:"

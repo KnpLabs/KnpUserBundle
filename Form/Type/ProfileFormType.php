@@ -37,6 +37,11 @@ class ProfileFormType extends AbstractType
         ;
     }
 
+    public function getDefaultOptions(array $options)
+    {
+        return array('data_class' => 'FOS\UserBundle\Form\Model\CheckPassword');
+    }
+
     public function getName()
     {
         return 'fos_user_profile';

@@ -1,11 +1,17 @@
+# Group
 group.edit.submit: Обновить группу
 group.show.name: Название группы
 group.new.submit: Создать группу
+group.flash.updated: Группа обновлена
+group.flash.created: Группа создана
+group.flash.deleted: Группа удалена
 
+# Security
 security.login.username: "Имя пользователя:"
 security.login.password: "Пароль:"
 security.login.remember_me: Запомнить меня
 security.login.submit: Войти
+profile.flash.updated: Профиль пользователя обновлен
 
 # Profile
 profile.show.username: Имя пользователя
@@ -14,11 +20,14 @@ profile.edit.submit: Обновить
 
 # Password change
 change_password.submit: Изменить пароль
+change_password.flash.success: Пароль изменен
 
 # Registration
 registration.check_email: Письмо отправлено на адрес %email%. В нём содержится ссылка, по которой вы можете подтвердить свою регистрацию.
 registration.confirmed: Поздравляем %username%, ваш аккаунт подтвержден.
+#registration.back: Back to the previous page.
 registration.submit: Регистрация
+registration.flash.user_created: Пользователь успешно создан
 
 registration.email: |
     Добро пожаловать %username%!
@@ -36,6 +45,7 @@ resetting.request.invalid_username: Пользователь "%username%" не �
 resetting.request.username: "Имя пользователя:"
 resetting.request.submit: Сбросить пароль
 resetting.reset.submit: Изменить пароль
+resetting.flash.success: Пароль успешно сброшен
 
 resetting.email: |
     Сброс пароля
@@ -51,19 +61,6 @@ layout.logout: Выход
 layout.login: Вход
 layout.register: Регистрация
 layout.logged_in_as: Вы вошли как %username%
-
-# Flash messages
-fos_user_change_password: Пароль изменен
-
-fos_user_group_updated: Группа обновлена
-fos_user_group_created: Группа создана
-fos_user_group_deleted: Группа удалена
-
-fos_user_profile_updated: Профиль пользователя обновлен
-
-fos_user_registration_created: Пользователь успешно создан
-
-fos_user_resetted: Пароль успешно сброшен
 
 # Form field labels
 fos_user_group_form_name: "Название группы:"

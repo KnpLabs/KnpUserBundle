@@ -15,6 +15,7 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\Config\FileLocator;
 
 class FOSUserExtension extends Extension
@@ -67,6 +68,7 @@ class FOSUserExtension extends Extension
         $this->remapParametersNamespaces($config, $container, array(
             ''          => array(
                 'firewall_name' => 'fos_user.firewall_name',
+                'model_manager_name' => 'fos_user.model_manager_name',
                 'user_class' => 'fos_user.model.user.class',
             ),
             'encoder'   => 'fos_user.encoder.%s',
@@ -80,6 +82,16 @@ class FOSUserExtension extends Extension
             'fos_user.resetting.email.from_email',
             array($config['from_email']['address'] => $config['from_email']['sender_name'])
         );
+
+        // handle the MongoDB document manager name in a specific way as it does not have a registry to make it easy
+        // TODO: change it if https://github.com/symfony/DoctrineMongoDBBundle/pull/31 is merged
+        if ('mongodb' === $config['db_driver']) {
+            if (null === $config['model_manager_name']) {
+                $container->setAlias(new Alias('fos_user.document_manager', false), 'doctrine.odm.mongodb.document_manager');
+            } else {
+                $container->setAlias(new Alias('fos_user.document_manager', false), sprintf('doctrine.odm.%s_mongodb.document_manager', $config['model_manager_name']));
+            }
+        }
 
         if (!empty($config['profile'])) {
             $loader->load('profile.xml');
@@ -150,6 +162,7 @@ class FOSUserExtension extends Extension
             $loader->load('group.xml');
             $loader->load(sprintf('%s_group.xml', $config['db_driver']));
 
+            $container->setAlias('fos_user.group_manager', $config['group']['group_manager']);
             $container->setAlias('fos_user.group.form.handler', $config['group']['form']['handler']);
             unset($config['group']['form']['handler']);
 
@@ -165,7 +178,7 @@ class FOSUserExtension extends Extension
     protected function remapParameters(array $config, ContainerBuilder $container, array $map)
     {
         foreach ($map as $name => $paramName) {
-            if (isset($config[$name])) {
+            if (array_key_exists($name, $config)) {
                 $container->setParameter($paramName, $config[$name]);
             }
         }
@@ -175,7 +188,7 @@ class FOSUserExtension extends Extension
     {
         foreach ($namespaces as $ns => $map) {
             if ($ns) {
-                if (!isset($config[$ns])) {
+                if (!array_key_exists($ns, $config)) {
                     continue;
                 }
                 $namespaceConfig = $config[$ns];
@@ -186,9 +199,7 @@ class FOSUserExtension extends Extension
                 $this->remapParameters($namespaceConfig, $container, $map);
             } else {
                 foreach ($namespaceConfig as $name => $value) {
-                    if (null !== $value) {
-                        $container->setParameter(sprintf($map, $name), $value);
-                    }
+                    $container->setParameter(sprintf($map, $name), $value);
                 }
             }
         }
