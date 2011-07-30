@@ -52,7 +52,7 @@ fos_user:
             name:               fos_user_resetting_form
             validation_groups:  [ResetPassword]
     service:
-        mailer:                 fos_user.util.mailer.default
+        mailer:                 fos_user.mailer.default
         email_canonicalizer:    fos_user.util.email_canonicalizer.default
         username_canonicalizer: fos_user.util.username_canonicalizer.default
         user_manager:           fos_user.user_manager.default
@@ -65,6 +65,7 @@ fos_user:
         theme:  FOSUserBundle::form.html.twig
     group:
         group_class:    ~ # Required when using groups
+        group_manager:  fos_user.group_manager.default
         form:
             type:               fos_user_group
             handler:            fos_user.group.form.handler.default
