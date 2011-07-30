@@ -43,7 +43,7 @@ Add the following lines in your `deps` file:
 Now, run the vendors script to download the bundle:
 
 ``` bash
-# php bin/vendors install
+$ php bin/vendors install
 ```
 
 **Using submodules**
