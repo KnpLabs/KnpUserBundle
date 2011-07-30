@@ -407,9 +407,11 @@ You now can login at `http://app.com/app_dev.php/login`!
 
 ### Next Steps
 
-Now that you have the basic installation and configuration of the FOSUserBundle 
-completed, you can read about more advanced features of the bundle. The following 
-documents are available.
+Now that you have completed the basic installation and configuration of the 
+FOSUserBundle, you are ready to learn about more advanced features and usages 
+of the bundle.
+
+The following documents are available:
 
 1. [Overriding Templates](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/overriding_templates.md)
 2. [Overriding Controllers](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/overriding_controllers.md)
