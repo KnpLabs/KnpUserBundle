@@ -268,6 +268,15 @@ where he will be able to enter his credentials. It should come as no surprise
 then that you have specified the user provider we declared earlier as the 
 provider for the firewall to use as part of the authentication process.
 
+**Note:**
+
+```
+Although we have used the form login mechanism in this example, the FOSUserBundle 
+user provider is compatible with many other authentication methods as well. Please 
+read the Symfony2 Security component documention for more information on the 
+other types of authentication methods.
+```
+
 The `access_control` section is where you specify the credentials necessary for 
 users trying to access specific parts of your application. The bundle requires 
 that the login form and all the routes used to create a user and reset the password
@@ -373,7 +382,7 @@ Or if you prefer XML:
 
 ```
 In order to use the built-in email functionality (confirmation of the account, 
-resetting of the password), You must activate and configure the SwiftmailerBundle.
+resetting of the password), you must activate and configure the SwiftmailerBundle.
 ```
 
 ### Step 8: Update your database schema (ORM users)
