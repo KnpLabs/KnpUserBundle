@@ -342,22 +342,6 @@ public function MainController extends Controller
 }
 ```
 
-Overriding Default FOSUserBundle Templates
-==========================================
-
-The template names are not configurable, however Symfony2 makes it possible
-to extend a bundle by defining a template in the `app/Resources` directory.
-
-For example `vendor/bundles/FOS/UserBundle/Resources/views/Registration/register.html.twig`
-can be replaced inside an application by putting a file with alternative content
-in `app/Resources/FOSUserBundle/views/Registration/register.html.twig`.
-
-You could also create a bundle defined as child of FOSUserBundle and placing the
-templates in it as `src/Acme/ChildBundle/Resources/views/Registration/register.html.twig`.
-
-You can use a different templating engine by configuring it but you will have to
-create all the needed templates as only twig templates are provided.
-
 Overriding Default FOSUserBundle Controllers
 ============================================
 
