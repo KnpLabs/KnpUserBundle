@@ -385,7 +385,7 @@ In order to use the built-in email functionality (confirmation of the account,
 resetting of the password), you must activate and configure the SwiftmailerBundle.
 ```
 
-### Step 8: Update your database schema (ORM users)
+### Step 8: Update your database schema
 
 Now that the bundle is configured, the last thing you need to do is update your 
 database schema because you have added a new entity, the `User` class which you 
