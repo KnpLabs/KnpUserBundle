@@ -13,7 +13,7 @@ namespace FOS\UserBundle\Tests\Validation;
 
 use FOS\UserBundle\Validator\PasswordValidator;
 use FOS\UserBundle\Validator\Password;
-use FOS\UserBundle\Form\ChangePassword;
+use FOS\UserBundle\Form\Model\ChangePassword;
 
 class PasswordValidatorTest extends \PHPUnit_Framework_TestCase
 {

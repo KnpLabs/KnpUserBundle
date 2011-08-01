@@ -19,12 +19,14 @@ class UniqueValidatorTest extends \PHPUnit_Framework_TestCase
     private $validator;
     private $userManagerMock;
     private $constraint;
+    private $user;
 
     public function setUp()
     {
         $this->userManagerMock = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
         $this->constraint = new Unique();
         $this->validator = new UniqueValidator($this->userManagerMock);
+        $this->user = $this->getMock('FOS\UserBundle\Model\UserInterface');
     }
 
     public function testFalseOnDuplicateUserProperty()
@@ -32,9 +34,9 @@ class UniqueValidatorTest extends \PHPUnit_Framework_TestCase
         $this->userManagerMock->expects($this->once())
                 ->method('validateUnique')
                 ->will($this->returnValue(false))
-                ->with($this->equalTo('propertyValue'), $this->equalTo($this->constraint));
+                ->with($this->equalTo($this->user), $this->equalTo($this->constraint));
 
-        $this->assertFalse($this->validator->isValid('propertyValue', $this->constraint));
+        $this->assertFalse($this->validator->isValid($this->user, $this->constraint));
     }
 
     public function testTrueOnUniqueUserProperty()
@@ -42,8 +44,8 @@ class UniqueValidatorTest extends \PHPUnit_Framework_TestCase
         $this->userManagerMock->expects($this->once())
                 ->method('validateUnique')
                 ->will($this->returnValue(true))
-                ->with($this->equalTo('propertyValue'), $this->equalTo($this->constraint));
+                ->with($this->equalTo($this->user), $this->equalTo($this->constraint));
 
-        $this->assertTrue($this->validator->isValid('propertyValue', $this->constraint));
+        $this->assertTrue($this->validator->isValid($this->user, $this->constraint));
     }
 }
