@@ -1,13 +1,13 @@
 Overriding Default FOSUserBundle Controllers
 ============================================
 
-The default controllers packaged with the FOSUserBundle provide a lot of 
-functionality that is sufficient for general use cases. But, you might find 
-that you need to extend that functionality and add some logic that suits the 
+The default controllers packaged with the FOSUserBundle provide a lot of
+functionality that is sufficient for general use cases. But, you might find
+that you need to extend that functionality and add some logic that suits the
 specific needs of your application.
 
-The first step to overriding a controller in the bundle is to create a child 
-bundle whose parent is FOSUserBundle. The following code snippet creates a new 
+The first step to overriding a controller in the bundle is to create a child
+bundle whose parent is FOSUserBundle. The following code snippet creates a new
 bundle named `AcmeUserBundle` that declares itself a child of FOSUserBundle.
 
 ``` php
@@ -30,17 +30,17 @@ class AcmeUserBundle extends Bundle
 **Note:**
 
 ```
-The Symfony2 framework only allows a bundle to have one child. You cannot create 
+The Symfony2 framework only allows a bundle to have one child. You cannot create
 another bundle that is also a child of FOSUserBundle.
 ```
 
-Now that you have created the new child bundle you can simply create a controller class 
-with the same name and in the same location as the one you want to override. This 
-example overrides the `RegistrationController` by extending the FOSUserBundle 
-`RegistrationController` class and simply overriding the method that needs the extra 
+Now that you have created the new child bundle you can simply create a controller class
+with the same name and in the same location as the one you want to override. This
+example overrides the `RegistrationController` by extending the FOSUserBundle
+`RegistrationController` class and simply overriding the method that needs the extra
 functionality.
 
-The example below overrides the `registerAction` method. It uses the code from 
+The example below overrides the `registerAction` method. It uses the code from
 the base controller and adds logging a new user registration to it.
 
 ``` php
@@ -49,9 +49,9 @@ the base controller and adds logging a new user registration to it.
 
 namespace Acme\UserBundle\Controller;
 
-use FOS\UserBundle\Controller\RegistrationController as Controller;
+use FOS\UserBundle\Controller\RegistrationController as BaseController;
 
-class RegistrationController extends Controller
+class RegistrationController extends BaseController
 {
     public function registerAction()
     {
@@ -95,8 +95,8 @@ class RegistrationController extends Controller
 **Note:**
 
 ```
-If you do not extend the FOSUserBundle controller class that you want to override 
-and instead extend ContainerAware or the Controller class provided by the FrameworkBundle 
-then you must implement all of the methods of the FOSUserBundle controller that 
+If you do not extend the FOSUserBundle controller class that you want to override
+and instead extend ContainerAware or the Controller class provided by the FrameworkBundle
+then you must implement all of the methods of the FOSUserBundle controller that
 you are overriding.
 ```

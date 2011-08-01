@@ -2,8 +2,8 @@ Using Groups With FOSUserBundle
 ===============================
 
 The FOSUserBundle allows you to optionally use groups. You need to explicitly
-enable this functionality in your configuration by specifying the fully 
-qualified class name (FQCN) of your `Group` class which must implement 
+enable this functionality in your configuration by specifying the fully
+qualified class name (FQCN) of your `Group` class which must implement
 `FOS\UserBundle\Model\GroupInterface`.
 
 Below is an example configuration for enabling groups support.
@@ -34,7 +34,7 @@ Or if you prefer XML:
 ```
 ### The Group class
 
-The simpliest way to create a Group class is to extend the mapped superclass 
+The simpliest way to create a Group class is to extend the mapped superclass
 provided by the bundle.
 
 **a) ORM Group class implementation**
@@ -81,7 +81,7 @@ use Doctrine\ODM\MongoDB\Mapping as MongoDB;
  */
 class Group extends BaseGroup
 {
-    /** 
+    /**
      * @MongoDB\Id(strategy="auto")
      */
     protected $id;
@@ -120,9 +120,9 @@ The next step is to map the relation in your `User` class.
 ``` php
 // src/MyProject/MyBundle/Entity/User.php
 <?php
-    
+
 namespace MyProject\MyBundle\Entity;
-    
+
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -155,9 +155,9 @@ class User extends BaseUser
 ``` php
 // src/MyProject/MyBundle/Document/User.php
 <?php
-    
+
 namespace MyProject\MyBundle\Document;
-    
+
 use FOS\UserBundle\Document\User as BaseUser;
 use Doctrine\ODM\MongoDB\Mapping as MongoDB;
 
@@ -206,7 +206,7 @@ class User extends BaseUser
 
 ### Enabling the routing for the GroupController
 
-You can import the routing file `group.xml` to use the built-in controller to 
+You can import the routing file `group.xml` to use the built-in controller to
 manipulate groups.
 
 In YAML:
@@ -252,7 +252,7 @@ About FOSUserBundle User Manager Service
 ========================================
 
 FOSUserBundle works with both ORM and ODM. To make this possible, it wraps
-all the operation on users in a UserManager. The user manager is configured 
+all the operation on users in a UserManager. The user manager is configured
 as a service in the container.
 
 If you configure the db_driver to `orm`, this service is an instance of
@@ -318,7 +318,7 @@ Or if you prefer XML:
 />
 ```
 
-The default behavior is to flush the changes when calling the `updateUser` method. 
+The default behavior is to flush the changes when calling the `updateUser` method.
 You can disable the flush when using the ORM and the MongoDB implementations by
 passing a second argument set to `false`.
 
@@ -428,6 +428,6 @@ your own class for each field provided it implements
 **Note:**
 
 ```
-If you do not have the mbstring extension installed you will need to define your 
+If you do not have the mbstring extension installed you will need to define your
 own `canonicalizer`.
 ```
