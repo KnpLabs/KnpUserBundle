@@ -43,9 +43,11 @@ $ php app/console fos:user:create testuser
 There are two options that you can pass to the command as well. They are 
 `--super-admin` and `--inactive`.
 
-Specifying the `--super-admin` option will flag the user as a super admin when 
-the user is created. A super admin has access to any part of your application. 
-An example is provided below:
+Specifying the `--super-admin` option will not add a specific role to the user, 
+instead it will set a flag in a separate field in the datastore. This is so that 
+another use who has authorization to remove a role from a user cannot revoke 
+the super admin status of another. An example of using this command is provided 
+below.
 
 ``` bash
 $ php app/console fos:user:create adminuser --super-admin
