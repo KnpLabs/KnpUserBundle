@@ -2,11 +2,11 @@ Overriding Default FOSUserBundle Forms
 ======================================
 
 The default forms packaged with the FOSUserBundle provide functionality for 
-registering a new user, updating a user's information, changing a password and 
-much more. These forms work well with the default classes and controllers provided 
-by the bundle. But, as you start to add more properties to your `User` 
+registering new user, updating your profile, changing your password and 
+much more. These forms work well with the bundle's default classes and controllers. 
+But, as you start to add more properties to your `User` 
 class or you decide you want to add a few options to the registration form you 
-will find that you need to override the default forms provided by the bundle.
+will find that you need to override the forms in the bundle.
 
 Suppose that you have created an ORM user class with the following class name, 
 `Acme\UserBundle\Entity\User`. In this class, you have added a `name` property 
@@ -14,9 +14,13 @@ because you would like to save the user's name as well as their username and
 email address. Now, when a user registers for your site they should enter in their 
 name as well as their username, email and password.
 
-The first thing you will need to do is create a new form type in your bundle. 
-The following class extends the base FOSUserBundle `RegistrationFormType` and 
-then adds the custom `name` field.
+If you try and register using the default registration form you will find that 
+your new `name` property is not part of the form. You need to create a custom 
+form type and configure the bundle to use it.
+
+The first step is to create a new form type in your own bundle. The following 
+class extends the base FOSUserBundle `RegistrationFormType` and then adds the 
+custom `name` field.
 
 ``` php
 // src/Acme/UserBundle/Form/Type/RegistrationFormType.php
@@ -45,9 +49,10 @@ class RegistrationFormType extends BaseType
 ```
 
 Now that you have created your custom form type, you must declare it as a service 
-and tag it with `form.type` and give it an alias. The alias that you specify is 
-what you will use in the FOSUserBundle configuration to let the bundle know 
-that you want to use your custom form instead of the default.
+and add a tag to it. The tag must have a `name` value of `form.type` and an `alias` 
+value that is the equal to the string returned from the `getName` method of your 
+form type class. The `alias` that you specify is what you will use in the FOSUserBundle 
+configuration to let the bundle know that you want to use your custom form.
 
 Below is an example of configuring your form type as a service in XML:
 
@@ -71,20 +76,30 @@ Below is an example of configuring your form type as a service in XML:
 </container>
 ```
 
+Or if you prefer YAML:
+
+``` yaml
+# src/Acme/UserBundle/Resources/config/services.yml
+services:
+    acme_user.registration.form.type
+        class: Acme\UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: acme_user_registration }
+```
+
 **Note:**
 
 ```
 In the form type service configuration you have specified the `fos_user.model.user.class` 
-container parameter as a constructor argument. This is a requirement of the 
-FOSUserBundle form type that you extended. If instead, you just extend the 
-AbstractType provided by the Symfony2 Form component, added all of the fields 
-to your form yourself and defined the data_class option for your form type, 
-then this argument will not be necessary.
+container parameter as a constructor argument. Unless you have redefined the 
+constructor in your form type class, you must include this argument as it is a 
+requirement of the FOSUserBundle form type that you extended.
 ```
 
-Finally, you must configure the FOSUserBundle so that it knows to use your form 
-type instead of the default one. Below is the configuration for changing the 
-registration form type in YAML.
+Finally, you must update the configuration of the FOSUserBundle so that it will 
+use your form type instead of the default one. Below is the configuration for 
+changing the registration form type in YAML.
 
 ``` yaml
 # app/config/config.yml
@@ -95,5 +110,6 @@ fos_user:
             type: acme_user_registration
 ```
 
-Note how the `alias` value used in the service configuration is used here to tell 
-the FOSUserBundle to use your custom form type.
+Note how the `alias` value used in your form type's service configuration tag 
+is used in the bundle configuration to tell the FOSUserBundle to use your custom 
+form type.
