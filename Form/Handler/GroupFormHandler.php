@@ -42,11 +42,17 @@ class GroupFormHandler
             $this->form->bindRequest($this->request);
 
             if ($this->form->isValid()) {
-                $this->groupManager->updateGroup($group);
+                $this->onSuccess($group);
+
                 return true;
             }
         }
 
         return false;
+    }
+
+    protected function onSuccess(GroupInterface $group)
+    {
+        $this->groupManager->updateGroup($group);
     }
 }
