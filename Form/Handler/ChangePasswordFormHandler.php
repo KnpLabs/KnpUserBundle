@@ -44,13 +44,18 @@ class ChangePasswordFormHandler
             $this->form->bindRequest($this->request);
 
             if ($this->form->isValid()) {
-                $user->setPlainPassword($this->getNewPassword());
-                $this->userManager->updateUser($user);
+                $this->onSuccess($user);
 
                 return true;
             }
         }
 
         return false;
+    }
+
+    protected function onSuccess(UserInterface $user)
+    {
+        $user->setPlainPassword($this->getNewPassword());
+        $this->userManager->updateUser($user);
     }
 }

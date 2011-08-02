@@ -39,7 +39,7 @@ class ProfileFormHandler
             $this->form->bindRequest($this->request);
 
             if ($this->form->isValid()) {
-                $this->userManager->updateUser($user);
+                $this->onSuccess($user);
 
                 return true;
             }
@@ -51,5 +51,10 @@ class ProfileFormHandler
         }
 
         return false;
+    }
+
+    protected function onSuccess(UserInterface $user)
+    {
+        $this->userManager->updateUser($user);
     }
 }

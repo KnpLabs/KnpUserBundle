@@ -44,15 +44,20 @@ class ResettingFormHandler
             $this->form->bindRequest($this->request);
 
             if ($this->form->isValid()) {
-                $user->setPlainPassword($this->getNewPassword());
-                $user->setConfirmationToken(null);
-                $user->setEnabled(true);
-                $this->userManager->updateUser($user);
+                $this->onSuccess($user);
 
                 return true;
             }
         }
 
         return false;
+    }
+
+    protected function onSuccess(UserInterface $user)
+    {
+        $user->setPlainPassword($this->getNewPassword());
+        $user->setConfirmationToken(null);
+        $user->setEnabled(true);
+        $this->userManager->updateUser($user);
     }
 }

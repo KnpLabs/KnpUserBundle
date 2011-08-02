@@ -14,6 +14,7 @@ namespace FOS\UserBundle\Form\Handler;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\UserBundle\Model\UserManagerInterface;
+use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Mailer\MailerInterface;
 
 class RegistrationFormHandler
@@ -31,7 +32,7 @@ class RegistrationFormHandler
         $this->mailer = $mailer;
     }
 
-    public function process($confirmation = null)
+    public function process($confirmation = false)
     {
         $user = $this->userManager->createUser();
         $this->form->setData($user);
@@ -40,20 +41,25 @@ class RegistrationFormHandler
             $this->form->bindRequest($this->request);
 
             if ($this->form->isValid()) {
-                if (true === $confirmation) {
-                    $user->setEnabled(false);
-                    $this->mailer->sendConfirmationEmailMessage($user);
-                } else if (false === $confirmation) {
-                    $user->setConfirmationToken(null);
-                    $user->setEnabled(true);
-                }
-
-                $this->userManager->updateUser($user);
+                $this->onSuccess($user, $confirmation);
 
                 return true;
             }
         }
 
         return false;
+    }
+
+    protected function onSuccess(UserInterface $user, $confirmation)
+    {
+        if ($confirmation) {
+            $user->setEnabled(false);
+            $this->mailer->sendConfirmationEmailMessage($user);
+        } else {
+            $user->setConfirmationToken(null);
+            $user->setEnabled(true);
+        }
+
+        $this->userManager->updateUser($user);
     }
 }
