@@ -110,7 +110,10 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     }
 
     /**
-     * Finds a user by account
+     * Refreshed a user by User Instance
+     *
+     * Throws UnsupportedUserException if a User Instance is given which is not
+     * managed by this UserManager (so another Manager could try managing it)
      *
      * It is strongly discouraged to use this method manually as it bypasses
      * all ACL checks.
