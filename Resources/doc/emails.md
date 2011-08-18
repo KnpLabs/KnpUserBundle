@@ -4,17 +4,18 @@ FOSUserBundle Emails
 The FOSUserBundle supports sending emails to a user when various actions are 
 taken, such as confirming a registration or requesting a password reset.
 
-The bundle comes with two mailer implementations:
+The bundle comes with two mailer implementations. They are listed below by 
+service id:
 
 - `fos_user.mailer.default` is the default implementation, and uses Swiftmailer to send emails.
-- `fos_user.mailer.noop` is a mailer implemtation which performs no operation, so no emails are sent.
+- `fos_user.mailer.noop` is a mailer implementation which performs no operation, so no emails are sent.
 
 ### Using A Custom Mailer
 
 The default mailer service used by FOSUserBundle relies on the Swiftmailer 
 library to send mail. If you would like to use a different library to send 
 mails, want to send HTML emails or simply change the content of the email you 
-may do so by defining your own service which uses your library of choice.
+may do so by defining your own service.
  
 First you must create a new class which implements `FOS\UserBundle\Mailer\MailerInterface`.
 
