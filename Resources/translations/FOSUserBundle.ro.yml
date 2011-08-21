@@ -27,7 +27,7 @@ registration.check_email: Un email a fost trimis catre %email%. Contine un link 
 registration.confirmed: Felicitari %username%, contul tau a fost confirmat.
 registration.back: Inapoi la pagina de la care ai venit.
 registration.submit: Inregistreaza-te
-registration.flash.user_created: Utilizator a fost creat cu succes
+registration.flash.user_created: Utilizatorul a fost creat cu succes
 
 registration.email: |
     Bine ai venit %username%!
