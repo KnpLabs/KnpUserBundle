@@ -31,6 +31,7 @@ registration.flash.user_created: O usuário foi criado com sucesso.
 
 registration.email: |
     Bem-vindo(a), %username%!
+    Olá, %username%!
 
     Para completar a validação da sua conta, clique no link: %confirmationUrl%
 
@@ -47,6 +48,7 @@ resetting.reset.submit: Alterar senha
 resetting.flash.success: A senha foi redefinida com sucesso.
 
 resetting.email: |
+    Redefinir senha
     Olá, %username%!
 
     Para redefinir sua senha, clique no link: %confirmationUrl%
