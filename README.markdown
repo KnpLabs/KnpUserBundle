@@ -8,7 +8,6 @@ common tasks such as user login, registration and password retrieval.
 Features include:
 
 - Users can be stored via Doctrine ORM, MongoDB or CouchDB ODM
-- REST-ful authentication
 - Registration support, with an optional confirmation per mail
 - Password reset support
 - Unit tested
