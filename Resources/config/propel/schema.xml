@@ -2,7 +2,7 @@
 <database name="default" namespace="FOS\UserBundle\Propel" defaultIdMethod="native">
 
     <table name="user">
-        <column name="id" type="integer" required="true" primaryKey="true" />
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="username" type="varchar" size="255" primaryString="true" />
         <column name="username_canonical" type="varchar" size="255" />
         <unique>
@@ -17,16 +17,15 @@
 
         <column name="enabled" type="boolean" />
         <column name="algorithm" type="varchar" size="50" required="true" />
-        <column name="salt" type="varchar" size="50" required="true" />
-        <column name="password" type="varchar" size="50" required="true" />
+        <column name="salt" type="varchar" size="255" required="true" />
+        <column name="password" type="varchar" size="255" required="true" />
         <column name="last_login" type="timestamp" required="false" />
         <column name="locked" type="boolean" />
-        <column name="expired" type="boolean" />
         <column name="expires_at" type="timestamp" required="false" />
         <column name="confirmation_token" type="varchar" size="255" required="false" />
         <column name="password_requested_at" type="timestamp" required="false" />
-        <column name="credentials_expired" type="boolean" />
         <column name="credentials_expire_at" type="timestamp" required="false" />
+        <column name="super_admin" type="boolean" />
 
         <behavior name="timestampable" />
     </table>
@@ -46,7 +45,7 @@
     </table>
 
     <table name="role">
-        <column name="id" type="integer" required="true" primaryKey="true" />
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="name" type="varchar" size="255" required="true" primaryString="true" />
         <behavior name="timestampable" />
     </table>
