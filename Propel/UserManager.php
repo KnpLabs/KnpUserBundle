@@ -16,6 +16,7 @@ use FOS\UserBundle\Model\UserManager as BaseUserManager;
 use FOS\UserBundle\Propel\User;
 use FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Symfony\Component\Validator\Constraint;
 
 class UserManager extends BaseUserManager
@@ -49,6 +50,16 @@ class UserManager extends BaseUserManager
         $user->delete();
     }
 
+    public function refreshUser(SecurityUserInterface $user)
+    {
+        if (!$user instanceof $this->proxy_class) {
+            throw new UnsupportedUserException('Account is not supported.');
+        }
+
+        return $this->loadUserByUsername($user->getUsername());
+    }
+
+
     /**
     * Returns an empty user instance
     *
@@ -56,23 +67,23 @@ class UserManager extends BaseUserManager
     */
     public function createUser()
     {
-    	$class = $this->getClass();
-    	$user = new $class();
-    	$user->setAlgorithm($this->algorithm);
+        $class = $this->getClass();
+        $user = new $class();
+        $user->setAlgorithm($this->algorithm);
 
-    	return $this->proxyfy($user);
+        return $this->proxyfy($user);
     }
 
     public function proxyfy(User $user)
     {
-    	$proxyClass = $this->getProxyClass();
-    	$proxy = new $proxyClass($user);
-    	return $proxy;
+        $proxyClass = $this->getProxyClass();
+        $proxy = new $proxyClass($user);
+        return $proxy;
     }
 
     public function getProxyClass()
     {
-    	return $this->proxy_class;
+        return $this->proxy_class;
     }
 
     /**
@@ -97,7 +108,7 @@ class UserManager extends BaseUserManager
         $user = $query->findOne();
 
         if ($user) {
-        	$user = $this->proxyfy($user);
+            $user = $this->proxyfy($user);
         }
 
         return $user;
@@ -183,7 +194,14 @@ class UserManager extends BaseUserManager
      */
     protected function findConflictualUsers($value, array $fields)
     {
-        return $this->createQuery()->findBy($this->getCriteria($value, $fields));
+        $query = $this->createQuery();
+
+        foreach ($fields as $field) {
+            $method = 'get'.ucfirst($field);
+            $query->filterBy(ucfirst($field), $value->$method());
+        }
+
+        return $query->find()->toArray();
     }
 
     /**

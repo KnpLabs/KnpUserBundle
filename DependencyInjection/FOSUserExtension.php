@@ -176,6 +176,12 @@ class FOSUserExtension extends Extension
                 'form' => 'fos_user.group.form.%s',
             ));
         }
+
+        if ($config['db_driver'] == 'propel') {
+        	$container->setParameter('fos_user.model.user.form_data_class', $container->getParameter('fos_user.model.user.proxy_class'));
+        } else {
+        	$container->setParameter('fos_user.model.user.form_data_class', $container->getParameter('fos_user.model.user.class'));
+        }
     }
 
     protected function remapParameters(array $config, ContainerBuilder $container, array $map)
