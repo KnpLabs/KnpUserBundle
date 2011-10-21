@@ -78,6 +78,7 @@ class UserManager extends BaseUserManager
     {
         $proxyClass = $this->getProxyClass();
         $proxy = new $proxyClass($user);
+
         return $proxy;
     }
 
@@ -177,8 +178,10 @@ class UserManager extends BaseUserManager
     protected function anyIsUser($user, array $comparisons)
     {
         foreach ($comparisons as $comparison) {
-            if (!$user->isUser($comparison)) {
-                return false;
+            foreach ($comparison as $field => $value) {
+                if ($user->{'get'.$field}() !== $value) {
+                    return false;
+                }
             }
         }
 

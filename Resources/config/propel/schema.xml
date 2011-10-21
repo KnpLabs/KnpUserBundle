@@ -26,15 +26,11 @@
         <column name="password_requested_at" type="timestamp" required="false" />
         <column name="credentials_expire_at" type="timestamp" required="false" />
         <column name="super_admin" type="boolean" />
-
-        <behavior name="timestampable" />
     </table>
 
     <table name="user_role" isCrossRef="true">
         <column name="user_id" type="integer" required="true" primaryKey="true" />
         <column name="role_id" type="integer" required="true" primaryKey="true" />
-        <behavior name="timestampable" />
-
         <foreign-key foreignTable="user">
             <reference local="user_id" foreign="id" />
         </foreign-key>
@@ -47,7 +43,34 @@
     <table name="role">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="name" type="varchar" size="255" required="true" primaryString="true" />
-        <behavior name="timestampable" />
     </table>
 
+    <table name="group">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="255" required="true" primaryString="true" />
+    </table>
+
+    <table name="group_role" isCrossRef="true">
+        <column name="group_id" type="integer" required="true" primaryKey="true" />
+        <column name="role_id" type="integer" required="true" primaryKey="true" />
+        <foreign-key foreignTable="group">
+            <reference local="group_id" foreign="id" />
+        </foreign-key>
+
+        <foreign-key foreignTable="role">
+            <reference local="role_id" foreign="id" />
+        </foreign-key>
+    </table>
+
+    <table name="user_group" isCrossRef="true">
+        <column name="user_id" type="integer" required="true" primaryKey="true" />
+        <column name="group_id" type="integer" required="true" primaryKey="true" />
+        <foreign-key foreignTable="user">
+            <reference local="user_id" foreign="id" />
+        </foreign-key>
+
+        <foreign-key foreignTable="group">
+            <reference local="group_id" foreign="id" />
+        </foreign-key>
+    </table>
 </database>

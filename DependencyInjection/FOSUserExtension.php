@@ -177,10 +177,18 @@ class FOSUserExtension extends Extension
             ));
         }
 
-        if ($config['db_driver'] == 'propel') {
-        	$container->setParameter('fos_user.model.user.form_data_class', $container->getParameter('fos_user.model.user.proxy_class'));
+        if ('propel' == $config['db_driver']) {
+            $container->setParameter('fos_user.model.user.form_data_class', $container->getParameter('fos_user.model.user.proxy_class'));
+
+            if (!empty($config['group'])) {
+                $container->setParameter('fos_user.model.group.form_data_class', $container->getParameter('fos_user.model.group.proxy_class'));
+            }
         } else {
-        	$container->setParameter('fos_user.model.user.form_data_class', $container->getParameter('fos_user.model.user.class'));
+            $container->setParameter('fos_user.model.user.form_data_class', $container->getParameter('fos_user.model.user.class'));
+
+            if (!empty($config['group'])) {
+                $container->setParameter('fos_user.model.group.form_data_class', $container->getParameter('fos_user.model.group.class'));
+            }
         }
     }
 
