@@ -79,7 +79,8 @@ class GroupManager extends BaseGroupManager
         $query = $this->createQuery();
 
         foreach ($criteria as $field => $value) {
-            $query->filterBy(ucfirst($field), $value);
+        	$method = 'filterBy'.ucfirst($field);
+            $query->$method($value);
         }
 
         $group = $query->findOne();
