@@ -96,6 +96,7 @@ class UserProxy extends ModelUser
         $user->setExpiresAt($this->expiresAt);
 
         $collection = new \PropelObjectCollection();
+        $collection->setModel(RolePeer::OM_CLASS);
         foreach ($this->roles as $role) {
             $roleObject = RoleQuery::create()->findOneByName($role);
             if (!$roleObject) {

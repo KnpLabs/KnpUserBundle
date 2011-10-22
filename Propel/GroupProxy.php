@@ -65,6 +65,7 @@ class GroupProxy extends ModelGroup
         $group->setName($this->name);
 
         $collection = new \PropelObjectCollection();
+        $collection->setModel(RolePeer::OM_CLASS);
         foreach ($this->roles as $role) {
             $roleObject = RoleQuery::create()->findOneByName($role);
             if (!$roleObject) {
