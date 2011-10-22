@@ -35,7 +35,7 @@ class GroupProxy extends ModelGroup
             return call_user_func_array(array($this->getGroup(), $method), $arguments);
         }
 
-        throw new \Exception('Can\'t call method '.$method);
+        throw new \RuntimeException('Can\'t call method '.$method);
     }
 
     public function save()

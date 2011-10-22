@@ -35,7 +35,7 @@ class UserProxy extends ModelUser
             return call_user_func_array(array($this->getUser(), $method), $arguments);
         }
 
-        throw new \Exception('Can\'t call method '.$method);
+        throw new \RuntimeException('Can\'t call method '.$method);
     }
 
 
