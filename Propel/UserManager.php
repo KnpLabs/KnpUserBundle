@@ -23,7 +23,7 @@ class UserManager extends BaseUserManager
 {
     protected $class;
 
-    protected $proxy_class;
+    protected $proxyClass;
 
     /**
      * Constructor.
@@ -34,12 +34,12 @@ class UserManager extends BaseUserManager
      * @param CanonicalizerInterface  $emailCanonicalizer
      * @param string                  $class
      */
-    public function __construct(EncoderFactoryInterface $encoderFactory, $algorithm, CanonicalizerInterface $usernameCanonicalizer, CanonicalizerInterface $emailCanonicalizer, $proxy_class, $class)
+    public function __construct(EncoderFactoryInterface $encoderFactory, $algorithm, CanonicalizerInterface $usernameCanonicalizer, CanonicalizerInterface $emailCanonicalizer, $proxyClass, $class)
     {
         parent::__construct($encoderFactory, $algorithm, $usernameCanonicalizer, $emailCanonicalizer);
 
         $this->class = $class;
-        $this->proxy_class = $proxy_class;
+        $this->proxyClass = $proxyClass;
     }
 
     /**
@@ -52,7 +52,7 @@ class UserManager extends BaseUserManager
 
     public function refreshUser(SecurityUserInterface $user)
     {
-        if (!$user instanceof $this->proxy_class) {
+        if (!$user instanceof $this->proxyClass) {
             throw new UnsupportedUserException('Account is not supported.');
         }
 
@@ -74,7 +74,7 @@ class UserManager extends BaseUserManager
         return $this->proxyfy($user);
     }
 
-    public function proxyfy(User $user)
+    protected function proxyfy(User $user)
     {
         $proxyClass = $this->getProxyClass();
         $proxy = new $proxyClass($user);
@@ -84,7 +84,7 @@ class UserManager extends BaseUserManager
 
     public function getProxyClass()
     {
-        return $this->proxy_class;
+        return $this->proxyClass;
     }
 
     /**

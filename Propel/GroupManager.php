@@ -19,12 +19,12 @@ class GroupManager extends BaseGroupManager
 {
     protected $class;
 
-    protected $proxy_class;
+    protected $proxyClass;
 
-    public function __construct($class, $proxy_class)
+    public function __construct($class, $proxyClass)
     {
         $this->class = $class;
-        $this->proxy_class = $proxy_class;
+        $this->proxyClass = $proxyClass;
     }
 
     /**
@@ -58,7 +58,7 @@ class GroupManager extends BaseGroupManager
         return $this->class;
     }
 
-    public function proxyfy(Group $group)
+    protected function proxyfy(Group $group)
     {
         $proxyClass = $this->getProxyClass();
         $proxy = new $proxyClass($group);
@@ -68,7 +68,7 @@ class GroupManager extends BaseGroupManager
 
     public function getProxyClass()
     {
-        return $this->proxy_class;
+        return $this->proxyClass;
     }
 
     /**
