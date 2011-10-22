@@ -74,14 +74,6 @@ class UserManager extends BaseUserManager
         return $this->proxyfy($user);
     }
 
-    protected function proxyfy(User $user)
-    {
-        $proxyClass = $this->getProxyClass();
-        $proxy = new $proxyClass($user);
-
-        return $proxy;
-    }
-
     public function getProxyClass()
     {
         return $this->proxyClass;
@@ -233,5 +225,13 @@ class UserManager extends BaseUserManager
         }
 
         return $criteria;
+    }
+
+    protected function proxyfy(User $user)
+    {
+        $proxyClass = $this->getProxyClass();
+        $proxy = new $proxyClass($user);
+
+        return $proxy;
     }
 }

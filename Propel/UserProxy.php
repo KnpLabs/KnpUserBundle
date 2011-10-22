@@ -1,13 +1,13 @@
 <?php
 
 /*
-* This file is part of the FOSUserBundle package.
-*
-* (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
-*
-* For the full copyright and license information, please view the LICENSE
-* file that was distributed with this source code.
-*/
+ * This file is part of the FOSUserBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace FOS\UserBundle\Propel;
 
@@ -35,7 +35,7 @@ class UserProxy extends ModelUser
             return call_user_func_array(array($this->getUser(), $method), $arguments);
         }
 
-        throw new \RuntimeException('Can\'t call method '.$method);
+        throw new \BadMethodCallException('Can\'t call method '.$method);
     }
 
 

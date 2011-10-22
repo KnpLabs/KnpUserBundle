@@ -58,14 +58,6 @@ class GroupManager extends BaseGroupManager
         return $this->class;
     }
 
-    protected function proxyfy(Group $group)
-    {
-        $proxyClass = $this->getProxyClass();
-        $proxy = new $proxyClass($group);
-
-        return $proxy;
-    }
-
     public function getProxyClass()
     {
         return $this->proxyClass;
@@ -119,5 +111,13 @@ class GroupManager extends BaseGroupManager
     protected function createQuery()
     {
         return \PropelQuery::from($this->class);
+    }
+
+    protected function proxyfy(Group $group)
+    {
+        $proxyClass = $this->getProxyClass();
+        $proxy = new $proxyClass($group);
+
+        return $proxy;
     }
 }
