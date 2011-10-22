@@ -14,5 +14,6 @@ $loader->registerNamespaces(array(
     'Doctrine\\ODM\\MongodB' => $vendorDir.'/doctrine-mongodb-odm/lib',
     'Doctrine\\MongodB'      => $vendorDir.'/doctrine-mongodb/lib',
     'Doctrine'               => $vendorDir.'/doctrine/lib',
+    'Propel'                 => $vendorDir.'/bundles',
 ));
 $loader->register();
