@@ -162,7 +162,7 @@ class UserManager extends BaseUserManager
      * Gets the criteria used to find conflictual entities.
      *
      * @param UserInterface $value
-     * @param array $constraint
+     * @param array $fields
      * @return array
      */
     protected function getCriteria($value, array $fields)

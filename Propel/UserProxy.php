@@ -21,7 +21,7 @@ class UserProxy extends ModelUser
     public function __construct(User $user)
     {
         $this->user = $user;
-        $this->updateFormPropel();
+        $this->updateFromPropel();
     }
 
     public function getUser()
@@ -47,7 +47,7 @@ class UserProxy extends ModelUser
         return $this;
     }
 
-    protected function updateFormPropel()
+    protected function updateFromPropel()
     {
         $user = $this->getUser();
 

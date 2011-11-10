@@ -16,6 +16,7 @@ use FOS\UserBundle\Model\UserManager as BaseUserManager;
 use FOS\UserBundle\Propel\User;
 use FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Symfony\Component\Validator\Constraint;
 
@@ -32,6 +33,7 @@ class UserManager extends BaseUserManager
      * @param string                  $algorithm
      * @param CanonicalizerInterface  $usernameCanonicalizer
      * @param CanonicalizerInterface  $emailCanonicalizer
+     * @param string                  $proxyClass
      * @param string                  $class
      */
     public function __construct(EncoderFactoryInterface $encoderFactory, $algorithm, CanonicalizerInterface $usernameCanonicalizer, CanonicalizerInterface $emailCanonicalizer, $proxyClass, $class)
@@ -208,23 +210,6 @@ class UserManager extends BaseUserManager
     protected function createQuery()
     {
         return \PropelQuery::from($this->class);
-    }
-
-    /**
-     * Gets the criteria used to find conflictual entities.
-     *
-     * @param UserInterface $value
-     * @param array $constraint
-     * @return array
-     */
-    protected function getCriteria($value, array $fields)
-    {
-        $criteria = array();
-        foreach ($fields as $field) {
-            $criteria[$field] = $value;
-        }
-
-        return $criteria;
     }
 
     protected function proxyfy(User $user)
