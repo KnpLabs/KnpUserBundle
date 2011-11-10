@@ -235,6 +235,13 @@ class User extends BaseUser
 }
 ```
 
+**d) Propel User class**
+
+Currently, FOSUserBundle does not allow to extend the user class with your
+own stuff when using Propel. So you must use the `FOS\UserBundle\Propel\User`
+class in your configuration (see step 6) and you don't have to create another
+class.
+
 ### Step 5: Configure your application's security.yml
 
 In order for Symfony's security component to use the FOSUserBundle, you must
@@ -320,7 +327,7 @@ of datastore you are using.
 ``` yaml
 # app/config/config.yml
 fos_user:
-    db_driver: orm # other valid values are 'mongodb', 'couchdb'
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Acme\UserBundle\Entity\User
 ```
@@ -341,9 +348,9 @@ Or if you prefer XML:
 
 Only three configuration values are required to use the bundle:
 
-* The type of datastore you are using (`orm`, `mongodb`, or `couchdb`).
+* The type of datastore you are using (`orm`, `mongodb`, `couchdb` or `propel`).
 * The firewall name which you configured in Step 5.
-* The fully qualified class name (FQCN) of the `User` class which you created in Step 2
+* The fully qualified class name (FQCN) of the `User` class which you created in Step 4.
 
 ### Step 7: Import FOSUserBundle routing files
 
@@ -409,6 +416,12 @@ For MongoDB users you can run the following command to create the indexes.
 
 ``` bash
 $ php app/console doctrine:mongodb:schema:create --index
+```
+
+For Propel users you can run the following command to create the table
+
+```bash
+$ php app/console propel:build
 ```
 
 You now can login at `http://app.com/app_dev.php/login`!
