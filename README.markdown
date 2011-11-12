@@ -14,7 +14,7 @@ Features include:
 
 **Caution:** This bundles is developed in sync with [symfony's repository](https://github.com/symfony/symfony)
 
-[![Build Status](https://secure.travis-ci.org/FriendsOfSymfony/FOSRestBundle.png)](http://travis-ci.org/FriendsOfSymfony/FOSRestBundle)
+[![Build Status](https://secure.travis-ci.org/FriendsOfSymfony/FOSUserBundle.png)](http://travis-ci.org/FriendsOfSymfony/FOSUserBundle)
 
 Documentation
 -------------
