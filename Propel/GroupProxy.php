@@ -11,16 +11,15 @@
 
 namespace FOS\UserBundle\Propel;
 
-use FOS\UserBundle\Model\Group as ModelGroup;
+use FOS\UserBundle\Model\GroupInterface;
 
-class GroupProxy extends ModelGroup
+class GroupProxy implements GroupInterface
 {
     protected $group;
 
     public function __construct(Group $group)
     {
         $this->group = $group;
-        $this->updateFormPropel();
     }
 
     public function getGroup()
@@ -37,27 +36,45 @@ class GroupProxy extends ModelGroup
         throw new \BadMethodCallException('Can\'t call method '.$method);
     }
 
-    public function save()
+    public function getId()
     {
-        $this->updatePropelGroup();
-        $this->getGroup()->save();
-
-        return $this;
+        return $this->group->getId();
     }
 
-    protected function updateFormPropel()
+    public function getName()
     {
-        $group = $this->getGroup();
-
-        $this->name = $group->getName();
-        $this->roles = $group->getRoles();
+        return $this->group->getName();
     }
 
-    protected function updatePropelGroup()
+    public function setName($name)
     {
-        $group = $this->getGroup();
+        $this->group->setName($name);
+    }
 
-        $group->setName($this->name);
-        $group->setRoles($this->roles);
+    public function hasRole($role)
+    {
+        return $this->group->hasRole(strtoupper($role));
+    }
+
+    public function getRoles()
+    {
+        return $this->group->getRoles();
+    }
+
+    public function removeRole($role)
+    {
+        $this->group->removeRole(strtoupper($role));
+    }
+
+    public function addRole($role)
+    {
+        if (!$this->hasRole($role)) {
+            $this->group->addRole(strtoupper($role));
+        }
+    }
+
+    public function setRoles(array $roles)
+    {
+        $this->group->setRoles(array_map('strtoupper', $roles));
     }
 }
