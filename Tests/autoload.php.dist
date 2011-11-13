@@ -19,8 +19,10 @@ $loader->registerNamespaces(array(
     'Symfony'                => array($vendorDir.'/symfony/src', $vendorDir.'/bundles'),
     'Doctrine\\Common'       => $vendorDir.'/doctrine-common/lib',
     'Doctrine\\DBAL'         => $vendorDir.'/doctrine-dbal/lib',
-    'Doctrine\\ODM\\MongodB' => $vendorDir.'/doctrine-mongodb-odm/lib',
-    'Doctrine\\MongodB'      => $vendorDir.'/doctrine-mongodb/lib',
+    'Doctrine\\ODM\\MongoDB' => $vendorDir.'/doctrine-mongodb-odm/lib',
+    'Doctrine\\MongoDB'      => $vendorDir.'/doctrine-mongodb/lib',
+    'Doctrine\\ODM\\CouchDB' => $vendorDir.'/doctrine-couchdb/lib',
+    'Doctrine\\CouchDB'      => $vendorDir.'/doctrine-couchdb/lib',
     'Doctrine'               => $vendorDir.'/doctrine/lib',
 ));
 $loader->register();

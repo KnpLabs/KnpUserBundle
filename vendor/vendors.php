@@ -20,7 +20,7 @@ $deps = array(
     array('doctrine', 'http://github.com/doctrine/doctrine2.git', 'origin/master'),
     array('doctrine-mongodb-odm', 'http://github.com/doctrine/mongodb-odm.git', 'origin/master'),
     array('doctrine-mongodb', 'http://github.com/doctrine/mongodb.git', 'origin/master'),
-    array('doctrine-common', 'http://github.com/doctrine/common.git', 'origin/master'),
+    array('doctrine-couchdb', 'http://github.com/doctrine/couchdb-odm.git', 'origin/master'),
 );
 
 foreach ($deps as $dep) {
@@ -33,5 +33,5 @@ foreach ($deps as $dep) {
         system(sprintf('git clone %s %s', escapeshellarg($url), escapeshellarg($installDir)));
     }
 
-    system(sprintf('cd %s && git fetch origin && git reset --hard %s', escapeshellarg($installDir), escapeshellarg($rev)));
+    system(sprintf('cd %s && git fetch -q origin && git reset --hard %s', escapeshellarg($installDir), escapeshellarg($rev)));
 }
