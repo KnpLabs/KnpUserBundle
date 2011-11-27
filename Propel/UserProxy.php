@@ -31,18 +31,17 @@ class UserProxy extends FosUser
             $this->setExpired(false);
             $this->user->setRoles(array());
         }
-        $this->updateFromPropel();
     }
 
-    public function getUser()
+    public function getPropelUser()
     {
         return $this->user;
     }
 
     public function __call($method, $arguments)
     {
-        if (is_callable(array($this->getUser(), $method))) {
-            return call_user_func_array(array($this->getUser(), $method), $arguments);
+        if (is_callable(array($this->getPropelUser(), $method))) {
+            return call_user_func_array(array($this->getPropelUser(), $method), $arguments);
         }
 
         throw new \BadMethodCallException('Can\'t call method '.$method);
@@ -485,29 +484,6 @@ class UserProxy extends FosUser
      */
     public function getGroups()
     {
-        // TODO fix me
-        return $this->groups ?: $this->groups = new ArrayCollection();
-    }
-
-    public function save()
-    {
-        $this->updatePropelUser();
-        $this->getUser()->save();
-
-        return $this;
-    }
-
-    protected function updateFromPropel()
-    {
-        $user = $this->getUser();
-
-        $this->groups = $user->getGroups();
-    }
-
-    protected function updatePropelUser()
-    {
-        $user = $this->getUser();
-
-        $user->setGroups($this->groups);
+        return new GroupCollection($this->user->getGroups());
     }
 }

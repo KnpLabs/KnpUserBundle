@@ -47,6 +47,10 @@ class GroupManager extends BaseGroupManager
      */
     public function deleteGroup(GroupInterface $group)
     {
+        if (!$group instanceof GroupProxy) {
+            throw new \InvalidArgumentException('This group instance is not supported by the Propel GroupManager implementation');
+        }
+
         $group->delete();
     }
 
@@ -100,6 +104,10 @@ class GroupManager extends BaseGroupManager
      */
     public function updateGroup(GroupInterface $group)
     {
+        if (!$group instanceof GroupProxy) {
+            throw new \InvalidArgumentException('This group instance is not supported by the Propel GroupManager implementation');
+        }
+
         $group->save();
     }
 

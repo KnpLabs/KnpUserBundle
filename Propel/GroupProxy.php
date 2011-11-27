@@ -22,14 +22,14 @@ class GroupProxy implements GroupInterface
         $this->group = $group;
     }
 
-    public function getGroup()
+    public function getPropelGroup()
     {
         return $this->group;
     }
 
     public function __call($method, $arguments)
     {
-        if (is_callable(array($this->getGroup(), $method))) {
+        if (is_callable(array($this->getPropelGroup(), $method))) {
             return call_user_func_array(array($this->getGroup(), $method), $arguments);
         }
 

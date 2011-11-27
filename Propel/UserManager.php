@@ -49,6 +49,10 @@ class UserManager extends BaseUserManager
      */
     public function deleteUser(UserInterface $user)
     {
+        if (!$user instanceof UserProxy) {
+            throw new \InvalidArgumentException('This user instance is not supported by the Propel UserManager implementation');
+        }
+
         $user->delete();
     }
 
@@ -123,6 +127,10 @@ class UserManager extends BaseUserManager
      */
     public function reloadUser(UserInterface $user)
     {
+        if (!$user instanceof UserProxy) {
+            throw new \InvalidArgumentException('This user instance is not supported by the Propel UserManager implementation');
+        }
+
         $user->reload();
     }
 
@@ -133,6 +141,10 @@ class UserManager extends BaseUserManager
      */
     public function updateUser(UserInterface $user)
     {
+        if (!$user instanceof UserProxy) {
+            throw new \InvalidArgumentException('This user instance is not supported by the Propel UserManager implementation');
+        }
+
         $this->updateCanonicalFields($user);
         $this->updatePassword($user);
         $user->save();
