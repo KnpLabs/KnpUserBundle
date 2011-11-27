@@ -19,14 +19,14 @@ profile.edit.submit: Upravit
 profile.flash.updated: Profil byl úspěšně aktualizován
 
 # Password change
-change_password.submit: Změna hesla
-change_password.flash.success: Heslo bylo úspěšně změněné
+change_password.submit: Nastavit nové heslo
+change_password.flash.success: Nové heslo bylo úspěšně nastaveno
 
 # Registration
 registration.check_email: Na adresu %email% byl zaslán aktivační e-mail. Obsahuje aktivační odkaz, na který je nutné kliknout pro aktivaci Vašeho účtu.
 registration.confirmed: Gratulujeme, %username%, Váš účet je nyní aktivní.
 registration.back: Návrat na předchozí stránku.
-registration.submit: Registrace
+registration.submit: Registrovat se
 registration.flash.user_created: Váš účet byl úspěšně vytvořen
 
 registration.email: |
@@ -44,7 +44,7 @@ resetting.check_email: Na adresu %email% byl zaslán e-mail s návodem na nastav
 resetting.request.invalid_username: Uživatelské jméno nebo e-mail "%username%" neexistují.
 resetting.request.username: "Uživatelské jméno nebo e-mail:"
 resetting.request.submit: Nastavit nové heslo
-resetting.reset.submit: Změnit heslo
+resetting.reset.submit: Nastavit nové heslo
 resetting.flash.success: Heslo bylo úspěšně změněné
 
 resetting.email: |
@@ -58,7 +58,7 @@ resetting.email: |
 
 # Global strings
 layout.logout: Odhlásit se
-layout.login: Přihlásit se
+layout.login: Přihlášení
 layout.register: Registrace
 layout.logged_in_as: "Přihlášený uživatel: %username%"
 
