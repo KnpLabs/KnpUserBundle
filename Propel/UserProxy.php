@@ -56,16 +56,7 @@ class UserProxy extends FosUser
      */
     public function serialize()
     {
-        return serialize(array(
-            $this->getPassword(),
-            $this->getSalt(),
-            $this->getUsernameCanonical(),
-            $this->getUsername(),
-            $this->user->getExpired(),
-            $this->isLocked(),
-            $this->user->getCredentialsExpired(),
-            $this->isEnabled(),
-        ));
+        return serialize($this->user);
     }
 
     /**
@@ -75,18 +66,7 @@ class UserProxy extends FosUser
      */
     public function unserialize($serialized)
     {
-        list(
-            $password,
-            $salt,
-            $usernameCanonical,
-            $username,
-            $expired,
-            $locked,
-            $credentialsExpired,
-            $enabled
-        ) = unserialize($serialized);
-
-        $this->user = new UnserializedUser($username, $usernameCanonical, $salt, $password, $expired, $locked, $credentialsExpired, $enabled);
+        $this->user = unserialize($serialized);
     }
 
     /**
