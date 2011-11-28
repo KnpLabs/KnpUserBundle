@@ -16,7 +16,6 @@ use FOS\UserBundle\Model\Group as ModelGroup;
 class GroupProxy extends ModelGroup
 {
     protected $group;
-    protected $roles;
 
     public function __construct(Group $group)
     {
@@ -51,11 +50,7 @@ class GroupProxy extends ModelGroup
         $group = $this->getGroup();
 
         $this->name = $group->getName();
-
-        $this->roles = array();
-        foreach ($group->getRoles() as $role) {
-            $this->roles[] = $role->getName();
-        }
+        $this->roles = $group->getRoles();
     }
 
     protected function updatePropelGroup()
@@ -63,19 +58,6 @@ class GroupProxy extends ModelGroup
         $group = $this->getGroup();
 
         $group->setName($this->name);
-
-        $collection = new \PropelObjectCollection();
-        $collection->setModel(RolePeer::OM_CLASS);
-        foreach ($this->roles as $role) {
-            $roleObject = RoleQuery::create()->findOneByName($role);
-            if (!$roleObject) {
-                $roleObject = new Role();
-                $roleObject->setName($role);
-                $roleObject->save();
-            }
-
-            $collection[] = $roleObject;
-        }
-        $group->setRoles($collection);
+        $group->setRoles($this->roles);
     }
 }

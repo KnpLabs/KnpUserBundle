@@ -66,12 +66,7 @@ class UserProxy extends ModelUser
         $this->groups = $user->getGroups();
         $this->locked = $user->getLocked();
         $this->expiresAt = $user->getExpiresAt();
-
-        $this->roles = array();
-        foreach ($user->getRoles() as $role) {
-            $this->roles[] = $role->getName();
-        }
-
+        $this->roles = $user->getRoles();
         $this->credentialsExpireAt = $user->getCredentialsExpireAt();
 
     }
@@ -94,21 +89,7 @@ class UserProxy extends ModelUser
         $user->setGroups($this->groups);
         $user->setLocked($this->locked);
         $user->setExpiresAt($this->expiresAt);
-
-        $collection = new \PropelObjectCollection();
-        $collection->setModel(RolePeer::OM_CLASS);
-        foreach ($this->roles as $role) {
-            $roleObject = RoleQuery::create()->findOneByName($role);
-            if (!$roleObject) {
-                $roleObject = new Role();
-                $roleObject->setName($role);
-                $roleObject->save();
-            }
-
-            $collection[] = $roleObject;
-        }
-        $user->setRoles($collection);
-
+        $user->setRoles($this->getRoles());
         $user->setCredentialsExpireAt($this->credentialsExpireAt);
     }
 }
