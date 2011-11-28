@@ -24,7 +24,7 @@ class UserManager extends BaseUserManager
 {
     protected $class;
 
-    protected $proxyClass;
+    protected $modelClass;
 
     /**
      * Constructor.
@@ -36,12 +36,12 @@ class UserManager extends BaseUserManager
      * @param string                  $proxyClass
      * @param string                  $class
      */
-    public function __construct(EncoderFactoryInterface $encoderFactory, $algorithm, CanonicalizerInterface $usernameCanonicalizer, CanonicalizerInterface $emailCanonicalizer, $proxyClass, $class)
+    public function __construct(EncoderFactoryInterface $encoderFactory, $algorithm, CanonicalizerInterface $usernameCanonicalizer, CanonicalizerInterface $emailCanonicalizer, $proxyClass, $modelClass)
     {
         parent::__construct($encoderFactory, $algorithm, $usernameCanonicalizer, $emailCanonicalizer);
 
-        $this->class = $class;
-        $this->proxyClass = $proxyClass;
+        $this->class = $proxyClass;
+        $this->modelClass = $modelClass;
     }
 
     /**
@@ -56,16 +56,6 @@ class UserManager extends BaseUserManager
         $user->delete();
     }
 
-    public function refreshUser(SecurityUserInterface $user)
-    {
-        if (!$user instanceof $this->proxyClass) {
-            throw new UnsupportedUserException('Account is not supported.');
-        }
-
-        return $this->loadUserByUsername($user->getUsername());
-    }
-
-
     /**
     * Returns an empty user instance
     *
@@ -73,16 +63,16 @@ class UserManager extends BaseUserManager
     */
     public function createUser()
     {
-        $class = $this->getClass();
+        $class = $this->modelClass;
         $user = new $class();
         $user->setAlgorithm($this->algorithm);
 
         return $this->proxyfy($user);
     }
 
-    public function getProxyClass()
+    public function getModelClass()
     {
-        return $this->proxyClass;
+        return $this->modelClass;
     }
 
     /**
@@ -221,12 +211,12 @@ class UserManager extends BaseUserManager
      */
     protected function createQuery()
     {
-        return \PropelQuery::from($this->class);
+        return \PropelQuery::from($this->modelClass);
     }
 
     protected function proxyfy(User $user)
     {
-        $proxyClass = $this->getProxyClass();
+        $proxyClass = $this->getClass();
         $proxy = new $proxyClass($user);
 
         return $proxy;
