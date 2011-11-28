@@ -3,7 +3,7 @@ Logging by Username or Email
 
 The `UserProviderInterface` implementation provided by FOSUserBundle through
 the UserManager uses the username to load the user. Allowing the user to
-use either its username or its email to login is simple and can be done achieved
+use either its username or its email to login is simple and can be achieved
 in 2 ways.
 
 ## Wrapping the UserManager in another UserProvider
@@ -80,7 +80,7 @@ security:
 
 The other solution is to replace the default `UserManagerInterface` implementation
 provided by the bundle. To do this, simply create a new class that extends
-the bundle's UserManager class and override the `loadUserByUsername method.
+the bundle's UserManager class and override the `loadUserByUsername` method.
 The class would look like this:
 
 ```php
@@ -88,7 +88,7 @@ The class would look like this:
 
 namespace Acme\UserBundle\Model;
 
-// choose the appropriate base class depending of your driver
+// choose the appropriate base class depending on your driver
 use FOS\UserBundle\Entity\UserManager;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
@@ -136,7 +136,7 @@ fos_user:
 
 *Drawbacks of this way:*
 
-- Your own user manager must use the good base class according to your driver.
+- Your own user manager must use the right base class according to your driver.
 - You are replacing the UserManager so every part of the code using it will
   receive the modified version. This could potentially create some issues.
 
