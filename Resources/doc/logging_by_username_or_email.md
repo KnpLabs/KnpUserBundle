@@ -3,12 +3,12 @@ Logging by Username or Email
 
 The `UserProviderInterface` implementation provided by FOSUserBundle through
 the UserManager uses the username to load the user. Allowing the user to
-use both its username and its email to login is simple and can be done achieved
+use either its username or its email to login is simple and can be done achieved
 in 2 ways.
 
 ## Wrapping the UserManager in another UserProvider
 
-The first way to achieve it is to create a custom USerProvider wrapping the
+The first way to achieve it is to create a custom UserProvider wrapping the
 UserManager. The class will look like this:
 
 ```php
@@ -64,8 +64,8 @@ services:
         arguments: ["@fos_user.user_manager"]
 ```
 
-You can now configure SecurityBundle to use your own service as provider
-instead of using the `UserManager`:
+You can now configure SecurityBundle to use your own service as the user
+provider instead of using the `fos_user.user_manager` service:
 
 ```yaml
 # app/config/security.yml
@@ -79,14 +79,16 @@ security:
 ## Extending the UserManager class
 
 The other solution is to replace the default `UserManagerInterface` implementation
-by your own one extending it. The class would look like this:
+provided by the bundle. To do this, simply create a new class that extends
+the bundle's UserManager class and override the `loadUserByUsername method.
+The class would look like this:
 
 ```php
 <?php
 
 namespace Acme\UserBundle\Model;
 
-// choose the good base class depending of your driver
+// choose the appropriate base class depending of your driver
 use FOS\UserBundle\Entity\UserManager;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
@@ -118,8 +120,8 @@ services:
 
 **Note:**
 
-> To avoid redefining all constructor argument, we use the definition inheritance
-> allowing as to reuse the parent definition and to replace only the needed parts.
+> To avoid redefining all constructor arguments, we use the definition inheritance
+> allowing us to reuse the parent definition and to replace only the needed parts.
 
 Finally let FOSUserBundle know that it should use your own service:
 
@@ -132,12 +134,12 @@ fos_user:
 
 **Comparison with the previous method:**
 
-*Drawbacks of this way to to go:*
+*Drawbacks of this way:*
 
 - Your own user manager must use the good base class according to your driver.
 - You are replacing the UserManager so every part of the code using it will
   receive the modified version. This could potentially create some issues.
 
-*Advantage of this way to go:*
+*Advantage of this way:*
 
 - The code is shorter.
