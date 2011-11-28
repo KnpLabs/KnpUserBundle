@@ -78,7 +78,7 @@ class UserListener implements EventSubscriber
                 $dm   = $args->getDocumentManager();
                 $uow  = $dm->getUnitOfWork();
                 $meta = $dm->getClassMetadata(get_class($entity));
-                $uow->recomputeSingleEntityChangeSet($meta, $entity);
+                $uow->recomputeSingleDocumentChangeSet($meta, $entity);
             }
         }
     }
