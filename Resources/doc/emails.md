@@ -28,11 +28,11 @@ fos_user:
 
 An email is also sent when a user has requested a password reset. The 
 FOSUserBundle provides password reset functionality in a two-step process. 
-When a user wishes to reset their password they have to request a password 
-reset. When a users does, he is sent an email containing a link to visit to 
-reset their password. Upon visiting the link, the user will be identified 
-with the token contained in the url. When the appropriate link is visited, 
-the user will be presented with a form to enter in a new password.
+First the user must request a password reset. After the request has been 
+made, an email is sent containing a link to visit. Upon visiting the link, 
+the user will be identified by the token contained in the url. When the user 
+visits the link and the token is confirmed, the user will be presented with 
+a form to enter in a new password.
 
 ### Default Mailer Implementations
 
@@ -42,11 +42,68 @@ service id:
 - `fos_user.mailer.default` is the default implementation, and uses Swiftmailer to send emails.
 - `fos_user.mailer.noop` is a mailer implementation which performs no operation, so no emails are sent.
 
+**Note:**
+
+> The `fos_user.mailer.noop` mailer service should be used in the case where you do not want 
+> the bundle to send emails and you do not want to include the SwiftmailerBundle 
+> in your app. If you leave the default implementation configured as the mailer 
+> and do not have the SwiftmailerBundle registered, you will receive an exception 
+> because of a missing dependency.
+
+### Configuring the Sender Email Address
+
+The FOSUserBundle default mailer allows you to configure the sender email address 
+of the emails sent out by the bundle. You can configure the address globally or on 
+a per email basis.
+
+To configure the sender email address for all emails sent out by the bundle, simply 
+update your `fos_user` config as follows:
+
+``` yaml
+# app/config/config.yml
+fos_user:
+    #...
+    from_email:
+        address:        noreply@acmedemo.com
+        sender_name:    Acme Demo App
+```
+
+The bundle also provides the flexibility of allowing you to configure the sender 
+email address for the emails individually.
+
+To configure the sender email address for the user registration confirmation 
+email update your `fos_user` config as follows:
+
+``` yaml
+# app/config/config.yml
+fos_user:
+    #...
+    registration:
+        confirmation:
+            from_email: 
+                address:        registration@acmedemo.com
+                sender_name:    Acme Demo Registration
+```
+
+You can similarly update the `fos_user` config to change the sender email address for 
+the password reset request email:
+
+``` yaml
+# app/config/config.yml
+fos_user:
+    #...
+    resetting:
+        email:
+            from_email:
+                address:        resetting@acmedemo.com
+                sender_name:    Acme Demo Resetting
+```
+
 ### Using A Custom Mailer
 
 The default mailer service used by FOSUserBundle relies on the Swiftmailer 
 library to send mail. If you would like to use a different library to send 
-mails, want to send HTML emails or simply change the content of the email you 
+emails, want to send HTML emails or simply change the content of the email you 
 may do so by defining your own service.
  
 First you must create a new class which implements `FOS\UserBundle\Mailer\MailerInterface` 
