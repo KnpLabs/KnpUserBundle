@@ -3,7 +3,7 @@ FOSUserBundle
 
 The FOSUserBundle adds support for a database-backed user system in Symfony2.
 It provides a flexible framework for user management that aims to handle
-common tasks such as user login, registration and password retrieval.
+common tasks such as user registration and password retrieval.
 
 Features include:
 
@@ -11,6 +11,9 @@ Features include:
 - Registration support, with an optional confirmation per mail
 - Password reset support
 - Unit tested
+
+**Note:** This bundle does *not* provide an authentication system but can
+provide the user provider for the core [SecurityBundle](http://symfony.com/doc/current/book/security.html).
 
 **Caution:** This bundles is developed in sync with [symfony's repository](https://github.com/symfony/symfony)
 
