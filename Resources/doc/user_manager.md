@@ -3,21 +3,21 @@ About FOSUserBundle User Manager
 
 In order to be storage agnostic, all operations on the user instances are
 handled by a user manager implementing `FOS\UserBundle\Model\UserManagerInterface`.
-Using it ensures that your code will continue to work when you change the
-storage.
-That's the way FOSUserBundle's internal controllers are built.
+Using it ensures that your code will continue to work if you change the storage.
+The controllers provided by the bundle use the configured user manager instead
+of interacting directly with the storage layer.
 
-If you configure the db_driver to `orm`, this service is an instance of
-`FOS\UserBundle\Entity\UserManager`.
+If you configure the `db_driver` option to `orm`, this service is an instance
+of `FOS\UserBundle\Entity\UserManager`.
 
-If you configure the db_driver to `mongodb`, this service is an instance of
-`FOS\UserBundle\Document\UserManager`.
+If you configure the `db_driver` option to `mongodb`, this service is an
+instance of `FOS\UserBundle\Document\UserManager`.
 
-If you configure the db_driver to `couchdb`, this service is an instance of
-`FOS\UserBundle\CouchDocument\UserManager`.
+If you configure the `db_driver` option to `couchdb`, this service is an
+instance of `FOS\UserBundle\CouchDocument\UserManager`.
 
-If you configure the db_driver to `propel`, this service is an instance of
-`FOS\UserBundle\Propel\UserManager`.
+If you configure the `db_driver` option to `propel`, this service is an instance
+of `FOS\UserBundle\Propel\UserManager`.
 
 ## Accessing the User Manager service
 
@@ -43,17 +43,23 @@ $user = $userManager->createUser();
 > This method will not work if your user class has some mandatory constructor
 > arguments.
 
-## Finding the User instances
+## Retrieving the users
 
 The user manager has a few methods to find users based on the unique fields
 (username, email and confirmation token) and a method to retrieve all existing
 users.
 
+- findUserByUsername($username)
+- findUserByEmail($username)
+- findUserByUsernameOrEmail($value)  (check if the value looks like an email to choose)
+- findUserByConfirmationToken($token)
+- findUsers()
+
 ## Updating a User object
 
 To save a user object, you can use the `updateUser` method of the user manager.
-This method will take care to update the encoded password and the canonical
-fields.
+This method will update the encoded password and the canonical fields and
+then persist the changes.
 
 ``` php
 <?php
@@ -70,7 +76,7 @@ $userManager->updateUser($user);
 > To make it easier, the bundle comes with a Doctrine listener handling the
 > update of the password and the canonical fields for you behind the scenes.
 > If you always save the user through the user manager, you may want to disable
-> it to improve performances.
+> it to improve performance.
 
 In YAML:
 
@@ -93,11 +99,18 @@ Or if you prefer XML:
 />
 ```
 
+**Warning:**
+
+> The Propel implementation does not have such a listener so you have to
+> call the method of the user manager to save the user.
+
 **Note:**
 
 > For the Doctrine implementations, the default behavior is to flush the
 > unit of work when calling the `updateUser` method. You can disable the
 > flush by passing a second argument set to `false`.
+> This will then be equivalent to calling `updateCanonicalFields` and
+> `updatePassword`.
 
 An ORM example:
 
