@@ -8,7 +8,7 @@
 
         <constraint name="FOS\UserBundle\Validator\Unique">
             <option name="property">usernameCanonical</option>
-            <option name="message">The username is already used</option>
+            <option name="message">fos_user.username.already_used</option>
             <option name="groups">
                 <value>Registration</value>
                 <value>Profile</value>
@@ -17,7 +17,7 @@
 
         <constraint name="FOS\UserBundle\Validator\Unique">
             <option name="property">emailCanonical</option>
-            <option name="message">The email is already used</option>
+            <option name="message">fos_user.email.already_used</option>
             <option name="groups">
                 <value>Registration</value>
                 <value>Profile</value>
@@ -26,7 +26,7 @@
 
         <property name="username">
             <constraint name="NotBlank">
-                <option name="message">Please enter a username</option>
+                <option name="message">fos_user.username.blank</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
@@ -34,7 +34,7 @@
             </constraint>
             <constraint name="MinLength">
                 <option name="limit">2</option>
-                <option name="message">The username is too short</option>
+                <option name="message">fos_user.username.short</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
@@ -42,7 +42,7 @@
             </constraint>
             <constraint name="MaxLength">
                 <option name="limit">255</option>
-                <option name="message">The username is too long</option>
+                <option name="message">fos_user.username.long</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
@@ -52,7 +52,7 @@
 
         <property name="email">
             <constraint name="NotBlank">
-                <option name="message">Please enter an email</option>
+                <option name="message">fos_user.email.blank</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
@@ -60,7 +60,7 @@
             </constraint>
             <constraint name="MinLength">
                 <option name="limit">2</option>
-                <option name="message">The email is too short</option>
+                <option name="message">fos_user.email.short</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
@@ -68,14 +68,14 @@
             </constraint>
             <constraint name="MaxLength">
                 <option name="limit">255</option>
-                <option name="message">The email is too long</option>
+                <option name="message">fos_user.email.long</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
                 </option>
             </constraint>
             <constraint name="Email">
-                <option name="message">The email is not valid</option>
+                <option name="message">fos_user.email.invalid</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
@@ -85,12 +85,12 @@
 
         <property name="plainPassword">
             <constraint name="NotBlank">
-                <option name="message">Please enter a password</option>
+                <option name="message">fos_user.password.blank</option>
                 <option name="groups">Registration</option>
             </constraint>
             <constraint name="MinLength">
                 <option name="limit">2</option>
-                <option name="message">The password is too short</option>
+                <option name="message">fos_user.password.short</option>
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
@@ -103,6 +103,7 @@
         <constraint name="FOS\UserBundle\Validator\Password">
             <option name="passwordProperty">current</option>
             <option name="userProperty">user</option>
+            <option name="message">fos_user.current_password.invalid</option>
             <option name="groups">
                 <value>ChangePassword</value>
                 <value>Profile</value>
@@ -113,12 +114,12 @@
     <class name="FOS\UserBundle\Form\Model\ChangePassword">
         <property name="new">
             <constraint name="NotBlank">
-                <option name="message">Please enter a new password</option>
+                <option name="message">fos_user.new_password.blank</option>
                 <option name="groups">ChangePassword</option>
             </constraint>
             <constraint name="MinLength">
                 <option name="limit">2</option>
-                <option name="message">The new password is too short</option>
+                <option name="message">fos_user.new_password.short</option>
                 <option name="groups">ChangePassword</option>
             </constraint>
         </property>
@@ -127,12 +128,12 @@
     <class name="FOS\UserBundle\Form\Model\ResetPassword">
         <property name="new">
             <constraint name="NotBlank">
-                <option name="message">Please enter a new password</option>
+                <option name="message">fos_user.new_password.blank</option>
                 <option name="groups">ResetPassword</option>
             </constraint>
             <constraint name="MinLength">
                 <option name="limit">2</option>
-                <option name="message">The new password is too short</option>
+                <option name="message">fos_user.new_password.short</option>
                 <option name="groups">ResetPassword</option>
             </constraint>
         </property>
@@ -141,17 +142,17 @@
     <class name="FOS\UserBundle\Model\Group">
         <property name="name">
             <constraint name="NotBlank">
-                <option name="message">Please enter a name</option>
+                <option name="message">fos_user.group.blank</option>
                 <option name="groups">Registration</option>
             </constraint>
             <constraint name="MinLength">
                 <option name="limit">2</option>
-                <option name="message">The name is too short</option>
+                <option name="message">fos_user.group.short</option>
                 <option name="groups">Registration</option>
             </constraint>
             <constraint name="MaxLength">
                 <option name="limit">255</option>
-                <option name="message">The name is too long</option>
+                <option name="message">fos_user.group.long</option>
                 <option name="groups">Registration</option>
             </constraint>
         </property>
