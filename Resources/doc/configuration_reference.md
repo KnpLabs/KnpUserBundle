@@ -54,8 +54,8 @@ fos_user:
             validation_groups:  [ResetPassword]
     service:
         mailer:                 fos_user.mailer.default
-        email_canonicalizer:    fos_user.util.email_canonicalizer.default
-        username_canonicalizer: fos_user.util.username_canonicalizer.default
+        email_canonicalizer:    fos_user.util.canonicalizer.default
+        username_canonicalizer: fos_user.util.canonicalizer.default
         user_manager:           fos_user.user_manager.default
     encoder:
         algorithm:          sha512
