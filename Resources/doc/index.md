@@ -109,11 +109,16 @@ MongoDB, CouchDB, etc). Your first job, then, is to create the `User` class
 for your application. This class can look and act however you want: add any
 properties or methods you find useful. This is *your* `User` class.
 
-This class has just two requirements, which allow it to take advantage of
-all of the functionality in the FOSUserBundle:
+The bundle provides base classes which are already mapped for most fields
+to make it easier to create your entity. Here is how you use it:
 
-1. It must extend one of the base `User` classes from the bundle
-2. It must have an `id` field
+1. Extend the base `User` class (the class to use depends of your storage)
+2. Map the `id` field. It must be protected as it is inherited from the parent class.
+
+**Warning:**
+
+> When you extend from the mapped superclass provided by the bundle, don't
+> redefine the mapping for the other fields as it is provided by the bundle.
 
 In the following sections, you'll see examples of how your `User` class should
 look, depending on how you're storing your users (Doctrine ORM, MongoDB ODM,
