@@ -273,8 +273,8 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertAlias('fos_user.mailer.default', 'fos_user.mailer');
-        $this->assertAlias('fos_user.util.email_canonicalizer.default', 'fos_user.util.email_canonicalizer');
-        $this->assertAlias('fos_user.util.username_canonicalizer.default', 'fos_user.util.username_canonicalizer');
+        $this->assertAlias('fos_user.util.canonicalizer.default', 'fos_user.util.email_canonicalizer');
+        $this->assertAlias('fos_user.util.canonicalizer.default', 'fos_user.util.username_canonicalizer');
     }
 
     public function testUserLoadUtilService()

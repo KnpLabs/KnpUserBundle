@@ -6,9 +6,7 @@
 
     <services>
 
-        <service id="fos_user.util.email_canonicalizer.default" class="FOS\UserBundle\Util\Canonicalizer" public="false" />
-
-        <service id="fos_user.util.username_canonicalizer.default" class="FOS\UserBundle\Util\Canonicalizer" public="false" />
+        <service id="fos_user.util.canonicalizer.default" class="FOS\UserBundle\Util\Canonicalizer" public="false" />
 
         <service id="fos_user.util.user_manipulator" class="FOS\UserBundle\Util\UserManipulator">
             <argument type="service" id="fos_user.user_manager" />
