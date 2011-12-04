@@ -73,7 +73,7 @@ class ResettingController extends ContainerAware
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:checkEmail.html.'.$this->getEngine(), array(
-            'user' => $user,
+            'email' => $this->getTruncatedEmail($user),
         ));
     }
 
@@ -133,6 +133,24 @@ class ResettingController extends ContainerAware
     protected function getRedirectionUrl(UserInterface $user)
     {
         return $this->container->get('router')->generate('fos_user_profile_show');
+    }
+
+    /**
+     * Get the truncated email displayed when requesting the resetting.
+     *
+     * The default implementation only keeps the part following @ in the address.
+     *
+     * @param \FOS\UserBundle\Model\UserInterface $user
+     * @return string
+     */
+    protected function getTruncatedEmail(UserInterface $user)
+    {
+        $email = $user->getEmail();
+        if (false !== $pos = strpos($email, '@')) {
+            $email = '...' . substr($email, $pos);
+        }
+
+        return $email;
     }
 
     protected function setFlash($action, $value)
