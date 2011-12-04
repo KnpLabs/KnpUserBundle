@@ -453,5 +453,6 @@ The following documents are available:
 - [Command Line Tools](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/command_line_tools.md)
 - [Logging by username or email](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/logging_by_username_or_email.md)
 - [Emails](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/emails.md)
+- [Using the groups](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/groups.md)
 - [Supplemental Documenation](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/supplemental.md)
 - [Configuration Reference](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/configuration_reference.md)
