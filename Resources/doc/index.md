@@ -446,12 +446,12 @@ of the bundle.
 
 The following documents are available:
 
-1. [Overriding Templates](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/overriding_templates.md)
-2. [Overriding Controllers](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/overriding_controllers.md)
-3. [Overriding Forms](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/overriding_forms.md)
-4. [Using the UserManager](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/user_manager.md)
-5. [Command Line Tools](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/command_line_tools.md)
-6. [Logging by username or email](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/logging_by_username_or_email.md)
-7. [Emails](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/emails.md)
-8. [Supplemental Documenation](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/supplemental.md)
-9. [Configuration Reference](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/configuration_reference.md)
+- [Overriding Templates](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/overriding_templates.md)
+- [Overriding Controllers](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/overriding_controllers.md)
+- [Overriding Forms](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/overriding_forms.md)
+- [Using the UserManager](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/user_manager.md)
+- [Command Line Tools](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/command_line_tools.md)
+- [Logging by username or email](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/logging_by_username_or_email.md)
+- [Emails](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/emails.md)
+- [Supplemental Documenation](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/supplemental.md)
+- [Configuration Reference](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/configuration_reference.md)
