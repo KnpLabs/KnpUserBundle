@@ -1,65 +1,83 @@
 # Group
-group.edit.submit: Groep bijwerken
-group.show.name: Groep naam
-group.new.submit: Groep aanmaken
-group.flash.updated: De groep is bijgewerkt
-group.flash.created: De groep is aangemaakt
-group.flash.deleted: De groep is verwijderd
+group:
+    edit:
+        submit: Groep bijwerken
+    show:
+        name: Groep naam
+    new:
+        submit: Groep aanmaken
+    flash
+        updated: De groep is bijgewerkt
+        created: De groep is aangemaakt
+        deleted: De groep is verwijderd
 
 # Security
-security.login.username: "Gebruikersnaam:"
-security.login.password: "Wachtwoord:"
-security.login.remember_me: Onthoud mijn gegevens
-security.login.submit: Inloggen
+security:
+    login:
+        username: "Gebruikersnaam:"
+        password: "Wachtwoord:"
+        remember_me: Onthoud mijn gegevens
+        submit: Inloggen
 
 # Profile
-profile.show.username: Gebruikersnaam
-profile.show.email: Email
-profile.edit.submit: Bijwerken
-profile.flash.updated: Het profiel is bijgewerkt
+profile:
+    show:
+        username: Gebruikersnaam
+        email: Email
+    edit:
+        submit: Bijwerken
+    flash:
+        updated: Het profiel is bijgewerkt
 
 # Password change
-change_password.submit: Wachtwoord wijzigen
+change_password:
+    submit: Wachtwoord wijzigen
+#    flash:
+#        success: The password has been changed
 
 # Registration
-registration.check_email: Er is een email gestuurd naar %email%. Het bevat een activatielink die u moet aanklikken om uw account te activeren.
-registration.confirmed: Gefeliciteerd %username%, uw account is nu bevestigd.
-#registration.back: Back to the originating page.
-registration.submit: Registreer
-registration.flash.user_created: De gebruiker is succesvol aangemaakt
+registration:
+    check_email: Er is een email gestuurd naar %email%. Het bevat een activatielink die u moet aanklikken om uw account te activeren.
+    confirmed: Gefeliciteerd %username%, uw account is nu bevestigd.
+    #back: Back to the originating page.
+    submit: Registreer
+    flash:
+        user_created: De gebruiker is succesvol aangemaakt
+    email: |
+        Welkom %username%!
+        Hallo %username%!
 
-registration.email: |
-    Welkom %username%!
-    Hallo %username%!
+        U moet uw account nog valideren, ga naar %confirmationUrl%
 
-    U moet uw account nog valideren, ga naar %confirmationUrl%
-
-    Vriendelijke groeten,
-    het Team.
+        Vriendelijke groeten,
+        het Team.
 
 # Password resetting
-resetting.password_already_requested: Het wachtwoord voor deze gebruiker is al aangevraagd in de laatste 24 uur.
-resetting.check_email: Er is een email gestuurd naar %email%. Het bevat een link om uw wachtwoord te resetten..
-resetting.request.invalid_username: De gebruiker "%username%" bestaat niet.
-resetting.request.username: "Gebruikersnaam:"
-resetting.request.submit: Reset wachtwoord
-resetting.reset.submit: Wachtwoord bijwerken
-resetting.flash.success: Het wachtwoord is succesvol gereset
+resetting:
+    password_already_requested: Het wachtwoord voor deze gebruiker is al aangevraagd in de laatste 24 uur.
+    check_email: Er is een email gestuurd naar %email%. Het bevat een link om uw wachtwoord te resetten..
+    request:
+        invalid_username: De gebruiker "%username%" bestaat niet.
+        username: "Gebruikersnaam:"
+        submit: Reset wachtwoord
+        submit: Wachtwoord bijwerken
+    flash:
+        success: Het wachtwoord is succesvol gereset
+    email: |
+        Welkom %username%!
+        Hallo %username%!
 
-resetting.email: |
-    Welkom %username%!
-    Hallo %username%!
+        Om uw wachtwoord te resetten gaat u naar de volgende link %confirmationUrl%
 
-    Om uw wachtwoord te resetten gaat u naar de volgende link %confirmationUrl%
-
-    Met vriendelijke groet,
-    het Team.
+        Met vriendelijke groet,
+        het Team.
 
 # Global strings
-layout.logout: Uitloggen
-layout.login: Inloggen
-layout.register: Registreer
-layout.logged_in_as: Ingelogd als %username%
+layout:
+    logout: Uitloggen
+    login: Inloggen
+    register: Registreer
+    logged_in_as: Ingelogd als %username%
 
 # Form field labels
 fos_user_group_form_name: "Groep naam:"

@@ -1,66 +1,84 @@
 # Group
-group.edit.submit: Opdater gruppe group
-group.show.name: Gruppe navn
-group.new.submit: Opret gruppe
-group.flash.updated: Gruppen er blevet opdateret
-group.flash.created: Gruppen er blevet oprettet
-group.flash.deleted: Gruppen er blevet slettet
+group:
+    edit:
+        submit: Opdater gruppe group
+    show:
+        name: Gruppe navn
+    new:
+        submit: Opret gruppe
+    flash:
+        updated: Gruppen er blevet opdateret
+        created: Gruppen er blevet oprettet
+        deleted: Gruppen er blevet slettet
 
 # Security
-security.login.username: "Brugernavn:"
-security.login.password: "Kodeord:"
-security.login.remember_me: Husk mig
-security.login.submit: Logind
+security:
+    login:
+        username: "Brugernavn:"
+        password: "Kodeord:"
+        remember_me: Husk mig
+        submit: Logind
 
 # Profile
-profile.show.username: Brugernavn
-profile.show.email: Email
-profile.edit.submit: Opdater
-profile.flash.updated: Profilen er blevet opdateret
+profile:
+    show:
+        username: Brugernavn
+        email: Email
+    edit:
+        submit: Opdater
+    flash:
+        updated: Profilen er blevet opdateret
 
 # Password change
-change_password.submit: Skift kodeord
-change_password.flash.success: Kodeordet er blevet opdateret
+change_password:
+    submit: Skift kodeord
+    flash:
+        success: Kodeordet er blevet opdateret
 
 # Registration
-registration.check_email: En email er blevet send til %email%. Den indeholder et aktiverings link du skal bruge for at aktiverer din konto.
-registration.confirmed: Tillykke %username%, din konto er nu aktiveret
-#registration.back: Back to the originating page.
-registration.submit: Registrer
-registration.flash.user_created: Bruger er blevet oprettet
+registration:
+    check_email: En email er blevet send til %email%. Den indeholder et aktiverings link du skal bruge for at aktiverer din konto.
+    confirmed: Tillykke %username%, din konto er nu aktiveret
+    #back: Back to the originating page.
+    submit: Registrer
+    flash:
+        user_created: Bruger er blevet oprettet
+    email: |
+        Velkommen %username%!
+        Hej %username%!
 
-registration.email: |
-    Velkommen %username%!
-    Hej %username%!
+        For at færdiggøre valideringen af din konto - besøg venligst %confirmationUrl%
 
-    For at færdiggøre valideringen af din konto - besøg venligst %confirmationUrl%
-
-    Venlig Hilsen,
-    Holdet bag siden.
+        Venlig Hilsen,
+        Holdet bag siden.
 
 # Password resetting
-resetting.password_already_requested: Denne brugers kodeord er allerede blevet nulstillet inden for de sidste 24 timer.
-resetting.check_email: En email er blevet sendt til %email%. Den indeholder et link til at nulstille dit kodeord.
-resetting.request.invalid_username: Brugeren "%username" findes ikke.
-resetting.request.username: "Brugernavn:"
-resetting.request.submit: Nulstil kodeord
-resetting.reset.submit: Skift kodeord
-resetting.flash.success: Kodeordet er blevet nulstillet
+resetting:
+    password_already_requested: Denne brugers kodeord er allerede blevet nulstillet inden for de sidste 24 timer.
+    check_email: En email er blevet sendt til %email%. Den indeholder et link til at nulstille dit kodeord.
+    request:
+        invalid_username: Brugeren "%username" findes ikke.
+        username: "Brugernavn:"
+        submit: Nulstil kodeord
+    reset:
+        submit: Skift kodeord
+    flash:
+        success: Kodeordet er blevet nulstillet
+    email: |
+        Velkommen %username%!
+        Hej %username%!
 
-resetting.email: |
-    Velkommen %username%!
-    Hej %username%!
+        For at nulstille dit kodeord - besøg venligst %confirmationUrl%
 
-    For at nulstille dit kodeord - besøg venligst %confirmationUrl%
-
-    Venlig Hilsen,
-    Holdet bag siden.
+        Venlig Hilsen,
+        Holdet bag siden.
 
 # Global strings
-layout.logout: Logud
-layout.login: Logind
-layout.register: Registrer
-layout.logged_in_as: Logget ind som %username%
+layout:
+    logout: Logud
+    login: Logind
+    register: Registrer
+    logged_in_as: Logget ind som %username%
 
 # Form field labels
 fos_user_group_form_name: "Gruppe navn:"

@@ -1,53 +1,82 @@
-group.edit.submit: Muuda grupp
-group.show.name: Grupi nimi
-group.new.submit: Uus grupp
+# Group
+group:
+    edit:
+        submit: Muuda grupp
+    show:
+        name: Grupi nimi
+    new:
+        submit: Uus grupp
+#    flash:
+#        updated: The group has been updated
+#        created: The group has been created
+#        deleted: The group has been deleted
 
-security.login.username: "Kasutajanimi:"
-security.login.password: "Salasõna:"
-security.login.remember_me: Jäta mind meelde
-security.login.submit: Sisene
+# Security
+security:
+    login:
+        username: "Kasutajanimi:"
+        password: "Salasõna:"
+        remember_me: Jäta mind meelde
+        submit: Sisene
 
 # Profile
-profile.show.username: Kasutajanimi
-profile.show.email: E-mail
-profile.edit.submit: Uuenda
+profile:
+    show:
+        username: Kasutajanimi
+        email: E-mail
+    edit:
+        submit: Uuenda
+#   flash:
+#       updated: The profile has been updated
 
 # Password change
-change_password.submit: Muuda salasõna
+change_password:
+    submit: Muuda salasõna
+#    flash:
+#        success: The password has been changed
 
 # Registration
-registration.check_email: E-mail on saadetud aadressile %email%. Selles sisaldub viide, mis tuleb konto aktiveerimiseks avada.
-registration.confirmed: Palju õnne %username%, Sinu konto on aktiveeritud.
-registration.submit: Registreeri
+registration:
+    check_email: E-mail on saadetud aadressile %email%. Selles sisaldub viide, mis tuleb konto aktiveerimiseks avada.
+    confirmed: Palju õnne %username%, Sinu konto on aktiveeritud.
+    #back: Back to the originating page.
+    submit: Registreeri
+    #flash:
+    #    user_created: The user has been created successfully
+    email: |
+        Tere %username%!
 
-registration.email: |
-    Tere %username%!
+        Konto valideerimise edukaks lõpetamiseks palun vajutage viitel %confirmationUrl%
 
-    Konto valideerimise edukaks lõpetamiseks palun vajutage viitel %confirmationUrl%
-
-    Parimatega,
-    Tiim.
+        Parimatega,
+        Tiim.
 
 # Password resetting
-resetting.password_already_requested: Kasutaja salasõna on juba viimase 24 tunni jooksul küsitud.
-resetting.check_email: E-mail on saadetud aadressile %email%. Selles sisaldub viide, mis tuleb salasõna muutmiseks avada.
-resetting.request.username: "Kasutajanimi:"
-resetting.request.submit: Saada salasõna
-resetting.reset.submit: Muuda salasõna
+resetting:
+    password_already_requested: Kasutaja salasõna on juba viimase 24 tunni jooksul küsitud.
+    check_email: E-mail on saadetud aadressile %email%. Selles sisaldub viide, mis tuleb salasõna muutmiseks avada.
+    request:
+        #invalid_username: The username or email address "%username%" does not exist.
+        username: "Kasutajanimi:"
+        submit: Saada salasõna
+    reset:
+        submit: Muuda salasõna
+    #flash:
+    #    success: The password has been reset successfully
+    email: |
+        Tere %username%!
 
-resetting.email: |
-    Tere %username%!
+        Salasõna muutmiseks palun vajutage viitel %confirmationUrl%
 
-    Salasõna muutmiseks palun vajutage viitel %confirmationUrl%
-
-    Parimatega,
-    Tiim.
+        Parimatega,
+        Tiim.
 
 # Global strings
-layout.logout: Välju
-layout.login: Sisene
-layout.register: Registreeri
-layout.logged_in_as: "Sisse logitud: %username%"
+layout:
+    logout: Välju
+    login: Sisene
+    register: Registreeri
+    logged_in_as: "Sisse logitud: %username%"
 
 # Form field labels
 fos_user_group_form_name: "Grupi nimi:"

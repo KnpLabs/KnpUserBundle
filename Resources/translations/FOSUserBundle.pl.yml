@@ -1,66 +1,84 @@
 # Group
-group.edit.submit: Edytuj grupę
-group.show.name: Nazwa grupy
-group.new.submit: Utwórz grupę
-group.flash.updated: Grupa została zaktualizowana
-group.flash.created: Grupa została utworzona
-group.flash.deleted: Grupa została usunięta
+group:
+    edit:
+        submit: Edytuj grupę
+    show:
+        name: Nazwa grupy
+    new:
+        submit: Utwórz grupę
+    flash:
+        updated: Grupa została zaktualizowana
+        created: Grupa została utworzona
+        deleted: Grupa została usunięta
 
 # Security
-security.login.username: "Nazwa użytkownika:"
-security.login.password: "Hasło:"
-security.login.remember_me: Nie wylogowuj mnie
-security.login.submit: Zaloguj
+security:
+    login:
+        username: "Nazwa użytkownika:"
+        password: "Hasło:"
+        remember_me: Nie wylogowuj mnie
+        submit: Zaloguj
 
 # Profile
-profile.show.username: Nazwa użytkownika
-profile.show.email: E-mail
-profile.edit.submit: Edytuj użytkownika
-profile.flash.updated: Zapisano zmiany w profilu
+profile:
+    show:
+        username: Nazwa użytkownika
+        email: E-mail
+    edit:
+        submit: Edytuj użytkownika
+    flash:
+        updated: Zapisano zmiany w profilu
 
 # Password change
-change_password.submit: Zmień hasło
-change_password.flash.success: Hasło zostało zmienione
+change_password:
+    submit: Zmień hasło
+    flash:
+        success: Hasło zostało zmienione
 
 # Registration
-registration.check_email: Na adres %email% wysłano wiadomość e-mail. Zawiera ona link w którego należy kliknąć aby aktywować konto.
-registration.confirmed: Gratulacje %username%, potwierdziłeś konto.
-#registration.back: Back to the originating page.
-registration.submit: Zarejestruj
-registration.flash.user_created: Stworzono użytkownika
+registration:
+    check_email: Na adres %email% wysłano wiadomość e-mail. Zawiera ona link w którego należy kliknąć aby aktywować konto.
+    confirmed: Gratulacje %username%, potwierdziłeś konto.
+    #back: Back to the originating page.
+    submit: Zarejestruj
+    flash:
+        user_created: Stworzono użytkownika
+    email: |
+        Witaj %username%!
+        Cześć %username%!
 
-registration.email: |
-    Witaj %username%!
-    Cześć %username%!
+        Aby potwierdzić swoje konto - proszę przejść do %confirmationUrl%
 
-    Aby potwierdzić swoje konto - proszę przejść do %confirmationUrl%
-
-    Pozdrawiamy,
-    Zespół.
+        Pozdrawiamy,
+        Zespół.
 
 # Password resetting
-resetting.password_already_requested: W przeciągu ostatnich 24 godzin nastąpiła już próba odzyskania hasła.
-resetting.check_email: Na adres %email% Wysłano wiadomość e-mail. Zawiera ona link w którego należy kliknąć aby zresetować hasło.
-resetting.request.invalid_username: Nazwa użytkownika lub e-mail "%username%" nie istnieje.
-resetting.request.username: "Nazwa użytkownika lub e-mail:"
-resetting.request.submit: Resetuj hasło
-resetting.reset.submit: Zmień hasło
-resetting.flash.success: Hasło zostało zresetowane
+resetting:
+    password_already_requested: W przeciągu ostatnich 24 godzin nastąpiła już próba odzyskania hasła.
+    check_email: Na adres %email% Wysłano wiadomość e-mail. Zawiera ona link w którego należy kliknąć aby zresetować hasło.
+    request:
+        invalid_username: Nazwa użytkownika lub e-mail "%username%" nie istnieje.
+        username: "Nazwa użytkownika lub e-mail:"
+        submit: Resetuj hasło
+    reset:
+        submit: Zmień hasło
+    flash:
+        success: Hasło zostało zresetowane
+    email: |
+        Witaj %username%!
+        Cześć %username%!
 
-resetting.email: |
-    Witaj %username%!
-    Cześć %username%!
+        Aby zresetować hasło - proszę przejść do %confirmationUrl%
 
-    Aby zresetować hasło - proszę przejść do %confirmationUrl%
-
-    Pozdrawiamy,
-    Zespół.
+        Pozdrawiamy,
+        Zespół.
 
 # Global strings
-layout.logout: Wyloguj
-layout.login: Zaloguj
-layout.register: Zarejestruj
-layout.logged_in_as: Zalogowano jako %username%
+layout:
+    logout: Wyloguj
+    login: Zaloguj
+    register: Zarejestruj
+    logged_in_as: Zalogowano jako %username%
 
 # Form field labels
 fos_user_group_form_name: "Nazwa grupy:"

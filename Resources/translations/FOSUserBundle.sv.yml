@@ -1,66 +1,84 @@
 # Group
-group.edit.submit: Uppdatera gruppen
-group.show.name: Gruppnamn
-group.new.submit: Skapa grupp
-group.flash.updated: Gruppen har uppdaterats
-group.flash.created: Gruppen har skapats
-group.flash.deleted: Gruppen har tagits bort
+group:
+    edit:
+        submit: Uppdatera gruppen
+    show:
+        name: Gruppnamn
+    new:
+        submit: Skapa grupp
+    flash:
+        updated: Gruppen har uppdaterats
+        created: Gruppen har skapats
+        deleted: Gruppen har tagits bort
 
 # Security
-security.login.username: "Användarnamn:"
-security.login.password: "Lösenord:"
-security.login.remember_me: Kom ihåg mig
-security.login.submit: Logga in
+security:
+    login:
+        username: "Användarnamn:"
+        password: "Lösenord:"
+        remember_me: Kom ihåg mig
+        submit: Logga in
 
 # Profile
-profile.show.username: Username
-profile.show.email: Epost
-profile.edit.submit: Uppdatera
-profile.flash.updated: Profilen har uppdaterats
+profile:
+    show:
+        username: Username
+        email: Epost
+    edit:
+        submit: Uppdatera
+    flash:
+        updated: Profilen har uppdaterats
 
 # Password change
-change_password.submit: Ändra lösenord
-change_password.flash.success: Lösenordet har ändrats
+change_password:
+    submit: Ändra lösenord
+    flash:
+        success: Lösenordet har ändrats
 
 # Registration
-registration.check_email: Ett meddelande har skickats till %email%. Det innehåller en länk som du måste klicka på för att aktivera ditt konto.
-registration.confirmed: Grattis %username%, ditt konto är nu aktiverat.
-registration.back: Tillbaka till den ursprungliga sidan.
-registration.submit: Registrera
-registration.flash.user_created: Användaren har skapats.
+registration:
+    check_email: Ett meddelande har skickats till %email%. Det innehåller en länk som du måste klicka på för att aktivera ditt konto.
+    confirmed: Grattis %username%, ditt konto är nu aktiverat.
+    back: Tillbaka till den ursprungliga sidan.
+    submit: Registrera
+    flash:
+        user_created: Användaren har skapats.
+    email: |
+        Välkommen %username%!
+        Hej %username%!
 
-registration.email: |
-    Välkommen %username%!
-    Hej %username%!
+        För att aktivera ditt konto - vänligen besök %confirmationUrl%
 
-    För att aktivera ditt konto - vänligen besök %confirmationUrl%
-
-    Hälsningar,
-    Teamet.
+        Hälsningar,
+        Teamet.
 
 # Password resetting
-resetting.password_already_requested: Lösenordet för användaren har redan begärts inom de senaste 24 timmarna.
-resetting.check_email: Ett meddelande har skickats till %email%. Det innehåller en länk som du måste klicka på för att återställa ditt lösenord.
-resetting.request.invalid_username: Användarnamnet eller epost-adressen "%username%" finns inte.
-resetting.request.username: "Användarnamn eller epost-adress:"
-resetting.request.submit: Återställ lösenord
-resetting.reset.submit: Ändra lösenord
-resetting.flash.success: Lösenordet har återställts
+resetting:
+    password_already_requested: Lösenordet för användaren har redan begärts inom de senaste 24 timmarna.
+    check_email: Ett meddelande har skickats till %email%. Det innehåller en länk som du måste klicka på för att återställa ditt lösenord.
+    request:
+        invalid_username: Användarnamnet eller epost-adressen "%username%" finns inte.
+        username: "Användarnamn eller epost-adress:"
+        submit: Återställ lösenord
+    reset:
+        submit: Ändra lösenord
+    flash:
+        success: Lösenordet har återställts
+    email: |
+        Återställ lösenord
+        Hej %username%!
 
-resetting.email: |
-    Återställ lösenord
-    Hej %username%!
+        För att återställa ditt lösenord - vänligen besök %confirmationUrl%
 
-    För att återställa ditt lösenord - vänligen besök %confirmationUrl%
-
-    Hälsningar,
-    Teamet.
+        Hälsningar,
+        Teamet.
 
 # Global strings
-layout.logout: Logga ut
-layout.login: Logga in
-layout.register: Registrera
-layout.logged_in_as: Inloggad som %username%
+layout:
+    logout: Logga ut
+    login: Logga in
+    register: Registrera
+    logged_in_as: Inloggad som %username%
 
 # Form field labels
 fos_user_group_form_name: "Gruppnamn:"

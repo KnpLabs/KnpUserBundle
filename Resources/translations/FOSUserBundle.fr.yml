@@ -1,66 +1,84 @@
 # Group
-group.edit.submit: Mettre à jour le groupe
-group.show.name: Nom du groupe
-group.new.submit: Créer le groupe
-group.flash.updated: Le groupe a été mis à jour
-group.flash.created: Le groupe a été créé
-group.flash.deleted: Le groupe a été supprimé
+group:
+    edit:
+        submit: Mettre à jour le groupe
+    show:
+        name: Nom du groupe
+    new:
+        submit: Créer le groupe
+    flash:
+        updated: Le groupe a été mis à jour
+        created: Le groupe a été créé
+        deleted: Le groupe a été supprimé
 
 # Security
-security.login.username: "Nom d'utilisateur:"
-security.login.password: "Mot de passe:"
-security.login.remember_me: Se souvenir de moi
-security.login.submit: Connexion
+security:
+    login:
+        username: "Nom d'utilisateur:"
+        password: "Mot de passe:"
+        remember_me: Se souvenir de moi
+        submit: Connexion
 
 # Profile
-profile.show.username: Nom d'utilisateur
-profile.show.email: Adresse e-mail
-profile.edit.submit: Mettre à jour
-profile.flash.updated: Le profil a été mis à jour
+profile:
+    show:
+        username: Nom d'utilisateur
+        email: Adresse e-mail
+    edit:
+        submit: Mettre à jour
+    flash:
+        updated: Le profil a été mis à jour
 
 # Password change
-change_password.submit: Modifier le mot de passe
-change_password.flash.success: Le mot de passe a été modifié
+change_password:
+    submit: Modifier le mot de passe
+    flash:
+        success: Le mot de passe a été modifié
 
 # Registration
-registration.check_email: Un e-mail a été envoyé à l'adresse %email%. Veuillez suivre les instructions qui vous y sont indiquées.
-registration.confirmed: Félicitations %username%, votre compte est maintenant activé.
-registration.back: Retour à la page d'origine.
-registration.submit: Enregistrer
-registration.flash.user_created: L'utilisateur a été créé avec succès
+registration:
+    check_email: Un e-mail a été envoyé à l'adresse %email%. Veuillez suivre les instructions qui vous y sont indiquées.
+    confirmed: Félicitations %username%, votre compte est maintenant activé.
+    back: Retour à la page d'origine.
+    submit: Enregistrer
+    flash:
+        user_created: L'utilisateur a été créé avec succès
+    email: |
+        Bienvenue %username% !
+        Bonjour %username% !
 
-registration.email: |
-    Bienvenue %username% !
-    Bonjour %username% !
+        Pour valider votre compte utilisateur, merci de vous rendre sur %confirmationUrl%
 
-    Pour valider votre compte utilisateur, merci de vous rendre sur %confirmationUrl%
-
-    Cordialement,
-    L'équipe.
+        Cordialement,
+        L'équipe.
 
 # Password resetting
-resetting.password_already_requested: Un nouveau mot de passe a déjà été demandé pour cet utilisateur dans les dernières 24 heures.
-resetting.check_email: Un e-mail a été envoyé à l'adresse %email%. Veuillez suivre les instructions qui vous y sont indiquées.
-resetting.request.invalid_username: Le nom d'utilisateur ou l'adresse e-mail "%username%" n'existe pas.
-resetting.request.username: "Nom d'utilisateur ou adresse e-mail:"
-resetting.request.submit: Réinitialiser le mot de passe
-resetting.reset.submit: Modifier le mot de passe
-resetting.flash.success: Le mot de passe a été réinitialisé avec succès
+resetting:
+    password_already_requested: Un nouveau mot de passe a déjà été demandé pour cet utilisateur dans les dernières 24 heures.
+    check_email: Un e-mail a été envoyé à l'adresse %email%. Veuillez suivre les instructions qui vous y sont indiquées.
+    request:
+        invalid_username: Le nom d'utilisateur ou l'adresse e-mail "%username%" n'existe pas.
+        username: "Nom d'utilisateur ou adresse e-mail:"
+        submit: Réinitialiser le mot de passe
+    reset:
+        submit: Modifier le mot de passe
+    flash:
+        success: Le mot de passe a été réinitialisé avec succès
+    email: |
+        Bienvenue %username% !
+        Bonjour %username% !
 
-resetting.email: |
-    Bienvenue %username% !
-    Bonjour %username% !
+        Pour réinitialiser votre mot de passe, merci de vous rendre sur %confirmationUrl%
 
-    Pour réinitialiser votre mot de passe, merci de vous rendre sur %confirmationUrl%
-
-    Cordialement,
-    L'équipe.
+        Cordialement,
+        L'équipe.
 
 # Global strings
-layout.logout: Déconnexion
-layout.login: Connexion
-layout.register: Enregistrer
-layout.logged_in_as: Connecté en tant que %username%
+layout:
+    logout: Déconnexion
+    login: Connexion
+    register: Enregistrer
+    logged_in_as: Connecté en tant que %username%
 
 # Form field labels
 fos_user_group_form_name: "Nom du groupe:"

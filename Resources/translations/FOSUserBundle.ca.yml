@@ -1,66 +1,84 @@
 # Group
-group.edit.submit: Actualitza el grup
-group.show.name: Nom del grup
-group.new.submit: Crea el grup
-group.flash.updated: S'ha actualitzat el grup
-group.flash.created: S'ha creat el grup
-group.flash.deleted: S'ha eliminat el grup
+group:
+    edit:
+        submit: Actualitza el grup
+    show:
+        name: Nom del grup
+    new:
+        submit: Crea el grup
+    flash:
+        updated: S'ha actualitzat el grup
+        created: S'ha creat el grup
+        deleted: S'ha eliminat el grup
 
 # Security
-security.login.username: "Nom d'usuari:"
-security.login.password: "Contrasenya:"
-security.login.remember_me: Recorda'm
-security.login.submit: Entra
+security:
+    login:
+        username: "Nom d'usuari:"
+        password: "Contrasenya:"
+        remember_me: Recorda'm
+        submit: Entra
 
 # Profile
-profile.show.username: Nom d'usuari
-profile.show.email: Correu electrònic
-profile.edit.submit: Actualitza
-profile.flash.updated: S'ha actualitzat el perfil
+profile:
+    show:
+        username: Nom d'usuari
+        email: Correu electrònic
+    edit:
+        submit: Actualitza
+    flash:
+        updated: S'ha actualitzat el perfil
 
 # Password change
-change_password.submit: Canvia la contrasenya
-change_password.flash.success: S'ha canviat la contrasenya
+change_password:
+    submit: Canvia la contrasenya
+    flash:
+        success: S'ha canviat la contrasenya
 
 # Registration
-registration.check_email: S'ha enviat un correu electrònic a %email%. Conté un enllaç d'activació que heu de clicar per activar el compte.
-registration.confirmed: Enhorabona %username%, el vostre compte s'ha activat.
-registration.back: Torna a la pàgina original.
-registration.submit: Registra
-registration.flash.user_created: S'ha creat l'usuari correctament
+registration
+    check_email: S'ha enviat un correu electrònic a %email%. Conté un enllaç d'activació que heu de clicar per activar el compte.
+    confirmed: Enhorabona %username%, el vostre compte s'ha activat.
+    back: Torna a la pàgina original.
+    submit: Registra
+    flash:
+        user_created: S'ha creat l'usuari correctament
+    email: |
+        Benvingut %username%!
+        Hola %username%!
 
-registration.email: |
-    Benvingut %username%!
-    Hola %username%!
+        Per finalitzar l'activació del seu compte - si us plau visiteu %confirmationUrl%
 
-    Per finalitzar l'activació del seu compte - si us plau visiteu %confirmationUrl%
-
-    Atentament,
-    L'equip.
+        Atentament,
+        L'equip.
 
 # Password resetting
-resetting.password_already_requested: La contrasenya per l'usuari ja ha estat sol·licitada en les últimes 24 hores.
-resetting.check_email: S'ha enviat un correu electrònic a %email%. Conté un enllaç que heu de clicar per restablir la contrasenya.
-resetting.request.invalid_username: El nom d'usuari o correu electrònic "%username%" no existeix.
-resetting.request.username: "Nom d'usuari o correu electrònic:"
-resetting.request.submit: Restableix la contrasenya
-resetting.reset.submit: Canvia la contrasenya
-resetting.flash.success: S'ha restablert la contrasenya correctament
+resetting:
+    password_already_requested: La contrasenya per l'usuari ja ha estat sol·licitada en les últimes 24 hores.
+    check_email: S'ha enviat un correu electrònic a %email%. Conté un enllaç que heu de clicar per restablir la contrasenya.
+    request:
+        invalid_username: El nom d'usuari o correu electrònic "%username%" no existeix.
+        username: "Nom d'usuari o correu electrònic:"
+        submit: Restableix la contrasenya
+    reset:
+        submit: Canvia la contrasenya
+    flash:
+        success: S'ha restablert la contrasenya correctament
+    email: |
+        Restablir la contrasenya
+        Hola %username%!
 
-resetting.email: |
-    Restablir la contrasenya
-    Hola %username%!
+        Per restablir la contrasenya - si us plau visiteu %confirmationUrl%
 
-    Per restablir la contrasenya - si us plau visiteu %confirmationUrl%
-
-    Atentament,
-    L'equip.
+        Atentament,
+        L'equip.
 
 # Global strings
-layout.logout: Tanca la sessió
-layout.login: Entra
-layout.register: Registrar-se
-layout.logged_in_as: Heu iniciat sessió com a %username%
+layout:
+    logout: Tanca la sessió
+    login: Entra
+    register: Registrar-se
+    logged_in_as: Heu iniciat sessió com a %username%
 
 # Form field labels
 fos_user_group_form_name: "Nom del grup:"

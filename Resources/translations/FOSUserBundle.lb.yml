@@ -1,66 +1,84 @@
 # Group
-group.edit.submit: Grupp aktualiséieren
-group.show.name: Gruppennumm
-group.new.submit: Grupp creéieren
-group.flash.updated: D'Grupp gouf aktualiséiert
-group.flash.created: D'Grupp gouf creéiert
-group.flash.deleted: D'Grupp gouf geläscht
+group:
+    edit:
+        submit: Grupp aktualiséieren
+    show:
+        name: Gruppennumm
+    new
+        submit: Grupp creéieren
+    flash
+        updated: D'Grupp gouf aktualiséiert
+        created: D'Grupp gouf creéiert
+        deleted: D'Grupp gouf geläscht
 
 # Security
-security.login.username: "Benotzernumm:"
-security.login.password: "Passwuert:"
-security.login.remember_me: U mech erënneren
-security.login.submit: Umellen
+security
+    login:
+        username: "Benotzernumm:"
+        password: "Passwuert:"
+        remember_me: U mech erënneren
+        submit: Umellen
 
 # Profile
-profile.show.username: Benotzernumm
-profile.show.email: E-Mail
-profile.edit.submit: Benotzer aktualiséieren
-profile.flash.updated: De Benotzerprofil gouf aktualiséiert
+profile:
+    show:
+        username: Benotzernumm
+        email: E-Mail
+    edit:
+        submit: Benotzer aktualiséieren
+    flash:
+        updated: De Benotzerprofil gouf aktualiséiert
 
 # Password change
-change_password.submit: Passwuert ännern
-change_password.flash.success: D'Passwuert gouf geännert
+change_password:
+    submit: Passwuert ännern
+    flash:
+        success: D'Passwuert gouf geännert
 
 # Registration
-registration.check_email: Eng E-Mail gouf un %email% geschéckt. Se enthält e Link deen s Du uklicke muss, fir Däi Benotzerkonto ze bestätegen.
-registration.confirmed: Gléckwonsch %username%, Däi Benutzerkonto ass elo bestätegt.
-#registration.back: Back to the originating page.
-registration.submit: Registréieren
-registration.flash.user_created: De Benotzer gouf erfollegräich creéiert
+registration:
+    check_email: Eng E-Mail gouf un %email% geschéckt. Se enthält e Link deen s Du uklicke muss, fir Däi Benotzerkonto ze bestätegen.
+    confirmed: Gléckwonsch %username%, Däi Benutzerkonto ass elo bestätegt.
+    #back: Back to the originating page.
+    submit: Registréieren
+    flash:
+        user_created: De Benotzer gouf erfollegräich creéiert
+    email: |
+        Wëllkomm %username%!
+        Hallo %username%!
 
-registration.email: |
-    Wëllkomm %username%!
-    Hallo %username%!
+        Fir Däi Benotzerkonto ze bestätegen, besich wann ech gelift d'Säit %confirmationUrl%
 
-    Fir Däi Benotzerkonto ze bestätegen, besich wann ech gelift d'Säit %confirmationUrl%
-
-    Mat beschte Gréiss,
-    d'Equipe.
+        Mat beschte Gréiss,
+        d'Equipe.
 
 # Password resetting
-resetting.password_already_requested: Een neit Passwuert gouf an de vergaangene 24 Stunden fir dëse Benotzer schon emol ugefrot.
-resetting.check_email: Eng E-Mail gouf un %email% geschéckt. Se enthält e Link, deen s Du uklicke muss, fir Däi Passwort zeréckzesetzen.
-resetting.request.invalid_username: De Benotzer "%username%" existéiert net.
-resetting.request.username: "Benotzernumm:"
-resetting.request.submit: Passwuert zerécksetzen
-resetting.reset.submit: Passwuert ännern
-resetting.flash.success: D'Passwuert gouf erfollegräich zeréckgesat
+resetting:
+    password_already_requested: Een neit Passwuert gouf an de vergaangene 24 Stunden fir dëse Benotzer schon emol ugefrot.
+    check_email: Eng E-Mail gouf un %email% geschéckt. Se enthält e Link, deen s Du uklicke muss, fir Däi Passwort zeréckzesetzen.
+    request:
+        invalid_username: De Benotzer "%username%" existéiert net.
+        username: "Benotzernumm:"
+        submit: Passwuert zerécksetzen
+    reset:
+        submit: Passwuert ännern
+    flash:
+        success: D'Passwuert gouf erfollegräich zeréckgesat
+    email: |
+        Wëllkomm %username%!
+        Hallo %username%!
 
-resetting.email: |
-    Wëllkomm %username%!
-    Hallo %username%!
+        Fir Däi Passwuert zeréckzesetzen, besich wann ech gelift d'Säit %confirmationUrl%
 
-    Fir Däi Passwuert zeréckzesetzen, besich wann ech gelift d'Säit %confirmationUrl%
-
-    Mat beschte Gréiss,
-    d'Equipe.
+        Mat beschte Gréiss,
+        d'Equipe.
 
 # Global strings
-layout.logout: Ofmellen
-layout.login: Umellen
-layout.register: Registréieren
-layout.logged_in_as: Ugemellt als %username%
+layout:
+    logout: Ofmellen
+    login: Umellen
+    register: Registréieren
+    logged_in_as: Ugemellt als %username%
 
 # Form field labels
 fos_user_group_form_name: "Gruppennumm:"
