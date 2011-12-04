@@ -1,8 +1,9 @@
 Using Groups With FOSUserBundle
 ===============================
 
-FOSUserBundle allows you to associate groups to your users. A group has a
-name and roles, which will be granted to all users belonging to the group.
+FOSUserBundle allows you to associate groups to your users. Groups are a
+way to group a collection of roles. The roles of a group will be granted
+to all users belonging to it.
 
 **Note:**
 
