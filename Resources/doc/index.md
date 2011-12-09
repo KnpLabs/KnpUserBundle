@@ -373,6 +373,13 @@ Only three configuration values are required to use the bundle:
 > the FOSUserBundle interface. Thus, a fourth key named `propel_user_class`
 > is also required, refering to the actual model class.
 
+**Warning:**
+
+> When using one of the Doctrine implementation, you need either to use the
+> `auto_mapping` option of the corresponding bundle (done by default for
+> DoctrineBundle in the standard distribution) or to activate the mapping
+> for FOSUserBundle otherwise the base mapping will be ignored.
+
 ### Step 7: Import FOSUserBundle routing files
 
 Now that you have activated and configured the bundle, all that is left to do is
