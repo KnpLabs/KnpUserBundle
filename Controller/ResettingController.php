@@ -53,7 +53,7 @@ class ResettingController extends ContainerAware
         }
 
         $user->generateConfirmationToken();
-        $this->container->get('session')->set(static::SESSION_EMAIL, $this->getTruncatedEmail($user));
+        $this->container->get('session')->set(static::SESSION_EMAIL, $this->getObfuscatedEmail($user));
         $this->container->get('fos_user.mailer')->sendResettingEmailMessage($user);
         $user->setPasswordRequestedAt(new \DateTime());
         $this->container->get('fos_user.user_manager')->updateUser($user);
@@ -146,7 +146,7 @@ class ResettingController extends ContainerAware
      * @param \FOS\UserBundle\Model\UserInterface $user
      * @return string
      */
-    protected function getTruncatedEmail(UserInterface $user)
+    protected function getObfuscatedEmail(UserInterface $user)
     {
         $email = $user->getEmail();
         if (false !== $pos = strpos($email, '@')) {
