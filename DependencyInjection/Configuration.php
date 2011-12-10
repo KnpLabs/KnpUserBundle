@@ -35,6 +35,8 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('fos_user');
 
+        $supportedDrivers = array('orm', 'mongodb', 'couchdb', 'propel');
+
         $rootNode
             ->validate()
                 ->ifTrue(function($v){return 'propel' === $v['db_driver'] && empty($v['propel_user_class']);})
@@ -45,7 +47,15 @@ class Configuration implements ConfigurationInterface
                 ->thenInvalid('The propel model class must be defined by using the "group.propel_group_class" key.')
             ->end()
             ->children()
-                ->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->cannotBeEmpty()->end()
+                ->scalarNode('db_driver')
+                    ->validate()
+                        ->ifNotInArray($supportedDrivers)
+                        ->thenInvalid('The driver %s is not supported. Please choose one of '.json_encode($supportedDrivers))
+                    ->end()
+                    ->cannotBeOverwritten()
+                    ->isRequired()
+                    ->cannotBeEmpty()
+                ->end()
                 ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('propel_user_class')->end()
                 ->scalarNode('firewall_name')->isRequired()->cannotBeEmpty()->end()
