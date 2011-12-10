@@ -29,9 +29,6 @@ class FOSUserExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 
-        if (!in_array(strtolower($config['db_driver']), array('orm', 'mongodb', 'couchdb', 'propel'))) {
-            throw new \InvalidArgumentException(sprintf('Invalid db driver "%s".', $config['db_driver']));
-        }
         $loader->load(sprintf('%s.xml', $config['db_driver']));
 
         foreach (array('validator', 'security', 'util', 'mailer') as $basename) {
