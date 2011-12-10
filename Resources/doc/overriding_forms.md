@@ -295,3 +295,11 @@ to tell the FOSUserBundle to use your custom form handler.
 
 At this point, when a user registers on your site your service will be used to
 handle the form submission.
+
+**Note:**
+
+> When you overwrite the form processing (be it only for the success logic
+> or for the whole processing), don't forget to save the changes when the
+> form is successful.
+> This is done as part of the default success logic so you need to save it
+> yourself if you don't call the original `onSuccess` method.
