@@ -70,16 +70,6 @@ class UserProxy extends FosUser
     }
 
     /**
-     * Removes sensitive data from the user.
-     *
-     * Implements SecurityUserInterface
-     */
-    public function eraseCredentials()
-    {
-        $this->plainPassword = null;
-    }
-
-    /**
      * Returns the user unique id.
      *
      * @return mixed
