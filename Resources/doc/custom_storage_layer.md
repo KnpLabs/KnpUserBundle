@@ -1,17 +1,18 @@
-[Using a custom storage layer
-=============================
+Using a custom storage layer
+============================
 
-FOSUserBundle has been designed to allow changing the storage layer and keeping
-the features of the bundle.
+FOSUserBundle has been designed to allow you to easily change the storage
+layer used by your application and keep and keep all of the functionality
+provided by the bundle.
 
-Implementing a new storage requires providing two classes: the user implementation
-and the corresponding user manager (you will of course need two other classes
-if you want to use the groups).
+Implementing a new storage layer requires providing two classes: the user
+implementation and the corresponding user manager (you will of course need
+two other classes if you want to use the groups).
 
 The user implementation must implement `FOS\UserBundle\Model\UserInterface`
 and the user manager must implement `FOS\UserBundle\Model\UserManagerInterface`.
 The `FOS\UserBundle\Model` namespace provides base classes to make it easier to
-implement the interface.
+implement these interfaces.
 
 **Note:**
 
