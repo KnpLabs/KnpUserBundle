@@ -17,6 +17,9 @@ use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 
 class UserProxy extends FosUser
 {
+    /**
+     * @var \FOS\UserBundle\Propel\User
+     */
     protected $user;
 
     public function __construct($user)
@@ -45,6 +48,16 @@ class UserProxy extends FosUser
         }
 
         throw new \BadMethodCallException('Can\'t call method '.$method);
+    }
+
+    public function updateParent()
+    {
+        parent::setAlgorithm($this->getAlgorithm());
+        parent::setEmail($this->getEmail());
+        parent::setEmailCanonical($this->getEmailCanonical());
+        parent::setPassword($this->getPassword());
+        parent::setUsername($this->getUsername());
+        parent::setUsernameCanonical($this->getUsernameCanonical());
     }
 
     /**

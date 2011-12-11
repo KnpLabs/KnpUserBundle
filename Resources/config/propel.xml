@@ -13,6 +13,10 @@
             <argument>%fos_user.model.user.class%</argument>
             <argument>%fos_user.model.user.propel_class%</argument>
         </service>
+
+        <service id="fos_user.propel.validator_initializer" class="FOS\UserBundle\Propel\ProxyInitializer" public="false">
+            <tag name="validator.initializer" />
+        </service>
     </services>
 
 </container>
