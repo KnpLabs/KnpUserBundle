@@ -26,6 +26,7 @@ $deps = array(
     array('doctrine-mongodb', 'http://github.com/doctrine/mongodb.git', 'origin/master'),
     array('doctrine-couchdb', 'http://github.com/doctrine/couchdb-odm.git', 'origin/master'),
     array('propel', 'http://github.com/propelorm/Propel.git', 'origin/master'),
+    array('propel-behavior', 'http://github.com/willdurand/TypehintableBehavior.git', 'origin/master'),
     array('phing', 'http://github.com/Xosofox/phing.git', 'origin/master'),
 );
 

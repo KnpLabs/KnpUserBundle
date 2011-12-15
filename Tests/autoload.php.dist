@@ -30,8 +30,10 @@ $loader->register();
 set_include_path($vendorDir.'/phing/classes'.PATH_SEPARATOR.get_include_path());
 
 $propelGeneratorFile = $vendorDir.'/propel/generator/lib/util/PropelQuickBuilder.php';
-if (file_exists($propelGeneratorFile)) {
+$propelBehaviorFile = $vendorDir.'/propel-behavior/src/TypehintableBehavior.php';
+if (file_exists($propelGeneratorFile) && file_exists($propelBehaviorFile)) {
     require_once $propelGeneratorFile;
+    require_once $propelBehaviorFile;
 
     // register Propel only when the generator exists otherwise the base classes are not available
     $propelFile = $vendorDir.'/propel/runtime/lib/Propel.php';
