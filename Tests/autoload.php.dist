@@ -27,6 +27,19 @@ $loader->registerNamespaces(array(
 ));
 $loader->register();
 
+set_include_path($vendorDir.'/phing/classes'.PATH_SEPARATOR.get_include_path());
+
+$propelGeneratorFile = $vendorDir.'/propel/generator/lib/util/PropelQuickBuilder.php';
+if (file_exists($propelGeneratorFile)) {
+    require_once $propelGeneratorFile;
+
+    // register Propel only when the generator exists otherwise the base classes are not available
+    $propelFile = $vendorDir.'/propel/runtime/lib/Propel.php';
+    if (file_exists($propelFile)) {
+        require_once $propelFile;
+    }
+}
+
 spl_autoload_register(function($class) {
     if (0 === strpos($class, 'FOS\\UserBundle\\')) {
         $path = __DIR__.'/../'.implode('/', array_slice(explode('\\', $class), 2)).'.php';

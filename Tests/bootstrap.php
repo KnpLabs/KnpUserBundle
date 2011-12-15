@@ -14,3 +14,9 @@ if (file_exists($file = __DIR__.'/autoload.php')) {
 } elseif (file_exists($file = __DIR__.'/autoload.php.dist')) {
     require_once $file;
 }
+
+if (class_exists('PropelQuickBuilder')) {
+    $builder = new \PropelQuickBuilder();
+    $builder->setSchema(file_get_contents(__DIR__.'/../Resources/config/propel/schema.xml'));
+    $builder->buildClasses();
+}
