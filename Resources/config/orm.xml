@@ -7,7 +7,6 @@
     <services>
         <service id="fos_user.user_manager.default" class="FOS\UserBundle\Entity\UserManager" public="false">
             <argument type="service" id="security.encoder_factory" />
-            <argument>%fos_user.encoder.algorithm%</argument>
             <argument type="service" id="fos_user.util.username_canonicalizer" />
             <argument type="service" id="fos_user.util.email_canonicalizer" />
             <argument type="service" id="fos_user.entity_manager" />

@@ -15,20 +15,17 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
 {
     private $manager;
     private $encoderFactory;
-    private $algorithm;
     private $usernameCanonicalizer;
     private $emailCanonicalizer;
 
     protected function setUp()
     {
         $this->encoderFactory        = $this->getMockEncoderFactory();
-        $this->algorithm             = 'sha512';
         $this->usernameCanonicalizer = $this->getMockCanonicalizer();
         $this->emailCanonicalizer    = $this->getMockCanonicalizer();
 
         $this->manager = $this->getUserManager(array(
             $this->encoderFactory,
-            $this->algorithm,
             $this->usernameCanonicalizer,
             $this->emailCanonicalizer,
         ));
@@ -71,7 +68,6 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('encodedPassword'));
 
         $this->manager->updatePassword($user);
-        $this->assertEquals($this->algorithm, $user->getAlgorithm(), '->updatePassword() sets algorithm');
         $this->assertEquals('encodedPassword', $user->getPassword(), '->updatePassword() sets encoded password');
         $this->assertNull($user->getPlainPassword(), '->updatePassword() erases credentials');
     }

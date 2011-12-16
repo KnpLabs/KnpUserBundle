@@ -55,13 +55,6 @@ abstract class User implements UserInterface, GroupableInterface
     protected $enabled;
 
     /**
-     * The algorithm to use for hashing
-     *
-     * @var string
-     */
-    protected $algorithm;
-
-    /**
      * The salt to use for hashing
      *
      * @var string
@@ -285,16 +278,6 @@ abstract class User implements UserInterface, GroupableInterface
     public function getSalt()
     {
         return $this->salt;
-    }
-
-    /**
-     * Gets the algorithm used to encode the password.
-     *
-     * @return string
-     */
-    public function getAlgorithm()
-    {
-        return $this->algorithm;
     }
 
     /**
@@ -528,16 +511,6 @@ abstract class User implements UserInterface, GroupableInterface
     public function setUsernameCanonical($usernameCanonical)
     {
         $this->usernameCanonical = $usernameCanonical;
-    }
-
-    /**
-     * Sets the algorithm
-     *
-     * @param string $algorithm
-     */
-    public function setAlgorithm($algorithm)
-    {
-        $this->algorithm = $algorithm;
     }
 
     public function setCredentialsExpireAt(\DateTime $date)

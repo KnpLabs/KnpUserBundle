@@ -52,7 +52,6 @@ class UserProxy extends FosUser
 
     public function updateParent()
     {
-        parent::setAlgorithm($this->getAlgorithm());
         parent::setEmail($this->getEmail());
         parent::setEmailCanonical($this->getEmailCanonical());
         parent::setPassword($this->getPassword());
@@ -118,16 +117,6 @@ class UserProxy extends FosUser
     public function getSalt()
     {
         return $this->user->getSalt();
-    }
-
-    /**
-     * Gets the algorithm used to encode the password.
-     *
-     * @return string
-     */
-    public function getAlgorithm()
-    {
-        return $this->user->getAlgorithm();
     }
 
     /**
@@ -284,16 +273,6 @@ class UserProxy extends FosUser
     public function setUsernameCanonical($usernameCanonical)
     {
         $this->user->setUsernameCanonical($usernameCanonical);
-    }
-
-    /**
-     * Sets the algorithm
-     *
-     * @param string $algorithm
-     */
-    public function setAlgorithm($algorithm)
-    {
-        $this->user->setAlgorithm($algorithm);
     }
 
     public function setCredentialsExpireAt(\DateTime $date)

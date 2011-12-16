@@ -16,7 +16,6 @@
         </unique>
 
         <column name="enabled" type="boolean" />
-        <column name="algorithm" type="varchar" size="50" required="true" />
         <column name="salt" type="varchar" size="255" required="true" />
         <column name="password" type="varchar" size="255" required="true" />
         <column name="last_login" type="timestamp" required="false" />

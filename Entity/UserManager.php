@@ -28,15 +28,14 @@ class UserManager extends BaseUserManager
      * Constructor.
      *
      * @param EncoderFactoryInterface $encoderFactory
-     * @param string                  $algorithm
      * @param CanonicalizerInterface  $usernameCanonicalizer
      * @param CanonicalizerInterface  $emailCanonicalizer
      * @param EntityManager           $em
      * @param string                  $class
      */
-    public function __construct(EncoderFactoryInterface $encoderFactory, $algorithm, CanonicalizerInterface $usernameCanonicalizer, CanonicalizerInterface $emailCanonicalizer, EntityManager $em, $class)
+    public function __construct(EncoderFactoryInterface $encoderFactory, CanonicalizerInterface $usernameCanonicalizer, CanonicalizerInterface $emailCanonicalizer, EntityManager $em, $class)
     {
-        parent::__construct($encoderFactory, $algorithm, $usernameCanonicalizer, $emailCanonicalizer);
+        parent::__construct($encoderFactory, $usernameCanonicalizer, $emailCanonicalizer);
 
         $this->em = $em;
         $this->repository = $em->getRepository($class);

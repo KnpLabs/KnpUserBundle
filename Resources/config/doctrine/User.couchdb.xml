@@ -8,7 +8,6 @@
         <field name="email" fieldName="email" type="string" indexed="true" />
         <field name="emailCanonical" fieldName="emailCanonical" type="string" indexed="true" />
         <field name="enabled" fieldName="enabled" type="mixed" />
-        <field name="algorithm" fieldName="algorithm" type="string" />
         <field name="salt" fieldName="salt" type="string" />
         <field name="password" fieldName="password" type="string" />
         <field name="lastLogin" fieldName="lastLogin" type="datetime" />

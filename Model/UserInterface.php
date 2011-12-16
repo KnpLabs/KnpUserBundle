@@ -20,20 +20,6 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 interface UserInterface extends AdvancedUserInterface, \Serializable
 {
     /**
-     * Gets the algorithm used to encode the password.
-     *
-     * @return string
-     */
-    function getAlgorithm();
-
-    /**
-     * Sets the algorithm
-     *
-     * @param string $algorithm
-     */
-    function setAlgorithm($algorithm);
-
-    /**
      * Sets the username.
      *
      * @param string $username

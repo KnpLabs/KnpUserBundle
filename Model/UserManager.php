@@ -27,7 +27,6 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 abstract class UserManager implements UserManagerInterface, UserProviderInterface
 {
     protected $encoderFactory;
-    protected $algorithm;
     protected $usernameCanonicalizer;
     protected $emailCanonicalizer;
 
@@ -35,14 +34,12 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * Constructor.
      *
      * @param EncoderFactoryInterface $encoderFactory
-     * @param string                  $algorithm
      * @param CanonicalizerInterface  $usernameCanonicalizer
      * @param CanonicalizerInterface  $emailCanonicalizer
      */
-    public function __construct(EncoderFactoryInterface $encoderFactory, $algorithm, CanonicalizerInterface $usernameCanonicalizer, CanonicalizerInterface $emailCanonicalizer)
+    public function __construct(EncoderFactoryInterface $encoderFactory, CanonicalizerInterface $usernameCanonicalizer, CanonicalizerInterface $emailCanonicalizer)
     {
         $this->encoderFactory = $encoderFactory;
-        $this->algorithm = $algorithm;
         $this->usernameCanonicalizer = $usernameCanonicalizer;
         $this->emailCanonicalizer = $emailCanonicalizer;
     }
@@ -56,7 +53,6 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     {
         $class = $this->getClass();
         $user = new $class;
-        $user->setAlgorithm($this->algorithm);
 
         return $user;
     }
@@ -166,7 +162,6 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     public function updatePassword(UserInterface $user)
     {
         if (0 !== strlen($password = $user->getPlainPassword())) {
-            $user->setAlgorithm($this->algorithm);
             $encoder = $this->getEncoder($user);
             $user->setPassword($encoder->encodePassword($password, $user->getSalt()));
             $user->eraseCredentials();

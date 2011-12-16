@@ -35,7 +35,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
                  ->method('getClassMetadata')
                  ->with($this->equalTo(self::USERTYPE))
                  ->will($this->returnValue($class));
-        $this->userManager = new UserManager($ef, "sha1", $c, $c, $this->dm, self::USERTYPE);
+        $this->userManager = new UserManager($ef, $c, $c, $this->dm, self::USERTYPE);
     }
 
     public function testDeleteUser()
@@ -79,5 +79,5 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
 
 class DummyUser extends \FOS\UserBundle\Document\User
 {
-    
+
 }

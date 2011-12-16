@@ -16,8 +16,6 @@
 
         <field name="enabled" column="enabled" type="boolean" />
 
-        <field name="algorithm" column="algorithm" type="string" />
-
         <field name="salt" column="salt" type="string" />
 
         <field name="password" column="password" type="string" />
