@@ -1,0 +1,20 @@
+Upgrading from 1.1 tp 1.2
+=========================
+
+This file describes the needed changes when upgrading from 1.1 to 1.2
+
+### Removed the user-level algorithm.
+
+The encoder now need to be configured in the SecurityBundle configuration
+as described in the official documentation. If you were using the default
+value of the bundle, the config should look like this to reuse the same settings:
+
+```yaml
+#app/config/security.yml
+security:
+    encoders:
+        "FOS\UserBundle\Model\UserInterface":
+            algorithm: sha512
+            encode_as_base64: false
+            iterations: 1
+```

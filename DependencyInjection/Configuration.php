@@ -81,7 +81,6 @@ class Configuration implements ConfigurationInterface
         $this->addRegistrationSection($rootNode);
         $this->addResettingSection($rootNode);
         $this->addServiceSection($rootNode);
-        $this->addEncoderSection($rootNode);
         $this->addTemplateSection($rootNode);
         $this->addGroupSection($rootNode);
 
@@ -229,21 +228,6 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('username_canonicalizer')->defaultValue('fos_user.util.canonicalizer.default')->end()
                             ->scalarNode('user_manager')->defaultValue('fos_user.user_manager.default')->end()
                         ->end()
-                    ->end()
-                ->end()
-            ->end();
-    }
-
-    private function addEncoderSection(ArrayNodeDefinition $node)
-    {
-        $node
-            ->children()
-                ->arrayNode('encoder')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('algorithm')->defaultValue('sha512')->end()
-                        ->booleanNode('encode_as_base64')->defaultFalse()->end()
-                        ->scalarNode('iterations')->defaultValue(1)->end()
                     ->end()
                 ->end()
             ->end();

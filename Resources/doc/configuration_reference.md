@@ -57,10 +57,6 @@ fos_user:
         email_canonicalizer:    fos_user.util.canonicalizer.default
         username_canonicalizer: fos_user.util.canonicalizer.default
         user_manager:           fos_user.user_manager.default
-    encoder:
-        algorithm:          sha512
-        encode_as_base64:   false
-        iterations:         1
     template:
         engine: twig
         theme:  FOSUserBundle::form.html.twig

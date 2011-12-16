@@ -74,7 +74,6 @@ class FOSUserExtension extends Extension
                 'user_class' => 'fos_user.model.user.class',
                 'propel_user_class' => 'fos_user.model.user.propel_class',
             ),
-            'encoder'   => 'fos_user.encoder.%s',
             'template'  => 'fos_user.template.%s',
         ));
 
