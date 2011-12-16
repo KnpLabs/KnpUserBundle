@@ -461,7 +461,7 @@ $ git submodule add http://github.com/willdurand/TypehintableBehavior.git vendor
 By using the Symfony2 vendor management:
 
 ```
-[PropelBundle]
+[TypehintableBehavior]
     git=http://github.com/willdurand/TypehintableBehavior.git
     target=/propel-behaviors/TypehintableBehavior
 ```
