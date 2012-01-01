@@ -33,7 +33,7 @@ class UserManager extends BaseUserManager
      * @param CanonicalizerInterface  $usernameCanonicalizer
      * @param CanonicalizerInterface  $emailCanonicalizer
      * @param string                  $proxyClass
-     * @param string                  $class
+     * @param string                  $modelClass
      */
     public function __construct(EncoderFactoryInterface $encoderFactory, CanonicalizerInterface $usernameCanonicalizer, CanonicalizerInterface $emailCanonicalizer, $proxyClass, $modelClass)
     {
