@@ -73,7 +73,14 @@ security:
     providers:
         custom:
             id: acme_user.my_provider
-    # the firewall config is omitted here.
+    firewall:
+        main:
+            pattern: ^/
+            form_login:
+                provider: custom # You must not to forget to specify the new provider you just created
+                csrf_provider: form.csrf_provider
+            logout:       true
+            anonymous:    true
 ```
 
 ## Extending the UserManager class
