@@ -82,6 +82,10 @@ security:
             # ...
 ```
 
+**Note:**
+
+> The provider key under your firewall is optional. If left out, the first provider is used automatically.
+
 ## Extending the UserManager class
 
 The other solution is to replace the default `UserManagerInterface` implementation
