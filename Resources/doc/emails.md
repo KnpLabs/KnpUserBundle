@@ -36,8 +36,8 @@ a form to enter in a new password.
 
 ### Default Mailer Implementations
 
-The bundle comes with two mailer implementations. They are listed below by
-service id:
+The bundle comes with three mailer implementations. They are listed below
+by service id:
 
 - `fos_user.mailer.default` is the default implementation, and uses Swiftmailer to send emails.
 - `fos_user.mailer.twig_swift` uses Swiftmailer to send emails and Twig blocks to render the message.
