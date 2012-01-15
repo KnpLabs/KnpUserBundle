@@ -39,8 +39,16 @@ foreach ($deps as $dep) {
 
     $installDir = $vendorDir.'/'.$name;
     if (!is_dir($installDir)) {
-        system(sprintf('git clone -q %s %s', escapeshellarg($url), escapeshellarg($installDir)));
+        $return = null;
+        system(sprintf('git clone -q %s %s', escapeshellarg($url), escapeshellarg($installDir)), $return);
+        if ($return > 0) {
+            exit($return);
+        }
     }
 
-    system(sprintf('cd %s && git fetch -q origin && git reset --hard %s', escapeshellarg($installDir), escapeshellarg($rev)));
+    $return = null;
+    system(sprintf('cd %s && git fetch -q origin && git reset --hard %s', escapeshellarg($installDir), escapeshellarg($rev)), $return);
+    if ($return > 0) {
+        exit($return);
+    }
 }
