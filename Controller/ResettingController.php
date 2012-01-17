@@ -123,7 +123,7 @@ class ResettingController extends ContainerAware
     protected function authenticateUser(UserInterface $user)
     {
         try {
-            $this->container->get('security.user_checker')->checkPostAuth($user);
+            $this->container->get('fos_user.user_checker')->checkPostAuth($user);
         } catch (AccountStatusException $e) {
             // Don't authenticate locked, disabled or expired users
             return;
