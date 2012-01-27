@@ -28,7 +28,9 @@ class UsernameFormType extends AbstractType
     {
         parent::buildForm($builder, $options);
 
-        $builder->appendClientTransformer($this->usernameTransformer);
+        $builder
+            ->resetClientTransformers()
+            ->appendClientTransformer($this->usernameTransformer);
     }
 
     public function getParent(array $options)
