@@ -1,3 +1,5 @@
+Bad credentials: Invalid ID or password
+
 fos_user:
     username:
         already_used: The username is already used
