@@ -16,12 +16,11 @@ by a unique code/identifier generated in the constructor:
 namespace Acme\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /** @ORM\Entity */
 class Invitation
 {
-    /** @ORM\Id @ORM\Column(type="string", length=40) */
+    /** @ORM\Id @ORM\Column(type="string", length=6) */
     protected $code;
 
     /** @ORM\Column(type="string", length=256) */
@@ -168,7 +167,7 @@ class InvitationFormType extends AbstractType
             'empty_value' => '', // this one is important
             'required' => true,
             'query_builder' => function(EntityRepository $er) {
-                return $er->createQueryBuilder('i')->andWhere('i.isSend = 0');
+                return $er->createQueryBuilder('i')->andWhere('i.sent = 1');
             },
         );
     }
@@ -253,9 +252,9 @@ Register your custom form type in the container:
 
     <services>
 
-        <service id="acme.registration.form.types" class="Acme\UserBundle\Form\Type\RegistrationFormType">
+        <service id="acme.registration.form.type" class="Acme\UserBundle\Form\Type\RegistrationFormType">
             <argument>%fos_user.model.user.class%</argument>
-            <tag name="form.type" alias="acme_registration_type" />
+            <tag name="form.type" alias="acme_user_registration" />
         </service>
 
         <service id="acme.invitation.form.type" class="Acme\UserBundle\Form\Type\InvitationFormType">
@@ -281,5 +280,10 @@ Next overwrite the default `RegistrationFormType` with the one just created :
 fos_user:
     registration:
         form:
-            type: acme_registration_type
+            type: acme_user_registration
 ```
+
+Your done, go to your registration form to see the result.
+
+Finally, don't forget to call `Invitation::send()` when sending invitations
+(see `query_builder` option in `InvitationFormType`).
