@@ -54,6 +54,7 @@ Add the following lines in your `deps` file:
 [FOSUserBundle]
     git=git://github.com/FriendsOfSymfony/FOSUserBundle.git
     target=bundles/FOS/UserBundle
+    version=1.2.0
 ```
 
 Now, run the vendors script to download the bundle:
