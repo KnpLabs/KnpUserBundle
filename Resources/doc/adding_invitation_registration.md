@@ -166,9 +166,6 @@ class InvitationFormType extends AbstractType
             'property' => 'code',
             'empty_value' => '', // this one is important
             'required' => true,
-            'query_builder' => function(EntityRepository $er) {
-                return $er->createQueryBuilder('i')->andWhere('i.sent = 1');
-            },
         );
     }
 
@@ -201,7 +198,7 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
  */
 class InvitationToCodeTransformer implements DataTransformerInterface
 {
-    protected $userManager;
+    protected $entityManager;
 
     public function __construct($entityManager)
     {
@@ -233,7 +230,10 @@ class InvitationToCodeTransformer implements DataTransformerInterface
 
         return $this->entityManager
             ->getRepository('Acme\UserBundle\Entity\Invitation')
-            ->findOneByCode($value);
+            ->findOneBy(array(
+                'code' => $value,
+                'user' => null,
+            ));
     }
 }
 ```
@@ -284,6 +284,3 @@ fos_user:
 ```
 
 Your done, go to your registration form to see the result.
-
-Finally, don't forget to call `Invitation::send()` when sending invitations
-(see `query_builder` option in `InvitationFormType`).
