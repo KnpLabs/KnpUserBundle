@@ -163,8 +163,6 @@ class InvitationFormType extends AbstractType
     {
         return array(
             'class' => 'Acme\UserBundle\Entity\Invitation',
-            'property' => 'code',
-            'empty_value' => '', // this one is important
             'required' => true,
         );
     }
