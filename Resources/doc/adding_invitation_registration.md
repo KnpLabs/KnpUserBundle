@@ -159,7 +159,7 @@ class InvitationFormType extends AbstractType
         $builder->prependClientTransformer($this->invitationTransformer);
     }
 
-    public function getDefaultOptions(array $options)
+    public function getDefaultOptions()
     {
         return array(
             'class' => 'Acme\UserBundle\Entity\Invitation',
