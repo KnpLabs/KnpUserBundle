@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.0.0 (2012-XX-XX)
+
+* Refactored the translation of form labels using the translation_domain option of Symfony 2.1
+
 ### 1.2.0 (2012-04-12)
 
 * Prefixed fos table names in propel schema with "fos_" to avoid using reserved sql words
