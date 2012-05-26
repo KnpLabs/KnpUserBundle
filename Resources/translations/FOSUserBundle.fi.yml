@@ -83,20 +83,12 @@ layout:
     logged_in_as: Kirjautuneena %username%
 
 # Form field labels
-fos_user_group_form_name: "Ryhmän nimi:"
-
-fos_user_profile_form_user_username: "Käyttäjätunnus:"
-fos_user_profile_form_user_email: "Sähköpostiosoite:"
-fos_user_profile_form_current: "Nykyinen salasana:"
-
-fos_user_registration_form_username: "Käyttäjätunnus:"
-fos_user_registration_form_email: "Sähköpostiosoite:"
-fos_user_registration_form_plainPassword_first: "Salasana:"
-fos_user_registration_form_plainPassword_second: "Salasana uudestaan:"
-
-fos_user_resetting_form_new_first: "Uusi salasana:"
-fos_user_resetting_form_new_second: "Salasana uudestaan:"
-
-fos_user_change_password_form_new_first: "Uusi salasana:"
-fos_user_change_password_form_new_second: "Uusi salasana uudestaan:"
-fos_user_change_password_form_current: "Nykyinen salasana:"
+form:
+    group_name: "Ryhmän nimi:"
+    username: "Käyttäjätunnus:"
+    email: "Sähköpostiosoite:"
+    current_password: "Nykyinen salasana:"
+    password: "Salasana:"
+    password_confirmation: "Salasana uudestaan:"
+    new_password: "Uusi salasana:"
+    new_password_confirmation: "Salasana uudestaan:"

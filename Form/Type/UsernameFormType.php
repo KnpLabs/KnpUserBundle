@@ -33,9 +33,7 @@ class UsernameFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-
-        $builder->prependClientTransformer($this->usernameTransformer);
+        $builder->addModelTransformer($this->usernameTransformer);
     }
 
     /**

@@ -83,20 +83,12 @@ layout:
     logged_in_as: Ugemellt als %username%
 
 # Form field labels
-fos_user_group_form_name: "Gruppennumm:"
-
-fos_user_profile_form_user_username: "Benotzernumm:"
-fos_user_profile_form_user_email: "E-Mail-Adress:"
-fos_user_profile_form_current: "Aktuellt Passwuert:"
-
-fos_user_registration_form_username: "Benotzernumm:"
-fos_user_registration_form_email: "E-Mail-Adress:"
-fos_user_registration_form_plainPassword_first: "Passwuert:"
-fos_user_registration_form_plainPassword_second: "Bestätegung:"
-
-fos_user_resetting_form_new_first: "Neit Passwuert:"
-fos_user_resetting_form_new_second: "Bestätegung:"
-
-fos_user_change_password_form_new_first: "Neit Passwuert:"
-fos_user_change_password_form_new_second: "Bestätegung:"
-fos_user_change_password_form_current: "Aktuellt Passwuert:"
+form:
+    group_name: "Gruppennumm:"
+    username: "Benotzernumm:"
+    email: "E-Mail-Adress:"
+    current_password: "Aktuellt Passwuert:"
+    password: "Passwuert:"
+    password_confirmation: "Bestätegung:"
+    new_password: "Neit Passwuert:"
+    new_password_confirmation: "Bestätegung:"

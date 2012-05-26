@@ -85,20 +85,12 @@ layout:
     logged_in_as: Логнат като %username%
 
 # Form field labels
-fos_user_group_form_name: "Име на група:"
-
-fos_user_profile_form_user_username: "Потребителско име:"
-fos_user_profile_form_user_email: "E-mail:"
-fos_user_profile_form_current: "Текуща парола:"
-
-fos_user_registration_form_username: "Потребителско име:"
-fos_user_registration_form_email: "E-mail:"
-fos_user_registration_form_plainPassword_first: "Парола:"
-fos_user_registration_form_plainPassword_second: "Парола (отново):"
-
-fos_user_resetting_form_new_first: "Нова парола:"
-fos_user_resetting_form_new_second: "Нова парола (отново):"
-
-fos_user_change_password_form_new_first: "Нова парола:"
-fos_user_change_password_form_new_second: "Нова парола (отново):"
-fos_user_change_password_form_current: "Текуща парола:"
+form:
+    group_name: "Име на група:"
+    username: "Потребителско име:"
+    email: "E-mail:"
+    current_password: "Текуща парола:"
+    password: "Парола:"
+    password_confirmation: "Парола (отново):"
+    new_password: "Нова парола:"
+    new_password_confirmation: "Нова парола (отново):"

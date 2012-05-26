@@ -85,20 +85,12 @@ layout:
     logged_in_as: Prijavljen kao %username%
 
 # Form field labels
-fos_user_group_form_name: "Ime grupe"
-
-fos_user_profile_form_user_username: "Korisničko ime:"
-fos_user_profile_form_user_email: "Email:"
-fos_user_profile_form_current: "Trenutna lozinka:"
-
-fos_user_registration_form_username: "Korisničko ime:"
-fos_user_registration_form_email: "Email:"
-fos_user_registration_form_plainPassword_first:  "Lozinka"
-fos_user_registration_form_plainPassword_second: "Potvrda lozinke:"
-
-fos_user_resetting_form_new_first: "Nova lozinka:"
-fos_user_resetting_form_new_second: "Potvrda lozinke:"
-
-fos_user_change_password_form_new_first: "Nova lozinka:"
-fos_user_change_password_form_new_second: "Potvrda lozinke:"
-fos_user_change_password_form_current: "Trenutna lozinka:"
+form:
+    group_name: "Ime grupe"
+    username: "Korisničko ime:"
+    email: "Email:"
+    current_password: "Trenutna lozinka:"
+    password: "Lozinka"
+    password_confirmation: "Potvrda lozinke:"
+    new_password: "Nova lozinka:"
+    new_password_confirmation: "Potvrda lozinke:"
