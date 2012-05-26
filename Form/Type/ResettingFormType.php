@@ -19,7 +19,12 @@ class ResettingFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('new', 'repeated', array('type' => 'password'));
+        $builder->add('new', 'repeated', array(
+            'type' => 'password',
+            'options' => array('translation_domain' => 'FOSUserBundle'),
+            'first_options' => array('label' => 'form.new_password'),
+            'second_options' => array('label' => 'form.password_confirmation'),
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

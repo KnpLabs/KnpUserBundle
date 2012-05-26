@@ -34,7 +34,7 @@ class ProfileFormType extends AbstractType
 
         $builder
             ->add($child)
-            ->add('current', 'password')
+            ->add('current', 'password', array('label' => 'form.current_password', 'translation_domain' => 'FOSUserBundle'))
         ;
     }
 
@@ -60,8 +60,8 @@ class ProfileFormType extends AbstractType
     protected function buildUserForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
-            ->add('email', 'email')
+            ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
+            ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
         ;
     }
 }
