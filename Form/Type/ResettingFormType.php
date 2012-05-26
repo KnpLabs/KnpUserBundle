@@ -23,7 +23,7 @@ class ResettingFormType extends AbstractType
             'type' => 'password',
             'options' => array('translation_domain' => 'FOSUserBundle'),
             'first_options' => array('label' => 'form.new_password'),
-            'second_options' => array('label' => 'form.password_confirmation'),
+            'second_options' => array('label' => 'form.new_password_confirmation'),
         ));
     }
 

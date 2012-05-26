@@ -82,20 +82,12 @@ layout:
     logged_in_as: Ste prihlásený ako %username%
 
 # Form field labels
-fos_user_group_form_name: "Názov skupiny:"
-
-fos_user_profile_form_user_username: "Užívateľské meno:"
-fos_user_profile_form_user_email: "Email:"
-fos_user_profile_form_current: "Súčasné heslo:"
-
-fos_user_registration_form_username: "Užívateľské meno:"
-fos_user_registration_form_email: "Email:"
-fos_user_registration_form_plainPassword_first: "Heslo:"
-fos_user_registration_form_plainPassword_second: "Potvrdenie hesla:"
-
-fos_user_resetting_form_new_first: "Nové heslo:"
-fos_user_resetting_form_new_second: "Potvrdenie hesla:"
-
-fos_user_change_password_form_new_first: "Nové heslo:"
-fos_user_change_password_form_new_second: "Potvrdenie hesla:"
-fos_user_change_password_form_current: "Súčasné heslo:"
+form:
+    group_name: "Názov skupiny:"
+    username: "Užívateľské meno:"
+    email: "Email:"
+    current_password: "Súčasné heslo:"
+    password: "Heslo:"
+    password_confirmation: "Potvrdenie hesla:"
+    new_password: "Nové heslo:"
+    new_password_confirmation: "Potvrdenie hesla:"

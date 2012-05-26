@@ -83,21 +83,12 @@ layout:
     logged_in_as: Logat ca %username%
 
 # Form field labels
-fos_user_group_form_name: "Numele grupului:"
-
-fos_user_profile_form_user_username: "Nume de utilizator:"
-fos_user_profile_form_user_email: "Email:"
-fos_user_profile_form_current: "Parola curenta:"
-
-fos_user_registration_form_username: "Numele de utilizator:"
-fos_user_registration_form_email: "Email:"
-fos_user_registration_form_plainPassword_first: "Parola:"
-fos_user_registration_form_plainPassword_second: "Verificare parola:"
-
-fos_user_resetting_form_new_first: "Noua parola:"
-fos_user_resetting_form_new_second: "Verificare parola:"
-
-fos_user_change_password_form_new_first: "Noua parola:"
-fos_user_change_password_form_new_second: "Verificare parola:"
-fos_user_change_password_form_current: "Parola curenta:"
-
+form:
+    group_name: "Numele grupului:"
+    username: "Nume de utilizator:"
+    email: "Email:"
+    current_password: "Parola curenta:"
+    password: "Parola:"
+    password_confirmation: "Verificare parola:"
+    new_password: "Noua parola:"
+    new_password_confirmation: "Verificare parola:"

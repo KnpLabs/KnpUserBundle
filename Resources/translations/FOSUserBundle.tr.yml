@@ -87,20 +87,12 @@ layout:
     logged_in_as: %username% olarak giriş yapıldı
 
 # Form field labels
-fos_user_group_form_name: "Gurup Adı:"
-
-fos_user_profile_form_user_username: "Kullanıcı adı:"
-fos_user_profile_form_user_email: "e-posta:"
-fos_user_profile_form_current: "Geçerli Parola:"
-
-fos_user_registration_form_username: "Kullanıcı adı:"
-fos_user_registration_form_email: "e-posta:"
-fos_user_registration_form_plainPassword_first: "Parola:"
-fos_user_registration_form_plainPassword_second: "Onay:"
-
-fos_user_resetting_form_new_first: "Yeni Parola:"
-fos_user_resetting_form_new_second: "Onay:"
-
-fos_user_change_password_form_new_first: "Yeni Parola:"
-fos_user_change_password_form_new_second: "Onay:"
-fos_user_change_password_form_current: "Geçerli Parola:"
+form:
+    group_name: "Gurup Adı:"
+    username: "Kullanıcı adı:"
+    email: "e-posta:"
+    current_password: "Geçerli Parola:"
+    password: "Parola:"
+    password_confirmation: "Onay:"
+    new_password: "Yeni Parola:"
+    new_password_confirmation: "Onay:"

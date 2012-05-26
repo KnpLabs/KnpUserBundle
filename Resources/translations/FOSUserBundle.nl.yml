@@ -81,20 +81,12 @@ layout:
     logged_in_as: Ingelogd als %username%
 
 # Form field labels
-fos_user_group_form_name: "Groep naam:"
-
-fos_user_profile_form_user_username: "Gebruikersnaam:"
-fos_user_profile_form_user_email: "E-mail:"
-fos_user_profile_form_current: "Huidig wachtwoord:"
-
-fos_user_registration_form_username: "Gebruikersnaam:"
-fos_user_registration_form_email: "E-mail:"
-fos_user_registration_form_plainPassword_first: "Wachtwoord:"
-fos_user_registration_form_plainPassword_second: "Verificatie:"
-
-fos_user_resetting_form_new_first: "Nieuw wachtwoord:"
-fos_user_resetting_form_new_second: "Verificatie:"
-
-fos_user_change_password_form_new_first: "Nieuw wachtwoord:"
-fos_user_change_password_form_new_second: "Verificatie:"
-fos_user_change_password_form_current: "Huidig wachtwoord:"
+form:
+    group_name: "Groep naam:"
+    username: "Gebruikersnaam:"
+    email: "E-mail:"
+    current_password: "Huidig wachtwoord:"
+    password: "Wachtwoord:"
+    password_confirmation: "Verificatie:"
+    new_password: "Nieuw wachtwoord:"
+    new_password_confirmation: "Verificatie:"
