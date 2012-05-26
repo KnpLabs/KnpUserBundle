@@ -30,15 +30,13 @@ class ProfileFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $child = $builder->create('user', 'form', array('data_class' => $this->class));
         $this->buildUserForm($builder, $options);
 
         $builder->add('current_password', 'password', array(
             'label' => 'form.current_password',
             'translation_domain' => 'FOSUserBundle',
             'mapped' => false,
-            'error_bubbling' => false,
-            'constraint' => new UserPassword(),
+            'constraints' => new UserPassword(),
         ));
     }
 
