@@ -29,7 +29,7 @@ class Invitation
     /**
      * When sending invitation be sure to set this value to `true`
      *
-     * It can prevent invitations from being send twice
+     * It can prevent invitations from being sent twice
      *
      * @ORM\Column(type="boolean")
      */
