@@ -274,6 +274,28 @@ Register your custom form type in the container:
 </container>
 ```
 
+Or if you prefer the Yaml version:
+
+```yaml
+
+services:
+
+    acme.registration.form.type:
+        class: Acme\UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags: [{ name: "form.type", alias: "acme_user_registration" }]
+
+    acme.invitation.form.type:
+        class: Acme\UserBundle\Form\Type\InvitationFormType
+        arguments: [@acme.invitation.form.data_transformer]
+        tags: [{ name: "form.type", alias: "acme_invitation_type" }]
+
+    acme.invitation.form.data_transformer:
+        class: Acme\UserBundle\Form\DataTransformer\InvitationToCodeTransformer
+        arguments: [@doctrine.orm.entity_manager]
+
+```
+
 Next overwrite the default `RegistrationFormType` with the one just created :
 
 
