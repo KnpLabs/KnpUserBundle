@@ -26,7 +26,13 @@ class Invitation
     /** @ORM\Column(type="string", length=256) */
     protected $email;
 
-    /** @ORM\Column(type="boolean") */
+    /**
+     * When sending invitation be sure to set this value to `true`
+     *
+     * It can prevent invitations from being send twice
+     *
+     * @ORM\Column(type="boolean")
+     */
     protected $sent = false;
 
     /** @ORM\OneToOne(targetEntity="User", mappedBy="invitation", cascade={"persist", "merge"}) */
