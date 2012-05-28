@@ -193,6 +193,7 @@ Create the custom data transformer:
 namespace Acme\UserBundle\Form\DataTransformer;
 
 use Acme\UserBundle\Entity\Invitation;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
@@ -203,7 +204,7 @@ class InvitationToCodeTransformer implements DataTransformerInterface
 {
     protected $entityManager;
 
-    public function __construct($entityManager)
+    public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }
