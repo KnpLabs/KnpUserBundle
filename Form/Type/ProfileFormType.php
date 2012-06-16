@@ -11,10 +11,10 @@
 
 namespace FOS\UserBundle\Form\Type;
 
-use Symfony\Bundle\SecurityBundle\Validator\Constraint\UserPassword;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Security\Core\Validator\Constraint\UserPassword;
 
 class ProfileFormType extends AbstractType
 {
