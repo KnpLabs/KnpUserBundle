@@ -106,6 +106,9 @@ class FOSUserExtension extends Extension
         if (!empty($config['group'])) {
             $this->loadGroups($config['group'], $container, $loader, $config['db_driver']);
         }
+
+        // add configuration, overiding options etc.
+        $loader->load('user_provider.xml');
     }
 
     private function loadProfile(array $config, ContainerBuilder $container, XmlFileLoader $loader)
