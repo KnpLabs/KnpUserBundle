@@ -34,7 +34,7 @@ class RegistrationFormHandler
 
     public function process($confirmation = false)
     {
-        $user = $this->userManager->createUser();
+        $user = $this->createUser();
         $this->form->setData($user);
 
         if ('POST' === $this->request->getMethod()) {
@@ -61,5 +61,10 @@ class RegistrationFormHandler
         }
 
         $this->userManager->updateUser($user);
+    }
+
+    protected function createUser()
+    {
+        return $this->userManager->createUser();
     }
 }
