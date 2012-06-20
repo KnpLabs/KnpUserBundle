@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the FOSUserBundle package.
+ *
+ * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace FOS\UserBundle\Security;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -12,19 +21,14 @@ use FOS\UserBundle\Model\UserManagerInterface;
 class UserProvider implements UserProviderInterface
 {
     /**
-     * @var string
-     */
-    protected $class;
-
-    /**
-     * @var FOS\UserBundle\Model\UserManagerInterface
+     * @var \FOS\UserBundle\Model\UserManagerInterface
      */
     protected $userManager;
 
     /**
      * Constructor.
      *
-     * @param FOS\UserBundle\Model\UserManagerInterface $userManager
+     * @param \FOS\UserBundle\Model\UserManagerInterface $userManager
      */
     public function __construct($class, UserManagerInterface $userManager)
     {
@@ -42,9 +46,9 @@ class UserProvider implements UserProviderInterface
      *
      * @param string $username
      *
-     * @throws Symfony\Component\Security\Core\Exception\UsernameNotFoundException
+     * @throws \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
      *
-     * @return FOS\UserBundle\Model\UserInterface
+     * @return \FOS\UserBundle\Model\UserInterface
      */
     public function loadUserByUsername($username)
     {
@@ -65,11 +69,11 @@ class UserProvider implements UserProviderInterface
      * This is usefull if there are changes made to the user profile and the
      * session token needs an update.
      *
-     * @param FOS\UserBundle\Model\UserInterface $user
+     * @param \FOS\UserBundle\Model\UserInterface $user
      *
-     * @throws Symfony\Component\Security\Core\Exception\UnsupportedUserException
+     * @throws \Symfony\Component\Security\Core\Exception\UnsupportedUserException
      *
-     * @return FOS\UserBundle\Model\UserInterface
+     * @return \FOS\UserBundle\Model\UserInterface
      */
     public function refreshUser(SecurityUserInterface $user)
     {
@@ -84,10 +88,11 @@ class UserProvider implements UserProviderInterface
      * Checks if the user provider supports the requested user class.
      *
      * @param string $class
+     *
      * @return bool
      */
     public function supportsClass($class)
     {
-        return $this->class === $class;
+        return $this->userManager->getClass() === $class;
     }
 }
