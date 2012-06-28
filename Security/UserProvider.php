@@ -21,14 +21,14 @@ use FOS\UserBundle\Model\UserManagerInterface;
 class UserProvider implements UserProviderInterface
 {
     /**
-     * @var \FOS\UserBundle\Model\UserManagerInterface
+     * @var UserManagerInterface
      */
     protected $userManager;
 
     /**
      * Constructor.
      *
-     * @param \FOS\UserBundle\Model\UserManagerInterface $userManager
+     * @param UserManagerInterface $userManager
      */
     public function __construct($class, UserManagerInterface $userManager)
     {
@@ -37,18 +37,7 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
-     * Returns the user matching the username.
-     *
-     * This method uses the user manager service to find the user
-     * which matches the username or if no one exists throws a
-     * security system relevant exception which results in an
-     * authentication error.
-     *
-     * @param string $username
-     *
-     * @throws \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
-     *
-     * @return \FOS\UserBundle\Model\UserInterface
+     * {@inheritDoc}
      */
     public function loadUserByUsername($username)
     {
@@ -62,18 +51,7 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
-     * Returns a refreshed instance of the user entity.
-     *
-     * This method checks if the given user is conform with the user interface
-     * and than refreshes its instance from the database.
-     * This is usefull if there are changes made to the user profile and the
-     * session token needs an update.
-     *
-     * @param \FOS\UserBundle\Model\UserInterface $user
-     *
-     * @throws \Symfony\Component\Security\Core\Exception\UnsupportedUserException
-     *
-     * @return \FOS\UserBundle\Model\UserInterface
+     * {@inheritDoc}
      */
     public function refreshUser(SecurityUserInterface $user)
     {

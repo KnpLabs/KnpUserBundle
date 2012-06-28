@@ -17,7 +17,7 @@
 
         <service id="fos_user.user_checker" alias="security.user_checker" />
 
-        <service id="fos_user.user_provider" class="%fos_user.user_provider.class%">
+        <service id="fos_user.user_provider" class="%fos_user.user_provider.class%" public="false">
             <argument>%fos_user.model.user.class%</argument>
             <argument type="service" id="fos_user.user_manager" />
         </service>
