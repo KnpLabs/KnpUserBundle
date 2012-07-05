@@ -71,6 +71,8 @@ class UserProvider implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return $this->userManager->getClass() === $class;
+        $userClass = $this->userManager->getClass();
+
+        return $userClass === $class || is_subclass_of($class, $userClass);
     }
 }
