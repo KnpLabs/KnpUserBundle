@@ -2,39 +2,73 @@
 
 namespace FOS\UserBundle\Tests\Security;
 
+use FOS\UserBundle\Security\UserProvider;
+
 class UserProviderTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     private $userManager;
+
+    /**
+     * @var UserProvider
+     */
     private $userProvider;
 
     protected function setUp()
     {
-        $this->userManager = $this->getMockUserManager();
-        $this->userProvider = $this->getUserProvider(array(
-            $this->userManager,
-        ));
+        $this->userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
+        $this->userProvider = new UserProvider($this->userManager);
     }
 
-    public function testLoadUser()
+    public function testLoadUserByUsername()
     {
-        // ? no idea
+        $user = $this->getMock('FOS\UserBundle\Model\UserInterface');
+        $this->userManager->expects($this->once())
+            ->method('findUserByUsername')
+            ->with('foobar')
+            ->will($this->returnValue($user));
+
+        $this->assertSame($user, $this->userProvider->loadUserByUsername('foobar'));
     }
 
-    private function getMockUserManager()
+    /**
+     * @expectedException Symfony\Component\Security\Core\Exception\UsernameNotFoundException
+     */
+    public function testLoadUserByInvalidUsername()
     {
-        return $this->getMock('FOS\UserBundle\Model\UserManager');
+        $this->userManager->expects($this->once())
+            ->method('findUserByUsername')
+            ->with('foobar')
+            ->will($this->returnValue(null));
+
+        $this->userProvider->loadUserByUsername('foobar');
     }
 
-    private function getUser()
+    public function testRefreshUserBy()
     {
-        return $this->getMockBuilder('FOS\UserBundle\Model\User')
-            ->getMockForAbstractClass();
+        $user = $this->getMock('FOS\UserBundle\Model\UserInterface');
+        $user->expects($this->once())
+            ->method('getUsername')
+            ->will($this->returnValue('toto'));
+
+        $refreshedUser = $this->getMock('FOS\UserBundle\Model\UserInterface');
+        $this->userManager->expects($this->once())
+            ->method('findUserByUsername')
+            ->with('toto')
+            ->will($this->returnValue($refreshedUser));
+
+        $this->assertSame($refreshedUser, $this->userProvider->refreshUser($user));
     }
 
-    private function getUserProvider(array $args)
+    /**
+     * @expectedException Symfony\Component\Security\Core\Exception\UnsupportedUserException
+     */
+    public function testRefreshInvalidUser()
     {
-        return $this->getMockBuilder('FOS\UserBundle\Security\UserProvider')
-            ->setConstructorArgs($args)
-            ;
+        $user = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+
+        $this->userProvider->refreshUser($user);
     }
 }
