@@ -30,9 +30,8 @@ class UserProvider implements UserProviderInterface
      *
      * @param UserManagerInterface $userManager
      */
-    public function __construct($class, UserManagerInterface $userManager)
+    public function __construct(UserManagerInterface $userManager)
     {
-        $this->class = $class;
         $this->userManager = $userManager;
     }
 
