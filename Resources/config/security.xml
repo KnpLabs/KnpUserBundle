@@ -6,7 +6,6 @@
 
     <parameters>
         <parameter key="fos_user.security.interactive_login_listener.class">FOS\UserBundle\Security\InteractiveLoginListener</parameter>
-        <parameter key="fos_user.user_provider.class">FOS\UserBundle\Security\UserProvider</parameter>
     </parameters>
 
     <services>
@@ -17,7 +16,7 @@
 
         <service id="fos_user.user_checker" alias="security.user_checker" />
 
-        <service id="fos_user.user_provider" class="%fos_user.user_provider.class%" public="false">
+        <service id="fos_user.user_provider.username" class="FOS\UserBundle\Security\UserProvider" public="false">
             <argument type="service" id="fos_user.user_manager" />
         </service>
 
