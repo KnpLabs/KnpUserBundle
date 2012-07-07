@@ -9,7 +9,7 @@
         <service id="fos_user.resetting.form" factory-method="createNamed" factory-service="form.factory" class="Symfony\Component\Form\Form">
             <argument>%fos_user.resetting.form.name%</argument>
             <argument>%fos_user.resetting.form.type%</argument>
-            <argument />
+            <argument>null</argument>
             <argument type="collection">
                 <argument key="validation_groups">%fos_user.resetting.form.validation_groups%</argument>
             </argument>
