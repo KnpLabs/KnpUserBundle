@@ -16,7 +16,6 @@ use FOS\UserBundle\Model\UserManager as BaseUserManager;
 use FOS\UserBundle\Propel\User;
 use FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Validator\Constraint;
 
 class UserManager extends BaseUserManager
 {

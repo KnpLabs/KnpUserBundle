@@ -11,8 +11,6 @@
 
 namespace FOS\UserBundle\Model;
 
-use Symfony\Component\Validator\Constraint;
-
 /**
  * Interface to be implemented by user managers. This adds an additional level
  * of abstraction between your application, and the actual repository.
