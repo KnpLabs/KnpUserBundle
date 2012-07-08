@@ -33,103 +33,109 @@ interface UserManagerInterface
      *
      * @return UserInterface
      */
-    function createUser();
+    public function createUser();
 
     /**
      * Deletes a user.
      *
      * @param UserInterface $user
      */
-    function deleteUser(UserInterface $user);
+    public function deleteUser(UserInterface $user);
 
     /**
      * Finds one user by the given criteria.
      *
      * @param array $criteria
+     *
      * @return UserInterface
      */
-    function findUserBy(array $criteria);
+    public function findUserBy(array $criteria);
 
     /**
      * Find a user by its username.
      *
-     * @param string  $username
+     * @param string $username
+     *
      * @return UserInterface or null if user does not exist
      */
-    function findUserByUsername($username);
+    public function findUserByUsername($username);
 
     /**
      * Finds a user by its email.
      *
-     * @param string  $email
+     * @param string $email
+     *
      * @return UserInterface or null if user does not exist
      */
-    function findUserByEmail($email);
+    public function findUserByEmail($email);
 
     /**
      * Finds a user by its username or email.
      *
-     * @param string  $usernameOrEmail
+     * @param string $usernameOrEmail
+     *
      * @return UserInterface or null if user does not exist
      */
-    function findUserByUsernameOrEmail($usernameOrEmail);
+    public function findUserByUsernameOrEmail($usernameOrEmail);
 
     /**
      * Finds a user by its confirmationToken.
      *
-     * @param string  $token
+     * @param string $token
+     *
      * @return UserInterface or null if user does not exist
      */
-    function findUserByConfirmationToken($token);
+    public function findUserByConfirmationToken($token);
 
     /**
      * Returns a collection with all user instances.
      *
      * @return \Traversable
      */
-    function findUsers();
+    public function findUsers();
 
     /**
      * Returns the user's fully qualified class name.
      *
      * @return string
      */
-    function getClass();
+    public function getClass();
 
     /**
      * Reloads a user.
      *
      * @param UserInterface $user
      */
-    function reloadUser(UserInterface $user);
+    public function reloadUser(UserInterface $user);
 
     /**
      * Updates a user.
      *
      * @param UserInterface $user
      */
-    function updateUser(UserInterface $user);
+    public function updateUser(UserInterface $user);
 
     /**
      * Updates the canonical username and email fields for a user.
      *
      * @param UserInterface $user
      */
-    function updateCanonicalFields(UserInterface $user);
+    public function updateCanonicalFields(UserInterface $user);
 
     /**
      * Updates a user password if a plain password is set.
      *
      * @param UserInterface $user
      */
-    function updatePassword(UserInterface $user);
+    public function updatePassword(UserInterface $user);
 
     /**
      * Checks the uniqueness of the given fields, returns true if its unique.
      *
      * @param UserInterface $value
      * @param Constraint    $constraint
+     *
      * @return Boolean
      */
-    function validateUnique(UserInterface $value, Constraint $constraint);
+    public function validateUnique(UserInterface $value, Constraint $constraint);
 }

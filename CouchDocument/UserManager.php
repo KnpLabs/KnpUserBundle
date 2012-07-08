@@ -108,4 +108,3 @@ class UserManager extends BaseUserManager
         $this->dm->refresh($user);
     }
 }
-

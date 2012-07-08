@@ -16,7 +16,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use FOS\UserBundle\Model\User;
 
 /**
@@ -90,8 +89,7 @@ EOT
             $username = $this->getHelper('dialog')->askAndValidate(
                 $output,
                 'Please choose a username:',
-                function($username)
-                {
+                function($username) {
                     if (empty($username)) {
                         throw new \Exception('Username can not be empty');
                     }
@@ -106,8 +104,7 @@ EOT
             $email = $this->getHelper('dialog')->askAndValidate(
                 $output,
                 'Please choose an email:',
-                function($email)
-                {
+                function($email) {
                     if (empty($email)) {
                         throw new \Exception('Email can not be empty');
                     }
@@ -122,8 +119,7 @@ EOT
             $password = $this->getHelper('dialog')->askAndValidate(
                 $output,
                 'Please choose a password:',
-                function($password)
-                {
+                function($password) {
                     if (empty($password)) {
                         throw new \Exception('Password can not be empty');
                     }

@@ -12,7 +12,6 @@
 namespace FOS\UserBundle\Propel;
 
 use FOS\UserBundle\Model\User as FosUser;
-use FOS\UserBundle\Model\GroupInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 
 class UserProxy extends FosUser
@@ -257,7 +256,7 @@ class UserProxy extends FosUser
     /**
      * Sets the username.
      *
-     * @param string $username
+     * @param  string    $username
      * @return UserProxy
      */
     public function setUsername($username)
@@ -271,6 +270,7 @@ class UserProxy extends FosUser
      * Sets the canonical username.
      *
      * @param string $usernameCanonical
+     *
      * @return UserProxy
      */
     public function setUsernameCanonical($usernameCanonical)
@@ -298,6 +298,7 @@ class UserProxy extends FosUser
      * Sets the email.
      *
      * @param string $email
+     *
      * @return UserProxy
      */
     public function setEmail($email)
@@ -311,6 +312,7 @@ class UserProxy extends FosUser
      * Set the canonical email.
      *
      * @param string $emailCanonical
+     *
      * @return UserProxy
      */
     public function setEmailCanonical($emailCanonical)
@@ -322,6 +324,7 @@ class UserProxy extends FosUser
 
     /**
      * @param Boolean $boolean
+     *
      * @return UserProxy
      */
     public function setEnabled($boolean)
@@ -335,6 +338,7 @@ class UserProxy extends FosUser
      * Sets this user to expired.
      *
      * @param Boolean $boolean
+     *
      * @return UserProxy
      */
     public function setExpired($boolean)
@@ -346,6 +350,7 @@ class UserProxy extends FosUser
 
     /**
      * @param \DateTime $date
+     *
      * @return UserProxy
      */
     public function setExpiresAt(\DateTime $date)
@@ -359,6 +364,7 @@ class UserProxy extends FosUser
      * Sets the hashed password.
      *
      * @param string $password
+     *
      * @return UserProxy
      */
     public function setPassword($password)
@@ -372,6 +378,7 @@ class UserProxy extends FosUser
      * Sets the plain password.
      *
      * @param string $password
+     *
      * @return UserProxy
      */
     public function setPlainPassword($password)
@@ -385,6 +392,7 @@ class UserProxy extends FosUser
      * Sets the last login time
      *
      * @param \DateTime $time
+     *
      * @return UserProxy
      */
     public function setLastLogin(\DateTime $time)
@@ -398,6 +406,7 @@ class UserProxy extends FosUser
      * Sets the locking status of the user.
      *
      * @param Boolean $boolean
+     *
      * @return UserProxy
      */
     public function setLocked($boolean)
@@ -411,6 +420,7 @@ class UserProxy extends FosUser
      * Sets the confirmation token
      *
      * @param string $confirmationToken
+     *
      * @return UserProxy
      */
     public function setConfirmationToken($confirmationToken)
@@ -424,6 +434,7 @@ class UserProxy extends FosUser
      * Sets the timestamp that the user requested a password reset.
      *
      * @param \DateTime $date
+     *
      * @return UserProxy
      */
     public function setPasswordRequestedAt(\DateTime $date = null)
@@ -437,7 +448,6 @@ class UserProxy extends FosUser
      * Gets the timestamp that the user requested a password reset.
      *
      * @return \DateTime
-     * @return UserProxy
      */
     public function getPasswordRequestedAt()
     {
@@ -448,6 +458,7 @@ class UserProxy extends FosUser
      * Adds a role to the user.
      *
      * @param string $role
+     *
      * @return UserProxy
      */
     public function addRole($role)
@@ -466,6 +477,7 @@ class UserProxy extends FosUser
      * Removes a role to the user.
      *
      * @param string $role
+     *
      * @return UserProxy
      */
     public function removeRole($role)
@@ -481,6 +493,7 @@ class UserProxy extends FosUser
      * This overwrites any previous roles.
      *
      * @param array $roles
+     *
      * @return UserProxy
      */
     public function setRoles(array $roles)

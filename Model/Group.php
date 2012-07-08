@@ -28,6 +28,7 @@ abstract class Group implements GroupInterface
 
     /**
      * @param string $role
+     *
      * @return Group
      */
     public function addRole($role)
@@ -61,6 +62,7 @@ abstract class Group implements GroupInterface
 
     /**
      * @param string $role
+     *
      * @return Group
      */
     public function removeRole($role)
@@ -75,6 +77,7 @@ abstract class Group implements GroupInterface
 
     /**
      * @param string $name
+     *
      * @return Group
      */
     public function setName($name)
@@ -86,6 +89,7 @@ abstract class Group implements GroupInterface
 
     /**
      * @param array $roles
+     *
      * @return Group
      */
     public function setRoles(array $roles)

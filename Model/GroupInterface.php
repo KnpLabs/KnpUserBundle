@@ -17,19 +17,19 @@ namespace FOS\UserBundle\Model;
  */
 interface GroupInterface
 {
-    function addRole($role);
+    public function addRole($role);
 
-    function getId();
+    public function getId();
 
-    function getName();
+    public function getName();
 
-    function hasRole($role);
+    public function hasRole($role);
 
-    function getRoles();
+    public function getRoles();
 
-    function removeRole($role);
+    public function removeRole($role);
 
-    function setName($name);
+    public function setName($name);
 
-    function setRoles(array $roles);
+    public function setRoles(array $roles);
 }

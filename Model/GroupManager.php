@@ -20,10 +20,7 @@ namespace FOS\UserBundle\Model;
 abstract class GroupManager implements GroupManagerInterface
 {
     /**
-     * Returns an empty group instance.
-     *
-     * @param string $name
-     * @return GroupInterface
+     * {@inheritDoc}
      */
     public function createGroup($name)
     {
@@ -32,10 +29,7 @@ abstract class GroupManager implements GroupManagerInterface
         return new $class($name);
     }
     /**
-     * Finds a group by name.
-     *
-     * @param string $name
-     * @return GroupInterface
+     * {@inheritDoc}
      */
     public function findGroupByName($name)
     {

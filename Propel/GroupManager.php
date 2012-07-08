@@ -12,7 +12,6 @@
 namespace FOS\UserBundle\Propel;
 
 use FOS\UserBundle\Model\GroupInterface;
-use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\GroupManager as BaseGroupManager;
 
 class GroupManager extends BaseGroupManager
@@ -25,11 +24,8 @@ class GroupManager extends BaseGroupManager
     }
 
     /**
-    * Returns an empty group instance.
-    *
-    * @param string $name
-    * @return GroupInterface
-    */
+     * {@inheritDoc}
+     */
     public function createGroup($name)
     {
         $class = $this->class;
@@ -83,10 +79,7 @@ class GroupManager extends BaseGroupManager
     }
 
     /**
-     * Updates a group
-     *
-     * @param GroupInterface $group
-     * @return void
+     * {@inheritDoc}
      */
     public function updateGroup(GroupInterface $group)
     {

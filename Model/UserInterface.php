@@ -24,77 +24,77 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param string $username
      */
-    function setUsername($username);
+    public function setUsername($username);
 
     /**
      * Gets the canonical username in search and sort queries.
      *
      * @return string
      */
-    function getUsernameCanonical();
+    public function getUsernameCanonical();
 
     /**
      * Sets the canonical username.
      *
      * @param string $usernameCanonical
      */
-    function setUsernameCanonical($usernameCanonical);
+    public function setUsernameCanonical($usernameCanonical);
 
     /**
      * Gets email.
      *
      * @return string
      */
-    function getEmail();
+    public function getEmail();
 
     /**
      * Sets the email.
      *
      * @param string $email
      */
-    function setEmail($email);
+    public function setEmail($email);
 
     /**
      * Gets the canonical email in search and sort queries.
      *
      * @return string
      */
-    function getEmailCanonical();
+    public function getEmailCanonical();
 
     /**
      * Set the canonical email.
      *
      * @param string $emailCanonical
      */
-    function setEmailCanonical($emailCanonical);
+    public function setEmailCanonical($emailCanonical);
 
     /**
      * Gets the plain password.
      *
      * @return string
      */
-    function getPlainPassword();
+    public function getPlainPassword();
 
     /**
      * Sets the plain password.
      *
      * @param string $password
      */
-    function setPlainPassword($password);
+    public function setPlainPassword($password);
 
     /**
      * Sets the hashed password.
      *
      * @param string $password
      */
-    function setPassword($password);
+    public function setPassword($password);
 
     /**
      * Tells if the the given user has the super admin role.
      *
      * @return Boolean
      */
-    function isSuperAdmin();
+    public function isSuperAdmin();
 
     /**
      * Tells if the the given user is this user.
@@ -102,64 +102,66 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      * Useful when not hydrating all fields.
      *
      * @param UserInterface $user
+     *
      * @return Boolean
      */
-    function isUser(UserInterface $user = null);
+    public function isUser(UserInterface $user = null);
 
     /**
      * @param Boolean $boolean
      */
-    function setEnabled($boolean);
+    public function setEnabled($boolean);
 
     /**
      * Sets the locking status of the user.
      *
      * @param Boolean $boolean
      */
-    function setLocked($boolean);
+    public function setLocked($boolean);
 
     /**
      * Sets the super admin status
      *
      * @param Boolean $boolean
      */
-    function setSuperAdmin($boolean);
+    public function setSuperAdmin($boolean);
 
     /**
      * Gets the confirmation token.
      *
      * @return string
      */
-    function getConfirmationToken();
+    public function getConfirmationToken();
 
     /**
      * Sets the confirmation token
      *
      * @param string $confirmationToken
      */
-    function setConfirmationToken($confirmationToken);
+    public function setConfirmationToken($confirmationToken);
 
     /**
      * Sets the timestamp that the user requested a password reset.
      *
      * @param \DateTime $date
      */
-    function setPasswordRequestedAt(\DateTime $date = null);
+    public function setPasswordRequestedAt(\DateTime $date = null);
 
     /**
      * Checks whether the password reset request has expired.
      *
      * @param integer $ttl Requests older than this many seconds will be considered expired
+     *
      * @return Boolean true if the user's password request is non expired, false otherwise
      */
-    function isPasswordRequestNonExpired($ttl);
+    public function isPasswordRequestNonExpired($ttl);
 
     /**
      * Sets the last login time
      *
      * @param \DateTime $time
      */
-    function setLastLogin(\DateTime $time);
+    public function setLastLogin(\DateTime $time);
 
     /**
      * Never use this to check if this user has access to anything!
@@ -170,9 +172,10 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *         $securityContext->isGranted('ROLE_USER');
      *
      * @param string $role
+     *
      * @return Boolean
      */
-    function hasRole($role);
+    public function hasRole($role);
 
     /**
      * Sets the roles of the user.
@@ -181,19 +184,19 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param array $roles
      */
-    function setRoles(array $roles);
+    public function setRoles(array $roles);
 
     /**
      * Adds a role to the user.
      *
      * @param string $role
      */
-    function addRole($role);
+    public function addRole($role);
 
     /**
      * Removes a role to the user.
      *
      * @param string $role
      */
-    function removeRole($role);
+    public function removeRole($role);
 }

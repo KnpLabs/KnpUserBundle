@@ -61,6 +61,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * Finds a user by email
      *
      * @param string $email
+     *
      * @return UserInterface
      */
     public function findUserByEmail($email)
@@ -72,6 +73,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * Finds a user by username
      *
      * @param string $username
+     *
      * @return UserInterface
      */
     public function findUserByUsername($username)
@@ -83,6 +85,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * Finds a user either by email, or username
      *
      * @param string $usernameOrEmail
+     *
      * @return UserInterface
      */
     public function findUserByUsernameOrEmail($usernameOrEmail)
@@ -98,6 +101,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * Finds a user either by confirmation token
      *
      * @param string $token
+     *
      * @return UserInterface
      */
     public function findUserByConfirmationToken($token)
@@ -115,6 +119,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * all ACL checks.
      *
      * @param SecurityUserInterface $user
+     *
      * @return UserInterface
      */
     public function refreshUser(SecurityUserInterface $user)
@@ -134,6 +139,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * all ACL checks.
      *
      * @param string $username
+     *
      * @return UserInterface
      */
     public function loadUserByUsername($username)
@@ -172,6 +178,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * Canonicalizes an email
      *
      * @param string $email
+     *
      * @return string
      */
     protected function canonicalizeEmail($email)
@@ -183,6 +190,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * Canonicalizes a username
      *
      * @param string $username
+     *
      * @return string
      */
     protected function canonicalizeUsername($username)

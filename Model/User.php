@@ -11,7 +11,6 @@
 
 namespace FOS\UserBundle\Model;
 
-use Symfony\Component\Security\Core\Role\RoleInterface;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
@@ -160,6 +159,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Implementation of SecurityUserInterface.
      *
      * @param \Symfony\Component\Security\Core\User\UserInterface $user
+     *
      * @return Boolean
      */
     public function equals(SecurityUserInterface $user)
@@ -372,6 +372,7 @@ abstract class User implements UserInterface, GroupableInterface
      *         $securityContext->isGranted('ROLE_USER');
      *
      * @param string $role
+     *
      * @return Boolean
      */
     public function hasRole($role)
@@ -474,6 +475,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Useful when not hydrating all fields.
      *
      * @param UserInterface $user
+     *
      * @return Boolean
      */
     public function isUser(UserInterface $user = null)
@@ -498,6 +500,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Sets the username.
      *
      * @param string $username
+     *
      * @return User
      */
     public function setUsername($username)
@@ -511,6 +514,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Sets the canonical username.
      *
      * @param string $usernameCanonical
+     *
      * @return User
      */
     public function setUsernameCanonical($usernameCanonical)
@@ -522,6 +526,7 @@ abstract class User implements UserInterface, GroupableInterface
 
     /**
      * @param \DateTime $date
+     *
      * @return User
      */
     public function setCredentialsExpireAt(\DateTime $date)
@@ -533,6 +538,7 @@ abstract class User implements UserInterface, GroupableInterface
 
     /**
      * @param boolean $boolean
+     *
      * @return User
      */
     public function setCredentialsExpired($boolean)
@@ -546,6 +552,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Sets the email.
      *
      * @param string $email
+     *
      * @return User
      */
     public function setEmail($email)
@@ -559,6 +566,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Set the canonical email.
      *
      * @param string $emailCanonical
+     *
      * @return User
      */
     public function setEmailCanonical($emailCanonical)
@@ -570,6 +578,7 @@ abstract class User implements UserInterface, GroupableInterface
 
     /**
      * @param Boolean $boolean
+     *
      * @return User
      */
     public function setEnabled($boolean)
@@ -583,6 +592,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Sets this user to expired.
      *
      * @param Boolean $boolean
+     *
      * @return User
      */
     public function setExpired($boolean)
@@ -594,6 +604,7 @@ abstract class User implements UserInterface, GroupableInterface
 
     /**
      * @param \DateTime $date
+     *
      * @return User
      */
     public function setExpiresAt(\DateTime $date)
@@ -607,6 +618,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Sets the hashed password.
      *
      * @param string $password
+     *
      * @return User
      */
     public function setPassword($password)
@@ -620,6 +632,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Sets the super admin status
      *
      * @param Boolean $boolean
+     *
      * @return User
      */
     public function setSuperAdmin($boolean)
@@ -637,6 +650,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Sets the plain password.
      *
      * @param string $password
+     *
      * @return User
      */
     public function setPlainPassword($password)
@@ -650,6 +664,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Sets the last login time
      *
      * @param \DateTime $time
+     *
      * @return User
      */
     public function setLastLogin(\DateTime $time)
@@ -663,6 +678,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Sets the locking status of the user.
      *
      * @param Boolean $boolean
+     *
      * @return User
      */
     public function setLocked($boolean)
@@ -676,6 +692,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Sets the confirmation token
      *
      * @param string $confirmationToken
+     *
      * @return User
      */
     public function setConfirmationToken($confirmationToken)
@@ -689,6 +706,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Sets the timestamp that the user requested a password reset.
      *
      * @param \DateTime $date
+     *
      * @return User
      */
     public function setPasswordRequestedAt(\DateTime $date = null)
@@ -712,6 +730,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Checks whether the password reset request has expired.
      *
      * @param integer $ttl Requests older than this many seconds will be considered expired
+     *
      * @return Boolean true if the user's password request is non expired, false otherwise
      */
     public function isPasswordRequestNonExpired($ttl)
@@ -726,6 +745,7 @@ abstract class User implements UserInterface, GroupableInterface
      * This overwrites any previous roles.
      *
      * @param array $roles
+     *
      * @return User
      */
     public function setRoles(array $roles)
@@ -768,6 +788,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Indicates whether the user belongs to the specified group or not.
      *
      * @param string $name Name of the group
+     *
      * @return Boolean
      */
     public function hasGroup($name)
@@ -779,6 +800,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Add a group to the user groups.
      *
      * @param GroupInterface $group
+     *
      * @return User
      */
     public function addGroup(GroupInterface $group)
@@ -794,6 +816,7 @@ abstract class User implements UserInterface, GroupableInterface
      * Remove a group from the user groups.
      *
      * @param GroupInterface $group
+     *
      * @return User
      */
     public function removeGroup(GroupInterface $group)

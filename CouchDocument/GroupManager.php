@@ -35,8 +35,7 @@ class GroupManager extends BaseGroupManager
     /**
      * Deletes a group.
      *
-     * @param GroupInterface $group
-     * @return void
+     * @param  GroupInterface $group
      */
     public function deleteGroup(GroupInterface $group)
     {
@@ -47,7 +46,8 @@ class GroupManager extends BaseGroupManager
     /**
      * Finds one group by the given criteria.
      *
-     * @param array $criteria
+     * @param  array          $criteria
+     *
      * @return GroupInterface
      */
     public function findGroupBy(array $criteria)

@@ -13,5 +13,5 @@ namespace FOS\UserBundle\Util;
 
 interface CanonicalizerInterface
 {
-    function canonicalize($string);
+    public function canonicalize($string);
 }

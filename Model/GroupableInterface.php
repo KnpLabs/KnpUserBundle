@@ -23,34 +23,35 @@ interface GroupableInterface
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    function getGroups();
+    public function getGroups();
 
     /**
      * Gets the name of the groups which includes the user.
      *
      * @return array
      */
-    function getGroupNames();
+    public function getGroupNames();
 
     /**
      * Indicates whether the user belongs to the specified group or not.
      *
      * @param string $name Name of the group
+     *
      * @return Boolean
      */
-    function hasGroup($name);
+    public function hasGroup($name);
 
     /**
      * Add a group to the user groups.
      *
      * @param GroupInterface $group
      */
-    function addGroup(GroupInterface $group);
+    public function addGroup(GroupInterface $group);
 
     /**
      * Remove a group from the user groups.
      *
      * @param GroupInterface $group
      */
-    function removeGroup(GroupInterface $group);
+    public function removeGroup(GroupInterface $group);
 }
