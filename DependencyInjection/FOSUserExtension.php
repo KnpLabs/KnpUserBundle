@@ -78,16 +78,6 @@ class FOSUserExtension extends Extension
             'template'  => 'fos_user.template.%s',
         ));
 
-        // handle the MongoDB document manager name in a specific way as it does not have a registry to make it easy
-        // TODO: change it if https://github.com/symfony/DoctrineMongoDBBundle/pull/31 is merged
-        if ('mongodb' === $config['db_driver']) {
-            if (null === $config['model_manager_name']) {
-                $container->setAlias('fos_user.document_manager', new Alias('doctrine.odm.mongodb.document_manager', false));
-            } else {
-                $container->setAlias('fos_user.document_manager', new Alias(sprintf('doctrine.odm.%s_mongodb.document_manager', $config['model_manager_name']), false));
-            }
-        }
-
         if (!empty($config['profile'])) {
             $this->loadProfile($config['profile'], $container, $loader);
         }
