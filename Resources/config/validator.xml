@@ -10,6 +10,11 @@
     </parameters>
 
     <services>
+        <service id="fos_user.validator.initializer" class="FOS\UserBundle\Validator\Initializer" public="false">
+            <tag name="validator.initializer" />
+            <argument type="service" id="fos_user.user_manager" />
+        </service>
+
         <!-- Unique Validator Service -->
         <service id="fos_user.validator.unique" class="%fos_user.validator.unique.class%">
             <argument type="service" id="fos_user.user_manager" />
