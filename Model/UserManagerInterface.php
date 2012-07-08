@@ -128,14 +128,4 @@ interface UserManagerInterface
      * @param UserInterface $user
      */
     public function updatePassword(UserInterface $user);
-
-    /**
-     * Checks the uniqueness of the given fields, returns true if its unique.
-     *
-     * @param UserInterface $value
-     * @param Constraint    $constraint
-     *
-     * @return Boolean
-     */
-    public function validateUnique(UserInterface $value, Constraint $constraint);
 }
