@@ -12,6 +12,7 @@
 namespace FOS\UserBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -37,18 +38,24 @@ class RegistrationController extends ContainerAware
         if ($process) {
             $user = $form->getData();
 
+            $authUser = false;
             if ($confirmationEnabled) {
                 $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
                 $route = 'fos_user_registration_check_email';
             } else {
-                $this->authenticateUser($user);
+                $authUser = true;
                 $route = 'fos_user_registration_confirmed';
             }
 
             $this->setFlash('fos_user_success', 'registration.flash.user_created');
             $url = $this->container->get('router')->generate($route);
+            $response = new RedirectResponse($url);
 
-            return new RedirectResponse($url);
+            if ($authUser) {
+                $this->authenticateUser($user, $response);
+            }
+
+            return $response;
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
@@ -90,9 +97,10 @@ class RegistrationController extends ContainerAware
         $user->setLastLogin(new \DateTime());
 
         $this->container->get('fos_user.user_manager')->updateUser($user);
-        $this->authenticateUser($user);
+        $response = new RedirectResponse($this->container->get('router')->generate('fos_user_registration_confirmed'));
+        $this->authenticateUser($user, $response);
 
-        return new RedirectResponse($this->container->get('router')->generate('fos_user_registration_confirmed'));
+        return $response;
     }
 
     /**
@@ -113,21 +121,20 @@ class RegistrationController extends ContainerAware
     /**
      * Authenticate a user with Symfony Security
      *
-     * @param \FOS\UserBundle\Model\UserInterface $user
+     * @param \FOS\UserBundle\Model\UserInterface        $user
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    protected function authenticateUser(UserInterface $user)
+    protected function authenticateUser(UserInterface $user, Response $response)
     {
         try {
-            $this->container->get('fos_user.user_checker')->checkPostAuth($user);
-        } catch (AccountStatusException $e) {
-            // Don't authenticate locked, disabled or expired users
-            return;
+            $this->container->get('fos_user.security.login_manager')->loginUser(
+                $this->container->getParameter('fos_user.firewall_name'),
+                $user,
+                $response);
+        } catch (AccountStatusException $ex) {
+            // We simply do not authenticate users which do not pass the user
+            // checker (not enabled, expired, etc.).
         }
-
-        $providerKey = $this->container->getParameter('fos_user.firewall_name');
-        $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
-
-        $this->container->get('security.context')->setToken($token);
     }
 
     protected function setFlash($action, $value)

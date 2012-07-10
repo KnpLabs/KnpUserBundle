@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="fos_user.security.interactive_login_listener.class">FOS\UserBundle\Security\InteractiveLoginListener</parameter>
+        <parameter key="fos_user.security.login_manager.class">FOS\UserBundle\Security\LoginManager</parameter>
     </parameters>
 
     <services>
@@ -14,7 +15,12 @@
             <tag name="kernel.event_listener" event="security.interactive_login" method="onSecurityInteractiveLogin" />
         </service>
 
-        <service id="fos_user.user_checker" alias="security.user_checker" />
+        <service id="fos_user.security.login_manager" class="%fos_user.security.login_manager.class%">
+        	<argument type="service" id="security.context" />
+        	<argument type="service" id="security.user_checker" />
+        	<argument type="service" id="security.authentication.session_strategy" />
+        	<argument type="service" id="service_container" />
+        </service>
 
         <service id="fos_user.user_provider.username" class="FOS\UserBundle\Security\UserProvider" public="false">
             <argument type="service" id="fos_user.user_manager" />
