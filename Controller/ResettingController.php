@@ -12,6 +12,7 @@
 namespace FOS\UserBundle\Controller;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -101,11 +102,11 @@ class ResettingController extends ContainerAware
         $process = $formHandler->process($user);
 
         if ($process) {
-            $this->authenticateUser($user);
-
             $this->setFlash('fos_user_success', 'resetting.flash.success');
+            $response = new RedirectResponse($this->getRedirectionUrl($user));
+            $this->authenticateUser($user, $response);
 
-            return new RedirectResponse($this->getRedirectionUrl($user));
+            return $response;
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:reset.html.'.$this->getEngine(), array(
@@ -118,21 +119,20 @@ class ResettingController extends ContainerAware
     /**
      * Authenticate a user with Symfony Security
      *
-     * @param \FOS\UserBundle\Model\UserInterface $user
+     * @param \FOS\UserBundle\Model\UserInterface        $user
+     * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    protected function authenticateUser(UserInterface $user)
+    protected function authenticateUser(UserInterface $user, Response $response)
     {
         try {
-            $this->container->get('fos_user.user_checker')->checkPostAuth($user);
-        } catch (AccountStatusException $e) {
-            // Don't authenticate locked, disabled or expired users
-            return;
+            $this->container->get('fos_user.security.login_manager')->loginUser(
+                $this->container->get('fos_user.firewall_name'),
+                $user,
+                $response);
+        } catch (AccountStatusException $ex) {
+            // We simply do not authenticate users which do not pass the user
+            // checker (not enabled, expired, etc.).
         }
-
-        $providerKey = $this->container->getParameter('fos_user.firewall_name');
-        $token = new UsernamePasswordToken($user, null, $providerKey, $user->getRoles());
-
-        $this->container->get('security.context')->setToken($token);
     }
 
     /**

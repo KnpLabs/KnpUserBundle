@@ -1,6 +1,12 @@
 Changelog
 =========
 
+### 1.2.4 (2012-07-10)
+
+This release fixes another security issue. Please update to it as soon as possible.
+
+* Fixes a security issue where the session could be hijacked
+
 ### 1.2.3 (2012-07-10)
 
 * Fixed the serialization of users to include the id
