@@ -6,6 +6,10 @@ Changelog
 * Moved the generation of the token to a dedicated class
 * Refactored the translation of form labels using the translation_domain option of Symfony 2.1
 
+### 1.2.2 (2012-07-10)
+
+* Fixed a bug in the previous fix
+
 ### 1.2.1 (2012-07-10)
 
 This release fixes a security issue. You are encouraged to update to it as soon
