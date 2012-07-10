@@ -1,3 +1,4 @@
+composer.lock
 phpunit.xml
 Tests/autoload.php
 nbproject
@@ -6,4 +7,3 @@ Propel/om/*
 Propel/map/*
 
 vendor/*
-!vendor/vendors.php

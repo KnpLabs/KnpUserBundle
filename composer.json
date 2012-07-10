@@ -19,15 +19,18 @@
             "homepage": "https://github.com/friendsofsymfony/FOSUserBundle/contributors"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
-        "php": ">=5.3.2",
+        "php": ">=5.3.2", 
         "symfony/framework-bundle": "2.1.*",
         "symfony/security-bundle": "2.1.*"
     },
-    "suggest": {
+    "require-dev": {
+        "twig/twig": "*",
         "doctrine/doctrine-bundle": "*",
         "doctrine/mongodb-odm-bundle": "*",
-        "doctrine/couchdb-odm-bundle": "*"
+        "swiftmailer/swiftmailer": "*",
+        "propel/propel": "*"
     },
     "autoload": {
         "psr-0": { "FOS\\UserBundle": "" }
