@@ -123,8 +123,16 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
         if (!$user instanceof $class) {
             throw new UnsupportedUserException('Account is not supported.');
         }
+        if (!$user instanceof User) {
+            throw new UnsupportedUserException(sprintf('Expected an instance of FOS\UserBundle\Model\User, but got "%s".', get_class($user)));
+        }
 
-        return $this->loadUserByUsername($user->getUsername());
+        $user = $this->findUserBy(array('id' => $user->getId()));
+        if (null === $user) {
+            throw new UsernameNotFoundException(sprintf('User with ID "%d" could not be reloaded.', $user->getId()));
+        }
+
+        return $user;
     }
 
     /**
