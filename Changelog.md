@@ -1,6 +1,13 @@
 Changelog
 =========
 
+### 1.2.1 (2012-07-10)
+
+This release fixes a security issue. You are encouraged to update to it as soon
+as possible.
+
+* Fixed the user refreshing to check the identity by primary key instead of username
+
 ### 1.2.0 (2012-04-12)
 
 * Prefixed fos table names in propel schema with "fos_" to avoid using reserved sql words
