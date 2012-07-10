@@ -129,7 +129,7 @@ class RegistrationController extends ContainerAware
     {
         try {
             $this->container->get('fos_user.security.login_manager')->loginUser(
-                $this->container->get('fos_user.firewall_name'),
+                $this->container->getParameter('fos_user.firewall_name'),
                 $user,
                 $response);
         } catch (AccountStatusException $ex) {
