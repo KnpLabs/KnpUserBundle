@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 1.2.3 (2012-07-10)
+
+* Fixed the serialization of users to include the id
+
 ### 1.2.2 (2012-07-10)
 
 * Fixed a bug in the previous fix
