@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 1.2.2 (2012-07-10)
+
+* Fixed a bug in the previous fix
+
 ### 1.2.1 (2012-07-10)
 
 This release fixes a security issue. You are encouraged to update to it as soon
