@@ -211,6 +211,7 @@ abstract class User implements UserInterface, GroupableInterface
             $this->locked,
             $this->credentialsExpired,
             $this->enabled,
+            $this->id,
         ));
     }
 
@@ -221,6 +222,11 @@ abstract class User implements UserInterface, GroupableInterface
      */
     public function unserialize($serialized)
     {
+        $data = unserialize($serialized);
+        // add a few extra elements in the array to ensure that we have enough keys when unserializing
+        // older data which does not include all properties.
+        $data = array_merge($data, array_fill(0, 2, null));
+
         list(
             $this->password,
             $this->salt,
@@ -229,8 +235,9 @@ abstract class User implements UserInterface, GroupableInterface
             $this->expired,
             $this->locked,
             $this->credentialsExpired,
-            $this->enabled
-        ) = unserialize($serialized);
+            $this->enabled,
+            $this->id
+        ) = $data;
     }
 
     /**

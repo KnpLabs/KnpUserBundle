@@ -6,6 +6,10 @@ Changelog
 * Moved the generation of the token to a dedicated class
 * Refactored the translation of form labels using the translation_domain option of Symfony 2.1
 
+### 1.2.3 (2012-07-10)
+
+* Fixed the serialization of users to include the id
+
 ### 1.2.2 (2012-07-10)
 
 * Fixed a bug in the previous fix
