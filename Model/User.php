@@ -13,7 +13,6 @@ namespace FOS\UserBundle\Model;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 
 /**
  * Storage agnostic user object
@@ -140,12 +139,14 @@ abstract class User implements UserInterface, GroupableInterface
      * Adds a role to the user.
      *
      * @param string $role
+     *
+     * @return User
      */
     public function addRole($role)
     {
         $role = strtoupper($role);
         if ($role === static::ROLE_DEFAULT) {
-            return;
+            return $this;
         }
 
         if (!in_array($role, $this->roles, true)) {
@@ -153,44 +154,6 @@ abstract class User implements UserInterface, GroupableInterface
         }
 
         return $this;
-    }
-
-    /**
-     * Implementation of SecurityUserInterface.
-     *
-     * @param \Symfony\Component\Security\Core\User\UserInterface $user
-     *
-     * @return Boolean
-     */
-    public function equals(SecurityUserInterface $user)
-    {
-        if (!$user instanceof User) {
-            return false;
-        }
-
-        if ($this->getPassword() !== $user->getPassword()) {
-            return false;
-        }
-        if ($this->getSalt() !== $user->getSalt()) {
-            return false;
-        }
-        if ($this->getUsernameCanonical() !== $user->getUsernameCanonical()) {
-            return false;
-        }
-        if ($this->isAccountNonExpired() !== $user->isAccountNonExpired()) {
-            return false;
-        }
-        if ($this->isAccountNonLocked() !== $user->isAccountNonLocked()) {
-            return false;
-        }
-        if ($this->isCredentialsNonExpired() !== $user->isCredentialsNonExpired()) {
-            return false;
-        }
-        if ($this->isEnabled() !== $user->isEnabled()) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -242,8 +205,6 @@ abstract class User implements UserInterface, GroupableInterface
 
     /**
      * Removes sensitive data from the user.
-     *
-     * Implements SecurityUserInterface
      */
     public function eraseCredentials()
     {
@@ -279,8 +240,6 @@ abstract class User implements UserInterface, GroupableInterface
     }
 
     /**
-     * Implementation of SecurityUserInterface
-     *
      * @return string
      */
     public function getSalt()
@@ -311,7 +270,6 @@ abstract class User implements UserInterface, GroupableInterface
     /**
      * Gets the encrypted password.
      *
-     * Implements SecurityUserInterface
      * @return string
      */
     public function getPassword()
@@ -351,8 +309,6 @@ abstract class User implements UserInterface, GroupableInterface
 
     /**
      * Returns the user roles
-     *
-     * Implements SecurityUserInterface
      *
      * @return array The roles
      */
