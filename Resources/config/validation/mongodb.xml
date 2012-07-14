@@ -7,6 +7,7 @@
     <class name="FOS\UserBundle\Model\User">
         <constraint name="Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique">
             <option name="fields">usernameCanonical</option>
+            <option name="errorPath">username</option>
             <option name="message">fos_user.username.already_used</option>
             <option name="groups">
                 <value>Registration</value>
@@ -16,6 +17,7 @@
 
         <constraint name="Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique">
             <option name="fields">emailCanonical</option>
+            <option name="errorPath">email</option>
             <option name="message">fos_user.email.already_used</option>
             <option name="groups">
                 <value>Registration</value>
