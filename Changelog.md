@@ -3,7 +3,12 @@ Changelog
 
 ### 2.0.0 (2012-XX-XX)
 
+* Removed the custom uniqueness validation in favor of the core constraints
+* Added getRedirectionUrl method to ProfileController
+* Added an extension point in the registration handler
 * Moved the generation of the token to a dedicated class
+* Added new user provider classes. They should be preferred over using the UserManager as UserProvider.
+* Removed the custom password validation in favor of the Symfony 2.1 constraint
 * Refactored the translation of form labels using the translation_domain option of Symfony 2.1
 
 ### 1.2.4 (2012-07-10)
