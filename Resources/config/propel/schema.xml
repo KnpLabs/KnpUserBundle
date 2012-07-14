@@ -29,8 +29,10 @@
         <column name="roles" type="array" />
 
         <behavior name="typehintable">
+            <parameter name="last_login" value="DateTime" />
+            <parameter name="password_requested_at" value="DateTime" nullable="true" />
             <parameter name="roles" value="array" />
-            <parameter name="group" value="\FOS\UserBundle\Model\GroupInterface" />
+            <parameter name="fos_group" value="FOS\UserBundle\Model\GroupInterface" />
         </behavior>
     </table>
 
