@@ -37,7 +37,7 @@ class User extends BaseUser implements UserInterface
                 $this->expired,
                 $this->locked,
                 $this->credentials_expired,
-                $this->locked,
+                $this->enabled,
             )
         );
     }
@@ -55,7 +55,7 @@ class User extends BaseUser implements UserInterface
             $this->expired,
             $this->locked,
             $this->credentials_expired,
-            $this->locked
+            $this->enabled
         ) = unserialize($serialized);
     }
 
