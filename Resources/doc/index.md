@@ -423,14 +423,24 @@ build your model. First, install it:
 }
 ```
 
+Also, make sure you have the following settings in your propel.ini file.
+
+```ini
+propel.useDateTimeClass = true
+propel.dateTimeClass = DateTime
+propel.defaultTimeStampFormat =
+propel.defaultTimeFormat =
+propel.defaultDateFormat =
+```
+
 You now can run the following command to create the model:
 
 ``` bash
 $ php app/console propel:build
 ```
 
-> To create SQL, run the command `propel:build --insert-sql` or use migration commands if you have an existing schema in your database.
-
+> To create SQL, run the command `propel:build --insert-sql` or use migration
+> commands if you have an existing schema in your database.
 
 You now can login at `http://app.com/app_dev.php/login`!
 
