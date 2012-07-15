@@ -26,13 +26,10 @@ class User extends BaseUser implements UserInterface, GroupableInterface
 
     public function __construct()
     {
+        parent::__construct();
+
         if ($this->isNew()) {
             $this->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
-            $this->setEnabled(false);
-            $this->setCredentialsExpired(false);
-            $this->setLocked(false);
-            $this->setExpired(false);
-            $this->setRoles(array());
         }
     }
 
