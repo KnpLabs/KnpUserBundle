@@ -205,4 +205,16 @@ class User extends BaseUser implements UserInterface
     {
         return parent::getCredentialsExpireAt($format);
     }
+
+    /**
+     * @param \DateTime $v
+     *
+     * @return User
+     *
+     * TODO remove it once https://github.com/willdurand/TypehintableBehavior/issues/4 is fixed
+     */
+    public function setPasswordRequestedAt(\DateTime $v = null)
+    {
+        return parent::setPasswordRequestedAt($v);
+    }
 }
