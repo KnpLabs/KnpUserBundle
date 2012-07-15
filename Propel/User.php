@@ -11,10 +11,11 @@
 
 namespace FOS\UserBundle\Propel;
 
+use FOS\UserBundle\Model\GroupableInterface;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Propel\om\BaseUser;
 
-class User extends BaseUser implements UserInterface
+class User extends BaseUser implements UserInterface, GroupableInterface
 {
     /**
      * Plain password. Used when changing the password. Must not be persisted.
@@ -22,6 +23,18 @@ class User extends BaseUser implements UserInterface
      * @var string
      */
     protected $plainPassword;
+
+    public function __construct()
+    {
+        if ($this->isNew()) {
+            $this->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
+            $this->setEnabled(false);
+            $this->setCredentialsExpired(false);
+            $this->setLocked(false);
+            $this->setExpired(false);
+            $this->setRoles(array());
+        }
+    }
 
     /**
      * {@inheritDoc}
@@ -83,6 +96,65 @@ class User extends BaseUser implements UserInterface
     public function getPlainPassword()
     {
         return $this->plainPassword;
+    }
+
+    /**
+     * Returns the user roles
+     *
+     * Implements SecurityUserInterface
+     *
+     * @return array The roles
+     */
+    public function getRoles()
+    {
+        $roles = parent::getRoles();
+
+        foreach ($this->getGroups() as $group) {
+            $roles = array_merge($roles, $group->getRoles());
+        }
+
+        // we need to make sure to have at least one role
+        $roles[] = static::ROLE_DEFAULT;
+
+        return array_unique($roles);
+    }
+
+    /**
+     * Adds a role to the user.
+     *
+     * @param string $role
+     *
+     * @return User
+     */
+    public function addRole($role)
+    {
+        $role = strtoupper($role);
+        if ($role === static::ROLE_DEFAULT) {
+            return $this;
+        }
+
+        parent::addRole($role);
+
+        return $this;
+    }
+
+    public function hasRole($value)
+    {
+        return parent::hasRole(strtoupper($value));
+    }
+
+    public function removeRole($value)
+    {
+        return parent::removeRole(strtoupper($value));
+    }
+
+    public function setRoles(array $v)
+    {
+        foreach ($v as $i => $role) {
+            $v[$i] = strtoupper($role);
+        }
+
+        return parent::setRoles($v);
     }
 
     /**
@@ -170,6 +242,33 @@ class User extends BaseUser implements UserInterface
     {
         return $this->getPasswordRequestedAt() instanceof \DateTime &&
                $this->getPasswordRequestedAt()->getTimestamp() + $ttl > time();
+    }
+
+    /**
+     * Gets the name of the groups which includes the user.
+     *
+     * @return array
+     */
+    public function getGroupNames()
+    {
+        $names = array();
+        foreach ($this->getGroups() as $group) {
+            $names[] = $group->getName();
+        }
+
+        return $names;
+    }
+
+    /**
+     * Indicates whether the user belongs to the specified group or not.
+     *
+     * @param string $name Name of the group
+     *
+     * @return Boolean
+     */
+    public function hasGroup($name)
+    {
+        return in_array($name, $this->getGroupNames());
     }
 
     // Overwrite all datetime getters to return a DateTime by default.
