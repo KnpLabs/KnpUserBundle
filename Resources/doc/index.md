@@ -423,16 +423,6 @@ build your model. First, install it:
 }
 ```
 
-Also, make sure you have the following settings in your propel.ini file.
-
-```ini
-propel.useDateTimeClass = true
-propel.dateTimeClass = DateTime
-propel.defaultTimeStampFormat =
-propel.defaultTimeFormat =
-propel.defaultDateFormat =
-```
-
 You now can run the following command to create the model:
 
 ``` bash
