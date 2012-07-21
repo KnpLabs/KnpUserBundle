@@ -99,6 +99,7 @@ class User extends \FOS\UserBundle\Entity\User
 
     /**
      * @ORM\OneToOne(targetEntity="Invitation", inversedBy="user")
+     * @ORM\JoinColumn(referencedColumnName="code")
      * @Assert\NotNull(message="Your invitation is wrong")
      */
     protected $invitation;
@@ -136,7 +137,7 @@ class RegistrationFormType extends BaseRegistrationFormType
 
         $builder->add('invitation', 'acme_invitation_type');
     }
-    
+
     public function getName()
     {
         return 'acme_user_registration';
