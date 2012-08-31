@@ -133,7 +133,6 @@ class Configuration implements ConfigurationInterface
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->scalarNode('type')->defaultValue('fos_user_registration')->end()
-                                ->scalarNode('handler')->defaultValue('fos_user.registration.form.handler.default')->end()
                                 ->scalarNode('name')->defaultValue('fos_user_registration_form')->end()
                                 ->arrayNode('validation_groups')
                                     ->prototype('scalar')->end()

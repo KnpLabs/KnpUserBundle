@@ -220,7 +220,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createEmptyConfiguration();
 
         $this->assertHasDefinition('fos_user.profile.form');
-        $this->assertHasDefinition('fos_user.registration.form');
+        $this->assertHasDefinition('fos_user.registration.form.factory');
         $this->assertNotHasDefinition('fos_user.group.form');
         $this->assertHasDefinition('fos_user.change_password.form');
         $this->assertHasDefinition('fos_user.resetting.form');
@@ -231,7 +231,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->createFullConfiguration();
 
         $this->assertHasDefinition('fos_user.profile.form');
-        $this->assertHasDefinition('fos_user.registration.form');
+        $this->assertHasDefinition('fos_user.registration.form.factory');
         $this->assertHasDefinition('fos_user.group.form');
         $this->assertHasDefinition('fos_user.change_password.form');
         $this->assertHasDefinition('fos_user.resetting.form');
@@ -360,7 +360,6 @@ registration:
         template: AcmeMyBundle:Registration:mail.txt.twig
     form:
         type: acme_my_registration
-        handler: acme_my.form.handler.registration
         name: acme_registration_form
         validation_groups: [acme_registration]
 resetting:

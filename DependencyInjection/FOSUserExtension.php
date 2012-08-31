@@ -32,7 +32,7 @@ class FOSUserExtension extends Extension
             $loader->load(sprintf('%s.xml', $config['db_driver']));
         }
 
-        foreach (array('validator', 'security', 'util', 'mailer') as $basename) {
+        foreach (array('validator', 'security', 'util', 'mailer', 'listeners') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
@@ -114,8 +114,9 @@ class FOSUserExtension extends Extension
     {
         $loader->load('registration.xml');
 
-        $container->setAlias('fos_user.registration.form.handler', $config['form']['handler']);
-        unset($config['form']['handler']);
+        if ($config['confirmation']['enabled']) {
+            $loader->load('email_confirmation.xml');
+        }
 
         if (isset($config['confirmation']['from_email'])) {
             // overwrite the global one
