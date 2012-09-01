@@ -55,4 +55,12 @@ final class FOSUserEvents
      * The event listener method receives a FOS\UserBundle\Event\UserResponseEvent instance.
      */
     const REGISTRATION_CONFIRMED = 'fos_user.registration.confirmed';
+
+    /**
+     * The SECURITY_IMPLICIT_LOGIN event occurs when the user is logged in programmatically.
+     *
+     * This event allows you to access the response which will be sent.
+     * The event listener method receives a FOS\UserBundle\Event\UserEvent instance.
+     */
+    const SECURITY_IMPLICIT_LOGIN = 'fos_user.security.implicit_login';
 }

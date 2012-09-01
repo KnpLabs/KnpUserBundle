@@ -95,7 +95,10 @@ class RegistrationController extends ContainerAware
      */
     public function confirmAction($token)
     {
-        $user = $this->container->get('fos_user.user_manager')->findUserByConfirmationToken($token);
+        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+        $userManager = $this->container->get('fos_user.user_manager');
+
+        $user = $userManager->findUserByConfirmationToken($token);
 
         if (null === $user) {
             throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
@@ -106,11 +109,10 @@ class RegistrationController extends ContainerAware
 
         $user->setConfirmationToken(null);
         $user->setEnabled(true);
-        $user->setLastLogin(new \DateTime());
 
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRM, new UserEvent($user));
 
-        $this->container->get('fos_user.user_manager')->updateUser($user);
+        $userManager->updateUser($user);
 
         $response = new RedirectResponse($this->container->get('router')->generate('fos_user_registration_confirmed'));
 

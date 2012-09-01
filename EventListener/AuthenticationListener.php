@@ -12,6 +12,7 @@
 namespace FOS\UserBundle\EventListener;
 
 use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\Event\UserResponseEvent;
 use FOS\UserBundle\Security\LoginManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -43,7 +44,9 @@ class AuthenticationListener implements EventSubscriberInterface
         }
 
         try {
-            $this->loginManager->loginUser($this->firewallName, $event->getUser(),$event->getResponse());
+            $this->loginManager->loginUser($this->firewallName, $event->getUser(), $event->getResponse());
+
+            $event->getDispatcher()->dispatch(FOSUserEvents::SECURITY_IMPLICIT_LOGIN, new UserEvent($event->getUser()));
         } catch (AccountStatusException $ex) {
             // We simply do not authenticate users which do not pass the user
             // checker (not enabled, expired, etc.).
