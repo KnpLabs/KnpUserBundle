@@ -13,6 +13,7 @@ namespace FOS\UserBundle\Controller;
 
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\Event\UserResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,20 +36,21 @@ class RegistrationController extends ContainerAware
         $formFactory = $this->container->get('fos_user.registration.form.factory');
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->container->get('fos_user.user_manager');
+        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+        $dispatcher = $this->container->get('event_dispatcher');
+
+        $user = $userManager->createUser();
+        $user->setEnabled(true);
+
+        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, new UserEvent($user));
 
         $form = $formFactory->createForm();
-        $user = $userManager->createUser();
-
-        $user->setEnabled(true);
         $form->setData($user);
 
         if ('POST' === $request->getMethod()) {
             $form->bind($request);
 
             if ($form->isValid()) {
-                /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-                $dispatcher = $this->container->get('event_dispatcher');
-
                 $event = new FormEvent($form);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 

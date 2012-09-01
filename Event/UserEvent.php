@@ -12,23 +12,22 @@
 namespace FOS\UserBundle\Event;
 
 use FOS\UserBundle\Model\UserInterface;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\EventDispatcher\Event;
 
-class UserResponseEvent extends UserEvent
+class UserEvent extends Event
 {
-    private $response;
+    private $user;
 
-    public function __construct(UserInterface $user, Response $response)
+    public function __construct(UserInterface $user)
     {
-        parent::__construct($user);
-        $this->response = $response;
+        $this->user = $user;
     }
 
     /**
-     * @return Response
+     * @return UserInterface
      */
-    public function getResponse()
+    public function getUser()
     {
-        return $this->response;
+        return $this->user;
     }
 }
