@@ -53,7 +53,7 @@ registration:
             برای تکمیل فعال سازی کاربری خود - لطفا %confirmationUrl% را مشاهده کنید
 
             با احترام،
-            گروه زن پوش.
+            تیم.
 
 # Password resetting
 resetting:
@@ -75,7 +75,7 @@ resetting:
             برای بازنشانی کلمه عبور خود - لطفا %confirmationUrl% را مشاهده کنید
 
             با احترام،
-            گروه زن پوش.
+            تیم.
 
 # Global strings
 layout:
