@@ -7,9 +7,9 @@ group:
     new:
         submit: ایجاد گروه
     flash:
-        updated: گروه بهنگام شد 
-        created: گروه ساخته شد
-        deleted: گروه حذف شد
+        updated: گروه بهنگام شده است 
+        created: گروه ساخته شده است
+        deleted: گروه حذف شده است
 
 # Security
 "Bad credentials": نام کاربری یا کلمه عبور غیر مجاز
