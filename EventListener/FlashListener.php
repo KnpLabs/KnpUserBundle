@@ -34,8 +34,14 @@ class FlashListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
+            FOSUserEvents::PROFILE_EDIT_SUCCESS => 'onProfileEditSuccess',
             FOSUserEvents::REGISTRATION_SUCCESS => 'onRegistrationSuccess',
         );
+    }
+
+    public function onProfileEditSuccess(FormEvent $event)
+    {
+        $this->session->getFlashBag()->add('success', $this->trans('profile.flash.updated'));
     }
 
     public function onRegistrationSuccess(FormEvent $event)

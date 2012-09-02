@@ -102,9 +102,6 @@ class FOSUserExtension extends Extension
     {
         $loader->load('profile.xml');
 
-        $container->setAlias('fos_user.profile.form.handler', $config['form']['handler']);
-        unset($config['form']['handler']);
-
         $this->remapParametersNamespaces($config, $container, array(
             'form' => 'fos_user.profile.form.%s',
         ));

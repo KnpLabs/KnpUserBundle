@@ -219,7 +219,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertHasDefinition('fos_user.profile.form');
+        $this->assertHasDefinition('fos_user.profile.form.factory');
         $this->assertHasDefinition('fos_user.registration.form.factory');
         $this->assertNotHasDefinition('fos_user.group.form');
         $this->assertHasDefinition('fos_user.change_password.form');
@@ -230,7 +230,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $this->createFullConfiguration();
 
-        $this->assertHasDefinition('fos_user.profile.form');
+        $this->assertHasDefinition('fos_user.profile.form.factory');
         $this->assertHasDefinition('fos_user.registration.form.factory');
         $this->assertHasDefinition('fos_user.group.form');
         $this->assertHasDefinition('fos_user.change_password.form');
@@ -342,7 +342,6 @@ from_email:
 profile:
     form:
         type: acme_my_profile
-        handler: acme_my.form.handler.profile
         name: acme_profile_form
         validation_groups: [acme_profile]
 change_password:

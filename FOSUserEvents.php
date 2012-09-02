@@ -17,6 +17,22 @@ namespace FOS\UserBundle;
 final class FOSUserEvents
 {
     /**
+     * The PROFILE_EDIT_SUCCESS event occurs when the profile edit form is submitted successfully.
+     *
+     * This event allows you to set the response instead of using the default one.
+     * The event listener method receives a FOS\UserBundle\Event\FormEvent instance.
+     */
+    const PROFILE_EDIT_SUCCESS = 'fos_user.profile.edit.success';
+
+    /**
+     * The PROFILE_EDIT_COMPLETED event occurs after saving the user in the profile edit process.
+     *
+     * This event allows you to access the response which will be sent.
+     * The event listener method receives a FOS\UserBundle\Event\UserResponseEvent instance.
+     */
+    const PROFILE_EDIT_COMPLETED = 'fos_user.profile.edit.completed';
+
+    /**
      * The REGISTRATION_INITIALIZE event occurs when the registration process is initialized.
      *
      * This event allows you to modify the default values of the user before binding the form.

@@ -94,7 +94,6 @@ class Configuration implements ConfigurationInterface
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->scalarNode('type')->defaultValue('fos_user_profile')->end()
-                                ->scalarNode('handler')->defaultValue('fos_user.profile.form.handler.default')->end()
                                 ->scalarNode('name')->defaultValue('fos_user_profile_form')->end()
                                 ->arrayNode('validation_groups')
                                     ->prototype('scalar')->end()
