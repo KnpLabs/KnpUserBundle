@@ -106,7 +106,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $config = $this->getEmptyConfig();
         $config['registration'] = false;
         $loader->load(array($config), $this->configuration);
-        $this->assertNotHasDefinition('fos_user.registration.form');
+        $this->assertNotHasDefinition('fos_user.registration.form.factory');
     }
 
     public function testDisableResetting()
@@ -116,7 +116,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $config = $this->getEmptyConfig();
         $config['resetting'] = false;
         $loader->load(array($config), $this->configuration);
-        $this->assertNotHasDefinition('fos_user.resetting.form');
+        $this->assertNotHasDefinition('fos_user.resetting.form.factory');
     }
 
     public function testDisableProfile()
@@ -126,7 +126,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $config = $this->getEmptyConfig();
         $config['profile'] = false;
         $loader->load(array($config), $this->configuration);
-        $this->assertNotHasDefinition('fos_user.profile.form');
+        $this->assertNotHasDefinition('fos_user.profile.form.factory');
     }
 
     public function testDisableChangePassword()
@@ -223,7 +223,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('fos_user.registration.form.factory');
         $this->assertNotHasDefinition('fos_user.group.form');
         $this->assertHasDefinition('fos_user.change_password.form');
-        $this->assertHasDefinition('fos_user.resetting.form');
+        $this->assertHasDefinition('fos_user.resetting.form.factory');
     }
 
     public function testUserLoadFormService()
@@ -234,7 +234,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('fos_user.registration.form.factory');
         $this->assertHasDefinition('fos_user.group.form');
         $this->assertHasDefinition('fos_user.change_password.form');
-        $this->assertHasDefinition('fos_user.resetting.form');
+        $this->assertHasDefinition('fos_user.resetting.form.factory');
     }
 
     public function testUserLoadConfirmationEmailWithDefaults()
@@ -370,7 +370,6 @@ resetting:
         template: AcmeMyBundle:Resetting:mail.txt.twig
     form:
         type: acme_my_resetting
-        handler: acme_my.form.handler.resetting
         name: acme_resetting_form
         validation_groups: [acme_resetting]
 service:

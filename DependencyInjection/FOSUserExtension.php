@@ -144,9 +144,6 @@ class FOSUserExtension extends Extension
     {
         $loader->load('resetting.xml');
 
-        $container->setAlias('fos_user.resetting.form.handler', $config['form']['handler']);
-        unset($config['form']['handler']);
-
         if (isset($config['email']['from_email'])) {
             // overwrite the global one
             $fromEmail = $config['email']['from_email'];

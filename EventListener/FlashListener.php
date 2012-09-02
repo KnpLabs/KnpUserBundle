@@ -36,6 +36,7 @@ class FlashListener implements EventSubscriberInterface
         return array(
             FOSUserEvents::PROFILE_EDIT_SUCCESS => 'onProfileEditSuccess',
             FOSUserEvents::REGISTRATION_SUCCESS => 'onRegistrationSuccess',
+            FOSUserEvents::RESETTING_RESET_SUCCESS => 'onResettingResetSuccess'
         );
     }
 
@@ -47,6 +48,11 @@ class FlashListener implements EventSubscriberInterface
     public function onRegistrationSuccess(FormEvent $event)
     {
         $this->session->getFlashBag()->add('success', $this->trans('registration.flash.user_created'));
+    }
+
+    public function onResettingResetSuccess(FormEvent $event)
+    {
+        $this->session->getFlashBag()->add('success', $this->trans('resetting.flash.success'));
     }
 
     private function trans($message, array $params = array())

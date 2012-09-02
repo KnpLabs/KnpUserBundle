@@ -56,7 +56,10 @@
         <property name="plainPassword">
             <constraint name="NotBlank">
                 <option name="message">fos_user.password.blank</option>
-                <option name="groups">Registration</option>
+                <option name="groups">
+                    <value>Registration</value>
+                    <value>ResetPassword</value>
+                </option>
             </constraint>
             <constraint name="Length">
                 <option name="min">2</option>
@@ -64,6 +67,7 @@
                 <option name="groups">
                     <value>Registration</value>
                     <value>Profile</value>
+                    <value>ResetPassword</value>
                 </option>
             </constraint>
         </property>

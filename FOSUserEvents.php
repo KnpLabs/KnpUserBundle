@@ -73,6 +73,30 @@ final class FOSUserEvents
     const REGISTRATION_CONFIRMED = 'fos_user.registration.confirmed';
 
     /**
+     * The RESETTING_RESET_INITIALIZE event occurs when the resetting process is initialized.
+     *
+     * This event allows you to set the response to bypass the processing.
+     * The event listener method receives a FOS\UserBundle\Event\GetResponseUserEvent instance.
+     */
+    const RESETTING_RESET_INITIALIZE = 'fos_user.resetting.reset.initialize';
+
+    /**
+     * The RESETTING_RESET_SUCCESS event occurs when the resetting form is submitted successfully.
+     *
+     * This event allows you to set the response instead of using the default one.
+     * The event listener method receives a FOS\UserBundle\Event\FormEvent instance.
+     */
+    const RESETTING_RESET_SUCCESS = 'fos_user.resetting.reset.success';
+
+    /**
+     * The RESETTING_RESET_COMPLETED event occurs after saving the user in the resetting process.
+     *
+     * This event allows you to access the response which will be sent.
+     * The event listener method receives a FOS\UserBundle\Event\UserResponseEvent instance.
+     */
+    const RESETTING_RESET_COMPLETED = 'fos_user.resetting.reset.completed';
+
+    /**
      * The SECURITY_IMPLICIT_LOGIN event occurs when the user is logged in programmatically.
      *
      * This event allows you to access the response which will be sent.

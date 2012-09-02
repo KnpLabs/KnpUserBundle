@@ -34,6 +34,7 @@ class AuthenticationListener implements EventSubscriberInterface
         return array(
             FOSUserEvents::REGISTRATION_COMPLETED => 'authenticate',
             FOSUserEvents::REGISTRATION_CONFIRMED => 'authenticate',
+            FOSUserEvents::RESETTING_RESET_COMPLETED => 'authenticate',
         );
     }
 
