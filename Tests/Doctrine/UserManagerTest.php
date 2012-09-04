@@ -80,7 +80,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
 
     protected function createUserManager($encoderFactory, $canonicalizer, $objectManager, $userClass)
     {
-        return new UserManager($encoderFactor, $canonicalizer, $canonicalizer, $objectManager, $userClass);
+        return new UserManager($encoderFactory, $canonicalizer, $canonicalizer, $objectManager, $userClass);
     }
 
     protected function getUser()
