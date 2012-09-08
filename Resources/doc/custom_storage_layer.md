@@ -42,3 +42,10 @@ fos_user:
 
 > Your own service can be a private one. FOSUserBundle will create an alias
 > to make it available through `fos_user.user_manager`.
+
+**Caution:**
+
+> The validation of the uniqueness of the username and email fields is done
+> using the constraints provided by DoctrineBundle or PropelBundle. You will
+> need to take care of this validation when using a custom storage layer,
+> using a [custom constraint](http://symfony.com/doc/current/cookbook/validation/custom_constraint.html)
