@@ -68,7 +68,7 @@ resetting:
     flash:
         success: Le mot de passe a été réinitialisé avec succès
     email:
-        subject: Bienvenue %username% !
+        subject: Réinitialisation de votre mot de passe
         message: |
             Bonjour %username% !
 
