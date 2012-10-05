@@ -4,7 +4,7 @@ Upgrade instruction
 This document describes the changes needed when upgrading because of a BC
 break. For the full list of changes, please look at the Changelog file.
 
-## 1.2 to 2.0
+## 1.2 to 1.3
 
 ### Forms
 
@@ -21,8 +21,8 @@ now returns the PropelCollection instead of wrapping it.
 
 ### Manager classes
 
-The different Doctrine-based manager classes will be removed on July 31st
-in favor of the common implementation. If you were extending the UserManager
+The different Doctrine-based manager classes are deprecated and will be removed
+in 2.0 in favor of the common implementation. If you were extending the UserManager
 class for a Doctrine implementation, you need to change the parent class
 to `FOS\UserBundle\Doctrine\UserManager`.
 

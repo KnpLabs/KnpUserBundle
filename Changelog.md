@@ -1,7 +1,7 @@
 Changelog
 =========
 
-### 2.0.0 (2012-XX-XX)
+### 1.3.0 (2012-10-06)
 
 * Refactored the Propel implementation to get rid of the UserProxy
 * Changed the expectation for `FOS\UserBundle\Model\GroupableInterface#getGroups` to `Traversable`
@@ -14,6 +14,7 @@ Changelog
 * Added new user provider classes. They should be preferred over using the UserManager as UserProvider.
 * Removed the custom password validation in favor of the Symfony 2.1 constraint
 * Refactored the translation of form labels using the translation_domain option of Symfony 2.1
+* Bumped the requirement to Symfony 2.1
 
 ### 1.2.4 (2012-07-10)
 
