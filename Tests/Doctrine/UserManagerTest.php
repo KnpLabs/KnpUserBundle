@@ -86,6 +86,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
     protected function getUser()
     {
         $userClass = static::USER_CLASS;
+
         return new $userClass();
     }
 }

@@ -27,9 +27,9 @@ class UserToUsernameTransformer implements DataTransformerInterface
     /**
      * Transforms a UserInterface instance into a username string.
      *
-     * @param mixed $value UserInterface instance
+     * @param UserInterface|null $value UserInterface instance
      *
-     * @return string Username
+     * @return string|null Username
      *
      * @throws UnexpectedTypeException if the given value is not a UserInterface instance
      */

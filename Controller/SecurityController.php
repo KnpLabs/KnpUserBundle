@@ -54,6 +54,7 @@ class SecurityController extends ContainerAware
      * an extended controller to provide additional data for the login template.
      *
      * @param array $data
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function renderLogin(array $data)

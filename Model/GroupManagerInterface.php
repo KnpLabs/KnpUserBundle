@@ -75,6 +75,8 @@ interface GroupManagerInterface
      * Updates a group.
      *
      * @param GroupInterface $group
+     *
+     * @return void
      */
     public function updateGroup(GroupInterface $group);
 }

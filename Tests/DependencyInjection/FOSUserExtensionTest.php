@@ -293,9 +293,6 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertAlias('acme_my.username_canonicalizer', 'fos_user.util.username_canonicalizer');
     }
 
-    /**
-     * @return ContainerBuilder
-     */
     protected function createEmptyConfiguration()
     {
         $this->configuration = new ContainerBuilder();
@@ -305,9 +302,6 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
     }
 
-    /**
-     * @return ContainerBuilder
-     */
     protected function createFullConfiguration()
     {
         $this->configuration = new ContainerBuilder();
@@ -401,21 +395,35 @@ EOF;
         return  $parser->parse($yaml);
     }
 
+    /**
+     * @param string $value
+     * @param string $key
+     */
     private function assertAlias($value, $key)
     {
         $this->assertEquals($value, (string) $this->configuration->getAlias($key), sprintf('%s alias is correct', $key));
     }
 
+    /**
+     * @param mixed  $value
+     * @param string $key
+     */
     private function assertParameter($value, $key)
     {
         $this->assertEquals($value, $this->configuration->getParameter($key), sprintf('%s parameter is correct', $key));
     }
 
+    /**
+     * @param string $id
+     */
     private function assertHasDefinition($id)
     {
         $this->assertTrue(($this->configuration->hasDefinition($id) ?: $this->configuration->hasAlias($id)));
     }
 
+    /**
+     * @param string $id
+     */
     private function assertNotHasDefinition($id)
     {
         $this->assertFalse(($this->configuration->hasDefinition($id) ?: $this->configuration->hasAlias($id)));
