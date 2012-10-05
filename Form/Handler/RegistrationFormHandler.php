@@ -76,7 +76,7 @@ class RegistrationFormHandler
     }
 
     /**
-     * @return boolean|UserInterface
+     * @return UserInterface
      */
     protected function createUser()
     {

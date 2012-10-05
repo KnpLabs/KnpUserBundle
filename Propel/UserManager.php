@@ -107,7 +107,7 @@ class UserManager extends BaseUserManager
     /**
      * Create the propel query class corresponding to your queryclass
      *
-     * @return string the queryClass
+     * @return \ModelCriteria the queryClass
      */
     protected function createQuery()
     {

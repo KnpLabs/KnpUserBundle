@@ -18,10 +18,15 @@ namespace FOS\UserBundle\Model;
 interface GroupInterface
 {
     /**
-     * @return Group
+     * @param string $role
+     *
+     * @return self
      */
     public function addRole($role);
 
+    /**
+     * @return integer
+     */
     public function getId();
 
     /**
@@ -30,6 +35,8 @@ interface GroupInterface
     public function getName();
 
     /**
+     * @param string $role
+     *
      * @return boolean
      */
     public function hasRole($role);
@@ -40,19 +47,23 @@ interface GroupInterface
     public function getRoles();
 
     /**
-     * @return Group
+     * @param string $role
+     *
+     * @return self
      */
     public function removeRole($role);
 
     /**
      * @param string $name
      *
-     * @return Group
+     * @return self
      */
     public function setName($name);
 
     /**
-     * @return Group
+     * @param array $roles
+     *
+     * @return self
      */
     public function setRoles(array $roles);
 }

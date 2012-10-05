@@ -7,7 +7,7 @@ group:
     new:
         submit: ایجاد گروه
     flash:
-        updated: گروه بهنگام شده است 
+        updated: گروه بهنگام شده است
         created: گروه ساخته شده است
         deleted: گروه حذف شده است
 

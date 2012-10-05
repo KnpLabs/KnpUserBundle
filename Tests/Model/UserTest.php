@@ -79,7 +79,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return User
      */
     protected function getUser()
     {

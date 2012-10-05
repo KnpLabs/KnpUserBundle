@@ -25,8 +25,9 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
     /**
      * Sets the username.
      *
-     * @param  string $username
-     * @return User
+     * @param string $username
+     *
+     * @return self
      */
     public function setUsername($username);
 
@@ -40,8 +41,9 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
     /**
      * Sets the canonical username.
      *
-     * @param  string $usernameCanonical
-     * @return User
+     * @param string $usernameCanonical
+     *
+     * @return self
      */
     public function setUsernameCanonical($usernameCanonical);
 
@@ -55,8 +57,9 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
     /**
      * Sets the email.
      *
-     * @param  string $email
-     * @return User
+     * @param string $email
+     *
+     * @return self
      */
     public function setEmail($email);
 
@@ -70,8 +73,9 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
     /**
      * Set the canonical email.
      *
-     * @param  string $emailCanonical
-     * @return User
+     * @param string $emailCanonical
+     *
+     * @return self
      */
     public function setEmailCanonical($emailCanonical);
 
@@ -85,23 +89,25 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
     /**
      * Sets the plain password.
      *
-     * @param  string                           $password
-     * @return User|\FOS\UserBundle\Propel\User
+     * @param string $password
+     *
+     * @return self
      */
     public function setPlainPassword($password);
 
     /**
      * Sets the hashed password.
      *
-     * @param  string $password
-     * @return User
+     * @param string $password
+     *
+     * @return self
      */
     public function setPassword($password);
 
     /**
      * Tells if the the given user has the super admin role.
      *
-     * @return Boolean
+     * @return boolean
      */
     public function isSuperAdmin();
 
@@ -112,29 +118,32 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param null|UserInterface $user
      *
-     * @return Boolean
+     * @return boolean
      */
     public function isUser(UserInterface $user = null);
 
     /**
-     * @param  Boolean $boolean
-     * @return User
+     * @param boolean $boolean
+     *
+     * @return self
      */
     public function setEnabled($boolean);
 
     /**
      * Sets the locking status of the user.
      *
-     * @param  Boolean $boolean
-     * @return User
+     * @param boolean $boolean
+     *
+     * @return self
      */
     public function setLocked($boolean);
 
     /**
      * Sets the super admin status
      *
-     * @param  Boolean                          $boolean
-     * @return User|\FOS\UserBundle\Propel\User
+     * @param boolean $boolean
+     *
+     * @return self
      */
     public function setSuperAdmin($boolean);
 
@@ -148,16 +157,18 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
     /**
      * Sets the confirmation token
      *
-     * @param  string $confirmationToken
-     * @return User
+     * @param string $confirmationToken
+     *
+     * @return self
      */
     public function setConfirmationToken($confirmationToken);
 
     /**
      * Sets the timestamp that the user requested a password reset.
      *
-     * @param  null|\DateTime $date
-     * @return User
+     * @param null|\DateTime $date
+     *
+     * @return self
      */
     public function setPasswordRequestedAt(\DateTime $date = null);
 
@@ -166,15 +177,16 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param integer $ttl Requests older than this many seconds will be considered expired
      *
-     * @return Boolean true if the user's password request is non expired, false otherwise
+     * @return boolean true if the user's password request is non expired, false otherwise
      */
     public function isPasswordRequestNonExpired($ttl);
 
     /**
      * Sets the last login time
      *
-     * @param  \DateTime $time
-     * @return User
+     * @param \DateTime $time
+     *
+     * @return self
      */
     public function setLastLogin(\DateTime $time);
 
@@ -188,7 +200,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param string $role
      *
-     * @return Boolean
+     * @return boolean
      */
     public function hasRole($role);
 
@@ -197,24 +209,27 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * This overwrites any previous roles.
      *
-     * @param  array $roles
-     * @return User
+     * @param array $roles
+     *
+     * @return self
      */
     public function setRoles(array $roles);
 
     /**
      * Adds a role to the user.
      *
-     * @param  string                           $role
-     * @return User|\FOS\UserBundle\Propel\User
+     * @param string $role
+     *
+     * @return self
      */
     public function addRole($role);
 
     /**
      * Removes a role to the user.
      *
-     * @param  string $role
-     * @return void
+     * @param string $role
+     *
+     * @return self
      */
     public function removeRole($role);
 }

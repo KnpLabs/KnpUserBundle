@@ -293,9 +293,6 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertAlias('acme_my.username_canonicalizer', 'fos_user.util.username_canonicalizer');
     }
 
-    /**
-     * @return void
-     */
     protected function createEmptyConfiguration()
     {
         $this->configuration = new ContainerBuilder();
@@ -305,9 +302,6 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->configuration instanceof ContainerBuilder);
     }
 
-    /**
-     * @return void
-     */
     protected function createFullConfiguration()
     {
         $this->configuration = new ContainerBuilder();
@@ -320,7 +314,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     /**
      * getEmptyConfig
      *
-     * @return mixed
+     * @return array
      */
     protected function getEmptyConfig()
     {
@@ -411,8 +405,8 @@ EOF;
     }
 
     /**
-     * @param string|null|array<string,string>|integer|boolean $value
-     * @param string                                           $key
+     * @param mixed  $value
+     * @param string $key
      */
     private function assertParameter($value, $key)
     {

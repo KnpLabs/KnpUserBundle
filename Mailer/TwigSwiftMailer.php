@@ -57,8 +57,10 @@ class TwigSwiftMailer implements MailerInterface
     }
 
     /**
-     * @param array<string,UserInterface|string> $context
-     * @param string                             $toEmail
+     * @param string $templateName
+     * @param array  $context
+     * @param string $fromEmail
+     * @param string $toEmail
      */
     protected function sendMessage($templateName, $context, $fromEmail, $toEmail)
     {
