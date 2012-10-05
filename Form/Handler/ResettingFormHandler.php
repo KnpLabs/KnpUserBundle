@@ -43,7 +43,7 @@ class ResettingFormHandler
         $this->form->setData(new ChangePassword());
 
         if ('POST' === $this->request->getMethod()) {
-            $this->form->bindRequest($this->request);
+            $this->form->bind($this->request);
 
             if ($this->form->isValid()) {
                 $this->onSuccess($user);
