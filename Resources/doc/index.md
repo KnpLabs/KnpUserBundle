@@ -11,8 +11,8 @@ a database, then you're in the right place.
 
 ## Prerequisites
 
-This version of the bundle requires Symfony 2.1. If you are using Symfony
-2.0.x, please use the 1.2.0 release of the bundle.
+This version of the bundle requires Symfony 2.1+. If you are using Symfony
+2.0.x, please use the 1.2.x releases of the bundle.
 
 ### Translations
 
@@ -102,6 +102,12 @@ or CouchDB ODM).
 Your `User` class can live inside any bundle in your application. For example,
 if you work at "Acme" company, then you might create a bundle called `AcmeUserBundle`
 and place your `User` class in it.
+
+**Note:**
+
+> The doc uses a bundle named `AcmeUserBundle`. If you want to use the same
+> name, you need to register it in your kernel. But you can of course place
+> your user class in the bundle you want.
 
 **Warning:**
 
