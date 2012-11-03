@@ -13,11 +13,12 @@ fos_user:
     password:
         blank: É necessário preencher sua senha
         short: "[-Inf,Inf]Esta senha é muito curta"
+        mismatch: As senhas não correspondem
     new_password:
         blank: É necessário preencher a nova senha
         short: "[-Inf,Inf]A nova senha é muito curta"
     current_password:
-        invalid: A senha senha está incorreta
+        invalid: A senha está incorreta
     group:
         blank: É necessário preencher o nome
         short: "[-Inf,Inf]O nome é muito curto"
