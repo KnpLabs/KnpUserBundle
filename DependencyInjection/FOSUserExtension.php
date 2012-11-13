@@ -132,9 +132,6 @@ class FOSUserExtension extends Extension
     {
         $loader->load('change_password.xml');
 
-        $container->setAlias('fos_user.change_password.form.handler', $config['form']['handler']);
-        unset($config['form']['handler']);
-
         $this->remapParametersNamespaces($config, $container, array(
             'form' => 'fos_user.change_password.form.%s',
         ));

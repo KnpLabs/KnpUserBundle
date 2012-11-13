@@ -17,6 +17,22 @@ namespace FOS\UserBundle;
 final class FOSUserEvents
 {
     /**
+     * The CHANGE_PASSWORD_SUCCESS event occurs when the change password form is submitted successfully.
+     *
+     * This event allows you to set the response instead of using the default one.
+     * The event listener method receives a FOS\UserBundle\Event\FormEvent instance.
+     */
+    const CHANGE_PASSWORD_SUCCESS = 'fos_user.change_password.edit.success';
+
+    /**
+     * The CHANGE_PASSWORD_COMPLETED event occurs after saving the user in the change password process.
+     *
+     * This event allows you to access the response which will be sent.
+     * The event listener method receives a FOS\UserBundle\Event\UserResponseEvent instance.
+     */
+    const CHANGE_PASSWORD_COMPLETED = 'fos_user.change_password.edit.completed';
+
+    /**
      * The PROFILE_EDIT_SUCCESS event occurs when the profile edit form is submitted successfully.
      *
      * This event allows you to set the response instead of using the default one.

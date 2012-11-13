@@ -34,6 +34,7 @@ class FlashListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
+            FOSUserEvents::CHANGE_PASSWORD_SUCCESS => 'onChangePasswordSuccess',
             FOSUserEvents::PROFILE_EDIT_SUCCESS => 'onProfileEditSuccess',
             FOSUserEvents::REGISTRATION_SUCCESS => 'onRegistrationSuccess',
             FOSUserEvents::RESETTING_RESET_SUCCESS => 'onResettingResetSuccess'
@@ -43,6 +44,11 @@ class FlashListener implements EventSubscriberInterface
     public function onProfileEditSuccess(FormEvent $event)
     {
         $this->session->getFlashBag()->add('success', $this->trans('profile.flash.updated'));
+    }
+
+    public function onChangePasswordSuccess(FormEvent $event)
+    {
+        $this->session->getFlashBag()->add('success', $this->trans('change_password.flash.updated'));
     }
 
     public function onRegistrationSuccess(FormEvent $event)

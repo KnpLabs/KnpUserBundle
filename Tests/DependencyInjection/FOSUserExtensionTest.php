@@ -136,7 +136,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $config = $this->getEmptyConfig();
         $config['change_password'] = false;
         $loader->load(array($config), $this->configuration);
-        $this->assertNotHasDefinition('fos_user.change_password.form');
+        $this->assertNotHasDefinition('fos_user.change_password.form.factory');
     }
 
     public function testUserLoadModelClassWithDefaults()
@@ -222,7 +222,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('fos_user.profile.form.factory');
         $this->assertHasDefinition('fos_user.registration.form.factory');
         $this->assertNotHasDefinition('fos_user.group.form');
-        $this->assertHasDefinition('fos_user.change_password.form');
+        $this->assertHasDefinition('fos_user.change_password.form.factory');
         $this->assertHasDefinition('fos_user.resetting.form.factory');
     }
 
@@ -233,7 +233,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertHasDefinition('fos_user.profile.form.factory');
         $this->assertHasDefinition('fos_user.registration.form.factory');
         $this->assertHasDefinition('fos_user.group.form');
-        $this->assertHasDefinition('fos_user.change_password.form');
+        $this->assertHasDefinition('fos_user.change_password.form.factory');
         $this->assertHasDefinition('fos_user.resetting.form.factory');
     }
 
@@ -347,7 +347,6 @@ profile:
 change_password:
     form:
         type: acme_my_change_password
-        handler: acme_my.form.handler.change_password
         name: acme_change_password_form
         validation_groups: [acme_change_password]
 registration:
