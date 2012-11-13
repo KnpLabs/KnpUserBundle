@@ -33,6 +33,46 @@ final class FOSUserEvents
     const CHANGE_PASSWORD_COMPLETED = 'fos_user.change_password.edit.completed';
 
     /**
+     * The GROUP_CREATE_SUCCESS event occurs when the group creation form is submitted successfully.
+     *
+     * This event allows you to set the response instead of using the default one.
+     * The event listener method receives a FOS\UserBundle\Event\FormEvent instance.
+     */
+    const GROUP_CREATE_SUCCESS = 'fos_user.group.create.success';
+
+    /**
+     * The GROUP_CREATE_COMPLETED event occurs after saving the group in the group creation process.
+     *
+     * This event allows you to access the response which will be sent.
+     * The event listener method receives a FOS\UserBundle\Event\GroupResponseEvent instance.
+     */
+    const GROUP_CREATE_COMPLETED = 'fos_user.group.create.completed';
+
+    /**
+     * The GROUP_DELETE_COMPLETED event occurs after deleting the group.
+     *
+     * This event allows you to access the response which will be sent.
+     * The event listener method receives a FOS\UserBundle\Event\GroupResponseEvent instance.
+     */
+    const GROUP_DELETE_COMPLETED = 'fos_user.group.delete.completed';
+
+    /**
+     * The GROUP_EDIT_SUCCESS event occurs when the group edit form is submitted successfully.
+     *
+     * This event allows you to set the response instead of using the default one.
+     * The event listener method receives a FOS\UserBundle\Event\FormEvent instance.
+     */
+    const GROUP_EDIT_SUCCESS = 'fos_user.group.edit.success';
+
+    /**
+     * The GROUP_EDIT_COMPLETED event occurs after saving the group in the group edit process.
+     *
+     * This event allows you to access the response which will be sent.
+     * The event listener method receives a FOS\UserBundle\Event\GroupResponseEvent instance.
+     */
+    const GROUP_EDIT_COMPLETED = 'fos_user.group.edit.completed';
+
+    /**
      * The PROFILE_EDIT_SUCCESS event occurs when the profile edit form is submitted successfully.
      *
      * This event allows you to set the response instead of using the default one.

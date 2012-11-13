@@ -165,8 +165,6 @@ class FOSUserExtension extends Extension
         }
 
         $container->setAlias('fos_user.group_manager', $config['group_manager']);
-        $container->setAlias('fos_user.group.form.handler', $config['form']['handler']);
-        unset($config['form']['handler']);
 
         $this->remapParametersNamespaces($config, $container, array(
             '' => array(

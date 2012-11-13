@@ -21,9 +21,12 @@ class FlashListener implements EventSubscriberInterface
 {
     private static $successMessages = array(
         FOSUserEvents::CHANGE_PASSWORD_SUCCESS => 'change_password.flash.updated',
+        FOSUserEvents::GROUP_CREATE_SUCCESS => 'group.flash.created',
+        FOSUserEvents::GROUP_DELETE_COMPLETED => 'group.flash.deleted',
+        FOSUserEvents::GROUP_EDIT_SUCCESS => 'group.flash.updated',
         FOSUserEvents::PROFILE_EDIT_SUCCESS => 'profile.flash.updated',
         FOSUserEvents::REGISTRATION_SUCCESS => 'registration.flash.user_created',
-        FOSUserEvents::RESETTING_RESET_SUCCESS => 'resetting.flash.success'
+        FOSUserEvents::RESETTING_RESET_SUCCESS => 'resetting.flash.success',
     );
 
     /**
@@ -42,9 +45,12 @@ class FlashListener implements EventSubscriberInterface
     {
         return array(
             FOSUserEvents::CHANGE_PASSWORD_SUCCESS => 'addSuccessFlash',
+            FOSUserEvents::GROUP_CREATE_SUCCESS => 'addSuccessFlash',
+            FOSUserEvents::GROUP_DELETE_COMPLETED => 'addSuccessFlash',
+            FOSUserEvents::GROUP_EDIT_SUCCESS => 'addSuccessFlash',
             FOSUserEvents::PROFILE_EDIT_SUCCESS => 'addSuccessFlash',
             FOSUserEvents::REGISTRATION_SUCCESS => 'addSuccessFlash',
-            FOSUserEvents::RESETTING_RESET_SUCCESS => 'addSuccessFlash'
+            FOSUserEvents::RESETTING_RESET_SUCCESS => 'addSuccessFlash',
         );
     }
 

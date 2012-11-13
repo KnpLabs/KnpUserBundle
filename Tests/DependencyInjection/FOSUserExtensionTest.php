@@ -221,7 +221,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertHasDefinition('fos_user.profile.form.factory');
         $this->assertHasDefinition('fos_user.registration.form.factory');
-        $this->assertNotHasDefinition('fos_user.group.form');
+        $this->assertNotHasDefinition('fos_user.group.form.factory');
         $this->assertHasDefinition('fos_user.change_password.form.factory');
         $this->assertHasDefinition('fos_user.resetting.form.factory');
     }
@@ -232,7 +232,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertHasDefinition('fos_user.profile.form.factory');
         $this->assertHasDefinition('fos_user.registration.form.factory');
-        $this->assertHasDefinition('fos_user.group.form');
+        $this->assertHasDefinition('fos_user.group.form.factory');
         $this->assertHasDefinition('fos_user.change_password.form.factory');
         $this->assertHasDefinition('fos_user.resetting.form.factory');
     }
@@ -382,7 +382,6 @@ group:
     group_class: Acme\MyBundle\Entity\Group
     form:
         type: acme_my_group
-        handler: acme_my.form.handler.group
         name: acme_group_form
         validation_groups: [acme_group]
 EOF;
