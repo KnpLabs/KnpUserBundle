@@ -12,7 +12,7 @@
 namespace FOS\UserBundle\EventListener;
 
 use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Event\FormEvent;
+use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -20,13 +20,13 @@ use Symfony\Component\Translation\TranslatorInterface;
 class FlashListener implements EventSubscriberInterface
 {
     private static $successMessages = array(
-        FOSUserEvents::CHANGE_PASSWORD_SUCCESS => 'change_password.flash.updated',
-        FOSUserEvents::GROUP_CREATE_SUCCESS => 'group.flash.created',
+        FOSUserEvents::CHANGE_PASSWORD_COMPLETED => 'change_password.flash.updated',
+        FOSUserEvents::GROUP_CREATE_COMPLETED => 'group.flash.created',
         FOSUserEvents::GROUP_DELETE_COMPLETED => 'group.flash.deleted',
-        FOSUserEvents::GROUP_EDIT_SUCCESS => 'group.flash.updated',
-        FOSUserEvents::PROFILE_EDIT_SUCCESS => 'profile.flash.updated',
-        FOSUserEvents::REGISTRATION_SUCCESS => 'registration.flash.user_created',
-        FOSUserEvents::RESETTING_RESET_SUCCESS => 'resetting.flash.success',
+        FOSUserEvents::GROUP_EDIT_COMPLETED => 'group.flash.updated',
+        FOSUserEvents::PROFILE_EDIT_COMPLETED => 'profile.flash.updated',
+        FOSUserEvents::REGISTRATION_COMPLETED => 'registration.flash.user_created',
+        FOSUserEvents::RESETTING_RESET_COMPLETED => 'resetting.flash.success',
     );
 
     /**
@@ -44,17 +44,17 @@ class FlashListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            FOSUserEvents::CHANGE_PASSWORD_SUCCESS => 'addSuccessFlash',
-            FOSUserEvents::GROUP_CREATE_SUCCESS => 'addSuccessFlash',
+            FOSUserEvents::CHANGE_PASSWORD_COMPLETED => 'addSuccessFlash',
+            FOSUserEvents::GROUP_CREATE_COMPLETED => 'addSuccessFlash',
             FOSUserEvents::GROUP_DELETE_COMPLETED => 'addSuccessFlash',
-            FOSUserEvents::GROUP_EDIT_SUCCESS => 'addSuccessFlash',
-            FOSUserEvents::PROFILE_EDIT_SUCCESS => 'addSuccessFlash',
-            FOSUserEvents::REGISTRATION_SUCCESS => 'addSuccessFlash',
-            FOSUserEvents::RESETTING_RESET_SUCCESS => 'addSuccessFlash',
+            FOSUserEvents::GROUP_EDIT_COMPLETED => 'addSuccessFlash',
+            FOSUserEvents::PROFILE_EDIT_COMPLETED => 'addSuccessFlash',
+            FOSUserEvents::REGISTRATION_COMPLETED => 'addSuccessFlash',
+            FOSUserEvents::RESETTING_RESET_COMPLETED => 'addSuccessFlash',
         );
     }
 
-    public function addSuccessFlash(FormEvent $event)
+    public function addSuccessFlash(Event $event)
     {
         if (!isset(self::$successMessages[$event->getName()])) {
             throw new \InvalidArgumentException('This event does not correspond to a known flash message');
