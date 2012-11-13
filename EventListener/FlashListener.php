@@ -19,6 +19,13 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class FlashListener implements EventSubscriberInterface
 {
+    private static $successMessages = array(
+        FOSUserEvents::CHANGE_PASSWORD_SUCCESS => 'change_password.flash.updated',
+        FOSUserEvents::PROFILE_EDIT_SUCCESS => 'profile.flash.updated',
+        FOSUserEvents::REGISTRATION_SUCCESS => 'registration.flash.user_created',
+        FOSUserEvents::RESETTING_RESET_SUCCESS => 'resetting.flash.success'
+    );
+
     /**
      * @var \Symfony\Component\HttpFoundation\Session\Session
      */
@@ -34,31 +41,20 @@ class FlashListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            FOSUserEvents::CHANGE_PASSWORD_SUCCESS => 'onChangePasswordSuccess',
-            FOSUserEvents::PROFILE_EDIT_SUCCESS => 'onProfileEditSuccess',
-            FOSUserEvents::REGISTRATION_SUCCESS => 'onRegistrationSuccess',
-            FOSUserEvents::RESETTING_RESET_SUCCESS => 'onResettingResetSuccess'
+            FOSUserEvents::CHANGE_PASSWORD_SUCCESS => 'addSuccessFlash',
+            FOSUserEvents::PROFILE_EDIT_SUCCESS => 'addSuccessFlash',
+            FOSUserEvents::REGISTRATION_SUCCESS => 'addSuccessFlash',
+            FOSUserEvents::RESETTING_RESET_SUCCESS => 'addSuccessFlash'
         );
     }
 
-    public function onProfileEditSuccess(FormEvent $event)
+    public function addSuccessFlash(FormEvent $event)
     {
-        $this->session->getFlashBag()->add('success', $this->trans('profile.flash.updated'));
-    }
+        if (!isset(self::$successMessages[$event->getName()])) {
+            throw new \InvalidArgumentException('This event does not correspond to a known flash message');
+        }
 
-    public function onChangePasswordSuccess(FormEvent $event)
-    {
-        $this->session->getFlashBag()->add('success', $this->trans('change_password.flash.updated'));
-    }
-
-    public function onRegistrationSuccess(FormEvent $event)
-    {
-        $this->session->getFlashBag()->add('success', $this->trans('registration.flash.user_created'));
-    }
-
-    public function onResettingResetSuccess(FormEvent $event)
-    {
-        $this->session->getFlashBag()->add('success', $this->trans('resetting.flash.success'));
+        $this->session->getFlashBag()->add('success', $this->trans(self::$successMessages[$event->getName()]));
     }
 
     private function trans($message, array $params = array())
