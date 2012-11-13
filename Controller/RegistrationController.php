@@ -13,6 +13,7 @@ namespace FOS\UserBundle\Controller;
 
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\Event\UserResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -110,11 +111,15 @@ class RegistrationController extends ContainerAware
         $user->setConfirmationToken(null);
         $user->setEnabled(true);
 
-        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRM, new UserEvent($user));
+        $event = new GetResponseUserEvent($user);
+        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRM, $event);
 
         $userManager->updateUser($user);
 
-        $response = new RedirectResponse($this->container->get('router')->generate('fos_user_registration_confirmed'));
+        if (null === $response = $event->getResponse()) {
+            $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
+            $response = new RedirectResponse($url);
+        }
 
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRMED, new UserResponseEvent($user, $response));
 

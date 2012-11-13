@@ -42,9 +42,9 @@ class ResettingController extends ContainerAware
     /**
      * Request reset user password: submit form and send email
      */
-    public function sendEmailAction()
+    public function sendEmailAction(Request $request)
     {
-        $username = $this->container->get('request')->request->get('username');
+        $username = $request->request->get('username');
 
         /** @var $user UserInterface */
         $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
