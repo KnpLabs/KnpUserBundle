@@ -20,7 +20,7 @@ and register it as a service:
 
 ``` yaml
 # app/config/config.yml
-service:
+services:
     my_canonicalizer:
         class: Acme\UserBundle\Util\CustomCanonicalizer
         public: false
