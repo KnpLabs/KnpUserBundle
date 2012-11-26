@@ -109,7 +109,7 @@ class ResettingController extends ContainerAware
         }
 
         $event = new GetResponseUserEvent($user);
-        $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_SUCCESS, $event);
+        $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_INITIALIZE, $event);
 
         if (null !== $event->getResponse()) {
             return $event->getResponse();
