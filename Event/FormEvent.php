@@ -13,16 +13,19 @@ namespace FOS\UserBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class FormEvent extends Event
 {
     private $form;
+    private $request;
     private $response;
 
-    public function __construct(FormInterface $form)
+    public function __construct(FormInterface $form, Request $request)
     {
         $this->form = $form;
+        $this->request = $request;
     }
 
     /**
@@ -31,6 +34,14 @@ class FormEvent extends Event
     public function getForm()
     {
         return $this->form;
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
     }
 
     public function setResponse(Response $response)

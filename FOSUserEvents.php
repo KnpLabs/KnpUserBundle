@@ -28,7 +28,7 @@ final class FOSUserEvents
      * The CHANGE_PASSWORD_COMPLETED event occurs after saving the user in the change password process.
      *
      * This event allows you to access the response which will be sent.
-     * The event listener method receives a FOS\UserBundle\Event\UserResponseEvent instance.
+     * The event listener method receives a FOS\UserBundle\Event\FilterUserResponseEvent instance.
      */
     const CHANGE_PASSWORD_COMPLETED = 'fos_user.change_password.edit.completed';
 
@@ -44,7 +44,7 @@ final class FOSUserEvents
      * The GROUP_CREATE_COMPLETED event occurs after saving the group in the group creation process.
      *
      * This event allows you to access the response which will be sent.
-     * The event listener method receives a FOS\UserBundle\Event\GroupResponseEvent instance.
+     * The event listener method receives a FOS\UserBundle\Event\FilterGroupResponseEvent instance.
      */
     const GROUP_CREATE_COMPLETED = 'fos_user.group.create.completed';
 
@@ -52,7 +52,7 @@ final class FOSUserEvents
      * The GROUP_DELETE_COMPLETED event occurs after deleting the group.
      *
      * This event allows you to access the response which will be sent.
-     * The event listener method receives a FOS\UserBundle\Event\GroupResponseEvent instance.
+     * The event listener method receives a FOS\UserBundle\Event\FilterGroupResponseEvent instance.
      */
     const GROUP_DELETE_COMPLETED = 'fos_user.group.delete.completed';
 
@@ -68,7 +68,7 @@ final class FOSUserEvents
      * The GROUP_EDIT_COMPLETED event occurs after saving the group in the group edit process.
      *
      * This event allows you to access the response which will be sent.
-     * The event listener method receives a FOS\UserBundle\Event\GroupResponseEvent instance.
+     * The event listener method receives a FOS\UserBundle\Event\FilterGroupResponseEvent instance.
      */
     const GROUP_EDIT_COMPLETED = 'fos_user.group.edit.completed';
 
@@ -84,7 +84,7 @@ final class FOSUserEvents
      * The PROFILE_EDIT_COMPLETED event occurs after saving the user in the profile edit process.
      *
      * This event allows you to access the response which will be sent.
-     * The event listener method receives a FOS\UserBundle\Event\UserResponseEvent instance.
+     * The event listener method receives a FOS\UserBundle\Event\FilterUserResponseEvent instance.
      */
     const PROFILE_EDIT_COMPLETED = 'fos_user.profile.edit.completed';
 
@@ -108,7 +108,7 @@ final class FOSUserEvents
      * The REGISTRATION_COMPLETED event occurs after saving the user in the registration process.
      *
      * This event allows you to access the response which will be sent.
-     * The event listener method receives a FOS\UserBundle\Event\UserResponseEvent instance.
+     * The event listener method receives a FOS\UserBundle\Event\FilterUserResponseEvent instance.
      */
     const REGISTRATION_COMPLETED = 'fos_user.registration.completed';
 
@@ -124,7 +124,7 @@ final class FOSUserEvents
      * The REGISTRATION_CONFIRMED event occurs after confirming the account.
      *
      * This event allows you to access the response which will be sent.
-     * The event listener method receives a FOS\UserBundle\Event\UserResponseEvent instance.
+     * The event listener method receives a FOS\UserBundle\Event\FilterUserResponseEvent instance.
      */
     const REGISTRATION_CONFIRMED = 'fos_user.registration.confirmed';
 
@@ -148,7 +148,7 @@ final class FOSUserEvents
      * The RESETTING_RESET_COMPLETED event occurs after saving the user in the resetting process.
      *
      * This event allows you to access the response which will be sent.
-     * The event listener method receives a FOS\UserBundle\Event\UserResponseEvent instance.
+     * The event listener method receives a FOS\UserBundle\Event\FilterUserResponseEvent instance.
      */
     const RESETTING_RESET_COMPLETED = 'fos_user.resetting.reset.completed';
 

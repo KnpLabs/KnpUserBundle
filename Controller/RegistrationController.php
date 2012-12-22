@@ -15,7 +15,7 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Event\UserEvent;
-use FOS\UserBundle\Event\UserResponseEvent;
+use FOS\UserBundle\Event\FilterUserResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -43,7 +43,7 @@ class RegistrationController extends ContainerAware
         $user = $userManager->createUser();
         $user->setEnabled(true);
 
-        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, new UserEvent($user));
+        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, new UserEvent($user, $request));
 
         $form = $formFactory->createForm();
         $form->setData($user);
@@ -52,7 +52,7 @@ class RegistrationController extends ContainerAware
             $form->bind($request);
 
             if ($form->isValid()) {
-                $event = new FormEvent($form);
+                $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
                 $userManager->updateUser($user);
@@ -62,7 +62,7 @@ class RegistrationController extends ContainerAware
                     $response = new RedirectResponse($url);
                 }
 
-                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new UserResponseEvent($user, $response));
+                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
                 return $response;
             }
@@ -94,7 +94,7 @@ class RegistrationController extends ContainerAware
     /**
      * Receive the confirmation token from user email provider, login the user
      */
-    public function confirmAction($token)
+    public function confirmAction(Request $request, $token)
     {
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->container->get('fos_user.user_manager');
@@ -111,7 +111,7 @@ class RegistrationController extends ContainerAware
         $user->setConfirmationToken(null);
         $user->setEnabled(true);
 
-        $event = new GetResponseUserEvent($user);
+        $event = new GetResponseUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRM, $event);
 
         $userManager->updateUser($user);
@@ -121,7 +121,7 @@ class RegistrationController extends ContainerAware
             $response = new RedirectResponse($url);
         }
 
-        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRMED, new UserResponseEvent($user, $response));
+        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRMED, new FilterUserResponseEvent($user, $request, $response));
 
         return $response;
     }

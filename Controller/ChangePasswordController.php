@@ -13,7 +13,7 @@ namespace FOS\UserBundle\Controller;
 
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\UserResponseEvent;
+use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,7 +53,7 @@ class ChangePasswordController extends ContainerAware
                 /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
                 $dispatcher = $this->container->get('event_dispatcher');
 
-                $event = new FormEvent($form);
+                $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_SUCCESS, $event);
 
                 $userManager->updateUser($user);
@@ -63,7 +63,7 @@ class ChangePasswordController extends ContainerAware
                     $response = new RedirectResponse($url);
                 }
 
-                $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, new UserResponseEvent($user, $response));
+                $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
                 return $response;
             }

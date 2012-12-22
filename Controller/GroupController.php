@@ -12,8 +12,8 @@
 namespace FOS\UserBundle\Controller;
 
 use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Event\FilterGroupResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
-use FOS\UserBundle\Event\GroupResponseEvent;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -68,7 +68,7 @@ class GroupController extends ContainerAware
                 /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
                 $dispatcher = $this->container->get('event_dispatcher');
 
-                $event = new FormEvent($form);
+                $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_SUCCESS, $event);
 
                 $groupManager->updateGroup($group);
@@ -78,7 +78,7 @@ class GroupController extends ContainerAware
                     $response = new RedirectResponse($url);
                 }
 
-                $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_COMPLETED, new GroupResponseEvent($group, $response));
+                $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_COMPLETED, new FilterGroupResponseEvent($group, $request, $response));
 
                 return $response;
             }
@@ -111,7 +111,7 @@ class GroupController extends ContainerAware
                 /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
                 $dispatcher = $this->container->get('event_dispatcher');
 
-                $event = new FormEvent($form);
+                $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_SUCCESS, $event);
 
                 $groupManager->updateGroup($group);
@@ -121,7 +121,7 @@ class GroupController extends ContainerAware
                     $response = new RedirectResponse($url);
                 }
 
-                $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_COMPLETED, new GroupResponseEvent($group, $response));
+                $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_COMPLETED, new FilterGroupResponseEvent($group, $request, $response));
 
                 return $response;
             }
@@ -135,7 +135,7 @@ class GroupController extends ContainerAware
     /**
      * Delete one group
      */
-    public function deleteAction($groupName)
+    public function deleteAction(Request $request, $groupName)
     {
         $group = $this->findGroupBy('name', $groupName);
         $this->container->get('fos_user.group_manager')->deleteGroup($group);
@@ -144,7 +144,7 @@ class GroupController extends ContainerAware
 
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->container->get('event_dispatcher');
-        $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_COMPLETED, new GroupResponseEvent($group, $response));
+        $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_COMPLETED, new FilterGroupResponseEvent($group, $request, $response));
 
         return $response;
     }
