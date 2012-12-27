@@ -14,6 +14,8 @@ namespace FOS\UserBundle\Controller;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FilterGroupResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Event\GetResponseGroupEvent;
+use FOS\UserBundle\Event\GroupEvent;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -53,6 +55,17 @@ class GroupController extends ContainerAware
     public function editAction(Request $request, $groupName)
     {
         $group = $this->findGroupBy('name', $groupName);
+
+        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+        $dispatcher = $this->container->get('event_dispatcher');
+
+        $event = new GetResponseGroupEvent($group, $request);
+        $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_INITIALIZE, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->container->get('fos_user.group.form.factory');
 
@@ -65,8 +78,6 @@ class GroupController extends ContainerAware
             if ($form->isValid()) {
                 /** @var $groupManager \FOS\UserBundle\Model\GroupManagerInterface */
                 $groupManager = $this->container->get('fos_user.group_manager');
-                /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-                $dispatcher = $this->container->get('event_dispatcher');
 
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_SUCCESS, $event);
@@ -99,8 +110,13 @@ class GroupController extends ContainerAware
         $groupManager = $this->container->get('fos_user.group_manager');
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->container->get('fos_user.group.form.factory');
+        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+        $dispatcher = $this->container->get('event_dispatcher');
 
         $group = $groupManager->createGroup('');
+
+        $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_INITIALIZE, new GroupEvent($group, $request));
+
         $form = $formFactory->createForm();
         $form->setData($group);
 
@@ -108,9 +124,6 @@ class GroupController extends ContainerAware
             $form->bind($request);
 
             if ($form->isValid()) {
-                /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-                $dispatcher = $this->container->get('event_dispatcher');
-
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_SUCCESS, $event);
 

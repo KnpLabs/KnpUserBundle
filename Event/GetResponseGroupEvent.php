@@ -11,20 +11,11 @@
 
 namespace FOS\UserBundle\Event;
 
-use FOS\UserBundle\Model\GroupInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class FilterGroupResponseEvent extends GroupEvent
+class GetResponseGroupEvent extends GroupEvent
 {
     private $response;
-
-    public function __construct(GroupInterface $group, Request $request, Response $response)
-    {
-        parent::__construct($group, $request);
-
-        $this->response = $response;
-    }
 
     public function setResponse(Response $response)
     {

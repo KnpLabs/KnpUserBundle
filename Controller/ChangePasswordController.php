@@ -14,6 +14,7 @@ namespace FOS\UserBundle\Controller;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,6 +39,16 @@ class ChangePasswordController extends ContainerAware
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
+        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+        $dispatcher = $this->container->get('event_dispatcher');
+
+        $event = new GetResponseUserEvent($user, $request);
+        $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_INITIALIZE, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->container->get('fos_user.change_password.form.factory');
 
@@ -50,8 +61,6 @@ class ChangePasswordController extends ContainerAware
             if ($form->isValid()) {
                 /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
                 $userManager = $this->container->get('fos_user.user_manager');
-                /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-                $dispatcher = $this->container->get('event_dispatcher');
 
                 $event = new FormEvent($form, $request);
                 $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_SUCCESS, $event);
