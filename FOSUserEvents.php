@@ -148,7 +148,7 @@ final class FOSUserEvents
      * The REGISTRATION_CONFIRM event occurs just before confirming the account.
      *
      * This event allows you to access the user which will be confirmed.
-     * The event listener method receives a FOS\UserBundle\Event\UserEvent instance.
+     * The event listener method receives a FOS\UserBundle\Event\GetResponseUserEvent instance.
      */
     const REGISTRATION_CONFIRM = 'fos_user.registration.confirm';
 
