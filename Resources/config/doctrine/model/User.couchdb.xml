@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <doctrine-mapping>
 
-    <mapped-superclass name="FOS\UserBundle\Document\User" indexed="true">
+    <mapped-superclass name="FOS\UserBundle\Model\User" indexed="true">
 
         <field name="username" fieldName="username" type="string" indexed="true" />
         <field name="usernameCanonical" fieldName="usernameCanonical" type="string" indexed="true" />

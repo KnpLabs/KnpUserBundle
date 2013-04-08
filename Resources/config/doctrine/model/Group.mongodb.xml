@@ -4,7 +4,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                         http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
 
-    <mapped-superclass name="FOS\UserBundle\Document\Group" collection="fos_user_group">
+    <mapped-superclass name="FOS\UserBundle\Model\Group" collection="fos_user_group">
 
         <field name="name" fieldName="name" type="string" />
 
