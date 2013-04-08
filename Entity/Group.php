@@ -13,6 +13,9 @@ namespace FOS\UserBundle\Entity;
 
 use FOS\UserBundle\Model\Group as BaseGroup;
 
+/**
+ * @deprecated directly extend the model classes
+ */
 class Group extends BaseGroup
 {
 }

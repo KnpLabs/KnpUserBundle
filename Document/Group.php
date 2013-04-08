@@ -13,6 +13,9 @@ namespace FOS\UserBundle\Document;
 
 use FOS\UserBundle\Model\Group as BaseGroup;
 
+/**
+ * @deprecated directly extend the model classes
+ */
 abstract class Group extends BaseGroup
 {
 }

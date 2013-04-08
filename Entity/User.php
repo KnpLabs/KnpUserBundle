@@ -13,6 +13,9 @@ namespace FOS\UserBundle\Entity;
 
 use FOS\UserBundle\Model\User as AbstractUser;
 
+/**
+ * @deprecated directly extend the model classes
+ */
 abstract class User extends AbstractUser
 {
 }
