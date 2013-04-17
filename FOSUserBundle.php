@@ -28,6 +28,12 @@ class FOSUserBundle extends Bundle
         parent::build($container);
         $container->addCompilerPass(new ValidationPass());
 
+        if (! class_exists('Symfony\Bridge\Doctrine\DependencyInjection\CompilerPass\RegisterMappingsPass')) {
+            // TODO: provide a temporary implementation of the compiler pass in FOSUserBundle
+            // so people can already use the Model class even with older symfony?
+            return;
+        }
+
         $mappings = array(
             realpath(__DIR__.'/Resources/config/doctrine/model') => 'FOS\UserBundle\Model',
         );
