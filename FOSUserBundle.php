@@ -11,6 +11,7 @@
 
 namespace FOS\UserBundle;
 
+use Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass;
 use FOS\UserBundle\DependencyInjection\Compiler\ValidationPass;
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -27,13 +28,18 @@ class FOSUserBundle extends Bundle
         parent::build($container);
         $container->addCompilerPass(new ValidationPass());
 
+        $mappings = array(
+            realpath(__DIR__.'/Resources/config/doctrine/model') => 'FOS\UserBundle\Model',
+        );
+
         if (class_exists('Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass')) {
-            $mappings = array(
-                realpath(__DIR__.'/Resources/config/doctrine/model') => 'FOS\UserBundle\Model',
-            );
             $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($mappings, 'fos_user.backend_type_orm'));
         }
 
-        // TODO: couch, mongo
+        if (class_exists('Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass')) {
+            $container->addCompilerPass(DoctrineMongoDBMappingsPass::createXmlMappingDriver($mappings, 'fos_user.backend_type_mongodb'));
+        }
+
+        // TODO: couch
     }
 }
