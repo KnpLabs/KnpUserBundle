@@ -11,6 +11,7 @@
 
 namespace FOS\UserBundle;
 
+use FOS\UserBundle\DependencyInjection\Compiler\RegisterMappingsPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use FOS\UserBundle\DependencyInjection\Compiler\ValidationPass;
@@ -23,27 +24,37 @@ use Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMa
  */
 class FOSUserBundle extends Bundle
 {
+
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
         $container->addCompilerPass(new ValidationPass());
 
-        if (! class_exists('Symfony\Bridge\Doctrine\DependencyInjection\CompilerPass\RegisterMappingsPass')) {
-            // TODO: provide a temporary implementation of the compiler pass in FOSUserBundle
-            // so people can already use the Model class even with older symfony?
-            return;
-        }
+        $this->addRegisterMappingsPass($container);
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     */
+    private function addRegisterMappingsPass(ContainerBuilder $container)
+    {
+        // the base class is only available since symfony 2.3
+        $symfonyVersion = class_exists('Symfony\Bridge\Doctrine\DependencyInjection\CompilerPass\RegisterMappingsPass');
 
         $mappings = array(
-            realpath(__DIR__.'/Resources/config/doctrine/model') => 'FOS\UserBundle\Model',
+            realpath(__DIR__ . '/Resources/config/doctrine/model') => 'FOS\UserBundle\Model',
         );
 
-        if (class_exists('Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass')) {
+        if ($symfonyVersion && class_exists('Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass')) {
             $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($mappings, array('fos_user.model_manager_name'), 'fos_user.backend_type_orm'));
+        } else {
+            $container->addCompilerPass(RegisterMappingsPass::createOrmMappingDriver($mappings));
         }
 
-        if (class_exists('Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass')) {
+        if ($symfonyVersion && class_exists('Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass')) {
             $container->addCompilerPass(DoctrineMongoDBMappingsPass::createXmlMappingDriver($mappings, array('fos_user.model_manager_name'), 'fos_user.backend_type_mongodb'));
+        } else {
+            $container->addCompilerPass(RegisterMappingsPass::createMongoDBMappingDriver($mappings));
         }
 
         // TODO: couch
