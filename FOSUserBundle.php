@@ -11,12 +11,13 @@
 
 namespace FOS\UserBundle;
 
-use FOS\UserBundle\DependencyInjection\Compiler\RegisterMappingsPass;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use FOS\UserBundle\DependencyInjection\Compiler\ValidationPass;
+use FOS\UserBundle\DependencyInjection\Compiler\RegisterMappingsPass;
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 use Doctrine\Bundle\MongoDBBundle\DependencyInjection\Compiler\DoctrineMongoDBMappingsPass;
+use Doctrine\Bundle\CouchDBBundle\DependencyInjection\Compiler\DoctrineCouchDBMappingsPass;
 
 /**
  * @author Matthieu Bontemps <matthieu@knplabs.com>
@@ -57,6 +58,10 @@ class FOSUserBundle extends Bundle
             $container->addCompilerPass(RegisterMappingsPass::createMongoDBMappingDriver($mappings));
         }
 
-        // TODO: couch
+        if ($symfonyVersion && class_exists('Doctrine\Bundle\CouchDBBundle\DependencyInjection\Compiler\DoctrineCouchDBMappingsPass')) {
+            $container->addCompilerPass(DoctrineCouchDBMappingsPass::createXmlMappingDriver($mappings, array('fos_user.model_manager_name'), 'fos_user.backend_type_couchdb'));
+        } else {
+            $container->addCompilerPass(RegisterMappingsPass::createCouchDBMappingDriver($mappings));
+        }
     }
 }
