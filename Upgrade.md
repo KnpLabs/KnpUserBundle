@@ -4,6 +4,18 @@ Upgrade instruction
 This document describes the changes needed when upgrading because of a BC
 break. For the full list of changes, please look at the Changelog file.
 
+## 1.3.1 to 1.3.2
+
+### User and Group class
+
+This bundle now registers mappings for the classes in Model directly, instead
+of having empty extending classes. The Entity/User and Document/User and Group
+classes are deprecated, you should update your User and Group classes to extend
+the classes found in Model directly.
+The old classes will stay around for a while and continue to work, but will be
+dropped for version 2.0.
+
+
 ## 1.2 to 1.3
 
 ### Forms
