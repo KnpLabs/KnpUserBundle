@@ -192,17 +192,17 @@ class User extends BaseUser
 **c) CouchDB User class**
 
 If you're persisting your users via the Doctrine CouchDB ODM, then your `User`
-class should live in the `Document` namespace of your bundle and look like
+class should live in the `CouchDocument` namespace of your bundle and look like
 this to start:
 
 ``` php
 <?php
 // src/Acme/UserBundle/Document/User.php
 
-namespace Acme\UserBundle\Document;
+namespace Acme\UserBundle\CouchDocument;
 
 use FOS\UserBundle\Model\User as BaseUser;
-use Doctrine\ODM\CouchDB\Mapping as CouchDB;
+use Doctrine\ODM\CouchDB\Mapping\Annotations as CouchDB;
 
 /**
  * @CouchDB\Document
