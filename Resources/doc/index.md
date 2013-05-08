@@ -194,7 +194,8 @@ Acme\UserBundle\Entity\User:
     id:
         id:
             type: integer
-            strategy: { generator: "AUTO" }
+            generator:
+                strategy: IDENTITY
     lifecycleCallbacks: {  }
 ```
 
