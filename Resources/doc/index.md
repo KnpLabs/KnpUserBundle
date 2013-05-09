@@ -174,10 +174,6 @@ use FOS\UserBundle\Entity\User as BaseUser;
  * User
  */
 class User extends BaseUser {
-    /**
-     * @var integer
-     */
-    protected $id;
 
     public function __construct()
     {
@@ -196,7 +192,6 @@ Acme\UserBundle\Entity\User:
             type: integer
             generator:
                 strategy: IDENTITY
-    lifecycleCallbacks: {  }
 ```
 
 #### b) MongoDB User class
