@@ -25,7 +25,6 @@ use Doctrine\Bundle\CouchDBBundle\DependencyInjection\Compiler\DoctrineCouchDBMa
  */
 class FOSUserBundle extends Bundle
 {
-
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
