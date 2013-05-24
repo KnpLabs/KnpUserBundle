@@ -191,7 +191,7 @@ Acme\UserBundle\Entity\User:
         id:
             type: integer
             generator:
-                strategy: IDENTITY
+                strategy: AUTO
 ```
 
 #### b) MongoDB User class
