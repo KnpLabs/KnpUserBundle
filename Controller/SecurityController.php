@@ -21,7 +21,7 @@ class SecurityController extends ContainerAware
         $request = $this->container->get('request');
         /* @var $request \Symfony\Component\HttpFoundation\Request */
         $session = $request->getSession();
-        /* @var $session \Symfony\Component\HttpFoundation\Session */
+        /* @var $session \Symfony\Component\HttpFoundation\Session\Session */
 
         // get the error if any (works with forward and redirect -- see below)
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
