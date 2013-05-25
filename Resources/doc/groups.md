@@ -57,7 +57,7 @@ provided by the bundle.
 
 namespace MyProject\MyBundle\Entity;
 
-use FOS\UserBundle\Entity\Group as BaseGroup;
+use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -86,23 +86,13 @@ class Group extends BaseGroup
 
 namespace Acme\UserBundle\Entity;
 
-use FOS\UserBundle\Entity\Group as BaseGroup;
+use FOS\UserBundle\Model\Group as BaseGroup;
 
 /**
  * Group
  */
 class Group extends BaseGroup
 {
-    /**
-     * @var integer
-     */
-    protected $id;
-
-    public function __construct()
-    {
-        parent::__construct();
-        // your own logic
-    }
 }
 ```
 ```yaml
@@ -125,7 +115,7 @@ Acme\UserBundle\Entity\Group:
 
 namespace MyProject\MyBundle\Document;
 
-use FOS\UserBundle\Document\Group as BaseGroup;
+use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
@@ -148,7 +138,7 @@ class Group extends BaseGroup
 
 namespace MyProject\MyBundle\Document;
 
-use FOS\UserBundle\Document\Group as BaseGroup;
+use FOS\UserBundle\Model\Group as BaseGroup;
 use Doctrine\ODM\CouchDB\Mapping as MongoDB;
 
 /**
@@ -176,7 +166,7 @@ The next step is to map the relation in your `User` class.
 
 namespace MyProject\MyBundle\Entity;
 
-use FOS\UserBundle\Entity\User as BaseUser;
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -210,27 +200,16 @@ class User extends BaseUser
 
 namespace Acme\UserBundle\Entity;
 
-use FOS\UserBundle\Entity\User as BaseUser;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
  */
 class User extends BaseUser
 {
-    /**
-     * @var integer
-     */
-    protected $id;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    protected $groups;
-
     public function __construct()
     {
         parent::__construct();
-        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         // your own logic
     }
 }
@@ -266,7 +245,7 @@ Acme\UserBundle\Entity\User:
 
 namespace MyProject\MyBundle\Document;
 
-use FOS\UserBundle\Document\User as BaseUser;
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
@@ -292,7 +271,7 @@ class User extends BaseUser
 
 namespace MyProject\MyBundle\Document;
 
-use FOS\UserBundle\Document\User as BaseUser;
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ODM\CouchDB\Mapping as CouchDB;
 
 /**

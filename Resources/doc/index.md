@@ -168,18 +168,13 @@ If you use yml to configure Doctrine you must add two files. The Entity and the 
 
 namespace Acme\UserBundle\Entity;
 
-use FOS\UserBundle\Entity\User as BaseUser;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
  */
 class User extends BaseUser
 {
-    /**
-     * @var integer
-     */
-    protected $id;
-
     public function __construct()
     {
         parent::__construct();
