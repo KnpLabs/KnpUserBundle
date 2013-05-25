@@ -47,7 +47,7 @@ Add FOSUserBundle in your composer.json:
 ```js
 {
     "require": {
-        "friendsofsymfony/user-bundle": "*"
+        "friendsofsymfony/user-bundle": "~2.0@dev"
     }
 }
 ```
@@ -424,7 +424,7 @@ build your model. First, install it:
 ```json
 {
     "require": {
-        "willdurand/propel-typehintable-behavior": "*"
+        "willdurand/propel-typehintable-behavior": "~1.0"
     }
 }
 ```
