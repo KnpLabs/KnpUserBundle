@@ -20,8 +20,7 @@ abstract class User extends AbstractUser
 {
     public function __construct()
     {
-        // you should extend the class in the Model namespace directly
-        trigger_error(E_USER_DEPRECATED);
+        trigger_error(E_USER_DEPRECATED, sprintf('%s is deprecated. Extend FOS\UserBundle\Model\User directly.', __CLASS__));
         parent::__construct();
     }
 }

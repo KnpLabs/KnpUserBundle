@@ -20,8 +20,7 @@ abstract class Group extends BaseGroup
 {
     public function __construct($name, $roles = array())
     {
-        // you should extend the class in the Model namespace directly
-        trigger_error(E_USER_DEPRECATED);
+        trigger_error(E_USER_DEPRECATED, sprintf('%s is deprecated. Extend FOS\UserBundle\Model\Group directly.', __CLASS__));
         parent::__construct($name, $roles);
     }
 }
