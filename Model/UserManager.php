@@ -124,6 +124,8 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function refreshUser(SecurityUserInterface $user)
     {
+        trigger_error(E_USER_DEPRECATED, 'Using the UserManager as user provider is deprecated. Use FOS\UserBundle\Security\UserProvider instead.');
+
         $class = $this->getClass();
         if (!$user instanceof $class) {
             throw new UnsupportedUserException('Account is not supported.');
@@ -152,6 +154,8 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function loadUserByUsername($username)
     {
+        trigger_error(E_USER_DEPRECATED, 'Using the UserManager as user provider is deprecated. Use FOS\UserBundle\Security\UserProvider instead.');
+
         $user = $this->findUserByUsername($username);
 
         if (!$user) {
@@ -216,6 +220,8 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      */
     public function supportsClass($class)
     {
+        trigger_error(E_USER_DEPRECATED, 'Using the UserManager as user provider is deprecated. Use FOS\UserBundle\Security\UserProvider instead.');
+
         return $class === $this->getClass();
     }
 }
