@@ -17,6 +17,7 @@ use Symfony\Component\Yaml\Parser;
 
 class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var ContainerBuilder */
     protected $configuration;
 
     /**
@@ -387,7 +388,7 @@ group:
 EOF;
         $parser = new Parser();
 
-        return  $parser->parse($yaml);
+        return $parser->parse($yaml);
     }
 
     /**

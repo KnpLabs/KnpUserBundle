@@ -118,6 +118,8 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      * It is strongly discouraged to use this method manually as it bypasses
      * all ACL checks.
      *
+     * @deprecated Use FOS\UserBundle\Security\UserProvider instead
+     *
      * @param SecurityUserInterface $user
      *
      * @return UserInterface
@@ -147,6 +149,8 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
      *
      * It is strongly discouraged to call this method manually as it bypasses
      * all ACL checks.
+     *
+     * @deprecated Use FOS\UserBundle\Security\UserProvider instead
      *
      * @param string $username
      *
@@ -217,6 +221,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
 
     /**
      * {@inheritDoc}
+     * @deprecated Use FOS\UserBundle\Security\UserProvider instead
      */
     public function supportsClass($class)
     {

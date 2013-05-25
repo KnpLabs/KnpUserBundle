@@ -34,7 +34,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Security\Core\Exception\UsernameNotFoundException
+     * @expectedException \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
      */
     public function testLoadUserByInvalidUsername()
     {
@@ -66,7 +66,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Security\Core\Exception\UsernameNotFoundException
+     * @expectedException \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
      */
     public function testRefreshDeleted()
     {
@@ -79,7 +79,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Symfony\Component\Security\Core\Exception\UnsupportedUserException
+     * @expectedException \Symfony\Component\Security\Core\Exception\UnsupportedUserException
      */
     public function testRefreshInvalidUser()
     {
