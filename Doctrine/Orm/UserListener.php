@@ -15,7 +15,7 @@ use Doctrine\ORM\Events;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use FOS\UserBundle\Model\UserInterface;
-use FOS\UserBundle\Doctrine\UserListener;
+use FOS\UserBundle\Doctrine\AbstractUserListener;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-class OrmUserListener extends UserListener
+class UserListener extends AbstractUserListener
 {
     public function getSubscribedEvents()
     {

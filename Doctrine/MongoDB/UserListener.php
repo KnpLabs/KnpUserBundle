@@ -15,7 +15,7 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
-use FOS\UserBundle\Doctrine\UserListener;
+use FOS\UserBundle\Doctrine\AbstractUserListener;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -24,7 +24,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-class MongoDBUserListener extends UserListener
+class UserListener extends AbstractUserListener
 {
     public function getSubscribedEvents()
     {

@@ -26,7 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @author Christophe Coevoet <stof@notk.org>
  * @author David Buchmann <mail@davidbu.ch>
  */
-abstract class UserListener implements EventSubscriber
+abstract class AbstractUserListener implements EventSubscriber
 {
     /**
      * @var \FOS\UserBundle\Model\UserManagerInterface
