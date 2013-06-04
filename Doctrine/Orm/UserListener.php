@@ -16,7 +16,6 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Doctrine\AbstractUserListener;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Doctrine ORM listener updating the canonical fields and the password.

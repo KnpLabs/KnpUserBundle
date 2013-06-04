@@ -13,9 +13,8 @@ namespace FOS\UserBundle\Doctrine;
 
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Common\Persistence\Event\PreUpdateEventArgs;
-use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use FOS\UserBundle\Model\UserInterface;
 
 /**
  * Base Doctrine listener updating the canonical username and password fields.

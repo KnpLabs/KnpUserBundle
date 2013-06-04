@@ -11,13 +11,11 @@
 
 namespace FOS\UserBundle\Doctrine\MongoDB;
 
-use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\MongoDB\Events;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
 use FOS\UserBundle\Doctrine\AbstractUserListener;
 use FOS\UserBundle\Model\UserInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Doctrine MongoDB ODM listener updating the canonical fields and the password.
