@@ -6,6 +6,19 @@ break. For the full list of changes, please look at the Changelog file.
 
 ## 1.3 to 2.0
 
+### User Provider
+
+Using the UserManager as a user provider is no longer supported and is 
+deprecated. Change your security.yml's provider section to look like:
+
+```yml
+security:
+    # ...
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+```
+
 ### User and Group class
 
 This bundle now (registers mappings)[http://symfony.com/doc/master/cookbook/doctrine/mapping_model_classes.html]
