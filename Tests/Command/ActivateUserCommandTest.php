@@ -1,10 +1,10 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Tests\Command;
+namespace Bundle\FOS\UserBundle\Tests\Command;
 
-use Bundle\DoctrineUserBundle\Test\WebTestCase;
-use Bundle\DoctrineUserBundle\Model\User;
-use Bundle\DoctrineUserBundle\Command\ActivateUserCommand;
+use Bundle\FOS\UserBundle\Test\WebTestCase;
+use Bundle\FOS\UserBundle\Model\User;
+use Bundle\FOS\UserBundle\Command\ActivateUserCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Tester\ApplicationTester;
@@ -23,43 +23,36 @@ class ActivateUserCommandTest extends WebTestCase
         $password = 'test_password';
         $email    = 'test_email@email.org';
 
-        $userRepo = $this->getService('doctrine_user.repository.user');
-        $userClass = $userRepo->getObjectClass();
+        $userManager = $this->getService('fos_user.user_manager');
 
-        $user = $userRepo->createUserInstance();
+        $user = $userManager->createUser();
         $user->setUsername($username);
         $user->setEmail($email);
         $user->setPlainPassword($password);
-        $user->setIsActive(false);
+        $user->setEnabled(false);
 
-        $userRepo->getObjectManager()->persist($user);
-        $userRepo->getObjectManager()->flush();
+        $userManager->updateUser($user);
 
-        $this->assertFalse($user->getIsActive());
+        $this->assertFalse($user->isEnabled());
 
         $tester->run(array(
             'command'  => $command->getFullName(),
             'username' => $username,
         ), array('interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE));
 
-        $userRepo = $this->getService('doctrine_user.repository.user');
-        $userRepo->getObjectManager()->clear();
-        $user = $userRepo->findOneByUsername($username);
+        $this->getService('doctrine.orm.default_entity_manager')->clear();
+
+        $userManager = $this->getService('fos_user.user_manager');
+        $user = $userManager->findOneByUsername($username);
 
         $this->assertTrue($user instanceof User);
-        $this->assertTrue($user->getIsActive());
+        $this->assertTrue($user->isEnabled());
 
-        $userRepo->getObjectManager()->remove($user);
-        $userRepo->getObjectManager()->flush();
+        $userManager->updateUser($user);
     }
 
     public function tearDown()
     {
-        $repo = $this->getService('doctrine_user.repository.user');
-        $om = $repo->getObjectManager();
-        if ($user = $repo->findOneByUsername('test_username')) {
-            $om->remove($user);
-        }
-        $om->flush();
+        $this->removeTestUser();
     }
 }

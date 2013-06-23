@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Command;
+namespace Bundle\FOS\UserBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\Command as BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
 
 /*
- * This file is part of the DoctrineUserBundle
+ * This file is part of the FOS\UserBundle
  *
  * (c) Matthieu Bontemps <matthieu@knplabs.com>
  * (c) Thibault Duplessis <thibault.duplessis@gmail.com>
@@ -23,7 +23,7 @@ use Symfony\Component\Console\Output\Output;
  * CreateUserCommand.
  *
  * @package    Bundle
- * @subpackage DoctrineUserBundle
+ * @subpackage FOS\UserBundle
  * @author     Matthieu Bontemps <matthieu@knplabs.com>
  * @author     Thibault Duplessis <thibault.duplessis@gmail.com>
  */
@@ -35,17 +35,17 @@ class PromoteSuperAdminCommand extends BaseCommand
     protected function configure()
     {
         $this
-            ->setName('doctrine:user:promote')
+            ->setName('fos:user:promote')
             ->setDescription('Promotes a user as a super administrator')
             ->setDefinition(array(
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
             ))
             ->setHelp(<<<EOT
-The <info>doctrine:user:promote</info> command promotes a user as a super administrator
+The <info>fos:user:promote</info> command promotes a user as a super administrator
 
-  <info>php app/console doctrine:user:promote matthieu</info>
+  <info>php app/console fos:user:promote matthieu</info>
 EOT
-        );
+            );
     }
 
     /**
@@ -53,16 +53,17 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $userRepo = $this->container->get('doctrine_user.repository.user');
-        $user = $userRepo->findOneByUsername($input->getArgument('username'));
+        $this->container->get('security.context')->setToken(new UsernamePasswordToken('command.line', null, array(User::ROLE_SUPERADMIN)));
+
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($input->getArgument('username'));
 
         if (!$user) {
             throw new \InvalidArgumentException(sprintf('The user "%s" does not exist', $input->getArgument('username')));
         }
-        $user->setIsSuperAdmin(true);
+        $user->setSuperAdmin(true);
 
-        $userRepo->getObjectManager()->persist($user);
-        $userRepo->getObjectManager()->flush();
+        $userManager->updateUser($user);
 
         $output->writeln(sprintf('User "%s" has been promoted as a super administrator.', $user->getUsername()));
     }

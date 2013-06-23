@@ -1,36 +1,24 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Templating\Helper;
+namespace Bundle\FOS\UserBundle\Templating\Helper;
 
-use Symfony\Component\Templating\Helper\Helper;
-use Bundle\DoctrineUserBundle\Model\User;
+use Symfony\Bundle\FrameworkBundle\Templating\Helper\SecurityHelper as BaseSecurityHelper;
+use Bundle\FOS\UserBundle\Model\User;
 use Symfony\Component\Security\SecurityContext;
 
 /**
  * SecurityHelper.
  */
-class SecurityHelper extends Helper
+class SecurityHelper extends BaseSecurityHelper
 {
-    protected $securityContext;
-
-    /**
-     * Constructor.
-     *
-     * @param Auth the Auth service instance
-     */
-    public function __construct(SecurityContext $securityContext)
-    {
-        $this->securityContext = $securityContext;
-    }
-
     /**
      * Returns the authenticated user, if any
      *
-     * @return Bundle\DoctrineUserBundle\Model\User
+     * @return Bundle\FOS\UserBundle\Model\User
      */
     public function getUser()
     {
-        return $this->securityContext->getUser();
+        return $this->context->getUser();
     }
 
     /**
@@ -52,7 +40,7 @@ class SecurityHelper extends Helper
      **/
     public function isAuthenticated()
     {
-        return $this->securityContext->isAuthenticated();
+        return null !== $this->context->getToken();
     }
 
     /**
@@ -62,13 +50,7 @@ class SecurityHelper extends Helper
      **/
     public function isAnonymous()
     {
-        $token = $this->securityContext->getToken();
-
-        if (!$token) {
-            return true;
-        }
-
-        return !$token->getUser() instanceof User;
+        return false === $this->vote('IS_AUTHENTICATED_FULLY');
     }
 
     /**
@@ -78,6 +60,6 @@ class SecurityHelper extends Helper
      */
     public function getName()
     {
-        return 'doctrine_user_security';
+        return 'fos_user_security';
     }
 }

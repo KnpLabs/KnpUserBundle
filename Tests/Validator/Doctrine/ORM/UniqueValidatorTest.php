@@ -1,6 +1,6 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Validator\Doctrine\ORM;
+namespace Bundle\FOS\UserBundle\Validator\Doctrine\ORM;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -12,7 +12,7 @@ class UniqueValidatorTest extends \PHPUnit_Framework_TestCase
 {
     public function setup()
     {
-        if(!class_exists('\Doctrine\ORM\EntityManager')) {
+        if (!class_exists('\Doctrine\ORM\EntityManager')) {
             $this->markTestSkipped('No ORM installed');
         }
     }

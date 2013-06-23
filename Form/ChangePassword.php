@@ -1,16 +1,19 @@
 <?php
 
-namespace Bundle\DoctrineUserBundle\Form;
-use Bundle\DoctrineUserBundle\Model\User;
+namespace Bundle\FOS\UserBundle\Form;
+use Bundle\FOS\UserBundle\Model\User;
 
+/**
+ * @validation:Password(passwordProperty="current", userProperty="user")
+ */
 class ChangePassword
 {
     /**
-     * User who changes the password
+     * User whose password is changed
      *
      * @var User
      */
-    protected $user;
+    public $user;
 
     /**
      * @var string
@@ -31,11 +34,4 @@ class ChangePassword
     {
         $this->user = $user;
     }
-
-    /** @validation:AssertTrue(message="Wrong password") */
-    public function getCurrent()
-    {
-        return $this->user->checkPassword($this->current);
-    }
-
 }
