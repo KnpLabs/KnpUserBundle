@@ -36,7 +36,7 @@
         
         <field name="credentialsExpired" column="credentials_expired" type="boolean" />
 
-        <field name="credentialsExpireAt" column="credentials_expire_at" type="datetime" />
+        <field name="credentialsExpireAt" column="credentials_expire_at" type="date" />
         <indexes>
             <index unique="true" dropDups="true">
                 <key name="usernameCanonical" order="asc" />
