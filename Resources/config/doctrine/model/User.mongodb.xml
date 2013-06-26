@@ -34,9 +34,9 @@
 
         <field name="roles" fieldName="roles" type="collection" />
         
-        <field name="credentialsExpired" column="credentials_expired" type="boolean" />
+        <field name="credentialsExpired" column="credentialsExpired" type="boolean" />
 
-        <field name="credentialsExpireAt" column="credentials_expire_at" type="date" />
+        <field name="credentialsExpireAt" column="credentialsExpireAt" type="date" />
         <indexes>
             <index unique="true" dropDups="true">
                 <key name="usernameCanonical" order="asc" />
