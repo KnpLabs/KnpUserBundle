@@ -26,8 +26,19 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  */
 abstract class UserManager implements UserManagerInterface, UserProviderInterface
 {
+    /**
+     * @var EncoderFactoryInterface 
+     */
     protected $encoderFactory;
+    
+    /**
+     * @var CanonicalizerInterface 
+     */
     protected $usernameCanonicalizer;
+    
+    /**
+     * @var CanonicalizerInterface
+     */
     protected $emailCanonicalizer;
 
     /**
