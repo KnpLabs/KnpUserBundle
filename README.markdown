@@ -28,6 +28,8 @@ file in this bundle:
 
 [Read the Documentation for master](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md)
 
+[Read the Documentation for 1.3.x](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/1.3.x/Resources/doc/index.md)
+
 [Read the Documentation for 1.2.0 (for Symfony 2.0.x)](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/1.2.0/Resources/doc/index.md)
 
 Installation
