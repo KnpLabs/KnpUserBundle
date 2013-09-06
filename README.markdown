@@ -35,7 +35,7 @@ file in this bundle:
 Installation
 ------------
 
-All the installation instructions are located in [documentation](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md).
+All the installation instructions are located in  the documentation.
 
 License
 -------
