@@ -358,11 +358,6 @@ abstract class User implements UserInterface, GroupableInterface
         return $this->hasRole(static::ROLE_SUPER_ADMIN);
     }
 
-    public function isUser(UserInterface $user = null)
-    {
-        return null !== $user && $this->getId() === $user->getId();
-    }
-
     public function removeRole($role)
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
