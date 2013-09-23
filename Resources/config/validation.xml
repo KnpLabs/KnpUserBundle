@@ -104,7 +104,6 @@
                 <option name="maxMessage">fos_user.group.long</option>
                 <option name="groups">Registration</option>
             </constraint>
-
         </property>
     </class>
 
