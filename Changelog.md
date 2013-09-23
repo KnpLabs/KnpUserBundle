@@ -1,6 +1,14 @@
 Changelog
 =========
 
+### 1.2.5 (2013-09-23)
+
+This releases prevents a potential DOS attack. You are encouraged to update
+as soon as possible
+
+* Added a max length on the password field
+* Fixed a Yaml parsing error in the Japanese translations
+
 ### 1.2.4 (2012-07-10)
 
 This release fixes another security issue. Please update to it as soon as possible.
