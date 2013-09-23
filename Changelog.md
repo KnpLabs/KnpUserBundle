@@ -11,6 +11,9 @@ Changelog
 
 ### 1.3.3 (2013-09-23)
 
+This releases prevents a potential DOS attack. You are encouraged to update
+as soon as possible.
+
 * Added a max length validation on the password
 
 ### 1.3.2 (2013-05-25)
@@ -40,6 +43,14 @@ Changelog
 * Removed the custom password validation in favor of the Symfony 2.1 constraint
 * Refactored the translation of form labels using the translation_domain option of Symfony 2.1
 * Bumped the requirement to Symfony 2.1
+
+### 1.2.5 (2013-09-23)
+
+This releases prevents a potential DOS attack. You are encouraged to update
+as soon as possible.
+
+* Added a max length on the password field
+* Fixed a Yaml parsing error in the Japanese translations
 
 ### 1.2.4 (2012-07-10)
 
