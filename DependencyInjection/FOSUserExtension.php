@@ -37,6 +37,10 @@ class FOSUserExtension extends Extension
             $loader->load(sprintf('%s.xml', $basename));
         }
 
+        if ($config['use_flash_notifications']) {
+            $loader->load('flash_notifications.xml');
+        }
+
         $container->setAlias('fos_user.mailer', $config['service']['mailer']);
         $container->setAlias('fos_user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
         $container->setAlias('fos_user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
