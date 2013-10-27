@@ -67,7 +67,7 @@ resetting:
         submit: Endre passord
     flash:
         success: Passordet har blitt tilbakestilt
-    tilbakestil:
+    email:
         subject: Tilbakestill Passord
         message: |
             Hallo %username%!
