@@ -37,7 +37,7 @@ change_password:
 
 # Registration
 registration:
-    check_email: Aktivačný email bol zaslaný na adresu %email%. V tele správy je aktivačný link, na ktorú treba kliknúť pre úspešné dokončenie registrácie.
+    check_email: Aktivačný email bol zaslaný na adresu %email%. V tele správy je aktivačný link, na ktorý treba kliknúť pre úspešné dokončenie registrácie.
     confirmed: Gratulujeme %username%, Vaše konto bolo aktivované.
     back: Návrat na predchádzajúcu stránku.
     submit: Registrácia
