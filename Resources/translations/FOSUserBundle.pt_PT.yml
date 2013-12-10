@@ -28,7 +28,7 @@ profile:
         email: Email
     edit:
         submit: Atualizar conta
-   flash:
+    flash:
        updated: O perfil foi atualizado
 
 # Password change
