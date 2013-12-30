@@ -29,8 +29,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class ResettingController extends ContainerAware
 {
-    const QUERY_EMAIL = 'email';
-
     /**
      * Request reset user password: show form
      */
@@ -68,7 +66,7 @@ class ResettingController extends ContainerAware
         $this->container->get('fos_user.user_manager')->updateUser($user);
 
         return new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_check_email',
-            array(static::QUERY_EMAIL => $this->getObfuscatedEmail($user))
+            array('email' => $this->getObfuscatedEmail($user))
         ));
     }
 
@@ -77,7 +75,7 @@ class ResettingController extends ContainerAware
      */
     public function checkEmailAction(Request $request)
     {
-        $email = $request->query->get(static::QUERY_EMAIL);
+        $email = $request->query->get('email');
 
         if (empty($email)) {
             // the user does not come from the sendEmail action
