@@ -50,7 +50,7 @@ registration:
         message: |
             Hallo %username%!
 
-            Besuche bitte folgende Seite, um Dein Benutzerkonto zu bestätigen: %confirmationUrl%
+            Besuchen Sie bitte folgende Seite, um Ihr Benutzerkonto zu bestätigen: %confirmationUrl%
 
             Mit besten Grüßen,
             das Team.
@@ -72,7 +72,7 @@ resetting:
         message: |
             Hallo %username%!
 
-            Besuche bitte folgende Seite, um Dein Passwort zurückzusetzen: %confirmationUrl%
+            Besuchen Sie bitte folgende Seite, um Ihr Passwort zurückzusetzen: %confirmationUrl%
 
             Mit besten Grüßen,
             das Team.
