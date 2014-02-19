@@ -50,7 +50,7 @@ The user manager has a few methods to find users based on the unique fields
 users.
 
 - findUserByUsername($username)
-- findUserByEmail($username)
+- findUserByEmail($email)
 - findUserByUsernameOrEmail($value)  (check if the value looks like an email to choose)
 - findUserByConfirmationToken($token)
 - findUsers()
