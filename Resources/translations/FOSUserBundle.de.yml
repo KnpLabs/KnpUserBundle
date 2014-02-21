@@ -40,7 +40,7 @@ change_password:
 # Registration
 registration:
     check_email: Eine E-Mail wurde an %email% gesendet. Sie enthält einen Link, den Sie anklicken müssen, um Ihr Benutzerkonto zu bestätigen.
-    confirmed: Glückwunsch %username%, Dein Benutzerkonto ist jetzt bestätigt.
+    confirmed: Glückwunsch %username%, Ihr Benutzerkonto ist jetzt bestätigt.
     back: Zurück zur ursprünglichen Seite.
     submit: Registrieren
     flash:
