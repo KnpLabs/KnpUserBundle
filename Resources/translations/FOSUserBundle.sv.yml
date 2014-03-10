@@ -12,6 +12,8 @@ group:
         deleted: Gruppen har tagits bort
 
 # Security
+"Bad credentials": Ogiltigt användarnamn eller lösenord
+
 security:
     login:
         username: "Användarnamn:"
