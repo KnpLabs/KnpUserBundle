@@ -128,7 +128,7 @@ public function MainController extends Controller
 
         // make more modifications to the database
 
-        $this->getDoctrine()->getEntityManager()->flush();
+        $this->getDoctrine()->getManager()->flush();
     }
 }
 ```
