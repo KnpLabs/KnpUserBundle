@@ -1,23 +1,23 @@
 # Group
 group:
     edit:
-        submit: Updateaza grupul
+        submit: Actualizează grupul
     show:
         name: Numele grupului
     new:
-        submit: Creeaza grup
+        submit: Creează grup
     flash:
-        updated: Grupul a fost updatat
+        updated: Grupul a fost actualizat
         created: Grupul a fost creat
-        deleted: Grupul a fost sters
+        deleted: Grupul a fost șters
 
 # Security
 security:
     login:
         username: "Nume de utilizator:"
         password: "Parola:"
-        remember_me: Tine-ma minte
-        submit: Login
+        remember_me: Ține-mă minte
+        submit: Autentificare
 
 # Profile
 profile:
@@ -25,9 +25,9 @@ profile:
         username: Numele de utilizator
         email: Email
     edit:
-        submit: Updateaza
+        submit: Actualizează
     flash:
-        updated: Profilul a fost updatat
+        updated: Profilul a fost actualizat
 
 # Password change
 change_password:
@@ -78,8 +78,8 @@ resetting:
 # Global strings
 layout:
     logout: Logout
-    login: Login
-    register: Inregistrare
+    login: Autentificare
+    register: Înregistrare
     logged_in_as: Logat ca %username%
 
 # Form field labels
