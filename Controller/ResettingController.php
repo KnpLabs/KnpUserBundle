@@ -16,7 +16,7 @@ use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Model\UserInterface;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -27,7 +27,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Christophe Coevoet <stof@notk.org>
  */
-class ResettingController extends ContainerAware
+class ResettingController extends Controller
 {
     /**
      * Request reset user password: show form

@@ -16,7 +16,7 @@ use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -29,7 +29,7 @@ use FOS\UserBundle\Model\UserInterface;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Christophe Coevoet <stof@notk.org>
  */
-class RegistrationController extends ContainerAware
+class RegistrationController extends Controller
 {
     public function registerAction(Request $request)
     {

@@ -11,11 +11,11 @@
 
 namespace FOS\UserBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
-class SecurityController extends ContainerAware
+class SecurityController extends Controller
 {
     public function loginAction(Request $request)
     {
