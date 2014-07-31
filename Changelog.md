@@ -1,7 +1,7 @@
 Changelog
 =========
 
-### 2.0.0 (2013-XX-XX)
+### 2.0.0 (2014-XX-XX)
 
 * Removed the deprecated UserManager and GroupManager classes for the different Doctrine implementations
 * [BC break] Refactored the structure of controller to dispatch events instead of using form handlers
