@@ -3,20 +3,20 @@ group:
     edit:
         submit: تحديث المجموعة
     show:
-        name: اسم المجموعة
+        name: إسم المجموعة
     new:
-        submit: انشاء مجموعة
+        submit: إنشاء مجموعة
     flash:
         updated: تم تحديث المجموعة
-        created: تم انشاء المجموعة
+        created: تم إنشاء المجموعة
         deleted: تم حـذف المجموعة
 
 # Security
-"Bad credentials": اسم المستخدم او كلمة المرور غير صحيحة
+"Bad credentials": إسم المستخدم او كلمة المرور غير صحيحة
 
 security:
     login:
-        username: "اسم المستخدم:"
+        username: "إسم المستخدم:"
         password: "كلمة المرور:"
         remember_me: حفظ البيانات
         submit: تسجيل دخول
@@ -24,8 +24,8 @@ security:
 # Profile
 profile:
     show:
-        username: اسم المستخدم
-        email: بريد الكتروني
+        username: إسم المستخدم
+        email: بريد إلكتروني
     edit:
         submit: تحديث
     flash:
@@ -39,7 +39,7 @@ change_password:
 
 # Registration
 registration:
-    check_email: لقد تم إرسال رسالة إلكترونية إلى %email% تحتوي على رابط يجب اتباعه لتفعيل حسابك الشخصي.
+    check_email: لقد تم إرسال رسالة إلكترونية إلى %email% تحتوي على رابط يجب إتباعه لتفعيل حسابك الشخصي.
 
     confirmed: تهانينا %username%، لقد تم تفعيل حسابك.
     back: عودة إلى الصفحة الرئيسية
@@ -52,7 +52,7 @@ registration:
             مرحبا %username%!
 
             
-             لتفعيل حسابك يرجا إتباع الرابط التالي %confirmationUrl%
+             لتفعيل حسابك يرجى إتباع الرابط التالي %confirmationUrl%
 
             شكرا،
             فريق العمل.
@@ -60,21 +60,21 @@ registration:
 # Password resetting
 resetting:
     password_already_requested: لقد تم طلب كلمة المرور لهذا المستخدم خلال ال ٢٤ ساعة الماضية
-    check_email: لقد تم إرسال رسالة إلكترونية إلى %email%  يحتوي على رابط يجب اتباعه لإعادة تعيين كلمة المرور الخاصة بك.
+    check_email: لقد تم إرسال رسالة إلكترونية إلى %email%  يحتوي على رابط يجب إتباعه لإعادة تعيين كلمة المرور الخاصة بك.
     request:
-        invalid_username: اسم المستخدم او  البريد الالكتروني "%username%" غير موجود
-        username: "اسم المستخدم او البريد الالكتروني:"
-        submit: اعادة ضبط كلمة المرور
+        invalid_username: إسم المستخدم او  البريد الالكتروني "%username%" غير موجود
+        username: "إسم المستخدم او البريد الالكتروني:"
+        submit: إعادة ضبط كلمة المرور
     reset:
         submit: تغيير كلمة المرور
     flash:
-        success: تم اعادة ضبط كلمة المرور بنجاح
+        success: تم إعادة ضبط كلمة المرور بنجاح
     email:
-        subject: اعادة ضبط كلمة المرور
+        subject: إعادة ضبط كلمة المرور
         message: |
             مرحبا %username%!
 
-            لإعادة ضبط كلمة المرور يرجا إتباع الرابط التالي %confirmationUrl%
+            لإعادة ضبط كلمة المرور يرجى إتباع الرابط التالي %confirmationUrl%
 
             شكرا،
             فريق العمل.
@@ -84,15 +84,15 @@ layout:
     logout: خروج
     login: دخول
     register: تسجيل
-    logged_in_as: تم الدخول باسم %username%
+    logged_in_as: تم الدخول بإسم %username%
 
 # Form field labels
 form:
-    group_name: "اسم المجموعة :"
-    username: "اسم المستخدم :"
+    group_name: "إسم المجموعة :"
+    username: "إسم المستخدم :"
     email: "البريد الإلكتروني :" 
     current_password: "كلمة المرور الحالية :"
     password: "كلمة المرور :"
-    password_confirmation: "تاكيد :"
+    password_confirmation: "تأكيد :"
     new_password: "كلمة المرور الجديدة :"
     new_password_confirmation: "تأكيد كلمة المرور :"
