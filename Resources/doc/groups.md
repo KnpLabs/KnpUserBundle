@@ -236,7 +236,32 @@ Acme\UserBundle\Entity\User:
                     group_id:
                         referencedColumnName: id
 ```
-
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Application\Sonata\UserBundle\Entity\User" table="fos_user_user">       
+        <id name="id" column="id" type="integer">               
+            <generator strategy="AUTO" />                                           
+        </id>
+        <many-to-many field="groups" target-entity="Group">
+            <cascade>                          
+                <cascade-all/>                                  
+            </cascade>     
+            <join-table name="fos_user_group">
+                <join-columns>
+                    <join-column name="user_id" referenced-column-name="id"/>
+                </join-columns>                  
+                <inverse-join-columns>
+                    <join-column name="group_id" referenced-column-name="id" />                 
+                </inverse-join-columns>                               
+            </join-table>
+        </many-to-many>
+    </entity>
+</doctrine-mapping>   
+```
 #### b) MongoDB User-Group mapping
 
 ``` php
