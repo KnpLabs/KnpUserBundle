@@ -247,9 +247,6 @@ Acme\UserBundle\Entity\User:
             <generator strategy="AUTO" />                                           
         </id>
         <many-to-many field="groups" target-entity="Group">
-            <cascade>                          
-                <cascade-all/>                                  
-            </cascade>     
             <join-table name="fos_user_group">
                 <join-columns>
                     <join-column name="user_id" referenced-column-name="id"/>
