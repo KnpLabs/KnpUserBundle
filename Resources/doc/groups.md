@@ -242,7 +242,7 @@ Acme\UserBundle\Entity\User:
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity name="Application\Sonata\UserBundle\Entity\User" table="fos_user_user">       
+    <entity name="Acme\UserBundle\Entity\User" table="fos_user">       
         <id name="id" column="id" type="integer">               
             <generator strategy="AUTO" />                                           
         </id>
