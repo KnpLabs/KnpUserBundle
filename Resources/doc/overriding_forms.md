@@ -63,8 +63,8 @@ your new `name` property is not part of the form. You need to create a custom
 form type and configure the bundle to use it.
 
 The first step is to create a new form type in your own bundle. The following
-class extends the base FOSUserBundle `RegistrationFormType` and then adds the
-custom `name` field.
+class inherits from the base FOSUserBundle `fos_user_registration` type using
+the form type hierarchy and then adds the custom `name` field.
 
 ``` php
 // src/Acme/UserBundle/Form/Type/RegistrationFormType.php
@@ -72,17 +72,20 @@ custom `name` field.
 
 namespace Acme\UserBundle\Form\Type;
 
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
 
-class RegistrationFormType extends BaseType
+class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-
         // add your custom field
         $builder->add('name');
+    }
+
+    public function getParent()
+    {
+        return 'fos_user_registration';
     }
 
     public function getName()
@@ -91,6 +94,11 @@ class RegistrationFormType extends BaseType
     }
 }
 ```
+
+**Note:**
+
+> If you don't want to reuse the fields added in FOSUserBundle by default, you can
+> omit the ``getParent`` method and configure all fields yourself.
 
 Now that you have created your custom form type, you must declare it as a service
 and add a tag to it. The tag must have a `name` value of `form.type` and an `alias`
@@ -112,7 +120,6 @@ Below is an example of configuring your form type as a service in XML:
 
         <service id="acme_user.registration.form.type" class="Acme\UserBundle\Form\Type\RegistrationFormType">
             <tag name="form.type" alias="acme_user_registration" />
-            <argument>%fos_user.model.user.class%</argument>
         </service>
 
     </services>
@@ -127,17 +134,9 @@ Or if you prefer YAML:
 services:
     acme_user.registration.form.type:
         class: Acme\UserBundle\Form\Type\RegistrationFormType
-        arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: acme_user_registration }
 ```
-
-**Note:**
-
-> In the form type service configuration you have specified the `fos_user.model.user.class`
-> container parameter as a constructor argument. Unless you have redefined the
-> constructor in your form type class, you must include this argument as it is a
-> requirement of the FOSUserBundle form type that you extended.
 
 Finally, you must update the configuration of the FOSUserBundle so that it will
 use your form type instead of the default one. Below is the configuration for
