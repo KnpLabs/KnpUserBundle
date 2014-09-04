@@ -1,6 +1,17 @@
 Changelog
 =========
 
+### 1.3.5 (2014-09-04)
+
+This release fixes a security issue. You are encouraged to update
+as soon as possible.
+
+BC break: The characters used in generated tokens have changed. They
+now include dashes and underscores as well. Any routing requirement
+matching them should be updated to ``[\w\-]+``.
+
+* Fixed the TokenGenerator to preserve entropy.
+
 ### 1.3.4 (2014-06-13)
 
 * Fixed the compatibility with FrameworkBundle 2.5
