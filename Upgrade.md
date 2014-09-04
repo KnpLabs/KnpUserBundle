@@ -4,6 +4,30 @@ Upgrade instruction
 This document describes the changes needed when upgrading because of a BC
 break. For the full list of changes, please look at the Changelog file.
 
+## 1.3.4 to 1.3.5
+
+The characters used in generated tokens have changed. They now include dashes
+and underscores as well. Any routing requirement matching them should be
+updated to ``[\w\-]+``.
+
+Before:
+
+```yaml
+my_route:
+    path: /{token}
+    requirement:
+        token: \w+
+```
+
+After:
+
+```yaml
+my_route:
+    path: /{token}
+    requirement:
+        token: '[\w\-]+'
+```
+
 ## 1.2 to 1.3
 
 ### Forms
