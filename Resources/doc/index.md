@@ -392,35 +392,15 @@ In YAML:
 
 ``` yaml
 # app/config/routing.yml
-fos_user_security:
-    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
-
-fos_user_profile:
-    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-    prefix: /profile
-
-fos_user_register:
-    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /register
-
-fos_user_resetting:
-    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-    prefix: /resetting
-
-fos_user_change_password:
-    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /profile
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 ```
 
 Or if you prefer XML:
 
 ``` xml
 <!-- app/config/routing.xml -->
-<import resource="@FOSUserBundle/Resources/config/routing/security.xml"/>
-<import resource="@FOSUserBundle/Resources/config/routing/profile.xml" prefix="/profile" />
-<import resource="@FOSUserBundle/Resources/config/routing/registration.xml" prefix="/register" />
-<import resource="@FOSUserBundle/Resources/config/routing/resetting.xml" prefix="/resetting" />
-<import resource="@FOSUserBundle/Resources/config/routing/change_password.xml" prefix="/profile" />
+<import resource="@FOSUserBundle/Resources/config/routing/all.xml"/>
 ```
 
 **Note:**
@@ -492,3 +472,4 @@ The following documents are available:
 - [Using a custom storage layer](custom_storage_layer.md)
 - [Configuration Reference](configuration_reference.md)
 - [Adding invitations to registration](adding_invitation_registration.md)
+- [Advanced routing configuration](routing.md)
