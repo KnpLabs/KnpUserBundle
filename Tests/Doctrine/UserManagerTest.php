@@ -31,8 +31,10 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Doctrine Common has to be installed for this test to run.');
         }
 
-        $c = $this->getMockBuilder('FOS\UserBundle\Util\CanonicalizerInterface')->getMock();
-        $ef = $this->getMockBuilder('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface')->getMock();
+        $passwordUpdater = $this->getMockBuilder('FOS\UserBundle\Util\PasswordUpdaterInterface')->getMock();
+        $fieldsUpdater = $this->getMockBuilder('FOS\UserBundle\Util\CanonicalFieldsUpdater')
+            ->disableOriginalConstructor()
+            ->getMock();
         $class = $this->getMockBuilder('Doctrine\Common\Persistence\Mapping\ClassMetadata')->getMock();
         $this->om = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectManager')->getMock();
         $this->repository = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectRepository')->getMock();
@@ -49,7 +51,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
             ->method('getName')
             ->will($this->returnValue(static::USER_CLASS));
 
-        $this->userManager = $this->createUserManager($ef, $c, $this->om, static::USER_CLASS);
+        $this->userManager = new UserManager($passwordUpdater, $fieldsUpdater, $this->om, static::USER_CLASS);
     }
 
     public function testDeleteUser()
@@ -88,19 +90,6 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $this->om->expects($this->once())->method('flush');
 
         $this->userManager->updateUser($user);
-    }
-
-    /**
-     * @param $encoderFactory
-     * @param $canonicalizer
-     * @param $objectManager
-     * @param $userClass
-     *
-     * @return UserManager
-     */
-    protected function createUserManager($encoderFactory, $canonicalizer, $objectManager, $userClass)
-    {
-        return new UserManager($encoderFactory, $canonicalizer, $canonicalizer, $objectManager, $userClass);
     }
 
     /**
