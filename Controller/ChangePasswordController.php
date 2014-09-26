@@ -55,27 +55,25 @@ class ChangePasswordController extends ContainerAware
         $form = $formFactory->createForm();
         $form->setData($user);
 
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
+        $form->handleRequest($request);
 
-            if ($form->isValid()) {
-                /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-                $userManager = $this->container->get('fos_user.user_manager');
+        if ($form->isValid()) {
+            /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+            $userManager = $this->container->get('fos_user.user_manager');
 
-                $event = new FormEvent($form, $request);
-                $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_SUCCESS, $event);
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_SUCCESS, $event);
 
-                $userManager->updateUser($user);
+            $userManager->updateUser($user);
 
-                if (null === $response = $event->getResponse()) {
-                    $url = $this->container->get('router')->generate('fos_user_profile_show');
-                    $response = new RedirectResponse($url);
-                }
-
-                $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-                return $response;
+            if (null === $response = $event->getResponse()) {
+                $url = $this->container->get('router')->generate('fos_user_profile_show');
+                $response = new RedirectResponse($url);
             }
+
+            $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+
+            return $response;
         }
 
         return $this->container->get('templating')->renderResponse(

@@ -52,24 +52,22 @@ class RegistrationController extends ContainerAware
         $form = $formFactory->createForm();
         $form->setData($user);
 
-        if ('POST' === $request->getMethod()) {
-            $form->bind($request);
+        $form->handleRequest($request);
 
-            if ($form->isValid()) {
-                $event = new FormEvent($form, $request);
-                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+        if ($form->isValid()) {
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
-                $userManager->updateUser($user);
+            $userManager->updateUser($user);
 
-                if (null === $response = $event->getResponse()) {
-                    $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
-                    $response = new RedirectResponse($url);
-                }
-
-                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
-
-                return $response;
+            if (null === $response = $event->getResponse()) {
+                $url = $this->container->get('router')->generate('fos_user_registration_confirmed');
+                $response = new RedirectResponse($url);
             }
+
+            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+
+            return $response;
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(

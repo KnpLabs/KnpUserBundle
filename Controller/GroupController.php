@@ -72,27 +72,25 @@ class GroupController extends ContainerAware
         $form = $formFactory->createForm();
         $form->setData($group);
 
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
+        $form->handleRequest($request);
 
-            if ($form->isValid()) {
-                /** @var $groupManager \FOS\UserBundle\Model\GroupManagerInterface */
-                $groupManager = $this->container->get('fos_user.group_manager');
+        if ($form->isValid()) {
+            /** @var $groupManager \FOS\UserBundle\Model\GroupManagerInterface */
+            $groupManager = $this->container->get('fos_user.group_manager');
 
-                $event = new FormEvent($form, $request);
-                $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_SUCCESS, $event);
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_SUCCESS, $event);
 
-                $groupManager->updateGroup($group);
+            $groupManager->updateGroup($group);
 
-                if (null === $response = $event->getResponse()) {
-                    $url = $this->container->get('router')->generate('fos_user_group_show', array('groupName' => $group->getName()));
-                    $response = new RedirectResponse($url);
-                }
-
-                $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_COMPLETED, new FilterGroupResponseEvent($group, $request, $response));
-
-                return $response;
+            if (null === $response = $event->getResponse()) {
+                $url = $this->container->get('router')->generate('fos_user_group_show', array('groupName' => $group->getName()));
+                $response = new RedirectResponse($url);
             }
+
+            $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_COMPLETED, new FilterGroupResponseEvent($group, $request, $response));
+
+            return $response;
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:edit.html.'.$this->getEngine(), array(
@@ -120,24 +118,22 @@ class GroupController extends ContainerAware
         $form = $formFactory->createForm();
         $form->setData($group);
 
-        if ($request->isMethod('POST')) {
-            $form->bind($request);
+        $form->handleRequest($request);
 
-            if ($form->isValid()) {
-                $event = new FormEvent($form, $request);
-                $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_SUCCESS, $event);
+        if ($form->isValid()) {
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_SUCCESS, $event);
 
-                $groupManager->updateGroup($group);
+            $groupManager->updateGroup($group);
 
-                if (null === $response = $event->getResponse()) {
-                    $url = $this->container->get('router')->generate('fos_user_group_show', array('groupName' => $group->getName()));
-                    $response = new RedirectResponse($url);
-                }
-
-                $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_COMPLETED, new FilterGroupResponseEvent($group, $request, $response));
-
-                return $response;
+            if (null === $response = $event->getResponse()) {
+                $url = $this->container->get('router')->generate('fos_user_group_show', array('groupName' => $group->getName()));
+                $response = new RedirectResponse($url);
             }
+
+            $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_COMPLETED, new FilterGroupResponseEvent($group, $request, $response));
+
+            return $response;
         }
 
         return $this->container->get('templating')->renderResponse('FOSUserBundle:Group:new.html.'.$this->getEngine(), array(
