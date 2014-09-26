@@ -38,9 +38,8 @@
         "willdurand/propel-typehintable-behavior": "Needed when using the propel implementation"
     },
     "autoload": {
-        "psr-0": { "FOS\\UserBundle": "" }
+        "psr-4": { "FOS\\UserBundle\\": "" }
     },
-    "target-dir": "FOS/UserBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "2.0.x-dev"
