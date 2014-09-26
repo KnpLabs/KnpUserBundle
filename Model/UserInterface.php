@@ -112,17 +112,6 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
     public function isSuperAdmin();
 
     /**
-     * Tells if the the given user is this user.
-     *
-     * Useful when not hydrating all fields.
-     *
-     * @param null|UserInterface $user
-     *
-     * @return boolean
-     */
-    public function isUser(UserInterface $user = null);
-
-    /**
      * @param boolean $boolean
      *
      * @return self
