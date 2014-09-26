@@ -3,6 +3,7 @@ Changelog
 
 ### 2.0.0 (2014-XX-XX)
 
+* [BC break] The deprecated entity classes have been removed.
 * The minimum requirement for Symfony has been bumped to 2.3 (older versions are already EOLed).
 * [BC break] The ``FOSUserBundle:Security:login.html.twig`` template now receives an AuthenticationException in the ``error``
   variable rather than an error message.
