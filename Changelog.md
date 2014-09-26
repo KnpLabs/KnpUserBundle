@@ -1,6 +1,11 @@
 Changelog
 =========
 
+### 2.0.0 (2014-XX-XX)
+
+* [BC break] The ``FOSUserBundle:Security:login.html.twig`` template now receives an AuthenticationException in the ``error``
+  variable rather than an error message.
+
 ### 2.0.0-alpha1 (2014-09-26)
 
 * Updated many translations
