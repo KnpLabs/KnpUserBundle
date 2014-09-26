@@ -12,8 +12,6 @@ group:
         deleted: הקבוצה נמחקה בהצלחה
 
 # Security
-"Bad credentials": שם משתמש או סיסמה שגוים
-
 security:
     login:
         username: "שם משתמש:"

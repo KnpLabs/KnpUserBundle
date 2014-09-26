@@ -12,9 +12,6 @@ group:
         deleted: Grupa została usunięta
 
 # Security
-"Bad credentials": Nieprawidłowa nazwa użytkownika lub hasło
-"User account is locked.": Konto użytkownika jest zablokowane
-
 security:
     login:
         username: "Nazwa użytkownika:"

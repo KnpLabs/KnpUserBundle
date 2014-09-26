@@ -12,8 +12,6 @@ group:
         deleted: Η ομάδα διαγράφηκε επιτυχώς
 
 # Security
-"Bad credentials": Λάθος όνομα χρήστη ή/και κωδικός πρόσβασης
-
 security:
     login:
         username: "Όνομα Χρήστη:"

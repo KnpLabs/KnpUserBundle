@@ -12,8 +12,6 @@ group:
         name: 'Tên nhóm'
 
 # Security
-"Bad credentials": 'Tên người dùng hoặc mật khẩu không chính xác'
-
 security:
     login:
         password: 'Mật khẩu:'

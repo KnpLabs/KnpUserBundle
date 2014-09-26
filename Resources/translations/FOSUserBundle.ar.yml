@@ -12,8 +12,6 @@ group:
         deleted: تم حـذف المجموعة
 
 # Security
-"Bad credentials": إسم المستخدم او كلمة المرور غير صحيحة
-
 security:
     login:
         username: "إسم المستخدم:"
@@ -51,7 +49,7 @@ registration:
         message: |
             مرحبا %username%!
 
-            
+
              لتفعيل حسابك يرجى إتباع الرابط التالي %confirmationUrl%
 
             شكرا،
@@ -90,7 +88,7 @@ layout:
 form:
     group_name: "إسم المجموعة :"
     username: "إسم المستخدم :"
-    email: "البريد الإلكتروني :" 
+    email: "البريد الإلكتروني :"
     current_password: "كلمة المرور الحالية :"
     password: "كلمة المرور :"
     password_confirmation: "تأكيد :"

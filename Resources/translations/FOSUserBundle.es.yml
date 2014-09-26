@@ -12,9 +12,6 @@ group:
         deleted: El grupo ha sido borrado
 
 # Security
-"Bad credentials": Nombre de usuario o Contraseña inválido
-"User account is disabled.": Cuenta de usuario desactivada
-
 security:
     login:
         username: "Nombre de usuario:"

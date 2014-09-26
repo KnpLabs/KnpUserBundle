@@ -12,8 +12,6 @@ group:
         deleted: Grup telah berhasil dihapus
 
 # Security
-"Bad credentials": Nama Pengguna atau Password salah
-
 security:
     login:
         username: "Nama Pengguna:"

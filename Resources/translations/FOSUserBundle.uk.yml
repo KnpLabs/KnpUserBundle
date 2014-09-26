@@ -12,8 +12,6 @@ group:
         deleted: Група видалена
 
 # Security
-"Bad credentials": "Невірне ім'я користувача або пароль"
-
 security:
     login:
         username: "Ім'я користувача:"
