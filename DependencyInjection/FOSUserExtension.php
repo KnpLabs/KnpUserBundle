@@ -33,6 +33,7 @@ class FOSUserExtension extends Extension
         'couchdb' => array(
             'registry' => 'doctrine_couchdb',
             'tag' => 'doctrine_couchdb.event_subscriber',
+            'listener_class' => 'FOS\UserBundle\Doctrine\CouchDB\UserListener',
         ),
     );
 
@@ -93,7 +94,11 @@ class FOSUserExtension extends Extension
         $container->setAlias('fos_user.user_manager', $config['service']['user_manager']);
 
         if ($config['use_listener'] && isset(self::$doctrineDrivers[$config['db_driver']])) {
-            $container->getDefinition('fos_user.user_listener')->addTag(self::$doctrineDrivers[$config['db_driver']]['tag']);
+            $listenerDefinition = $container->getDefinition('fos_user.user_listener');
+            $listenerDefinition->addTag(self::$doctrineDrivers[$config['db_driver']]['tag']);
+            if (isset(self::$doctrineDrivers[$config['db_driver']]['listener_class'])) {
+                $listenerDefinition->setClass(self::$doctrineDrivers[$config['db_driver']]['listener_class']);
+            }
         }
 
         if ($config['use_username_form_type']) {
