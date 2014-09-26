@@ -1,8 +1,11 @@
 Changelog
 =========
 
-### 2.0.0 (2014-XX-XX)
+### 2.0.0-alpha1 (2014-09-26)
 
+* Updated many translations
+* Changed the way to pass the email to the page asking to check the email to avoid issues with non-blocking sessions
+* Changed the fos_user_security_check route to enforce POST
 * Removed the deprecated UserManager and GroupManager classes for the different Doctrine implementations
 * [BC break] Refactored the structure of controller to dispatch events instead of using form handlers
 * Removed all form handlers
