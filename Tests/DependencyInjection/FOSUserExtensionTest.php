@@ -299,7 +299,7 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider userManagerSetFactoryProvider
      */
-    public function testUserManagerSetFactory($dbDriver, $managerService, $doctrineService)
+    public function testUserManagerSetFactory($dbDriver, $doctrineService)
     {
         $this->configuration = new ContainerBuilder();
         $loader = new FOSUserExtension();
@@ -307,13 +307,15 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $config['db_driver'] = $dbDriver;
         $loader->load(array($config), $this->configuration);
 
-        $definition = $this->configuration->getDefinition($managerService);
+        $definition = $this->configuration->getDefinition('fos_user.object_manager');
+
+        $this->assertAlias($doctrineService, 'fos_user.doctrine_registry');
 
         if (method_exists($definition, 'getFactory')) {
-            $factory = array(new Reference($doctrineService), 'getManager');
+            $factory = array(new Reference('fos_user.doctrine_registry'), 'getManager');
             $this->assertEquals($factory, $definition->getFactory());
         } else {
-            $this->assertEquals($doctrineService, $definition->getFactoryService());
+            $this->assertEquals('fos_user.doctrine_registry', $definition->getFactoryService());
             $this->assertEquals('getManager', $definition->getFactoryMethod());
         }
     }
@@ -321,9 +323,9 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
     public function userManagerSetFactoryProvider()
     {
         return array(
-            array('orm', 'fos_user.entity_manager', 'doctrine'),
-            array('couchdb', 'fos_user.document_manager', 'doctrine_couchdb'),
-            array('mongodb', 'fos_user.document_manager', 'doctrine_mongodb'),
+            array('orm', 'doctrine'),
+            array('couchdb', 'doctrine_couchdb'),
+            array('mongodb', 'doctrine_mongodb'),
         );
     }
 
