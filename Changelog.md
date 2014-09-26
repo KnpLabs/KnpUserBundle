@@ -6,6 +6,7 @@ Changelog
 * The minimum requirement for Symfony has been bumped to 2.3 (older versions are already EOLed).
 * [BC break] The ``FOSUserBundle:Security:login.html.twig`` template now receives an AuthenticationException in the ``error``
   variable rather than an error message.
+* [BC break] The templating engine configuration has been removed, as well as the related code.
 
 ### 2.0.0-alpha1 (2014-09-26)
 

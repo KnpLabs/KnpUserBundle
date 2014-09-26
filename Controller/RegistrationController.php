@@ -70,7 +70,7 @@ class RegistrationController extends Controller
             return $response;
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -88,7 +88,7 @@ class RegistrationController extends Controller
             throw new NotFoundHttpException(sprintf('The user with email "%s" does not exist', $email));
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:checkEmail.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:checkEmail.html.twig', array(
             'user' => $user,
         ));
     }
@@ -138,13 +138,8 @@ class RegistrationController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:confirmed.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:confirmed.html.twig', array(
             'user' => $user,
         ));
-    }
-
-    protected function getEngine()
-    {
-        return $this->container->getParameter('fos_user.template.engine');
     }
 }

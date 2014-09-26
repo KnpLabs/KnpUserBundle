@@ -34,7 +34,7 @@ class ResettingController extends Controller
      */
     public function requestAction()
     {
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:request.html.'.$this->getEngine());
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:request.html.twig');
     }
 
     /**
@@ -48,11 +48,11 @@ class ResettingController extends Controller
         $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
 
         if (null === $user) {
-            return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:request.html.'.$this->getEngine(), array('invalid_username' => $username));
+            return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:request.html.twig', array('invalid_username' => $username));
         }
 
         if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:passwordAlreadyRequested.html.'.$this->getEngine());
+            return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:passwordAlreadyRequested.html.twig');
         }
 
         if (null === $user->getConfirmationToken()) {
@@ -82,7 +82,7 @@ class ResettingController extends Controller
             return new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:checkEmail.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:checkEmail.html.twig', array(
             'email' => $email,
         ));
     }
@@ -133,7 +133,7 @@ class ResettingController extends Controller
             return $response;
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:reset.html.'.$this->getEngine(), array(
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:reset.html.twig', array(
             'token' => $token,
             'form' => $form->createView(),
         ));
@@ -156,10 +156,5 @@ class ResettingController extends Controller
         }
 
         return $email;
-    }
-
-    protected function getEngine()
-    {
-        return $this->container->getParameter('fos_user.template.engine');
     }
 }

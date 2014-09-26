@@ -77,7 +77,6 @@ class Configuration implements ConfigurationInterface
         $this->addRegistrationSection($rootNode);
         $this->addResettingSection($rootNode);
         $this->addServiceSection($rootNode);
-        $this->addTemplateSection($rootNode);
         $this->addGroupSection($rootNode);
 
         return $treeBuilder;
@@ -221,19 +220,6 @@ class Configuration implements ConfigurationInterface
                             ->scalarNode('username_canonicalizer')->defaultValue('fos_user.util.canonicalizer.default')->end()
                             ->scalarNode('user_manager')->defaultValue('fos_user.user_manager.default')->end()
                         ->end()
-                    ->end()
-                ->end()
-            ->end();
-    }
-
-    private function addTemplateSection(ArrayNodeDefinition $node)
-    {
-        $node
-            ->children()
-                ->arrayNode('template')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('engine')->defaultValue('twig')->end()
                     ->end()
                 ->end()
             ->end();

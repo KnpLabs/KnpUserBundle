@@ -53,8 +53,6 @@ fos_user:
         username_canonicalizer: fos_user.util.canonicalizer.default
         token_generator:        fos_user.util.token_generator.default
         user_manager:           fos_user.user_manager.default
-    template:
-        engine: twig
     group:
         group_class:    ~ # Required when using groups
         group_manager:  fos_user.group_manager.default

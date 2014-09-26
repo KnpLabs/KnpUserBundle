@@ -137,20 +137,3 @@ to take effect, even in a development environment.
 
 Overriding all of the other templates provided by the FOSUserBundle can be done
 in a similar fashion using either of the two methods shown in this document.
-
-### Configuring A Templating Engine Other Than Twig
-
-You can configure a templating engine other than Twig using the bundle's configuration.
-Below is an example configuration for using the PHP templating engine.
-
-``` yaml
-fos_user:
-    # ...
-    template:
-        engine: php
-```
-
-The FOSUserBundle only provides default templates for the Twig templating engine,
-so you will have to create all of the templates that you are using. The names and
-locations will be the same except that the file extension will be `.php` instead of
-`.twig`

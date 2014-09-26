@@ -38,7 +38,7 @@ class ProfileController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.'.$this->container->getParameter('fos_user.template.engine'), array('user' => $user));
+        return $this->container->get('templating')->renderResponse('FOSUserBundle:Profile:show.html.twig', array('user' => $user));
     }
 
     /**
@@ -89,7 +89,7 @@ class ProfileController extends Controller
         }
 
         return $this->container->get('templating')->renderResponse(
-            'FOSUserBundle:Profile:edit.html.'.$this->container->getParameter('fos_user.template.engine'),
+            'FOSUserBundle:Profile:edit.html.twig',
             array('form' => $form->createView())
         );
     }
