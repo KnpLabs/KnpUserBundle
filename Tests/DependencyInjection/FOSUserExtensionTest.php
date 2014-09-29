@@ -262,20 +262,6 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertParameter(1800, 'fos_user.resetting.token_ttl');
     }
 
-    public function testUserLoadTemplateConfigWithDefaults()
-    {
-        $this->createEmptyConfiguration();
-
-        $this->assertParameter('twig', 'fos_user.template.engine');
-    }
-
-    public function testUserLoadTemplateConfig()
-    {
-        $this->createFullConfiguration();
-
-        $this->assertParameter('php', 'fos_user.template.engine');
-    }
-
     public function testUserLoadUtilServiceWithDefaults()
     {
         $this->createEmptyConfiguration();
@@ -392,8 +378,6 @@ service:
     email_canonicalizer: acme_my.email_canonicalizer
     username_canonicalizer: acme_my.username_canonicalizer
     user_manager: acme_my.user_manager
-template:
-    engine: php
 group:
     group_class: Acme\MyBundle\Entity\Group
     form:

@@ -79,7 +79,6 @@ class FOSUserExtension extends Extension
                 'model_manager_name' => 'fos_user.model_manager_name',
                 'user_class' => 'fos_user.model.user.class',
             ),
-            'template'  => 'fos_user.template.%s',
         ));
 
         if (!empty($config['profile'])) {

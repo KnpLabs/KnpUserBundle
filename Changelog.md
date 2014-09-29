@@ -7,6 +7,7 @@ Changelog
 * [BC break] ``UserInterface::isUser`` has been removed as it was used only by the old validation logic removed a long time ago.
 * [BC break] The ``FOSUserBundle:Security:login.html.twig`` template now receives an AuthenticationException in the ``error``
   variable rather than an error message.
+* [BC break] The templating engine configuration has been removed, as well as the related code.
 
 ### 2.0.0-alpha1 (2014-09-26)
 
