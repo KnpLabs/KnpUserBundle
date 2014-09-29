@@ -115,8 +115,7 @@ EOT
         }
 
         if (!$input->getArgument('password')) {
-            $askingMethod = method_exists($this->getHelper('dialog'), 'askHiddenResponseAndValidate') ? 'askHiddenResponseAndValidate' : 'askAndValidate';
-            $password = $this->getHelper('dialog')->$askingMethod(
+            $password = $this->getHelper('dialog')->askHiddenResponseAndValidate(
                 $output,
                 'Please choose a password:',
                 function($password) {
