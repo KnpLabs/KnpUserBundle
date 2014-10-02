@@ -34,7 +34,7 @@ class ResettingController extends Controller
      */
     public function requestAction()
     {
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:request.html.twig');
+        return $this->render('FOSUserBundle:Resetting:request.html.twig');
     }
 
     /**
@@ -45,27 +45,29 @@ class ResettingController extends Controller
         $username = $request->request->get('username');
 
         /** @var $user UserInterface */
-        $user = $this->container->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
+        $user = $this->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
 
         if (null === $user) {
-            return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:request.html.twig', array('invalid_username' => $username));
+            return $this->render('FOSUserBundle:Resetting:request.html.twig', array(
+                'invalid_username' => $username
+            ));
         }
 
-        if ($user->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
-            return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:passwordAlreadyRequested.html.twig');
+        if ($user->isPasswordRequestNonExpired($this->getParameter('fos_user.resetting.token_ttl'))) {
+            return $this->render('FOSUserBundle:Resetting:passwordAlreadyRequested.html.twig');
         }
 
         if (null === $user->getConfirmationToken()) {
             /** @var $tokenGenerator \FOS\UserBundle\Util\TokenGeneratorInterface */
-            $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+            $tokenGenerator = $this->get('fos_user.util.token_generator');
             $user->setConfirmationToken($tokenGenerator->generateToken());
         }
 
-        $this->container->get('fos_user.mailer')->sendResettingEmailMessage($user);
+        $this->get('fos_user.mailer')->sendResettingEmailMessage($user);
         $user->setPasswordRequestedAt(new \DateTime());
-        $this->container->get('fos_user.user_manager')->updateUser($user);
+        $this->get('fos_user.user_manager')->updateUser($user);
 
-        return new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_check_email',
+        return new RedirectResponse($this->generateUrl('fos_user_resetting_check_email',
             array('email' => $this->getObfuscatedEmail($user))
         ));
     }
@@ -79,10 +81,10 @@ class ResettingController extends Controller
 
         if (empty($email)) {
             // the user does not come from the sendEmail action
-            return new RedirectResponse($this->container->get('router')->generate('fos_user_resetting_request'));
+            return new RedirectResponse($this->generateUrl('fos_user_resetting_request'));
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:checkEmail.html.twig', array(
+        return $this->render('FOSUserBundle:Resetting:checkEmail.html.twig', array(
             'email' => $email,
         ));
     }
@@ -93,11 +95,11 @@ class ResettingController extends Controller
     public function resetAction(Request $request, $token)
     {
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->container->get('fos_user.resetting.form.factory');
+        $formFactory = $this->get('fos_user.resetting.form.factory');
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-        $userManager = $this->container->get('fos_user.user_manager');
+        $userManager = $this->get('fos_user.user_manager');
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->container->get('event_dispatcher');
+        $dispatcher = $this->get('event_dispatcher');
 
         $user = $userManager->findUserByConfirmationToken($token);
 
@@ -124,7 +126,7 @@ class ResettingController extends Controller
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
-                $url = $this->container->get('router')->generate('fos_user_profile_show');
+                $url = $this->generateUrl('fos_user_profile_show');
                 $response = new RedirectResponse($url);
             }
 
@@ -133,7 +135,7 @@ class ResettingController extends Controller
             return $response;
         }
 
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:reset.html.twig', array(
+        return $this->render('FOSUserBundle:Resetting:reset.html.twig', array(
             'token' => $token,
             'form' => $form->createView(),
         ));

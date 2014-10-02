@@ -40,8 +40,8 @@ class SecurityController extends Controller
         // last username entered by the user
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContextInterface::LAST_USERNAME);
 
-        $csrfToken = $this->container->has('form.csrf_provider')
-            ? $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
+        $csrfToken = $this->has('form.csrf_provider')
+            ? $this->get('form.csrf_provider')->generateCsrfToken('authenticate')
             : null;
 
         return $this->renderLogin(array(
@@ -61,7 +61,7 @@ class SecurityController extends Controller
      */
     protected function renderLogin(array $data)
     {
-        return $this->container->get('templating')->renderResponse('FOSUserBundle:Security:login.html.twig', $data);
+        return $this->render('FOSUserBundle:Security:login.html.twig', $data);
     }
 
     public function checkAction()
