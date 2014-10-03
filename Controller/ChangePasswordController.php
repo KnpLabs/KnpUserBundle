@@ -34,13 +34,13 @@ class ChangePasswordController extends Controller
      */
     public function changePasswordAction(Request $request)
     {
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
         /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->container->get('event_dispatcher');
+        $dispatcher = $this->get('event_dispatcher');
 
         $event = new GetResponseUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_INITIALIZE, $event);
@@ -50,7 +50,7 @@ class ChangePasswordController extends Controller
         }
 
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->container->get('fos_user.change_password.form.factory');
+        $formFactory = $this->get('fos_user.change_password.form.factory');
 
         $form = $formFactory->createForm();
         $form->setData($user);
@@ -59,7 +59,7 @@ class ChangePasswordController extends Controller
 
         if ($form->isValid()) {
             /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-            $userManager = $this->container->get('fos_user.user_manager');
+            $userManager = $this->get('fos_user.user_manager');
 
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::CHANGE_PASSWORD_SUCCESS, $event);
@@ -67,7 +67,7 @@ class ChangePasswordController extends Controller
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
-                $url = $this->container->get('router')->generate('fos_user_profile_show');
+                $url = $this->generateUrl('fos_user_profile_show');
                 $response = new RedirectResponse($url);
             }
 
@@ -76,9 +76,8 @@ class ChangePasswordController extends Controller
             return $response;
         }
 
-        return $this->container->get('templating')->renderResponse(
-            'FOSUserBundle:ChangePassword:changePassword.html.twig',
-            array('form' => $form->createView())
-        );
+        return $this->render('FOSUserBundle:ChangePassword:changePassword.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }
