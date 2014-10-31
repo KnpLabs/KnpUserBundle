@@ -71,8 +71,8 @@ class Mailer implements MailerInterface
     {
         // Render the email, use the first line as the subject, and the rest as the body
         $renderedLines = explode("\n", trim($renderedTemplate));
-        $subject = $renderedLines[0];
-        $body = implode("\n", array_slice($renderedLines, 1));
+        $subject = array_shift($renderedLines);
+        $body = implode("\n", $renderedLines);
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
