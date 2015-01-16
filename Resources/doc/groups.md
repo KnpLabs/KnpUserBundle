@@ -108,7 +108,7 @@ class Group extends BaseGroup
 namespace MyProject\MyBundle\Document;
 
 use FOS\UserBundle\Document\Group as BaseGroup;
-use Doctrine\ODM\CouchDB\Mapping as MongoDB;
+use Doctrine\ODM\CouchDB\Mapping as CouchDB;
 
 /**
  * @CouchDB\Document
