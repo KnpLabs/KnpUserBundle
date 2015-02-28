@@ -15,6 +15,7 @@ use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Config\FileLocator;
 
 class FOSUserExtension extends Extension
@@ -31,6 +32,23 @@ class FOSUserExtension extends Extension
         if ('custom' !== $config['db_driver']) {
             $loader->load(sprintf('%s.xml', $config['db_driver']));
             $container->setParameter($this->getAlias() . '.backend_type_' . $config['db_driver'], true);
+        }
+
+        if ('custom' !== $config['db_driver'] && 'propel' !== $config['db_driver']) {
+            if ('orm' === $config['db_driver']) {
+                $managerService = 'fos_user.entity_manager';
+                $doctrineService = 'doctrine';
+            } else {
+                $managerService = 'fos_user.document_manager';
+                $doctrineService = sprintf('doctrine_%s', $config['db_driver']);
+            }
+            $definition = $container->getDefinition($managerService);
+            if (method_exists($definition, 'setFactory')) {
+                $definition->setFactory(array(new Reference($doctrineService), 'getManager'));
+            } else {
+                $definition->setFactoryService($doctrineService);
+                $definition->setFactoryMethod('getManager');
+            }
         }
 
         foreach (array('validator', 'security', 'util', 'mailer', 'listeners') as $basename) {
