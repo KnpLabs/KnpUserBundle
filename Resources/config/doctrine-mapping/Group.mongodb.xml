@@ -11,9 +11,11 @@
         <field name="roles" fieldName="roles" type="collection" />
 
         <indexes>
-            <index unique="true" dropDups="true">
+            <index>
                 <key name="name" order="asc" />
                 <option name="safe" value="true" />
+                <option name="unique" value="true" />
+                <option name="dropDups" value="true" />
             </index>
         </indexes>
 
