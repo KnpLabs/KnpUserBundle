@@ -55,6 +55,18 @@ class FOSUserExtension extends Extension
             $loader->load(sprintf('%s.xml', $basename));
         }
 
+        // Set the SecurityContext for Symfony <2.6
+        // Should go back to simple xml configuration after <2.6 support
+        if (interface_exists('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')) {
+            $tokenStorageReference = new Reference('security.token_storage');
+        } else {
+            $tokenStorageReference = new Reference('security.context');
+        }
+        $container
+            ->getDefinition('fos_user.security.login_manager')
+            ->replaceArgument(0, $tokenStorageReference)
+        ;
+
         if ($config['use_flash_notifications']) {
             $loader->load('flash_notifications.xml');
         }
