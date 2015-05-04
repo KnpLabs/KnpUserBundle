@@ -15,7 +15,6 @@
                 <key name="name" order="asc" />
                 <option name="safe" value="true" />
                 <option name="unique" value="true" />
-                <option name="dropDups" value="true" />
             </index>
         </indexes>
 

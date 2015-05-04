@@ -42,13 +42,11 @@
                 <key name="usernameCanonical" order="asc" />
                 <option name="safe" value="true" />
                 <option name="unique" value="true" />
-                <option name="dropDups" value="true" />
             </index>
             <index>
                 <key name="emailCanonical" order="asc" />
                 <option name="safe" value="true" />
                 <option name="unique" value="true" />
-                <option name="dropDups" value="true" />
             </index>
         </indexes>
 
