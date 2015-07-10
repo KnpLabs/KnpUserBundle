@@ -26,14 +26,12 @@ Documentation
 The bulk of the documentation is stored in the `Resources/doc/index.md`
 file in this bundle:
 
-[Read the Documentation for master](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md)
-
-[Read the Documentation for 1.2.0 (for Symfony 2.0.x)](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/1.2.0/Resources/doc/index.md)
+[Read the Documentation for this version](Resources/doc/index.md)
 
 Installation
 ------------
 
-All the installation instructions are located in [documentation](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/index.md).
+All the installation instructions are located in [documentation](Resources/doc/index.md).
 
 License
 -------
