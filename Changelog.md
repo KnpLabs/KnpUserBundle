@@ -22,6 +22,10 @@ Changelog
 * [BC break] Changed Datetime properties of default User entity that were nullable to default to null when no value supplied
 * [BC break] Updated schema.xml for Propel BaseUser class to allow nullable and typehint accordingly
 
+### 1.3.6 (2015-06-01)
+
+* Fix compatibility with Symfony 2.7 #1777
+
 ### 1.3.5 (2014-09-04)
 
 This release fixes a security issue. You are encouraged to update
