@@ -13,25 +13,25 @@ Features include:
 - Unit tested
 
 **Note:** This bundle does *not* provide an authentication system but can
-provide the user provider for the core [SecurityBundle](http://symfony.com/doc/current/book/security.html).
+provide the user provider for the core [SecurityBundle](https://symfony.com/doc/current/book/security.html).
 
 **Caution:** This bundle is developed in sync with [symfony's repository](https://github.com/symfony/symfony).
 For Symfony 2.0.x, you need to use the 1.2.0 release of the bundle (or lower)
 
-[![Build Status](https://secure.travis-ci.org/FriendsOfSymfony/FOSUserBundle.png?branch=1.3.x)](http://travis-ci.org/FriendsOfSymfony/FOSUserBundle)
+[![Build Status](https://travis-ci.org/FriendsOfSymfony/FOSUserBundle.svg?branch=1.3.x)](https://travis-ci.org/FriendsOfSymfony/FOSUserBundle)
 
 Documentation
 -------------
 
-The bulk of the documentation is stored in the `Resources/doc/index.md`
+The bulk of the documentation is stored in the `Resources/doc/index.rst`
 file in this bundle:
 
-[Read the Documentation for this version](Resources/doc/index.md)
+[Read the Documentation for this version](Resources/doc/index.rst)
 
 Installation
 ------------
 
-All the installation instructions are located in [documentation](Resources/doc/index.md).
+All the installation instructions are located in [documentation](Resources/doc/index.rst).
 
 License
 -------
