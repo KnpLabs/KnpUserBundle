@@ -264,7 +264,7 @@ this to start:
 
 ``` php
 <?php
-// src/Acme/UserBundle/Document/User.php
+// src/Acme/UserBundle/CouchDocument/User.php
 
 namespace Acme\UserBundle\CouchDocument;
 
