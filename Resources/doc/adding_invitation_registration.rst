@@ -33,9 +33,6 @@ by a unique code/identifier generated in the constructor::
          */
         protected $sent = false;
 
-        /** @ORM\OneToOne(targetEntity="User", mappedBy="invitation", cascade={"persist", "merge"}) */
-        protected $user;
-
         public function __construct()
         {
             // generate identifier only once, here a 6 characters length code
@@ -66,16 +63,6 @@ by a unique code/identifier generated in the constructor::
         {
             $this->sent = true;
         }
-
-        public function getUser()
-        {
-            return $this->user;
-        }
-
-        public function setUser(User $user)
-        {
-            $this->user = $user;
-        }
     }
 
 Next we map our ``Invitation`` entity to our ``User`` with a one-to-one association::
@@ -92,7 +79,7 @@ Next we map our ``Invitation`` entity to our ``User`` with a one-to-one associat
         protected $id;
 
         /**
-         * @ORM\OneToOne(targetEntity="Invitation", inversedBy="user")
+         * @ORM\OneToOne(targetEntity="Invitation")
          * @ORM\JoinColumn(referencedColumnName="code")
          * @Assert\NotNull(message="Your invitation is wrong", groups={"Registration"})
          */
@@ -224,12 +211,18 @@ Create the custom data transformer::
                 throw new UnexpectedTypeException($value, 'string');
             }
 
+            $dql = <<<DQL
+    SELECT i
+    FROM AppBundle:Invitation i
+    WHERE code = :code
+    AND NOT EXISTS(SELECT 1 FROM AppBundle:User u WHERE u.invitation = i)
+    DQL;
+
             return $this->entityManager
-                ->getRepository('AppBundle\Entity\Invitation')
-                ->findOneBy(array(
-                    'code' => $value,
-                    'user' => null,
-                ));
+                ->createQuery($dql)
+                ->setParameter('code', $code)
+                ->setMaxResults(1)
+                ->getOneOrNullResult();
         }
     }
 
