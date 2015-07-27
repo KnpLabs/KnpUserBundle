@@ -51,28 +51,42 @@ provided by the bundle.
 a) ORM Group class implementation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: php
+.. configuration-block::
 
-    // src/MyProject/MyBundle/Entity/Group.php
+    .. code-block:: php-annotations
 
-    namespace MyProject\MyBundle\Entity;
+        // src/MyProject/MyBundle/Entity/Group.php
 
-    use FOS\UserBundle\Entity\Group as BaseGroup;
-    use Doctrine\ORM\Mapping as ORM;
+        namespace MyProject\MyBundle\Entity;
 
-    /**
-     * @ORM\Entity
-     * @ORM\Table(name="fos_group")
-     */
-    class Group extends BaseGroup
-    {
+        use FOS\UserBundle\Entity\Group as BaseGroup;
+        use Doctrine\ORM\Mapping as ORM;
+
         /**
-         * @ORM\Id
-         * @ORM\Column(type="integer")
-         * @ORM\GeneratedValue(strategy="AUTO")
+         * @ORM\Entity
+         * @ORM\Table(name="fos_group")
          */
-         protected $id;
-    }
+        class Group extends BaseGroup
+        {
+            /**
+             * @ORM\Id
+             * @ORM\Column(type="integer")
+             * @ORM\GeneratedValue(strategy="AUTO")
+             */
+             protected $id;
+        }
+
+    .. code-block:: yaml
+
+        # src/Acme/UserBundle/Resources/config/doctrine/Group.orm.yml
+        Acme\UserBundle\Entity\Group:
+            type:  entity
+            table: fos_group
+            id:
+                id:
+                    type: integer
+                    generator:
+                        strategy: AUTO
 
 .. note::
 
@@ -132,37 +146,86 @@ The next step is to map the relation in your ``User`` class.
 a) ORM User-Group mapping
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: php
+.. configuration-block::
 
-    // src/MyProject/MyBundle/Entity/User.php
+    .. code-block:: php-annotations
 
-    namespace MyProject\MyBundle\Entity;
+        // src/MyProject/MyBundle/Entity/User.php
 
-    use FOS\UserBundle\Entity\User as BaseUser;
-    use Doctrine\ORM\Mapping as ORM;
+        namespace MyProject\MyBundle\Entity;
 
-    /**
-     * @ORM\Entity
-     * @ORM\Table(name="fos_user")
-     */
-    class User extends BaseUser
-    {
-        /**
-         * @ORM\Id
-         * @ORM\Column(type="integer")
-         * @ORM\GeneratedValue(strategy="AUTO")
-         */
-        protected $id;
+        use FOS\UserBundle\Entity\User as BaseUser;
+        use Doctrine\ORM\Mapping as ORM;
 
         /**
-         * @ORM\ManyToMany(targetEntity="MyProject\MyBundle\Entity\Group")
-         * @ORM\JoinTable(name="fos_user_user_group",
-         *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-         *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
-         * )
+         * @ORM\Entity
+         * @ORM\Table(name="fos_user")
          */
-        protected $groups;
-    }
+        class User extends BaseUser
+        {
+            /**
+             * @ORM\Id
+             * @ORM\Column(type="integer")
+             * @ORM\GeneratedValue(strategy="AUTO")
+             */
+            protected $id;
+
+            /**
+             * @ORM\ManyToMany(targetEntity="MyProject\MyBundle\Entity\Group")
+             * @ORM\JoinTable(name="fos_user_user_group",
+             *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+             *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+             * )
+             */
+            protected $groups;
+        }
+
+    .. code-block:: yaml
+
+        # src/Acme/UserBundle/Resources/config/doctrine/User.orm.yml
+        Acme\UserBundle\Entity\User:
+            type:  entity
+            table: fos_user
+            id:
+                id:
+                    type: integer
+                    generator:
+                        strategy: AUTO
+            manyToMany:
+                groups:
+                    targetEntity: Group
+                    joinTable:
+                        name: fos_user_group
+                        joinColumns:
+                            user_id:
+                                referencedColumnName: id
+                        inverseJoinColumns:
+                            group_id:
+                                referencedColumnName: id
+
+    .. code-block:: xml
+
+        <?xml version="1.0" encoding="UTF-8"?>
+        <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+            <entity name="Acme\UserBundle\Entity\User" table="fos_user">
+                <id name="id" column="id" type="integer">
+                    <generator strategy="AUTO" />
+                </id>
+                <many-to-many field="groups" target-entity="Group">
+                    <join-table name="fos_user_group">
+                        <join-columns>
+                            <join-column name="user_id" referenced-column-name="id"/>
+                        </join-columns>
+                        <inverse-join-columns>
+                            <join-column name="group_id" referenced-column-name="id" />
+                        </inverse-join-columns>
+                    </join-table>
+                </many-to-many>
+            </entity>
+        </doctrine-mapping>
 
 b) MongoDB User-Group mapping
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
