@@ -21,10 +21,10 @@ and register it as a service:
 
 .. code-block:: yaml
 
-    # app/config/config.yml
+    # app/config/services.yml
     services:
-        my_canonicalizer:
-            class: Acme\UserBundle\Util\CustomCanonicalizer
+        app.my_canonicalizer:
+            class: AppBundle\Util\CustomCanonicalizer
             public: false
 
 
@@ -36,8 +36,8 @@ You can now configure FOSUserBundle to use your own implementation:
     fos_user:
         # ...
         service:
-            email_canonicalizer:    my_canonicalizer
-            username_canonicalizer: my_canonicalizer
+            email_canonicalizer:    app.my_canonicalizer
+            username_canonicalizer: app.my_canonicalizer
 
 You can of course use different services for each field if you don't want
 to use the same logic.

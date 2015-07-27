@@ -69,8 +69,8 @@ update your ``fos_user`` config as follows:
     fos_user:
         #...
         from_email:
-            address:        noreply@acmedemo.com
-            sender_name:    Acme Demo App
+            address:        noreply@example.com
+            sender_name:    Demo App
 
 The bundle also provides the flexibility of allowing you to configure the sender
 email address for the emails individually.
@@ -86,8 +86,8 @@ email update your ``fos_user`` config as follows:
         registration:
             confirmation:
                 from_email:
-                    address:        registration@acmedemo.com
-                    sender_name:    Acme Demo Registration
+                    address:        registration@example.com
+                    sender_name:    Demo Registration
 
 You can similarly update the ``fos_user`` config to change the sender email address for
 the password reset request email:
@@ -100,8 +100,8 @@ the password reset request email:
         resetting:
             email:
                 from_email:
-                    address:        resetting@acmedemo.com
-                    sender_name:    Acme Demo Resetting
+                    address:        resetting@example.com
+                    sender_name:    Demo Resetting
 
 Sending HTML mails
 ------------------
@@ -125,11 +125,11 @@ Here is how you can use it:
             mailer: fos_user.mailer.twig_swift
         resetting:
             email:
-                template: AcmeDemoBundle:User:resetting.email.twig
+                template: email/password_resetting.email.twig
 
 .. code-block:: html+jinja
 
-    {# src/Acme/DemoBundle/Resources/views/User/resetting.email.twig #}
+    {# app/Resources/views/email/password_resetting.email.twig #}
 
     {% block subject %}Resetting your password{% endblock %}
 
@@ -140,7 +140,7 @@ Here is how you can use it:
     You can reset your password by accessing {{ confirmationUrl }}
 
     Greetings,
-    the Acme team
+    the App team
     {% endautoescape %}
     {% endblock %}
 
@@ -150,7 +150,7 @@ Here is how you can use it:
         Including a template as done here allows keeping things DRY by using
         the template inheritance in it
     #}
-    {% include 'AcmeDemoBundle:User:resetting_email.html.twig' %}
+    {% include 'email/password_resetting.html.twig' %}
     {% endblock %}
 
 .. note::
@@ -208,7 +208,7 @@ An example is listed below.
     fos_user:
         # ...
         service:
-            mailer: acme.mailer
+            mailer: app.custom_fos_user_mailer
 
 To see an example of a working implementation of the ``MailerInterface``
 see the `ZetaMailer`_ class of the `ZetaWebmailBundle`_. This implementation

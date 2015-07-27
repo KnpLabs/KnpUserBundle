@@ -19,9 +19,9 @@ bundle named ``AcmeUserBundle`` that declares itself a child of FOSUserBundle.
 
 .. code-block:: php
 
-    // src/Acme/UserBundle/AcmeUserBundle.php
+    // src/AppBundle/AcmeUserBundle.php
 
-    namespace Acme\UserBundle;
+    namespace AppBundle;
 
     use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -49,9 +49,9 @@ the base controller and adds logging a new user registration to it.
 
 .. code-block:: php
 
-    // src/Acme/UserBundle/Controller/RegistrationController.php
+    // src/AppBundle/Controller/RegistrationController.php
 
-    namespace Acme\UserBundle\Controller;
+    namespace AppBundle\Controller;
 
     use Symfony\Component\HttpFoundation\RedirectResponse;
     use FOS\UserBundle\Controller\RegistrationController as BaseController;

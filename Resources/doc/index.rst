@@ -93,19 +93,15 @@ to make it easier to create your entity. Here is how you use it:
     When you extend from the mapped superclass provided by the bundle, don't
     redefine the mapping for the other fields as it is provided by the bundle.
 
-Your ``User`` class can live inside any bundle in your application. For example,
-if you work at "Acme" company, then you might create a bundle called ``AcmeUserBundle``
-and place your ``User`` class in it.
-
 In the following sections, you'll see examples of how your ``User`` class should
 look, depending on how you're storing your users (Doctrine ORM, MongoDB ODM,
 or CouchDB ODM).
 
 .. note::
 
-    The doc uses a bundle named ``AcmeUserBundle``. If you want to use the same
-    name, you need to register it in your kernel. But you can of course place
-    your user class in the bundle you want.
+    The doc uses a bundle named ``AppBundle`` according to the Symfony best
+    practices. However, you can of course place your user class in the bundle
+    you want.
 
 .. caution::
 
@@ -124,10 +120,9 @@ start:
 
     .. code-block:: php-annotations
 
-        <?php
-        // src/Acme/UserBundle/Entity/User.php
+        // src/AppBundle/Entity/User.php
 
-        namespace Acme\UserBundle\Entity;
+        namespace AppBundle\Entity;
 
         use FOS\UserBundle\Model\User as BaseUser;
         use Doctrine\ORM\Mapping as ORM;
@@ -154,8 +149,8 @@ start:
 
     .. code-block:: yaml
 
-        # src/Acme/UserBundle/Resources/config/doctrine/User.orm.yml
-        Acme\UserBundle\Entity\User:
+        # src/AppBundle/Resources/config/doctrine/User.orm.yml
+        AppBundle\Entity\User:
             type:  entity
             table: fos_user
             id:
@@ -167,12 +162,12 @@ start:
     .. code-block:: xml
 
         <?xml version="1.0" encoding="utf-8"?>
-        <!-- src/Acme/UserBundle/Resources/config/doctrine/User.orm.xml -->
+        <!-- src/AppBundle/Resources/config/doctrine/User.orm.xml -->
         <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-            <entity name="Acme\UserBundle\Entity\User" table="fos_user">
+            <entity name="AppBundle\Entity\User" table="fos_user">
                 <id name="id" type="integer" column="id">
                     <generator strategy="AUTO"/>
                 </id>
@@ -191,9 +186,9 @@ class should live in the ``Document`` namespace of your bundle and look like
 this to start::
 
     <?php
-    // src/Acme/UserBundle/Document/User.php
+    // src/AppBundle/Document/User.php
 
-    namespace Acme\UserBundle\Document;
+    namespace AppBundle\Document;
 
     use FOS\UserBundle\Model\User as BaseUser;
     use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -223,9 +218,9 @@ class should live in the ``CouchDocument`` namespace of your bundle and look
 like this to start::
 
     <?php
-    // src/Acme/UserBundle/CouchDocument/User.php
+    // src/AppBundle/CouchDocument/User.php
 
-    namespace Acme\UserBundle\CouchDocument;
+    namespace AppBundle\CouchDocument;
 
     use FOS\UserBundle\Model\User as BaseUser;
     use Doctrine\ODM\CouchDB\Mapping\Annotations as CouchDB;
@@ -356,7 +351,7 @@ of datastore you are using.
         fos_user:
             db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
             firewall_name: main
-            user_class: Acme\UserBundle\Entity\User
+            user_class: AppBundle\Entity\User
 
     .. code-block:: xml
 
@@ -366,7 +361,7 @@ of datastore you are using.
         <fos_user:config
             db-driver="orm"
             firewall-name="main"
-            user-class="Acme\UserBundle\Entity\User"
+            user-class="AppBundle\Entity\User"
         />
 
 Only three configuration values are required to use the bundle:

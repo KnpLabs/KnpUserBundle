@@ -5,7 +5,6 @@ All available configuration options are listed below with their default values.
 
 .. code-block:: yaml
 
-    # app/config/config.yml
     fos_user:
         db_driver:              ~ # Required
         firewall_name:          ~ # Required

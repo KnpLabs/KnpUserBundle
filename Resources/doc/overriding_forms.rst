@@ -12,7 +12,7 @@ class or you decide you want to add a few options to the registration form you
 will find that you need to override the forms in the bundle.
 
 Suppose that you have created an ORM user class with the following class name,
-``Acme\UserBundle\Entity\User``. In this class, you have added a ``name`` property
+``AppBundle\Entity\User``. In this class, you have added a ``name`` property
 because you would like to save the user's name as well as their username and
 email address. Now, when a user registers for your site they should enter in their
 name as well as their username, email and password. Below is an example ``$name``
@@ -20,7 +20,7 @@ property and its validators.
 
 .. code-block:: php
 
-    // src/Acme/UserBundle/Entity/User.php
+    // src/AppBundle/Entity/User.php
 
     use FOS\UserBundle\Entity\User as BaseUser;
     use Doctrine\ORM\Mapping as ORM;
@@ -68,14 +68,14 @@ the form type hierarchy and then adds the custom ``name`` field.
 
 .. code-block:: php
 
-    // src/Acme/UserBundle/Form/Type/RegistrationFormType.php
+    // src/AppBundle/Form/RegistrationType.php
 
-    namespace Acme\UserBundle\Form\Type;
+    namespace AppBundle\Form;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
 
-    class RegistrationFormType extends AbstractType
+    class RegistrationType extends AbstractType
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
@@ -89,7 +89,7 @@ the form type hierarchy and then adds the custom ``name`` field.
 
         public function getName()
         {
-            return 'acme_user_registration';
+            return 'app_user_registration';
         }
     }
 
@@ -111,16 +111,16 @@ Below is an example of configuring your form type as a service:
 
     .. code-block:: yaml
 
-        # src/Acme/UserBundle/Resources/config/services.yml
+        # app/config/services.yml
         services:
-            acme_user.registration.form.type:
-                class: Acme\UserBundle\Form\Type\RegistrationFormType
+            app.form.registration:
+                class: AppBundle\Form\RegistrationType
                 tags:
-                    - { name: form.type, alias: acme_user_registration }
+                    - { name: form.type, alias: app_user_registration }
 
     .. code-block:: xml
 
-        <!-- src/Acme/UserBundle/Resources/config/services.xml -->
+        <!-- app/config/services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://symfony.com/schema/dic/services"
@@ -129,8 +129,8 @@ Below is an example of configuring your form type as a service:
 
             <services>
 
-                <service id="acme_user.registration.form.type" class="Acme\UserBundle\Form\Type\RegistrationFormType">
-                    <tag name="form.type" alias="acme_user_registration" />
+                <service id="app.form.registration" class="AppBundle\Form\RegistrationType">
+                    <tag name="form.type" alias="app_user_registration" />
                 </service>
 
             </services>
@@ -148,7 +148,7 @@ changing the registration form type in YAML.
         # ...
         registration:
             form:
-                type: acme_user_registration
+                type: app_user_registration
 
 Note how the ``alias`` value used in your form type's service configuration tag
 is used in the bundle configuration to tell the FOSUserBundle to use your custom
