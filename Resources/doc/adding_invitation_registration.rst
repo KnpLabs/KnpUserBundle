@@ -73,7 +73,7 @@ Next we map our ``Invitation`` entity to our ``User`` with a one-to-one associat
     use Symfony\Component\Validator\Constraints as Assert;
 
     /** @ORM\Entity */
-    class User extends \FOS\UserBundle\Entity\User
+    class User extends \FOS\UserBundle\Model\User
     {
         /** @ORM\Id @ORM\Column(type="integer") @ORM\GeneratedValue(strategy="AUTO") */
         protected $id;
