@@ -68,14 +68,14 @@ the form type hierarchy and then adds the custom ``name`` field.
 
 .. code-block:: php
 
-    // src/AppBundle/Form/Type/RegistrationFormType.php
+    // src/AppBundle/Form/RegistrationType.php
 
-    namespace AppBundle\Form\Type;
+    namespace AppBundle\Form;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
 
-    class RegistrationFormType extends AbstractType
+    class RegistrationType extends AbstractType
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
@@ -89,7 +89,7 @@ the form type hierarchy and then adds the custom ``name`` field.
 
         public function getName()
         {
-            return 'acme_user_registration';
+            return 'app_user_registration';
         }
     }
 
@@ -113,14 +113,14 @@ Below is an example of configuring your form type as a service:
 
         # app/config/services.yml
         services:
-            acme_user.registration.form.type:
-                class: AppBundle\Form\Type\RegistrationFormType
+            app.form.registration:
+                class: AppBundle\Form\RegistrationType
                 tags:
-                    - { name: form.type, alias: acme_user_registration }
+                    - { name: form.type, alias: app_user_registration }
 
     .. code-block:: xml
 
-        <!-- app/Resources/config/services.xml -->
+        <!-- app/config/services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://symfony.com/schema/dic/services"
@@ -129,8 +129,8 @@ Below is an example of configuring your form type as a service:
 
             <services>
 
-                <service id="acme_user.registration.form.type" class="AppBundle\Form\Type\RegistrationFormType">
-                    <tag name="form.type" alias="acme_user_registration" />
+                <service id="app.form.registration" class="AppBundle\Form\RegistrationType">
+                    <tag name="form.type" alias="app_user_registration" />
                 </service>
 
             </services>
@@ -148,7 +148,7 @@ changing the registration form type in YAML.
         # ...
         registration:
             form:
-                type: acme_user_registration
+                type: app_user_registration
 
 Note how the ``alias`` value used in your form type's service configuration tag
 is used in the bundle configuration to tell the FOSUserBundle to use your custom
@@ -248,7 +248,7 @@ configuring your form handler as a service:
 
         # app/config/services.yml
         services:
-            acme_user.form.handler.registration:
+            app.form.handler.registration:
                 class: AppBundle\Form\Handler\RegistrationFormHandler
                 arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator"]
                 scope: request
@@ -265,7 +265,7 @@ configuring your form handler as a service:
 
             <services>
 
-                <service id="acme_user.form.handler.registration" class="AppBundle\Form\Handler\RegistrationFormHandler" scope="request" public="false">
+                <service id="app.form.handler.registration" class="AppBundle\Form\Handler\RegistrationFormHandler" scope="request" public="false">
                     <argument type="service" id="fos_user.registration.form" />
                     <argument type="service" id="request" />
                     <argument type="service" id="fos_user.user_manager" />
@@ -291,7 +291,7 @@ left to do is update the FOSUserBundle configuration.
         # ...
         registration:
             form:
-                handler: acme_user.form.handler.registration
+                handler: app.form.handler.registration
 
 Note how the ``id`` of your configured service is used in the bundle configuration
 to tell the FOSUserBundle to use your custom form handler.

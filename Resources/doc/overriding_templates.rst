@@ -65,20 +65,20 @@ to override the one provided by the bundle.
 
 .. code-block:: html+jinja
 
-    {% extends 'AcmeDemoBundle::layout.html.twig' %}
+    {% extends 'layout.html.twig' %}
 
-    {% block title %}Acme Demo Application{% endblock %}
+    {% block title %}Demo Application{% endblock %}
 
     {% block content %}
         {% block fos_user_content %}{% endblock %}
     {% endblock %}
 
-This example extends the layout template from a fictional application bundle named
-``AcmeDemoBundle``. The ``content`` block is where the main content of each page is rendered.
-This is why the ``fos_user_content`` block has been placed inside of it. This will
-lead to the desired effect of having the output from the FOSUserBundle actions
-integrated into our applications layout, preserving the look and feel of the
-application.
+This example extends the layout template from the layout of your app. The
+``content`` block is where the main content of each page is rendered. This
+is why the ``fos_user_content`` block has been placed inside of it. This
+will lead to the desired effect of having the output from the FOSUserBundle
+actions integrated into our applications layout, preserving the look and
+feel of the application.
 
 **a) Define New Template In app/Resources**
 
