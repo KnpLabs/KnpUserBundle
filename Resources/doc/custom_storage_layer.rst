@@ -27,16 +27,16 @@ Configuring FOSUserBundle to use your implementation
 ----------------------------------------------------
 
 To use your own implementation, create a service for your user manager. The
-following example will assume that its id is ``acme_user.custom_manager``.
+following example will assume that its id is ``app.custom_user_manager``.
 
 .. code-block:: yaml
 
-    #app/config/config.yml
+    # app/config/config.yml
     fos_user:
         db_driver: custom  # custom means that none of the built-in implementation is used
-        user_class: Acme\UserBundle\Model\CustomUser
+        user_class: AppBundle\Model\CustomUser
         service:
-            user_manager: acme_user.custom_manager
+            user_manager: app.custom_user_manager
         firewall_name: main
 
 .. note::

@@ -12,7 +12,7 @@ class or you decide you want to add a few options to the registration form you
 will find that you need to override the forms in the bundle.
 
 Suppose that you have created an ORM user class with the following class name,
-``Acme\UserBundle\Entity\User``. In this class, you have added a ``name`` property
+``AppBundle\Entity\User``. In this class, you have added a ``name`` property
 because you would like to save the user's name as well as their username and
 email address. Now, when a user registers for your site they should enter in their
 name as well as their username, email and password. Below is an example ``$name``
@@ -20,7 +20,7 @@ property and its validators.
 
 .. code-block:: php
 
-    // src/Acme/UserBundle/Entity/User.php
+    // src/AppBundle/Entity/User.php
 
     use FOS\UserBundle\Entity\User as BaseUser;
     use Doctrine\ORM\Mapping as ORM;
@@ -68,9 +68,9 @@ the form type hierarchy and then adds the custom ``name`` field.
 
 .. code-block:: php
 
-    // src/Acme/UserBundle/Form/Type/RegistrationFormType.php
+    // src/AppBundle/Form/Type/RegistrationFormType.php
 
-    namespace Acme\UserBundle\Form\Type;
+    namespace AppBundle\Form\Type;
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
@@ -111,16 +111,16 @@ Below is an example of configuring your form type as a service:
 
     .. code-block:: yaml
 
-        # src/Acme/UserBundle/Resources/config/services.yml
+        # app/config/services.yml
         services:
             acme_user.registration.form.type:
-                class: Acme\UserBundle\Form\Type\RegistrationFormType
+                class: AppBundle\Form\Type\RegistrationFormType
                 tags:
                     - { name: form.type, alias: acme_user_registration }
 
     .. code-block:: xml
 
-        <!-- src/Acme/UserBundle/Resources/config/services.xml -->
+        <!-- app/Resources/config/services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://symfony.com/schema/dic/services"
@@ -129,7 +129,7 @@ Below is an example of configuring your form type as a service:
 
             <services>
 
-                <service id="acme_user.registration.form.type" class="Acme\UserBundle\Form\Type\RegistrationFormType">
+                <service id="acme_user.registration.form.type" class="AppBundle\Form\Type\RegistrationFormType">
                     <tag name="form.type" alias="acme_user_registration" />
                 </service>
 
@@ -173,9 +173,9 @@ protected ``onSuccess`` method.
 
 .. code-block:: php
 
-    // src/Acme/UserBundle/Form/Handler/RegistrationFormHandler.php
+    // src/AppBundle/Form/Handler/RegistrationFormHandler.php
 
-    namespace Acme\UserBundle\Form\Handler;
+    namespace AppBundle\Form\Handler;
 
     use FOS\UserBundle\Form\Handler\RegistrationFormHandler as BaseHandler;
     use FOS\UserBundle\Model\UserInterface;
@@ -206,9 +206,9 @@ successful submission.
 
 .. code-block:: php
 
-    // src/Acme/UserBundle/Form/Handler/RegistrationFormHandler.php
+    // src/AppBundle/Form/Handler/RegistrationFormHandler.php
 
-    namespace Acme\UserBundle\Form\Handler;
+    namespace AppBundle\Form\Handler;
 
     use FOS\UserBundle\Form\Handler\RegistrationFormHandler as BaseHandler;
 
@@ -246,17 +246,17 @@ configuring your form handler as a service:
 
     .. code-block:: yaml
 
-        # src/Acme/UserBundle/Resources/config/services.yml
+        # app/config/services.yml
         services:
             acme_user.form.handler.registration:
-                class: Acme\UserBundle\Form\Handler\RegistrationFormHandler
+                class: AppBundle\Form\Handler\RegistrationFormHandler
                 arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator"]
                 scope: request
                 public: false
 
     .. code-block:: xml
 
-        <!-- src/Acme/UserBundle/Resources/config/services.xml -->
+        <!-- app/config/services.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
 
         <container xmlns="http://symfony.com/schema/dic/services"
@@ -265,7 +265,7 @@ configuring your form handler as a service:
 
             <services>
 
-                <service id="acme_user.form.handler.registration" class="Acme\UserBundle\Form\Handler\RegistrationFormHandler" scope="request" public="false">
+                <service id="acme_user.form.handler.registration" class="AppBundle\Form\Handler\RegistrationFormHandler" scope="request" public="false">
                     <argument type="service" id="fos_user.registration.form" />
                     <argument type="service" id="request" />
                     <argument type="service" id="fos_user.user_manager" />

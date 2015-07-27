@@ -26,9 +26,9 @@ Below is an example configuration for enabling groups support.
     fos_user:
         db_driver: orm
         firewall_name: main
-        user_class: Acme\UserBundle\Entity\User
+        user_class: AppBundle\Entity\User
         group:
-            group_class: Acme\UserBundle\Entity\Group
+            group_class: AppBundle\Entity\Group
 
 
     .. code-block:: xml
@@ -37,9 +37,9 @@ Below is an example configuration for enabling groups support.
     <fos_user:config
         db-driver="orm"
         firewall-name="main"
-        user-class="Acme\UserBundle\Entity\User"
+        user-class="AppBundle\Entity\User"
     >
-        <fos_user:group group-class="Acme\UserBundle\Entity\Group" />
+        <fos_user:group group-class="AppBundle\Entity\Group" />
     </fos_user:config>
 
 The Group class
@@ -78,8 +78,8 @@ a) ORM Group class implementation
 
     .. code-block:: yaml
 
-        # src/Acme/UserBundle/Resources/config/doctrine/Group.orm.yml
-        Acme\UserBundle\Entity\Group:
+        # src/AppBundle/Resources/config/doctrine/Group.orm.yml
+        AppBundle\Entity\Group:
             type:  entity
             table: fos_group
             id:
@@ -182,8 +182,8 @@ a) ORM User-Group mapping
 
     .. code-block:: yaml
 
-        # src/Acme/UserBundle/Resources/config/doctrine/User.orm.yml
-        Acme\UserBundle\Entity\User:
+        # src/AppBundle/Resources/config/doctrine/User.orm.yml
+        AppBundle\Entity\User:
             type:  entity
             table: fos_user
             id:
@@ -210,7 +210,7 @@ a) ORM User-Group mapping
                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                           xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-            <entity name="Acme\UserBundle\Entity\User" table="fos_user">
+            <entity name="AppBundle\Entity\User" table="fos_user">
                 <id name="id" column="id" type="integer">
                     <generator strategy="AUTO" />
                 </id>
