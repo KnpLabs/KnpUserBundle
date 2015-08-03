@@ -45,6 +45,6 @@
         }
     },
     "support": {
-        "docs": "https://symfony.com/doc/1.3.x/bundles/FOSUserBundle/index.html"
+        "docs": "https://symfony.com/doc/master/bundles/FOSUserBundle/index.html"
     }
 }
