@@ -15,8 +15,6 @@ group:
 security:
     login:
         username: "Erabiltzaile izena:"
-        username_email: "Erabiltzaile izena edo e-posta:"
-        email: "E-posta:"
         password: "Pasahitza:"
         remember_me: Oroitu
         submit: Sartu
