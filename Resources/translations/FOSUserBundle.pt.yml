@@ -14,8 +14,8 @@ group:
 # Security
 security:
     login:
-        username: "Utilizador:"
-        password: "Password:"
+        username: Utilizador
+        password: Password
         remember_me: Lembrar-me
         submit: Entrar
 
@@ -84,11 +84,11 @@ layout:
 
 # Form field labels
 form:
-    group_name: "Nome do Grupo:"
-    username: "Utilizador:"
-    email: "Email:"
-    current_password: "Password atual:"
-    password: "Password:"
-    password_confirmation: "Verificar:"
-    new_password: "Nova password:"
-    new_password_confirmation: "Verificar:"
+    group_name: Nome do Grupo
+    username: Utilizador
+    email: Email
+    current_password: Password atual
+    password: Password
+    password_confirmation: Verificar
+    new_password: Nova password
+    new_password_confirmation: Verificar
