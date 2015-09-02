@@ -85,11 +85,11 @@ layout:
 
 # Form field labels
 form:
-    group_name: "Nome gruppo:"
-    username: "Username:"
-    email: "Email:"
-    current_password: "Password corrente:"
-    password: "Password:"
-    password_confirmation: "Ripeti password:"
-    new_password: "Nuova password:"
-    new_password_confirmation: "Ripeti password:"
+    group_name: Nome gruppo
+    username: Username
+    email: Email
+    current_password: Password corrente
+    password: Password
+    password_confirmation: Ripeti password
+    new_password: Nuova password
+    new_password_confirmation: Ripeti password
