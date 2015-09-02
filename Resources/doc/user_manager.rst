@@ -56,6 +56,7 @@ users.
 - ``findUserByEmail($email)``
 - ``findUserByUsernameOrEmail($value)``  (check if the value looks like an email to choose)
 - ``findUserByConfirmationToken($token)``
+- ``findUserBy(array('id'=>$id))``
 - ``findUsers()``
 
 To save a user object, you can use the ``updateUser`` method of the user manager.
