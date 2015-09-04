@@ -202,9 +202,7 @@ abstract class User implements UserInterface, GroupableInterface
     }
 
     /**
-     * Returns the user unique id.
-     *
-     * @return mixed
+     * {@inheritDoc}
      */
     public function getId()
     {
