@@ -68,7 +68,7 @@ resetting:
     flash:
         success: Hasło zostało zresetowane
     email:
-        subject: Witaj %username%!
+        subject: Resetowanie hasła
         message: |
             Cześć %username%!
 
