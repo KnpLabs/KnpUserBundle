@@ -140,6 +140,23 @@ class RegistrationController extends Controller
 
         return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
             'user' => $user,
+            'targetUrl' => $this->getTargetUrlFromSession(),
         ));
+    }
+
+    private function getTargetUrlFromSession()
+    {
+        // Set the SecurityContext for Symfony <2.6
+        if (interface_exists('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')) {
+            $tokenStorage = $this->get('security.token_storage');
+        } else {
+            $tokenStorage = $this->get('security.context');
+        }
+
+        $key = sprintf('_security.%s.target_path', $tokenStorage->getToken()->getProviderKey());
+
+        if ($this->get('session')->has($key)) {
+            return $this->get('session')->get($key);
+        }
     }
 }
