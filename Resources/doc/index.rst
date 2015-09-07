@@ -118,6 +118,7 @@ start:
 
     .. code-block:: php-annotations
 
+        <?php
         // src/AppBundle/Entity/User.php
 
         namespace AppBundle\Entity;
@@ -174,7 +175,7 @@ start:
 
 .. caution::
 
-    ``user`` is a reserved keyword in SQL so you cannot use it as table name.
+    ``user`` is a reserved keyword in the SQL standard. If you need to use reserved words, surround them with backticks, *e.g.* ``@ORM\Table(name="`user`")``
 
 b) MongoDB User class
 .....................
