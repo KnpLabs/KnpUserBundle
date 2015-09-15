@@ -1,7 +1,7 @@
 Changelog
 =========
 
-### 2.0.0 (2014-XX-XX)
+### 2.0.0 (2015-XX-XX)
 
 * [BC break] The deprecated entity classes have been removed.
 * The minimum requirement for Symfony has been bumped to 2.3 (older versions are already EOLed).
@@ -10,6 +10,7 @@ Changelog
   variable rather than an error message.
 * [BC break] The templating engine configuration has been removed, as well as the related code.
 * [BC break] Changed the XML namespace to `http://friendsofsymfony.github.io/schema/dic/user`
+* [BC break] Added `UserInterface::getId`.
 
 ### 2.0.0-alpha1 (2014-09-26)
 
