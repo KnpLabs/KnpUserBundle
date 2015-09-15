@@ -1,7 +1,11 @@
 Changelog
 =========
 
-### 2.0.0 (2015-XX-XX)
+### 2.0.0-alpha3 (2015-09-15)
+
+* Reverted the removed of the `expired` and `credentialsExpired` properties as the BC break could lead to corrupted objects being created if server sessions are not cleared when upgrading the bundle.
+
+### 2.0.0-alpha2 (2015-09-15)
 
 * [BC break] The deprecated entity classes have been removed.
 * The minimum requirement for Symfony has been bumped to 2.3 (older versions are already EOLed).
@@ -11,6 +15,8 @@ Changelog
 * [BC break] The templating engine configuration has been removed, as well as the related code.
 * [BC break] Changed the XML namespace to `http://friendsofsymfony.github.io/schema/dic/user`
 * [BC break] Added `UserInterface::getId`.
+* [BC break][Reverted] Removed unused properties `expired` and `credentialsExpired` including corresponding methods. This may break code,
+   which makes use of this methods, extending classes, and/or existing installations because of missing mappings for required db fields.
 
 ### 2.0.0-alpha1 (2014-09-26)
 
