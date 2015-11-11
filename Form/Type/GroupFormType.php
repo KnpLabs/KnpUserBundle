@@ -47,7 +47,13 @@ class GroupFormType extends AbstractType
         $this->configureOptions($resolver);
     }
 
+    // BC for SF < 3.0
     public function getName()
+    {
+        return $this->getBlockPrefix();
+    }
+
+    public function getBlockPrefix()
     {
         return 'fos_user_group';
     }
