@@ -20,6 +20,7 @@ abstract class TypeTestCase extends BaseTypeTestCase
         parent::setUp();
 
         $this->factory = Forms::createFormFactoryBuilder()
+            ->addTypes($this->getTypes())
             ->addExtensions($this->getExtensions())
             ->addTypeExtensions($this->getTypeExtensions())
             ->getFormFactory();
@@ -30,5 +31,10 @@ abstract class TypeTestCase extends BaseTypeTestCase
     protected function getTypeExtensions()
     {
         return array();
+    }
+
+    protected function getTypes()
+    {
+       return array();
     }
 }
