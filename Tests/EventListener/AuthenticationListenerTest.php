@@ -41,6 +41,9 @@ class AuthenticationListenerTest extends \PHPUnit_Framework_TestCase
         $this->listener = new AuthenticationListener($loginManager, self::FIREWALL_NAME);
     }
 
+    /**
+     * @group legacy
+     */
     public function testAuthenticateLegacy()
     {
         $this->event->setDispatcher($this->eventDispatcher);
