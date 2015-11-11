@@ -4,6 +4,7 @@ namespace FOS\UserBundle\Tests\EventListener;
 use FOS\UserBundle\EventListener\FlashListener;
 use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\EventDispatcher\Event;
+use Symfony\Component\HttpKernel\Kernel;
 
 class FlashListenerTest extends \PHPUnit_Framework_TestCase
 {
@@ -35,6 +36,10 @@ class FlashListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAddSuccessFlashLegacy()
     {
+        if (3 <= Kernel::MAJOR_VERSION) {
+            $this->markTestSkipped('Legacy test which requires Symfony <3.0.');
+        }
+
         $this->event->setName(FOSUserEvents::CHANGE_PASSWORD_COMPLETED);
 
         $this->listener->addSuccessFlash($this->event);
