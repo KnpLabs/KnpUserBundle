@@ -13,6 +13,7 @@ class CreateUserCommandTest extends \PHPUnit_Framework_TestCase
     {
         $commandTester = $this->createCommandTester($this->getContainer('user', 'pass', 'email', true, false));
         $exitCode = $commandTester->execute(array(
+            'command' => 'fos:user:create', // BC for SF <2.4 see https://github.com/symfony/symfony/pull/8626
             'username' => 'user',
             'email' => 'email',
             'password' => 'pass',
@@ -57,7 +58,9 @@ class CreateUserCommandTest extends \PHPUnit_Framework_TestCase
         $commandTester = $this->createCommandTester(
             $this->getContainer('user', 'pass', 'email', true, false), $application
         );
-        $exitCode = $commandTester->execute(array(), array(
+        $exitCode = $commandTester->execute(array(
+            'command' => 'fos:user:create', // BC for SF <2.4 see https://github.com/symfony/symfony/pull/8626
+        ), array(
             'decorated' => false,
             'interactive' => true,
         ));
