@@ -5,7 +5,6 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\EventListener\AuthenticationListener;
 use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpKernel\Kernel;
 
 class AuthenticationListenerTest extends \PHPUnit_Framework_TestCase
 {
@@ -47,7 +46,7 @@ class AuthenticationListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function testAuthenticateLegacy()
     {
-        if (3 <= Kernel::MAJOR_VERSION) {
+        if (!method_exists($this->event, 'setDispatcher')) {
             $this->markTestSkipped('Legacy test which requires Symfony <3.0.');
         }
 
