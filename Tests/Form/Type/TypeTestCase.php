@@ -35,6 +35,6 @@ abstract class TypeTestCase extends BaseTypeTestCase
 
     protected function getTypes()
     {
-       return array();
+        return array();
     }
 }
