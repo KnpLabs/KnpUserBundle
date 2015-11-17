@@ -19,7 +19,7 @@ class CreateUserCommandTest extends \PHPUnit_Framework_TestCase
             'password' => 'pass',
         ), array(
             'decorated' => false,
-            'interactive' => true,
+            'interactive' => false,
         ));
 
         $this->assertEquals(0, $exitCode, 'Returns 0 in case of success');
