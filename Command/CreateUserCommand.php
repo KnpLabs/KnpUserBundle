@@ -135,7 +135,7 @@ EOT
     }
 
     // BC for SF <2.5
-    protected function legacyInteract(InputInterface $input, OutputInterface $output)
+    private function legacyInteract(InputInterface $input, OutputInterface $output)
     {
         if (!$input->getArgument('username')) {
             $username = $this->getHelper('dialog')->askAndValidate(
