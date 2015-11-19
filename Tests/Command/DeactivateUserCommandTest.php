@@ -33,9 +33,6 @@ class DeactivateUserCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/User "user" has been deactivated/', $commandTester->getDisplay());
     }
 
-    /**
-     * @group legacy
-     */
     public function testExecuteInteractiveWithDialogHelper()
     {
         if (class_exists('Symfony\Component\Console\Helper\QuestionHelper')) {

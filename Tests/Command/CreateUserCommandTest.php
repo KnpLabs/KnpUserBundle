@@ -35,9 +35,6 @@ class CreateUserCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/Created user user/', $commandTester->getDisplay());
     }
 
-    /**
-     * @group legacy
-     */
     public function testExecuteInteractiveWithDialogHelper()
     {
         if (class_exists('Symfony\Component\Console\Helper\QuestionHelper')) {
