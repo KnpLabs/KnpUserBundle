@@ -93,6 +93,35 @@ the form type hierarchy and then adds the custom ``name`` field.
         }
     }
 
+    //
+    // If you are using Symfony >=2.8 the form type should look slightly different.
+    //
+
+    // src/AppBundle/Form/RegistrationType.php
+
+    namespace AppBundle\Form;
+
+    use Symfony\Component\Form\AbstractType;
+    use Symfony\Component\Form\FormBuilderInterface;
+
+    class RegistrationType extends AbstractType
+    {
+        public function buildForm(FormBuilderInterface $builder, array $options)
+        {
+            $builder->add('name');
+        }
+
+        public function getParent()
+        {
+            return 'FOS\UserBundle\Form\Type\RegistrationFormType';
+        }
+
+        public function getBlockPrefix()
+        {
+            return 'app_user_registration';
+        }
+    }
+
 
 .. note::
 
@@ -117,6 +146,8 @@ Below is an example of configuring your form type as a service:
                 class: AppBundle\Form\RegistrationType
                 tags:
                     - { name: form.type, alias: app_user_registration }
+                    # if you are using Symfony >=2.8 you can omit the alias
+                    # - { name: "form.type" }
 
     .. code-block:: xml
 
@@ -131,6 +162,8 @@ Below is an example of configuring your form type as a service:
 
                 <service id="app.form.registration" class="AppBundle\Form\RegistrationType">
                     <tag name="form.type" alias="app_user_registration" />
+                    <!-- if you are using Symfony >=2.8 you can omit the alias -->
+                    <!-- <tag name="form.type" /> -->
                 </service>
 
             </services>
@@ -149,6 +182,8 @@ changing the registration form type in YAML.
         registration:
             form:
                 type: app_user_registration
+                # if you are using Symfony >=2.8 you should use the FQCN instead
+                # type: AppBundle\Form\RegistrationType
 
 Note how the ``alias`` value used in your form type's service configuration tag
 is used in the bundle configuration to tell the FOSUserBundle to use your custom
