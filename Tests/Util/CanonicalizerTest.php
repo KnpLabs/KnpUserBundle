@@ -28,7 +28,7 @@ class CanonicalizerTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array('FOO', 'foo'),
-            array(chr(171), '?'),
+            array(chr(171), PHP_VERSION_ID < 50600 ? chr(171) : '?'),
         );
     }
 }
