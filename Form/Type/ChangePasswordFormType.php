@@ -51,6 +51,8 @@ class ChangePasswordFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => $this->class,
+            'csrf_token_id' => 'change_password',
+            // BC for SF < 2.8
             'intention'  => 'change_password',
         ));
     }
