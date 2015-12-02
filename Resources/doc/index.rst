@@ -283,6 +283,8 @@ in your application:
                 form_login:
                     provider: fos_userbundle
                     csrf_provider: security.csrf.token_manager # Use form.csrf_provider instead for Symfony <2.4
+                    # if you are using Symfony >=2.8 you should use csrf_token_generator instead
+                    # csrf_token_generator: security.csrf.token_manager
 
                 logout:       true
                 anonymous:    true
