@@ -283,6 +283,8 @@ in your application:
                 form_login:
                     provider: fos_userbundle
                     csrf_provider: security.csrf.token_manager # Use form.csrf_provider instead for Symfony <2.4
+                    # if you are using Symfony >=2.8 you should use csrf_token_generator instead
+                    # csrf_token_generator: security.csrf.token_manager
 
                 logout:       true
                 anonymous:    true
@@ -415,25 +417,31 @@ For ORM run the following command.
 .. code-block:: bash
 
     $ php app/console doctrine:schema:update --force
+    $ # OR if you are using Symfony >= 2.8 with the new directory structure
+    $ php bin/console doctrine:schema:update --force
 
 For MongoDB users you can run the following command to create the indexes.
 
 .. code-block:: bash
 
     $ php app/console doctrine:mongodb:schema:create --index
+    $ # OR if you are using Symfony >= 2.8 with the new directory structure
+    $ php bin/console doctrine:mongodb:schema:create --index
 
 For Propel 1 users you have to install the `TypehintableBehavior`_
 before to build your model. First, install it:
 
 .. code-block:: bash
 
-    composer require willdurand/propel-typehintable-behavior
+    $ composer require willdurand/propel-typehintable-behavior
 
 You now can run the following command to create the model:
 
 .. code-block:: bash
 
     $ php app/console propel:build
+    $ # OR if you are using Symfony >= 2.8 with the new directory structure
+    $ php bin/console propel:build
 
 .. note::
 
