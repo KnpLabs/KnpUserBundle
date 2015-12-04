@@ -69,7 +69,9 @@ EOT
     protected function interact(InputInterface $input, OutputInterface $output)
     {
         if (!$this->getHelperSet()->has('question')) {
-            return $this->legacyInteract($input, $output);
+            $this->legacyInteract($input, $output);
+
+            return;
         }
 
         $questions = array();

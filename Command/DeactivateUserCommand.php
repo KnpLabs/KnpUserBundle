@@ -60,10 +60,10 @@ EOT
     protected function interact(InputInterface $input, OutputInterface $output)
     {
         if (!$this->getHelperSet()->has('question')) {
-            return $this->legacyInteract($input, $output);
-        }
+            $this->legacyInteract($input, $output);
 
-        $questions = array();
+            return;
+        }
 
         if (!$input->getArgument('username')) {
             $question = new Question('Please choose a username:');
@@ -74,12 +74,9 @@ EOT
 
                 return $username;
             });
-            $questions['username'] = $question;
-        }
-
-        foreach ($questions as $name => $question) {
             $answer = $this->getHelper('question')->ask($input, $output, $question);
-            $input->setArgument($name, $answer);
+
+            $input->setArgument('username', $answer);
         }
     }
 
