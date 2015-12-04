@@ -85,7 +85,7 @@ EOT
      */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        if (!class_exists('Symfony\Component\Console\Helper\QuestionHelper')) {
+        if (!$this->getHelperSet()->has('question')) {
             return $this->legacyInteract($input, $output);
         }
 

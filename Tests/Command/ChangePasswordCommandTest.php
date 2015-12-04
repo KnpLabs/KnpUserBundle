@@ -13,6 +13,7 @@ namespace FOS\UserBundle\Tests\Command;
 
 use FOS\UserBundle\Command\ChangePasswordCommand;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -34,10 +35,13 @@ class ChangePasswordCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/Changed password for user user/', $commandTester->getDisplay());
     }
 
+    /**
+     * @group legacy
+     */
     public function testExecuteInteractiveWithDialogHelper()
     {
-        if (class_exists('Symfony\Component\Console\Helper\QuestionHelper')) {
-            $this->markTestSkipped('Legacy test. The question helper used instead.');
+        if (!class_exists('Symfony\Component\Console\Helper\DialogHelper')) {
+            $this->markTestSkipped('Using the DialogHelper is not possible on Symfony 3+.');
         }
 
         $application = new Application();
@@ -53,7 +57,10 @@ class ChangePasswordCommandTest extends \PHPUnit_Framework_TestCase
             ->method('askHiddenResponseAndValidate')
             ->will($this->returnValue('pass'));
 
-        $application->getHelperSet()->set($dialog, 'dialog');
+        $helperSet = new HelperSet(array(
+            'dialog' => $dialog,
+        ));
+        $application->setHelperSet($helperSet);
 
         $commandTester = $this->createCommandTester($this->getContainer('user', 'pass'), $application);
         $exitCode = $commandTester->execute(array(

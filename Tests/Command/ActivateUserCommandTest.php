@@ -13,6 +13,7 @@ namespace FOS\UserBundle\Tests\Command;
 
 use FOS\UserBundle\Command\ActivateUserCommand;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -33,10 +34,13 @@ class ActivateUserCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/User "user" has been activated/', $commandTester->getDisplay());
     }
 
+    /**
+     * @group legacy
+     */
     public function testExecuteInteractiveWithDialogHelper()
     {
-        if (class_exists('Symfony\Component\Console\Helper\QuestionHelper')) {
-            $this->markTestSkipped('Legacy test. The question helper used instead.');
+        if (!class_exists('Symfony\Component\Console\Helper\DialogHelper')) {
+            $this->markTestSkipped('Using the DialogHelper is not possible on Symfony 3+.');
         }
 
         $application = new Application();
@@ -48,7 +52,10 @@ class ActivateUserCommandTest extends \PHPUnit_Framework_TestCase
             ->method('askAndValidate')
             ->will($this->returnValue('user'));
 
-        $application->getHelperSet()->set($dialog, 'dialog');
+        $helperSet = new HelperSet(array(
+            'dialog' => $dialog,
+        ));
+        $application->setHelperSet($helperSet);
 
         $commandTester = $this->createCommandTester($this->getContainer('user'), $application);
         $exitCode = $commandTester->execute(array(
