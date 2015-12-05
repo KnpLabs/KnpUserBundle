@@ -11,10 +11,10 @@ instance.
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
-            $builder->add('recipient', 'fos_user_username');
+            $builder->add('recipient', 'FOS\UserBundle\Form\Type\UsernameFormType');
 
-            // if you are using Symfony >=2.8 you should use the FQCN instead
-            // $builder->add('recipient', 'FOS\UserBundle\Form\Type\UsernameFormType');
+            // if you are using Symfony < 2.8 you should use the old name instead
+            // $builder->add('recipient', 'fos_user_username');
         }
     }
 

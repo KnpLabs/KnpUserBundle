@@ -16,6 +16,11 @@ application's users. Commands are available for the following tasks:
     You must have correctly installed and configured the FOSUserBundle before
     using these commands.
 
+.. note::
+
+    This documentation references the console as ``bin/console``, which is
+    the Symfony 3 location. If you use Symfony 2.x, use ``app/console`` instead.
+
 Create a User
 -------------
 
@@ -28,8 +33,6 @@ For example if you wanted to create a user with username ``testuser``, with emai
 
 .. code-block:: bash
 
-    $ php app/console fos:user:create testuser test@example.com p@ssword
-    $ # OR if you are using Symfony >= 2.8 with the new directory structure
     $ php bin/console fos:user:create testuser test@example.com p@ssword
 
 If any of the required arguments are not passed to the command, an interactive prompt
@@ -39,8 +42,6 @@ you want to create.
 
 .. code-block:: bash
 
-    $ php app/console fos:user:create testuser
-    $ # OR if you are using Symfony >= 2.8 with the new directory structure
     $ php bin/console fos:user:create testuser
 
 There are two options that you can pass to the command as well. They are
@@ -52,8 +53,6 @@ An example is provided below:
 
 .. code-block:: bash
 
-    $ php app/console fos:user:create adminuser --super-admin
-    $ # OR if you are using Symfony >= 2.8 with the new directory structure
     $ php bin/console fos:user:create adminuser --super-admin
 
 If you specify the ``--inactive`` option, then the user that you create will no be
@@ -61,8 +60,6 @@ able to log in until he is activated.
 
 .. code-block:: bash
 
-    $ php app/console fos:user:create testuser --inactive
-    $ # OR if you are using Symfony >= 2.8 with the new directory structure
     $ php bin/console fos:user:create testuser --inactive
 
 Activate a User
@@ -105,8 +102,6 @@ the second.
 
 .. code-block:: bash
 
-    $ php app/console fos:user:promote testuser ROLE_ADMIN
-    $ # OR if you are using Symfony >= 2.8 with the new directory structure
     $ php bin/console fos:user:promote testuser ROLE_ADMIN
 
 You can promote a user to a super administrator by passing the ``--super`` option
@@ -114,8 +109,6 @@ after specifying the ``username``.
 
 .. code-block:: bash
 
-    $ php app/console fos:user:promote testuser --super
-    $ # OR if you are using Symfony >= 2.8 with the new directory structure
     $ php bin/console fos:user:promote testuser --super
 
 If any of the arguments to the command are not specified then an interactive
@@ -138,8 +131,6 @@ second.
 
 .. code-block:: bash
 
-    $ php app/console fos:user:demote testuser ROLE_ADMIN
-    $ # OR if you are using Symfony >= 2.8 with the new directory structure
     $ php bin/console fos:user:demote testuser ROLE_ADMIN
 
 To revoke the super administrator status of a user, simply pass the ``username`` as
@@ -147,8 +138,6 @@ an argument to the command as well as the ``--super`` option.
 
 .. code-block:: bash
 
-    $ php app/console fos:user:demote testuser --super
-    $ # OR if you are using Symfony >= 2.8 with the new directory structure
     $ php bin/console fos:user:demote testuser --super
 
 If any of the arguments to the command are not specified then an interactive
@@ -167,8 +156,6 @@ password you would like to change and the new ``password``.
 
 .. code-block:: bash
 
-    $ php app/console fos:user:change-password testuser newp@ssword
-    $ # OR if you are using Symfony >= 2.8 with the new directory structure
     $ php bin/console fos:user:change-password testuser newp@ssword
 
 If you do not specify the ``password`` argument then an interactive prompt will

@@ -35,8 +35,14 @@ Below is an example configuration for enabling groups support.
 
         <!-- app/config/config.xml -->
         <?xml version="1.0" encoding="UTF-8" ?>
-        <container xmlns="http://symfony.com/schema/dic/services" xmlns:fos-user="http://friendsofsymfony.github.io/schema/dic/user">
-            <fos_user:config db-driver="orm" firewall-name="main" user-class="AppBundle\Entity\User">
+        <container xmlns="http://symfony.com/schema/dic/services"
+            xmlns:fos-user="http://friendsofsymfony.github.io/schema/dic/user"
+        >
+            <fos_user:config
+                db-driver="orm"
+                firewall-name="main"
+                user-class="AppBundle\Entity\User"
+            >
                 <fos_user:group group-class="AppBundle\Entity\Group" />
             </fos_user:config>
         </container>
