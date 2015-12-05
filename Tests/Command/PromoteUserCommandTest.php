@@ -35,6 +35,9 @@ class PromoteUserCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/Role "role" has been added to user "user"/', $commandTester->getDisplay());
     }
 
+    /**
+     * @group legacy
+     */
     public function testExecuteInteractiveWithDialogHelper()
     {
         if (!class_exists('Symfony\Component\Console\Helper\DialogHelper')) {

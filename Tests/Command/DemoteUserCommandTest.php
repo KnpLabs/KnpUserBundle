@@ -35,6 +35,9 @@ class DemoteUserCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/Role "role" has been removed from user "user"/', $commandTester->getDisplay());
     }
 
+    /**
+     * @group legacy
+     */
     public function testExecuteInteractiveWithDialogHelper()
     {
         if (!class_exists('Symfony\Component\Console\Helper\DialogHelper')) {
