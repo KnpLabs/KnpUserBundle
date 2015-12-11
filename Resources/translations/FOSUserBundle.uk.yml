@@ -14,6 +14,9 @@ group:
 # Security
 "Bad credentials": "Невірне ім'я користувача або пароль"
 
+# Since Symfony 2.6 the error message has changed
+"Bad credentials.": "Невірне ім'я користувача або пароль."
+
 security:
     login:
         username: Ім'я користувача

@@ -14,6 +14,9 @@ group:
 # Security
 "Bad credentials": 用户名或密码不正确
 
+# Since Symfony 2.6 the error message has changed
+"Bad credentials.": 用户名或密码不正确。
+
 security:
     login:
         username: 用户名

@@ -14,6 +14,9 @@ group:
 # Security
 "Bad credentials": Nederīgs lietotājvārds vai parole
 
+# Since Symfony 2.6 the error message has changed
+"Bad credentials.": Nederīgs lietotājvārds vai parole.
+
 security:
     login:
         username: Lietotājvārds
