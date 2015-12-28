@@ -27,6 +27,7 @@ final class LegacyFormHelper
         'Symfony\Component\Form\Extension\Core\Type\EmailType' => 'email',
         'Symfony\Component\Form\Extension\Core\Type\PasswordType' => 'password',
         'Symfony\Component\Form\Extension\Core\Type\RepeatedType' => 'repeated',
+        'Symfony\Component\Form\Extension\Core\Type\TextType' => 'text',
     );
 
     public static function getType($class)
