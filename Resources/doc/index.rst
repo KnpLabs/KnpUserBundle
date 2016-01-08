@@ -458,23 +458,26 @@ of the bundle.
 
 The following documents are available:
 
-- :doc:`/overriding_templates`
-- :doc:`/controller_events`
-- :doc:`/overriding_controllers`
-- :doc:`/overriding_forms`
-- :doc:`/user_manager`
-- :doc:`/command_line_tools`
-- :doc:`/logging_by_username_or_email`
-- :doc:`/form_type`
-- :doc:`/emails`
-- :doc:`/groups`
-- :doc:`/doctrine`
-- :doc:`/overriding_validation`
-- :doc:`/canonicalizer`
-- :doc:`/custom_storage_layer`
-- :doc:`/routing`
-- :doc:`/configuration_reference`
-- :doc:`/adding_invitation_registration`
+.. toctree::
+    :maxdepth: 1
+
+    overriding_templates
+    controller_events
+    overriding_controllers
+    overriding_forms
+    user_manager
+    command_line_tools
+    logging_by_username_or_email
+    form_type
+    emails
+    groups
+    doctrine
+    overriding_validation
+    canonicalizer
+    custom_storage_layer
+    routing
+    configuration_reference
+    adding_invitation_registration
 
 .. _security component documentation: https://symfony.com/doc/current/book/security.html
 .. _Symfony documentation: https://symfony.com/doc/current/book/translation.html
