@@ -14,6 +14,9 @@ group:
 # Security
 "Bad credentials": Nombre de usuario o Contraseña inválido
 
+# Since Symfony 2.6 the error message has changed
+"Bad credentials.": Nombre de usuario o Contraseña inválido.
+
 security:
     login:
         username: Nombre de usuario

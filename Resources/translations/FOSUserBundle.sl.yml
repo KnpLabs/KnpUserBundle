@@ -14,6 +14,9 @@ group:
 # Security
 "Bad credentials": Napačno uporabniško ime ali geslo
 
+# Since Symfony 2.6 the error message has changed
+"Bad credentials.": Napačno uporabniško ime ali geslo.
+
 security:
     login:
         username: Uporabniško ime
