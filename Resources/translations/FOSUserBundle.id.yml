@@ -9,12 +9,14 @@ group:
         updated: 'Grup telah berhasil diperbaharui'
         created: 'Grup telah berhasil ditambahkan'
         deleted: 'Grup telah berhasil dihapus'
+
 security:
     login:
         username: 'Nama Pengguna'
         password: Password
         remember_me: 'Selalu Ingat Saya'
         submit: Login
+
 profile:
     show:
         username: 'Nama Pengguna'
@@ -23,10 +25,12 @@ profile:
         submit: Perbaharui
     flash:
         updated: 'Profil telah berhasil diperbaharui'
+
 change_password:
     submit: 'Ubah Password'
     flash:
         success: 'Password telah berhasil diubah'
+
 registration:
     check_email: 'Email telah berhasil dikirimkan ke %email%. Anda harus mengklik link aktivasi di dalam email tersebut untuk mengaktifkan account anda.'
     confirmed: 'Selamat %username%, akun anda telah berhasil diaktifkan.'
@@ -36,7 +40,16 @@ registration:
         user_created: 'Pengguna telah berhasil ditambahkan.'
     email:
         subject: 'Selamat datang %username%!'
-        message: "Hallo %username%!\n\nUntuk menyelesaikan aktifasi akun anda,\nmohon kunjungi halaman berikut:\n%confirmationUrl%\n\nHormat Kami,\nthe Team.\n"
+        message: |
+            Hallo %username%!
+
+            Untuk menyelesaikan aktifasi akun anda,
+            mohon kunjungi halaman berikut:
+            %confirmationUrl%
+
+            Hormat Kami,
+            Tim Website.
+
 resetting:
     password_already_requested: 'Password untuk pengguna ini telah di request dalam waktu 24 jam.'
     check_email: 'Email telah dikirim ke %email%. Anda harus mengklik link di dalam email tersebut agar dapat mereset password anda.'
@@ -50,12 +63,22 @@ resetting:
         success: 'Password telah berhasil direset'
     email:
         subject: 'Reset Password'
-        message: "Halo %username%!\n\nUntuk mereset password anda mohon kunjungi link berikut:\n%confirmationUrl%\n\nHomrat Kami,\nthe Team.\n"
+        message: |
+            Halo %username%!
+
+            Untuk mereset password anda mohon kunjungi halaman berikut:
+            %confirmationUrl%
+
+            Hormat Kami,
+            Tim Website.
+
+# Global strings
 layout:
-    logout: Logout
-    login: Login
-    register: Pendaftaran
+    logout: 'Keluar'
+    login: 'Masuk'
+    register: 'Pendaftaran'
     logged_in_as: 'Masuk sebagai %username%'
+
 form:
     group_name: 'Nama Grup'
     username: 'Nama Pengguna'
