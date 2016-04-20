@@ -31,7 +31,6 @@
             <option name="message">fos_group.name.already_used</option>
             <option name="groups">
                 <value>Registration</value>
-                <value>Profile</value>
             </option>
         </constraint>
     </class>

@@ -44,7 +44,9 @@
         <unique>
             <unique-column name="name" />
         </unique>
+
         <column name="roles" type="array" />
+
         <behavior name="typehintable">
             <parameter name="roles" value="array" />
         </behavior>
