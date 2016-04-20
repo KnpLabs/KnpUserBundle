@@ -41,8 +41,10 @@
     <table name="fos_group" phpName="Group">
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="name" type="varchar" size="255" required="true" primaryString="true" />
+        <unique>
+            <unique-column name="name" />
+        </unique>
         <column name="roles" type="array" />
-
         <behavior name="typehintable">
             <parameter name="roles" value="array" />
         </behavior>
