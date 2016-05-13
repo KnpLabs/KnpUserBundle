@@ -31,7 +31,7 @@ registration:
     check_email: 'Un e-mail a été envoyé à l''adresse %email%. Il contient un lien d''activation sur lequel il vous faudra cliquer afin d''activer votre compte.'
     confirmed: 'Félicitations %username%, votre compte est maintenant activé.'
     back: 'Retour à la page d''origine.'
-    submit: Enregistrer
+    submit: 'Créer un compte'
     flash:
         user_created: 'L''utilisateur a été créé avec succès'
     email:
