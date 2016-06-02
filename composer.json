@@ -35,6 +35,9 @@
         "symfony/yaml": "~2.3|~3.0",
         "willdurand/propel-typehintable-behavior": "~1.0"
     },
+    "conflict": {
+        "symfony/doctrine-bridge": "<2.3"
+    },
     "suggest": {
         "willdurand/propel-typehintable-behavior": "Needed when using the propel implementation"
     },
