@@ -13,6 +13,7 @@ fos_user:
     password:
         blank: 'Lütfen bir parola girin'
         short: '[-Inf,Inf]Parola çok kısa'
+        mismatch: 'Şifreler uyuşmuyor!'
     new_password:
         blank: 'Lütfen yeni parolayı girin'
         short: '[-Inf,Inf]Yeni parola çok kısa'
