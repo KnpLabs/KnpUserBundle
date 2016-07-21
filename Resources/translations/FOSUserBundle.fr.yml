@@ -62,6 +62,6 @@ form:
     email: 'Adresse e-mail'
     current_password: 'Mot de passe actuel'
     password: 'Mot de passe'
-    password_confirmation: Vérification
+    password_confirmation: 'Vérification du mot de passe'
     new_password: 'Nouveau mot de passe'
-    new_password_confirmation: Vérification
+    new_password_confirmation: 'Vérification du nouveau mot de passe'
