@@ -107,6 +107,7 @@ class.
 
 .. code-block:: php
 
+    <?php
     // src/Acme/UserBundle/AcmeUserBundle.php
 
     namespace Acme\UserBundle;
