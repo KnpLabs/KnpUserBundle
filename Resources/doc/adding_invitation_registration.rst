@@ -142,7 +142,7 @@ Create the invitation field::
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
-    use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+    use Symfony\Component\OptionsResolver\OptionsResolver;
     use Doctrine\ORM\EntityRepository;
     use AppBundle\Form\DataTransformer\InvitationToCodeTransformer;
 
@@ -160,7 +160,8 @@ Create the invitation field::
             $builder->addModelTransformer($this->invitationTransformer);
         }
 
-        // Or setDefaultOptions for Symfony 2.6 and older
+        // Or setDefaultOptions for Symfony 2.6 and older (which has
+        // a different method signature involving OptionsResolverInterface)
         public function configureOptions(OptionsResolver $resolver)
         {
             $resolver->setDefaults(array(
