@@ -52,16 +52,16 @@ resetting:
         subject: 'איפוס סיסמה'
         message: "%username% שלום רב,\n\nכדי לאפס סיסמה שלך יש ללחוץ %confirmationUrl%\n\nבברכה,\n   הצוות.\n"
 layout:
-    logout: יציאה
+    logout: התנתק
     login: כניסה
     register: רישום
-    logged_in_as: 'Logged in as %username%'
+    logged_in_as: 'שלום %username%'
 form:
     group_name: 'שם קבוצה'
     username: 'שם משתמש'
     email: 'דוא\"ל'
-    current_password: 'Current password'
+    current_password: 'סיסמה נוכחות'
     password: סיסמה
-    password_confirmation: Verification
+    password_confirmation: "אימות סיסמה"
     new_password: 'סיסמה חדשה'
-    new_password_confirmation: Verification
+    new_password_confirmation: 'אימות סיסמה חדשה'
