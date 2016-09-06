@@ -73,7 +73,7 @@ class LoginManagerTest extends \PHPUnit_Framework_TestCase
         $userChecker = $this->getMock('Symfony\Component\Security\Core\User\UserCheckerInterface');
         $userChecker
             ->expects($this->once())
-            ->method('checkPostAuth')
+            ->method('checkPreAuth')
             ->with($this->isInstanceOf('FOS\UserBundle\Model\UserInterface'));
 
         $request = $this->getMock('Symfony\Component\HttpFoundation\Request');
