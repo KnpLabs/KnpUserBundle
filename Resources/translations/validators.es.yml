@@ -23,3 +23,6 @@ fos_user:
         blank: 'Por favor, ingrese un nombre'
         short: '[-Inf,Inf]El nombre es demasiado corto'
         long: '[-Inf,Inf]El nombre es demasiado largo'
+fos_group:
+    name:
+        already_used: 'El nombre ya está en uso'
