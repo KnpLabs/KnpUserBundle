@@ -25,4 +25,4 @@ fos_user:
         long: '[-Inf,Inf]Dieser Name ist zu lang'
 fos_group:
     name:
-        already_used: 'Diese namen wird bereits verwendet'
+        already_used: 'Dieser Name wird bereits verwendet'
