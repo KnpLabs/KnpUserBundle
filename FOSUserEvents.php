@@ -179,6 +179,14 @@ final class FOSUserEvents
     const REGISTRATION_CONFIRMED = 'fos_user.registration.confirmed';
 
     /**
+     * The RESETTING_RESET_REQUEST event occurs when a user requests a password reset of the account.
+     *
+     * This event allows you to check if a user is locked out before requesting a password.
+     * The event listener method receives a FOS\UserBundle\Event\GetResponseUserEvent instance.
+     */
+    const RESETTING_RESET_REQUEST = 'fos_user.resetting.reset.request';
+
+    /**
      * The RESETTING_RESET_INITIALIZE event occurs when the resetting process is initialized.
      *
      * This event allows you to set the response to bypass the processing.
