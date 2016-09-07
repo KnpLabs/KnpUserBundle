@@ -68,6 +68,7 @@ the form type hierarchy and then adds the custom ``name`` field.
 
 .. code-block:: php
 
+    <?php
     // src/AppBundle/Form/RegistrationType.php
 
     namespace AppBundle\Form;
