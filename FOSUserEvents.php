@@ -231,6 +231,31 @@ final class FOSUserEvents
     const SECURITY_IMPLICIT_LOGIN = 'fos_user.security.implicit_login';
 
     /**
+     * The RESETTING_SEND_EMAIL_INITIALIZE event occurs when the send email process is initialized.
+     *
+     * This event allows you to set the response to bypass the email confirmation processing.
+     * The event listener method receives a FOS\UserBundle\Event\GetResponseNullableUserEvent instance.
+     */
+    const RESETTING_SEND_EMAIL_INITIALIZE = 'fos_user.resetting.send_email.initialize';
+
+    /**
+     * The RESETTING_SEND_EMAIL_CONFIRM event occurs when all prerequisites to send email are
+     * confirmed and before the mail is sent.
+     *
+     * This event allows you to set the response to bypass the email sending.
+     * The event listener method receives a FOS\UserBundle\Event\GetResponseUserEvent instance.
+     */
+    const RESETTING_SEND_EMAIL_CONFIRM = 'fos_user.resetting.send_email.confirm';
+
+    /**
+     * The RESETTING_SEND_EMAIL_COMPLETED event occurs after the email is sent.
+     *
+     * This event allows you to set the response to bypass the the redirection after the email is sent.
+     * The event listener method receives a FOS\UserBundle\Event\GetResponseUserEvent instance.
+     */
+    const RESETTING_SEND_EMAIL_COMPLETED = 'fos_user.resetting.send_email.completed';
+
+    /**
      * The USER_CREATED event occurs when the user is created with UserManipulator.
      *
      * This event allows you to access the created user and to add some behaviour after the creation.
