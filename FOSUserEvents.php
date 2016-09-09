@@ -156,6 +156,8 @@ final class FOSUserEvents
      *
      * This event allows you to set the response instead of using the default one.
      * The event listener method receives a FOS\UserBundle\Event\FormEvent instance.
+     *
+     * @Event("FOS\UserBundle\Event\FormEvent")
      */
     const REGISTRATION_FAILURE = 'fos_user.registration.failure';
 
@@ -235,6 +237,8 @@ final class FOSUserEvents
      *
      * This event allows you to set the response to bypass the email confirmation processing.
      * The event listener method receives a FOS\UserBundle\Event\GetResponseNullableUserEvent instance.
+     *
+     * @Event("FOS\UserBundle\Event\GetResponseNullableUserEvent")
      */
     const RESETTING_SEND_EMAIL_INITIALIZE = 'fos_user.resetting.send_email.initialize';
 
@@ -244,6 +248,8 @@ final class FOSUserEvents
      *
      * This event allows you to set the response to bypass the email sending.
      * The event listener method receives a FOS\UserBundle\Event\GetResponseUserEvent instance.
+     *
+     * @Event("FOS\UserBundle\Event\GetResponseUserEvent")
      */
     const RESETTING_SEND_EMAIL_CONFIRM = 'fos_user.resetting.send_email.confirm';
 
@@ -252,6 +258,8 @@ final class FOSUserEvents
      *
      * This event allows you to set the response to bypass the the redirection after the email is sent.
      * The event listener method receives a FOS\UserBundle\Event\GetResponseUserEvent instance.
+     *
+     * @Event("FOS\UserBundle\Event\GetResponseUserEvent")
      */
     const RESETTING_SEND_EMAIL_COMPLETED = 'fos_user.resetting.send_email.completed';
 
