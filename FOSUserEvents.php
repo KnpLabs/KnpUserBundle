@@ -193,6 +193,8 @@ final class FOSUserEvents
      *
      * This event allows you to check if a user is locked out before requesting a password.
      * The event listener method receives a FOS\UserBundle\Event\GetResponseUserEvent instance.
+     *
+     * @Event("FOS\UserBundle\Event\GetResponseUserEvent")
      */
     const RESETTING_RESET_REQUEST = 'fos_user.resetting.reset.request';
 
