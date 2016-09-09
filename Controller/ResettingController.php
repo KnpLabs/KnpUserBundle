@@ -52,7 +52,7 @@ class ResettingController extends Controller
         $dispatcher = $this->get('event_dispatcher');
 
         /* Dispatch init event */
-        $event = new GetResponseNullableUserEvent($request, $user);
+        $event = new GetResponseNullableUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::RESETTING_SEND_EMAIL_INITIALIZE, $event);
 
         if (null !== $event->getResponse()) {

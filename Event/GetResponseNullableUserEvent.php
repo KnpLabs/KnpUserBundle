@@ -19,19 +19,23 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class GetResponseNullableUserEvent extends GetResponseUserEvent
 {
-    /** @var Request */
+    /**
+     * @var Request
+     */
     private $request;
 
-    /** @var UserInterface */
+    /**
+     * @var UserInterface
+     */
     private $user;
 
     /**
      * GetResponseNullableUserEvent constructor.
      *
-     * @param Request $request
      * @param UserInterface|null $user
+     * @param Request            $request
      */
-    public function __construct(Request $request, UserInterface $user = null)
+    public function __construct(UserInterface $user = null, Request $request)
     {
         $this->user = $user;
         $this->request = $request;
