@@ -90,6 +90,11 @@ class RegistrationController extends Controller
     public function checkEmailAction()
     {
         $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
+
+        if (empty($email)) {
+            return new RedirectResponse($this->get('router')->generate('fos_user_registration_register'));
+        }
+
         $this->get('session')->remove('fos_user_send_confirmation_email/email');
         $user = $this->get('fos_user.user_manager')->findUserByEmail($email);
 
