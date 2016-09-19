@@ -96,6 +96,12 @@ class DeactivateUserCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/User "user" has been deactivated/', $commandTester->getDisplay());
     }
 
+    /**
+     * @param ContainerInterface $container
+     * @param Application|null   $application
+     *
+     * @return CommandTester
+     */
     private function createCommandTester(ContainerInterface $container, Application $application = null)
     {
         if (null === $application) {
@@ -112,6 +118,11 @@ class DeactivateUserCommandTest extends \PHPUnit_Framework_TestCase
         return new CommandTester($application->find('fos:user:deactivate'));
     }
 
+    /**
+     * @param $username
+     *
+     * @return mixed
+     */
     private function getContainer($username)
     {
         $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');

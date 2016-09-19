@@ -17,6 +17,9 @@ class CanonicalizerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider canonicalizeProvider
+     *
+     * @param $source
+     * @param $expectedResult
      */
     public function testCanonicalize($source, $expectedResult)
     {
@@ -24,6 +27,9 @@ class CanonicalizerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expectedResult, $canonicalizer->canonicalize($source));
     }
 
+    /**
+     * @return array
+     */
     public function canonicalizeProvider()
     {
         return array(

@@ -23,6 +23,9 @@ class GroupFormTypeTest extends TypeTestCase
         $this->assertEquals('bar', $group->getName());
     }
 
+    /**
+     * @return array
+     */
     protected function getTypes()
     {
         return array_merge(parent::getTypes(), array(

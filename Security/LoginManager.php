@@ -32,10 +32,30 @@ class LoginManager implements LoginManagerInterface
      * @var SecurityContextInterface|TokenStorageInterface
      */
     private $tokenStorage;
+
+    /**
+     * @var UserCheckerInterface
+     */
     private $userChecker;
+
+    /**
+     * @var SessionAuthenticationStrategyInterface
+     */
     private $sessionStrategy;
+
+    /**
+     * @var ContainerInterface
+     */
     private $container;
 
+    /**
+     * LoginManager constructor.
+     *
+     * @param TokenStorageInterface|SecurityContextInterface   $tokenStorage
+     * @param UserCheckerInterface                             $userChecker
+     * @param SessionAuthenticationStrategyInterface           $sessionStrategy
+     * @param ContainerInterface                               $container
+     */
     public function __construct($tokenStorage, UserCheckerInterface $userChecker,
                                 SessionAuthenticationStrategyInterface $sessionStrategy,
                                 ContainerInterface $container)
@@ -50,6 +70,9 @@ class LoginManager implements LoginManagerInterface
         $this->container = $container;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     final public function logInUser($firewallName, UserInterface $user, Response $response = null)
     {
         $this->userChecker->checkPreAuth($user);
@@ -84,6 +107,12 @@ class LoginManager implements LoginManagerInterface
         $this->tokenStorage->setToken($token);
     }
 
+    /**
+     * @param string        $firewall
+     * @param UserInterface $user
+     *
+     * @return UsernamePasswordToken
+     */
     protected function createToken($firewall, UserInterface $user)
     {
         return new UsernamePasswordToken($user, null, $firewall, $user->getRoles());

@@ -21,6 +21,9 @@ use Symfony\Component\Config\FileLocator;
 
 class FOSUserExtension extends Extension
 {
+    /**
+     * @var array
+     */
     private static $doctrineDrivers = array(
         'orm' => array(
             'registry' => 'doctrine',
@@ -37,6 +40,9 @@ class FOSUserExtension extends Extension
         ),
     );
 
+    /**
+     * {@inheritdoc}
+     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $processor = new Processor();
@@ -135,6 +141,11 @@ class FOSUserExtension extends Extension
         }
     }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param XmlFileLoader    $loader
+     */
     private function loadProfile(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
         $loader->load('profile.xml');
@@ -144,6 +155,12 @@ class FOSUserExtension extends Extension
         ));
     }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param XmlFileLoader    $loader
+     * @param array            $fromEmail
+     */
     private function loadRegistration(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail)
     {
         $loader->load('registration.xml');
@@ -165,6 +182,11 @@ class FOSUserExtension extends Extension
         ));
     }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param XmlFileLoader    $loader
+     */
     private function loadChangePassword(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
         $loader->load('change_password.xml');
@@ -174,6 +196,12 @@ class FOSUserExtension extends Extension
         ));
     }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param XmlFileLoader    $loader
+     * @param array            $fromEmail
+     */
     private function loadResetting(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail)
     {
         $loader->load('resetting.xml');
@@ -194,6 +222,12 @@ class FOSUserExtension extends Extension
         ));
     }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param XmlFileLoader    $loader
+     * @param string           $dbDriver
+     */
     private function loadGroups(array $config, ContainerBuilder $container, XmlFileLoader $loader, $dbDriver)
     {
         $loader->load('group.xml');
@@ -215,6 +249,11 @@ class FOSUserExtension extends Extension
         ));
     }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param array            $map
+     */
     protected function remapParameters(array $config, ContainerBuilder $container, array $map)
     {
         foreach ($map as $name => $paramName) {
@@ -224,6 +263,11 @@ class FOSUserExtension extends Extension
         }
     }
 
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     * @param array            $namespaces
+     */
     protected function remapParametersNamespaces(array $config, ContainerBuilder $container, array $namespaces)
     {
         foreach ($namespaces as $ns => $map) {
@@ -245,6 +289,9 @@ class FOSUserExtension extends Extension
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getNamespace()
     {
         return 'http://friendsofsymfony.github.io/schema/dic/user';

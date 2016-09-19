@@ -15,9 +15,21 @@ use Psr\Log\LoggerInterface;
 
 class TokenGenerator implements TokenGeneratorInterface
 {
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
+
+    /**
+     * @var bool
+     */
     private $useOpenSsl;
 
+    /**
+     * TokenGenerator constructor.
+     *
+     * @param LoggerInterface|null $logger
+     */
     public function __construct(LoggerInterface $logger = null)
     {
         $this->logger = $logger;
@@ -35,11 +47,17 @@ class TokenGenerator implements TokenGeneratorInterface
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function generateToken()
     {
         return rtrim(strtr(base64_encode($this->getRandomNumber()), '+/', '-_'), '=');
     }
 
+    /**
+     * @return string
+     */
     private function getRandomNumber()
     {
         $nbBytes = 32;

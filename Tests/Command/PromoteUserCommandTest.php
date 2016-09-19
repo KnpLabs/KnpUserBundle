@@ -103,6 +103,12 @@ class PromoteUserCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/Role "role" has been added to user "user"/', $commandTester->getDisplay());
     }
 
+    /**
+     * @param ContainerInterface $container
+     * @param Application|null   $application
+     *
+     * @return CommandTester
+     */
     private function createCommandTester(ContainerInterface $container, Application $application = null)
     {
         if (null === $application) {
@@ -119,6 +125,13 @@ class PromoteUserCommandTest extends \PHPUnit_Framework_TestCase
         return new CommandTester($application->find('fos:user:promote'));
     }
 
+    /**
+     * @param $username
+     * @param $role
+     * @param $super
+     *
+     * @return mixed
+     */
     private function getContainer($username, $role, $super)
     {
         $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');

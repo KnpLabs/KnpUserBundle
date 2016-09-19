@@ -21,7 +21,7 @@ use FOS\UserBundle\Util\UserManipulator;
 class DemoteUserCommand extends RoleCommand
 {
     /**
-     * @see Command
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -39,6 +39,9 @@ EOT
             );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function executeRoleCommand(UserManipulator $manipulator, OutputInterface $output, $username, $super, $role)
     {
         if ($super) {

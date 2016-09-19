@@ -18,10 +18,27 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FormEvent extends Event
 {
+    /**
+     * @var FormInterface
+     */
     private $form;
+
+    /**
+     * @var Request
+     */
     private $request;
+
+    /**
+     * @var Response
+     */
     private $response;
 
+    /**
+     * FormEvent constructor.
+     *
+     * @param FormInterface $form
+     * @param Request       $request
+     */
     public function __construct(FormInterface $form, Request $request)
     {
         $this->form = $form;
@@ -44,6 +61,9 @@ class FormEvent extends Event
         return $this->request;
     }
 
+    /**
+     * @param Response $response
+     */
     public function setResponse(Response $response)
     {
         $this->response = $response;

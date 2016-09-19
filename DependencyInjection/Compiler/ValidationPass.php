@@ -23,7 +23,7 @@ use Symfony\Component\Config\Resource\FileResource;
 class ValidationPass implements CompilerPassInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {

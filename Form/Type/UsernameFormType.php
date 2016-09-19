@@ -30,7 +30,7 @@ class UsernameFormType extends AbstractType
     }
 
     /**
-     * @see Symfony\Component\Form\AbstractType::buildForm()
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -38,7 +38,7 @@ class UsernameFormType extends AbstractType
     }
 
     /**
-     * @see Symfony\Component\Form\AbstractType::getParent()
+     * {@inheritdoc}
      */
     public function getParent()
     {
@@ -46,11 +46,17 @@ class UsernameFormType extends AbstractType
     }
 
     // BC for SF < 3.0
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->getBlockPrefix();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getBlockPrefix()
     {
         return 'fos_user_username';

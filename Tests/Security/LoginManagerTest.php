@@ -57,6 +57,13 @@ class LoginManagerTest extends \PHPUnit_Framework_TestCase
         $loginManager->logInUser('main', $this->mockUser(), $response);
     }
 
+    /**
+     * @param string        $firewallName
+     * @param Response|null $response
+     * @param bool          $withRequestStack
+     *
+     * @return LoginManager
+     */
     private function createLoginManager($firewallName, Response $response = null, $withRequestStack = true)
     {
         if (interface_exists('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')) {
@@ -129,6 +136,9 @@ class LoginManagerTest extends \PHPUnit_Framework_TestCase
         return new LoginManager($tokenStorage, $userChecker, $sessionStrategy, $container);
     }
 
+    /**
+     * @return mixed
+     */
     private function mockUser()
     {
         $user = $this->getMock('FOS\UserBundle\Model\UserInterface');

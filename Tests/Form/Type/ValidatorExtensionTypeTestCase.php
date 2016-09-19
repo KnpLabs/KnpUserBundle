@@ -13,6 +13,9 @@ use Symfony\Component\Validator\ConstraintViolationList;
  */
 class ValidatorExtensionTypeTestCase extends TypeTestCase
 {
+    /**
+     * @return array
+     */
     protected function getTypeExtensions()
     {
         if (interface_exists('Symfony\Component\Validator\Validator\ValidatorInterface')) {

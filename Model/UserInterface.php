@@ -20,6 +20,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 interface UserInterface extends AdvancedUserInterface, \Serializable
 {
     const ROLE_DEFAULT = 'ROLE_USER';
+
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     /**
@@ -173,7 +174,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param integer $ttl Requests older than this many seconds will be considered expired
      *
-     * @return boolean true if the user's password request is non expired, false otherwise
+     * @return int
      */
     public function isPasswordRequestNonExpired($ttl);
 

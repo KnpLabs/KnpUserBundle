@@ -20,15 +20,31 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ResettingListener implements EventSubscriberInterface
 {
+    /**
+     * @var UrlGeneratorInterface
+     */
     private $router;
+
+    /**
+     * @var int
+     */
     private $tokenTtl;
 
+    /**
+     * ResettingListener constructor.
+     *
+     * @param UrlGeneratorInterface $router
+     * @param int                   $tokenTtl
+     */
     public function __construct(UrlGeneratorInterface $router, $tokenTtl)
     {
         $this->router = $router;
         $this->tokenTtl = $tokenTtl;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
         return array(
@@ -38,6 +54,9 @@ class ResettingListener implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @param GetResponseUserEvent $event
+     */
     public function onResettingResetInitialize(GetResponseUserEvent $event)
     {
         if (!$event->getUser()->isPasswordRequestNonExpired($this->tokenTtl)) {
@@ -45,6 +64,9 @@ class ResettingListener implements EventSubscriberInterface
         }
     }
 
+    /**
+     * @param FormEvent $event
+     */
     public function onResettingResetSuccess(FormEvent $event)
     {
         /** @var $user \FOS\UserBundle\Model\UserInterface */
@@ -55,6 +77,9 @@ class ResettingListener implements EventSubscriberInterface
         $user->setEnabled(true);
     }
 
+    /**
+     * @param GetResponseUserEvent $event
+     */
     public function onResettingResetRequest(GetResponseUserEvent $event)
     {
         if (!$event->getUser()->isAccountNonLocked()) {

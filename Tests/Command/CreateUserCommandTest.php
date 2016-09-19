@@ -119,6 +119,12 @@ class CreateUserCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/Created user user/', $commandTester->getDisplay());
     }
 
+    /**
+     * @param ContainerInterface $container
+     * @param Application|null   $application
+     *
+     * @return CommandTester
+     */
     private function createCommandTester(ContainerInterface $container, Application $application = null)
     {
         if (null === $application) {
@@ -135,6 +141,15 @@ class CreateUserCommandTest extends \PHPUnit_Framework_TestCase
         return new CommandTester($application->find('fos:user:create'));
     }
 
+    /**
+     * @param $username
+     * @param $password
+     * @param $email
+     * @param $active
+     * @param $superadmin
+     *
+     * @return mixed
+     */
     private function getContainer($username, $password, $email, $active, $superadmin)
     {
         $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');

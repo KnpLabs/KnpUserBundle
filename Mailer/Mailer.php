@@ -20,11 +20,34 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class Mailer implements MailerInterface
 {
+    /**
+     * @var \Swift_Mailer
+     */
     protected $mailer;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
     protected $router;
+
+    /**
+     * @var EngineInterface
+     */
     protected $templating;
+
+    /**
+     * @var array
+     */
     protected $parameters;
 
+    /**
+     * Mailer constructor.
+     *
+     * @param \Swift_Mailer         $mailer
+     * @param UrlGeneratorInterface $router
+     * @param EngineInterface       $templating
+     * @param array                 $parameters
+     */
     public function __construct($mailer, UrlGeneratorInterface  $router, EngineInterface $templating, array $parameters)
     {
         $this->mailer = $mailer;

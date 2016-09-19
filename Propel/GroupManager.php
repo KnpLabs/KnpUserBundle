@@ -16,15 +16,23 @@ use FOS\UserBundle\Model\GroupManager as BaseGroupManager;
 
 class GroupManager extends BaseGroupManager
 {
+    /**
+     * @var string
+     */
     protected $class;
 
+    /**
+     * GroupManager constructor.
+     *
+     * @param $class
+     */
     public function __construct($class)
     {
         $this->class = $class;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function createGroup($name)
     {
@@ -36,7 +44,7 @@ class GroupManager extends BaseGroupManager
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function deleteGroup(GroupInterface $group)
     {
@@ -48,7 +56,7 @@ class GroupManager extends BaseGroupManager
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getClass()
     {
@@ -56,7 +64,7 @@ class GroupManager extends BaseGroupManager
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findGroupBy(array $criteria)
     {
@@ -71,7 +79,7 @@ class GroupManager extends BaseGroupManager
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function findGroups()
     {
@@ -79,7 +87,7 @@ class GroupManager extends BaseGroupManager
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function updateGroup(GroupInterface $group)
     {

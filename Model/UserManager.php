@@ -13,6 +13,7 @@ namespace FOS\UserBundle\Model;
 
 use FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
@@ -56,9 +57,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     }
 
     /**
-     * Returns an empty user instance
-     *
-     * @return UserInterface
+     * {@inheritdoc}
      */
     public function createUser()
     {
@@ -69,11 +68,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     }
 
     /**
-     * Finds a user by email
-     *
-     * @param string $email
-     *
-     * @return UserInterface
+     * {@inheritdoc}
      */
     public function findUserByEmail($email)
     {
@@ -81,11 +76,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     }
 
     /**
-     * Finds a user by username
-     *
-     * @param string $username
-     *
-     * @return UserInterface
+     * {@inheritdoc}
      */
     public function findUserByUsername($username)
     {
@@ -93,11 +84,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     }
 
     /**
-     * Finds a user either by email, or username
-     *
-     * @param string $usernameOrEmail
-     *
-     * @return UserInterface
+     * {@inheritdoc}
      */
     public function findUserByUsernameOrEmail($usernameOrEmail)
     {
@@ -109,11 +96,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     }
 
     /**
-     * Finds a user either by confirmation token
-     *
-     * @param string $token
-     *
-     * @return UserInterface
+     * {@inheritdoc}
      */
     public function findUserByConfirmationToken($token)
     {
@@ -121,19 +104,9 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     }
 
     /**
-     * Refreshed a user by User Instance
-     *
-     * Throws UnsupportedUserException if a User Instance is given which is not
-     * managed by this UserManager (so another Manager could try managing it)
-     *
-     * It is strongly discouraged to use this method manually as it bypasses
-     * all ACL checks.
+     * {@inheritdoc}
      *
      * @deprecated Use FOS\UserBundle\Security\UserProvider instead
-     *
-     * @param SecurityUserInterface $user
-     *
-     * @return UserInterface
      */
     public function refreshUser(SecurityUserInterface $user)
     {
@@ -156,16 +129,9 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     }
 
     /**
-     * Loads a user by username
-     *
-     * It is strongly discouraged to call this method manually as it bypasses
-     * all ACL checks.
+     * {@inheritdoc}
      *
      * @deprecated Use FOS\UserBundle\Security\UserProvider instead
-     *
-     * @param string $username
-     *
-     * @return UserInterface
      */
     public function loadUserByUsername($username)
     {
@@ -181,7 +147,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function updateCanonicalFields(UserInterface $user)
     {
@@ -190,7 +156,7 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function updatePassword(UserInterface $user)
     {
@@ -225,13 +191,18 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
         return $this->usernameCanonicalizer->canonicalize($username);
     }
 
+    /**
+     * @param UserInterface $user
+     *
+     * @return PasswordEncoderInterface
+     */
     protected function getEncoder(UserInterface $user)
     {
         return $this->encoderFactory->getEncoder($user);
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      * @deprecated Use FOS\UserBundle\Security\UserProvider instead
      */
     public function supportsClass($class)

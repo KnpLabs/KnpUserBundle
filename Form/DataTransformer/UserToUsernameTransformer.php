@@ -19,6 +19,11 @@ class UserToUsernameTransformer implements DataTransformerInterface
      */
     protected $userManager;
 
+    /**
+     * UserToUsernameTransformer constructor.
+     *
+     * @param UserManagerInterface $userManager
+     */
     public function __construct(UserManagerInterface $userManager)
     {
         $this->userManager = $userManager;

@@ -14,7 +14,7 @@ namespace FOS\UserBundle\Security;
 class EmailUserProvider extends UserProvider
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function findUser($username)
     {
