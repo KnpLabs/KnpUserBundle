@@ -9,6 +9,7 @@
  */
 
 namespace FOS\UserBundle\Event;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -19,16 +20,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class GetResponseNullableUserEvent extends GetResponseUserEvent
 {
-    /**
-     * @var Request
-     */
-    private $request;
-
-    /**
-     * @var UserInterface
-     */
-    private $user;
-
     /**
      * GetResponseNullableUserEvent constructor.
      *
