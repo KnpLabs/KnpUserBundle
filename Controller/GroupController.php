@@ -98,7 +98,7 @@ class GroupController extends Controller
         }
 
         return $this->render('FOSUserBundle:Group:edit.html.twig', array(
-            'form'      => $form->createview(),
+            'form'      => $form->createView(),
             'group_name'  => $group->getName(),
         ));
     }
@@ -141,7 +141,7 @@ class GroupController extends Controller
         }
 
         return $this->render('FOSUserBundle:Group:new.html.twig', array(
-            'form' => $form->createview(),
+            'form' => $form->createView(),
         ));
     }
 
