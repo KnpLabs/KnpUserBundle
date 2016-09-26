@@ -42,7 +42,17 @@
         "willdurand/propel-typehintable-behavior": "Needed when using the propel implementation"
     },
     "autoload": {
-        "psr-4": { "FOS\\UserBundle\\": "" }
+        "psr-4": {
+            "FOS\\UserBundle\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FOS\\UserBundle\\Tests\\": "Tests/"
+        }
     },
     "extra": {
         "branch-alias": {
