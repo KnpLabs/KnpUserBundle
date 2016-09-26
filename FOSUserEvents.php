@@ -299,7 +299,7 @@ final class FOSUserEvents
      *
      * @Event("FOS\UserBundle\Event\UserEvent")
      */
-    const USER_DEACTIVATED = 'fos_user.user.activated';
+    const USER_DEACTIVATED = 'fos_user.user.deactivated';
 
     /**
      * The USER_PROMOTED event occurs when the user is created with UserManipulator.
