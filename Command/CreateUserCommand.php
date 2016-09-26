@@ -26,7 +26,7 @@ use Symfony\Component\Console\Question\Question;
 class CreateUserCommand extends ContainerAwareCommand
 {
     /**
-     * @see Command
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -64,7 +64,7 @@ EOT
     }
 
     /**
-     * @see Command
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -81,7 +81,7 @@ EOT
     }
 
     /**
-     * @see Command
+     * {@inheritdoc}
      */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
@@ -137,6 +137,10 @@ EOT
     }
 
     // BC for SF <2.5
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
     private function legacyInteract(InputInterface $input, OutputInterface $output)
     {
         if (!$input->getArgument('username')) {

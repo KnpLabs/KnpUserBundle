@@ -26,6 +26,9 @@ class ResettingFormTypeTest extends ValidatorExtensionTypeTestCase
         $this->assertEquals('test', $user->getPlainPassword());
     }
 
+    /**
+     * @return array
+     */
     protected function getTypes()
     {
         return array_merge(parent::getTypes(), array(

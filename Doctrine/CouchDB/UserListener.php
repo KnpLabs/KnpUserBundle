@@ -15,12 +15,13 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\CouchDB\Event;
 use Doctrine\ODM\CouchDB\Event\LifecycleEventArgs;
 use FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class UserListener implements EventSubscriber
 {
     /**
-     * @var \FOS\UserBundle\Model\UserManagerInterface
+     * @var UserManagerInterface
      */
     private $userManager;
 
@@ -39,6 +40,9 @@ class UserListener implements EventSubscriber
         $this->container = $container;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getSubscribedEvents()
     {
         return array(

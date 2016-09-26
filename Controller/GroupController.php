@@ -11,14 +11,18 @@
 
 namespace FOS\UserBundle\Controller;
 
+use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\FilterGroupResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseGroupEvent;
 use FOS\UserBundle\Event\GroupEvent;
+use FOS\UserBundle\Model\GroupInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -43,6 +47,10 @@ class GroupController extends Controller
 
     /**
      * Show one group
+     *
+     * @param string $groupName
+     *
+     * @return Response
      */
     public function showAction($groupName)
     {
@@ -55,12 +63,17 @@ class GroupController extends Controller
 
     /**
      * Edit one group, show the edit form
+     *
+     * @param Request $request
+     * @param string  $groupName
+     *
+     * @return Response
      */
     public function editAction(Request $request, $groupName)
     {
         $group = $this->findGroupBy('name', $groupName);
 
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+        /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
 
         $event = new GetResponseGroupEvent($group, $request);
@@ -70,7 +83,7 @@ class GroupController extends Controller
             return $event->getResponse();
         }
 
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
+        /** @var $formFactory FactoryInterface */
         $formFactory = $this->get('fos_user.group.form.factory');
 
         $form = $formFactory->createForm();
@@ -105,6 +118,10 @@ class GroupController extends Controller
 
     /**
      * Show the new form
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
     public function newAction(Request $request)
     {
@@ -147,6 +164,11 @@ class GroupController extends Controller
 
     /**
      * Delete one group
+     *
+     * @param Request $request
+     * @param string  $groupName
+     *
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, $groupName)
     {
@@ -169,7 +191,7 @@ class GroupController extends Controller
      * @param mixed  $value property value
      *
      * @throws NotFoundHttpException                if user does not exist
-     * @return \FOS\UserBundle\Model\GroupInterface
+     * @return GroupInterface
      */
     protected function findGroupBy($key, $value)
     {

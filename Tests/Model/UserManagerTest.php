@@ -150,27 +150,44 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $this->manager->findUserByUsernameOrEmail('JaCk@EmAiL.oRg');
     }
 
+    /**
+     * @return mixed
+     */
     private function getMockCanonicalizer()
     {
         return $this->getMock('FOS\UserBundle\Util\CanonicalizerInterface');
     }
 
+    /**
+     * @return mixed
+     */
     private function getMockEncoderFactory()
     {
         return $this->getMock('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface');
     }
 
+    /**
+     * @return mixed
+     */
     private function getMockPasswordEncoder()
     {
         return $this->getMock('Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface');
     }
 
+    /**
+     * @return mixed
+     */
     private function getUser()
     {
         return $this->getMockBuilder('FOS\UserBundle\Model\User')
             ->getMockForAbstractClass();
     }
 
+    /**
+     * @param array $args
+     *
+     * @return mixed
+     */
     private function getUserManager(array $args)
     {
         return $this->getMockBuilder('FOS\UserBundle\Model\UserManager')

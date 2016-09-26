@@ -22,13 +22,24 @@ use Symfony\Component\Validator\ObjectInitializerInterface;
  */
 class Initializer implements ObjectInitializerInterface
 {
+    /**
+     * @var UserManagerInterface
+     */
     private $userManager;
 
+    /**
+     * Initializer constructor.
+     *
+     * @param UserManagerInterface $userManager
+     */
     public function __construct(UserManagerInterface $userManager)
     {
         $this->userManager = $userManager;
     }
 
+    /**
+     * @param object $object
+     */
     public function initialize($object)
     {
         if ($object instanceof UserInterface) {

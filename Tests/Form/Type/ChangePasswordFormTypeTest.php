@@ -28,6 +28,9 @@ class ChangePasswordFormTypeTest extends ValidatorExtensionTypeTestCase
         $this->assertEquals('bar', $user->getPlainPassword());
     }
 
+    /**
+     * @return array
+     */
     protected function getTypes()
     {
         return array_merge(parent::getTypes(), array(

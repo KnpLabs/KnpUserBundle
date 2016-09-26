@@ -21,15 +21,31 @@ use Symfony\Component\Security\Core\Exception\AccountStatusException;
 
 class AuthenticationListener implements EventSubscriberInterface
 {
+    /**
+     * @var LoginManagerInterface
+     */
     private $loginManager;
+
+    /**
+     * @var string
+     */
     private $firewallName;
 
+    /**
+     * AuthenticationListener constructor.
+     *
+     * @param LoginManagerInterface $loginManager
+     * @param string                $firewallName
+     */
     public function __construct(LoginManagerInterface $loginManager, $firewallName)
     {
         $this->loginManager = $loginManager;
         $this->firewallName = $firewallName;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
         return array(
@@ -39,6 +55,11 @@ class AuthenticationListener implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @param FilterUserResponseEvent       $event
+     * @param string                        $eventName
+     * @param EventDispatcherInterface|null $eventDispatcher
+     */
     public function authenticate(FilterUserResponseEvent $event, $eventName = null, EventDispatcherInterface $eventDispatcher = null)
     {
         // BC for SF < 2.4

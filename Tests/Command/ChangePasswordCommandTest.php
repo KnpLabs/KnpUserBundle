@@ -104,6 +104,12 @@ class ChangePasswordCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/Changed password for user user/', $commandTester->getDisplay());
     }
 
+    /**
+     * @param ContainerInterface $container
+     * @param Application|null   $application
+     *
+     * @return CommandTester
+     */
     private function createCommandTester(ContainerInterface $container, Application $application = null)
     {
         if (null === $application) {
@@ -120,6 +126,12 @@ class ChangePasswordCommandTest extends \PHPUnit_Framework_TestCase
         return new CommandTester($application->find('fos:user:change-password'));
     }
 
+    /**
+     * @param $username
+     * @param $password
+     *
+     * @return mixed
+     */
     private function getContainer($username, $password)
     {
         $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');

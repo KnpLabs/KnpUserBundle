@@ -27,9 +27,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * Generates the configuration tree.
-     *
-     * @return TreeBuilder
+     * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {
@@ -83,6 +81,9 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
+    /**
+     * @param ArrayNodeDefinition $node
+     */
     private function addProfileSection(ArrayNodeDefinition $node)
     {
         $node
@@ -108,6 +109,9 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
+    /**
+     * @param ArrayNodeDefinition $node
+     */
     private function addRegistrationSection(ArrayNodeDefinition $node)
     {
         $node
@@ -146,6 +150,9 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
+    /**
+     * @param ArrayNodeDefinition $node
+     */
     private function addResettingSection(ArrayNodeDefinition $node)
     {
         $node
@@ -184,6 +191,9 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
+    /**
+     * @param ArrayNodeDefinition $node
+     */
     private function addChangePasswordSection(ArrayNodeDefinition $node)
     {
         $node
@@ -208,6 +218,9 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
+    /**
+     * @param ArrayNodeDefinition $node
+     */
     private function addServiceSection(ArrayNodeDefinition $node)
     {
         $node
@@ -227,6 +240,9 @@ class Configuration implements ConfigurationInterface
             ->end();
     }
 
+    /**
+     * @param ArrayNodeDefinition $node
+     */
     private function addGroupSection(ArrayNodeDefinition $node)
     {
         $node

@@ -45,7 +45,7 @@ resetting to go to the homepage instead of the profile::
         }
 
         /**
-         * {@inheritDoc}
+         * {@inheritdoc}
          */
         public static function getSubscribedEvents()
         {

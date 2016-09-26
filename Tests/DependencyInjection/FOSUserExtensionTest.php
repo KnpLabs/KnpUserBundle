@@ -298,6 +298,9 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider userManagerSetFactoryProvider
+     *
+     * @param $dbDriver
+     * @param $doctrineService
      */
     public function testUserManagerSetFactory($dbDriver, $doctrineService)
     {
@@ -320,6 +323,9 @@ class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @return array
+     */
     public function userManagerSetFactoryProvider()
     {
         return array(
@@ -364,6 +370,9 @@ EOF;
         return $parser->parse($yaml);
     }
 
+    /**
+     * @return mixed
+     */
     protected function getFullConfig()
     {
         $yaml = <<<EOF

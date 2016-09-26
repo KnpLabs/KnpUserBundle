@@ -17,6 +17,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManager;
 use FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -28,7 +29,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class UserListener implements EventSubscriber
 {
     /**
-     * @var \FOS\UserBundle\Model\UserManagerInterface
+     * @var UserManagerInterface
      */
     private $userManager;
 
@@ -47,6 +48,9 @@ class UserListener implements EventSubscriber
         $this->container = $container;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getSubscribedEvents()
     {
         return array(

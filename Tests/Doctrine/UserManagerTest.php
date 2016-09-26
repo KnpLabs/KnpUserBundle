@@ -81,11 +81,22 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
         $this->userManager->updateUser($user);
     }
 
+    /**
+     * @param $encoderFactory
+     * @param $canonicalizer
+     * @param $objectManager
+     * @param $userClass
+     *
+     * @return UserManager
+     */
     protected function createUserManager($encoderFactory, $canonicalizer, $objectManager, $userClass)
     {
         return new UserManager($encoderFactory, $canonicalizer, $canonicalizer, $objectManager, $userClass);
     }
 
+    /**
+     * @return mixed
+     */
     protected function getUser()
     {
         $userClass = static::USER_CLASS;

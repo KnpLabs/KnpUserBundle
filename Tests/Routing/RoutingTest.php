@@ -10,6 +10,10 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider loadRoutingProvider
+     *
+     * @param string $routeName
+     * @param string $path
+     * @param array  $methods
      */
     public function testLoadRouting($routeName, $path, array $methods)
     {
@@ -38,6 +42,9 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($methods, $route->getMethods());
     }
 
+    /**
+     * @return array
+     */
     public function loadRoutingProvider()
     {
         return array(

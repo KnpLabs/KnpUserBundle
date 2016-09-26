@@ -24,6 +24,9 @@ class User extends BaseUser implements UserInterface, GroupableInterface
      */
     protected $plainPassword;
 
+    /**
+     * User constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -34,7 +37,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function serialize()
     {
@@ -54,7 +57,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function unserialize($serialized)
     {
@@ -78,7 +81,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function eraseCredentials()
     {
@@ -86,7 +89,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setPlainPassword($plainPassword)
     {
@@ -96,7 +99,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getPlainPassword()
     {
@@ -104,11 +107,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * Returns the user roles
-     *
-     * Implements SecurityUserInterface
-     *
-     * @return array The roles
+     * {@inheritdoc}
      */
     public function getRoles()
     {
@@ -125,11 +124,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * Adds a role to the user.
-     *
-     * @param string $role
-     *
-     * @return User
+     * {@inheritdoc}
      */
     public function addRole($role)
     {
@@ -143,16 +138,25 @@ class User extends BaseUser implements UserInterface, GroupableInterface
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function hasRole($value)
     {
         return parent::hasRole(strtoupper($value));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function removeRole($value)
     {
         return parent::removeRole(strtoupper($value));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setRoles(array $v)
     {
         foreach ($v as $i => $role) {
@@ -163,7 +167,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isAccountNonExpired()
     {
@@ -179,7 +183,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isAccountNonLocked()
     {
@@ -187,7 +191,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isCredentialsNonExpired()
     {
@@ -203,7 +207,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isEnabled()
     {
@@ -211,7 +215,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isSuperAdmin()
     {
@@ -219,7 +223,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setSuperAdmin($boolean)
     {
@@ -233,7 +237,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isPasswordRequestNonExpired($ttl)
     {
@@ -242,9 +246,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * Gets the name of the groups which includes the user.
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getGroupNames()
     {
@@ -257,11 +259,7 @@ class User extends BaseUser implements UserInterface, GroupableInterface
     }
 
     /**
-     * Indicates whether the user belongs to the specified group or not.
-     *
-     * @param string $name Name of the group
-     *
-     * @return Boolean
+     * {@inheritdoc}
      */
     public function hasGroup($name)
     {

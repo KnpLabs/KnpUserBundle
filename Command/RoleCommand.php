@@ -25,7 +25,7 @@ use Symfony\Component\Console\Question\Question;
 abstract class RoleCommand extends ContainerAwareCommand
 {
     /**
-     * @see Command
+     * {@inheritdoc}
      */
     protected function configure()
     {
@@ -38,7 +38,7 @@ abstract class RoleCommand extends ContainerAwareCommand
     }
 
     /**
-     * @see Command
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -72,7 +72,7 @@ abstract class RoleCommand extends ContainerAwareCommand
     abstract protected function executeRoleCommand(UserManipulator $manipulator, OutputInterface $output, $username, $super, $role);
 
     /**
-     * @see Command
+     * {@inheritdoc}
      */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
@@ -115,6 +115,10 @@ abstract class RoleCommand extends ContainerAwareCommand
     }
 
     // BC for SF <2.5
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
     private function legacyInteract(InputInterface $input, OutputInterface $output)
     {
         if (!$input->getArgument('username')) {

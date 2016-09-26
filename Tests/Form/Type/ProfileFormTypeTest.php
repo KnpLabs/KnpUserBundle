@@ -25,6 +25,9 @@ class ProfileFormTypeTest extends ValidatorExtensionTypeTestCase
         $this->assertEquals('john@doe.com', $user->getEmail());
     }
 
+    /**
+     * @return array
+     */
     protected function getTypes()
     {
         return array_merge(parent::getTypes(), array(

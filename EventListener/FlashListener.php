@@ -19,6 +19,9 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class FlashListener implements EventSubscriberInterface
 {
+    /**
+     * @var string[]
+     */
     private static $successMessages = array(
         FOSUserEvents::CHANGE_PASSWORD_COMPLETED => 'change_password.flash.success',
         FOSUserEvents::GROUP_CREATE_COMPLETED => 'group.flash.created',
@@ -29,15 +32,31 @@ class FlashListener implements EventSubscriberInterface
         FOSUserEvents::RESETTING_RESET_COMPLETED => 'resetting.flash.success',
     );
 
+    /**
+     * @var Session
+     */
     private $session;
+
+    /**
+     * @var TranslatorInterface
+     */
     private $translator;
 
+    /**
+     * FlashListener constructor.
+     *
+     * @param Session             $session
+     * @param TranslatorInterface $translator
+     */
     public function __construct(Session $session, TranslatorInterface $translator)
     {
         $this->session = $session;
         $this->translator = $translator;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
         return array(
@@ -51,6 +70,10 @@ class FlashListener implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @param Event  $event
+     * @param string $eventName
+     */
     public function addSuccessFlash(Event $event, $eventName = null)
     {
         // BC for SF < 2.4
@@ -65,6 +88,12 @@ class FlashListener implements EventSubscriberInterface
         $this->session->getFlashBag()->add('success', $this->trans(self::$successMessages[$eventName]));
     }
 
+    /**
+     * @param string$message
+     * @param array $params
+     *
+     * @return string
+     */
     private function trans($message, array $params = array())
     {
         return $this->translator->trans($message, $params, 'FOSUserBundle');

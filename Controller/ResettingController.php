@@ -17,9 +17,11 @@ use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -41,6 +43,10 @@ class ResettingController extends Controller
 
     /**
      * Request reset user password: submit form and send email
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
     public function sendEmailAction(Request $request)
     {
@@ -77,7 +83,7 @@ class ResettingController extends Controller
         }
 
         if (null === $user->getConfirmationToken()) {
-            /** @var $tokenGenerator \FOS\UserBundle\Util\TokenGeneratorInterface */
+            /** @var $tokenGenerator TokenGeneratorInterface */
             $tokenGenerator = $this->get('fos_user.util.token_generator');
             $user->setConfirmationToken($tokenGenerator->generateToken());
         }
@@ -108,6 +114,10 @@ class ResettingController extends Controller
 
     /**
      * Tell the user to check his email provider
+     *
+     * @param Request $request
+     *
+     * @return Response
      */
     public function checkEmailAction(Request $request)
     {
@@ -125,6 +135,11 @@ class ResettingController extends Controller
 
     /**
      * Reset user password
+     *
+     * @param Request $request
+     * @param string  $token
+     *
+     * @return Response
      */
     public function resetAction(Request $request, $token)
     {
@@ -180,7 +195,7 @@ class ResettingController extends Controller
      *
      * The default implementation only keeps the part following @ in the address.
      *
-     * @param \FOS\UserBundle\Model\UserInterface $user
+     * @param UserInterface $user
      *
      * @return string
      */
