@@ -11,6 +11,7 @@
 
 namespace FOS\UserBundle\Controller;
 
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +28,10 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request)
     {
+        if ($this->getUser() instanceof UserInterface) {
+            return $this->redirectToRoute($this->getParameter('fos_user.user.default_route'));
+        }
+
         /** @var $session \Symfony\Component\HttpFoundation\Session\Session */
         $session = $request->getSession();
 
