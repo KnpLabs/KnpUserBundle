@@ -41,6 +41,10 @@ class RegistrationController extends Controller
      */
     public function registerAction(Request $request)
     {
+        if ($this->getUser() instanceof UserInterface) {
+            return $this->redirectToRoute($this->getParameter('fos_user.user.default_route'));
+        }
+
         /** @var $formFactory FactoryInterface */
         $formFactory = $this->get('fos_user.registration.form.factory');
         /** @var $userManager UserManagerInterface */
@@ -98,6 +102,10 @@ class RegistrationController extends Controller
      */
     public function checkEmailAction()
     {
+        if ($this->getUser() instanceof UserInterface) {
+            return $this->redirectToRoute($this->getParameter('fos_user.user.default_route'));
+        }
+
         $email = $this->get('session')->get('fos_user_send_confirmation_email/email');
 
         if (empty($email)) {
@@ -126,6 +134,10 @@ class RegistrationController extends Controller
      */
     public function confirmAction(Request $request, $token)
     {
+        if ($this->getUser() instanceof UserInterface) {
+            return $this->redirectToRoute($this->getParameter('fos_user.user.default_route'));
+        }
+
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
 

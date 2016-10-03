@@ -38,6 +38,10 @@ class ResettingController extends Controller
      */
     public function requestAction()
     {
+        if ($this->getUser() instanceof UserInterface) {
+            return $this->redirectToRoute($this->getParameter('fos_user.user.default_route'));
+        }
+
         return $this->render('FOSUserBundle:Resetting:request.html.twig');
     }
 
@@ -50,6 +54,10 @@ class ResettingController extends Controller
      */
     public function sendEmailAction(Request $request)
     {
+        if ($this->getUser() instanceof UserInterface) {
+            return $this->redirectToRoute($this->getParameter('fos_user.user.default_route'));
+        }
+
         $username = $request->request->get('username');
 
         /** @var $user UserInterface */
@@ -121,6 +129,10 @@ class ResettingController extends Controller
      */
     public function checkEmailAction(Request $request)
     {
+        if ($this->getUser() instanceof UserInterface) {
+            return $this->redirectToRoute($this->getParameter('fos_user.user.default_route'));
+        }
+
         $email = $request->query->get('email');
 
         if (empty($email)) {
@@ -143,6 +155,10 @@ class ResettingController extends Controller
      */
     public function resetAction(Request $request, $token)
     {
+        if ($this->getUser() instanceof UserInterface) {
+            return $this->redirectToRoute($this->getParameter('fos_user.user.default_route'));
+        }
+
         /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->get('fos_user.resetting.form.factory');
         /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
