@@ -23,3 +23,6 @@ fos_user:
         blank: 'Prosimo, vnesite ime'
         short: 'Ime je prekratko'
         long: 'Ime je predolgo'
+fos_group:
+    name:
+        already_used: 'Ime je že v uporabi'
