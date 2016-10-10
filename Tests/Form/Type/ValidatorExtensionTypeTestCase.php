@@ -18,12 +18,7 @@ class ValidatorExtensionTypeTestCase extends TypeTestCase
      */
     protected function getTypeExtensions()
     {
-        if (interface_exists('Symfony\Component\Validator\Validator\ValidatorInterface')) {
-            $validator = $this->getMockBuilder('Symfony\Component\Validator\Validator\ValidatorInterface')->getMock();
-        } else {
-            $validator = $this->getMockBuilder('Symfony\Component\Validator\ValidatorInterface')->getMock();
-        }
-
+        $validator = $this->getMockBuilder('Symfony\Component\Validator\Validator\ValidatorInterface')->getMock();
         $validator->method('validate')->will($this->returnValue(new ConstraintViolationList()));
 
         return array(
