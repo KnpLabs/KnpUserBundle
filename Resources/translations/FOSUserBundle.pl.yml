@@ -43,7 +43,7 @@ resetting:
         E-mail został wysłany. Zawiera on link do formularza zmiany hasła.
         Uwaga: Możesz zresetować hasło tylko jeden raz w ciągu %tokenLifetime% godzin.
 
-        Sprawdź swoją skrzynkę pocztową, jeśli jednak nie widzisz wiadomości od Nas, sprawdź folder spam lub spróbuj ponownie później.
+        Sprawdź swoją skrzynkę pocztową, jeśli jednak nie widzisz wiadomości od nas, sprawdź folder spam lub spróbuj ponownie później.
     request:
         username: 'Nazwa użytkownika lub e-mail'
         submit: 'Resetuj hasło'
