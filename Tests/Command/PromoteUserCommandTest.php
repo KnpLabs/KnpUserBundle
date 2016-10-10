@@ -23,7 +23,6 @@ class PromoteUserCommandTest extends \PHPUnit_Framework_TestCase
     {
         $commandTester = $this->createCommandTester($this->getContainer('user', 'role', false));
         $exitCode = $commandTester->execute(array(
-            'command' => 'fos:user:promote', // BC for SF <2.4 see https://github.com/symfony/symfony/pull/8626
             'username' => 'user',
             'role' => 'role',
         ), array(
@@ -35,50 +34,8 @@ class PromoteUserCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/Role "role" has been added to user "user"/', $commandTester->getDisplay());
     }
 
-    /**
-     * @group legacy
-     */
-    public function testExecuteInteractiveWithDialogHelper()
-    {
-        if (!class_exists('Symfony\Component\Console\Helper\DialogHelper')) {
-            $this->markTestSkipped('Using the DialogHelper is not possible on Symfony 3+.');
-        }
-
-        $application = new Application();
-
-        $dialog = $this->getMock('Symfony\Component\Console\Helper\DialogHelper', array(
-            'askAndValidate',
-        ));
-        $dialog->expects($this->at(0))
-            ->method('askAndValidate')
-            ->will($this->returnValue('user'));
-        $dialog->expects($this->at(1))
-            ->method('askAndValidate')
-            ->will($this->returnValue('role'));
-
-        $helperSet = new HelperSet(array(
-            'dialog' => $dialog,
-        ));
-        $application->setHelperSet($helperSet);
-
-        $commandTester = $this->createCommandTester($this->getContainer('user', 'role', false), $application);
-        $exitCode = $commandTester->execute(array(
-            'command' => 'fos:user:promote', // BC for SF <2.4 see https://github.com/symfony/symfony/pull/8626
-        ), array(
-            'decorated' => false,
-            'interactive' => true,
-        ));
-
-        $this->assertEquals(0, $exitCode, 'Returns 0 in case of success');
-        $this->assertRegExp('/Role "role" has been added to user "user"/', $commandTester->getDisplay());
-    }
-
     public function testExecuteInteractiveWithQuestionHelper()
     {
-        if (!class_exists('Symfony\Component\Console\Helper\QuestionHelper')) {
-            $this->markTestSkipped('The question helper not available.');
-        }
-
         $application = new Application();
 
         $helper = $this->getMock('Symfony\Component\Console\Helper\QuestionHelper', array(

@@ -68,12 +68,6 @@ EOT
      */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        if (!$this->getHelperSet()->has('question')) {
-            $this->legacyInteract($input, $output);
-
-            return;
-        }
-
         $questions = array();
 
         if (!$input->getArgument('username')) {
@@ -104,44 +98,6 @@ EOT
         foreach ($questions as $name => $question) {
             $answer = $this->getHelper('question')->ask($input, $output, $question);
             $input->setArgument($name, $answer);
-        }
-    }
-
-    // BC for SF <2.5
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     */
-    private function legacyInteract(InputInterface $input, OutputInterface $output)
-    {
-        if (!$input->getArgument('username')) {
-            $username = $this->getHelper('dialog')->askAndValidate(
-                $output,
-                'Please give the username:',
-                function($username) {
-                    if (empty($username)) {
-                        throw new \Exception('Username can not be empty');
-                    }
-
-                    return $username;
-                }
-            );
-            $input->setArgument('username', $username);
-        }
-
-        if (!$input->getArgument('password')) {
-            $password = $this->getHelper('dialog')->askHiddenResponseAndValidate(
-                $output,
-                'Please enter the new password:',
-                function($password) {
-                    if (empty($password)) {
-                        throw new \Exception('Password can not be empty');
-                    }
-
-                    return $password;
-                }
-            );
-            $input->setArgument('password', $password);
         }
     }
 }

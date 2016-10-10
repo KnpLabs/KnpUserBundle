@@ -3,6 +3,7 @@ Changelog
 
 ### 2.0.0-alpha4 (2016-xx-xx)
 
+* Dropped Symfony < 2.7 support.
 * Redirect logged in user on public pages.
 * Exclude tests from autoloader.
 * Allow to use POST for logout.

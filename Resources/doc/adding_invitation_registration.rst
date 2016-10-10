@@ -172,8 +172,6 @@ Create the invitation field::
             $builder->addModelTransformer($this->invitationTransformer);
         }
 
-        // Or setDefaultOptions for Symfony 2.6 and older (which has
-        // a different method signature involving OptionsResolverInterface)
         public function configureOptions(OptionsResolver $resolver)
         {
             $resolver->setDefaults(array(

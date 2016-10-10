@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface;
 use Symfony\Component\Security\Http\Session\SessionAuthenticationStrategyInterface;
 
@@ -29,7 +28,7 @@ use Symfony\Component\Security\Http\Session\SessionAuthenticationStrategyInterfa
 class LoginManager implements LoginManagerInterface
 {
     /**
-     * @var SecurityContextInterface|TokenStorageInterface
+     * @var TokenStorageInterface
      */
     private $tokenStorage;
 
@@ -51,19 +50,15 @@ class LoginManager implements LoginManagerInterface
     /**
      * LoginManager constructor.
      *
-     * @param TokenStorageInterface|SecurityContextInterface   $tokenStorage
-     * @param UserCheckerInterface                             $userChecker
-     * @param SessionAuthenticationStrategyInterface           $sessionStrategy
-     * @param ContainerInterface                               $container
+     * @param TokenStorageInterface                  $tokenStorage
+     * @param UserCheckerInterface                   $userChecker
+     * @param SessionAuthenticationStrategyInterface $sessionStrategy
+     * @param ContainerInterface                     $container
      */
-    public function __construct($tokenStorage, UserCheckerInterface $userChecker,
+    public function __construct(TokenStorageInterface $tokenStorage, UserCheckerInterface $userChecker,
                                 SessionAuthenticationStrategyInterface $sessionStrategy,
                                 ContainerInterface $container)
     {
-        if (!$tokenStorage instanceof TokenStorageInterface && !$tokenStorage instanceof SecurityContextInterface) {
-            throw new \InvalidArgumentException('Argument 1 should be an instance of Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface or Symfony\Component\Security\Core\SecurityContextInterface');
-        }
-
         $this->tokenStorage = $tokenStorage;
         $this->userChecker = $userChecker;
         $this->sessionStrategy = $sessionStrategy;
@@ -78,14 +73,7 @@ class LoginManager implements LoginManagerInterface
         $this->userChecker->checkPreAuth($user);
 
         $token = $this->createToken($firewallName, $user);
-
-        $request = null;
-        if ($this->container->has('request_stack')) {
-            $request = $this->container->get('request_stack')->getCurrentRequest();
-        } elseif (method_exists($this->container, 'isScopeActive') && $this->container->isScopeActive('request')) {
-            // BC for SF <2.4
-            $request = $this->container->get('request');
-        }
+        $request = $this->container->get('request_stack')->getCurrentRequest();
 
         if (null !== $request) {
             $this->sessionStrategy->onAuthentication($request, $token);

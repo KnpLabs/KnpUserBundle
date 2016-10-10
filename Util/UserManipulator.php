@@ -15,9 +15,8 @@ use FOS\UserBundle\Event\UserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Executes some manipulations on the users
@@ -40,22 +39,22 @@ class UserManipulator
     private $dispatcher;
 
     /**
-     * @var ContainerInterface
+     * @var RequestStack
      */
-    private $container;
+    private $requestStack;
 
     /**
      * UserManipulator constructor.
      *
      * @param UserManagerInterface     $userManager
      * @param EventDispatcherInterface $dispatcher
-     * @param ContainerInterface       $container
+     * @param RequestStack             $requestStack
      */
-    public function __construct(UserManagerInterface $userManager, EventDispatcherInterface $dispatcher, ContainerInterface $container)
+    public function __construct(UserManagerInterface $userManager, EventDispatcherInterface $dispatcher, RequestStack $requestStack)
     {
         $this->userManager = $userManager;
         $this->dispatcher = $dispatcher;
-        $this->container = $container;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -222,20 +221,10 @@ class UserManipulator
     }
 
     /**
-     * This method provides compatibility with 2.x and 3.x Symfony versions
-     *
-     * @return null|Request
+     * @return Request
      */
     private function getRequest()
     {
-        $request = null;
-        if ($this->container->has('request_stack')) {
-            $request = $this->container->get('request_stack')->getCurrentRequest();
-        } elseif (method_exists($this->container, 'isScopeActive') && $this->container->isScopeActive('request')) {
-            // BC for SF <2.4
-            $request = $this->container->get('request');
-        }
-
-        return $request;
+        return $this->requestStack->getCurrentRequest();
     }
 }

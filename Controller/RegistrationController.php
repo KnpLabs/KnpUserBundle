@@ -189,14 +189,7 @@ class RegistrationController extends Controller
      */
     private function getTargetUrlFromSession()
     {
-        // Set the SecurityContext for Symfony <2.6
-        if (interface_exists('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')) {
-            $tokenStorage = $this->get('security.token_storage');
-        } else {
-            $tokenStorage = $this->get('security.context');
-        }
-
-        $key = sprintf('_security.%s.target_path', $tokenStorage->getToken()->getProviderKey());
+        $key = sprintf('_security.%s.target_path', $this->get('security.token_storage')->getToken()->getProviderKey());
 
         if ($this->get('session')->has($key)) {
             return $this->get('session')->get($key);

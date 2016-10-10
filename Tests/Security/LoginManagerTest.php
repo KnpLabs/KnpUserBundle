@@ -9,20 +9,12 @@ class LoginManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function testLogInUserWithRequestStack()
     {
-        if (!class_exists('Symfony\Component\HttpFoundation\RequestStack')) {
-            $this->markTestSkipped('The RequestStack is required to run this test.');
-        }
-
         $loginManager = $this->createLoginManager('main');
         $loginManager->logInUser('main', $this->mockUser());
     }
 
     public function testLogInUserWithRememberMeAndRequestStack()
     {
-        if (!class_exists('Symfony\Component\HttpFoundation\RequestStack')) {
-            $this->markTestSkipped('The RequestStack is required to run this test.');
-        }
-
         $response = $this->getMock('Symfony\Component\HttpFoundation\Response');
 
         $loginManager = $this->createLoginManager('main', $response);
@@ -30,47 +22,14 @@ class LoginManagerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group legacy
-     */
-    public function testLogInUserWithoutRequestStack()
-    {
-        if (!method_exists('Symfony\Component\DependencyInjection\ContainerInterface', 'isScopeActive')) {
-            $this->markTestSkipped('Legacy test. Container scopes are not supported any more.');
-        }
-
-        $loginManager = $this->createLoginManager('main', null, false);
-        $loginManager->logInUser('main', $this->mockUser());
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testLogInUserWithRememberMeAndWithoutRequestStack()
-    {
-        if (!method_exists('Symfony\Component\DependencyInjection\ContainerInterface', 'isScopeActive')) {
-            $this->markTestSkipped('Legacy test. Container scopes are not supported any more.');
-        }
-
-        $response = $this->getMock('Symfony\Component\HttpFoundation\Response');
-
-        $loginManager = $this->createLoginManager('main', $response, false);
-        $loginManager->logInUser('main', $this->mockUser(), $response);
-    }
-
-    /**
      * @param string        $firewallName
      * @param Response|null $response
-     * @param bool          $withRequestStack
      *
      * @return LoginManager
      */
-    private function createLoginManager($firewallName, Response $response = null, $withRequestStack = true)
+    private function createLoginManager($firewallName, Response $response = null)
     {
-        if (interface_exists('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')) {
-            $tokenStorage = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
-        } else {
-            $tokenStorage = $this->getMock('Symfony\Component\Security\Core\SecurityContextInterface');
-        }
+        $tokenStorage = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
 
         $tokenStorage
             ->expects($this->once())
@@ -94,23 +53,14 @@ class LoginManagerTest extends \PHPUnit_Framework_TestCase
         $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
         $getMap = $hasMap = array();
 
-        if (true === $withRequestStack) {
-            $requestStack = $this->getMock('Symfony\Component\HttpFoundation\RequestStack');
-            $requestStack
-                ->expects($this->once())
-                ->method('getCurrentRequest')
-                ->will($this->returnValue($request));
+        $requestStack = $this->getMock('Symfony\Component\HttpFoundation\RequestStack');
+        $requestStack
+            ->expects($this->once())
+            ->method('getCurrentRequest')
+            ->will($this->returnValue($request));
 
-            $hasMap[] = array('request_stack', true);
-            $getMap[] = array('request_stack', 1, $requestStack);
-        } else {
-            $container
-                ->expects($this->once())
-                ->method('isScopeActive')
-                ->with('request')
-                ->will($this->returnValue(true));
-            $getMap[] = array('request', 1, $request);
-        }
+        $hasMap[] = array('request_stack', true);
+        $getMap[] = array('request_stack', 1, $requestStack);
 
         if (null !== $response) {
             $rememberMe = $this->getMock('Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface');

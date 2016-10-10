@@ -62,32 +62,14 @@ class FOSUserExtension extends Extension
             $container->setParameter($this->getAlias() . '.backend_type_' . $config['db_driver'], true);
         }
 
-        // Configure the factory for both Symfony 2.3 and 2.6+
         if (isset(self::$doctrineDrivers[$config['db_driver']])) {
             $definition = $container->getDefinition('fos_user.object_manager');
-            if (method_exists($definition, 'setFactory')) {
-                $definition->setFactory(array(new Reference('fos_user.doctrine_registry'), 'getManager'));
-            } else {
-                $definition->setFactoryService('fos_user.doctrine_registry');
-                $definition->setFactoryMethod('getManager');
-            }
+            $definition->setFactory(array(new Reference('fos_user.doctrine_registry'), 'getManager'));
         }
 
         foreach (array('validator', 'security', 'util', 'mailer', 'listeners') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
-
-        // Set the SecurityContext for Symfony <2.6
-        // Should go back to simple xml configuration after <2.6 support
-        if (interface_exists('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')) {
-            $tokenStorageReference = new Reference('security.token_storage');
-        } else {
-            $tokenStorageReference = new Reference('security.context');
-        }
-        $container
-            ->getDefinition('fos_user.security.login_manager')
-            ->replaceArgument(0, $tokenStorageReference)
-        ;
 
         if ($config['use_flash_notifications']) {
             $loader->load('flash_notifications.xml');

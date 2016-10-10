@@ -59,12 +59,6 @@ EOT
      */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        if (!$this->getHelperSet()->has('question')) {
-            $this->legacyInteract($input, $output);
-
-            return;
-        }
-
         if (!$input->getArgument('username')) {
             $question = new Question('Please choose a username:');
             $question->setValidator(function($username) {
@@ -77,29 +71,6 @@ EOT
             $answer = $this->getHelper('question')->ask($input, $output, $question);
 
             $input->setArgument('username', $answer);
-        }
-    }
-
-    // BC for SF <2.5
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     */
-    private function legacyInteract(InputInterface $input, OutputInterface $output)
-    {
-        if (!$input->getArgument('username')) {
-            $username = $this->getHelper('dialog')->askAndValidate(
-                $output,
-                'Please choose a username:',
-                function($username) {
-                    if (empty($username)) {
-                        throw new \Exception('Username can not be empty');
-                    }
-
-                    return $username;
-                }
-            );
-            $input->setArgument('username', $username);
         }
     }
 }

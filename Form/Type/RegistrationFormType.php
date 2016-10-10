@@ -15,7 +15,6 @@ use FOS\UserBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RegistrationFormType extends AbstractType
 {
@@ -61,15 +60,6 @@ class RegistrationFormType extends AbstractType
             // BC for SF < 2.8
             'intention'  => 'registration',
         ));
-    }
-
-    // BC for SF < 2.7
-    /**
-     * {@inheritdoc}
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $this->configureOptions($resolver);
     }
 
     // BC for SF < 3.0
