@@ -12,7 +12,7 @@
 namespace FOS\UserBundle\Security;
 
 use FOS\UserBundle\Model\UserInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -43,9 +43,9 @@ class LoginManager implements LoginManagerInterface
     private $sessionStrategy;
 
     /**
-     * @var ContainerInterface
+     * @var RequestStack
      */
-    private $container;
+    private $requestStack;
 
     /**
      * @var RememberMeServicesInterface
@@ -58,18 +58,18 @@ class LoginManager implements LoginManagerInterface
      * @param TokenStorageInterface                  $tokenStorage
      * @param UserCheckerInterface                   $userChecker
      * @param SessionAuthenticationStrategyInterface $sessionStrategy
-     * @param ContainerInterface                     $container
+     * @param RequestStack                           $requestStack
      * @param RememberMeServicesInterface|null       $rememberMeService
      */
     public function __construct(TokenStorageInterface $tokenStorage, UserCheckerInterface $userChecker,
                                 SessionAuthenticationStrategyInterface $sessionStrategy,
-                                ContainerInterface $container,
+                                RequestStack $requestStack,
                                 RememberMeServicesInterface $rememberMeService = null
     ) {
         $this->tokenStorage = $tokenStorage;
         $this->userChecker = $userChecker;
         $this->sessionStrategy = $sessionStrategy;
-        $this->container = $container;
+        $this->requestStack = $requestStack;
         $this->rememberMeService = $rememberMeService;
     }
 
@@ -81,7 +81,7 @@ class LoginManager implements LoginManagerInterface
         $this->userChecker->checkPreAuth($user);
 
         $token = $this->createToken($firewallName, $user);
-        $request = $this->container->get('request_stack')->getCurrentRequest();
+        $request = $this->requestStack->getCurrentRequest();
 
         if (null !== $request) {
             $this->sessionStrategy->onAuthentication($request, $token);
