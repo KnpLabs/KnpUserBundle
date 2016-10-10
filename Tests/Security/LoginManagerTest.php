@@ -71,6 +71,7 @@ class LoginManagerTest extends \PHPUnit_Framework_TestCase
         $hasMap[] = array('request_stack', true);
         $getMap[] = array('request_stack', 1, $requestStack);
 
+        $rememberMe = null;
         if (null !== $response) {
             $rememberMe = $this->getMockBuilder('Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface')->getMock();
             $rememberMe
@@ -92,7 +93,7 @@ class LoginManagerTest extends \PHPUnit_Framework_TestCase
             ->method('has')
             ->will($this->returnValueMap($hasMap));
 
-        return new LoginManager($tokenStorage, $userChecker, $sessionStrategy, $container);
+        return new LoginManager($tokenStorage, $userChecker, $sessionStrategy, $container, $rememberMe);
     }
 
     /**

@@ -48,21 +48,29 @@ class LoginManager implements LoginManagerInterface
     private $container;
 
     /**
+     * @var RememberMeServicesInterface
+     */
+    private $rememberMeService;
+
+    /**
      * LoginManager constructor.
      *
      * @param TokenStorageInterface                  $tokenStorage
      * @param UserCheckerInterface                   $userChecker
      * @param SessionAuthenticationStrategyInterface $sessionStrategy
      * @param ContainerInterface                     $container
+     * @param RememberMeServicesInterface|null       $rememberMeService
      */
     public function __construct(TokenStorageInterface $tokenStorage, UserCheckerInterface $userChecker,
                                 SessionAuthenticationStrategyInterface $sessionStrategy,
-                                ContainerInterface $container)
-    {
+                                ContainerInterface $container,
+                                RememberMeServicesInterface $rememberMeService = null
+    ) {
         $this->tokenStorage = $tokenStorage;
         $this->userChecker = $userChecker;
         $this->sessionStrategy = $sessionStrategy;
         $this->container = $container;
+        $this->rememberMeService = $rememberMeService;
     }
 
     /**
@@ -78,17 +86,8 @@ class LoginManager implements LoginManagerInterface
         if (null !== $request) {
             $this->sessionStrategy->onAuthentication($request, $token);
 
-            if (null !== $response) {
-                $rememberMeServices = null;
-                if ($this->container->has('security.authentication.rememberme.services.persistent.'.$firewallName)) {
-                    $rememberMeServices = $this->container->get('security.authentication.rememberme.services.persistent.'.$firewallName);
-                } elseif ($this->container->has('security.authentication.rememberme.services.simplehash.'.$firewallName)) {
-                    $rememberMeServices = $this->container->get('security.authentication.rememberme.services.simplehash.'.$firewallName);
-                }
-
-                if ($rememberMeServices instanceof RememberMeServicesInterface) {
-                    $rememberMeServices->loginSuccess($request, $response, $token);
-                }
+            if (null !== $response && null !== $this->rememberMeService) {
+                $this->rememberMeService->loginSuccess($request, $response, $token);
             }
         }
 
