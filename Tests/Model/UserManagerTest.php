@@ -155,7 +155,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
      */
     private function getMockCanonicalizer()
     {
-        return $this->getMock('FOS\UserBundle\Util\CanonicalizerInterface');
+        return $this->getMockBuilder('FOS\UserBundle\Util\CanonicalizerInterface')->getMock();
     }
 
     /**
@@ -163,7 +163,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
      */
     private function getMockEncoderFactory()
     {
-        return $this->getMock('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface');
+        return $this->getMockBuilder('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface')->getMock();
     }
 
     /**
@@ -171,7 +171,7 @@ class UserManagerTest extends \PHPUnit_Framework_TestCase
      */
     private function getMockPasswordEncoder()
     {
-        return $this->getMock('Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface');
+        return $this->getMockBuilder('Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface')->getMock();
     }
 
     /**
