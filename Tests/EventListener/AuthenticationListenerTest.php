@@ -21,18 +21,18 @@ class AuthenticationListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $user = $this->getMock('FOS\UserBundle\Model\UserInterface');
+        $user = $this->getMockBuilder('FOS\UserBundle\Model\UserInterface')->getMock();
 
-        $response = $this->getMock('Symfony\Component\HttpFoundation\Response');
-        $request = $this->getMock('Symfony\Component\HttpFoundation\Request');
+        $response = $this->getMockBuilder('Symfony\Component\HttpFoundation\Response')->getMock();
+        $request = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')->getMock();
         $this->event = new FilterUserResponseEvent($user, $request, $response);
 
-        $this->eventDispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcher');
+        $this->eventDispatcher = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcher')->getMock();
         $this->eventDispatcher
             ->expects($this->once())
             ->method('dispatch');
 
-        $loginManager = $this->getMock('FOS\UserBundle\Security\LoginManagerInterface');
+        $loginManager = $this->getMockBuilder('FOS\UserBundle\Security\LoginManagerInterface')->getMock();
 
         $this->listener = new AuthenticationListener($loginManager, self::FIREWALL_NAME);
     }

@@ -18,13 +18,13 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->userManager = $this->getMock('FOS\UserBundle\Model\UserManagerInterface');
+        $this->userManager = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')->getMock();
         $this->userProvider = new UserProvider($this->userManager);
     }
 
     public function testLoadUserByUsername()
     {
-        $user = $this->getMock('FOS\UserBundle\Model\UserInterface');
+        $user = $this->getMockBuilder('FOS\UserBundle\Model\UserInterface')->getMock();
         $this->userManager->expects($this->once())
             ->method('findUserByUsername')
             ->with('foobar')
@@ -56,7 +56,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
             ->method('getId')
             ->will($this->returnValue('123'));
 
-        $refreshedUser = $this->getMock('FOS\UserBundle\Model\UserInterface');
+        $refreshedUser = $this->getMockBuilder('FOS\UserBundle\Model\UserInterface')->getMock();
         $this->userManager->expects($this->once())
             ->method('findUserBy')
             ->with(array('id' => '123'))
@@ -91,7 +91,7 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRefreshInvalidUser()
     {
-        $user = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $user = $this->getMockBuilder('Symfony\Component\Security\Core\User\UserInterface')->getMock();
         $this->userManager->expects($this->any())
             ->method('getClass')
             ->will($this->returnValue(get_class($user)));
@@ -104,8 +104,8 @@ class UserProviderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRefreshInvalidUserClass()
     {
-        $user = $this->getMock('FOS\UserBundle\Model\User');
-        $providedUser = $this->getMock('FOS\UserBundle\Tests\TestUser');
+        $user = $this->getMockBuilder('FOS\UserBundle\Model\User')->getMock();
+        $providedUser = $this->getMockBuilder('FOS\UserBundle\Tests\TestUser')->getMock();
 
         $this->userManager->expects($this->atLeastOnce())
             ->method('getClass')

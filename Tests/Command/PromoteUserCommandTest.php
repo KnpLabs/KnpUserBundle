@@ -38,9 +38,10 @@ class PromoteUserCommandTest extends \PHPUnit_Framework_TestCase
     {
         $application = new Application();
 
-        $helper = $this->getMock('Symfony\Component\Console\Helper\QuestionHelper', array(
-            'ask',
-        ));
+        $helper = $this->getMockBuilder('Symfony\Component\Console\Helper\QuestionHelper')
+            ->setMethods(array('ask'))
+            ->getMock();
+
         $helper->expects($this->at(0))
             ->method('ask')
             ->will($this->returnValue('user'));
@@ -91,7 +92,7 @@ class PromoteUserCommandTest extends \PHPUnit_Framework_TestCase
      */
     private function getContainer($username, $role, $super)
     {
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')->getMock();
 
         $manipulator = $this->getMockBuilder('FOS\UserBundle\Util\UserManipulator')
             ->disableOriginalConstructor()
