@@ -74,13 +74,8 @@ class FlashListener implements EventSubscriberInterface
      * @param Event  $event
      * @param string $eventName
      */
-    public function addSuccessFlash(Event $event, $eventName = null)
+    public function addSuccessFlash(Event $event, $eventName)
     {
-        // BC for SF < 2.4
-        if (null === $eventName) {
-            $eventName = $event->getName();
-        }
-
         if (!isset(self::$successMessages[$eventName])) {
             throw new \InvalidArgumentException('This event does not correspond to a known flash message');
         }

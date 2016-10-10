@@ -15,7 +15,6 @@ use FOS\UserBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ResettingFormType extends AbstractType
 {
@@ -57,15 +56,6 @@ class ResettingFormType extends AbstractType
             // BC for SF < 2.8
             'intention'  => 'resetting',
         ));
-    }
-
-    // BC for SF < 2.7
-    /**
-     * {@inheritdoc}
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $this->configureOptions($resolver);
     }
 
     // BC for SF < 3.0

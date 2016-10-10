@@ -39,9 +39,9 @@ class UserManipulatorTest extends \PHPUnit_Framework_TestCase
 
         $eventDispatcherMock = $this->getEventDispatcherMock(FOSUserEvents::USER_CREATED, true);
 
-        $containerMock = $this->getContainerMock(true);
+        $requestStackMock = $this->getRequestStackMock(true);
 
-        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $containerMock);
+        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $requestStackMock);
         $manipulator->create($username, $password, $email, $active, $superadmin);
 
         $this->assertEquals($username, $user->getUsername());
@@ -72,9 +72,9 @@ class UserManipulatorTest extends \PHPUnit_Framework_TestCase
 
         $eventDispatcherMock = $this->getEventDispatcherMock(FOSUserEvents::USER_ACTIVATED, true);
 
-        $containerMock = $this->getContainerMock(true);
+        $requestStackMock = $this->getRequestStackMock(true);
 
-        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $containerMock);
+        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $requestStackMock);
         $manipulator->activate($username);
 
         $this->assertEquals($username, $user->getUsername());
@@ -99,9 +99,9 @@ class UserManipulatorTest extends \PHPUnit_Framework_TestCase
 
         $eventDispatcherMock = $this->getEventDispatcherMock(FOSUserEvents::USER_ACTIVATED, false);
 
-        $containerMock = $this->getContainerMock(false);
+        $requestStackMock = $this->getRequestStackMock(false);
 
-        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $containerMock);
+        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $requestStackMock);
         $manipulator->activate($invalidusername);
     }
 
@@ -126,9 +126,9 @@ class UserManipulatorTest extends \PHPUnit_Framework_TestCase
 
         $eventDispatcherMock = $this->getEventDispatcherMock(FOSUserEvents::USER_DEACTIVATED, true);
 
-        $containerMock = $this->getContainerMock(true);
+        $requestStackMock = $this->getRequestStackMock(true);
 
-        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $containerMock);
+        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $requestStackMock);
         $manipulator->deactivate($username);
 
         $this->assertEquals($username, $user->getUsername());
@@ -153,9 +153,9 @@ class UserManipulatorTest extends \PHPUnit_Framework_TestCase
 
         $eventDispatcherMock = $this->getEventDispatcherMock(FOSUserEvents::USER_DEACTIVATED, false);
 
-        $containerMock = $this->getContainerMock(false);
+        $requestStackMock = $this->getRequestStackMock(false);
 
-        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $containerMock);
+        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $requestStackMock);
         $manipulator->deactivate($invalidusername);
     }
 
@@ -180,9 +180,9 @@ class UserManipulatorTest extends \PHPUnit_Framework_TestCase
 
         $eventDispatcherMock = $this->getEventDispatcherMock(FOSUserEvents::USER_PROMOTED, true);
 
-        $containerMock = $this->getContainerMock(true);
+        $requestStackMock = $this->getRequestStackMock(true);
 
-        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $containerMock);
+        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $requestStackMock);
         $manipulator->promote($username);
 
         $this->assertEquals($username, $user->getUsername());
@@ -207,9 +207,9 @@ class UserManipulatorTest extends \PHPUnit_Framework_TestCase
 
         $eventDispatcherMock = $this->getEventDispatcherMock(FOSUserEvents::USER_PROMOTED, false);
 
-        $containerMock = $this->getContainerMock(false);
+        $requestStackMock = $this->getRequestStackMock(false);
 
-        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $containerMock);
+        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $requestStackMock);
         $manipulator->promote($invalidusername);
     }
 
@@ -234,9 +234,9 @@ class UserManipulatorTest extends \PHPUnit_Framework_TestCase
 
         $eventDispatcherMock = $this->getEventDispatcherMock(FOSUserEvents::USER_DEMOTED, true);
 
-        $containerMock = $this->getContainerMock(true);
+        $requestStackMock = $this->getRequestStackMock(true);
 
-        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $containerMock);
+        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $requestStackMock);
         $manipulator->demote($username);
 
         $this->assertEquals($username, $user->getUsername());
@@ -261,9 +261,9 @@ class UserManipulatorTest extends \PHPUnit_Framework_TestCase
 
         $eventDispatcherMock = $this->getEventDispatcherMock(FOSUserEvents::USER_DEMOTED, false);
 
-        $containerMock = $this->getContainerMock(false);
+        $requestStackMock = $this->getRequestStackMock(false);
 
-        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $containerMock);
+        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $requestStackMock);
         $manipulator->demote($invalidusername);
     }
 
@@ -291,9 +291,9 @@ class UserManipulatorTest extends \PHPUnit_Framework_TestCase
 
         $eventDispatcherMock = $this->getEventDispatcherMock(FOSUserEvents::USER_PASSWORD_CHANGED, true);
 
-        $containerMock = $this->getContainerMock(true);
+        $requestStackMock = $this->getRequestStackMock(true);
 
-        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $containerMock);
+        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $requestStackMock);
         $manipulator->changePassword($username, $password);
 
         $this->assertEquals($username, $user->getUsername());
@@ -320,9 +320,9 @@ class UserManipulatorTest extends \PHPUnit_Framework_TestCase
 
         $eventDispatcherMock = $this->getEventDispatcherMock(FOSUserEvents::USER_PASSWORD_CHANGED, false);
 
-        $containerMock = $this->getContainerMock(false);
+        $requestStackMock = $this->getRequestStackMock(false);
 
-        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $containerMock);
+        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $requestStackMock);
         $manipulator->changePassword($invalidusername, $password);
     }
 
@@ -348,46 +348,14 @@ class UserManipulatorTest extends \PHPUnit_Framework_TestCase
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function getContainerMock($once = true)
+    protected function getRequestStackMock($once = true)
     {
-        $containerMock = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $requestStackMock = $this->getMockBuilder('Symfony\Component\HttpFoundation\RequestStack')->getMock();
 
-        if (!class_exists('Symfony\Component\HttpFoundation\RequestStack')) {
-            $containerMock->expects($this->any())
-                ->method('has')
-                ->willReturn(false)
-                ->with('request_stack');
+        $requestStackMock->expects($once ? $this->once() : $this->never())
+            ->method('getCurrentRequest')
+            ->willReturn(null);
 
-            $containerMock->expects($this->any())
-                ->method('get')
-                ->willReturn(null)
-                ->with('request');
-
-            $containerMock->expects($this->any())
-                ->method('isScopeActive')
-                ->willReturn(true)
-                ->with('request');
-
-            $containerMock->expects($this->any())
-                ->method('isScopeActive');
-        } else {
-            $containerMock->expects($this->any())
-                ->method('has')
-                ->willReturn(true)
-                ->with('request_stack');
-
-            $requestStack = $this->getMock('Symfony\Component\HttpFoundation\RequestStack');
-
-            $requestStack->expects($once ? $this->once() : $this->never())
-                ->method('getCurrentRequest')
-                ->willReturn(null);
-
-            $containerMock->expects($this->any())
-                ->method('get')
-                ->willReturn($requestStack)
-                ->with('request_stack');
-        }
-
-        return $containerMock;
+        return $requestStackMock;
     }
 }

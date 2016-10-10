@@ -23,7 +23,6 @@ class DeactivateUserCommandTest extends \PHPUnit_Framework_TestCase
     {
         $commandTester = $this->createCommandTester($this->getContainer('user'));
         $exitCode = $commandTester->execute(array(
-            'command' => 'fos:user:deactivate', // BC for SF <2.4 see https://github.com/symfony/symfony/pull/8626
             'username' => 'user',
         ), array(
             'decorated' => false,
@@ -34,47 +33,8 @@ class DeactivateUserCommandTest extends \PHPUnit_Framework_TestCase
         $this->assertRegExp('/User "user" has been deactivated/', $commandTester->getDisplay());
     }
 
-    /**
-     * @group legacy
-     */
-    public function testExecuteInteractiveWithDialogHelper()
-    {
-        if (!class_exists('Symfony\Component\Console\Helper\DialogHelper')) {
-            $this->markTestSkipped('Using the DialogHelper is not possible on Symfony 3+.');
-        }
-
-        $application = new Application();
-
-        $dialog = $this->getMock('Symfony\Component\Console\Helper\DialogHelper', array(
-            'askAndValidate',
-        ));
-        $dialog->expects($this->at(0))
-            ->method('askAndValidate')
-            ->will($this->returnValue('user'));
-
-        $helperSet = new HelperSet(array(
-            'dialog' => $dialog,
-        ));
-        $application->setHelperSet($helperSet);
-
-        $commandTester = $this->createCommandTester($this->getContainer('user'), $application);
-        $exitCode = $commandTester->execute(array(
-            'command' => 'fos:user:deactivate', // BC for SF <2.4 see https://github.com/symfony/symfony/pull/8626
-        ), array(
-            'decorated' => false,
-            'interactive' => true,
-        ));
-
-        $this->assertEquals(0, $exitCode, 'Returns 0 in case of success');
-        $this->assertRegExp('/User "user" has been deactivated/', $commandTester->getDisplay());
-    }
-
     public function testExecuteInteractiveWithQuestionHelper()
     {
-        if (!class_exists('Symfony\Component\Console\Helper\QuestionHelper')) {
-            $this->markTestSkipped('The question helper not available.');
-        }
-
         $application = new Application();
 
         $helper = $this->getMock('Symfony\Component\Console\Helper\QuestionHelper', array(

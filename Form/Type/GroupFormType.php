@@ -14,7 +14,6 @@ namespace FOS\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class GroupFormType extends AbstractType
 {
@@ -50,15 +49,6 @@ class GroupFormType extends AbstractType
             // BC for SF < 2.8
             'intention'  => 'group',
         ));
-    }
-
-    // BC for SF < 2.7
-    /**
-     * {@inheritdoc}
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $this->configureOptions($resolver);
     }
 
     // BC for SF < 3.0

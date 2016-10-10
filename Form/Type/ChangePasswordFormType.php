@@ -14,7 +14,6 @@ namespace FOS\UserBundle\Form\Type;
 use FOS\UserBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
@@ -64,15 +63,6 @@ class ChangePasswordFormType extends AbstractType
             // BC for SF < 2.8
             'intention'  => 'change_password',
         ));
-    }
-
-    // BC for SF < 2.7
-    /**
-     * {@inheritdoc}
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $this->configureOptions($resolver);
     }
 
     // BC for SF < 3.0
