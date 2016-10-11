@@ -29,6 +29,29 @@ public function checkEmailAction()
 }
 ```
 
+### UserManager
+
+The public methods `refreshUser`, `loadUserByUsername` and `supportsClass` have been
+removed. Please use the UserProvider instead.
+
+Before:
+
+```php
+$userManager->refreshUser($user);
+$userManager->loadUserByUsername($username);
+$userManager->supportsClass($class);
+
+```
+
+After:
+
+```php
+$userProvider->refreshUser($user);
+$userProvider->loadUserByUsername($username);
+$userProvider->supportsClass($class);
+
+```
+
 ## 1.3 to 2.0.0-alpha1
 
 ### User Provider
