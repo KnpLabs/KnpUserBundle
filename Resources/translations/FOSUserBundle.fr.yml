@@ -39,7 +39,7 @@ registration:
         message: "Bonjour %username% !\n\nPour valider votre compte utilisateur, merci de vous rendre sur %confirmationUrl%\n\nCordialement,\nL'équipe.\n"
 resetting:
     password_already_requested: 'Un nouveau mot de passe a déjà été demandé pour cet utilisateur dans les dernières 24 heures.'
-    check_email: 'Un e-mail a été envoyé à l''adresse %email%. Il contient un lien sur lequel il vous faudra cliquer afin de réinitialiser votre mot de passe.'
+    check_email: 'Un e-mail a été envoyé. Il contient un lien sur lequel il vous faudra cliquer pour réinitialiser votre mot de passe.\nRemarque: Vous ne pouvez demander un nouveau mot de passe que toutes les %tokenLifetime% heures.\n\nSi vous ne recevez pas un email, vérifiez votre dossier spam ou essayez à nouveau.'
     request:
         username: 'Nom d''utilisateur ou adresse e-mail'
         submit: 'Réinitialiser le mot de passe'
