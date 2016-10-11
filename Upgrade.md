@@ -4,6 +4,31 @@ Upgrade instruction
 This document describes the changes needed when upgrading because of a BC
 break. For the full list of changes, please look at the Changelog file.
 
+## 2.0.0-alpha1 to 2.0.0-alpha4
+
+### Templates
+
+Following Symfony coding standards template names are now lowercase. Please
+rename if you use custom templates.
+
+Before:
+
+```php
+public function checkEmailAction()
+{
+    return $this->render('FOSUserBundle:Registration:checkEmail.html.twig');
+}
+```
+
+After:
+
+```php
+public function checkEmailAction()
+{
+    return $this->render('FOSUserBundle:Registration:check_email.html.twig');
+}
+```
+
 ## 1.3 to 2.0.0-alpha1
 
 ### User Provider
