@@ -14,7 +14,7 @@ security:
         username: 'Nom d''utilisateur'
         password: 'Mot de passe'
         remember_me: 'Se souvenir de moi'
-        submit: Connexion
+        submit: 'Connexion'
 profile:
     show:
         username: 'Nom d''utilisateur'
@@ -36,10 +36,20 @@ registration:
         user_created: 'L''utilisateur a été créé avec succès'
     email:
         subject: 'Bienvenue %username% !'
-        message: "Bonjour %username% !\n\nPour valider votre compte utilisateur, merci de vous rendre sur %confirmationUrl%\n\nCordialement,\nL'équipe.\n"
+        message: |
+            Bonjour %username% !
+            
+            Pour valider votre compte utilisateur, merci de vous rendre sur %confirmationUrl%
+            
+            Cordialement,
+            L'équipe
 resetting:
     password_already_requested: 'Un nouveau mot de passe a déjà été demandé pour cet utilisateur dans les dernières 24 heures.'
-    check_email: 'Un e-mail a été envoyé à l''adresse %email%. Il contient un lien sur lequel il vous faudra cliquer afin de réinitialiser votre mot de passe.'
+    check_email: |
+        Un e-mail a été envoyé. Il contient un lien sur lequel il vous faudra cliquer pour réinitialiser votre mot de passe.
+        Remarque : Vous ne pouvez demander un nouveau mot de passe que toutes les %tokenLifetime% heures.
+        
+        Si vous ne recevez pas un email, vérifiez votre dossier spam ou essayez à nouveau.
     request:
         username: 'Nom d''utilisateur ou adresse e-mail'
         submit: 'Réinitialiser le mot de passe'
@@ -49,11 +59,17 @@ resetting:
         success: 'Le mot de passe a été réinitialisé avec succès'
     email:
         subject: 'Réinitialisation de votre mot de passe'
-        message: "Bonjour %username% !\n\nPour réinitialiser votre mot de passe, merci de vous rendre sur %confirmationUrl%\n\nCordialement,\nL'équipe.\n"
+        message: |
+            Bonjour %username% !
+            
+            Pour réinitialiser votre mot de passe, merci de vous rendre sur %confirmationUrl%
+            
+            Cordialement,
+            L'équipe
 layout:
-    logout: Déconnexion
-    login: Connexion
-    register: Inscription
+    logout: 'Déconnexion'
+    login: 'Connexion'
+    register: 'Inscription'
     logged_in_as: 'Connecté en tant que %username%'
 form:
     group_name: 'Nom du groupe'
@@ -61,6 +77,6 @@ form:
     email: 'Adresse e-mail'
     current_password: 'Mot de passe actuel'
     password: 'Mot de passe'
-    password_confirmation: 'Confirmation du mot de passe'
+    password_confirmation: 'Confirmation mot de passe'
     new_password: 'Nouveau mot de passe'
-    new_password_confirmation: 'Confirmation du nouveau mot de passe'
+    new_password_confirmation: 'Confirmation nouveau mot de passe'
