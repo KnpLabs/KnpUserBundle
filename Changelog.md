@@ -15,6 +15,9 @@ Changelog
 * Replaced `checkPostAuth` by `checkPreAuth` in `AuthenticationListener`.
 * [BC break] Method `ResettingController::getObfuscatedEmail` has been removed.
 * [BC break] Renamed templates to underscore case.
+* [BC break] Removed `UserManager::refreshUser`.
+* [BC break] Removed `UserManager::loadUserByUsername`.
+* [BC break] Removed `UserManager::supportsClass`.
 
 ### 2.0.0-alpha3 (2015-09-15)
 

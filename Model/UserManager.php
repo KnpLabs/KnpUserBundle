@@ -14,10 +14,6 @@ namespace FOS\UserBundle\Model;
 use FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * Abstract User Manager implementation which can be used as base class for your
@@ -25,7 +21,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-abstract class UserManager implements UserManagerInterface, UserProviderInterface
+abstract class UserManager implements UserManagerInterface
 {
     /**
      * @var EncoderFactoryInterface
@@ -105,49 +101,6 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
 
     /**
      * {@inheritdoc}
-     *
-     * @deprecated Use FOS\UserBundle\Security\UserProvider instead
-     */
-    public function refreshUser(SecurityUserInterface $user)
-    {
-        @trigger_error('Using the UserManager as user provider is deprecated. Use FOS\UserBundle\Security\UserProvider instead.', E_USER_DEPRECATED);
-
-        $class = $this->getClass();
-        if (!$user instanceof $class) {
-            throw new UnsupportedUserException('Account is not supported.');
-        }
-        if (!$user instanceof User) {
-            throw new UnsupportedUserException(sprintf('Expected an instance of FOS\UserBundle\Model\User, but got "%s".', get_class($user)));
-        }
-
-        $refreshedUser = $this->findUserBy(array('id' => $user->getId()));
-        if (null === $refreshedUser) {
-            throw new UsernameNotFoundException(sprintf('User with ID "%d" could not be reloaded.', $user->getId()));
-        }
-
-        return $refreshedUser;
-    }
-
-    /**
-     * {@inheritdoc}
-     *
-     * @deprecated Use FOS\UserBundle\Security\UserProvider instead
-     */
-    public function loadUserByUsername($username)
-    {
-        @trigger_error('Using the UserManager as user provider is deprecated. Use FOS\UserBundle\Security\UserProvider instead.', E_USER_DEPRECATED);
-
-        $user = $this->findUserByUsername($username);
-
-        if (!$user) {
-            throw new UsernameNotFoundException(sprintf('No user with name "%s" was found.', $username));
-        }
-
-        return $user;
-    }
-
-    /**
-     * {@inheritdoc}
      */
     public function updateCanonicalFields(UserInterface $user)
     {
@@ -199,16 +152,5 @@ abstract class UserManager implements UserManagerInterface, UserProviderInterfac
     protected function getEncoder(UserInterface $user)
     {
         return $this->encoderFactory->getEncoder($user);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @deprecated Use FOS\UserBundle\Security\UserProvider instead
-     */
-    public function supportsClass($class)
-    {
-        @trigger_error('Using the UserManager as user provider is deprecated. Use FOS\UserBundle\Security\UserProvider instead.', E_USER_DEPRECATED);
-
-        return $class === $this->getClass();
     }
 }
