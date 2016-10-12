@@ -11,17 +11,10 @@
 
 namespace FOS\UserBundle\Tests\Mailer;
 
-use FOS\UserBundle\Command\ActivateUserCommand;
 use FOS\UserBundle\Mailer\Mailer;
-use FOS\UserBundle\Model\UserInterface;
 use Swift_Events_EventDispatcher;
 use Swift_Mailer;
 use Swift_Transport_NullTransport;
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Helper\HelperSet;
-use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class MailerTest extends \PHPUnit_Framework_TestCase
 {
