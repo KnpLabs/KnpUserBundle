@@ -67,10 +67,10 @@ class TwigSwiftMailerTest extends \PHPUnit_Framework_TestCase
         return new TwigSwiftMailer(
             new Swift_Mailer(
                 new Swift_Transport_NullTransport(
-                    $this->getMock('Swift_Events_EventDispatcher')
+                    $this->getMockBuilder('Swift_Events_EventDispatcher')->getMock()
                 )
             ),
-            $this->getMock('Symfony\Component\Routing\Generator\UrlGeneratorInterface'),
+            $this->getMockBuilder('Symfony\Component\Routing\Generator\UrlGeneratorInterface')->getMock(),
             $this->getTwigEnvironment(),
             array(
                 'template' => array(
@@ -119,7 +119,7 @@ class TwigSwiftMailerTest extends \PHPUnit_Framework_TestCase
 
     private function getUser($emailAddress)
     {
-        $user = $this->getMock('FOS\UserBundle\Model\UserInterface');
+        $user = $this->getMockBuilder('FOS\UserBundle\Model\UserInterface')->getMock();
         $user->method('getEmail')
             ->willReturn($emailAddress)
         ;
@@ -129,9 +129,9 @@ class TwigSwiftMailerTest extends \PHPUnit_Framework_TestCase
 
     private function getEmailAddressValueObject($emailAddressAsString)
     {
-        $emailAddress = $this->getMock('EmailAddress', array(
-            '__toString',
-        ));
+        $emailAddress = $this->getMockBuilder('EmailAddress')
+           ->setMethods(array('__toString'))
+           ->getMock();
 
         $emailAddress->method('__toString')
             ->willReturn($emailAddressAsString)
