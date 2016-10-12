@@ -67,7 +67,7 @@ class Mailer implements MailerInterface
             'user' => $user,
             'confirmationUrl' => $url,
         ));
-        $this->sendEmailMessage($rendered, $this->parameters['from_email']['confirmation'], $user->getEmail());
+        $this->sendEmailMessage($rendered, $this->parameters['from_email']['confirmation'], (string) $user->getEmail());
     }
 
     /**
@@ -81,7 +81,7 @@ class Mailer implements MailerInterface
             'user' => $user,
             'confirmationUrl' => $url,
         ));
-        $this->sendEmailMessage($rendered, $this->parameters['from_email']['resetting'], $user->getEmail());
+        $this->sendEmailMessage($rendered, $this->parameters['from_email']['resetting'], (string) $user->getEmail());
     }
 
     /**
