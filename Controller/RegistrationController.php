@@ -71,7 +71,10 @@ class RegistrationController extends Controller
                 $userManager->updateUser($user);
 
                 if (null === $response = $event->getResponse()) {
-                    $url = $this->generateUrl('fos_user_registration_confirmed');
+                    $url = $this->getParameter('fos_user.registration.confirmation.enabled')
+                        ? $this->generateUrl('fos_user_registration_confirmed')
+                        : $this->generateUrl('fos_user_profile_show');
+
                     $response = new RedirectResponse($url);
                 }
 
