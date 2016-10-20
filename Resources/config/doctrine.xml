@@ -6,9 +6,8 @@
 
     <services>
         <service id="fos_user.user_manager.default" class="FOS\UserBundle\Doctrine\UserManager" public="false">
-            <argument type="service" id="security.encoder_factory" />
-            <argument type="service" id="fos_user.util.username_canonicalizer" />
-            <argument type="service" id="fos_user.util.email_canonicalizer" />
+            <argument type="service" id="fos_user.util.password_updater" />
+            <argument type="service" id="fos_user.util.canonical_fields_updater" />
             <argument type="service" id="fos_user.object_manager" />
             <argument>%fos_user.model.user.class%</argument>
         </service>
@@ -19,7 +18,8 @@
         </service>
 
         <service id="fos_user.user_listener" class="FOS\UserBundle\Doctrine\UserListener" public="false">
-            <argument type="service" id="service_container" />
+            <argument type="service" id="fos_user.util.password_updater" />
+            <argument type="service" id="fos_user.util.canonical_fields_updater" />
         </service>
     </services>
 
