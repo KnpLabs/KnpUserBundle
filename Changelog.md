@@ -4,6 +4,7 @@ Changelog
 ### 2.0.0-alpha4 (2016-xx-xx)
 
 * Dropped Symfony < 2.7 support.
+* Dropped PHP < 5.5 support.
 * Exclude tests from autoloader.
 * Allow to use POST for logout.
 * Fix UserPassword constraint validation groups.
