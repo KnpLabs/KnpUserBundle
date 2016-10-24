@@ -18,6 +18,11 @@ Changelog
 * [BC break] Removed `UserManager::refreshUser`.
 * [BC break] Removed `UserManager::loadUserByUsername`.
 * [BC break] Removed `UserManager::supportsClass`.
+* [BC break] The signature of the `Initializer` constructor has changed.
+* [BC break] The signature of the `LoginManager` constructor has changed.
+* [BC break] The signature of the `UserListener` constructor has changed.
+* [BC break] The signature of the `UserManager` constructor has changed.
+* [BC break] The translation key `resetting.request.invalid_username` has been removed.
 
 ### 2.0.0-alpha3 (2015-09-15)
 
