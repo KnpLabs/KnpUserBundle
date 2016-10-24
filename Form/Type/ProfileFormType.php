@@ -39,11 +39,19 @@ class ProfileFormType extends AbstractType
     {
         $this->buildUserForm($builder, $options);
 
+        $constraintsOptions = array(
+            'message' => 'fos_user.current_password.invalid',
+        );
+
+        if (!empty($options['validation_groups'])) {
+            $constraintsOptions['groups'] = array(reset($options['validation_groups']));
+        }
+
         $builder->add('current_password', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'), array(
             'label' => 'form.current_password',
             'translation_domain' => 'FOSUserBundle',
             'mapped' => false,
-            'constraints' => new UserPassword(!empty($options['validation_groups']) ? array('groups' => array(reset($options['validation_groups']))) : null),
+            'constraints' => new UserPassword($constraintsOptions),
         ));
     }
 
