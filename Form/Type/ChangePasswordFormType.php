@@ -37,12 +37,21 @@ class ChangePasswordFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $constraintsOptions = array(
+            'message' => 'fos_user.current_password.invalid',
+        );
+
+        if (!empty($options['validation_groups'])) {
+            $constraintsOptions['groups'] = array(reset($options['validation_groups']));
+        }
+
         $builder->add('current_password', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'), array(
             'label' => 'form.current_password',
             'translation_domain' => 'FOSUserBundle',
             'mapped' => false,
-            'constraints' => new UserPassword(!empty($options['validation_groups']) ? array('groups' => array(reset($options['validation_groups']))) : null),
+            'constraints' => new UserPassword($constraintsOptions),
         ));
+
         $builder->add('plainPassword', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\RepeatedType'), array(
             'type' => LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'),
             'options' => array('translation_domain' => 'FOSUserBundle'),
