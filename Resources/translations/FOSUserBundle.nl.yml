@@ -39,7 +39,11 @@ registration:
         message: "Hallo %username%!\n\nU moet uw account nog valideren, ga naar %confirmationUrl%\n\nVriendelijke groeten,\nhet Team.\n"
 resetting:
     password_already_requested: 'Het wachtwoord voor deze gebruiker is al aangevraagd binnen de laatste 24 uur.'
-    check_email: 'Er is een e-mail verstuurd naar %email%, met een link om uw wachtwoord te resetten.'
+    check_email: |
+        Er werd een email gestuurd. De email bevat een link om je wachtwoord te resetten.
+        Opgelet: Je kan pas na %tokenLifetime% uur een nieuw wachtwoord aanvragen.
+        
+        Indien je geen email ontvangen hebt, controlleer dan zeker je spam folder of probeer opnieuw.
     request:
         username: 'Gebruikersnaam of e-mailadres'
         submit: 'Reset wachtwoord'
