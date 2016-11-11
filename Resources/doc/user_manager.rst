@@ -16,9 +16,6 @@ instance of ``FOS\UserBundle\Doctrine\UserManager``.
 If you configure the ``db_driver`` option to ``couchdb``, this service is an
 instance of ``FOS\UserBundle\Doctrine\UserManager``.
 
-If you configure the ``db_driver`` option to ``propel``, this service is an instance
-of ``FOS\UserBundle\Propel\UserManager``.
-
 Accessing the User Manager service
 ----------------------------------
 
@@ -99,11 +96,6 @@ Updating a User object
                 use-listener="false"
                 user-class="MyProject\MyBundle\Entity\User"
             />
-
-.. caution::
-
-    The Propel implementation does not have such a listener so you have to
-    call the method of the user manager to save the user.
 
 .. note::
 

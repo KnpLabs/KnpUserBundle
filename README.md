@@ -7,7 +7,7 @@ common tasks such as user registration and password retrieval.
 
 Features include:
 
-- Users can be stored via Doctrine ORM, MongoDB/CouchDB ODM or Propel
+- Users can be stored via Doctrine ORM or MongoDB/CouchDB ODM
 - Registration support, with an optional confirmation per email
 - Password reset support
 - Unit tested

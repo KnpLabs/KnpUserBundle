@@ -34,14 +34,10 @@
         "symfony/phpunit-bridge": "^2.7 || ^3.0",
         "symfony/validator": "^2.7 || ^3.0",
         "symfony/yaml": "^2.7 || ^3.0",
-        "willdurand/propel-typehintable-behavior": "^1.0",
         "phpunit/phpunit": "~4.8|~5.0"
     },
     "conflict": {
         "symfony/doctrine-bridge": "<2.7"
-    },
-    "suggest": {
-        "willdurand/propel-typehintable-behavior": "Needed when using the propel implementation"
     },
     "autoload": {
         "psr-4": {

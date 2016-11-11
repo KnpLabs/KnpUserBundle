@@ -47,7 +47,7 @@ following example will assume that its id is ``app.custom_user_manager``.
 .. caution::
 
     The validation of the uniqueness of the username and email fields is done
-    using the constraints provided by DoctrineBundle or PropelBundle. You will
+    using the constraints provided by DoctrineBundle. You will
     need to take care of this validation when using a custom storage layer,
     using a `custom constraint`_
 
