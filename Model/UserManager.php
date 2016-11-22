@@ -93,4 +93,20 @@ abstract class UserManager implements UserManagerInterface
     {
         $this->passwordUpdater->hashPassword($user);
     }
+
+    /**
+     * @return PasswordUpdaterInterface
+     */
+    protected function getPasswordUpdater()
+    {
+        return $this->passwordUpdater;
+    }
+
+    /**
+     * @return CanonicalFieldsUpdater
+     */
+    protected function getCanonicalFieldsUpdater()
+    {
+        return $this->canonicalFieldsUpdater;
+    }
 }
