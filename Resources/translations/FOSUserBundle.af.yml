@@ -52,7 +52,6 @@ resetting:
     password_already_requested: 'Die wagwoord vir hierdie gebruiker was reeds in die afgelope 24 uur aangevra'
     check_email: "'n E-pos was gestuur na %email%. Die bevat 'n \"link\" waarop jy moet klik om jou wagwoord te herstel"
     request:
-        invalid_username: 'Die verbruikernaam of e-pos adres %username% bestaan nie.'
         username: 'Verbruikernaam of e-pos adres'
         submit: 'Herstel wagwoord'
     reset:
