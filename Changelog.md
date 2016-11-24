@@ -25,6 +25,7 @@ Changelog
 * [BC break] The signature of the `UserManager` constructor has changed.
 * [BC break] The translation key `resetting.request.invalid_username` has been removed.
 * [BC break] The propel dependency was dropped.
+* [BC break] The `salt` field of the `User` class is now nullable.
 
 ### 2.0.0-alpha3 (2015-09-15)
 

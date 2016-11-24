@@ -37,15 +37,42 @@ class PasswordUpdaterTest extends \PHPUnit_Framework_TestCase
 
         $this->encoderFactory->expects($this->once())
             ->method('getEncoder')
+            ->with($user)
             ->will($this->returnValue($encoder));
 
         $encoder->expects($this->once())
             ->method('encodePassword')
-            ->with('password', $user->getSalt())
+            ->with('password', $this->isType('string'))
             ->will($this->returnValue('encodedPassword'));
 
         $this->updater->hashPassword($user);
         $this->assertSame('encodedPassword', $user->getPassword(), '->updatePassword() sets encoded password');
+        $this->assertNotNull($user->getSalt());
+        $this->assertNull($user->getPlainPassword(), '->updatePassword() erases credentials');
+    }
+
+    public function testUpdatePasswordWithBCrypt()
+    {
+        $encoder = $this->getMockBuilder('Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $user = new TestUser();
+        $user->setPlainPassword('password');
+        $user->setSalt('old_salt');
+
+        $this->encoderFactory->expects($this->once())
+            ->method('getEncoder')
+            ->with($user)
+            ->will($this->returnValue($encoder));
+
+        $encoder->expects($this->once())
+            ->method('encodePassword')
+            ->with('password', $this->isNull())
+            ->will($this->returnValue('encodedPassword'));
+
+        $this->updater->hashPassword($user);
+        $this->assertSame('encodedPassword', $user->getPassword(), '->updatePassword() sets encoded password');
+        $this->assertNull($user->getSalt());
         $this->assertNull($user->getPlainPassword(), '->updatePassword() erases credentials');
     }
 
