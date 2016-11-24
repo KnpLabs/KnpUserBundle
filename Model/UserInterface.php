@@ -127,15 +127,6 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
     public function setEnabled($boolean);
 
     /**
-     * Sets the locking status of the user.
-     *
-     * @param bool $boolean
-     *
-     * @return self
-     */
-    public function setLocked($boolean);
-
-    /**
      * Sets the super admin status.
      *
      * @param bool $boolean

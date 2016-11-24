@@ -96,24 +96,9 @@ abstract class User implements UserInterface, GroupableInterface
     protected $groups;
 
     /**
-     * @var bool
-     */
-    protected $locked;
-
-    /**
-     * @var \DateTime
-     */
-    protected $expiresAt;
-
-    /**
      * @var array
      */
     protected $roles;
-
-    /**
-     * @var \DateTime
-     */
-    protected $credentialsExpireAt;
 
     /**
      * User constructor.
@@ -122,7 +107,6 @@ abstract class User implements UserInterface, GroupableInterface
     {
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->enabled = false;
-        $this->locked = false;
         $this->roles = array();
     }
 
@@ -153,11 +137,8 @@ abstract class User implements UserInterface, GroupableInterface
             $this->salt,
             $this->usernameCanonical,
             $this->username,
-            $this->locked,
             $this->enabled,
             $this->id,
-            $this->expiresAt,
-            $this->credentialsExpireAt,
             $this->email,
             $this->emailCanonical,
         ));
@@ -170,12 +151,14 @@ abstract class User implements UserInterface, GroupableInterface
     {
         $data = unserialize($serialized);
 
-        if (9 === count($data)) {
-            unset($data[4], $data[6]);
-
-            // add a few extra elements in the array to ensure that we have enough keys when unserializing
-            // older data which does not include all properties.
-            $data = array_merge($data, array_fill(0, 4, null));
+        if (13 === count($data)) {
+            // Unserializing a User object from 1.3.x
+            unset($data[4], $data[5], $data[6], $data[9], $data[10]);
+            $data = array_values($data);
+        } elseif (11 === count($data)) {
+            // Unserializing a User from a dev version somewhere between 2.0-alpha3 and 2.0-alpha4
+            unset($data[4], $data[7], $data[8]);
+            $data = array_values($data);
         }
 
         list(
@@ -183,11 +166,8 @@ abstract class User implements UserInterface, GroupableInterface
             $this->salt,
             $this->usernameCanonical,
             $this->username,
-            $this->locked,
             $this->enabled,
             $this->id,
-            $this->expiresAt,
-            $this->credentialsExpireAt,
             $this->email,
             $this->emailCanonical
         ) = $data;
@@ -313,10 +293,6 @@ abstract class User implements UserInterface, GroupableInterface
      */
     public function isAccountNonExpired()
     {
-        if (null !== $this->expiresAt && $this->expiresAt->getTimestamp() < time()) {
-            return false;
-        }
-
         return true;
     }
 
@@ -325,7 +301,7 @@ abstract class User implements UserInterface, GroupableInterface
      */
     public function isAccountNonLocked()
     {
-        return !$this->locked;
+        return true;
     }
 
     /**
@@ -333,21 +309,12 @@ abstract class User implements UserInterface, GroupableInterface
      */
     public function isCredentialsNonExpired()
     {
-        if (null !== $this->credentialsExpireAt && $this->credentialsExpireAt->getTimestamp() < time()) {
-            return false;
-        }
-
         return true;
     }
 
     public function isEnabled()
     {
         return $this->enabled;
-    }
-
-    public function isLocked()
-    {
-        return !$this->isAccountNonLocked();
     }
 
     /**
@@ -391,18 +358,6 @@ abstract class User implements UserInterface, GroupableInterface
         return $this;
     }
 
-    /**
-     * @param \DateTime $date
-     *
-     * @return User
-     */
-    public function setCredentialsExpireAt(\DateTime $date = null)
-    {
-        $this->credentialsExpireAt = $date;
-
-        return $this;
-    }
-
     public function setEmail($email)
     {
         $this->email = $email;
@@ -426,18 +381,6 @@ abstract class User implements UserInterface, GroupableInterface
     public function setEnabled($boolean)
     {
         $this->enabled = (bool) $boolean;
-
-        return $this;
-    }
-
-    /**
-     * @param \DateTime $date
-     *
-     * @return User
-     */
-    public function setExpiresAt(\DateTime $date = null)
-    {
-        $this->expiresAt = $date;
 
         return $this;
     }
@@ -482,16 +425,6 @@ abstract class User implements UserInterface, GroupableInterface
     public function setLastLogin(\DateTime $time = null)
     {
         $this->lastLogin = $time;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setLocked($boolean)
-    {
-        $this->locked = $boolean;
 
         return $this;
     }
