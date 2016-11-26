@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 1.3.8 (xxxx-xx-xx)
+
+* Use `random_bytes` to generate tokens
+
 ### 1.3.7 (2016-11-22)
 
 * Fixed some yaml errors in translation files
