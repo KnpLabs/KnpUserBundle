@@ -55,6 +55,10 @@ Changelog
 * [BC break] Changed Datetime properties of default User entity that were nullable to default to null when no value supplied.
 * [BC break] Updated schema.xml for Propel BaseUser class to allow nullable and typehint accordingly.
 
+### 1.3.8 (xxxx-xx-xx)
+
+* Use `random_bytes` to generate tokens
+
 ### 1.3.7 (2016-11-22)
 
 * Fixed some yaml errors in translation files
