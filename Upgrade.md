@@ -8,13 +8,24 @@ break. For the full list of changes, please look at the Changelog file.
 
 Methods and properties removed from `FOS\UserBundle\Model\User`
 
-- `$expired`
-- `$credentialsExpired`
-- `setExpired()` (use `setExpiresAt(\DateTime::now()` instead)
-- `setCredentialsExpired()` (use `setCredentialsExpireAt(\DateTime::now()` instead)
+- `$locked`
+- `$expired` and `$expiredAt`
+- `$credentialsExpired` and `$credentialsExpired`
+- `setLocked()` and `isLocked()`
+- `setExpired()` and `setExpiresAt()`
+- `setCredentialsExpired()` and `setCredentialsExpireAt()`
 
-You need to drop the fields `expired` and `credentials_expired` from your database
-schema, because they aren't mapped anymore.
+These properties were used to implement advanced features of the AdvancedUserInterface
+from the Symfony component, but neither Symfony nor this bundle are providing
+ways to use these features fully (expired credentials would just prevent
+logging in for instance).
+Projects needing to use these advanced feature should add the fields they
+need in their User class and override the corresponding method to provide
+an implementation fitting their requirement. Projects wanting to keep the
+previous behavior of the bundle can copy the condition used in 1.3.7.
+
+You need to drop the removed fields from your database schema, because they
+aren't mapped anymore.
 
 ### LoginManager
 
