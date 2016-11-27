@@ -21,11 +21,11 @@
     ],
     "require": {
         "php": "^5.5.9 || ^7.0",
-        "paragonie/random_compat": "^1 || ^2",
         "symfony/form": "^2.7 || ^3.0",
         "symfony/framework-bundle": "^2.7 || ^3.0",
         "symfony/security-bundle": "^2.7 || ^3.0",
-        "symfony/twig-bundle": "^2.7 || ^3.0"
+        "symfony/twig-bundle": "^2.7 || ^3.0",
+        "paragonie/random_compat": "^1 || ^2"
     },
     "require-dev": {
         "doctrine/doctrine-bundle": "^1.3",
