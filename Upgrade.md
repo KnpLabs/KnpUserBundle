@@ -27,6 +27,19 @@ previous behavior of the bundle can copy the condition used in 1.3.7.
 You need to drop the removed fields from your database schema, because they
 aren't mapped anymore.
 
+### Propel
+
+Propel integration has been moved to a separate bundle and can be installed using
+composer:
+
+```
+composer require friendsofsymfony/propel1-user-bundle
+```
+
+Once installed, walk through the
+[readme](https://github.com/FriendsOfSymfony/propel1-user-bundle/blob/master/README.md)
+to enable Propel support.
+
 ### LoginManager
 
 The signature of the LoginManager constructor has changed.
