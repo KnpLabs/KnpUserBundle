@@ -10,6 +10,3 @@ php:
 sudo: false
 
 install: composer install
-
-notifications:
-  email: friendsofsymfony-dev@googlegroups.com
