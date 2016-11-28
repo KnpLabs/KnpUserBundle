@@ -56,6 +56,11 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
     public function setUsernameCanonical($usernameCanonical);
 
     /**
+     * @param string|null $salt
+     */
+    public function setSalt($salt);
+
+    /**
      * Gets email.
      *
      * @return string

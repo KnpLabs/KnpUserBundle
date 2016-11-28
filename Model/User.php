@@ -105,7 +105,6 @@ abstract class User implements UserInterface, GroupableInterface
      */
     public function __construct()
     {
-        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
         $this->enabled = false;
         $this->roles = array();
     }
@@ -356,6 +355,14 @@ abstract class User implements UserInterface, GroupableInterface
         $this->usernameCanonical = $usernameCanonical;
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
     }
 
     public function setEmail($email)
