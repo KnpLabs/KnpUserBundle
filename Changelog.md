@@ -1,7 +1,7 @@
 Changelog
 =========
 
-### 2.0.0-alpha4 (2016-xx-xx)
+### 2.0.0-beta1 (2016-11-29)
 
 * Dropped Symfony < 2.7 support.
 * Dropped PHP < 5.5 support.
