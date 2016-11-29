@@ -10,7 +10,7 @@ Methods and properties removed from `FOS\UserBundle\Model\User`
 
 - `$locked`
 - `$expired` and `$expiredAt`
-- `$credentialsExpired` and `$credentialsExpired`
+- `$credentialsExpired` and `$credentialsExpiredAt`
 - `setLocked()` and `isLocked()`
 - `setExpired()` and `setExpiresAt()`
 - `setCredentialsExpired()` and `setCredentialsExpireAt()`
