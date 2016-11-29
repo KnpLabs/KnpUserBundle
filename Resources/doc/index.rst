@@ -12,8 +12,8 @@ a database, then you're in the right place.
 Prerequisites
 -------------
 
-This version of the bundle requires Symfony 2.1+. If you are using Symfony
-2.0.x, please use the 1.2.x releases of the bundle.
+This version of the bundle requires Symfony 2.7+. If you are using an older
+Symfony version, please use the 1.3.x releases of the bundle.
 
 Translations
 ~~~~~~~~~~~~
