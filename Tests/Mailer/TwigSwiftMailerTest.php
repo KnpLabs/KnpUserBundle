@@ -33,7 +33,7 @@ class TwigSwiftMailerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider badEmailProvider
-     * @expectedException Swift_RfcComplianceException
+     * @expectedException \Swift_RfcComplianceException
      */
     public function testSendConfirmationEmailMessageWithBadEmails($emailAddress)
     {
@@ -54,7 +54,7 @@ class TwigSwiftMailerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider badEmailProvider
-     * @expectedException Swift_RfcComplianceException
+     * @expectedException \Swift_RfcComplianceException
      */
     public function testSendResettingEmailMessageWithBadEmails($emailAddress)
     {

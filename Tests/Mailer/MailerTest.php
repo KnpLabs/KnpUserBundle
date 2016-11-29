@@ -31,7 +31,7 @@ class MailerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider badEmailProvider
-     * @expectedException Swift_RfcComplianceException
+     * @expectedException \Swift_RfcComplianceException
      */
     public function testSendConfirmationEmailMessageWithBadEmails($emailAddress)
     {
@@ -52,7 +52,7 @@ class MailerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider badEmailProvider
-     * @expectedException Swift_RfcComplianceException
+     * @expectedException \Swift_RfcComplianceException
      */
     public function testSendResettingEmailMessageWithBadEmails($emailAddress)
     {
