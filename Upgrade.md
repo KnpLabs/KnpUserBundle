@@ -4,7 +4,7 @@ Upgrade instruction
 This document describes the changes needed when upgrading because of a BC
 break. For the full list of changes, please look at the Changelog file.
 
-## 2.0.0-alpha3 to 2.0.0-alpha4
+## 2.0.0-alpha3 to 2.0.0-beta1
 
 Methods and properties removed from `FOS\UserBundle\Model\User`
 

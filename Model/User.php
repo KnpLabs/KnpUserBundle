@@ -155,7 +155,7 @@ abstract class User implements UserInterface, GroupableInterface
             unset($data[4], $data[5], $data[6], $data[9], $data[10]);
             $data = array_values($data);
         } elseif (11 === count($data)) {
-            // Unserializing a User from a dev version somewhere between 2.0-alpha3 and 2.0-alpha4
+            // Unserializing a User from a dev version somewhere between 2.0-alpha3 and 2.0-beta1
             unset($data[4], $data[7], $data[8]);
             $data = array_values($data);
         }
