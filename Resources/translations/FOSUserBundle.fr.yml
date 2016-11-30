@@ -79,4 +79,4 @@ form:
     password: 'Mot de passe'
     password_confirmation: 'Confirmation du mot de passe'
     new_password: 'Nouveau mot de passe'
-    new_password_confirmation: 'Confirmation nouveau mot de passe'
+    new_password_confirmation: 'Confirmation du nouveau mot de passe'
