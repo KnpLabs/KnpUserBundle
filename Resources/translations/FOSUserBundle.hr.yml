@@ -7,9 +7,9 @@ group:
     new:
         submit: Spremi grupu
     flash:
-        updated: Grupa je uspješno ažurirana
-        created: Grupa je uspješno kreirana
-        deleted: Grupa je uspješno spremljena
+        updated: Grupa je uspješno ažurirana.
+        created: Grupa je uspješno kreirana.
+        deleted: Grupa je uspješno spremljena.
 
 # Security
 "Bad credentials": Krivo korisničko ime ili lozinka
@@ -32,13 +32,13 @@ profile:
     edit:
         submit: Ažuriraj
     flash:
-        updated: Profil je uspješno ažuriran
+        updated: Profil je uspješno ažuriran.
 
 # Password change
 change_password:
     submit: Izmijeni lozinku
     flash:
-        success: Lozinka je uspješno spremljena
+        success: Lozinka je uspješno spremljena.
 
 # Registration
 registration:
@@ -47,7 +47,7 @@ registration:
     back: Natrag na polaznu stranicu.
     submit: Registracija
     flash:
-        user_created: Korisnički račun je uspješno kreiran
+        user_created: Korisnički račun je uspješno kreiran.
     email:
         subject: Aktivacija korisničkog računa
         message: |
@@ -69,7 +69,7 @@ resetting:
     reset:
         submit: Spremi lozinku
     flash:
-        success: Lozinka je uspješno spremljena
+        success: Lozinka je uspješno spremljena.
     email:
         subject: Promjena lozinke
         message: |

@@ -7,9 +7,9 @@ group:
     new:
         submit: Grupp creéieren
     flash:
-        updated: D'Grupp gouf aktualiséiert
-        created: D'Grupp gouf creéiert
-        deleted: D'Grupp gouf geläscht
+        updated: D'Grupp gouf aktualiséiert.
+        created: D'Grupp gouf creéiert.
+        deleted: D'Grupp gouf geläscht.
 
 # Security
 security:
@@ -27,13 +27,13 @@ profile:
     edit:
         submit: Benotzer aktualiséieren
     flash:
-        updated: De Benotzerprofil gouf aktualiséiert
+        updated: De Benotzerprofil gouf aktualiséiert.
 
 # Password change
 change_password:
     submit: Passwuert ännern
     flash:
-        success: D'Passwuert gouf geännert
+        success: D'Passwuert gouf geännert.
 
 # Registration
 registration:
@@ -42,7 +42,7 @@ registration:
     #back: Back to the originating page.
     submit: Registréieren
     flash:
-        user_created: De Benotzer gouf erfollegräich creéiert
+        user_created: De Benotzer gouf erfollegräich creéiert.
     email:
         subject: Wëllkomm %username%!
         message: |
@@ -64,7 +64,7 @@ resetting:
     reset:
         submit: Passwuert ännern
     flash:
-        success: D'Passwuert gouf erfollegräich zeréckgesat
+        success: D'Passwuert gouf erfollegräich zeréckgesat.
     email:
         subject: Wëllkomm %username%!
         message: |

@@ -7,9 +7,9 @@ group:
     new:
         submit: Vytvořit skupinu
     flash:
-        updated: Skupina byla úspěšně aktualizována
-        created: Skupina byla úspěšně vytvořena
-        deleted: Skupina byla úspěšně vymazána
+        updated: Skupina byla úspěšně aktualizována.
+        created: Skupina byla úspěšně vytvořena.
+        deleted: Skupina byla úspěšně vymazána.
 
 # Security
 "Bad credentials": Neplatné přihlašovací údaje
@@ -32,13 +32,13 @@ profile:
     edit:
         submit: Upravit
     flash:
-        updated: Profil byl úspěšně aktualizován
+        updated: Profil byl úspěšně aktualizován.
 
 # Password change
 change_password:
     submit: Nastavit nové heslo
     flash:
-        success: Nové heslo bylo úspěšně nastaveno
+        success: Nové heslo bylo úspěšně nastaveno.
 
 # Registration
 registration:
@@ -47,7 +47,7 @@ registration:
     back: Návrat na předchozí stránku.
     submit: Registrovat se
     flash:
-        user_created: Váš účet byl úspěšně vytvořen
+        user_created: Váš účet byl úspěšně vytvořen.
     email:
         subject: Vítejte, %username%!
         message: |
@@ -69,7 +69,7 @@ resetting:
     reset:
         submit: Nastavit nové heslo
     flash:
-        success: Heslo bylo úspěšně změněno
+        success: Heslo bylo úspěšně změněno.
     email:
         subject: Zaslání zapomenutého hesla
         message: |

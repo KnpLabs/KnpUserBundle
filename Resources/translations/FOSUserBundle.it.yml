@@ -7,9 +7,9 @@ group:
     new:
         submit: Crea gruppo
     flash:
-        updated: Il gruppo è stato aggiornato
-        created: Il gruppo è stato creato
-        deleted: Il gruppo è stato cancellato
+        updated: Il gruppo è stato aggiornato.
+        created: Il gruppo è stato creato.
+        deleted: Il gruppo è stato cancellato.
 
 # Security
 security:
@@ -27,13 +27,13 @@ profile:
     edit:
         submit: Aggiorna
     flash:
-        updated: Il profilo è stato aggiornato
+        updated: Il profilo è stato aggiornato.
 
 # Password change
 change_password:
     submit: Cambia password
     flash:
-        success: La password è stata cambiata
+        success: La password è stata cambiata.
 
 # Registration
 registration:
@@ -42,7 +42,7 @@ registration:
     back: Torna alla pagina d'origine.
     submit: Registra
     flash:
-        user_created: Utente creato con successo
+        user_created: Utente creato con successo.
     email:
         subject: Benvenuto %username%!
         message: |
@@ -64,7 +64,7 @@ resetting:
     reset:
         submit: Cambia password
     flash:
-        success: La password è stata resettata
+        success: La password è stata resettata.
     email:
         subject: Password reset
         message: |

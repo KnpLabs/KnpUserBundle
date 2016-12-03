@@ -7,9 +7,9 @@ group:
     new:
         submit: Creează grup
     flash:
-        updated: Grupul a fost actualizat
-        created: Grupul a fost creat
-        deleted: Grupul a fost șters
+        updated: Grupul a fost actualizat.
+        created: Grupul a fost creat.
+        deleted: Grupul a fost șters.
 
 # Security
 security:
@@ -27,13 +27,13 @@ profile:
     edit:
         submit: Actualizează
     flash:
-        updated: Profilul a fost actualizat
+        updated: Profilul a fost actualizat.
 
 # Password change
 change_password:
     submit: Schimba parola
     flash:
-        success: Parola a fost schimbata
+        success: Parola a fost schimbata.
 
 # Registration
 registration:
@@ -42,7 +42,7 @@ registration:
     back: Inapoi la pagina de la care ai venit.
     submit: Inregistreaza-te
     flash:
-        user_created: Utilizatorul a fost creat cu succes
+        user_created: Utilizatorul a fost creat cu succes.
     email:
         subject: Bine ai venit %username%!
         message: |
@@ -64,7 +64,7 @@ resetting:
     reset:
         submit: Schimba parola
     flash:
-        success: Parola a fost resetata cu succes
+        success: Parola a fost resetata cu succes.
     email:
         subject: Resetare parola
         message: |

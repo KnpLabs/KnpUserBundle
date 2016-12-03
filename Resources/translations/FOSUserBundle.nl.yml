@@ -7,9 +7,9 @@ group:
     new:
         submit: Groep aanmaken
     flash:
-        updated: De groep is bijgewerkt
-        created: De groep is aangemaakt
-        deleted: De groep is verwijderd
+        updated: De groep is bijgewerkt.
+        created: De groep is aangemaakt.
+        deleted: De groep is verwijderd.
 
 # Security
 "Bad credentials": Gebruikersnaam of wachtwoord ongeldig
@@ -32,13 +32,13 @@ profile:
     edit:
         submit: Bijwerken
     flash:
-        updated: Het profiel is bijgewerkt
+        updated: Het profiel is bijgewerkt.
 
 # Password change
 change_password:
     submit: Wachtwoord wijzigen
     flash:
-        success: Het wachtwoord is gewijzigd
+        success: Het wachtwoord is gewijzigd.
 
 # Registration
 registration:
@@ -47,7 +47,7 @@ registration:
     back: Terug naar de oorspronkelijke pagina.
     submit: Registreer
     flash:
-        user_created: De gebruiker is succesvol aangemaakt
+        user_created: De gebruiker is succesvol aangemaakt.
     email:
         subject: Welkom %username%!
         message: |
@@ -69,7 +69,7 @@ resetting:
     reset:
         submit: Wijzig wachtwoord
     flash:
-        success: Het wachtwoord is succesvol gereset
+        success: Het wachtwoord is succesvol gereset.
     email:
         subject: Reset wachtwoord
         message: |

@@ -7,9 +7,9 @@ group:
     new:
         submit: Taldea sortu
     flash:
-        updated: Taldea eguneratua izan da
-        created: Taldea sortua izan da
-        deleted: Taldea ezabatua izan da
+        updated: Taldea eguneratua izan da.
+        created: Taldea sortua izan da.
+        deleted: Taldea ezabatua izan da.
 
 # Security
 security:
@@ -27,13 +27,13 @@ profile:
     edit:
         submit: Erabiltzailea eguneratu
     flash:
-        updated: Perfila eguneratua izan da
+        updated: Perfila eguneratua izan da.
 
 # Password change
 change_password:
     submit: Pasahitza aldatu
     flash:
-        success: Pasahitz ongi eguneratu da
+        success: Pasahitz ongi eguneratu da.
 
 # Registration
 registration:
@@ -42,7 +42,7 @@ registration:
     back: Itzuli.
     submit: Izena eman
     flash:
-        user_created: Erabiltzailea ongi sortu da
+        user_created: Erabiltzailea ongi sortu da.
     email:
         subject: Ongi etorri %username%!
         message: |
@@ -64,7 +64,7 @@ resetting:
     reset:
         submit: Pasahitza aldatu
     flash:
-        success: Pasahitza ongi aldatu da
+        success: Pasahitza ongi aldatu da.
     email:
         subject: Pasahitza berrezarri
         message : |

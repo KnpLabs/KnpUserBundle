@@ -7,9 +7,9 @@ group:
     new:
         submit: Skapa grupp
     flash:
-        updated: Gruppen har uppdaterats
-        created: Gruppen har skapats
-        deleted: Gruppen har tagits bort
+        updated: Gruppen har uppdaterats.
+        created: Gruppen har skapats.
+        deleted: Gruppen har tagits bort.
 
 # Security
 security:
@@ -27,13 +27,13 @@ profile:
     edit:
         submit: Uppdatera
     flash:
-        updated: Profilen har uppdaterats
+        updated: Profilen har uppdaterats.
 
 # Password change
 change_password:
     submit: Ändra lösenord
     flash:
-        success: Lösenordet har ändrats
+        success: Lösenordet har ändrats.
 
 # Registration
 registration:
@@ -64,7 +64,7 @@ resetting:
     reset:
         submit: Ändra lösenord
     flash:
-        success: Lösenordet har återställts
+        success: Lösenordet har återställts.
     email:
         subject: Återställ lösenord
         message: |
