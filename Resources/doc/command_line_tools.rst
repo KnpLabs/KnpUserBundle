@@ -117,6 +117,10 @@ prompt will ask you to enter them.
 .. note::
 
     You may not specify the ``role`` argument and the ``--super`` option simultaneously.
+    
+.. caution::
+
+    Changes will not be applied until the user logs out and back in again.
 
 Demote a User
 -------------
@@ -146,6 +150,12 @@ prompt will ask you to enter them.
 .. note::
 
     You may not specify the ``role`` argument and the ``--super`` option simultaneously.
+    
+.. caution::
+
+    Changes will not be applied until the user logs out and back in again. This has 
+    implications for the way in which you configure sessions in your application since
+    you want to ensure that users are demoted as quickly as possible.
 
 Change a User's Password
 ------------------------
