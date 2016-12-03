@@ -13,20 +13,19 @@ specific needs of your application.
     to implement the functionality. Replacing the whole controller should
     be considered as the last solution when nothing else is possible.
 
-The first step to overriding a controller in the bundle is to create a child
-bundle whose parent is FOSUserBundle. The following code snippet creates a new
-bundle named ``AcmeUserBundle`` that declares itself a child of FOSUserBundle.
+The first step to overriding a controller in the bundle is to configure
+FOSUserBundle to be a parent of your ``AppBundle``.
 
 .. code-block:: php
 
     <?php
-    // src/Acme/UserBundle/AcmeUserBundle.php
+    // src/AppBundle/AppBundle.php
 
-    namespace Acme\UserBundle;
+    namespace AppBundle;
 
     use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-    class AcmeUserBundle extends Bundle
+    class AppBundle extends Bundle
     {
         public function getParent()
         {
@@ -39,7 +38,11 @@ bundle named ``AcmeUserBundle`` that declares itself a child of FOSUserBundle.
     The Symfony Framework only allows a bundle to have one child. You cannot
     create another bundle that is also a child of FOSUserBundle.
 
-Now that you have created the new child bundle you can simply create a controller class
+.. note::
+
+    You could also create a new child bundle and declare it as a child of FOSUserBundle.
+
+Now that your bundle is correctly configured you can simply create a controller class
 with the same name and in the same location as the one you want to override. This
 example overrides the ``RegistrationController`` by extending the FOSUserBundle
 ``RegistrationController`` class and simply overriding the method that needs the extra
@@ -51,9 +54,9 @@ the base controller and adds logging a new user registration to it.
 .. code-block:: php
 
     <?php
-    // src/Acme/UserBundle/Controller/RegistrationController.php
+    // src/AppBundle/Controller/RegistrationController.php
 
-    namespace Acme\UserBundle\Controller;
+    namespace AppBundle\Controller;
 
     use Symfony\Component\HttpFoundation\RedirectResponse;
     use FOS\UserBundle\Controller\RegistrationController as BaseController;

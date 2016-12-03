@@ -7,7 +7,7 @@ the bundle. Although the template names are not configurable, the Symfony
 framework provides two ways to override the templates of a bundle.
 
 1. Define a new template of the same name in the ``app/Resources`` directory
-2. Create a new bundle that is defined as a child of ``FOSUserBundle``
+2. Configure your AppBundle as a child of ``FOSUserBundle``
 
 Example: Overriding The Default layout.html.twig
 ------------------------------------------------
@@ -90,7 +90,7 @@ create a folder with the name of the bundle class in the ``app/Resources`` direc
 Then add your new template to this folder, preserving the directory structure from the
 original bundle.
 
-**b) Create A Child Bundle And Override Template**
+**b) Configure your AppBundle And Override Template**
 
 .. note::
 
@@ -98,21 +98,20 @@ original bundle.
     planning to override the controllers as well as the templates, it is recommended
     that you use the other method.
 
-As listed above, you can also create a bundle defined as child of FOSUserBundle
+As listed above, you can also configure your ``AppBundle`` to be a child of FOSUserBundle
 and place the new template in the same location that is resides in the FOSUserBundle.
-The first thing you want to do is override the ``getParent`` method to your bundle
-class.
+The first thing you want to do is override the ``getParent`` method of your ``AppBundle`` class.
 
 .. code-block:: php
 
     <?php
-    // src/Acme/UserBundle/AcmeUserBundle.php
+    // src/AppBundle/AppBundle.php
 
-    namespace Acme\UserBundle;
+    namespace AppBundle;
 
     use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-    class AcmeUserBundle extends Bundle
+    class AppBundle extends Bundle
     {
         public function getParent()
         {
@@ -120,12 +119,16 @@ class.
         }
     }
 
+.. note::
+
+    You could also create a new child bundle and declare it as a child of FOSUserBundle.
+
 By returning the name of the bundle in the ``getParent`` method of your bundle class,
 you are telling the Symfony Framework that your bundle is a child of the FOSUserBundle.
 
 Now that you have declared your bundle as a child of the FOSUserBundle, you can override
 the parent bundle's templates. To override the layout template, simply create a new file
-in the ``src/Acme/UserBundle/Resources/views`` directory named ``layout.html.twig``. Notice
+in the ``src/AppBundle/Resources/views`` directory named ``layout.html.twig``. Notice
 how this file resides in the same exact path relative to the bundle directory as it
 does in the FOSUserBundle.
 
