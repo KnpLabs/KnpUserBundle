@@ -44,7 +44,6 @@ resetting:
         subject: 'Thiết lập lại mật khẩu'
     flash:
         success: 'Các mật khẩu đã được thiết lập lại thành công'
-    password_already_requested: 'Mật khẩu cho người dùng này đã được yêu cầu trong vòng 24 giờ qua.'
     request:
         submit: 'Thiết lập lại mật khẩu'
         username: 'Tên đăng nhập hoặc địa chỉ email:'

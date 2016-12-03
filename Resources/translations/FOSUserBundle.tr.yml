@@ -38,7 +38,6 @@ registration:
         subject: 'Hoşgeldin %username%!'
         message: "Hoşgeldiniz %username%!\n\nHesabınızın aktivasyonunu tamamlamak için lütfen  %confirmationUrl%\nadresini ziyaret ediniz.\n\nTeşekkürler,\nWeb Takımı.\n"
 resetting:
-    password_already_requested: 'Son 24 saat içerisinde bu kullanıcı parola için istekte bulunmuş.'
     check_email: '%email% adresine parolanızı sıfırlama adresi bulunan bir e-posta gönderildi.'
     request:
         username: 'Kullanıcı adı ya da e-posta adresi'

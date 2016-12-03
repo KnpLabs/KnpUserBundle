@@ -38,7 +38,6 @@ registration:
         subject: 'Registracijos patvirtinimas'
         message: "Sveiki %username%!\n\nNorėdami aktyvuoti savo paskyrą, apsilankykite adresu %confirmationUrl%\n\nPagarbiai,\nKomanda.\n"
 resetting:
-    password_already_requested: 'Slaptažodžio keitimas šiam naudotojui jau buvo prašytas per paskutinias 24 valandas.'
     check_email: 'El. pašto pranešimas išsiųstas adresu %email%. Jame rasite nuorodą, kurią paspaudę, galėsite pakeisti savo slaptažodį.'
     request:
         username: 'Naudotojo vardas arba el. paštas'

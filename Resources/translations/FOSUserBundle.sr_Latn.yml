@@ -38,7 +38,6 @@ registration:
         subject: 'Dobrodošli %username%!'
         message: "Zdravo %username%!\n\nDa bi aktivirali Vaš nalog posetite %confirmationUrl%\n\nS poštovanjem,\ntim sajta.\n"
 resetting:
-    password_already_requested: 'Lozinka za ovog korisnika je već zahtevana u poslednjih 24 sata.'
     check_email: 'Poruka je poslata na adresu %email%. Ona sadrži link koji morate kliknuti da bi resetovali Vašu lozinku.'
     request:
         username: 'Korisničko ime ili adresa e-pošte'

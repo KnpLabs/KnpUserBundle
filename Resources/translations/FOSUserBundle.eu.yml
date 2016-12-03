@@ -38,7 +38,6 @@ registration:
         subject: 'Ongi etorri %username%!'
         message: "Kaixo %username%!\n\nKontuaren balidazioazioarekin jarraitzeko - ireki ondoko orria: %confirmationUrl%\n\nAdeitasunez,\nTaldea.\n"
 resetting:
-    password_already_requested: '24 orduen barruan erabiltzaile honen pasahitza eskatua izan da.'
     check_email: 'Email bat bidali zaio %email% helbideari. Pasahitza berreskuratzeko esteka zehazten da bertan.'
     request:
         username: 'Erabiltzaile izena'

@@ -37,7 +37,6 @@ registration:
         subject: 'Wëllkomm %username%!'
         message: "Hallo %username%!\n\nFir Däi Benotzerkonto ze bestätegen, besich wann ech gelift d'Säit %confirmationUrl%\n\nMat beschte Gréiss,\nd'Equipe.\n"
 resetting:
-    password_already_requested: 'Een neit Passwuert gouf an de vergaangene 24 Stunden fir dëse Benotzer schon emol ugefrot.'
     check_email: 'Eng E-Mail gouf un %email% geschéckt. Se enthält e Link, deen s Du uklicke muss, fir Däi Passwort zeréckzesetzen.'
     request:
         username: Benotzernumm

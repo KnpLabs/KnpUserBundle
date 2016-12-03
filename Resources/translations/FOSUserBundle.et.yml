@@ -26,7 +26,6 @@ registration:
     email:
         message: "Tere %username%!\n\nKonto valideerimise edukaks lõpetamiseks palun vajutage viitel %confirmationUrl%\n\nParimatega,\nTiim.\n"
 resetting:
-    password_already_requested: 'Kasutaja salasõna on juba viimase 24 tunni jooksul küsitud.'
     check_email: 'E-mail on saadetud aadressile %email%. Selles sisaldub viide, mis tuleb salasõna muutmiseks avada.'
     request:
         username: Kasutajanimi

@@ -38,7 +38,6 @@ registration:
         subject: 'Välkommen %username%!'
         message: "Hej %username%!\n\nFör att aktivera ditt konto - vänligen besök %confirmationUrl%\n\nHälsningar,\nTeamet.\n"
 resetting:
-    password_already_requested: 'Lösenordet för användaren har redan begärts inom de senaste 24 timmarna.'
     check_email: 'Ett meddelande har skickats till %email%. Det innehåller en länk som du måste klicka på för att återställa ditt lösenord.'
     request:
         username: 'Användarnamn eller epost-adress'

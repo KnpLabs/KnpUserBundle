@@ -38,7 +38,6 @@ registration:
         subject: 'Sveiki, %username%!'
         message: "Sveiks, %username%!\n\nLai pabeigtu aktivizēt savu kontu, lūdzu apmeklē %confirmationUrl%\n\nJauku dienu,\nlapas kolektīvs.\n"
 resetting:
-    password_already_requested: 'Parole šim lietotājam jau tikusi pieprasīta pēdējo 24 stundu laikā.'
     check_email: 'Uz %email% tika nosūtīts e-pasts ar saiti, kurai jāseko, lai atiestatītu paroli.'
     request:
         username: 'Lietotājvārds vai e-pasta adrese'

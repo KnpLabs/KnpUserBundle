@@ -38,7 +38,6 @@ registration:
         subject: 'Üdvözöljük %username%!'
         message: "Hello %username%!\n\nA fiókja visszaigazolásához kérjük látogasson el a következő linkre: %confirmationUrl%\n\nÜdvözlettel,\nthe Team.\n"
 resetting:
-    password_already_requested: 'Az elmúlt 24 órában ehhez a felhasználóhoz már kértek új jelszót.'
     check_email: 'Egy e-mail lett küldve a(z) %email% címre. Egy linket tartalmaz, amire rá kell kattintani a jeszó lecseréléséhez.'
     request:
         username: 'Felhasználónév vagy e-mail cím'

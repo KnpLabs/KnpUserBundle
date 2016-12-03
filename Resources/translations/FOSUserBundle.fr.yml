@@ -44,7 +44,6 @@ registration:
             Cordialement,
             L'équipe
 resetting:
-    password_already_requested: 'Un nouveau mot de passe a déjà été demandé pour cet utilisateur dans les dernières 24 heures.'
     check_email: |
         Un e-mail a été envoyé. Il contient un lien sur lequel il vous faudra cliquer pour réinitialiser votre mot de passe.
         Remarque : Vous ne pouvez demander un nouveau mot de passe que toutes les %tokenLifetime% heures.
