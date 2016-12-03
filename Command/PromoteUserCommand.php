@@ -48,10 +48,10 @@ EOT
     {
         if ($super) {
             $manipulator->promote($username);
-            $output->writeln(sprintf('User "%s" has been promoted as a super administrator.', $username));
+            $output->writeln(sprintf('User "%s" has been promoted as a super administrator. This change will not apply until the user logs out and back in again.', $username));
         } else {
             if ($manipulator->addRole($username, $role)) {
-                $output->writeln(sprintf('Role "%s" has been added to user "%s".', $role, $username));
+                $output->writeln(sprintf('Role "%s" has been added to user "%s". This change will not apply until the user logs out and back in again.', $role, $username));
             } else {
                 $output->writeln(sprintf('User "%s" did already have "%s" role.', $username, $role));
             }
