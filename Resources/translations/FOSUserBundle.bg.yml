@@ -38,7 +38,6 @@ registration:
         subject: 'Добре дошли, %username%!'
         message: "Здравейте, %username%!\n\nЗа да активирате своя профил, моля отворете %confirmationUrl%\n\nПоздрави,\nот екипа.\n"
 resetting:
-    password_already_requested: 'Този потребител вече е поискал смяна на парола в последните 24 часа.'
     check_email: 'Изпратихме писмо с линк за активация на посочения E-mail адрес: %email%. Ако не откривате писмото проверете и в папка СПАМ.'
     request:
         username: 'Потребителско име / E-mail'

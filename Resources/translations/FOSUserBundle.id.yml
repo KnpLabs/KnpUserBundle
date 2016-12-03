@@ -51,7 +51,6 @@ registration:
             Tim Website.
 
 resetting:
-    password_already_requested: 'Password untuk pengguna ini telah di request dalam waktu 24 jam.'
     check_email: 'Email telah dikirim ke %email%. Anda harus mengklik link di dalam email tersebut agar dapat mereset password anda.'
     request:
         username: 'Nama Pengguna Atau Alamat Email anda'

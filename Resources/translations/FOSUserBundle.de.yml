@@ -38,7 +38,6 @@ registration:
         subject: 'Willkommen %username%!'
         message: "Hallo %username%!\n\nBesuchen Sie bitte folgende Seite, um Ihr Benutzerkonto zu bestätigen: %confirmationUrl%\n\nMit besten Grüßen,\ndas Team.\n"
 resetting:
-    password_already_requested: 'Für diesen Benutzer wurde in den vergangenen 24 Stunden bereits ein neues Passwort beantragt.'
     check_email: |
         Eine E-Mail wurde verschickt. Sie beinhaltet einen Link zum Zurücksetzen des Passwortes.
         Hinweis: Ein neues Passwort kann nur alle %tokenLifetime% Stunden beantragt werden.

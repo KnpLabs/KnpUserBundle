@@ -38,7 +38,6 @@ registration:
         subject: 'Bem-vindo(a) %username%!'
         message: "Olá %username%!\n\nPara completar a validação da sua conta, por favor visite o seguinte link: %confirmationUrl%\n\nCumprimentos,\nA equipa.\n"
 resetting:
-    password_already_requested: 'Uma password para este utilizador já foi requisitada nas últimas 24 horas.'
     check_email: 'Foi enviado um email para %email% com a informação necessária para recuperar a sua password.'
     request:
         username: Utilizador

@@ -38,7 +38,6 @@ registration:
         subject: 'Velkommen %username%!'
         message: "Hallo %username%!\n\nFor å fullføre aktiveringen av din konto - vennligst besøk %confirmationUrl%\n\nMed vennlig hilsen,\nTeamet.\n"
 resetting:
-    password_already_requested: 'Passordet for denne brukeren har allerede blitt forespurt innenfor de siste 24 timene.'
     check_email: 'En epost har blitt sendt til %email%. Den inneholder en lenke du må klikke på for å tilbakestille passordet.'
     request:
         username: 'Brukernavn eller epostadresse'

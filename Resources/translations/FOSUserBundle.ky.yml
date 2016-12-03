@@ -38,7 +38,6 @@ registration:
         subject: 'Кош келдиңиз, %username%!'
         message: "Саламатсызбы, %username%!\n\n Регистрацияны анныктоо үчүн %confirmationUrl%\n\n шилтемеси кириңиз."
 resetting:
-    password_already_requested: 'Сырдык сөздү сиз үчүн буга чейин 24 саат ичинде суралды.'
     check_email: 'Кат %email% почтасына жөнөтүлдү. Ал жакта шилтеме бар жана ал шилтемеге кирүү менен сиздин сырдык сөзүңүз өзгөрөт.'
     request:
         username: 'Колдонуучунун аты'

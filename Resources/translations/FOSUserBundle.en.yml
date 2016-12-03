@@ -49,7 +49,6 @@ registration:
             the Team.
 
 resetting:
-    password_already_requested: 'The password for this user has already been requested within the last 24 hours.'
     check_email: |
         An email has been sent. It contains a link you must click to reset your password.
         Note: You can only request a new password within %tokenLifetime% hours.

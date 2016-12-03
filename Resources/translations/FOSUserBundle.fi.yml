@@ -38,7 +38,6 @@ registration:
         subject: 'Tervetuloa %username%!'
         message: "Hei %username%!\n\nAktivoidaksesi tunnuksesi, ole hyvä ja klikkaa %confirmationUrl%\n\nTerveisin ylläpito\n"
 resetting:
-    password_already_requested: 'Tälle käyttäjälle on jo pyydetty salasanaa viimeisen 24 tunnin aikana.'
     check_email: 'Sähköposti on lähetetty osoitteeseen %email%. Se sisältää linkin, jota klikkaamalla salasana alustetaan.'
     request:
         username: 'Käyttäjätunnus tai sähköpostiosoite'

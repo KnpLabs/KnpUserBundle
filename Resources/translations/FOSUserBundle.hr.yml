@@ -38,7 +38,6 @@ registration:
         subject: 'Aktivacija korisničkog računa'
         message: "Pozdrav %username%!\n\nZa aktivaciju korisničkog računa molimo kliknite na %confirmationUrl%\n\nPozdrav,\nAutori stranice\n"
 resetting:
-    password_already_requested: 'U posljednja 24 sata ste već poslali zahtjev za resetiranjem lozinke.'
     check_email: 'Na %email%  smo vam poslali poruku s poveznicom za promjenu lozinke. Lozinku resetirajte klikom na tu poveznicu.'
     request:
         username: 'Korisničko ime'

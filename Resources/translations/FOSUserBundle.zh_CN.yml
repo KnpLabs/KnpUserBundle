@@ -38,7 +38,6 @@ registration:
         subject: '%username%，欢迎你'
         message: "%username%，你好！\n\n要启用你的用户帐号，请访问：%confirmationUrl%\n\n祝好\n网站团队\n"
 resetting:
-    password_already_requested: 该用户在过去的24小时内，已经请求过一次找回密码了。
     check_email: 系统向%email%发送了一封包含密码重置链接的邮件，请查收。
     request:
         username: 用户名或邮箱

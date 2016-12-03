@@ -38,7 +38,6 @@ registration:
         subject: 'שלום %username%!'
         message: "%username% שלום רב,\n\nכדי לסיים הרשמתך יש ללחוץ על קישור זה:  %confirmationUrl%\n\nבברכה,\n   הצוות.\n"
 resetting:
-    password_already_requested: 'ב24 שעות האחרונות נרשם ניסיון לשחזר סיסמה למשתמש זה.'
     check_email: 'הודעת דוא"ל נשלחה ל-%email%. ההודעה מכילה קישור לאיפוס סיסמה שלך.'
     request:
         username: 'שם משתמש או דואר אלקטרוני'
