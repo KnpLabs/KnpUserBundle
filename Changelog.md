@@ -4,6 +4,8 @@ Changelog
 ### 1.3.8 (xxxx-xx-xx)
 
 * Fixed invalid `isAccountNonExpired` timestamp when year is 2038
+* Added trailing dot flash messages
+* Added trailing dot validator messages
 * Use `random_bytes` to generate tokens
 
 ### 1.3.7 (2016-11-22)
