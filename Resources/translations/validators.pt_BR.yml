@@ -22,3 +22,4 @@ fos_user:
     group:
         blank: 'É necessário preencher o nome.'
         short: 'O nome é muito curto.'
+        long: 'O nome é muito longo.'
