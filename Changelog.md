@@ -1,6 +1,11 @@
 Changelog
 =========
 
+### 2.0.0-beta2 (xxxx-xx-xx)
+
+* Use ceil in `ResettingController` for a better token lifetime approximation
+* Removed unused translation keys
+
 ### 2.0.0-beta1 (2016-11-29)
 
 * Dropped Symfony < 2.7 support.
