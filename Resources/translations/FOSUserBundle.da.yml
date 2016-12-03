@@ -7,9 +7,9 @@ group:
     new:
         submit: Opret gruppe
     flash:
-        updated: Gruppen er blevet opdateret
-        created: Gruppen er blevet oprettet
-        deleted: Gruppen er blevet slettet
+        updated: Gruppen er blevet opdateret.
+        created: Gruppen er blevet oprettet.
+        deleted: Gruppen er blevet slettet.
 
 # Security
 security:
@@ -27,13 +27,13 @@ profile:
     edit:
         submit: Opdater
     flash:
-        updated: Profilen er blevet opdateret
+        updated: Profilen er blevet opdateret.
 
 # Password change
 change_password:
     submit: Skift adgangskode
     flash:
-        success: Adgangskoden er blevet opdateret
+        success: Adgangskoden er blevet opdateret.
 
 # Registration
 registration:
@@ -42,7 +42,7 @@ registration:
     #back: Back to the originating page.
     submit: Registrer
     flash:
-        user_created: Bruger er blevet oprettet
+        user_created: Bruger er blevet oprettet.
     email:
         subject: Velkommen %username%!
         message: |
@@ -64,7 +64,7 @@ resetting:
     reset:
         submit: Skift adgangskode
     flash:
-        success: Adgangskoden er blevet nulstillet
+        success: Adgangskoden er blevet nulstillet.
     email:
         subject: Velkommen %username%!
         message: |

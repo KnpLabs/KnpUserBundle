@@ -7,9 +7,9 @@ group:
     new:
         submit: Utwórz grupę
     flash:
-        updated: Grupa została zaktualizowana
-        created: Grupa została utworzona
-        deleted: Grupa została usunięta
+        updated: Grupa została zaktualizowana.
+        created: Grupa została utworzona.
+        deleted: Grupa została usunięta.
 
 # Security
 "Bad credentials": Nieprawidłowa nazwa użytkownika lub hasło
@@ -32,13 +32,13 @@ profile:
     edit:
         submit: Edytuj użytkownika
     flash:
-        updated: Zapisano zmiany w profilu
+        updated: Zapisano zmiany w profilu.
 
 # Password change
 change_password:
     submit: Zmień hasło
     flash:
-        success: Hasło zostało zmienione
+        success: Hasło zostało zmienione.
 
 # Registration
 registration:
@@ -47,7 +47,7 @@ registration:
     back: Powrót do poprzedniej strony.
     submit: Zarejestruj
     flash:
-        user_created: Stworzono użytkownika
+        user_created: Stworzono użytkownika.
     email:
         subject: Witaj %username%!
         message: |
@@ -69,7 +69,7 @@ resetting:
     reset:
         submit: Zmień hasło
     flash:
-        success: Hasło zostało zresetowane
+        success: Hasło zostało zresetowane.
     email:
         subject: Resetowanie hasła
         message: |

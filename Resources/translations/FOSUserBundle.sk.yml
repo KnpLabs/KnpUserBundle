@@ -33,7 +33,7 @@ profile:
 change_password:
     submit: Zmena hesla
     flash:
-        success: Heslo bolo úspešne zmenené
+        success: Heslo bolo úspešne zmenené.
 
 # Registration
 registration:

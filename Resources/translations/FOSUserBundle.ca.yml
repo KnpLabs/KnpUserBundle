@@ -7,9 +7,9 @@ group:
     new:
         submit: Crea el grup
     flash:
-        updated: S'ha actualitzat el grup
-        created: S'ha creat el grup
-        deleted: S'ha eliminat el grup
+        updated: S'ha actualitzat el grup.
+        created: S'ha creat el grup.
+        deleted: S'ha eliminat el grup.
 
 # Security
 security:
@@ -27,13 +27,13 @@ profile:
     edit:
         submit: Actualitza
     flash:
-        updated: S'ha actualitzat el perfil
+        updated: S'ha actualitzat el perfil.
 
 # Password change
 change_password:
     submit: Canvia la contrasenya
     flash:
-        success: S'ha canviat la contrasenya
+        success: S'ha canviat la contrasenya.
 
 # Registration
 registration:
@@ -42,7 +42,7 @@ registration:
     back: Torna a la pàgina original.
     submit: Registra
     flash:
-        user_created: S'ha creat l'usuari correctament
+        user_created: S'ha creat l'usuari correctament.
     email:
         subject: Benvingut %username%!
         message: |
@@ -64,7 +64,7 @@ resetting:
     reset:
         submit: Canvia la contrasenya
     flash:
-        success: S'ha restablert la contrasenya correctament
+        success: S'ha restablert la contrasenya correctament.
     email:
         subject: Restablir la contrasenya
         message: |

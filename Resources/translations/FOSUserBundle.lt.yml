@@ -7,9 +7,9 @@ group:
     new:
         submit: Sukurti grupę
     flash:
-        updated: Grupė buvo atnaujinta
-        created: Grupė buvo sukurta
-        deleted: Grupė buvo ištrinta
+        updated: Grupė buvo atnaujinta.
+        created: Grupė buvo sukurta.
+        deleted: Grupė buvo ištrinta.
 
 # Security
 "Bad credentials": Neteisingas naudotojas arba slaptažodis
@@ -32,13 +32,13 @@ profile:
     edit:
         submit: Atnaujinti
     flash:
-        updated: Profilis buvo atnaujintas
+        updated: Profilis buvo atnaujintas.
 
 # Password change
 change_password:
     submit: Pakeisti slaptažodi
     flash:
-        success: slaptažodis buvo pakeistas
+        success: slaptažodis buvo pakeistas.
 
 # Registration
 registration:
@@ -47,7 +47,7 @@ registration:
     back: Gryžti i praeitą puslapi.
     submit: Registruotis
     flash:
-        user_created: Naudotojas buvo sukurtas sėkmingai
+        user_created: Naudotojas buvo sukurtas sėkmingai.
     email:
         subject: Sveiki %username%!
         message: |
@@ -69,7 +69,7 @@ resetting:
     reset:
         submit: Pakeisti slaptažodi
     flash:
-        success: Slaptažodis pakeistas sėkmingai
+        success: Slaptažodis pakeistas sėkmingai.
     email:
         subject: Nustatyti slaptažodi
         message: |

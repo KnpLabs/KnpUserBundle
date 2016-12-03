@@ -7,9 +7,9 @@ group:
     new:
         submit: Grup Yarat
     flash:
-        updated: Grup Güncellendi
-        created: Grup Yaratıldı
-        deleted: Grup Silindi
+        updated: Grup Güncellendi.
+        created: Grup Yaratıldı.
+        deleted: Grup Silindi.
 
 # Security
 "Bad credentials": Geçersiz kullanıcı adı ya da parola
@@ -32,13 +32,13 @@ profile:
     edit:
         submit: Güncelle
     flash:
-        updated: Profil Güncellendi
+        updated: Profil Güncellendi.
 
 # Password change
 change_password:
     submit: Parolayı Değiştir
     flash:
-        success: Parola değiştirildi
+        success: Parola değiştirildi.
 
 # Registration
 registration:
@@ -47,7 +47,7 @@ registration:
     back: Asıl sayfaya geri dön.
     submit: Kayıt ol
     flash:
-        user_created: Kullanıcı başarıyla yaratıldı
+        user_created: Kullanıcı başarıyla yaratıldı.
     email:
         subject: Hoşgeldin %username%!
         message: |
@@ -70,7 +70,7 @@ resetting:
     reset:
         submit: Parolayı değiştir
     flash:
-        success: Parola başarıyla değiştirildi
+        success: Parola başarıyla değiştirildi.
     email:
         subject: Parola Yenileme
         message: |

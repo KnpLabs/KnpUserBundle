@@ -7,9 +7,9 @@ group:
     new:
         submit: Создать группу
     flash:
-        updated: Группа обновлена
-        created: Группа создана
-        deleted: Группа удалена
+        updated: Группа обновлена.
+        created: Группа создана.
+        deleted: Группа удалена.
 
 # Security
 "Bad credentials": Неправильное имя пользователя или пароль
@@ -32,13 +32,13 @@ profile:
     edit:
         submit: Обновить
     flash:
-        updated: Профиль пользователя обновлен
+        updated: Профиль пользователя обновлен.
 
 # Password change
 change_password:
     submit: Изменить пароль
     flash:
-        success: Пароль изменен
+        success: Пароль изменен.
 
 # Registration
 registration:
@@ -47,7 +47,7 @@ registration:
     back: Вернуться на предыдущую страницу.
     submit: Регистрация
     flash:
-        user_created: Пользователь успешно создан
+        user_created: Пользователь успешно создан.
     email:
         subject: Добро пожаловать, %username%!
         message: |
@@ -69,7 +69,7 @@ resetting:
     reset:
         submit: Изменить пароль
     flash:
-        success: Пароль успешно сброшен
+        success: Пароль успешно сброшен.
     email:
         subject: Сброс пароля
         message: |
