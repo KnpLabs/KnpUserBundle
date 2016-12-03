@@ -6,9 +6,9 @@ group:
     new:
         submit: 'Taldea sortu'
     flash:
-        updated: 'Taldea eguneratua izan da'
-        created: 'Taldea sortua izan da'
-        deleted: 'Taldea ezabatua izan da'
+        updated: 'Taldea eguneratua izan da.'
+        created: 'Taldea sortua izan da.'
+        deleted: 'Taldea ezabatua izan da.'
 security:
     login:
         username: 'Erabiltzaile izena'
@@ -22,18 +22,18 @@ profile:
     edit:
         submit: 'Erabiltzailea eguneratu'
     flash:
-        updated: 'Perfila eguneratua izan da'
+        updated: 'Perfila eguneratua izan da.'
 change_password:
     submit: 'Pasahitza aldatu'
     flash:
-        success: 'Pasahitz ongi eguneratu da'
+        success: 'Pasahitz ongi eguneratu da.'
 registration:
     check_email: 'E-posta bat bidali da %email% helbidera. Kontua aktibatzeko klik egin beharreko esteka zehazten da.'
     confirmed: 'Zorionak %username%, zure kontua aktibatua dago.'
     back: Itzuli.
     submit: 'Izena eman'
     flash:
-        user_created: 'Erabiltzailea ongi sortu da'
+        user_created: 'Erabiltzailea ongi sortu da.'
     email:
         subject: 'Ongi etorri %username%!'
         message: "Kaixo %username%!\n\nKontuaren balidazioazioarekin jarraitzeko - ireki ondoko orria: %confirmationUrl%\n\nAdeitasunez,\nTaldea.\n"
@@ -45,7 +45,7 @@ resetting:
     reset:
         submit: 'Pasahitza aldatu'
     flash:
-        success: 'Pasahitza ongi aldatu da'
+        success: 'Pasahitza ongi aldatu da.'
     email:
         subject: 'Pasahitza berrezarri'
         message: "Kaixo %username%!\n\nPasahitza berrezartzeko egin klik esteka honetan: %confirmationUrl%\n\nAdeitasunez,\nTaldea.\n"

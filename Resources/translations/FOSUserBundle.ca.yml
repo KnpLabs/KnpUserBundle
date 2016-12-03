@@ -6,9 +6,9 @@ group:
     new:
         submit: 'Crea el grup'
     flash:
-        updated: 'S''ha actualitzat el grup'
-        created: 'S''ha creat el grup'
-        deleted: 'S''ha eliminat el grup'
+        updated: 'S''ha actualitzat el grup.'
+        created: 'S''ha creat el grup.'
+        deleted: 'S''ha eliminat el grup.'
 security:
     login:
         username: 'Nom d''usuari'
@@ -22,18 +22,18 @@ profile:
     edit:
         submit: Actualitza
     flash:
-        updated: 'S''ha actualitzat el perfil'
+        updated: 'S''ha actualitzat el perfil.'
 change_password:
     submit: 'Canvia la contrasenya'
     flash:
-        success: 'S''ha canviat la contrasenya'
+        success: 'S''ha canviat la contrasenya.'
 registration:
     check_email: 'S''ha enviat un correu electrònic a %email%. Conté un enllaç d''activació que heu de clicar per activar el compte.'
     confirmed: 'Enhorabona %username%, el vostre compte s''ha activat.'
     back: 'Torna a la pàgina original.'
     submit: Registra
     flash:
-        user_created: 'S''ha creat l''usuari correctament'
+        user_created: 'S''ha creat l''usuari correctament.'
     email:
         subject: 'Benvingut %username%!'
         message: "Hola %username%!\n\nPer finalitzar l'activació del seu compte - si us plau visiteu %confirmationUrl%\n\nAtentament,\nL'equip.\n"
@@ -45,7 +45,7 @@ resetting:
     reset:
         submit: 'Canvia la contrasenya'
     flash:
-        success: 'S''ha restablert la contrasenya correctament'
+        success: 'S''ha restablert la contrasenya correctament.'
     email:
         subject: 'Restablir la contrasenya'
         message: "Hola %username%!\n\nPer restablir la contrasenya - si us plau visiteu %confirmationUrl%\n\nAtentament,\nL'equip.\n"

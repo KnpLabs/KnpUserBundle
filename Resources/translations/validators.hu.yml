@@ -1,25 +1,25 @@
 fos_user:
     username:
-        already_used: 'A felhasználónév már foglalt'
-        blank: 'Kérjük, adjon meg egy felhasználónevet'
-        short: 'A felhasználónév túl rövid'
-        long: 'A felhasználónév túl hosszú'
+        already_used: 'A felhasználónév már foglalt.'
+        blank: 'Kérjük, adjon meg egy felhasználónevet.'
+        short: 'A felhasználónév túl rövid.'
+        long: 'A felhasználónév túl hosszú.'
     email:
-        already_used: 'Az emailcím már használatban van'
-        blank: 'Kérjük, adjon meg egy emailcímet'
-        short: 'Az emailcím túl rövid'
-        long: 'Az emailcím túl hosszú'
-        invalid: 'A megadott emailcím helytelen'
+        already_used: 'Az emailcím már használatban van.'
+        blank: 'Kérjük, adjon meg egy emailcímet.'
+        short: 'Az emailcím túl rövid.'
+        long: 'Az emailcím túl hosszú.'
+        invalid: 'A megadott emailcím helytelen.'
     password:
-        blank: 'Kérjük, adjon meg egy jelszót'
-        short: 'A jelszó túl rövid'
-        mismatch: 'A megadott jelszavak nem egyeznek'
+        blank: 'Kérjük, adjon meg egy jelszót.'
+        short: 'A jelszó túl rövid.'
+        mismatch: 'A megadott jelszavak nem egyeznek.'
     new_password:
-        blank: 'Kérjük, adjon meg egy új jelszót'
-        short: 'Az új jelszó túl rövid'
+        blank: 'Kérjük, adjon meg egy új jelszót.'
+        short: 'Az új jelszó túl rövid.'
     current_password:
-        invalid: 'A megadott jelszó helytelen'
+        invalid: 'A megadott jelszó helytelen.'
     group:
-        blank: 'Kérjük, adjon meg egy nevet'
-        short: 'A név túl rövid'
-        long: 'A név túl hosszú'
+        blank: 'Kérjük, adjon meg egy nevet.'
+        short: 'A név túl rövid.'
+        long: 'A név túl hosszú.'

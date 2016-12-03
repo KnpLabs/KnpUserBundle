@@ -6,9 +6,9 @@ group:
     new:
         submit: 'Creează grup'
     flash:
-        updated: 'Grupul a fost actualizat'
-        created: 'Grupul a fost creat'
-        deleted: 'Grupul a fost șters'
+        updated: 'Grupul a fost actualizat.'
+        created: 'Grupul a fost creat.'
+        deleted: 'Grupul a fost șters.'
 security:
     login:
         username: 'Nume de utilizator'
@@ -22,18 +22,18 @@ profile:
     edit:
         submit: Actualizează
     flash:
-        updated: 'Profilul a fost actualizat'
+        updated: 'Profilul a fost actualizat.'
 change_password:
     submit: 'Schimbă parola'
     flash:
-        success: 'Parola a fost schimbată'
+        success: 'Parola a fost schimbată.'
 registration:
     check_email: 'Un email a fost trimis către %email%. Conține un link de activare pe care trebuie să îl accesezi pentru a-ți activa contul.'
     confirmed: 'Felicitări %username%, contul tău a fost confirmat.'
     back: 'Înapoi la pagina de la care ai venit.'
     submit: Înregistrează-te
     flash:
-        user_created: 'Utilizatorul a fost creat cu succes'
+        user_created: 'Utilizatorul a fost creat cu succes.'
     email:
         subject: 'Bine ai venit %username%!'
         message: "Salut %username%!\n\nPentru a-ți valida contul - accesează %confirmationUrl%\n\nToate cele bune,\nEchipa\n"
@@ -45,7 +45,7 @@ resetting:
     reset:
         submit: 'Schimbă parola'
     flash:
-        success: 'Parola a fost resetată cu succes'
+        success: 'Parola a fost resetată cu succes.'
     email:
         subject: 'Resetare parolă'
         message: "Salut %username%!\n\nPentru a-ți reseta parola - accesează %confirmationUrl%\n\nToate cele bune,\nEchipa\n"

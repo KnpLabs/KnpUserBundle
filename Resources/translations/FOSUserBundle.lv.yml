@@ -6,9 +6,9 @@ group:
     new:
         submit: 'Izveidot grupu'
     flash:
-        updated: 'Grupa tika atjaunināta'
-        created: 'Grupa tika izveidota'
-        deleted: 'Grupa tika dzēsta'
+        updated: 'Grupa tika atjaunināta.'
+        created: 'Grupa tika izveidota.'
+        deleted: 'Grupa tika dzēsta.'
 security:
     login:
         username: Lietotājvārds
@@ -22,18 +22,18 @@ profile:
     edit:
         submit: Saglabāt
     flash:
-        updated: 'Profila izmaiņas tika saglabātas'
+        updated: 'Profila izmaiņas tika saglabātas.'
 change_password:
     submit: 'Nomainīt paroli'
     flash:
-        success: 'Parole tika nomainīta'
+        success: 'Parole tika nomainīta.'
 registration:
     check_email: 'Uz %email% tika nosūtīts e-pasts ar aktivizācijas saiti. Lūdzu sekojiet tai, lai aktivizētu savu kontu.'
     confirmed: 'Apsveicam, %username%, tavs konts tika aktivizēts!'
     back: 'Atpakaļ uz sākotnējo lapu.'
     submit: Reģistrēties
     flash:
-        user_created: 'Lietotājs tika izveidots'
+        user_created: 'Lietotājs tika izveidots.'
     email:
         subject: 'Sveiki, %username%!'
         message: "Sveiks, %username%!\n\nLai pabeigtu aktivizēt savu kontu, lūdzu apmeklē %confirmationUrl%\n\nJauku dienu,\nlapas kolektīvs.\n"
@@ -45,7 +45,7 @@ resetting:
     reset:
         submit: 'Nomainīt paroli'
     flash:
-        success: 'Parole tika atiestatīta'
+        success: 'Parole tika atiestatīta.'
     email:
         subject: 'Paroles atiestatīšana'
         message: "Sveiki, %username%!\n\nLai atiestatītu savu paroli, lūdzu apmeklē %confirmationUrl%\n\nJauku dienu,\nlapas kolektīvs.\n"

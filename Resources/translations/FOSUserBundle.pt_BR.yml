@@ -6,9 +6,9 @@ group:
     new:
         submit: 'Criar Grupo'
     flash:
-        updated: 'O grupo foi atualizado'
-        created: 'O grupo foi criado'
-        deleted: 'O grupo foi removido'
+        updated: 'O grupo foi atualizado.'
+        created: 'O grupo foi criado.'
+        deleted: 'O grupo foi removido.'
 security:
     login:
         username: Usuário

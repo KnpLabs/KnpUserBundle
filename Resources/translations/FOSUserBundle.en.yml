@@ -6,9 +6,9 @@ group:
     new:
         submit: 'Create group'
     flash:
-        updated: 'The group has been updated'
-        created: 'The group has been created'
-        deleted: 'The group has been deleted'
+        updated: 'The group has been updated.'
+        created: 'The group has been created.'
+        deleted: 'The group has been deleted.'
 
 security:
     login:
@@ -24,12 +24,12 @@ profile:
     edit:
         submit: Update
     flash:
-        updated: 'The profile has been updated'
+        updated: 'The profile has been updated.'
 
 change_password:
     submit: 'Change password'
     flash:
-        success: 'The password has been changed'
+        success: 'The password has been changed.'
 
 registration:
     check_email: 'An email has been sent to %email%. It contains an activation link you must click to activate your account.'
@@ -37,7 +37,7 @@ registration:
     back: 'Back to the originating page.'
     submit: Register
     flash:
-        user_created: 'The user has been created successfully'
+        user_created: 'The user has been created successfully.'
     email:
         subject: 'Welcome %username%!'
         message: |
@@ -60,7 +60,7 @@ resetting:
     reset:
         submit: 'Change password'
     flash:
-        success: 'The password has been reset successfully'
+        success: 'The password has been reset successfully.'
     email:
         subject: 'Reset Password'
         message: |

@@ -6,9 +6,9 @@ group:
     new:
         submit: 'Gruppe erstellen'
     flash:
-        updated: 'Die Gruppe wurde aktualisiert'
-        created: 'Die Gruppe wurde erstellt'
-        deleted: 'Die Gruppe wurde gelöscht'
+        updated: 'Die Gruppe wurde aktualisiert.'
+        created: 'Die Gruppe wurde erstellt.'
+        deleted: 'Die Gruppe wurde gelöscht.'
 security:
     login:
         username: Benutzername
@@ -22,18 +22,18 @@ profile:
     edit:
         submit: 'Benutzer aktualisieren'
     flash:
-        updated: 'Das Benutzerprofil wurde aktualisiert'
+        updated: 'Das Benutzerprofil wurde aktualisiert.'
 change_password:
     submit: 'Passwort ändern'
     flash:
-        success: 'Das Passwort wurde geändert'
+        success: 'Das Passwort wurde geändert.'
 registration:
     check_email: 'Eine E-Mail wurde an %email% gesendet. Sie enthält einen Link, den Sie anklicken müssen, um Ihr Benutzerkonto zu bestätigen.'
     confirmed: 'Glückwunsch %username%, Ihr Benutzerkonto ist jetzt bestätigt.'
     back: 'Zurück zur ursprünglichen Seite.'
     submit: Registrieren
     flash:
-        user_created: 'Der Benutzer wurde erfolgreich erstellt'
+        user_created: 'Der Benutzer wurde erfolgreich erstellt.'
     email:
         subject: 'Willkommen %username%!'
         message: "Hallo %username%!\n\nBesuchen Sie bitte folgende Seite, um Ihr Benutzerkonto zu bestätigen: %confirmationUrl%\n\nMit besten Grüßen,\ndas Team.\n"
@@ -49,7 +49,7 @@ resetting:
     reset:
         submit: 'Passwort ändern'
     flash:
-        success: 'Das Passwort wurde erfolgreich zurückgesetzt'
+        success: 'Das Passwort wurde erfolgreich zurückgesetzt.'
     email:
         subject: 'Passwort zurücksetzen'
         message: "Hallo %username%!\n\nBesuchen Sie bitte folgende Seite, um Ihr Passwort zurückzusetzen: %confirmationUrl%\n\nMit besten Grüßen,\ndas Team.\n"

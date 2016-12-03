@@ -6,9 +6,9 @@ group:
     new:
         submit: Shrani
     flash:
-        updated: 'Skupina je bila uspešno shranjena'
-        created: 'Skupina je bila uspešno ustvarjena'
-        deleted: 'Skupina je bila uspešno izbrisana'
+        updated: 'Skupina je bila uspešno shranjena.'
+        created: 'Skupina je bila uspešno ustvarjena.'
+        deleted: 'Skupina je bila uspešno izbrisana.'
 security:
     login:
         username: 'Uporabniško ime'
@@ -22,18 +22,18 @@ profile:
     edit:
         submit: Shrani
     flash:
-        updated: 'Profil je bil uspešno shranjen'
+        updated: 'Profil je bil uspešno shranjen.'
 change_password:
     submit: 'Spremeni geslo'
     flash:
-        success: 'Geslo je bilo uspešno spremenjeno'
+        success: 'Geslo je bilo uspešno spremenjeno.'
 registration:
     check_email: 'Na %email% smo vam poslali sporočilo s kodo za aktivacijo. Račun aktivirate s klikom na to povezavo.'
     confirmed: 'Pozdravljeni %username%, vaš račun je sedaj aktiviran.'
     back: 'Nazaj na prvotno stran.'
     submit: Registracija
     flash:
-        user_created: 'Uporabnik je bil uspešno ustvarjen'
+        user_created: 'Uporabnik je bil uspešno ustvarjen.'
     email:
         subject: 'Dobrodošli %username%!'
         message: "Pozdravljeni %username%!\n\nZa aktivacijo računa prosimo, obiščite %confirmationUrl%\n\nLep pozdrav,\nekipa.\n"
@@ -45,7 +45,7 @@ resetting:
     reset:
         submit: 'Spremeni geslo'
     flash:
-        success: 'Geslo je bilo uspešno spremenjeno'
+        success: 'Geslo je bilo uspešno spremenjeno.'
     email:
         subject: 'Sprememba gesla'
         message: "Pozdravljeni %username%!\n\nZa spremembo gesla prosimo, obiščite %confirmationUrl%\n\nLep pozdrav,\nekipa.\n"

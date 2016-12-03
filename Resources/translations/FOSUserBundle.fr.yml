@@ -6,9 +6,9 @@ group:
     new:
         submit: 'Créer le groupe'
     flash:
-        updated: 'Le groupe a été mis à jour'
-        created: 'Le groupe a été créé'
-        deleted: 'Le groupe a été supprimé'
+        updated: 'Le groupe a été mis à jour.'
+        created: 'Le groupe a été créé.'
+        deleted: 'Le groupe a été supprimé.'
 security:
     login:
         username: 'Nom d''utilisateur'
@@ -22,18 +22,18 @@ profile:
     edit:
         submit: 'Mettre à jour'
     flash:
-        updated: 'Le profil a été mis à jour'
+        updated: 'Le profil a été mis à jour.'
 change_password:
     submit: 'Modifier le mot de passe'
     flash:
-        success: 'Le mot de passe a été modifié'
+        success: 'Le mot de passe a été modifié.'
 registration:
     check_email: 'Un e-mail a été envoyé à l''adresse %email%. Il contient un lien d''activation sur lequel il vous faudra cliquer afin d''activer votre compte.'
     confirmed: 'Félicitations %username%, votre compte est maintenant activé.'
     back: 'Retour à la page d''origine.'
     submit: 'Créer un compte'
     flash:
-        user_created: 'L''utilisateur a été créé avec succès'
+        user_created: 'L''utilisateur a été créé avec succès.'
     email:
         subject: 'Bienvenue %username% !'
         message: |
@@ -55,7 +55,7 @@ resetting:
     reset:
         submit: 'Modifier le mot de passe'
     flash:
-        success: 'Le mot de passe a été réinitialisé avec succès'
+        success: 'Le mot de passe a été réinitialisé avec succès.'
     email:
         subject: 'Réinitialisation de votre mot de passe'
         message: |

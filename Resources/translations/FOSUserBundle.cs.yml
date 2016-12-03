@@ -6,9 +6,9 @@ group:
     new:
         submit: 'Vytvořit skupinu'
     flash:
-        updated: 'Skupina byla úspěšně aktualizována'
-        created: 'Skupina byla úspěšně vytvořena'
-        deleted: 'Skupina byla úspěšně vymazána'
+        updated: 'Skupina byla úspěšně aktualizována.'
+        created: 'Skupina byla úspěšně vytvořena.'
+        deleted: 'Skupina byla úspěšně vymazána.'
 
 security:
     login:
@@ -24,12 +24,12 @@ profile:
     edit:
         submit: Upravit
     flash:
-        updated: 'Profil byl úspěšně aktualizován'
+        updated: 'Profil byl úspěšně aktualizován.'
 
 change_password:
     submit: 'Nastavit nové heslo'
     flash:
-        success: 'Nové heslo bylo úspěšně nastaveno'
+        success: 'Nové heslo bylo úspěšně nastaveno.'
 
 registration:
     check_email: 'Na adresu %email% byl zaslán aktivační e-mail. Obsahuje odkaz, na který je nutné kliknout pro aktivaci Vašeho účtu.'
@@ -37,7 +37,7 @@ registration:
     back: 'Návrat na předchozí stránku.'
     submit: 'Registrovat se'
     flash:
-        user_created: 'Váš účet byl úspěšně vytvořen'
+        user_created: 'Váš účet byl úspěšně vytvořen.'
     email:
         subject: 'Vítejte, %username%!'
         message: |
@@ -60,7 +60,7 @@ resetting:
     reset:
         submit: 'Změnit heslo'
     flash:
-        success: 'Heslo bylo úspěšně změněno'
+        success: 'Heslo bylo úspěšně změněno.'
     email:
         subject: 'Nastavení nového hesla'
         message: |

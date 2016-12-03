@@ -6,9 +6,9 @@ group:
     new:
         submit: 'Создать группу'
     flash:
-        updated: 'Группа обновлена'
-        created: 'Группа создана'
-        deleted: 'Группа удалена'
+        updated: 'Группа обновлена.'
+        created: 'Группа создана.'
+        deleted: 'Группа удалена.'
 security:
     login:
         username: 'Имя пользователя'
@@ -22,18 +22,18 @@ profile:
     edit:
         submit: Обновить
     flash:
-        updated: 'Профиль пользователя обновлен'
+        updated: 'Профиль пользователя обновлен.'
 change_password:
     submit: 'Изменить пароль'
     flash:
-        success: 'Пароль изменен'
+        success: 'Пароль изменен.'
 registration:
     check_email: 'Письмо отправлено на адрес %email%. В нём содержится ссылка, по которой вы можете подтвердить свою регистрацию.'
     confirmed: 'Поздравляем %username%, ваш аккаунт подтвержден.'
     back: 'Вернуться на предыдущую страницу.'
     submit: Регистрация
     flash:
-        user_created: 'Пользователь успешно создан'
+        user_created: 'Пользователь успешно создан.'
     email:
         subject: 'Добро пожаловать, %username%!'
         message: "Приветствуем, %username%!\n\nДля подтверждения вашей регистрации, пройдите по ссылке %confirmationUrl%\n\nС наилучшими пожеланиями,\nкоманда сайта.\n"
@@ -45,7 +45,7 @@ resetting:
     reset:
         submit: 'Изменить пароль'
     flash:
-        success: 'Пароль успешно сброшен'
+        success: 'Пароль успешно сброшен.'
     email:
         subject: 'Сброс пароля'
         message: "Приветствуем, %username%!\n\nДля сброса пароля, пожалуйста, пройдите по ссылке %confirmationUrl%\n\nС наилучшими пожеланиями,\nкоманда сайта.\n"

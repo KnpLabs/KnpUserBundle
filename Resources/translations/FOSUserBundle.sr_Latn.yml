@@ -6,9 +6,9 @@ group:
     new:
         submit: 'Kreiraj grupu'
     flash:
-        updated: 'Grupa je ažurirana'
-        created: 'Grupa je kreirana'
-        deleted: 'Grupa je obrisana'
+        updated: 'Grupa je ažurirana.'
+        created: 'Grupa je kreirana.'
+        deleted: 'Grupa je obrisana.'
 security:
     login:
         username: 'Korisničko ime'
@@ -22,18 +22,18 @@ profile:
     edit:
         submit: Ažuriraj
     flash:
-        updated: 'Profil je ažuriran'
+        updated: 'Profil je ažuriran.'
 change_password:
     submit: 'Izmeni lozinku'
     flash:
-        success: 'Lozinka je izmenjena'
+        success: 'Lozinka je izmenjena.'
 registration:
     check_email: 'Poruka je poslata na adresu %email%. Ona sadrži aktivacioni link koji morate kliknuti da bi aktivirali Vaš nalog.'
     confirmed: 'Čestitamo %username%, Vaš nalog je sada aktivan.'
     back: 'Nazad na prethodnu stranu.'
     submit: 'Registruj se'
     flash:
-        user_created: 'Korisnički nalog je uspešno kreiran'
+        user_created: 'Korisnički nalog je uspešno kreiran.'
     email:
         subject: 'Dobrodošli %username%!'
         message: "Zdravo %username%!\n\nDa bi aktivirali Vaš nalog posetite %confirmationUrl%\n\nS poštovanjem,\ntim sajta.\n"
@@ -45,7 +45,7 @@ resetting:
     reset:
         submit: 'Izmeni lozinku'
     flash:
-        success: 'Lozinka je uspešno resetovana'
+        success: 'Lozinka je uspešno resetovana.'
     email:
         subject: 'Resetovanje lozinke'
         message: "Zdravo %username%!\n\nDa bi resetovali Vašu lozinku posetite %confirmationUrl%\n\nS poštovanjem,\ntim sajta.\n"
