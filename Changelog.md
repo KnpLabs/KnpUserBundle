@@ -4,6 +4,7 @@ Changelog
 ### 1.3.8 (xxxx-xx-xx)
 
 * Fixed invalid `isAccountNonExpired` timestamp when year is 2038
+* Removed any new lines in email subjects
 * Added trailing dot flash messages
 * Added trailing dot validator messages
 * Use `random_bytes` to generate tokens
