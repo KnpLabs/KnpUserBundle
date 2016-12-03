@@ -17,6 +17,6 @@ class DateUtilTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetSeconds()
     {
-        $this->assertEquals(86400, DateUtil::getSeconds(new \DateInterval('P1D')));
+        $this->assertSame(86400, DateUtil::getSeconds(new \DateInterval('P1D')));
     }
 }
