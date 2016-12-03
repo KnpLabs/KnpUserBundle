@@ -13,6 +13,7 @@ namespace FOS\UserBundle\Model;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use FOS\UserBundle\Util\DateUtil;
 
 /**
  * Storage agnostic user object
@@ -317,7 +318,7 @@ abstract class User implements UserInterface, GroupableInterface
             return false;
         }
 
-        if (null !== $this->expiresAt && $this->expiresAt->getTimestamp() < time()) {
+        if (null !== $this->expiresAt && DateUtil::getSeconds($this->expiresAt->diff(new \DateTime())) <= 0) {
             return false;
         }
 
