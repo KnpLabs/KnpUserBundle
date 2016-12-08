@@ -11,6 +11,9 @@
 
 namespace FOS\UserBundle\Util;
 
+/**
+ * @internal
+ */
 class DateUtil
 {
     /**
