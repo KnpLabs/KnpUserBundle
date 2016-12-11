@@ -71,6 +71,10 @@ class FOSUserExtension extends Extension
             $loader->load(sprintf('%s.xml', $basename));
         }
 
+        if ($config['use_authentication_listener']) {
+            $container->removeDefinition('fos_user.listener.authentication');
+        }
+
         if ($config['use_flash_notifications']) {
             $loader->load('flash_notifications.xml');
         }
