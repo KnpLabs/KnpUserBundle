@@ -91,7 +91,7 @@ class GroupController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             /** @var $groupManager \FOS\UserBundle\Model\GroupManagerInterface */
             $groupManager = $this->get('fos_user.group_manager');
 
@@ -141,7 +141,7 @@ class GroupController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_SUCCESS, $event);
 
