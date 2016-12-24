@@ -95,7 +95,7 @@ the base controller and adds logging a new user registration to it.
                 return new RedirectResponse($url);
             }
 
-            return $this->container->get('templating')->renderResponse('FOSUserBundle:Registration:register.html.twig', array(
+            return $this->container->get('templating')->renderResponse('@FOSUser/Registration/register.html.twig', array(
                 'form' => $form->createView(),
             ));
         }
