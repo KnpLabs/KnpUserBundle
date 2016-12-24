@@ -78,8 +78,6 @@ will lead to the desired effect of having the output from the FOSUserBundle
 actions integrated into our applications layout, preserving the look and
 feel of the application.
 
-**a) Define New Template In app/Resources**
-
 The easiest way to override a bundle's template is to simply place a new one in
 your ``app/Resources`` folder. To override the layout template located at
 ``Resources/views/layout.html.twig`` in the ``FOSUserBundle`` directory, you would place
@@ -90,50 +88,8 @@ create a folder with the name of the bundle class in the ``app/Resources`` direc
 Then add your new template to this folder, preserving the directory structure from the
 original bundle.
 
-**b) Configure your AppBundle And Override Template**
-
-.. note::
-
-    This method is more complicated than the one outlined above. Unless  you are
-    planning to override the controllers as well as the templates, it is recommended
-    that you use the other method.
-
-As listed above, you can also configure your ``AppBundle`` to be a child of FOSUserBundle
-and place the new template in the same location that is resides in the FOSUserBundle.
-The first thing you want to do is override the ``getParent`` method of your ``AppBundle`` class.
-
-.. code-block:: php
-
-    <?php
-    // src/AppBundle/AppBundle.php
-
-    namespace AppBundle;
-
-    use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-    class AppBundle extends Bundle
-    {
-        public function getParent()
-        {
-            return 'FOSUserBundle';
-        }
-    }
-
-.. note::
-
-    You could also create a new child bundle and declare it as a child of FOSUserBundle.
-
-By returning the name of the bundle in the ``getParent`` method of your bundle class,
-you are telling the Symfony Framework that your bundle is a child of the FOSUserBundle.
-
-Now that you have declared your bundle as a child of the FOSUserBundle, you can override
-the parent bundle's templates. To override the layout template, simply create a new file
-in the ``src/AppBundle/Resources/views`` directory named ``layout.html.twig``. Notice
-how this file resides in the same exact path relative to the bundle directory as it
-does in the FOSUserBundle.
-
-After overriding a template in your child bundle, you must clear the cache for the override
-to take effect, even in a development environment.
+After overriding a template, you must clear the cache for the override to
+take effect, even in a development environment.
 
 Overriding all of the other templates provided by the FOSUserBundle can be done
 in a similar fashion using either of the two methods shown in this document.
