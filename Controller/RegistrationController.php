@@ -88,7 +88,7 @@ class RegistrationController extends Controller
             }
         }
 
-        return $this->render('FOSUserBundle:Registration:register.html.twig', array(
+        return $this->render('@FOSUser/Registration/register.html.twig', array(
             'form' => $form->createView(),
         ));
     }
@@ -111,7 +111,7 @@ class RegistrationController extends Controller
             throw new NotFoundHttpException(sprintf('The user with email "%s" does not exist', $email));
         }
 
-        return $this->render('FOSUserBundle:Registration:check_email.html.twig', array(
+        return $this->render('@FOSUser/Registration/check_email.html.twig', array(
             'user' => $user,
         ));
     }
@@ -166,7 +166,7 @@ class RegistrationController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->render('FOSUserBundle:Registration:confirmed.html.twig', array(
+        return $this->render('@FOSUser/Registration/confirmed.html.twig', array(
             'user' => $user,
             'targetUrl' => $this->getTargetUrlFromSession(),
         ));

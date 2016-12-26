@@ -38,7 +38,7 @@ class ResettingController extends Controller
      */
     public function requestAction()
     {
-        return $this->render('FOSUserBundle:Resetting:request.html.twig');
+        return $this->render('@FOSUser/Resetting/request.html.twig');
     }
 
     /**
@@ -121,7 +121,7 @@ class ResettingController extends Controller
             return new RedirectResponse($this->generateUrl('fos_user_resetting_request'));
         }
 
-        return $this->render('FOSUserBundle:Resetting:check_email.html.twig', array(
+        return $this->render('@FOSUser/Resetting/check_email.html.twig', array(
             'tokenLifetime' => ceil($this->container->getParameter('fos_user.resetting.token_ttl') / 3600),
         ));
     }
@@ -180,7 +180,7 @@ class ResettingController extends Controller
             return $response;
         }
 
-        return $this->render('FOSUserBundle:Resetting:reset.html.twig', array(
+        return $this->render('@FOSUser/Resetting/reset.html.twig', array(
             'token' => $token,
             'form' => $form->createView(),
         ));

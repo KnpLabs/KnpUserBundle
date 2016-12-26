@@ -32,7 +32,7 @@ All available configuration options are listed below with their default values.
                     address:        ...
                     sender_name:    ...
                 enabled:    false # change to true for required email confirmation
-                template:   FOSUserBundle:Registration:email.txt.twig
+                template:   '@FOSUser/Registration/email.txt.twig'
             form:
                 type:               FOS\UserBundle\Form\Type\RegistrationFormType # or 'fos_user_registration' on Symfony < 2.8
                 name:               fos_user_registration_form
@@ -43,7 +43,7 @@ All available configuration options are listed below with their default values.
                 from_email: # Use this node only if you don't want the global email address for the resetting email
                     address:        ...
                     sender_name:    ...
-                template:   FOSUserBundle:Resetting:email.txt.twig
+                template:   '@FOSUser/Resetting/email.txt.twig'
             form:
                 type:               FOS\UserBundle\Form\Type\ResettingFormType # or 'fos_user_resetting' on Symfony < 2.8
                 name:               fos_user_resetting_form
