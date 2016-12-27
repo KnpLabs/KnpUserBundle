@@ -92,7 +92,7 @@ After:
 ```php
 public function checkEmailAction()
 {
-    return $this->render('@FOSUserBundle/Registration/check_email.html.twig');
+    return $this->render('@FOSUser/Registration/check_email.html.twig');
 }
 ```
 
