@@ -36,13 +36,21 @@ registration:
         user_created: 'Der Benutzer wurde erfolgreich erstellt.'
     email:
         subject: 'Willkommen %username%!'
-        message: "Hallo %username%!\n\nBesuchen Sie bitte folgende Seite, um Ihr Benutzerkonto zu bestätigen: %confirmationUrl%\n\nMit besten Grüßen,\ndas Team.\n"
+        message: |
+            Hallo %username%!
+
+            Besuchen Sie bitte folgende Seite, um Ihr Benutzerkonto zu bestätigen: %confirmationUrl%
+
+            Mit besten Grüßen,
+            das Team.
+
 resetting:
     check_email: |
         Eine E-Mail wurde verschickt. Sie beinhaltet einen Link zum Zurücksetzen des Passwortes.
         Hinweis: Ein neues Passwort kann nur alle %tokenLifetime% Stunden beantragt werden.
 
         Eventuell wurde diese E-Mail als Spam markiert, wenn sie nicht angekommen ist.
+
     request:
         username: 'Benutzername oder E-Mail-Adresse'
         submit: 'Passwort zurücksetzen'
@@ -52,7 +60,14 @@ resetting:
         success: 'Das Passwort wurde erfolgreich zurückgesetzt.'
     email:
         subject: 'Passwort zurücksetzen'
-        message: "Hallo %username%!\n\nBesuchen Sie bitte folgende Seite, um Ihr Passwort zurückzusetzen: %confirmationUrl%\n\nMit besten Grüßen,\ndas Team.\n"
+        message: |
+            Hallo %username%!
+
+            Besuchen Sie bitte folgende Seite, um Ihr Passwort zurückzusetzen: %confirmationUrl%
+
+            Mit besten Grüßen,
+            das Team.
+
 layout:
     logout: Abmelden
     login: Anmelden

@@ -36,7 +36,14 @@ registration:
         user_created: 'המשתמש נוצר בהצלחה'
     email:
         subject: 'שלום %username%!'
-        message: "%username% שלום רב,\n\nכדי לסיים הרשמתך יש ללחוץ על קישור זה:  %confirmationUrl%\n\nבברכה,\n   הצוות.\n"
+        message: |
+            %username% שלום רב,
+
+            כדי לסיים הרשמתך יש ללחוץ על קישור זה:  %confirmationUrl%
+
+            בברכה,
+               הצוות.
+
 resetting:
     check_email: 'הודעת דוא"ל נשלחה ל-%email%. ההודעה מכילה קישור לאיפוס סיסמה שלך.'
     request:
@@ -48,7 +55,14 @@ resetting:
         success: 'הסיסמה אופסה בהצלחה'
     email:
         subject: 'איפוס סיסמה'
-        message: "%username% שלום רב,\n\nכדי לאפס סיסמה שלך יש ללחוץ %confirmationUrl%\n\nבברכה,\n   הצוות.\n"
+        message: |
+            %username% שלום רב,
+
+            כדי לאפס סיסמה שלך יש ללחוץ %confirmationUrl%
+
+            בברכה,
+               הצוות.
+
 layout:
     logout: התנתק
     login: כניסה
@@ -60,6 +74,6 @@ form:
     email: 'דוא\"ל'
     current_password: 'סיסמה נוכחות'
     password: סיסמה
-    password_confirmation: "אימות סיסמה"
+    password_confirmation: 'אימות סיסמה'
     new_password: 'סיסמה חדשה'
     new_password_confirmation: 'אימות סיסמה חדשה'

@@ -36,7 +36,14 @@ registration:
         user_created: 'Korisnički račun je uspješno kreiran.'
     email:
         subject: 'Aktivacija korisničkog računa'
-        message: "Pozdrav %username%!\n\nZa aktivaciju korisničkog računa molimo kliknite na %confirmationUrl%\n\nPozdrav,\nAutori stranice\n"
+        message: |
+            Pozdrav %username%!
+
+            Za aktivaciju korisničkog računa molimo kliknite na %confirmationUrl%
+
+            Pozdrav,
+            Autori stranice
+
 resetting:
     check_email: 'Na %email%  smo vam poslali poruku s poveznicom za promjenu lozinke. Lozinku resetirajte klikom na tu poveznicu.'
     request:
@@ -48,7 +55,14 @@ resetting:
         success: 'Lozinka je uspješno spremljena.'
     email:
         subject: 'Promjena lozinke'
-        message: "Pozdrav %username%!\n\nZa promjenu lozinke molimo kliknite na %confirmationUrl%\n\nPozdrav,\nAutori stranice\n"
+        message: |
+            Pozdrav %username%!
+
+            Za promjenu lozinke molimo kliknite na %confirmationUrl%
+
+            Pozdrav,
+            Autori stranice
+
 layout:
     logout: Odjava
     login: Prijava

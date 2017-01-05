@@ -36,13 +36,21 @@ registration:
         user_created: 'De gebruiker is succesvol aangemaakt.'
     email:
         subject: 'Welkom %username%!'
-        message: "Hallo %username%!\n\nU moet uw account nog valideren, ga naar %confirmationUrl%\n\nVriendelijke groeten,\nhet Team.\n"
+        message: |
+            Hallo %username%!
+
+            U moet uw account nog valideren, ga naar %confirmationUrl%
+
+            Vriendelijke groeten,
+            het Team.
+
 resetting:
     check_email: |
         Er werd een email gestuurd. De email bevat een link om je wachtwoord te resetten.
         Opgelet: Je kan pas na %tokenLifetime% uur een nieuw wachtwoord aanvragen.
 
         Indien je geen email ontvangen hebt, controlleer dan zeker je spam folder of probeer opnieuw.
+
     request:
         username: 'Gebruikersnaam of e-mailadres'
         submit: 'Reset wachtwoord'
@@ -52,7 +60,14 @@ resetting:
         success: 'Het wachtwoord is succesvol gereset.'
     email:
         subject: 'Reset wachtwoord'
-        message: "Hallo %username%!\n\nOm uw wachtwoord te resetten, klikt u op de volgende link %confirmationUrl%\n\nMet vriendelijke groet,\nhet Team.\n"
+        message: |
+            Hallo %username%!
+
+            Om uw wachtwoord te resetten, klikt u op de volgende link %confirmationUrl%
+
+            Met vriendelijke groet,
+            het Team.
+
 layout:
     logout: Uitloggen
     login: Inloggen

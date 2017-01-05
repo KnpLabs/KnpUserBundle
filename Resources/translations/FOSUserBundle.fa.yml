@@ -36,7 +36,14 @@ registration:
         user_created: 'کاربر با موفقیت ساخته شده است'
     email:
         subject: '%username% خوش آمدید!'
-        message: "%username% سلام!\n\nبرای تکمیل فعال سازی کاربری خود - لطفا %confirmationUrl% را مشاهده کنید\n\nبا احترام،\nتیم.\n"
+        message: |
+            %username% سلام!
+
+            برای تکمیل فعال سازی کاربری خود - لطفا %confirmationUrl% را مشاهده کنید
+
+            با احترام،
+            تیم.
+
 resetting:
     check_email: 'ایمیلی به %email% فرستاده شده است. این ایمیل دارای پیوندی است که برای بازنشانی کلمه عبور باید روی آن کلیک کنید.'
     request:
@@ -48,7 +55,14 @@ resetting:
         success: 'کلمه عبور با موفقیت بازنشانی شده است'
     email:
         subject: 'بازنشانی کلمه عبور'
-        message: "%username% سلام!\n\nبرای بازنشانی کلمه عبور خود - لطفا %confirmationUrl% را مشاهده کنید\n\nبا احترام،\nتیم.\n"
+        message: |
+            %username% سلام!
+
+            برای بازنشانی کلمه عبور خود - لطفا %confirmationUrl% را مشاهده کنید
+
+            با احترام،
+            تیم.
+
 layout:
     logout: خروج
     login: ورود

@@ -36,7 +36,14 @@ registration:
         user_created: 'Naudotojas sukurtas.'
     email:
         subject: 'Registracijos patvirtinimas'
-        message: "Sveiki %username%!\n\nNorėdami aktyvuoti savo paskyrą, apsilankykite adresu %confirmationUrl%\n\nPagarbiai,\nKomanda.\n"
+        message: |
+            Sveiki %username%!
+
+            Norėdami aktyvuoti savo paskyrą, apsilankykite adresu %confirmationUrl%
+
+            Pagarbiai,
+            Komanda.
+
 resetting:
     check_email: 'El. pašto pranešimas išsiųstas adresu %email%. Jame rasite nuorodą, kurią paspaudę, galėsite pakeisti savo slaptažodį.'
     request:
@@ -48,7 +55,14 @@ resetting:
         success: 'Slaptažodis pakeistas.'
     email:
         subject: 'Slaptažodžio keitimas'
-        message: "Sveiki %username%!\n\nNorėdami pakeisti savo slaptažodį, apsilankykite adresu %confirmationUrl%\n\nPagarbiai,\nKomanda.\n"
+        message: |
+            Sveiki %username%!
+
+            Norėdami pakeisti savo slaptažodį, apsilankykite adresu %confirmationUrl%
+
+            Pagarbiai,
+            Komanda.
+
 layout:
     logout: Atsijungti
     login: Prisijungti

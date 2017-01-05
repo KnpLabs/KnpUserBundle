@@ -35,7 +35,14 @@ registration:
         user_created: 'Bruger er blevet oprettet.'
     email:
         subject: 'Velkommen %username%!'
-        message: "Hej %username%!\n\nFor at færdiggøre aktiveringen af din konto, besøg venligst %confirmationUrl%\n\nVenlig hilsen,\nHoldet bag siden.\n"
+        message: |
+            Hej %username%!
+
+            For at færdiggøre aktiveringen af din konto, besøg venligst %confirmationUrl%
+
+            Venlig hilsen,
+            Holdet bag siden.
+
 resetting:
     check_email: 'En e-mail er blevet sendt til %email%. Den indeholder et link, du skal følge for at nulstille din adgangskode.'
     request:
@@ -47,7 +54,14 @@ resetting:
         success: 'Adgangskoden er blevet nulstillet.'
     email:
         subject: 'Velkommen %username%!'
-        message: "Hej %username%!\n\nFor at nulstille din adgangskode, besøg venligst %confirmationUrl%\n\nVenlig hilsen,\nHoldet bag siden.\n"
+        message: |
+            Hej %username%!
+
+            For at nulstille din adgangskode, besøg venligst %confirmationUrl%
+
+            Venlig hilsen,
+            Holdet bag siden.
+
 layout:
     logout: 'Log ud'
     login: 'Log ind'

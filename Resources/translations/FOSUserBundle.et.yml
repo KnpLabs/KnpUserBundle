@@ -24,7 +24,14 @@ registration:
     confirmed: 'Palju õnne %username%, Sinu konto on aktiveeritud.'
     submit: Registreeri
     email:
-        message: "Tere %username%!\n\nKonto valideerimise edukaks lõpetamiseks palun vajutage viitel %confirmationUrl%\n\nParimatega,\nTiim.\n"
+        message: |
+            Tere %username%!
+
+            Konto valideerimise edukaks lõpetamiseks palun vajutage viitel %confirmationUrl%
+
+            Parimatega,
+            Tiim.
+
 resetting:
     check_email: 'E-mail on saadetud aadressile %email%. Selles sisaldub viide, mis tuleb salasõna muutmiseks avada.'
     request:
@@ -33,7 +40,14 @@ resetting:
     reset:
         submit: 'Muuda salasõna'
     email:
-        message: "Tere %username%!\n\nSalasõna muutmiseks palun vajutage viitel %confirmationUrl%\n\nParimatega,\nTiim.\n"
+        message: |
+            Tere %username%!
+
+            Salasõna muutmiseks palun vajutage viitel %confirmationUrl%
+
+            Parimatega,
+            Tiim.
+
 layout:
     logout: Välju
     login: Sisene

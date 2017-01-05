@@ -36,7 +36,14 @@ registration:
         user_created: 'O usuário foi criado com sucesso.'
     email:
         subject: 'Bem-vindo(a), %username%!'
-        message: "Olá, %username%!\n\nPara completar a validação da sua conta, clique no link: %confirmationUrl%\n\nAtenciosamente,\na Equipe.\n"
+        message: |
+            Olá, %username%!
+
+            Para completar a validação da sua conta, clique no link: %confirmationUrl%
+
+            Atenciosamente,
+            a Equipe.
+
 resetting:
     check_email: 'Foi enviado um email para %email%. Para recuperar a sua senha, clique no link da mensagem.'
     request:
@@ -48,7 +55,14 @@ resetting:
         success: 'A senha foi redefinida com sucesso.'
     email:
         subject: 'Redefinir senha'
-        message: "Olá, %username%!\n\nPara redefinir sua senha, clique no link: %confirmationUrl%\n\nAtenciosamente,\na Equipe.\n"
+        message: |
+            Olá, %username%!
+
+            Para redefinir sua senha, clique no link: %confirmationUrl%
+
+            Atenciosamente,
+            a Equipe.
+
 layout:
     logout: Sair
     login: Entrar

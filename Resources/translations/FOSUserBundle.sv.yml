@@ -36,7 +36,14 @@ registration:
         user_created: 'Användaren har skapats.'
     email:
         subject: 'Välkommen %username%!'
-        message: "Hej %username%!\n\nFör att aktivera ditt konto - vänligen besök %confirmationUrl%\n\nHälsningar,\nTeamet.\n"
+        message: |
+            Hej %username%!
+
+            För att aktivera ditt konto - vänligen besök %confirmationUrl%
+
+            Hälsningar,
+            Teamet.
+
 resetting:
     check_email: 'Ett meddelande har skickats till %email%. Det innehåller en länk som du måste klicka på för att återställa ditt lösenord.'
     request:
@@ -48,7 +55,14 @@ resetting:
         success: 'Lösenordet har återställts.'
     email:
         subject: 'Återställ lösenord'
-        message: "Hej %username%!\n\nFör att återställa ditt lösenord - vänligen besök %confirmationUrl%\n\nHälsningar,\nTeamet.\n"
+        message: |
+            Hej %username%!
+
+            För att återställa ditt lösenord - vänligen besök %confirmationUrl%
+
+            Hälsningar,
+            Teamet.
+
 layout:
     logout: 'Logga ut'
     login: 'Logga in'

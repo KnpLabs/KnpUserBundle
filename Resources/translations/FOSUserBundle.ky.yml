@@ -12,7 +12,7 @@ group:
 security:
     login:
         username: 'Колдонуучунун аты'
-        password: Сырдык сөз
+        password: 'Сырдык сөз'
         remember_me: 'Эске тутуу'
         submit: Кирүү
 profile:
@@ -36,7 +36,12 @@ registration:
         user_created: 'Колдонуучу ийгиликтүү түзүлдү.'
     email:
         subject: 'Кош келдиңиз, %username%!'
-        message: "Саламатсызбы, %username%!\n\n Регистрацияны анныктоо үчүн %confirmationUrl%\n\n шилтемеси кириңиз."
+        message: |
+            Саламатсызбы, %username%!
+
+             Регистрацияны анныктоо үчүн %confirmationUrl%
+
+             шилтемеси кириңиз.
 resetting:
     check_email: 'Кат %email% почтасына жөнөтүлдү. Ал жакта шилтеме бар жана ал шилтемеге кирүү менен сиздин сырдык сөзүңүз өзгөрөт.'
     request:
@@ -48,7 +53,14 @@ resetting:
         success: 'Сырдык сөз ийгиликтүү өзгөрдү'
     email:
         subject: 'Сырдык сөздү өзгөртүү'
-        message: "Саламатсызбы, %username%!\n\n Сырдык сөздү өзгөртүү үчүн, сураныч боюнча кириңиз\n\nИйгилик каалоо менен, \nсайттын командасы.\n"
+        message: |
+            Саламатсызбы, %username%!
+
+             Сырдык сөздү өзгөртүү үчүн, сураныч боюнча кириңиз
+
+            Ийгилик каалоо менен,
+            сайттын командасы.
+
 layout:
     logout: Чыгуу
     login: Кирүү
@@ -59,7 +71,7 @@ form:
     username: 'Колдонуучунун аты'
     email: 'Электрондук почтасы'
     current_password: 'Азыркы сырдык сөз'
-    password: Сырдык сөз
+    password: 'Сырдык сөз'
     password_confirmation: 'Сырдык сөздү аныктоо'
     new_password: 'Жаңы сырдык сөз'
     new_password_confirmation: 'Сырдык сөздү аныктоо'

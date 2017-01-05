@@ -36,7 +36,14 @@ registration:
         user_created: 'Brukeren har blitt opprettet'
     email:
         subject: 'Velkommen %username%!'
-        message: "Hallo %username%!\n\nFor å fullføre aktiveringen av din konto - vennligst besøk %confirmationUrl%\n\nMed vennlig hilsen,\nTeamet.\n"
+        message: |
+            Hallo %username%!
+
+            For å fullføre aktiveringen av din konto - vennligst besøk %confirmationUrl%
+
+            Med vennlig hilsen,
+            Teamet.
+
 resetting:
     check_email: 'En epost har blitt sendt til %email%. Den inneholder en lenke du må klikke på for å tilbakestille passordet.'
     request:
@@ -48,7 +55,14 @@ resetting:
         success: 'Passordet har blitt tilbakestilt'
     email:
         subject: 'Tilbakestill Passord'
-        message: "Hallo %username%!\n\nFor å tilbakestille ditt passord - vennligst besøk %confirmationUrl%\n\nMed vennlig hilsen,\nTeamet.\n"
+        message: |
+            Hallo %username%!
+
+            For å tilbakestille ditt passord - vennligst besøk %confirmationUrl%
+
+            Med vennlig hilsen,
+            Teamet.
+
 layout:
     logout: 'Logg ut'
     login: 'Logg inn'

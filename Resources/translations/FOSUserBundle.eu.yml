@@ -36,7 +36,14 @@ registration:
         user_created: 'Erabiltzailea ongi sortu da.'
     email:
         subject: 'Ongi etorri %username%!'
-        message: "Kaixo %username%!\n\nKontuaren balidazioazioarekin jarraitzeko - ireki ondoko orria: %confirmationUrl%\n\nAdeitasunez,\nTaldea.\n"
+        message: |
+            Kaixo %username%!
+
+            Kontuaren balidazioazioarekin jarraitzeko - ireki ondoko orria: %confirmationUrl%
+
+            Adeitasunez,
+            Taldea.
+
 resetting:
     check_email: 'Email bat bidali zaio %email% helbideari. Pasahitza berreskuratzeko esteka zehazten da bertan.'
     request:
@@ -48,7 +55,14 @@ resetting:
         success: 'Pasahitza ongi aldatu da.'
     email:
         subject: 'Pasahitza berrezarri'
-        message: "Kaixo %username%!\n\nPasahitza berrezartzeko egin klik esteka honetan: %confirmationUrl%\n\nAdeitasunez,\nTaldea.\n"
+        message: |
+            Kaixo %username%!
+
+            Pasahitza berrezartzeko egin klik esteka honetan: %confirmationUrl%
+
+            Adeitasunez,
+            Taldea.
+
 layout:
     logout: Irten
     login: Sartu

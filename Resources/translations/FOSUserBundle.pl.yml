@@ -36,13 +36,21 @@ registration:
         user_created: 'Stworzono użytkownika.'
     email:
         subject: 'Witaj %username%!'
-        message: "Cześć %username%!\n\nAby potwierdzić swoje konto - proszę przejść do %confirmationUrl%\n\nPozdrawiamy,\nZespół.\n"
+        message: |
+            Cześć %username%!
+
+            Aby potwierdzić swoje konto - proszę przejść do %confirmationUrl%
+
+            Pozdrawiamy,
+            Zespół.
+
 resetting:
     check_email: |
         E-mail został wysłany. Zawiera on link do formularza zmiany hasła.
         Uwaga: Możesz zresetować hasło tylko jeden raz w ciągu %tokenLifetime% godzin.
 
         Sprawdź swoją skrzynkę pocztową, jeśli jednak nie widzisz wiadomości od nas, sprawdź folder spam lub spróbuj ponownie później.
+
     request:
         username: 'Nazwa użytkownika lub e-mail'
         submit: 'Resetuj hasło'
@@ -52,7 +60,14 @@ resetting:
         success: 'Hasło zostało zresetowane.'
     email:
         subject: 'Resetowanie hasła'
-        message: "Cześć %username%!\n\nAby zresetować hasło - proszę przejść do %confirmationUrl%\n\nPozdrawiamy,\nZespół.\n"
+        message: |
+            Cześć %username%!
+
+            Aby zresetować hasło - proszę przejść do %confirmationUrl%
+
+            Pozdrawiamy,
+            Zespół.
+
 layout:
     logout: Wyloguj
     login: Zaloguj

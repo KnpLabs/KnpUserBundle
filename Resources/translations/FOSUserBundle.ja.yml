@@ -36,7 +36,14 @@ registration:
         user_created: ユーザーの作成が完了しました
     email:
         subject: '%username% さん、ようこそ!'
-        message: "こんにちは %username% さん!\n\nアカウントを有効化するには、次の確認 URL へアクセスしてください %confirmationUrl%\n\n\n開発チーム\n"
+        message: |
+            こんにちは %username% さん!
+
+            アカウントを有効化するには、次の確認 URL へアクセスしてください %confirmationUrl%
+
+
+            開発チーム
+
 resetting:
     check_email: '%email% 宛にメールを送信しました。メールに記載された確認 URL にアクセスして、アカウントを有効化してください。'
     request:
@@ -48,7 +55,14 @@ resetting:
         success: パスワードのリセットが完了しました
     email:
         subject: パスワードのリセット
-        message: "こんにちは %username% さん!\n\nパスワードをリセットするには、次のリセット URL へアクセスしてください %confirmationUrl%\n\n\n開発チーム\n"
+        message: |
+            こんにちは %username% さん!
+
+            パスワードをリセットするには、次のリセット URL へアクセスしてください %confirmationUrl%
+
+
+            開発チーム
+
 layout:
     logout: ログアウト
     login: ログイン

@@ -36,7 +36,14 @@ registration:
         user_created: 'O utilizador foi criado com sucesso'
     email:
         subject: 'Bem-vindo(a) %username%!'
-        message: "Olá %username%!\n\nPara completar a validação da sua conta, por favor visite o seguinte link: %confirmationUrl%\n\nCumprimentos,\nA equipa.\n"
+        message: |
+            Olá %username%!
+
+            Para completar a validação da sua conta, por favor visite o seguinte link: %confirmationUrl%
+
+            Cumprimentos,
+            A equipa.
+
 resetting:
     check_email: 'Foi enviado um email para %email% com a informação necessária para recuperar a sua password.'
     request:
@@ -48,7 +55,14 @@ resetting:
         success: 'A password foi recuperada com sucesso'
     email:
         subject: 'Recuperar password'
-        message: "Olá %username%!\n\nPara recuperar a password, por favor visite o seguinte link: %confirmationUrl%\n\nCumprimentos,\nA equipa.\n"
+        message: |
+            Olá %username%!
+
+            Para recuperar a password, por favor visite o seguinte link: %confirmationUrl%
+
+            Cumprimentos,
+            A equipa.
+
 layout:
     logout: Sair
     login: Entrar

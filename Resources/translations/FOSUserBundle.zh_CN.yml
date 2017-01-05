@@ -36,7 +36,14 @@ registration:
         user_created: 用户已创建
     email:
         subject: '%username%，欢迎你'
-        message: "%username%，你好！\n\n要启用你的用户帐号，请访问：%confirmationUrl%\n\n祝好\n网站团队\n"
+        message: |
+            %username%，你好！
+
+            要启用你的用户帐号，请访问：%confirmationUrl%
+
+            祝好
+            网站团队
+
 resetting:
     check_email: 系统向%email%发送了一封包含密码重置链接的邮件，请查收。
     request:
@@ -48,7 +55,14 @@ resetting:
         success: 密码已重置。
     email:
         subject: 重置密码
-        message: "%username%，你好！\n\n请访问 %confirmationUrl% 以重置你的帐户密码。\n\n祝好\n网站团队\n"
+        message: |
+            %username%，你好！
+
+            请访问 %confirmationUrl% 以重置你的帐户密码。
+
+            祝好
+            网站团队
+
 layout:
     logout: 退出
     login: 登录

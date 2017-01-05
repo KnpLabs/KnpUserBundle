@@ -36,7 +36,14 @@ registration:
         user_created: 'Utilizatorul a fost creat cu succes.'
     email:
         subject: 'Bine ai venit %username%!'
-        message: "Salut %username%!\n\nPentru a-ți valida contul - accesează %confirmationUrl%\n\nToate cele bune,\nEchipa\n"
+        message: |
+            Salut %username%!
+
+            Pentru a-ți valida contul - accesează %confirmationUrl%
+
+            Toate cele bune,
+            Echipa
+
 resetting:
     check_email: 'A fost trimis un email către %email%. Conține un link pe care trebuie să îl accesezi pentru a-ți reseta parola.'
     request:
@@ -48,7 +55,14 @@ resetting:
         success: 'Parola a fost resetată cu succes.'
     email:
         subject: 'Resetare parolă'
-        message: "Salut %username%!\n\nPentru a-ți reseta parola - accesează %confirmationUrl%\n\nToate cele bune,\nEchipa\n"
+        message: |
+            Salut %username%!
+
+            Pentru a-ți reseta parola - accesează %confirmationUrl%
+
+            Toate cele bune,
+            Echipa
+
 layout:
     logout: Logout
     login: Autentificare

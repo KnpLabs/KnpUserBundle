@@ -36,7 +36,15 @@ registration:
         user_created: 'Kullanıcı başarıyla yaratıldı.'
     email:
         subject: 'Hoşgeldin %username%!'
-        message: "Hoşgeldiniz %username%!\n\nHesabınızın aktivasyonunu tamamlamak için lütfen  %confirmationUrl%\nadresini ziyaret ediniz.\n\nTeşekkürler,\nWeb Takımı.\n"
+        message: |
+            Hoşgeldiniz %username%!
+
+            Hesabınızın aktivasyonunu tamamlamak için lütfen  %confirmationUrl%
+            adresini ziyaret ediniz.
+
+            Teşekkürler,
+            Web Takımı.
+
 resetting:
     check_email: '%email% adresine parolanızı sıfırlama adresi bulunan bir e-posta gönderildi.'
     request:
@@ -48,7 +56,15 @@ resetting:
         success: 'Parola başarıyla değiştirildi.'
     email:
         subject: 'Parola Yenileme'
-        message: "Merhaba  %username%!\n\nParolanızı yenilemek için  %confirmationUrl%\nadresini ziyaret ediniz.\n\nTeşekkürler,\nWeb Takımı.\n"
+        message: |
+            Merhaba  %username%!
+
+            Parolanızı yenilemek için  %confirmationUrl%
+            adresini ziyaret ediniz.
+
+            Teşekkürler,
+            Web Takımı.
+
 layout:
     logout: Çıkış
     login: Giriş

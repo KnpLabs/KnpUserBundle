@@ -36,7 +36,15 @@ registration:
         user_created: 'تم إنشاء حسابك بنجاح'
     email:
         subject: '%username%! مرحبا'
-        message: "مرحبا %username%!\n\n\n لتفعيل حسابك يرجى إتباع الرابط التالي %confirmationUrl%\n\nشكرا،\nفريق العمل.\n"
+        message: |
+            مرحبا %username%!
+
+
+             لتفعيل حسابك يرجى إتباع الرابط التالي %confirmationUrl%
+
+            شكرا،
+            فريق العمل.
+
 resetting:
     check_email: 'لقد تم إرسال رسالة إلكترونية إلى %email%  يحتوي على رابط يجب إتباعه لإعادة تعيين كلمة المرور الخاصة بك.'
     request:
@@ -48,7 +56,14 @@ resetting:
         success: 'تم إعادة ضبط كلمة المرور بنجاح'
     email:
         subject: 'إعادة ضبط كلمة المرور'
-        message: "مرحبا %username%!\n\nلإعادة ضبط كلمة المرور يرجى إتباع الرابط التالي %confirmationUrl%\n\nشكرا،\nفريق العمل.\n"
+        message: |
+            مرحبا %username%!
+
+            لإعادة ضبط كلمة المرور يرجى إتباع الرابط التالي %confirmationUrl%
+
+            شكرا،
+            فريق العمل.
+
 layout:
     logout: خروج
     login: دخول

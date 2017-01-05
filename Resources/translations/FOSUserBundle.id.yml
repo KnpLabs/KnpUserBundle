@@ -9,14 +9,12 @@ group:
         updated: 'Grup telah berhasil diperbaharui'
         created: 'Grup telah berhasil ditambahkan'
         deleted: 'Grup telah berhasil dihapus'
-
 security:
     login:
         username: 'Nama Pengguna'
         password: Password
         remember_me: 'Selalu Ingat Saya'
         submit: Login
-
 profile:
     show:
         username: 'Nama Pengguna'
@@ -25,12 +23,10 @@ profile:
         submit: Perbaharui
     flash:
         updated: 'Profil telah berhasil diperbaharui'
-
 change_password:
     submit: 'Ubah Password'
     flash:
         success: 'Password telah berhasil diubah'
-
 registration:
     check_email: 'Email telah berhasil dikirimkan ke %email%. Anda harus mengklik link aktivasi di dalam email tersebut untuk mengaktifkan account anda.'
     confirmed: 'Selamat %username%, akun anda telah berhasil diaktifkan.'
@@ -70,13 +66,11 @@ resetting:
             Hormat Kami,
             Tim Website.
 
-# Global strings
 layout:
-    logout: 'Keluar'
-    login: 'Masuk'
-    register: 'Pendaftaran'
+    logout: Keluar
+    login: Masuk
+    register: Pendaftaran
     logged_in_as: 'Masuk sebagai %username%'
-
 form:
     group_name: 'Nama Grup'
     username: 'Nama Pengguna'

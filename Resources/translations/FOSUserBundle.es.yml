@@ -36,13 +36,21 @@ registration:
         user_created: 'El usuario se ha creado satisfactoriamente.'
     email:
         subject: 'Bienvenido %username%!'
-        message: "Hola %username%!\n\nPara completar la validación de tu cuenta - por favor visita %confirmationUrl%\n\nAtentamente,\nel Equipo.\n"
+        message: |
+            Hola %username%!
+
+            Para completar la validación de tu cuenta - por favor visita %confirmationUrl%
+
+            Atentamente,
+            el Equipo.
+
 resetting:
     check_email: |
-       Un email ha sido enviado. Contiene un enlace de activación que debes presionar para restablecer tu contraseña.
-        Nota: Solo se puede solicitar una nueva contraseña dentro %tokenLifetime% horas.
+        Un email ha sido enviado. Contiene un enlace de activación que debes presionar para restablecer tu contraseña.
+         Nota: Solo se puede solicitar una nueva contraseña dentro %tokenLifetime% horas.
 
-       Si no recibe un correo electrónico, comprueba tu carpeta de correo no deseado o inténtelo de nuevo.
+        Si no recibe un correo electrónico, comprueba tu carpeta de correo no deseado o inténtelo de nuevo.
+
     request:
         username: 'Nombre de usuario o correo electrónico'
         submit: 'Restablecer contraseña'
@@ -52,7 +60,14 @@ resetting:
         success: 'La contraseña se ha cambiado con éxito.'
     email:
         subject: 'Restablecer Contraseña'
-        message: "Hola %username%!\n\nPara restablecer tu contraseña - por favor visita %confirmationUrl%\n\nAtentamente,\nel Equipo.\n"
+        message: |
+            Hola %username%!
+
+            Para restablecer tu contraseña - por favor visita %confirmationUrl%
+
+            Atentamente,
+            el Equipo.
+
 layout:
     logout: Salir
     login: Entrar

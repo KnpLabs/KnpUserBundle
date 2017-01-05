@@ -36,7 +36,13 @@ registration:
         user_created: 'Käyttäjätunnus on luotu onnistuneesti.'
     email:
         subject: 'Tervetuloa %username%!'
-        message: "Hei %username%!\n\nAktivoidaksesi tunnuksesi, ole hyvä ja klikkaa %confirmationUrl%\n\nTerveisin ylläpito\n"
+        message: |
+            Hei %username%!
+
+            Aktivoidaksesi tunnuksesi, ole hyvä ja klikkaa %confirmationUrl%
+
+            Terveisin ylläpito
+
 resetting:
     check_email: 'Sähköposti on lähetetty osoitteeseen %email%. Se sisältää linkin, jota klikkaamalla salasana alustetaan.'
     request:
@@ -48,7 +54,13 @@ resetting:
         success: 'Salasana on alustettu onnistuneesti.'
     email:
         subject: 'Alusta salasana'
-        message: "Hei %username%!\n\nAlustaaksesi salasanasi, ole hyvä ja klikkaa %confirmationUrl%\n\nTerveisin ylläpito\n"
+        message: |
+            Hei %username%!
+
+            Alustaaksesi salasanasi, ole hyvä ja klikkaa %confirmationUrl%
+
+            Terveisin ylläpito
+
 layout:
     logout: Ulos
     login: Kirjaudu

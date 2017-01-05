@@ -9,14 +9,12 @@ group:
         updated: 'Skupina byla úspěšně aktualizována.'
         created: 'Skupina byla úspěšně vytvořena.'
         deleted: 'Skupina byla úspěšně vymazána.'
-
 security:
     login:
         username: 'Uživatelské jméno'
         password: Heslo
         remember_me: 'Zapamatovat si'
         submit: 'Přihlásit se'
-
 profile:
     show:
         username: 'Uživatelské jméno'
@@ -25,12 +23,10 @@ profile:
         submit: Upravit
     flash:
         updated: 'Profil byl úspěšně aktualizován.'
-
 change_password:
     submit: 'Nastavit nové heslo'
     flash:
         success: 'Nové heslo bylo úspěšně nastaveno.'
-
 registration:
     check_email: 'Na adresu %email% byl zaslán aktivační e-mail. Obsahuje odkaz, na který je nutné kliknout pro aktivaci Vašeho účtu.'
     confirmed: 'Gratulujeme, %username%, Váš účet je nyní aktivní.'
@@ -54,6 +50,7 @@ resetting:
         O nastavení nového hesla můžete žádat pouze každých %tokenLifetime% hodin.
 
         Pokud jste e-mail neobdrželi, zkontrolujte prosím složku se spamem nebo zkuste obnovování hesla zopakovat.
+
     request:
         username: 'Uživatelské jméno nebo e-mail'
         submit: 'Nastavit nové heslo'
@@ -76,7 +73,6 @@ layout:
     login: 'Přihlásit se'
     register: 'Registrovat se'
     logged_in_as: 'Přihlášený uživatel: %username%'
-
 form:
     group_name: 'Název skupiny'
     username: 'Uživatelské jméno'

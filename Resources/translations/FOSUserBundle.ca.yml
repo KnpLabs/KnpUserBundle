@@ -36,7 +36,14 @@ registration:
         user_created: 'S''ha creat l''usuari correctament.'
     email:
         subject: 'Benvingut %username%!'
-        message: "Hola %username%!\n\nPer finalitzar l'activació del seu compte - si us plau visiteu %confirmationUrl%\n\nAtentament,\nL'equip.\n"
+        message: |
+            Hola %username%!
+
+            Per finalitzar l'activació del seu compte - si us plau visiteu %confirmationUrl%
+
+            Atentament,
+            L'equip.
+
 resetting:
     check_email: 'S''ha enviat un correu electrònic a %email%. Conté un enllaç que heu de clicar per restablir la contrasenya.'
     request:
@@ -48,7 +55,14 @@ resetting:
         success: 'S''ha restablert la contrasenya correctament.'
     email:
         subject: 'Restablir la contrasenya'
-        message: "Hola %username%!\n\nPer restablir la contrasenya - si us plau visiteu %confirmationUrl%\n\nAtentament,\nL'equip.\n"
+        message: |
+            Hola %username%!
+
+            Per restablir la contrasenya - si us plau visiteu %confirmationUrl%
+
+            Atentament,
+            L'equip.
+
 layout:
     logout: 'Tanca la sessió'
     login: Entra

@@ -36,7 +36,14 @@ registration:
         user_created: 'Потребителят беше успешно създаден.'
     email:
         subject: 'Добре дошли, %username%!'
-        message: "Здравейте, %username%!\n\nЗа да активирате своя профил, моля отворете %confirmationUrl%\n\nПоздрави,\nот екипа.\n"
+        message: |
+            Здравейте, %username%!
+
+            За да активирате своя профил, моля отворете %confirmationUrl%
+
+            Поздрави,
+            от екипа.
+
 resetting:
     check_email: 'Изпратихме писмо с линк за активация на посочения E-mail адрес: %email%. Ако не откривате писмото проверете и в папка СПАМ.'
     request:
@@ -48,7 +55,14 @@ resetting:
         success: 'Паролата беше успешно променена.'
     email:
         subject: 'Забравена парола'
-        message: "Здравейте, %username%!\n\nЗа да промените своята парола, моля отворете %confirmationUrl%\n\nПоздрави,\nот екипа.\n"
+        message: |
+            Здравейте, %username%!
+
+            За да промените своята парола, моля отворете %confirmationUrl%
+
+            Поздрави,
+            от екипа.
+
 layout:
     logout: Изход
     login: Вход
