@@ -49,7 +49,7 @@ resetting:
         Er werd een email gestuurd. De email bevat een link om je wachtwoord te resetten.
         Opgelet: Je kan pas na %tokenLifetime% uur een nieuw wachtwoord aanvragen.
 
-        Indien je geen email ontvangen hebt, controlleer dan zeker je spam folder of probeer opnieuw.
+        Indien je geen email ontvangen hebt, controleer dan zeker je spam folder of probeer opnieuw.
 
     request:
         username: 'Gebruikersnaam of e-mailadres'
