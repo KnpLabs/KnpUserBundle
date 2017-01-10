@@ -107,7 +107,7 @@ Updating a User object
 
 An ORM example::
 
-    public function MainController extends Controller
+    class MainController extends Controller
     {
         public function updateAction($id)
         {
