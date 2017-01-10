@@ -3,11 +3,8 @@ Overriding Default FOSUserBundle Templates
 
 As you start to incorporate FOSUserBundle into your application, you will probably
 find that you need to override the default templates that are provided by
-the bundle. Although the template names are not configurable, the Symfony
-framework provides two ways to override the templates of a bundle.
-
-1. Define a new template of the same name in the ``app/Resources`` directory
-2. Configure your AppBundle as a child of ``FOSUserBundle``
+the bundle. Although the template names are not configurable, Symfony
+provides a built-in way to `override the templates themselves`_.
 
 Example: Overriding The Default layout.html.twig
 ------------------------------------------------
@@ -93,3 +90,5 @@ take effect, even in a development environment.
 
 Overriding all of the other templates provided by the FOSUserBundle can be done
 in a similar fashion using either of the two methods shown in this document.
+
+.. _`override the templates themselves`: https://symfony.com/doc/current/templating/overriding.html
