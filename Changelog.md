@@ -5,6 +5,9 @@ Changelog
 
 * Use ceil in `ResettingController` for a better token lifetime approximation
 * Removed unused translation keys
+* Removed form deprecations
+* Added `symfony/templating` as a dependency
+* Use `@`-based Twig syntax for templates
 
 ### 2.0.0-beta1 (2016-11-29)
 
