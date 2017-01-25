@@ -50,11 +50,6 @@
             "/Tests/"
         ]
     },
-    "autoload-dev": {
-        "psr-4": {
-            "FOS\\UserBundle\\Tests\\": "Tests/"
-        }
-    },
     "extra": {
         "branch-alias": {
             "dev-master": "2.0.x-dev"
