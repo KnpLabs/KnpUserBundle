@@ -1,13 +1,17 @@
 Changelog
 =========
 
-### 2.0.0-beta2 (xxxx-xx-xx)
+### 2.0.0-beta2 (2017-01-31)
 
-* Use ceil in `ResettingController` for a better token lifetime approximation
-* Removed unused translation keys
-* Removed form deprecations
-* Added `symfony/templating` as a dependency
-* Use `@`-based Twig syntax for templates
+* Use ceil in `ResettingController` for a better token lifetime approximation.
+* Removed unused translation keys.
+* Removed form deprecations.
+* Use `@`-based Twig syntax for templates.
+* Improved several language files.
+* Improved documentation.
+* Ability to disable the authentication listener.
+* Removed `DateUtil` class.
+* [BC break] Changed validation max length to match the database structure.
 
 ### 2.0.0-beta1 (2016-11-29)
 
