@@ -13,7 +13,6 @@ Symfony\CS\Fixer\Contrib\HeaderCommentFixer::setHeader($header);
 
 $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->in(array(__DIR__))
-    ->exclude(array('Tests/Fixtures'))
 ;
 
 return Symfony\CS\Config\Config::create()
