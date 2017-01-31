@@ -1,7 +1,7 @@
 fos_user:
     username:
         already_used: 'Username già in uso.'
-        blank: 'Si prega di inserire uno username.'
+        blank: 'Si prega di inserire un username.'
         short: 'Username troppo breve.'
         long: 'Username troppo lungo.'
     email:
@@ -23,3 +23,6 @@ fos_user:
         blank: 'Si prega di inserire un nome.'
         short: 'Nome troppo breve.'
         long: 'Nome troppo lungo.'
+fos_group:
+    name:
+        already_used: 'Nome già in uso.'
