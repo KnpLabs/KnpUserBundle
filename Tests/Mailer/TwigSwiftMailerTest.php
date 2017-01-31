@@ -12,11 +12,8 @@
 namespace FOS\UserBundle\Tests\Mailer;
 
 use FOS\UserBundle\Mailer\TwigSwiftMailer;
-use Swift_Events_EventDispatcher;
 use Swift_Mailer;
 use Swift_Transport_NullTransport;
-use Twig_Environment;
-use Twig_Template;
 
 class TwigSwiftMailerTest extends \PHPUnit_Framework_TestCase
 {
@@ -87,34 +84,13 @@ class TwigSwiftMailerTest extends \PHPUnit_Framework_TestCase
 
     private function getTwigEnvironment()
     {
-        $twigEnvironment = $this->getMockBuilder('Twig_Environment')
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
+        return new \Twig_Environment(new \Twig_Loader_Array(array('foo' => <<<TWIG
+{% block subject 'foo' %}
 
-        $twigEnvironment->method('mergeGlobals')
-            ->willReturn(array())
-        ;
+{% block body_text %}Test{% endblock %}
 
-        $twigEnvironment->method('loadTemplate')
-            ->willReturn($this->getTwigTemplate())
-        ;
-
-        return $twigEnvironment;
-    }
-
-    private function getTwigTemplate()
-    {
-        // Using this method of building a mock due to a possible bug in phpunit
-        // see http://tinyurl.com/gtybc3b
-        $methods = get_class_methods('Twig_Template');
-        $twigTemplate = $this->getMockBuilder('Twig_Template')
-            ->disableOriginalConstructor()
-            ->setMethods($methods)
-            ->getMockForAbstractClass()
-        ;
-
-        return $twigTemplate;
+TWIG
+        )));
     }
 
     private function getUser($emailAddress)
