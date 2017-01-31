@@ -9,12 +9,14 @@ group:
         updated: 'A csoport frissítve.'
         created: 'A csoport létrehozva.'
         deleted: 'A csoport törölve.'
+
 security:
     login:
         username: Felhasználónév
         password: Jelszó
         remember_me: Megjegyzés
         submit: Belépés
+
 profile:
     show:
         username: Felhasználónév
@@ -23,13 +25,15 @@ profile:
         submit: Frissítés
     flash:
         updated: 'A profil frissítve.'
+
 change_password:
     submit: 'Jelszó megváltoztazása'
     flash:
         success: 'A jelszó megváltoztatva.'
+
 registration:
-    check_email: 'Egy e-mail lett küldve a(z) %email% címre. Egy aktivációs linket tartalmaz, amire rá kell kattintani a fiók aktiválásához.'
-    confirmed: 'Gratulálunk %username%, a fiók visszaigazolva.'
+    check_email: 'A regisztrált fiók aktiválásához a megadott "%email%" címre küldött üzenetben lévő aktivációs linkre kell kattintani.'
+    confirmed: 'Gratulálunk %username%, a regisztrált fiók sikeresen aktiválásra került.'
     back: 'Vissza az előző oldalra.'
     submit: Regisztráció
     flash:
@@ -39,13 +43,17 @@ registration:
         message: |
             Hello %username%!
 
-            A fiókja visszaigazolásához kérjük látogasson el a következő linkre: %confirmationUrl%
+            A regisztrált fiók a következő linkre kattintva aktiválható: %confirmationUrl%
 
             Üdvözlettel,
-            the Team.
+            a Csapat.
 
 resetting:
-    check_email: 'Egy e-mail lett küldve a(z) %email% címre. Egy linket tartalmaz, amire rá kell kattintani a jeszó lecseréléséhez.'
+    check_email:  |
+        A jelenlegi jelszó lecseréléséhez a megadott "%email%" címre küldött e-mailben található linkre kell kattintani.
+        A link csak a következő %tokenLifetime% órában használható, utána új linket kell igényelni ha szükség van rá.
+
+        Amennyiben az e-mail nem érkezne meg, ellenőrizze a spam mappát, vagy próbálja újra.
     request:
         username: 'Felhasználónév vagy e-mail cím'
         submit: 'Jelszó lecserélése'
@@ -58,22 +66,23 @@ resetting:
         message: |
             Hello %username%!
 
-            A jelszó lecseréléséhez kérjük látogasson el a következő linkre: %confirmationUrl%
+            A jelszó a következő oldalon cserélhető le: %confirmationUrl%
 
             Üdvözlettel,
-            the Team.
+            a Csapat.
 
 layout:
     logout: Kijelentkezés
     login: Bejelentkezés
     register: Regisztráció
     logged_in_as: 'Belépve mint %username%'
+
 form:
     group_name: 'Csoport név'
     username: Felhasználónév
     email: E-mail
     current_password: 'Jelenlegi jelszó'
     password: Jelszó
-    password_confirmation: Megerősítés
+    password_confirmation: 'Jelszó megerősítése'
     new_password: 'Új jelszó'
-    new_password_confirmation: Megerősítés
+    new_password_confirmation: 'Új jelszó megerősítése'
