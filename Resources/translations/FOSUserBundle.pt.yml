@@ -11,14 +11,14 @@ group:
         deleted: 'O grupo foi apagado'
 security:
     login:
-        username: Utilizador
-        password: Password
-        remember_me: Lembrar-me
-        submit: Entrar
+        username: 'Utilizador'
+        password: 'Password'
+        remember_me: 'Lembrar-me'
+        submit: 'Entrar'
 profile:
     show:
-        username: Utilizador
-        email: Email
+        username: 'Utilizador'
+        email: 'Email'
     edit:
         submit: 'Atualizar conta'
     flash:
@@ -31,7 +31,7 @@ registration:
     check_email: 'Foi enviado um email para %email%. Este contém um link de ativação que terá de visitar para ativar a sua conta.'
     confirmed: 'Parabéns %username%, a sua conta foi confirmada.'
     back: 'Voltar para a página anterior.'
-    submit: Registar
+    submit: 'Registar'
     flash:
         user_created: 'O utilizador foi criado com sucesso'
     email:
@@ -45,9 +45,13 @@ registration:
             A equipa.
 
 resetting:
-    check_email: 'Foi enviado um email para %email% com a informação necessária para recuperar a sua password.'
+    check_email: |
+        Foi enviado um email. Este contém um link que terá de visitar para recuperar a sua password.
+        Nota: Só poderá voltar a pedir para recuperar a sua password dentro de %tokenLifetime% hours.
+
+        Se não receber o email verifique a pasta de spam do seu cliente de email ou tente novamente.
     request:
-        username: Utilizador
+        username: 'Utilizador or endereço de email'
         submit: 'Recuperar password'
     reset:
         submit: 'Alterar password'
@@ -58,22 +62,23 @@ resetting:
         message: |
             Olá %username%!
 
-            Para recuperar a password, por favor visite o seguinte link: %confirmationUrl%
+            Para recuperar a password, por favor aceda a %confirmationUrl%
 
             Cumprimentos,
             A equipa.
 
+# Global strings
 layout:
-    logout: Sair
-    login: Entrar
-    register: Registar
+    logout: 'Sair'
+    login: 'Entrar'
+    register: 'Registar'
     logged_in_as: 'Entrou como %username%'
 form:
     group_name: 'Nome do Grupo'
-    username: Utilizador
-    email: Email
+    username: 'Utilizador'
+    email: 'Email'
     current_password: 'Password atual'
-    password: Password
-    password_confirmation: Verificar
+    password: 'Password'
+    password_confirmation: 'Verificar password'
     new_password: 'Nova password'
-    new_password_confirmation: Verificar
+    new_password_confirmation: 'Verificar a nova password'
