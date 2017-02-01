@@ -84,7 +84,7 @@ class TwigSwiftMailerTest extends \PHPUnit_Framework_TestCase
 
     private function getTwigEnvironment()
     {
-        return new \Twig_Environment(new \Twig_Loader_Array(array('foo' => <<<TWIG
+        return new \Twig_Environment(new \Twig_Loader_Array(array('foo' => <<<'TWIG'
 {% block subject 'foo' %}
 
 {% block body_text %}Test{% endblock %}
