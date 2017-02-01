@@ -45,7 +45,11 @@ registration:
             a Equipe.
 
 resetting:
-    check_email: 'Foi enviado um email para %email%. Para recuperar a sua senha, clique no link da mensagem.'
+    check_email: |
+            Um email foi enviado. Ele contem um link que deve ser acessado para resetar sua senha.
+            Nota: Você apenas poderá requisitar uma nova senha dentro de %tokenLifetime% horas.
+
+            Se você não receber sua senha, cheque sua pasta de spam ou tente novamente.
     request:
         username: 'Usuário ou email'
         submit: 'Recuperar senha'
@@ -76,4 +80,4 @@ form:
     password: Senha
     password_confirmation: 'Repita a senha'
     new_password: 'Nova senha'
-    new_password_confirmation: 'Repita a senha'
+    new_password_confirmation: 'Repita a nova senha'
