@@ -166,6 +166,7 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->canBeUnset()
                     ->children()
+                        ->scalarNode('retry_ttl')->defaultValue(7200)->end()
                         ->scalarNode('token_ttl')->defaultValue(86400)->end()
                         ->arrayNode('email')
                             ->addDefaultsIfNotSet()

@@ -201,6 +201,7 @@ class FOSUserExtension extends Extension
 
         $this->remapParametersNamespaces($config, $container, array(
             '' => array(
+                'retry_ttl' => 'fos_user.resetting.retry_ttl',
                 'token_ttl' => 'fos_user.resetting.token_ttl',
             ),
             'email' => 'fos_user.resetting.email.%s',
