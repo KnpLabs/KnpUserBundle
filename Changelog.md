@@ -4,6 +4,7 @@ Changelog
 ### 2.0.0-beta3 (2017-02-XX)
 
 * Removed usage of internal Twig APIs when rendering emails
+* Add a timeout for the reset retry request.
 
 ### 2.0.0-beta2 (2017-01-31)
 

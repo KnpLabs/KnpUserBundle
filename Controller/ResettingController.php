@@ -65,7 +65,7 @@ class ResettingController extends Controller
             return $event->getResponse();
         }
 
-        $ttl = $this->container->getParameter('fos_user.resetting.token_ttl');
+        $ttl = $this->container->getParameter('fos_user.resetting.retry_ttl');
 
         if (null !== $user && !$user->isPasswordRequestNonExpired($ttl)) {
             $event = new GetResponseUserEvent($user, $request);
@@ -122,7 +122,7 @@ class ResettingController extends Controller
         }
 
         return $this->render('@FOSUser/Resetting/check_email.html.twig', array(
-            'tokenLifetime' => ceil($this->container->getParameter('fos_user.resetting.token_ttl') / 3600),
+            'tokenLifetime' => ceil($this->container->getParameter('fos_user.resetting.retry_ttl') / 3600),
         ));
     }
 
