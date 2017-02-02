@@ -47,11 +47,11 @@ registration:
 resetting:
     check_email: |
         Foi enviado um email. Este contém um link que terá de visitar para recuperar a sua password.
-        Nota: Só poderá voltar a pedir para recuperar a sua password dentro de %tokenLifetime% hours.
+        Nota: Só poderá voltar a pedir para recuperar a sua password dentro de %tokenLifetime% horas.
 
         Se não receber o email verifique a pasta de spam do seu cliente de email ou tente novamente.
     request:
-        username: 'Utilizador or endereço de email'
+        username: 'Utilizador ou endereço de email'
         submit: 'Recuperar password'
     reset:
         submit: 'Alterar password'
