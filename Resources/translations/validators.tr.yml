@@ -23,3 +23,6 @@ fos_user:
         blank: 'Lütfen bir isim girin.'
         short: 'İsim çok kısa.'
         long: 'İsim çok uzun.'
+fos_group:
+    name:
+        already_used: 'İsim zaten kullanılıyor..'
