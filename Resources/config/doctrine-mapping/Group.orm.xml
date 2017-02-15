@@ -6,7 +6,7 @@
 
     <mapped-superclass name="FOS\UserBundle\Model\Group">
 
-        <field name="name" column="name" type="string" length="255" unique="true" />
+        <field name="name" column="name" type="string" length="180" unique="true" />
 
         <field name="roles" column="roles" type="array" />
 
