@@ -83,7 +83,7 @@ form:
     username: 'שם משתמש'
     email: 'דוא\"ל'
     current_password: 'סיסמה נוכחות'
-    password: הסיסמה 
+    password: סיסמה
     password_confirmation: 'אימות סיסמה'
     new_password: 'סיסמה חדשה'
     new_password_confirmation: 'אימות סיסמה חדשה'
