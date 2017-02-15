@@ -23,3 +23,6 @@ fos_user:
         blank: 'יש להזין שם קבוצה'
         short: 'שם קצר מדי'
         long: 'שם ארוך מדי'
+fos_group:
+    name:
+        already_used: 'שם קבוצה בשימוש'
