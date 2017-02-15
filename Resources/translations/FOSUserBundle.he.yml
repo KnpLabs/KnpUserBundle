@@ -41,11 +41,19 @@ registration:
 
             כדי לסיים הרשמתך יש ללחוץ על קישור זה:  %confirmationUrl%
 
+            זה קישור חד-פעמי לאמת סיסמתך.
+
             בברכה,
                הצוות.
 
 resetting:
-    check_email: 'הודעת דוא"ל נשלחה ל-%email%. ההודעה מכילה קישור לאיפוס סיסמה שלך.'
+    check_email: |
+        הודעת דוא"ל נשלחה. ההודעה מכילה קישור לאיפוס סיסמה שלך.
+
+        ניתן לבקש איפוס סיסמה תוך %tokenLifetime% שעות.
+
+        יש לבדוק תיקיים דואר זבל במידע ולא הגיעה ההודעה.
+
     request:
         username: 'שם משתמש או דואר אלקטרוני'
         submit: 'איפוס סיסמה'
@@ -63,11 +71,13 @@ resetting:
             בברכה,
                הצוות.
 
+# Global strings
 layout:
     logout: התנתק
     login: כניסה
     register: רישום
     logged_in_as: 'שלום %username%'
+
 form:
     group_name: 'שם קבוצה'
     username: 'שם משתמש'
