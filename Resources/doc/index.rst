@@ -12,7 +12,7 @@ a database, then you're in the right place.
 Prerequisites
 -------------
 
-This version of the bundle requires Symfony 2.1+. If you are using Symfony
+This version of the bundle requires Symfony 2.1+. For Symfony 3.0+ please use upcoming 2.0 release. If you are using Symfony
 2.0.x, please use the 1.2.x releases of the bundle.
 
 Translations
