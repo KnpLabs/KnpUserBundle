@@ -32,7 +32,8 @@ change_password:
         success: 'The password has been changed.'
 
 registration:
-    check_email: 'An email has been sent to %email%. It contains an activation link you must click to activate your account.'
+    check_email: |
+        An email has been sent to %email%. It contains an activation link you must click to activate your account.
     confirmed: 'Congrats %username%, your account is now activated.'
     back: 'Back to the originating page.'
     submit: Register
