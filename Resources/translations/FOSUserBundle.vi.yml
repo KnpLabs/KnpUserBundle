@@ -32,7 +32,7 @@ registration:
     check_email: 'Một email đã được gửi đến %email%. Nó có chứa một liên kết kích hoạt bạn phải bấm vào để kích hoạt tài khoản của bạn.'
     confirmed: 'Chúc mừng %username%, tài khoản của bạn đã được kích hoạt.'
     email:
-        message: 'Xin chào %username%! Để hoàn tất kích hoạt tài khoản của bạn - vui lòng truy cập %confirmationUrl%. Cám ơn.'
+        message: 'Xin chào %username%! Để hoàn tất kích hoạt tài khoản của bạn - vui lòng truy cập %confirmationUrl% Cám ơn.'
         subject: 'Chào mừng %username%!'
     flash:
         user_created: 'Người sử dụng đã được khởi tạo'
