@@ -43,7 +43,7 @@ registration:
         message: |
             Hallo %username%!
 
-            Untuk menyelesaikan aktifasi akun anda, mohon kunjungi halaman berikut %confirmationUrl%.
+            Untuk menyelesaikan aktifasi akun anda, mohon kunjungi halaman berikut %confirmationUrl%
 
             Tautan ini hanya bisa digunakan sekali untuk akun anda.
 
