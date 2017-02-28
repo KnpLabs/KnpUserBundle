@@ -68,7 +68,7 @@ resetting:
         message: |
             Hello %username%!
 
-            Om jou wagwoord te herstel, besoek asseblief %confirmationUrl%.
+            Om jou wagwoord te herstel, besoek asseblief %confirmationUrl%
 
             Groete,
             die Span.
