@@ -9,12 +9,14 @@ group:
         updated: 'Grupul a fost actualizat.'
         created: 'Grupul a fost creat.'
         deleted: 'Grupul a fost șters.'
+
 security:
     login:
         username: 'Nume de utilizator'
         password: Parola
         remember_me: 'Ține-mă minte'
         submit: Autentificare
+
 profile:
     show:
         username: 'Numele de utilizator'
@@ -23,13 +25,15 @@ profile:
         submit: Actualizează
     flash:
         updated: 'Profilul a fost actualizat.'
+
 change_password:
     submit: 'Schimbă parola'
     flash:
         success: 'Parola a fost schimbată.'
 registration:
-    check_email: 'Un email a fost trimis către %email%. Conține un link de activare pe care trebuie să îl accesezi pentru a-ți activa contul.'
-    confirmed: 'Felicitări %username%, contul tău a fost confirmat.'
+    check_email: |
+        Un email a fost trimis către %email%. Conține un link de activare pe care trebuie să îl accesezi pentru a-ți activa contul.
+    confirmed: 'Felicitări %username%, contul tău a fost activat.'
     back: 'Înapoi la pagina de la care ai venit.'
     submit: Înregistrează-te
     flash:
@@ -39,13 +43,19 @@ registration:
         message: |
             Salut %username%!
 
-            Pentru a-ți valida contul - accesează %confirmationUrl%
+            Pentru a-ți activa contul - accesează %confirmationUrl%
+
+            Acest link poate fi folosit numai o singură dată pentru a activa contul.
 
             Toate cele bune,
             Echipa
 
 resetting:
-    check_email: 'A fost trimis un email către %email%. Conține un link pe care trebuie să îl accesezi pentru a-ți reseta parola.'
+    check_email: |
+        Un email a fost trimis. Conține un link pe care trebuie să îl accesezi pentru a-ți reseta parola.
+        Notă: Poți cere o nouă parolă numai în următoarele %tokenLifetime% ore.
+
+        Daca nu primești email-ul verifica in spam sau mai incearca o dată.
     request:
         username: 'Numele de utilizator sau adresa de email'
         submit: 'Resetează parola'
@@ -63,11 +73,13 @@ resetting:
             Toate cele bune,
             Echipa
 
+# Global strings
 layout:
-    logout: Logout
+    logout: 'Ieșire'
     login: Autentificare
     register: Înregistrare
-    logged_in_as: 'Logat ca %username%'
+    logged_in_as: 'Autentificat ca %username%'
+
 form:
     group_name: 'Numele grupului'
     username: 'Nume de utilizator'
@@ -76,4 +88,4 @@ form:
     password: Parolă
     password_confirmation: 'Verificare parolă'
     new_password: 'Parola nouă'
-    new_password_confirmation: 'Verificare parolă'
+    new_password_confirmation: 'Verificare parolă nouă'
