@@ -359,11 +359,12 @@ of datastore you are using.
             user-class="AppBundle\Entity\User"
         />
 
-Only three configuration values are required to use the bundle:
+Only four configuration's node are required to use the bundle:
 
 * The type of datastore you are using (``orm``, ``mongodb`` or ``couchdb``).
 * The firewall name which you configured in Step 4.
 * The fully qualified class name (FQCN) of the ``User`` class which you created in Step 3.
+* The default email address to use when the bundle send a registration confirmation to the user.
 
 .. note::
 
