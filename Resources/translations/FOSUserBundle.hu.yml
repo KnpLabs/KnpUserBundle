@@ -45,15 +45,17 @@ registration:
 
             A regisztrált fiók a következő linkre kattintva aktiválható: %confirmationUrl%
 
+            A link csak egyszer használható, rákattintás után ismételt felhasználása nem lehetséges.
+
             Üdvözlettel,
             a Csapat.
 
 resetting:
     check_email:  |
-        A jelenlegi jelszó lecseréléséhez a megadott "%email%" címre küldött e-mailben található linkre kell kattintani.
-        A link csak a következő %tokenLifetime% órában használható, utána új linket kell igényelni ha szükség van rá.
+        Elfelejtett jelszava lecseréléséhez, kérjük, kattintson az e-mailben található linkre.
+        Felhívjuk figyelmát rá, hogy a link érvényessége %tokenLifetime% óra múlva lejár.
 
-        Amennyiben az e-mail nem érkezne meg, ellenőrizze a spam mappát, vagy próbálja újra.
+        Amennyiben nem találja az e-mailt a postafiókjában, ellenőrizze a levélszemét mappát vagy kérje újra a kiküldést!
     request:
         username: 'Felhasználónév vagy e-mail cím'
         submit: 'Jelszó lecserélése'
