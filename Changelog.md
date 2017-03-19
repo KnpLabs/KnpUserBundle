@@ -6,6 +6,7 @@ Changelog
 * Removed default `fos_user.from_email` configuration values.
 * Removed usage of internal Twig APIs when rendering emails.
 * Add a timeout for the reset retry request.
+* Add Esperanto translations.
 * Fixed incorrect confirmation url.
 
 ### 2.0.0-beta2 (2017-01-31)
