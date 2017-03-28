@@ -182,7 +182,7 @@ Create the invitation field::
 Create the custom data transformer::
 
     <?php
-    // src/AppBundle/Form/InvitationToCodeTransformer.php
+    // src/AppBundle/Form/DataTransformer/InvitationToCodeTransformer.php
 
     namespace AppBundle\Form\DataTransformer;
 
