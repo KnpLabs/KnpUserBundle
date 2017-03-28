@@ -52,8 +52,8 @@ registration:
 
 resetting:
     check_email: |
-        Un'email è stata inviata a %email%. Contiene il link d'attivazione che devi utilizzare per il reset della password.
-        Nota: E' possibile richiedere una password entro %tokenLifetime% ore.
+        È stata inviata un'email con il link d'attivazione che devi utilizzare per il reset della password.
+        Nota: è possibile richiedere una password entro %tokenLifetime% ore.
 
         Se non ricevi un'email verifica la cartella di spam o riprova.
     request:
