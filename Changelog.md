@@ -8,8 +8,8 @@ Changelog
 * Add a timeout for the reset retry request.
 * Add Esperanto translations.
 * Fixed incorrect confirmation url.
-* [BC break] Use UserManager::getRepository() instead of UserManager::$repository
-* [BC break] Use UserManager::getClass() instead of UserManager::$class
+* [BC break] Use `UserManager::getRepository()` instead of `UserManager::$repository`.
+* [BC break] Use `UserManager::getClass()` instead of `UserManager::$class`.
 
 ### 2.0.0-beta2 (2017-01-31)
 
