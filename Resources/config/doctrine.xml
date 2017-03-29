@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="fos_user.user_manager.default" class="FOS\UserBundle\Doctrine\UserManager" public="false" lazy="true">
+        <service id="fos_user.user_manager.default" class="FOS\UserBundle\Doctrine\UserManager" public="false">
             <argument type="service" id="fos_user.util.password_updater" />
             <argument type="service" id="fos_user.util.canonical_fields_updater" />
             <argument type="service" id="fos_user.object_manager" />

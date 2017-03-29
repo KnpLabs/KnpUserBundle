@@ -28,12 +28,7 @@ class UserManager extends BaseUserManager
     /**
      * @var string
      */
-    protected $class;
-
-    /**
-     * @var ObjectRepository
-     */
-    protected $repository;
+    private $class;
 
     /**
      * Constructor.
@@ -48,10 +43,15 @@ class UserManager extends BaseUserManager
         parent::__construct($passwordUpdater, $canonicalFieldsUpdater);
 
         $this->objectManager = $om;
-        $this->repository = $om->getRepository($class);
+        $this->class = $class;
+    }
 
-        $metadata = $om->getClassMetadata($class);
-        $this->class = $metadata->getName();
+    /**
+     * @return ObjectRepository
+     */
+    protected function getRepository()
+    {
+        return $this->objectManager->getRepository($this->getClass());
     }
 
     /**
@@ -68,6 +68,11 @@ class UserManager extends BaseUserManager
      */
     public function getClass()
     {
+        if (false !== strpos($this->class, ':')) {
+            $metadata = $this->objectManager->getClassMetadata($this->class);
+            $this->class = $metadata->getName();
+        }
+
         return $this->class;
     }
 
@@ -76,7 +81,7 @@ class UserManager extends BaseUserManager
      */
     public function findUserBy(array $criteria)
     {
-        return $this->repository->findOneBy($criteria);
+        return $this->getRepository()->findOneBy($criteria);
     }
 
     /**
@@ -84,7 +89,7 @@ class UserManager extends BaseUserManager
      */
     public function findUsers()
     {
-        return $this->repository->findAll();
+        return $this->getRepository()->findAll();
     }
 
     /**
