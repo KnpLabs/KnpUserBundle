@@ -1,7 +1,7 @@
 Changelog
 =========
 
-### 2.0.0-beta3 (2017-02-XX)
+### 2.0.0 (2017-03-29)
 
 * Removed default `fos_user.from_email` configuration values.
 * Removed usage of internal Twig APIs when rendering emails.
