@@ -94,7 +94,7 @@ class RegistrationController extends Controller
     }
 
     /**
-     * Tell the user to check his email provider.
+     * Tell the user to check their email provider.
      */
     public function checkEmailAction()
     {
