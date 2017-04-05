@@ -45,7 +45,7 @@ registration:
             Hello %username%!
 
             To finish activating your account - please visit %confirmationUrl%
-            
+
             This link can only be used once to validate your account.
 
             Regards,
@@ -54,7 +54,7 @@ registration:
 resetting:
     check_email: |
         An email has been sent. It contains a link you must click to reset your password.
-        Note: You can only request a new password within %tokenLifetime% hours.
+        Note: You can only request a new password once within %tokenLifetime% hours.
 
         If you don't get an email check your spam folder or try again.
     request:
