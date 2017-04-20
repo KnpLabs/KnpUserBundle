@@ -1,79 +1,92 @@
 group:
     edit:
-        submit: 'بهنگام سازی'
+        submit: 'به‌روزرسانی'
     show:
         name: 'نام گروه'
     new:
         submit: 'ایجاد گروه'
     flash:
-        updated: 'گروه بهنگام شده است'
-        created: 'گروه ساخته شده است'
-        deleted: 'گروه حذف شده است'
+        updated: 'گروه با موفقیت به‌روز شد'
+        created: 'گروه با موفقیت ایجاد شد'
+        deleted: 'گروه با موفقیت حذف شد'
+
 security:
     login:
         username: 'نام کاربری'
         password: 'کلمه عبور'
-        remember_me: 'مرا به یاد سپار'
-        submit: ورود
+        remember_me: 'مشخصات ورود من را به خاطر بسپار'
+        submit: 'ورود'
+
 profile:
     show:
         username: 'نام کاربری'
-        email: ایمیل
+        email: 'ایمیل'
     edit:
-        submit: 'بهنگام سازی'
+        submit: 'به‌روزرسانی'
     flash:
-        updated: 'نمایه بهنگام شده است'
+        updated: 'پروفایل کاربری با موفقیت به‌روز شد'
+
 change_password:
     submit: 'تغییر کلمه عبور'
     flash:
-        success: 'کلمه عبور تغییر کرده است'
+        success: 'کلمه عبور با موفقیت تغییر کرد'
+
 registration:
-    check_email: 'ایمیلی به %email% فرستاده شده است. این ایمیل دارای پیوندی است که برای فعال سازی باید روی آن کلیک کنید.'
-    confirmed: '%username% تبریک, کاربری شما اکنون فعال شده است.'
-    back: 'برگشت به صفحه اصلی.'
+    check_email: |
+     ایمیلی به %email% فرستاده شده است. این ایمیل حاوی لینکی است که برای فعال سازی باید روی آن کلیک کنید.
+    confirmed: '%username% عزیز، نام کاربری شما با موفقیت فعال شد.'
+    back: 'بازگشت به صفحه قبلی'
     submit: 'ثبت نام'
     flash:
-        user_created: 'کاربر با موفقیت ساخته شده است'
+        user_created: 'کاربر با موفقیت ساخته شد'
     email:
         subject: '%username% خوش آمدید!'
         message: |
             %username% سلام!
 
-            برای تکمیل فعال سازی کاربری خود - لطفا %confirmationUrl% را مشاهده کنید
+            برای تکمیل فعال سازی نام کاربری خود لطفا %confirmationUrl% را مشاهده کنید
+
+            از این لینک تنها یک بار می توان برای فعال سازی نام کاربری استفاده کرد.
 
             با احترام،
-            تیم.
+            گروه پشتیبانی
 
 resetting:
-#    check_email: 'ایمیلی به %email% فرستاده شده است. این ایمیل دارای پیوندی است که برای بازنشانی کلمه عبور باید روی آن کلیک کنید.'
+    check_email: |
+     ایمیلی به نشانی شما فرستاده شده است. این ایمیل حاوی لینکی است که برای فعال سازی باید روی آن کلیک کنید.
+     لطفا توجه کنید که در هر %tokenLifetime% ساعت تنها یک بار می توانید درخواست کلمه عبور جدید ارسال کنید.
+
+     اگر ایمیلی با این مشخصات در باکس خود دریافت نکردید، لطفا پوشه اسپم خود را چک کرده و یا مجددا تلاش کنید.
     request:
         username: 'نام کاربری یا ایمیل'
         submit: 'بازنشانی کلمه عبور'
     reset:
         submit: 'تغییر کلمه عبور'
     flash:
-        success: 'کلمه عبور با موفقیت بازنشانی شده است'
+        success: 'کلمه عبور با موفقیت بازنشانی شد'
     email:
         subject: 'بازنشانی کلمه عبور'
         message: |
             %username% سلام!
 
-            برای بازنشانی کلمه عبور خود - لطفا %confirmationUrl% را مشاهده کنید
+            برای بازنشانی کلمه عبور خود لطفا %confirmationUrl% را مشاهده کنید
 
             با احترام،
-            تیم.
+            گروه پشتیبانی
 
+# Global strings
 layout:
     logout: خروج
     login: ورود
     register: 'ثبت نام'
-    logged_in_as: 'وارد شده با %username%'
+    logged_in_as: 'ورود به عنوان %username%'
+
 form:
     group_name: 'نام گروه'
     username: 'نام کاربری'
-    email: ایمیل
-    current_password: 'کلمه عبور کنونی'
+    email: 'ایمیل'
+    current_password: 'کلمه عبور فعلی'
     password: 'کلمه عبور'
-    password_confirmation: 'تایید کلمه عبور'
+    password_confirmation: 'تکرار کلمه عبور'
     new_password: 'کلمه عبور جدید'
-    new_password_confirmation: 'تایید کلمه عبور جدید'
+    new_password_confirmation: 'تکرار کلمه عبور جدید'
