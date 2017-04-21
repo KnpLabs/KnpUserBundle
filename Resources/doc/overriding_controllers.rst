@@ -66,36 +66,61 @@ the base controller and adds logging a new user registration to it.
     {
         public function registerAction(Request $request)
         {
-            $form = $this->container->get('fos_user.registration.form');
-            $formHandler = $this->container->get('fos_user.registration.form.handler');
-            $confirmationEnabled = $this->container->getParameter('fos_user.registration.confirmation.enabled');
+            /** @var $formFactory FactoryInterface */
+            $formFactory = $this->get('fos_user.registration.form.factory');
+            /** @var $userManager UserManagerInterface */
+            $userManager = $this->get('fos_user.user_manager');
+            /** @var $dispatcher EventDispatcherInterface */
+            $dispatcher = $this->get('event_dispatcher');
 
-            $process = $formHandler->process($confirmationEnabled);
-            if ($process) {
-                $user = $form->getData();
+            $user = $userManager->createUser();
+            $user->setEnabled(true);
 
-                /*****************************************************
-                 * Add new functionality (e.g. log the registration) *
-                 *****************************************************/
-                $this->container->get('logger')->info(
-                    sprintf('New user registration: %s', $user)
-                );
+            $event = new GetResponseUserEvent($user, $request);
+            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
 
-                if ($confirmationEnabled) {
-                    $this->container->get('session')->set('fos_user_send_confirmation_email/email', $user->getEmail());
-                    $route = 'fos_user_registration_check_email';
-                } else {
-                    $this->authenticateUser($user);
-                    $route = 'fos_user_registration_confirmed';
-                }
-
-                $this->setFlash('fos_user_success', 'registration.flash.user_created');
-                $url = $this->container->get('router')->generate($route);
-
-                return new RedirectResponse($url);
+            if (null !== $event->getResponse()) {
+                return $event->getResponse();
             }
 
-            return $this->container->get('templating')->renderResponse('@FOSUser/Registration/register.html.twig', array(
+            $form = $formFactory->createForm();
+            $form->setData($user);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted()) {
+                if ($form->isValid()) {
+                    $event = new FormEvent($form, $request);
+                    $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+
+                    $userManager->updateUser($user);
+
+                    /*****************************************************
+                     * Add new functionality (e.g. log the registration) *
+                     *****************************************************/
+                    $this->container->get('logger')->info(
+                        sprintf("New user registration: %s", $user)
+                    );
+
+                    if (null === $response = $event->getResponse()) {
+                        $url = $this->generateUrl('fos_user_registration_confirmed');
+                        $response = new RedirectResponse($url);
+                    }
+
+                    $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+
+                    return $response;
+                }
+
+                $event = new FormEvent($form, $request);
+                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_FAILURE, $event);
+
+                if (null !== $response = $event->getResponse()) {
+                    return $response;
+                }
+            }
+
+            return $this->render('@FOSUser/Registration/register.html.twig', array(
                 'form' => $form->createView(),
             ));
         }
