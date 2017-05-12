@@ -28,9 +28,9 @@ class InjectUserCheckerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $firewallName = $container->getParameter('fos_user.firewall_name');
-        $loginManager = $container->getDefinition('fos_user.security.login_manager');
+        $loginManager = $container->findDefinition('fos_user.security.login_manager');
 
-        if ($container->hasAlias('security.user_checker.'.$firewallName)) {
+        if ($container->has('security.user_checker.'.$firewallName)) {
             $loginManager->replaceArgument(1, new Reference('security.user_checker.'.$firewallName));
         }
     }
