@@ -1,7 +1,7 @@
 Changelog
 =========
 
-### 2.0.1 (2017-xx-xx)
+### 2.0.1 (2017-05-31)
 
 * Add SwiftMailer 6 compatibility.
 * Inject firewall `user_checker` into `LoginManager`.
