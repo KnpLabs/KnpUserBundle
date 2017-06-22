@@ -13,6 +13,7 @@ fos_user:
     password:
         blank: 'Indtast venligst en adgangskode.'
         short: 'Adgangskoden er for kort.'
+        mismatch: 'De valgte adgangskoder matcher ikke.'
     new_password:
         blank: 'Indtast venligst en ny adgangskode.'
         short: 'Den nye adgangskode er for kort.'
@@ -22,3 +23,6 @@ fos_user:
         blank: 'Indtast venligst et navn.'
         short: 'Navnet er for kort.'
         long: 'Navnet er for langt.'
+fos_group:
+    name:
+        already_used: 'Navnet er allerede i brug.'
