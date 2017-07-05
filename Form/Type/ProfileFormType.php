@@ -16,7 +16,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
-use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ProfileFormType extends AbstractType
 {
@@ -53,7 +53,7 @@ class ProfileFormType extends AbstractType
             'translation_domain' => 'FOSUserBundle',
             'mapped' => false,
             'constraints' => array(
-                new NotNull(),
+                new NotBlank(),
                 new UserPassword($constraintsOptions),
             ),
         ));
