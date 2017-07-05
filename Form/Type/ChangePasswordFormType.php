@@ -50,10 +50,10 @@ class ChangePasswordFormType extends AbstractType
             'label' => 'form.current_password',
             'translation_domain' => 'FOSUserBundle',
             'mapped' => false,
-            'constraints' => [
+            'constraints' => array(
                 new NotNull(),
                 new UserPassword($constraintsOptions),
-            ]
+            ),
         ));
 
         $builder->add('plainPassword', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\RepeatedType'), array(
