@@ -16,6 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Security\Core\Validator\Constraint\UserPassword as OldUserPassword;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ChangePasswordFormType extends AbstractType
 {
@@ -32,7 +33,10 @@ class ChangePasswordFormType extends AbstractType
             'label' => 'form.current_password',
             'translation_domain' => 'FOSUserBundle',
             'mapped' => false,
-            'constraints' => $constraint,
+            'constraints' => array(
+                new NotBlank(),
+                $constraint,
+            ),
         ));
         $builder->add('new', 'repeated', array(
             'type' => 'password',
