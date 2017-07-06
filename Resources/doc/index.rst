@@ -4,10 +4,13 @@ Getting Started With FOSUserBundle
 The Symfony Security component provides a flexible security framework that
 allows you to load users from configuration, a database, or anywhere else
 you can imagine. The FOSUserBundle builds on top of this to make it quick
-and easy to store users in a database.
+and easy to store users in a database, as well as functionality for registration,
+reset password and a profile page.
 
 So, if you need to persist and fetch the users in your system to and from
 a database, then you're in the right place.
+
+For a video tutorial, check out `FOSUserBundle FTW`_ by KnpUniversity.
 
 Prerequisites
 -------------
@@ -459,3 +462,4 @@ The following documents are available:
 .. _security component documentation: https://symfony.com/doc/current/book/security.html
 .. _Symfony documentation: https://symfony.com/doc/current/book/translation.html
 .. _TypehintableBehavior: https://github.com/willdurand/TypehintableBehavior
+.. _FOSUserBundle FTW: https://knpuniversity.com/screencast/fosuserbundle
