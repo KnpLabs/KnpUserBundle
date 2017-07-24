@@ -12,11 +12,6 @@ group:
         deleted: Borrouse o grupo.
 
 # Security
-"Bad credentials": Nome de usuario ou Contrasinal inválido
-
-# Since Symfony 2.6 the error message has changed
-"Bad credentials.": Nome de usuario ou Contrasinal inválido.
-
 security:
     login:
         username: Nome de usuario
