@@ -39,6 +39,7 @@ All available configuration options are listed below with their default values.
                 name:               fos_user_registration_form
                 validation_groups:  [Registration, Default]
         resetting:
+            retry_ttl: 7200 # Value in seconds, logic will use as hours
             token_ttl: 86400
             email:
                 from_email: # Use this node only if you don't want the global email address for the resetting email
