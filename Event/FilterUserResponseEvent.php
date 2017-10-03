@@ -39,7 +39,7 @@ class FilterUserResponseEvent extends UserEvent
     {
         return $this->response;
     }
-    
+
     /**
      * Sets a new response object.
      *
