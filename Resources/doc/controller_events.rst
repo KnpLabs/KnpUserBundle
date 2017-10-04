@@ -13,7 +13,7 @@ their logic. All events can be found in the constants of the
 All controllers follow the same convention: they dispatch a ``SUCCESS`` event
 when the form is valid before saving the user, and a ``COMPLETED`` event when
 it is done. Thus, all ``SUCCESS`` events allow you to set a response if you
-don't want the default redirection. and all ``COMPLETED`` events give you access
+don't want the default redirection. And all ``COMPLETED`` events give you access
 to the response before it is returned.
 
 Controllers with a form also dispatch an ``INITIALIZE`` event after the entity is
