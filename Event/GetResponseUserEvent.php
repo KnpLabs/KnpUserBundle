@@ -35,14 +35,4 @@ class GetResponseUserEvent extends UserEvent
     {
         return $this->response;
     }
-
-    /**
-     * Sets a new response object.
-     *
-     * @param Response $response
-     */
-    public function setResponse(Response $response)
-    {
-        $this->response = $response;
-    }
 }
