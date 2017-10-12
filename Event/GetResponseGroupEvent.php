@@ -35,14 +35,4 @@ class GetResponseGroupEvent extends GroupEvent
     {
         return $this->response;
     }
-
-    /**
-     * Sets a new response object.
-     *
-     * @param Response $response
-     */
-    public function setResponse(Response $response)
-    {
-        $this->response = $response;
-    }
 }
