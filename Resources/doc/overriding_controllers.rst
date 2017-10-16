@@ -60,6 +60,7 @@ the base controller and adds logging a new user registration to it.
 
     use Symfony\Component\HttpFoundation\RedirectResponse;
     use FOS\UserBundle\Controller\RegistrationController as BaseController;
+    use FOS\UserBundle\Event\GetResponseUserEvent;
     use Symfony\Component\HttpFoundation\Request;
 
     class RegistrationController extends BaseController
