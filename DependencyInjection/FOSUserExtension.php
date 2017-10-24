@@ -84,6 +84,7 @@ class FOSUserExtension extends Extension
         $container->setAlias('fos_user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
         $container->setAlias('fos_user.util.token_generator', $config['service']['token_generator']);
         $container->setAlias('fos_user.user_manager', $config['service']['user_manager']);
+        $container->setAlias('FOS\UserBundle\Model\UserManagerInterface', new Alias('fos_user.user_manager', false));
 
         if ($config['use_listener'] && isset(self::$doctrineDrivers[$config['db_driver']])) {
             $listenerDefinition = $container->getDefinition('fos_user.user_listener');
@@ -227,6 +228,7 @@ class FOSUserExtension extends Extension
         }
 
         $container->setAlias('fos_user.group_manager', $config['group_manager']);
+        $container->setAlias('FOS\UserBundle\Model\GroupManagerInterface', new Alias('fos_user.group_manager', false));
 
         $this->remapParametersNamespaces($config, $container, array(
             '' => array(
