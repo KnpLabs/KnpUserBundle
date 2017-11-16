@@ -13,8 +13,9 @@ namespace FOS\UserBundle\Tests\Doctrine;
 
 use FOS\UserBundle\Doctrine\UserManager;
 use FOS\UserBundle\Model\User;
+use PHPUnit\Framework\TestCase;
 
-class UserManagerTest extends \PHPUnit_Framework_TestCase
+class UserManagerTest extends TestCase
 {
     const USER_CLASS = 'FOS\UserBundle\Tests\Doctrine\DummyUser';
 

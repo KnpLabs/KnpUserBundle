@@ -12,8 +12,9 @@
 namespace FOS\UserBundle\Tests\Security;
 
 use FOS\UserBundle\Security\UserProvider;
+use PHPUnit\Framework\TestCase;
 
-class UserProviderTest extends \PHPUnit_Framework_TestCase
+class UserProviderTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject

@@ -12,9 +12,10 @@
 namespace FOS\UserBundle\Tests\Security;
 
 use FOS\UserBundle\Security\LoginManager;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class LoginManagerTest extends \PHPUnit_Framework_TestCase
+class LoginManagerTest extends TestCase
 {
     public function testLogInUserWithRequestStack()
     {

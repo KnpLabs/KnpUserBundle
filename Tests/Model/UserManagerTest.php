@@ -12,8 +12,9 @@
 namespace FOS\UserBundle\Tests\Model;
 
 use FOS\UserBundle\Model\UserManager;
+use PHPUnit\Framework\TestCase;
 
-class UserManagerTest extends \PHPUnit_Framework_TestCase
+class UserManagerTest extends TestCase
 {
     /**
      * @var UserManager

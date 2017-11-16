@@ -13,10 +13,11 @@ namespace FOS\UserBundle\Tests\DependencyInjection;
 
 use FOS\UserBundle\DependencyInjection\FOSUserExtension;
 use FOS\UserBundle\Util\LegacyFormHelper;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Parser;
 
-class FOSUserExtensionTest extends \PHPUnit_Framework_TestCase
+class FOSUserExtensionTest extends TestCase
 {
     /** @var ContainerBuilder */
     protected $configuration;

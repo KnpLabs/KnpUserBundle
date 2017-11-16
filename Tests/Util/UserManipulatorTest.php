@@ -14,8 +14,9 @@ namespace FOS\UserBundle\Tests\Util;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Tests\TestUser;
 use FOS\UserBundle\Util\UserManipulator;
+use PHPUnit\Framework\TestCase;
 
-class UserManipulatorTest extends \PHPUnit_Framework_TestCase
+class UserManipulatorTest extends TestCase
 {
     public function testCreate()
     {
