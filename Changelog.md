@@ -1,6 +1,8 @@
 Changelog
 =========
 
+### 3.0.0 (2017-xx-xx)
+
 ### 2.0.1 (2017-05-31)
 
 * Add SwiftMailer 6 compatibility.
