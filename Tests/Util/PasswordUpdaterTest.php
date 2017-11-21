@@ -13,8 +13,9 @@ namespace FOS\UserBundle\Tests\Util;
 
 use FOS\UserBundle\Tests\TestUser;
 use FOS\UserBundle\Util\PasswordUpdater;
+use PHPUnit\Framework\TestCase;
 
-class PasswordUpdaterTest extends \PHPUnit_Framework_TestCase
+class PasswordUpdaterTest extends TestCase
 {
     /**
      * @var PasswordUpdater

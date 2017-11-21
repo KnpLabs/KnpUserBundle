@@ -12,11 +12,12 @@
 namespace FOS\UserBundle\Tests\Command;
 
 use FOS\UserBundle\Command\ChangePasswordCommand;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class ChangePasswordCommandTest extends \PHPUnit_Framework_TestCase
+class ChangePasswordCommandTest extends TestCase
 {
     public function testExecute()
     {

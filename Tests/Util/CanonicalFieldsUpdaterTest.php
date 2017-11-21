@@ -13,8 +13,9 @@ namespace FOS\UserBundle\Tests\Util;
 
 use FOS\UserBundle\Tests\TestUser;
 use FOS\UserBundle\Util\CanonicalFieldsUpdater;
+use PHPUnit\Framework\TestCase;
 
-class CanonicalFieldsUpdaterTest extends \PHPUnit_Framework_TestCase
+class CanonicalFieldsUpdaterTest extends TestCase
 {
     /**
      * @var CanonicalFieldsUpdater

@@ -12,11 +12,12 @@
 namespace FOS\UserBundle\Tests\Command;
 
 use FOS\UserBundle\Command\DemoteUserCommand;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class DemoteUserCommandTest extends \PHPUnit_Framework_TestCase
+class DemoteUserCommandTest extends TestCase
 {
     public function testExecute()
     {

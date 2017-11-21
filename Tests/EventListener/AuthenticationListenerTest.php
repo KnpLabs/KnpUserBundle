@@ -14,9 +14,10 @@ namespace FOS\UserBundle\Tests\EventListener;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\EventListener\AuthenticationListener;
 use FOS\UserBundle\FOSUserEvents;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class AuthenticationListenerTest extends \PHPUnit_Framework_TestCase
+class AuthenticationListenerTest extends TestCase
 {
     const FIREWALL_NAME = 'foo';
 

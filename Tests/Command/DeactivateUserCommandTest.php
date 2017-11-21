@@ -12,11 +12,12 @@
 namespace FOS\UserBundle\Tests\Command;
 
 use FOS\UserBundle\Command\DeactivateUserCommand;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class DeactivateUserCommandTest extends \PHPUnit_Framework_TestCase
+class DeactivateUserCommandTest extends TestCase
 {
     public function testExecute()
     {

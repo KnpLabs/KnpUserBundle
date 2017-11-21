@@ -12,8 +12,9 @@
 namespace FOS\UserBundle\Tests\Util;
 
 use FOS\UserBundle\Util\Canonicalizer;
+use PHPUnit\Framework\TestCase;
 
-class CanonicalizerTest extends \PHPUnit_Framework_TestCase
+class CanonicalizerTest extends TestCase
 {
     /**
      * @dataProvider canonicalizeProvider

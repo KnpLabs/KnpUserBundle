@@ -12,10 +12,11 @@
 namespace FOS\UserBundle\Tests\Mailer;
 
 use FOS\UserBundle\Mailer\TwigSwiftMailer;
+use PHPUnit\Framework\TestCase;
 use Swift_Mailer;
 use Swift_Transport_NullTransport;
 
-class TwigSwiftMailerTest extends \PHPUnit_Framework_TestCase
+class TwigSwiftMailerTest extends TestCase
 {
     /**
      * @dataProvider goodEmailProvider
