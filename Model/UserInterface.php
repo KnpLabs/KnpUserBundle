@@ -170,7 +170,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param int $ttl Requests older than this many seconds will be considered expired
      *
-     * @return int
+     * @return bool
      */
     public function isPasswordRequestNonExpired($ttl);
 
