@@ -15,7 +15,7 @@ For a video tutorial, check out `FOSUserBundle FTW`_ by KnpUniversity.
 Prerequisites
 -------------
 
-This version of the bundle requires Symfony 2.7+. If you are using an older
+This version of the bundle requires Symfony 2.8+. If you are using an older
 Symfony version, please use the 1.3.x releases of the bundle.
 
 Translations
@@ -277,8 +277,6 @@ in your application:
                 form_login:
                     provider: fos_userbundle
                     csrf_token_generator: security.csrf.token_manager
-                    # if you are using Symfony < 2.8, use the following config instead:
-                    # csrf_provider: form.csrf_provider
 
                 logout:       true
                 anonymous:    true

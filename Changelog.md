@@ -1,7 +1,8 @@
 Changelog
 =========
 
-### 3.0.0 (2017-xx-xx)
+### 2.1.0 (2017-xx-xx)
+* Dropped Symfony < 2.8 support.
 
 ### 2.0.1 (2017-05-31)
 
