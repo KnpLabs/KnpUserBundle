@@ -46,8 +46,6 @@ class GroupFormType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => $this->class,
             'csrf_token_id' => 'group',
-            // BC for SF < 2.8
-            'intention' => 'group',
         ));
     }
 
