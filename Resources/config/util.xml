@@ -8,7 +8,7 @@
 
         <service id="fos_user.util.canonicalizer.default" class="FOS\UserBundle\Util\Canonicalizer" public="false" />
 
-        <service id="fos_user.util.user_manipulator" class="FOS\UserBundle\Util\UserManipulator">
+        <service id="fos_user.util.user_manipulator" class="FOS\UserBundle\Util\UserManipulator" public="true">
             <argument type="service" id="fos_user.user_manager" />
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="request_stack" />
