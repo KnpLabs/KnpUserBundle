@@ -4,6 +4,15 @@ Changelog
 ### 2.1.0 (2017-xx-xx)
 * Dropped Symfony < 2.8 support.
 
+### 2.0.2 (2017-11-29)
+* Fix empty password in ChangePasswordFormType.
+* Fix empty password in ProfileFormType.
+* Introduced aliases for autowiring user and group managers.
+* Added Bengali translation.
+* Added Galician translation.
+* Updated Danish translation.
+* Updated Japanese translation.
+
 ### 2.0.1 (2017-05-31)
 
 * Add SwiftMailer 6 compatibility.
