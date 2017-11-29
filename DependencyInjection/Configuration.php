@@ -11,10 +11,10 @@
 
 namespace FOS\UserBundle\DependencyInjection;
 
+use FOS\UserBundle\Form\Type;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use FOS\UserBundle\Form\Type;
 
 /**
  * This class contains the configuration information for the bundle.
