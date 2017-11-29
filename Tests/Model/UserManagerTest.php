@@ -16,11 +16,13 @@ use PHPUnit\Framework\TestCase;
 
 class UserManagerTest extends TestCase
 {
-    /**
-     * @var UserManager
-     */
+    /** @var UserManager|\PHPUnit_Framework_MockObject_MockObject */
     private $manager;
+
+    /** @var \PHPUnit_Framework_MockObject_MockObject */
     private $passwordUpdater;
+
+    /** @var \PHPUnit_Framework_MockObject_MockObject */
     private $fieldsUpdater;
 
     protected function setUp()
@@ -127,13 +129,42 @@ class UserManagerTest extends TestCase
     {
         $this->manager->expects($this->once())
             ->method('findUserBy')
-            ->with($this->equalTo(array('emailCanonical' => 'jack@email.org')));
+            ->with($this->equalTo(array('emailCanonical' => 'jack@email.org')))
+            ->willReturn($this->getUser());
         $this->fieldsUpdater->expects($this->once())
             ->method('canonicalizeEmail')
             ->with('JaCk@EmAiL.oRg')
             ->will($this->returnValue('jack@email.org'));
 
         $this->manager->findUserByUsernameOrEmail('JaCk@EmAiL.oRg');
+    }
+
+    public function testFindUserByUsernameOrEmailWithUsernameThatLooksLikeEmail()
+    {
+        $usernameThatLooksLikeEmail = 'bob@example.com';
+        $user = $this->getUser();
+
+        $this->manager->expects($this->at(0))
+            ->method('findUserBy')
+            ->with($this->equalTo(array('emailCanonical' => $usernameThatLooksLikeEmail)))
+            ->will($this->returnValue(null));
+        $this->fieldsUpdater->expects($this->once())
+            ->method('canonicalizeEmail')
+            ->with($usernameThatLooksLikeEmail)
+            ->willReturn($usernameThatLooksLikeEmail);
+
+        $this->manager->expects($this->at(1))
+            ->method('findUserBy')
+            ->with($this->equalTo(array('usernameCanonical' => $usernameThatLooksLikeEmail)))
+            ->will($this->returnValue($user));
+        $this->fieldsUpdater->expects($this->once())
+            ->method('canonicalizeUsername')
+            ->with($usernameThatLooksLikeEmail)
+            ->willReturn($usernameThatLooksLikeEmail);
+
+        $actualUser = $this->manager->findUserByUsernameOrEmail($usernameThatLooksLikeEmail);
+
+        $this->assertSame($user, $actualUser);
     }
 
     /**
