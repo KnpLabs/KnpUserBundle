@@ -11,7 +11,8 @@
 
 namespace FOS\UserBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use FOS\UserBundle\Util\UserManipulator;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -20,8 +21,19 @@ use Symfony\Component\Console\Question\Question;
 /**
  * @author Antoine Hérault <antoine.herault@gmail.com>
  */
-class ActivateUserCommand extends ContainerAwareCommand
+class ActivateUserCommand extends Command
 {
+    protected static $defaultName = 'fos:user:activate';
+
+    private $userManipulator;
+
+    public function __construct(UserManipulator $userManipulator)
+    {
+        parent::__construct();
+
+        $this->userManipulator = $userManipulator;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -48,7 +60,7 @@ EOT
     {
         $username = $input->getArgument('username');
 
-        $manipulator = $this->getContainer()->get('fos_user.util.user_manipulator');
+        $manipulator = $this->userManipulator;
         $manipulator->activate($username);
 
         $output->writeln(sprintf('User "%s" has been activated.', $username));
