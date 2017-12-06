@@ -18,7 +18,8 @@ use FOS\UserBundle\Event\GroupEvent;
 use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\GroupInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FOS\UserBundle\Model\GroupManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,14 +32,26 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Christophe Coevoet <stof@notk.org>
  */
-class GroupController extends Controller
+class GroupController extends AbstractController
 {
+    private $eventDispatcher;
+    private $formFactory;
+    private $groupManager;
+
+    public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, GroupManagerInterface $groupManager)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+        $this->formFactory = $formFactory;
+        $this->groupManager = $groupManager;
+    }
+
+
     /**
      * Show all groups.
      */
     public function listAction()
     {
-        $groups = $this->get('fos_user.group_manager')->findGroups();
+        $groups = $this->groupManager->findGroups();
 
         return $this->render('@FOSUser/Group/list.html.twig', array(
             'groups' => $groups,
@@ -73,8 +86,7 @@ class GroupController extends Controller
     {
         $group = $this->findGroupBy('name', $groupName);
 
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher = $this->eventDispatcher;
 
         $event = new GetResponseGroupEvent($group, $request);
         $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_INITIALIZE, $event);
@@ -83,8 +95,7 @@ class GroupController extends Controller
             return $event->getResponse();
         }
 
-        /** @var $formFactory FactoryInterface */
-        $formFactory = $this->get('fos_user.group.form.factory');
+        $formFactory = $this->formFactory;
 
         $form = $formFactory->createForm();
         $form->setData($group);
@@ -92,8 +103,7 @@ class GroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var $groupManager \FOS\UserBundle\Model\GroupManagerInterface */
-            $groupManager = $this->get('fos_user.group_manager');
+            $groupManager = $this->groupManager;
 
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_SUCCESS, $event);
@@ -125,12 +135,9 @@ class GroupController extends Controller
      */
     public function newAction(Request $request)
     {
-        /** @var $groupManager \FOS\UserBundle\Model\GroupManagerInterface */
-        $groupManager = $this->get('fos_user.group_manager');
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->get('fos_user.group.form.factory');
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+        $groupManager = $this->groupManager;
+        $formFactory = $this->formFactory;
+        $dispatcher = $this->eventDispatcher;
 
         $group = $groupManager->createGroup('');
 
@@ -173,12 +180,11 @@ class GroupController extends Controller
     public function deleteAction(Request $request, $groupName)
     {
         $group = $this->findGroupBy('name', $groupName);
-        $this->get('fos_user.group_manager')->deleteGroup($group);
+        $this->groupManager->deleteGroup($group);
 
         $response = new RedirectResponse($this->generateUrl('fos_user_group_list'));
 
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher = $this->eventDispatcher;
         $dispatcher->dispatch(FOSUserEvents::GROUP_DELETE_COMPLETED, new FilterGroupResponseEvent($group, $request, $response));
 
         return $response;
@@ -197,7 +203,7 @@ class GroupController extends Controller
     protected function findGroupBy($key, $value)
     {
         if (!empty($value)) {
-            $group = $this->get('fos_user.group_manager')->{'findGroupBy'.ucfirst($key)}($value);
+            $group = $this->groupManager->{'findGroupBy'.ucfirst($key)}($value);
         }
 
         if (empty($group)) {

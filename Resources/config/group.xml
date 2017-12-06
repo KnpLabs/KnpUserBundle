@@ -16,6 +16,12 @@
             <tag name="form.type" alias="fos_user_group" />
             <argument>%fos_user.model.group.class%</argument>
         </service>
+
+        <service id="fos_user.group.controller" class="FOS\UserBundle\Controller\GroupController" public="true">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="fos_user.group.form.factory" />
+            <argument type="service" id="fos_user.group_manager" />
+        </service>
     </services>
 
 </container>
