@@ -79,10 +79,10 @@ class FOSUserExtension extends Extension
             $loader->load('flash_notifications.xml');
         }
 
-        $container->setAlias('fos_user.mailer', new Alias($config['service']['mailer'], true));
-        $container->setAlias('fos_user.util.email_canonicalizer', new Alias($config['service']['email_canonicalizer'], true));
-        $container->setAlias('fos_user.util.username_canonicalizer', new Alias($config['service']['username_canonicalizer'], true));
-        $container->setAlias('fos_user.util.token_generator', new Alias($config['service']['token_generator'], true));
+        $container->setAlias('fos_user.mailer', $config['service']['mailer']);
+        $container->setAlias('fos_user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
+        $container->setAlias('fos_user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
+        $container->setAlias('fos_user.util.token_generator', $config['service']['token_generator']);
         $container->setAlias('fos_user.user_manager', new Alias($config['service']['user_manager'], true));
         $container->setAlias('FOS\UserBundle\Model\UserManagerInterface', new Alias('fos_user.user_manager', false));
 

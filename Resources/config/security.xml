@@ -15,13 +15,15 @@
             <argument type="service" id="fos_user.user_manager" />
         </service>
 
-        <service id="fos_user.security.login_manager" class="%fos_user.security.login_manager.class%" public="true">
+        <service id="fos_user.security.login_manager" class="%fos_user.security.login_manager.class%">
             <argument type="service" id="security.token_storage" />
             <argument type="service" id="security.user_checker" />
             <argument type="service" id="security.authentication.session_strategy" />
             <argument type="service" id="request_stack" />
             <argument>null</argument> <!-- remember_me service -->
         </service>
+
+        <service id="FOS\UserBundle\Security\LoginManagerInterface" alias="fos_user.security.login_manager" />
 
         <service id="fos_user.user_provider.username" class="FOS\UserBundle\Security\UserProvider" public="false">
             <argument type="service" id="fos_user.user_manager" />
