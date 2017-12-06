@@ -21,7 +21,7 @@ use FOS\UserBundle\Model\User;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Services\EmailConfirmation\EmailUpdateConfirmation;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,8 +34,19 @@ use Symfony\Component\Translation\Translator;
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-class ProfileController extends Controller
+class ProfileController extends AbstractController
 {
+    private $eventDispatcher;
+    private $formFactory;
+    private $userManager;
+
+    public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+        $this->formFactory = $formFactory;
+        $this->userManager = $userManager;
+    }
+
     /**
      * Show the user.
      */
@@ -65,8 +76,7 @@ class ProfileController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+        $dispatcher = $this->eventDispatcher;
 
         $event = new GetResponseUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_INITIALIZE, $event);
@@ -75,8 +85,7 @@ class ProfileController extends Controller
             return $event->getResponse();
         }
 
-        /** @var $formFactory FactoryInterface */
-        $formFactory = $this->get('fos_user.profile.form.factory');
+        $formFactory = $this->formFactory;
 
         $form = $formFactory->createForm();
         $form->setData($user);
@@ -84,8 +93,7 @@ class ProfileController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var $userManager UserManagerInterface */
-            $userManager = $this->get('fos_user.user_manager');
+            $userManager = $this->userManager;
 
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
