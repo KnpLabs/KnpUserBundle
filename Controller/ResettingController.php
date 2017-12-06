@@ -15,8 +15,11 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseNullableUserEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -32,6 +35,21 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ResettingController extends Controller
 {
+    private $eventDispatcher;
+    private $formFactory;
+    private $userManager;
+    private $tokenGenerator;
+    private $mailer;
+
+    public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager, TokenGeneratorInterface $tokenGenerator, MailerInterface $mailer)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+        $this->formFactory = $formFactory;
+        $this->userManager = $userManager;
+        $this->tokenGenerator = $tokenGenerator;
+        $this->mailer = $mailer;
+    }
+
     /**
      * Request reset user password: show form.
      */
@@ -52,9 +70,8 @@ class ResettingController extends Controller
         $username = $request->request->get('username');
 
         /** @var $user UserInterface */
-        $user = $this->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+        $user = $this->userManager->findUserByUsernameOrEmail($username);
+        $dispatcher = $this->eventDispatcher;
 
         /* Dispatch init event */
         $event = new GetResponseNullableUserEvent($user, $request);
@@ -75,9 +92,7 @@ class ResettingController extends Controller
             }
 
             if (null === $user->getConfirmationToken()) {
-                /** @var $tokenGenerator TokenGeneratorInterface */
-                $tokenGenerator = $this->get('fos_user.util.token_generator');
-                $user->setConfirmationToken($tokenGenerator->generateToken());
+                $user->setConfirmationToken($this->tokenGenerator->generateToken());
             }
 
             /* Dispatch confirm event */
@@ -88,9 +103,9 @@ class ResettingController extends Controller
                 return $event->getResponse();
             }
 
-            $this->get('fos_user.mailer')->sendResettingEmailMessage($user);
+            $this->mailer->sendResettingEmailMessage($user);
             $user->setPasswordRequestedAt(new \DateTime());
-            $this->get('fos_user.user_manager')->updateUser($user);
+            $this->userManager->updateUser($user);
 
             /* Dispatch completed event */
             $event = new GetResponseUserEvent($user, $request);
@@ -135,12 +150,9 @@ class ResettingController extends Controller
      */
     public function resetAction(Request $request, $token)
     {
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->get('fos_user.resetting.form.factory');
-        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-        $userManager = $this->get('fos_user.user_manager');
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+        $formFactory = $this->formFactory;
+        $userManager = $this->userManager;
+        $dispatcher = $this->eventDispatcher;
 
         $user = $userManager->findUserByConfirmationToken($token);
 
