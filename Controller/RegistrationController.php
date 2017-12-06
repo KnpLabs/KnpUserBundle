@@ -25,7 +25,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -40,15 +39,13 @@ class RegistrationController extends Controller
     private $eventDispatcher;
     private $formFactory;
     private $userManager;
-    private $router;
     private $tokenStorage;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager, UrlGeneratorInterface $router, TokenStorageInterface $tokenStorage)
+    public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager, TokenStorageInterface $tokenStorage)
     {
         $this->eventDispatcher = $eventDispatcher;
         $this->formFactory = $formFactory;
         $this->userManager = $userManager;
-        $this->router = $router;
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -116,7 +113,7 @@ class RegistrationController extends Controller
         $email = $request->getSession()->get('fos_user_send_confirmation_email/email');
 
         if (empty($email)) {
-            return new RedirectResponse($this->router->generate('fos_user_registration_register'));
+            return new RedirectResponse($this->generateUrl('fos_user_registration_register'));
         }
 
         $request->getSession()->remove('fos_user_send_confirmation_email/email');
