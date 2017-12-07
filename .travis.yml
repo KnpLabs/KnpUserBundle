@@ -22,9 +22,6 @@ matrix:
     - php: 7.1
       env: DEPENDENCIES="symfony/lts:^3"
     - php: 7.1
-      env: STABILITY="dev"
-  allow_failures:
-    - env: STABILITY="dev"
 
 sudo: false
 
@@ -33,7 +30,6 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
-  - if [[ -v $STABILITY ]]; then composer config minimum-stability $STABILITY; fi;
   - if [[ -v $DEPENDENCIES ]]; then composer require --no-update $DEPENDENCIES; fi;
   - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
