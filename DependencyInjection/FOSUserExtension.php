@@ -69,7 +69,7 @@ class FOSUserExtension extends Extension
             $definition->setFactory(array(new Reference('fos_user.doctrine_registry'), 'getManager'));
         }
 
-        foreach (array('validator', 'security', 'util', 'listeners', 'commands') as $basename) {
+        foreach (array('validator', 'security', 'util', 'mailer', 'listeners', 'commands') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
@@ -129,7 +129,6 @@ class FOSUserExtension extends Extension
         }
 
         if ($this->mailerNeeded) {
-            $loader->load('mailer.xml');
             $container->setAlias('fos_user.mailer', $config['service']['mailer']);
         }
     }
