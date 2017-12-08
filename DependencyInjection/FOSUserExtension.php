@@ -40,6 +40,8 @@ class FOSUserExtension extends Extension
         ),
     );
 
+    private $mailerNeeded = false;
+
     /**
      * {@inheritdoc}
      */
@@ -67,7 +69,7 @@ class FOSUserExtension extends Extension
             $definition->setFactory(array(new Reference('fos_user.doctrine_registry'), 'getManager'));
         }
 
-        foreach (array('validator', 'security', 'util', 'mailer', 'listeners', 'commands') as $basename) {
+        foreach (array('validator', 'security', 'util', 'listeners', 'commands') as $basename) {
             $loader->load(sprintf('%s.xml', $basename));
         }
 
@@ -79,7 +81,6 @@ class FOSUserExtension extends Extension
             $loader->load('flash_notifications.xml');
         }
 
-        $container->setAlias('fos_user.mailer', $config['service']['mailer']);
         $container->setAlias('fos_user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
         $container->setAlias('fos_user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
         $container->setAlias('fos_user.util.token_generator', $config['service']['token_generator']);
@@ -126,6 +127,11 @@ class FOSUserExtension extends Extension
         if (!empty($config['group'])) {
             $this->loadGroups($config['group'], $container, $loader, $config['db_driver']);
         }
+
+        if ($this->mailerNeeded) {
+            $loader->load('mailer.xml');
+            $container->setAlias('fos_user.mailer', $config['service']['mailer']);
+        }
     }
 
     /**
@@ -163,6 +169,7 @@ class FOSUserExtension extends Extension
         $loader->load('registration.xml');
 
         if ($config['confirmation']['enabled']) {
+            $this->mailerNeeded = true;
             $loader->load('email_confirmation.xml');
         }
 
@@ -201,6 +208,7 @@ class FOSUserExtension extends Extension
      */
     private function loadResetting(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail)
     {
+        $this->mailerNeeded = true;
         $loader->load('resetting.xml');
 
         if (isset($config['email']['from_email'])) {
