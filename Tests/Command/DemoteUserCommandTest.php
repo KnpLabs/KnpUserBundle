@@ -12,16 +12,16 @@
 namespace FOS\UserBundle\Tests\Command;
 
 use FOS\UserBundle\Command\DemoteUserCommand;
+use FOS\UserBundle\Util\UserManipulator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DemoteUserCommandTest extends TestCase
 {
     public function testExecute()
     {
-        $commandTester = $this->createCommandTester($this->getContainer('user', 'role', false));
+        $commandTester = $this->createCommandTester($this->getManipulator('user', 'role', false));
         $exitCode = $commandTester->execute(array(
             'username' => 'user',
             'role' => 'role',
@@ -51,7 +51,7 @@ class DemoteUserCommandTest extends TestCase
 
         $application->getHelperSet()->set($helper, 'question');
 
-        $commandTester = $this->createCommandTester($this->getContainer('user', 'role', false), $application);
+        $commandTester = $this->createCommandTester($this->getManipulator('user', 'role', false), $application);
         $exitCode = $commandTester->execute(array(), array(
             'decorated' => false,
             'interactive' => true,
@@ -62,12 +62,12 @@ class DemoteUserCommandTest extends TestCase
     }
 
     /**
-     * @param ContainerInterface $container
+     * @param UserManipulator $manipulator
      * @param Application|null   $application
      *
      * @return CommandTester
      */
-    private function createCommandTester(ContainerInterface $container, Application $application = null)
+    private function createCommandTester(UserManipulator $manipulator, Application $application = null)
     {
         if (null === $application) {
             $application = new Application();
@@ -75,8 +75,7 @@ class DemoteUserCommandTest extends TestCase
 
         $application->setAutoExit(false);
 
-        $command = new DemoteUserCommand();
-        $command->setContainer($container);
+        $command = new DemoteUserCommand($manipulator);
 
         $application->add($command);
 
@@ -90,10 +89,8 @@ class DemoteUserCommandTest extends TestCase
      *
      * @return mixed
      */
-    private function getContainer($username, $role, $super)
+    private function getManipulator($username, $role, $super)
     {
-        $container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')->getMock();
-
         $manipulator = $this->getMockBuilder('FOS\UserBundle\Util\UserManipulator')
             ->disableOriginalConstructor()
             ->getMock();
@@ -114,12 +111,6 @@ class DemoteUserCommandTest extends TestCase
             ;
         }
 
-        $container
-            ->expects($this->once())
-            ->method('get')
-            ->with('fos_user.util.user_manipulator')
-            ->will($this->returnValue($manipulator));
-
-        return $container;
+        return $manipulator;
     }
 }
