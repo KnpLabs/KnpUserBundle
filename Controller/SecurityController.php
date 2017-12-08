@@ -28,7 +28,6 @@ class SecurityController extends AbstractController
         $this->tokenManager = $tokenManager;
     }
 
-
     /**
      * @param Request $request
      *

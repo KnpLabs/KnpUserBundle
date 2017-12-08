@@ -45,7 +45,6 @@ class GroupController extends AbstractController
         $this->groupManager = $groupManager;
     }
 
-
     /**
      * Show all groups.
      */

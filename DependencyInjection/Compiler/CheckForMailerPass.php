@@ -41,6 +41,5 @@ class CheckForMailerPass implements CompilerPassInterface
 
             throw new \LogicException($message);
         }
-
     }
 }

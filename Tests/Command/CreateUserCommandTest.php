@@ -70,8 +70,8 @@ class CreateUserCommandTest extends TestCase
     }
 
     /**
-     * @param UserManipulator $manipulator
-     * @param Application|null   $application
+     * @param UserManipulator  $manipulator
+     * @param Application|null $application
      *
      * @return CommandTester
      */

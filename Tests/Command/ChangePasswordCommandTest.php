@@ -62,8 +62,8 @@ class ChangePasswordCommandTest extends TestCase
     }
 
     /**
-     * @param UserManipulator $container
-     * @param Application|null   $application
+     * @param UserManipulator  $container
+     * @param Application|null $application
      *
      * @return CommandTester
      */

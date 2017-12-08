@@ -34,7 +34,6 @@ class ChangePasswordCommand extends Command
         $this->userManipulator = $userManipulator;
     }
 
-
     /**
      * {@inheritdoc}
      */
