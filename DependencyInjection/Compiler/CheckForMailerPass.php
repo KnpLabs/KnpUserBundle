@@ -32,6 +32,11 @@ class CheckForMailerPass implements CompilerPassInterface
             return;
         }
 
+        // the mailer exists, so all is good
+        if ($container->hasDefinition('mailer')) {
+            return;
+        }
+
         if ($container->findDefinition('fos_user.mailer')->hasTag('fos_user.requires_swift')) {
             $message = 'A feature you activated in FOSUserBundle requires the "mailer" service to be available.';
 
