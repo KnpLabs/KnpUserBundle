@@ -1,6 +1,6 @@
 group:
     edit:
-        submit: 'Talde eguneratu'
+        submit: 'Taldea eguneratu'
     show:
         name: 'Taldearen izena'
     new:
@@ -41,11 +41,18 @@ registration:
 
             Kontuaren balidazioazioarekin jarraitzeko - ireki ondoko orria: %confirmationUrl%
 
+            Esteka hau behin baino ez erabili daiteke zure kontua balidatzeko.
+
             Adeitasunez,
             Taldea.
 
 resetting:
-#    check_email: 'Email bat bidali zaio %email% helbideari. Pasahitza berreskuratzeko esteka zehazten da bertan.'
+    check_email: |
+        E-posta bat bidali da zure helbidera. Pasahitza berreskuratzeko estekan klik egin behar duzu bertan.
+        Oharra: Behin %tokenLifetime% horduro bakarrik ezka dezakezu pasahitz berria.
+
+        E-posta ez baduzu jasotzen, begira ezazu zure zabor-postan edo saiatu berriro.
+
     request:
         username: 'Erabiltzaile izena'
         submit: 'Pasahitza berreskuratu'
