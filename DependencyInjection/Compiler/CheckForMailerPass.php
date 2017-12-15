@@ -33,7 +33,7 @@ class CheckForMailerPass implements CompilerPassInterface
         }
 
         // the mailer exists, so all is good
-        if ($container->hasDefinition('mailer')) {
+        if ($container->has('mailer')) {
             return;
         }
 
