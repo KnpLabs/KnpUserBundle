@@ -318,4 +318,22 @@ final class FOSUserEvents
      * @Event("FOS\UserBundle\Event\UserEvent")
      */
     const USER_DEMOTED = 'fos_user.user.demoted';
+
+    /**
+     * The EMAIL_UPDATE_INITIALIZE event occurs when the email update process is initialized.
+     *
+     * This event allows you to access the user and to add some behaviour after email update is initialized..
+     *
+     * @Event("FOS\UserBundle\Event\UserEvent")
+     */
+    const EMAIL_UPDATE_INITIALIZE = 'fos_user.update_email.initialize';
+
+    /**
+     * The EMAIL_UPDATE_SUCCESS event occurs when the email was successfully updated through confirmation link.
+     *
+     * This event allows you to access the user and to add some behaviour after email was confirmed and updated..
+     *
+     * @Event("FOS\UserBundle\Event\UserEvent")
+     */
+    const EMAIL_UPDATE_SUCCESS = 'fos_user.update_email.success';
 }

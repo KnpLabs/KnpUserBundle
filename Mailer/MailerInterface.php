@@ -31,4 +31,13 @@ interface MailerInterface
      * @param UserInterface $user
      */
     public function sendResettingEmailMessage(UserInterface $user);
+
+    /**
+     * Send an email to a user to confirm the changed email address.
+     *
+     * @param UserInterface $user
+     * @param string        $confirmationUrl
+     * @param string        $toEmail
+     */
+    public function sendUpdateEmailConfirmation(UserInterface $user, $confirmationUrl, $toEmail);
 }

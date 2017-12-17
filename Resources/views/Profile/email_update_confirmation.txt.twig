@@ -1,0 +1,9 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% block subject %}
+{{ 'email_update.email.subject'|trans }}
+{% endblock %}
+
+{% block body_text %}
+{{ 'email_update.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
+{% endblock %}
+{% block body_html %}{% endblock %}

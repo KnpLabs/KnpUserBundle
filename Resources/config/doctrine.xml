@@ -21,6 +21,12 @@
             <argument type="service" id="fos_user.util.password_updater" />
             <argument type="service" id="fos_user.util.canonical_fields_updater" />
         </service>
+
+        <service id="fos_user.email_update_listener" class="FOS\UserBundle\Doctrine\EmailUpdateListener" public="false">
+            <argument type="service" id="fos_user.email_update_confirmation"/>
+            <argument type="service" id="request_stack" />
+            <tag name="doctrine.event_listener" event="preUpdate" lazy="true" />
+        </service>
     </services>
 
 </container>

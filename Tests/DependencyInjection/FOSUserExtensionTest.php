@@ -237,6 +237,8 @@ class FOSUserExtensionTest extends TestCase
         $this->assertParameter(array('admin@acme.org' => 'Acme Corp'), 'fos_user.registration.confirmation.from_email');
         $this->assertParameter('@FOSUser/Registration/email.txt.twig', 'fos_user.registration.confirmation.template');
         $this->assertParameter('@FOSUser/Resetting/email.txt.twig', 'fos_user.resetting.email.template');
+        $this->assertParameter('@FOSUser/Profile/email_update_confirmation.txt.twig', 'fos_user.email_update_confirmation.template');
+        $this->assertParameter(null, 'fos_user.email_update_confirmation.cypher_method');
         $this->assertParameter(array('admin@acme.org' => 'Acme Corp'), 'fos_user.resetting.email.from_email');
         $this->assertParameter(86400, 'fos_user.resetting.token_ttl');
     }

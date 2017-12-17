@@ -12,6 +12,20 @@
             <argument type="service" id="router" />
             <argument type="service" id="session" />
         </service>
+
+        <service id="fos_user.email_encryption" class="FOS\UserBundle\Services\EmailConfirmation\EmailEncryption">
+            <argument type="service" id="validator"/>
+            <argument>%fos_user.email_update_confirmation.cypher_method%</argument>
+        </service>
+
+        <service id="fos_user.email_update_confirmation" class="FOS\UserBundle\Services\EmailConfirmation\EmailUpdateConfirmation">
+            <argument type="service" id="router" />
+            <argument type="service" id="fos_user.util.token_generator" />
+            <argument type="service" id="fos_user.mailer" />
+            <argument type="service" id="fos_user.email_encryption" />
+            <argument type="service" id="event_dispatcher" />
+        </service>
+
     </services>
 
 </container>

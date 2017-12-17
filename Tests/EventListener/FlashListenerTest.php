@@ -45,4 +45,9 @@ class FlashListenerTest extends TestCase
     {
         $this->listener->addSuccessFlash($this->event, FOSUserEvents::CHANGE_PASSWORD_COMPLETED);
     }
+
+    public function testAddInfoFlash()
+    {
+        $this->listener->addInfoFlash($this->event, FOSUserEvents::CHANGE_PASSWORD_COMPLETED);
+    }
 }

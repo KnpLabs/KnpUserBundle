@@ -12,4 +12,8 @@
         <default key="_controller">FOSUserBundle:Profile:edit</default>
     </route>
 
+    <route id="fos_user_update_email_confirm" path="/confirm-email-update/{token}" methods="GET">
+        <default key="_controller">FOSUserBundle:Profile:confirmEmailUpdate</default>
+    </route>
+
 </routes>

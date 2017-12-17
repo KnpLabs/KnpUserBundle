@@ -137,6 +137,9 @@ class FOSUserExtension extends Extension
     {
         $loader->load('profile.xml');
 
+        $container->setParameter('fos_user.email_update_confirmation.template', $config['email_update_confirmation']['email_template']);
+        $container->setParameter('fos_user.email_update_confirmation.cypher_method', $config['email_update_confirmation']['cypher_method']);
+
         $this->remapParametersNamespaces($config, $container, array(
             'form' => 'fos_user.profile.form.%s',
         ));
