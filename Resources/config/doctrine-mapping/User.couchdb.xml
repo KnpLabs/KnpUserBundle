@@ -11,7 +11,7 @@
         <field name="salt" fieldName="salt" type="string" />
         <field name="password" fieldName="password" type="string" />
         <field name="lastLogin" fieldName="lastLogin" type="datetime" />
-        <field name="confirmationToken" fieldName="confirmationToken" type="string" />
+        <field name="confirmationToken" fieldName="confirmationToken" type="string" index="true" />
         <field name="passwordRequestedAt" fieldName="passwordRequestedAt" type="datetime" />
         <field name="roles" fieldName="roles" type="mixed" />
 
