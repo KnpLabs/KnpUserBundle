@@ -50,10 +50,8 @@ class GroupController extends AbstractController
      */
     public function listAction()
     {
-        $groups = $this->groupManager->findGroups();
-
         return $this->render('@FOSUser/Group/list.html.twig', array(
-            'groups' => $groups,
+            'groups' => $this->groupManager->findGroups(),
         ));
     }
 
@@ -66,10 +64,8 @@ class GroupController extends AbstractController
      */
     public function showAction($groupName)
     {
-        $group = $this->findGroupBy('name', $groupName);
-
         return $this->render('@FOSUser/Group/show.html.twig', array(
-            'group' => $group,
+            'group' => $this->findGroupBy('name', $groupName),
         ));
     }
 
@@ -94,20 +90,16 @@ class GroupController extends AbstractController
             return $event->getResponse();
         }
 
-        $formFactory = $this->formFactory;
-
-        $form = $formFactory->createForm();
+        $form = $this->formFactory->createForm();
         $form->setData($group);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $groupManager = $this->groupManager;
-
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::GROUP_EDIT_SUCCESS, $event);
 
-            $groupManager->updateGroup($group);
+            $this->groupManager->updateGroup($group);
 
             if (null === $response = $event->getResponse()) {
                 $url = $this->generateUrl('fos_user_group_show', array('groupName' => $group->getName()));
@@ -135,14 +127,13 @@ class GroupController extends AbstractController
     public function newAction(Request $request)
     {
         $groupManager = $this->groupManager;
-        $formFactory = $this->formFactory;
         $dispatcher = $this->eventDispatcher;
 
         $group = $groupManager->createGroup('');
 
         $dispatcher->dispatch(FOSUserEvents::GROUP_CREATE_INITIALIZE, new GroupEvent($group, $request));
 
-        $form = $formFactory->createForm();
+        $form = $this->formFactory->createForm();
         $form->setData($group);
 
         $form->handleRequest($request);
@@ -183,8 +174,7 @@ class GroupController extends AbstractController
 
         $response = new RedirectResponse($this->generateUrl('fos_user_group_list'));
 
-        $dispatcher = $this->eventDispatcher;
-        $dispatcher->dispatch(FOSUserEvents::GROUP_DELETE_COMPLETED, new FilterGroupResponseEvent($group, $request, $response));
+        $this->eventDispatcher->dispatch(FOSUserEvents::GROUP_DELETE_COMPLETED, new FilterGroupResponseEvent($group, $request, $response));
 
         return $response;
     }

@@ -56,7 +56,6 @@ class RegistrationController extends AbstractController
      */
     public function registerAction(Request $request)
     {
-        $formFactory = $this->formFactory;
         $userManager = $this->userManager;
         $dispatcher = $this->eventDispatcher;
 
@@ -70,7 +69,7 @@ class RegistrationController extends AbstractController
             return $event->getResponse();
         }
 
-        $form = $formFactory->createForm();
+        $form = $this->formFactory->createForm();
         $form->setData($user);
 
         $form->handleRequest($request);

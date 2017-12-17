@@ -40,14 +40,16 @@ class ResettingController extends AbstractController
     private $userManager;
     private $tokenGenerator;
     private $mailer;
+    private $retryTtl;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager, TokenGeneratorInterface $tokenGenerator, MailerInterface $mailer)
+    public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager, TokenGeneratorInterface $tokenGenerator, MailerInterface $mailer, $retryTtl)
     {
         $this->eventDispatcher = $eventDispatcher;
         $this->formFactory = $formFactory;
         $this->userManager = $userManager;
         $this->tokenGenerator = $tokenGenerator;
         $this->mailer = $mailer;
+        $this->retryTtl = $retryTtl;
     }
 
     /**
@@ -81,9 +83,7 @@ class ResettingController extends AbstractController
             return $event->getResponse();
         }
 
-        $ttl = $this->container->getParameter('fos_user.resetting.retry_ttl');
-
-        if (null !== $user && !$user->isPasswordRequestNonExpired($ttl)) {
+        if (null !== $user && !$user->isPasswordRequestNonExpired($this->retryTtl)) {
             $event = new GetResponseUserEvent($user, $request);
             $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_REQUEST, $event);
 
@@ -136,7 +136,7 @@ class ResettingController extends AbstractController
         }
 
         return $this->render('@FOSUser/Resetting/check_email.html.twig', array(
-            'tokenLifetime' => ceil($this->container->getParameter('fos_user.resetting.retry_ttl') / 3600),
+            'tokenLifetime' => ceil($this->retryTtl / 3600),
         ));
     }
 
@@ -150,7 +150,6 @@ class ResettingController extends AbstractController
      */
     public function resetAction(Request $request, $token)
     {
-        $formFactory = $this->formFactory;
         $userManager = $this->userManager;
         $dispatcher = $this->eventDispatcher;
 
@@ -167,7 +166,7 @@ class ResettingController extends AbstractController
             return $event->getResponse();
         }
 
-        $form = $formFactory->createForm();
+        $form = $this->formFactory->createForm();
         $form->setData($user);
 
         $form->handleRequest($request);

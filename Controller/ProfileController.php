@@ -85,20 +85,16 @@ class ProfileController extends AbstractController
             return $event->getResponse();
         }
 
-        $formFactory = $this->formFactory;
-
-        $form = $formFactory->createForm();
+        $form = $this->formFactory->createForm();
         $form->setData($user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userManager = $this->userManager;
-
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
 
-            $userManager->updateUser($user);
+            $this->userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
                 $url = $this->generateUrl('fos_user_profile_show');
