@@ -22,6 +22,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class PromoteUserCommand extends RoleCommand
 {
+    protected static $defaultName = 'fos:user:promote';
+
     /**
      * {@inheritdoc}
      */

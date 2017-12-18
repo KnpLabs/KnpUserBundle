@@ -15,10 +15,13 @@ use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseNullableUserEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,8 +33,25 @@ use Symfony\Component\HttpFoundation\Response;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Christophe Coevoet <stof@notk.org>
  */
-class ResettingController extends Controller
+class ResettingController extends AbstractController
 {
+    private $eventDispatcher;
+    private $formFactory;
+    private $userManager;
+    private $tokenGenerator;
+    private $mailer;
+    private $retryTtl;
+
+    public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager, TokenGeneratorInterface $tokenGenerator, MailerInterface $mailer, $retryTtl)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+        $this->formFactory = $formFactory;
+        $this->userManager = $userManager;
+        $this->tokenGenerator = $tokenGenerator;
+        $this->mailer = $mailer;
+        $this->retryTtl = $retryTtl;
+    }
+
     /**
      * Request reset user password: show form.
      */
@@ -52,9 +72,8 @@ class ResettingController extends Controller
         $username = $request->request->get('username');
 
         /** @var $user UserInterface */
-        $user = $this->get('fos_user.user_manager')->findUserByUsernameOrEmail($username);
-        /** @var $dispatcher EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+        $user = $this->userManager->findUserByUsernameOrEmail($username);
+        $dispatcher = $this->eventDispatcher;
 
         /* Dispatch init event */
         $event = new GetResponseNullableUserEvent($user, $request);
@@ -64,9 +83,7 @@ class ResettingController extends Controller
             return $event->getResponse();
         }
 
-        $ttl = $this->container->getParameter('fos_user.resetting.retry_ttl');
-
-        if (null !== $user && !$user->isPasswordRequestNonExpired($ttl)) {
+        if (null !== $user && !$user->isPasswordRequestNonExpired($this->retryTtl)) {
             $event = new GetResponseUserEvent($user, $request);
             $dispatcher->dispatch(FOSUserEvents::RESETTING_RESET_REQUEST, $event);
 
@@ -75,9 +92,7 @@ class ResettingController extends Controller
             }
 
             if (null === $user->getConfirmationToken()) {
-                /** @var $tokenGenerator TokenGeneratorInterface */
-                $tokenGenerator = $this->get('fos_user.util.token_generator');
-                $user->setConfirmationToken($tokenGenerator->generateToken());
+                $user->setConfirmationToken($this->tokenGenerator->generateToken());
             }
 
             /* Dispatch confirm event */
@@ -88,9 +103,9 @@ class ResettingController extends Controller
                 return $event->getResponse();
             }
 
-            $this->get('fos_user.mailer')->sendResettingEmailMessage($user);
+            $this->mailer->sendResettingEmailMessage($user);
             $user->setPasswordRequestedAt(new \DateTime());
-            $this->get('fos_user.user_manager')->updateUser($user);
+            $this->userManager->updateUser($user);
 
             /* Dispatch completed event */
             $event = new GetResponseUserEvent($user, $request);
@@ -121,7 +136,7 @@ class ResettingController extends Controller
         }
 
         return $this->render('@FOSUser/Resetting/check_email.html.twig', array(
-            'tokenLifetime' => ceil($this->container->getParameter('fos_user.resetting.retry_ttl') / 3600),
+            'tokenLifetime' => ceil($this->retryTtl / 3600),
         ));
     }
 
@@ -135,12 +150,8 @@ class ResettingController extends Controller
      */
     public function resetAction(Request $request, $token)
     {
-        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
-        $formFactory = $this->get('fos_user.resetting.form.factory');
-        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
-        $userManager = $this->get('fos_user.user_manager');
-        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
-        $dispatcher = $this->get('event_dispatcher');
+        $userManager = $this->userManager;
+        $dispatcher = $this->eventDispatcher;
 
         $user = $userManager->findUserByConfirmationToken($token);
 
@@ -155,7 +166,7 @@ class ResettingController extends Controller
             return $event->getResponse();
         }
 
-        $form = $formFactory->createForm();
+        $form = $this->formFactory->createForm();
         $form->setData($user);
 
         $form->handleRequest($request);

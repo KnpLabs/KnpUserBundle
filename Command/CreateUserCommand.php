@@ -11,7 +11,8 @@
 
 namespace FOS\UserBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use FOS\UserBundle\Util\UserManipulator;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -23,8 +24,19 @@ use Symfony\Component\Console\Question\Question;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Luis Cordova <cordoval@gmail.com>
  */
-class CreateUserCommand extends ContainerAwareCommand
+class CreateUserCommand extends Command
 {
+    protected static $defaultName = 'fos:user:create';
+
+    private $userManipulator;
+
+    public function __construct(UserManipulator $userManipulator)
+    {
+        parent::__construct();
+
+        $this->userManipulator = $userManipulator;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -74,7 +86,7 @@ EOT
         $inactive = $input->getOption('inactive');
         $superadmin = $input->getOption('super-admin');
 
-        $manipulator = $this->getContainer()->get('fos_user.util.user_manipulator');
+        $manipulator = $this->userManipulator;
         $manipulator->create($username, $password, $email, !$inactive, $superadmin);
 
         $output->writeln(sprintf('Created user <comment>%s</comment>', $username));

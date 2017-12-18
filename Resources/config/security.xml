@@ -23,12 +23,18 @@
             <argument>null</argument> <!-- remember_me service -->
         </service>
 
+        <service id="FOS\UserBundle\Security\LoginManagerInterface" alias="fos_user.security.login_manager" />
+
         <service id="fos_user.user_provider.username" class="FOS\UserBundle\Security\UserProvider" public="false">
             <argument type="service" id="fos_user.user_manager" />
         </service>
 
         <service id="fos_user.user_provider.username_email" class="FOS\UserBundle\Security\EmailUserProvider" public="false">
             <argument type="service" id="fos_user.user_manager" />
+        </service>
+
+        <service id="fos_user.security.controller" class="FOS\UserBundle\Controller\SecurityController" public="true">
+            <argument type="service" id="security.csrf.token_manager" on-invalid="null" />
         </service>
     </services>
 

@@ -18,6 +18,12 @@
             <argument>%fos_user.model.user.class%</argument>
         </service>
 
+        <service id="fos_user.registration.controller" class="FOS\UserBundle\Controller\RegistrationController" public="true">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="fos_user.registration.form.factory" />
+            <argument type="service" id="fos_user.user_manager" />
+            <argument type="service" id="security.token_storage" />
+        </service>
     </services>
 
 </container>

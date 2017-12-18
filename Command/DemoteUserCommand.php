@@ -20,6 +20,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class DemoteUserCommand extends RoleCommand
 {
+    protected static $defaultName = 'fos:user:demote';
+
     /**
      * {@inheritdoc}
      */

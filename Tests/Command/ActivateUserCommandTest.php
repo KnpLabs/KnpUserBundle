@@ -12,16 +12,16 @@
 namespace FOS\UserBundle\Tests\Command;
 
 use FOS\UserBundle\Command\ActivateUserCommand;
+use FOS\UserBundle\Util\UserManipulator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ActivateUserCommandTest extends TestCase
 {
     public function testExecute()
     {
-        $commandTester = $this->createCommandTester($this->getContainer('user'));
+        $commandTester = $this->createCommandTester($this->getManipulator('user'));
         $exitCode = $commandTester->execute(array(
             'username' => 'user',
         ), array(
@@ -47,7 +47,7 @@ class ActivateUserCommandTest extends TestCase
 
         $application->getHelperSet()->set($helper, 'question');
 
-        $commandTester = $this->createCommandTester($this->getContainer('user'), $application);
+        $commandTester = $this->createCommandTester($this->getManipulator('user'), $application);
         $exitCode = $commandTester->execute(array(), array(
             'decorated' => false,
             'interactive' => true,
@@ -58,12 +58,12 @@ class ActivateUserCommandTest extends TestCase
     }
 
     /**
-     * @param ContainerInterface $container
-     * @param Application|null   $application
+     * @param UserManipulator  $manipulator
+     * @param Application|null $application
      *
      * @return CommandTester
      */
-    private function createCommandTester(ContainerInterface $container, Application $application = null)
+    private function createCommandTester(UserManipulator $manipulator, Application $application = null)
     {
         if (null === $application) {
             $application = new Application();
@@ -71,8 +71,7 @@ class ActivateUserCommandTest extends TestCase
 
         $application->setAutoExit(false);
 
-        $command = new ActivateUserCommand();
-        $command->setContainer($container);
+        $command = new ActivateUserCommand($manipulator);
 
         $application->add($command);
 
@@ -84,10 +83,8 @@ class ActivateUserCommandTest extends TestCase
      *
      * @return mixed
      */
-    private function getContainer($username)
+    private function getManipulator($username)
     {
-        $container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')->getMock();
-
         $manipulator = $this->getMockBuilder('FOS\UserBundle\Util\UserManipulator')
             ->disableOriginalConstructor()
             ->getMock();
@@ -98,12 +95,6 @@ class ActivateUserCommandTest extends TestCase
             ->with($username)
         ;
 
-        $container
-            ->expects($this->once())
-            ->method('get')
-            ->with('fos_user.util.user_manipulator')
-            ->will($this->returnValue($manipulator));
-
-        return $container;
+        return $manipulator;
     }
 }

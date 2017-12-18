@@ -12,16 +12,16 @@
 namespace FOS\UserBundle\Tests\Command;
 
 use FOS\UserBundle\Command\ChangePasswordCommand;
+use FOS\UserBundle\Util\UserManipulator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ChangePasswordCommandTest extends TestCase
 {
     public function testExecute()
     {
-        $commandTester = $this->createCommandTester($this->getContainer('user', 'pass'));
+        $commandTester = $this->createCommandTester($this->getManipulator('user', 'pass'));
         $exitCode = $commandTester->execute(array(
             'username' => 'user',
             'password' => 'pass',
@@ -51,7 +51,7 @@ class ChangePasswordCommandTest extends TestCase
 
         $application->getHelperSet()->set($helper, 'question');
 
-        $commandTester = $this->createCommandTester($this->getContainer('user', 'pass'), $application);
+        $commandTester = $this->createCommandTester($this->getManipulator('user', 'pass'), $application);
         $exitCode = $commandTester->execute(array(), array(
             'decorated' => false,
             'interactive' => true,
@@ -62,12 +62,12 @@ class ChangePasswordCommandTest extends TestCase
     }
 
     /**
-     * @param ContainerInterface $container
-     * @param Application|null   $application
+     * @param UserManipulator  $container
+     * @param Application|null $application
      *
      * @return CommandTester
      */
-    private function createCommandTester(ContainerInterface $container, Application $application = null)
+    private function createCommandTester(UserManipulator $userManipulator, Application $application = null)
     {
         if (null === $application) {
             $application = new Application();
@@ -75,8 +75,7 @@ class ChangePasswordCommandTest extends TestCase
 
         $application->setAutoExit(false);
 
-        $command = new ChangePasswordCommand();
-        $command->setContainer($container);
+        $command = new ChangePasswordCommand($userManipulator);
 
         $application->add($command);
 
@@ -89,10 +88,8 @@ class ChangePasswordCommandTest extends TestCase
      *
      * @return mixed
      */
-    private function getContainer($username, $password)
+    private function getManipulator($username, $password)
     {
-        $container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')->getMock();
-
         $manipulator = $this->getMockBuilder('FOS\UserBundle\Util\UserManipulator')
             ->disableOriginalConstructor()
             ->getMock();
@@ -103,12 +100,6 @@ class ChangePasswordCommandTest extends TestCase
             ->with($username, $password)
         ;
 
-        $container
-            ->expects($this->once())
-            ->method('get')
-            ->with('fos_user.util.user_manipulator')
-            ->will($this->returnValue($manipulator));
-
-        return $container;
+        return $manipulator;
     }
 }

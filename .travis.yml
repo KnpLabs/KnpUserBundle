@@ -5,7 +5,6 @@ php:
   - 5.6
   - 7.0
   - 7.1
-  - hhvm
 
 env:
   global:
@@ -19,9 +18,9 @@ matrix:
     - php: 5.5
       env: COMPOSER_FLAGS="--prefer-lowest"
     - php: 5.6
-      env: SYMFONY_VERSION=2.8.*
-  allow_failures:
-    - php: hhvm
+      env: DEPENDENCIES="symfony/lts:^2"
+    - php: 7.1
+      env: DEPENDENCIES="symfony/lts:^3"
 
 sudo: false
 
@@ -30,8 +29,8 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
-  - if [ "$SYMFONY_VERSION" != "" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update; fi;
-  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi;
+  - if [[ -v $DEPENDENCIES ]]; then composer require --no-update $DEPENDENCIES; fi;
+  - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 install: composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 

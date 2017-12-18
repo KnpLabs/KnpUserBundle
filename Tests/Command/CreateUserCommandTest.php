@@ -12,16 +12,16 @@
 namespace FOS\UserBundle\Tests\Command;
 
 use FOS\UserBundle\Command\CreateUserCommand;
+use FOS\UserBundle\Util\UserManipulator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class CreateUserCommandTest extends TestCase
 {
     public function testExecute()
     {
-        $commandTester = $this->createCommandTester($this->getContainer('user', 'pass', 'email', true, false));
+        $commandTester = $this->createCommandTester($this->getManipulator('user', 'pass', 'email', true, false));
         $exitCode = $commandTester->execute(array(
             'username' => 'user',
             'email' => 'email',
@@ -58,7 +58,7 @@ class CreateUserCommandTest extends TestCase
         $application->getHelperSet()->set($helper, 'question');
 
         $commandTester = $this->createCommandTester(
-            $this->getContainer('user', 'pass', 'email', true, false), $application
+            $this->getManipulator('user', 'pass', 'email', true, false), $application
         );
         $exitCode = $commandTester->execute(array(), array(
             'decorated' => false,
@@ -70,12 +70,12 @@ class CreateUserCommandTest extends TestCase
     }
 
     /**
-     * @param ContainerInterface $container
-     * @param Application|null   $application
+     * @param UserManipulator  $manipulator
+     * @param Application|null $application
      *
      * @return CommandTester
      */
-    private function createCommandTester(ContainerInterface $container, Application $application = null)
+    private function createCommandTester(UserManipulator $manipulator, Application $application = null)
     {
         if (null === $application) {
             $application = new Application();
@@ -83,8 +83,7 @@ class CreateUserCommandTest extends TestCase
 
         $application->setAutoExit(false);
 
-        $command = new CreateUserCommand();
-        $command->setContainer($container);
+        $command = new CreateUserCommand($manipulator);
 
         $application->add($command);
 
@@ -100,10 +99,8 @@ class CreateUserCommandTest extends TestCase
      *
      * @return mixed
      */
-    private function getContainer($username, $password, $email, $active, $superadmin)
+    private function getManipulator($username, $password, $email, $active, $superadmin)
     {
-        $container = $this->getMockBuilder('Symfony\Component\DependencyInjection\ContainerInterface')->getMock();
-
         $manipulator = $this->getMockBuilder('FOS\UserBundle\Util\UserManipulator')
             ->disableOriginalConstructor()
             ->getMock();
@@ -114,12 +111,6 @@ class CreateUserCommandTest extends TestCase
             ->with($username, $password, $email, $active, $superadmin)
         ;
 
-        $container
-            ->expects($this->once())
-            ->method('get')
-            ->with('fos_user.util.user_manipulator')
-            ->will($this->returnValue($manipulator));
-
-        return $container;
+        return $manipulator;
     }
 }

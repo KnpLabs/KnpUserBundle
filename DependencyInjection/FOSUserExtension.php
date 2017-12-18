@@ -40,6 +40,8 @@ class FOSUserExtension extends Extension
         ),
     );
 
+    private $mailerNeeded = false;
+
     /**
      * {@inheritdoc}
      */
@@ -79,11 +81,10 @@ class FOSUserExtension extends Extension
             $loader->load('flash_notifications.xml');
         }
 
-        $container->setAlias('fos_user.mailer', $config['service']['mailer']);
         $container->setAlias('fos_user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
         $container->setAlias('fos_user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
         $container->setAlias('fos_user.util.token_generator', $config['service']['token_generator']);
-        $container->setAlias('fos_user.user_manager', $config['service']['user_manager']);
+        $container->setAlias('fos_user.user_manager', new Alias($config['service']['user_manager'], true));
         $container->setAlias('FOS\UserBundle\Model\UserManagerInterface', new Alias('fos_user.user_manager', false));
 
         if ($config['use_listener'] && isset(self::$doctrineDrivers[$config['db_driver']])) {
@@ -126,6 +127,10 @@ class FOSUserExtension extends Extension
         if (!empty($config['group'])) {
             $this->loadGroups($config['group'], $container, $loader, $config['db_driver']);
         }
+
+        if ($this->mailerNeeded) {
+            $container->setAlias('fos_user.mailer', $config['service']['mailer']);
+        }
     }
 
     /**
@@ -163,6 +168,7 @@ class FOSUserExtension extends Extension
         $loader->load('registration.xml');
 
         if ($config['confirmation']['enabled']) {
+            $this->mailerNeeded = true;
             $loader->load('email_confirmation.xml');
         }
 
@@ -201,6 +207,7 @@ class FOSUserExtension extends Extension
      */
     private function loadResetting(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail)
     {
+        $this->mailerNeeded = true;
         $loader->load('resetting.xml');
 
         if (isset($config['email']['from_email'])) {
@@ -237,7 +244,7 @@ class FOSUserExtension extends Extension
             }
         }
 
-        $container->setAlias('fos_user.group_manager', $config['group_manager']);
+        $container->setAlias('fos_user.group_manager', new Alias($config['group_manager'], true));
         $container->setAlias('FOS\UserBundle\Model\GroupManagerInterface', new Alias('fos_user.group_manager', false));
 
         $this->remapParametersNamespaces($config, $container, array(
