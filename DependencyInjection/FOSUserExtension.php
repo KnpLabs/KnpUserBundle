@@ -108,11 +108,11 @@ class FOSUserExtension extends Extension
         ));
 
         if (!empty($config['profile'])) {
-            $this->loadProfile($config['profile'], $container, $loader);
+            $this->loadProfile($config['profile'], $container, $loader, $config['db_driver']);
         }
 
         if (!empty($config['registration'])) {
-            $this->loadRegistration($config['registration'], $container, $loader, $config['from_email'], $config['db_driver']);
+            $this->loadRegistration($config['registration'], $container, $loader, $config['from_email']);
         }
 
         if (!empty($config['change_password'])) {
@@ -132,10 +132,17 @@ class FOSUserExtension extends Extension
      * @param array            $config
      * @param ContainerBuilder $container
      * @param XmlFileLoader    $loader
+     * @param string           $dbDriver
      */
-    private function loadProfile(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    private function loadProfile(array $config, ContainerBuilder $container, XmlFileLoader $loader, $dbDriver)
     {
         $loader->load('profile.xml');
+
+        if ($config['confirmation']['enabled']) {
+            if ('custom' !== $dbDriver && isset(self::$doctrineDrivers[$dbDriver])) {
+                $loader->load('profile_email_update_listener.xml');
+            }
+        }
 
         $container->setParameter('fos_user.email_update_confirmation.template', $config['email_update_confirmation']['email_template']);
         $container->setParameter('fos_user.email_update_confirmation.cypher_method', $config['email_update_confirmation']['cypher_method']);
@@ -150,18 +157,13 @@ class FOSUserExtension extends Extension
      * @param ContainerBuilder $container
      * @param XmlFileLoader    $loader
      * @param array            $fromEmail
-     * @param string           $dbDriver
      */
-    private function loadRegistration(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail, $dbDriver)
+    private function loadRegistration(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail)
     {
         $loader->load('registration.xml');
 
         if ($config['confirmation']['enabled']) {
             $loader->load('email_confirmation.xml');
-
-            if ('custom' !== $dbDriver && isset(self::$doctrineDrivers[$dbDriver])) {
-                $loader->load('email_update_listener.xml');
-            }
         }
 
         if (isset($config['confirmation']['from_email'])) {
