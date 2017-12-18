@@ -4,7 +4,7 @@ Upgrade instruction
 This document describes the changes needed when upgrading because of a BC
 break. For the full list of changes, please look at the Changelog file.
 
-## dev-master => 2.1.0
+## 2.0.x => 2.1.0
 
 ### MailerInterface
 For the implementation of [Confirmation of Changed Email](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/emails.rst#confirmation-of-changed-email)-feature, 
