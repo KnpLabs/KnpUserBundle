@@ -35,13 +35,44 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ResettingController extends AbstractController
 {
+    /**
+     * @var EventDispatcherInterface
+     */
     private $eventDispatcher;
+
+    /**
+     * @var FactoryInterface
+     */
     private $formFactory;
+
+    /**
+     * @var UserManagerInterface
+     */
     private $userManager;
+
+    /**
+     * @var TokenGeneratorInterface
+     */
     private $tokenGenerator;
+
+    /**
+     * @var MailerInterface
+     */
     private $mailer;
+
+    /**
+     * @var int
+     */
     private $retryTtl;
 
+    /**
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param FactoryInterface         $formFactory
+     * @param UserManagerInterface     $userManager
+     * @param TokenGeneratorInterface  $tokenGenerator
+     * @param MailerInterface          $mailer
+     * @param int                      $retryTtl
+     */
     public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager, TokenGeneratorInterface $tokenGenerator, MailerInterface $mailer, $retryTtl)
     {
         $this->eventDispatcher = $eventDispatcher;

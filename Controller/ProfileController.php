@@ -37,12 +37,38 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class ProfileController extends AbstractController
 {
+    /**
+     * @var EventDispatcherInterface
+     */
     private $eventDispatcher;
+
+    /**
+     * @var FactoryInterface
+     */
     private $formFactory;
+
+    /**
+     * @var UserManagerInterface
+     */
     private $userManager;
+
+    /**
+     * @var EmailUpdateConfirmation
+     */
     private $emailUpdateConfirmation;
+
+    /**
+     * @var TranslatorInterface
+     */
     private $translator;
 
+    /**
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param FactoryInterface         $formFactory
+     * @param UserManagerInterface     $userManager
+     * @param EmailUpdateConfirmation  $emailUpdateConfirmation
+     * @param TranslatorInterface      $translator
+     */
     public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager, EmailUpdateConfirmation $emailUpdateConfirmation, TranslatorInterface $translator)
     {
         $this->eventDispatcher = $eventDispatcher;

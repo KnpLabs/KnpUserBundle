@@ -19,10 +19,22 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
+/**
+ * Controller managing security.
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ * @author Christophe Coevoet <stof@notk.org>
+ */
 class SecurityController extends AbstractController
 {
+    /**
+     * @var CsrfTokenManagerInterface
+     */
     private $tokenManager;
 
+    /**
+     * @param CsrfTokenManagerInterface $tokenManager
+     */
     public function __construct(CsrfTokenManagerInterface $tokenManager = null)
     {
         $this->tokenManager = $tokenManager;

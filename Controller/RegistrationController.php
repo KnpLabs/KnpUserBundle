@@ -36,11 +36,32 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class RegistrationController extends AbstractController
 {
+    /**
+     * @var EventDispatcherInterface
+     */
     private $eventDispatcher;
+
+    /**
+     * @var FactoryInterface
+     */
     private $formFactory;
+
+    /**
+     * @var UserManagerInterface
+     */
     private $userManager;
+
+    /**
+     * @var TokenStorageInterface
+     */
     private $tokenStorage;
 
+    /**
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param FactoryInterface         $formFactory
+     * @param UserManagerInterface     $userManager
+     * @param TokenStorageInterface    $tokenStorage
+     */
     public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager, TokenStorageInterface $tokenStorage)
     {
         $this->eventDispatcher = $eventDispatcher;
