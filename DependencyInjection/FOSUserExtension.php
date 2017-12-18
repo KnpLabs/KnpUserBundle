@@ -112,7 +112,7 @@ class FOSUserExtension extends Extension
         }
 
         if (!empty($config['registration'])) {
-            $this->loadRegistration($config['registration'], $container, $loader, $config['from_email']);
+            $this->loadRegistration($config['registration'], $container, $loader, $config['from_email'], $config['db_driver']);
         }
 
         if (!empty($config['change_password'])) {
@@ -150,13 +150,18 @@ class FOSUserExtension extends Extension
      * @param ContainerBuilder $container
      * @param XmlFileLoader    $loader
      * @param array            $fromEmail
+     * @param string           $dbDriver
      */
-    private function loadRegistration(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail)
+    private function loadRegistration(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail, $dbDriver)
     {
         $loader->load('registration.xml');
 
         if ($config['confirmation']['enabled']) {
             $loader->load('email_confirmation.xml');
+
+            if ('custom' !== $dbDriver && isset(self::$doctrineDrivers[$dbDriver])) {
+                $loader->load('email_update_listener.xml');
+            }
         }
 
         if (isset($config['confirmation']['from_email'])) {

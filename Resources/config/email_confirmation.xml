@@ -25,7 +25,6 @@
             <argument type="service" id="fos_user.email_encryption" />
             <argument type="service" id="event_dispatcher" />
         </service>
-
     </services>
 
 </container>
