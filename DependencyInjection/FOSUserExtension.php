@@ -138,7 +138,7 @@ class FOSUserExtension extends Extension
     {
         $loader->load('profile.xml');
 
-        if ($config['confirmation']['enabled']) {
+        if ($config['email_update_confirmation']['enabled']) {
             if ('custom' !== $dbDriver && isset(self::$doctrineDrivers[$dbDriver])) {
                 $loader->load('profile_email_update_listener.xml');
             }
