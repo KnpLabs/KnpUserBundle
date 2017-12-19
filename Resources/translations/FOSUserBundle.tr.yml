@@ -75,11 +75,11 @@ layout:
     register: 'Kayıt ol'
     logged_in_as: '%username% olarak giriş yapıldı'
 form:
-    group_name: 'Gurup Adı'
+    group_name: 'Grup adı'
     username: 'Kullanıcı adı'
     email: 'E-posta adresi'
-    current_password: 'Geçerli Parola'
+    current_password: 'Geçerli parola'
     password: Parola
-    password_confirmation: Onay
-    new_password: 'Yeni Parola'
-    new_password_confirmation: Onay
+    password_confirmation: Parola tekrar
+    new_password: 'Yeni parola'
+    new_password_confirmation: Yeni parola tekrar
