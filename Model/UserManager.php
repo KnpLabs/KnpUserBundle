@@ -65,7 +65,7 @@ abstract class UserManager implements UserManagerInterface
     {
         if (preg_match('/^.+\@\S+\.\S+$/', $usernameOrEmail)) {
             $user = $this->findUserByEmail($usernameOrEmail);
-            if ($user !== null) {
+            if (null !== $user) {
                 return $user;
             }
         }

@@ -79,7 +79,7 @@ class UserManipulatorTest extends TestCase
         $manipulator->activate($username);
 
         $this->assertSame($username, $user->getUsername());
-        $this->assertSame(true, $user->isEnabled());
+        $this->assertTrue($user->isEnabled());
     }
 
     /**
@@ -133,7 +133,7 @@ class UserManipulatorTest extends TestCase
         $manipulator->deactivate($username);
 
         $this->assertSame($username, $user->getUsername());
-        $this->assertSame(false, $user->isEnabled());
+        $this->assertFalse($user->isEnabled());
     }
 
     /**
@@ -187,7 +187,7 @@ class UserManipulatorTest extends TestCase
         $manipulator->promote($username);
 
         $this->assertSame($username, $user->getUsername());
-        $this->assertSame(true, $user->isSuperAdmin());
+        $this->assertTrue($user->isSuperAdmin());
     }
 
     /**
@@ -241,7 +241,7 @@ class UserManipulatorTest extends TestCase
         $manipulator->demote($username);
 
         $this->assertSame($username, $user->getUsername());
-        $this->assertSame(false, $user->isSuperAdmin());
+        $this->assertFalse($user->isSuperAdmin());
     }
 
     /**

@@ -47,14 +47,6 @@ class UserManager extends BaseUserManager
     }
 
     /**
-     * @return ObjectRepository
-     */
-    protected function getRepository()
-    {
-        return $this->objectManager->getRepository($this->getClass());
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function deleteUser(UserInterface $user)
@@ -112,5 +104,13 @@ class UserManager extends BaseUserManager
         if ($andFlush) {
             $this->objectManager->flush();
         }
+    }
+
+    /**
+     * @return ObjectRepository
+     */
+    protected function getRepository()
+    {
+        return $this->objectManager->getRepository($this->getClass());
     }
 }

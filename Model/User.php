@@ -110,6 +110,14 @@ abstract class User implements UserInterface, GroupableInterface
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getUsername();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function addRole($role)
@@ -545,13 +553,5 @@ abstract class User implements UserInterface, GroupableInterface
         }
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->getUsername();
     }
 }
