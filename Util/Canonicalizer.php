@@ -19,7 +19,7 @@ class Canonicalizer implements CanonicalizerInterface
     public function canonicalize($string)
     {
         if (null === $string) {
-            return null;
+            return;
         }
 
         $encoding = mb_detect_encoding($string);
