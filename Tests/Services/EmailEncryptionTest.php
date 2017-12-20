@@ -12,10 +12,11 @@
 namespace FOS\UserBundle\Tests\Util;
 
 use FOS\UserBundle\Services\EmailConfirmation\EmailEncryption;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class EmailEncryptionTest extends \PHPUnit_Framework_TestCase
+class EmailEncryptionTest extends TestCase
 {
     /** @var ValidatorInterface */
     private $emailValidator;
