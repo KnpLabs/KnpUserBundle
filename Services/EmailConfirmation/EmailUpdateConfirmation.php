@@ -201,6 +201,16 @@ class EmailUpdateConfirmation implements EmailUpdateConfirmationInterface
     }
 
     /**
+     * Get token which indicates that email was confirmed.
+     *
+     * @return string
+     */
+    public function getEmailConfirmedToken()
+    {
+        return base64_encode(self::EMAIL_CONFIRMED);
+    }
+
+    /**
      * Get or create new user confirmation token.
      *
      * @return string
@@ -215,15 +225,5 @@ class EmailUpdateConfirmation implements EmailUpdateConfirmationInterface
         }
 
         return $this->user->getConfirmationToken();
-    }
-
-    /**
-     * Get token which indicates that email was confirmed.
-     *
-     * @return string
-     */
-    public function getEmailConfirmedToken()
-    {
-        return base64_encode(self::EMAIL_CONFIRMED);
     }
 }

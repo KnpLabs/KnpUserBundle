@@ -86,6 +86,7 @@ class ChangePasswordFormType extends AbstractType
     }
 
     // BC for SF < 3.0
+
     /**
      * {@inheritdoc}
      */

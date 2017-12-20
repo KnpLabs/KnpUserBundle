@@ -60,6 +60,24 @@ class TwigSwiftMailerTest extends TestCase
         $mailer->sendResettingEmailMessage($this->getUser($emailAddress));
     }
 
+    public function goodEmailProvider()
+    {
+        return array(
+            array('foo@example.com'),
+            array('foo@example.co.uk'),
+            array($this->getEmailAddressValueObject('foo@example.com')),
+            array($this->getEmailAddressValueObject('foo@example.co.uk')),
+        );
+    }
+
+    public function badEmailProvider()
+    {
+        return array(
+            array('foo'),
+            array($this->getEmailAddressValueObject('foo')),
+        );
+    }
+
     private function getTwigSwiftMailer()
     {
         return new TwigSwiftMailer(
@@ -115,23 +133,5 @@ TWIG
         ;
 
         return $emailAddress;
-    }
-
-    public function goodEmailProvider()
-    {
-        return array(
-            array('foo@example.com'),
-            array('foo@example.co.uk'),
-            array($this->getEmailAddressValueObject('foo@example.com')),
-            array($this->getEmailAddressValueObject('foo@example.co.uk')),
-        );
-    }
-
-    public function badEmailProvider()
-    {
-        return array(
-            array('foo'),
-            array($this->getEmailAddressValueObject('foo')),
-        );
     }
 }
