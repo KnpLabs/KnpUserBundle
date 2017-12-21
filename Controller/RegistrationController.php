@@ -140,7 +140,7 @@ class RegistrationController extends AbstractController
         $user = $this->userManager->findUserByEmail($email);
 
         if (null === $user) {
-            throw new NotFoundHttpException(sprintf('The user with email "%s" does not exist', $email));
+            return new RedirectResponse($this->container->get('router')->generate('fos_user_security_login'));
         }
 
         return $this->render('@FOSUser/Registration/check_email.html.twig', array(
