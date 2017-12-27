@@ -18,12 +18,10 @@
             <tag name="form.type" alias="fos_user_profile" />
         </service>
 
-        <service id="fos_user.profiler.controller" class="FOS\UserBundle\Controller\ProfileController" public="true">
+        <service id="fos_user.profile.controller" class="FOS\UserBundle\Controller\ProfileController" public="true">
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="fos_user.profile.form.factory" />
             <argument type="service" id="fos_user.user_manager" />
-            <argument type="service" id="fos_user.email_update_confirmation" />
-            <argument type="service" id="translator" />
         </service>
     </services>
 

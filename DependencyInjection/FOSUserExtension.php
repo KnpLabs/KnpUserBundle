@@ -193,12 +193,11 @@ class FOSUserExtension extends Extension
 
         if ($config['email_update_confirmation']['enabled']) {
             if ('custom' !== $dbDriver && isset(self::$doctrineDrivers[$dbDriver])) {
-                $loader->load('profile_email_update_listener.xml');
+                $loader->load('profile_email_update.xml');
             }
+            $container->setParameter('fos_user.email_update_confirmation.template', $config['email_update_confirmation']['email_template']);
+            $container->setParameter('fos_user.email_update_confirmation.cypher_method', $config['email_update_confirmation']['cypher_method']);
         }
-
-        $container->setParameter('fos_user.email_update_confirmation.template', $config['email_update_confirmation']['email_template']);
-        $container->setParameter('fos_user.email_update_confirmation.cypher_method', $config['email_update_confirmation']['cypher_method']);
 
         $this->remapParametersNamespaces($config, $container, array(
             'form' => 'fos_user.profile.form.%s',

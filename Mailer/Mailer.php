@@ -93,7 +93,7 @@ class Mailer implements MailerInterface
      */
     public function sendUpdateEmailConfirmation(UserInterface $user, $confirmationUrl, $toEmail)
     {
-        $template = $this->parameters['template']['email_updating'];
+        $template = $this->parameters['email_updating.template'];
         $rendered = $this->templating->render($template, array(
             'user' => $user,
             'confirmationUrl' => $confirmationUrl,

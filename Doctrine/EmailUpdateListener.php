@@ -14,6 +14,7 @@ namespace FOS\UserBundle\Doctrine;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Services\EmailConfirmation\EmailUpdateConfirmation;
+use FOS\UserBundle\Util\CanonicalFieldsUpdater;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
@@ -30,17 +31,23 @@ class EmailUpdateListener
      * @var RequestStack
      */
     private $requestStack;
+    /**
+     * @var CanonicalFieldsUpdater
+     */
+    private $canonicalFieldsUpdater;
 
     /**
      * Constructor.
      *
      * @param EmailUpdateConfirmation $emailUpdateConfirmation
      * @param RequestStack            $requestStack
+     * @param CanonicalFieldsUpdater  $canonicalFieldsUpdater
      */
-    public function __construct(EmailUpdateConfirmation $emailUpdateConfirmation, RequestStack $requestStack)
+    public function __construct(EmailUpdateConfirmation $emailUpdateConfirmation, RequestStack $requestStack, CanonicalFieldsUpdater $canonicalFieldsUpdater)
     {
         $this->emailUpdateConfirmation = $emailUpdateConfirmation;
         $this->requestStack = $requestStack;
+        $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
     }
 
     /**
@@ -58,8 +65,8 @@ class EmailUpdateListener
             if ($user->getConfirmationToken() != $this->emailUpdateConfirmation->getEmailConfirmedToken() && isset($args->getEntityChangeSet()['email'])) {
                 $oldEmail = $args->getEntityChangeSet()['email'][0];
                 $newEmail = $args->getEntityChangeSet()['email'][1];
-
                 $user->setEmail($oldEmail);
+                $user->setEmailCanonical($this->canonicalFieldsUpdater->canonicalizeEmail($oldEmail));
 
                 // Configure email confirmation
                 $this->emailUpdateConfirmation->setUser($user);
