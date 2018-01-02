@@ -18,7 +18,7 @@ use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Services\EmailConfirmation\EmailUpdateConfirmation;
 use FOS\UserBundle\Util\CanonicalFieldsUpdater;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -29,7 +29,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  *
  * @author Dominik Businger <git@azine.me>
  */
-class ConfirmEmailUpdateController extends AbstractController
+class ConfirmEmailUpdateController extends Controller
 {
     /**
      * @var EventDispatcherInterface
