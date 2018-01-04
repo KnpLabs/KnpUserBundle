@@ -441,7 +441,6 @@ The following documents are available:
 
     overriding_templates
     controller_events
-    overriding_controllers
     overriding_forms
     user_manager
     command_line_tools
