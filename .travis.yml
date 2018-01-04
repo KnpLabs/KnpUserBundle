@@ -29,7 +29,7 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
-  - if [[ -v $DEPENDENCIES ]]; then composer require --no-update $DEPENDENCIES; fi;
+  - if [ "$DEPENDENCIES" != "" ]; then composer require --no-update $DEPENDENCIES; fi;
   - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 install: composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
