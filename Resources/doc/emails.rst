@@ -49,10 +49,9 @@ user experience it is recommended to protect the url of the route `fos_user_upda
 in the security configuration.
 
 .. code-block:: yaml
-security:
-    access_control:
-        - { path: "/{YOUR-PREFIX}/profile/confirm-email-update/{token}", roles: IS_AUTHENTICATED_REMEMBERED }
-
+    security:
+        access_control:
+            - { path: "/{YOUR-PREFIX}/profile/confirm-email-update/{token}", roles: IS_AUTHENTICATED_REMEMBERED }
 
 Password Reset
 --------------
