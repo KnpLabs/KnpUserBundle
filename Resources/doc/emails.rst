@@ -27,7 +27,7 @@ To enable it, update your configuration as follows:
 Confirmation of Changed Email
 -----------------------------
 
-When a user changes her email address on the edit profile page,
+When a user changes their email address on the edit profile page,
 the bundle can send a confirmation email to the new address. The
 new address will only be activated / written to the database once
 the user clicks on the confirmation link in the confirmation email.
