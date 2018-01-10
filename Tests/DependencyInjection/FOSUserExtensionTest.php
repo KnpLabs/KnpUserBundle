@@ -114,6 +114,18 @@ class FOSUserExtensionTest extends TestCase
         $config['registration'] = false;
         $loader->load(array($config), $this->configuration);
         $this->assertNotHasDefinition('fos_user.registration.form.factory');
+
+        $mailer = $this->configuration->getDefinition('fos_user.mailer.default');
+        $parameters = $this->configuration->getParameterBag()->resolveValue(
+            $mailer->getArgument(3)
+        );
+        $this->assertSame(
+            array(
+                'confirmation' => array('no-registration@acme.com' => 'Acme Ltd'),
+                'resetting' => array('admin@acme.org' => 'Acme Corp'),
+            ),
+            $parameters['from_email']
+        );
     }
 
     public function testDisableResetting()
@@ -124,6 +136,18 @@ class FOSUserExtensionTest extends TestCase
         $config['resetting'] = false;
         $loader->load(array($config), $this->configuration);
         $this->assertNotHasDefinition('fos_user.resetting.form.factory');
+
+        $mailer = $this->configuration->getDefinition('fos_user.mailer.default');
+        $parameters = $this->configuration->getParameterBag()->resolveValue(
+            $mailer->getArgument(3)
+        );
+        $this->assertSame(
+            array(
+                'confirmation' => array('admin@acme.org' => 'Acme Corp'),
+                'resetting' => array('no-resetting@acme.com' => 'Acme Ltd'),
+            ),
+            $parameters['from_email']
+        );
     }
 
     public function testDisableProfile()
@@ -144,6 +168,53 @@ class FOSUserExtensionTest extends TestCase
         $config['change_password'] = false;
         $loader->load(array($config), $this->configuration);
         $this->assertNotHasDefinition('fos_user.change_password.form.factory');
+    }
+
+    /**
+     * @dataProvider providerEmailsDisabledFeature
+     */
+    public function testEmailsDisabledFeature($testConfig, $registration, $resetting)
+    {
+        $this->configuration = new ContainerBuilder();
+        $loader = new FOSUserExtension();
+        $config = $this->getEmptyConfig();
+        $config = array_merge($config, $testConfig);
+        $loader->load(array($config), $this->configuration);
+
+        $this->assertParameter($registration, 'fos_user.registration.confirmation.from_email');
+        $this->assertParameter($resetting, 'fos_user.resetting.email.from_email');
+    }
+
+    public function providerEmailsDisabledFeature()
+    {
+        $configBothFeaturesDisabled = array('registration' => false, 'resetting' => false);
+        $configResettingDisabled = array('resetting' => false);
+        $configRegistrationDisabled = array('registration' => false);
+        $configOverridenRegistrationEmail = array(
+            'registration' => array(
+                'confirmation' => array(
+                    'from_email' => array('address' => 'ltd@acme.com', 'sender_name' => 'Acme Ltd'),
+                ),
+            ),
+        );
+        $configOverridenResettingEmail = array(
+            'resetting' => array(
+                'email' => array(
+                    'from_email' => array('address' => 'ltd@acme.com', 'sender_name' => 'Acme Ltd'),
+                ),
+            ),
+        );
+
+        $default = array('admin@acme.org' => 'Acme Corp');
+        $overriden = array('ltd@acme.com' => 'Acme Ltd');
+
+        return array(
+            array($configBothFeaturesDisabled, array('no-registration@acme.com' => 'Acme Ltd'), array('no-resetting@acme.com' => 'Acme Ltd')),
+            array($configResettingDisabled, $default, array('no-resetting@acme.com' => 'Acme Ltd')),
+            array($configRegistrationDisabled, array('no-registration@acme.com' => 'Acme Ltd'), $default),
+            array($configOverridenRegistrationEmail, $overriden, $default),
+            array($configOverridenResettingEmail, $default, $overriden),
+        );
     }
 
     public function testUserLoadModelClassWithDefaults()
