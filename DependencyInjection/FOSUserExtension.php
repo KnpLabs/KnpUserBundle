@@ -84,6 +84,7 @@ class FOSUserExtension extends Extension
         $container->setAlias('fos_user.util.email_canonicalizer', $config['service']['email_canonicalizer']);
         $container->setAlias('fos_user.util.username_canonicalizer', $config['service']['username_canonicalizer']);
         $container->setAlias('fos_user.util.token_generator', $config['service']['token_generator']);
+        $container->setAlias('FOS\UserBundle\Util\TokenGeneratorInterface', new Alias('fos_user.util.token_generator', false));
         $container->setAlias('fos_user.user_manager', new Alias($config['service']['user_manager'], true));
         $container->setAlias('FOS\UserBundle\Model\UserManagerInterface', new Alias('fos_user.user_manager', false));
 
