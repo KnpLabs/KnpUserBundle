@@ -46,7 +46,7 @@ interface GroupableInterface
      *
      * @param GroupInterface $group
      *
-     * @return self
+     * @return static
      */
     public function addGroup(GroupInterface $group);
 
@@ -55,7 +55,7 @@ interface GroupableInterface
      *
      * @param GroupInterface $group
      *
-     * @return self
+     * @return static
      */
     public function removeGroup(GroupInterface $group);
 }
