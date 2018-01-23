@@ -35,7 +35,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param string $username
      *
-     * @return self
+     * @return static
      */
     public function setUsername($username);
 
@@ -51,7 +51,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param string $usernameCanonical
      *
-     * @return self
+     * @return static
      */
     public function setUsernameCanonical($usernameCanonical);
 
@@ -72,7 +72,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param string $email
      *
-     * @return self
+     * @return static
      */
     public function setEmail($email);
 
@@ -88,7 +88,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param string $emailCanonical
      *
-     * @return self
+     * @return static
      */
     public function setEmailCanonical($emailCanonical);
 
@@ -104,7 +104,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param string $password
      *
-     * @return self
+     * @return static
      */
     public function setPlainPassword($password);
 
@@ -113,7 +113,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param string $password
      *
-     * @return self
+     * @return static
      */
     public function setPassword($password);
 
@@ -127,7 +127,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
     /**
      * @param bool $boolean
      *
-     * @return self
+     * @return static
      */
     public function setEnabled($boolean);
 
@@ -136,7 +136,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param bool $boolean
      *
-     * @return self
+     * @return static
      */
     public function setSuperAdmin($boolean);
 
@@ -152,7 +152,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param string $confirmationToken
      *
-     * @return self
+     * @return static
      */
     public function setConfirmationToken($confirmationToken);
 
@@ -161,7 +161,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param null|\DateTime $date
      *
-     * @return self
+     * @return static
      */
     public function setPasswordRequestedAt(\DateTime $date = null);
 
@@ -179,7 +179,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param \DateTime $time
      *
-     * @return self
+     * @return static
      */
     public function setLastLogin(\DateTime $time = null);
 
@@ -204,7 +204,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param array $roles
      *
-     * @return self
+     * @return static
      */
     public function setRoles(array $roles);
 
@@ -213,7 +213,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param string $role
      *
-     * @return self
+     * @return static
      */
     public function addRole($role);
 
@@ -222,7 +222,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
      *
      * @param string $role
      *
-     * @return self
+     * @return static
      */
     public function removeRole($role);
 }
