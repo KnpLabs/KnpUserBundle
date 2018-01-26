@@ -57,6 +57,8 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
 
     /**
      * @param string|null $salt
+     *
+     * @return static
      */
     public function setSalt($salt);
 
@@ -143,14 +145,14 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
     /**
      * Gets the confirmation token.
      *
-     * @return string
+     * @return string|null
      */
     public function getConfirmationToken();
 
     /**
      * Sets the confirmation token.
      *
-     * @param string $confirmationToken
+     * @param string|null $confirmationToken
      *
      * @return static
      */
@@ -177,7 +179,7 @@ interface UserInterface extends AdvancedUserInterface, \Serializable
     /**
      * Sets the last login time.
      *
-     * @param \DateTime $time
+     * @param \DateTime|null $time
      *
      * @return static
      */
