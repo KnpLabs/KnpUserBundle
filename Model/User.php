@@ -74,24 +74,24 @@ abstract class User implements UserInterface, GroupableInterface
     protected $plainPassword;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $lastLogin;
 
     /**
      * Random string sent to the user email address in order to verify it.
      *
-     * @var string
+     * @var string|null
      */
     protected $confirmationToken;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $passwordRequestedAt;
 
     /**
-     * @var Collection
+     * @var GroupInterface[]|Collection
      */
     protected $groups;
 
@@ -255,7 +255,7 @@ abstract class User implements UserInterface, GroupableInterface
     /**
      * Gets the last login time.
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getLastLogin()
     {
