@@ -12,6 +12,8 @@
             <argument>%fos_user.model.user.class%</argument>
         </service>
 
+        <service id="FOS\UserBundle\Model\UserManagerInterface" alias="fos_user.user_manager" public="false" />
+
         <!-- The factory is configured in the DI extension class to support more Symfony versions -->
         <service id="fos_user.object_manager" class="Doctrine\Common\Persistence\ObjectManager" public="false">
             <argument>%fos_user.model_manager_name%</argument>
