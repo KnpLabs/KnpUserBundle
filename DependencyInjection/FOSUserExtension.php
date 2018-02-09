@@ -85,6 +85,9 @@ class FOSUserExtension extends Extension
         $container->setAlias('fos_user.util.token_generator', $config['service']['token_generator']);
         $container->setAlias('fos_user.user_manager', $config['service']['user_manager']);
         $container->setAlias('FOS\UserBundle\Model\UserManagerInterface', new Alias('fos_user.user_manager', false));
+        $container->setAlias('FOS\UserBundle\Util\PasswordUpdaterInterface', new Alias('fos_user.util.password_updater', false));
+        $container->setAlias('FOS\UserBundle\Util\CanonicalFieldsUpdater', new Alias('fos_user.util.canonical_fields_updater', false));
+        $container->setAlias('FOS\UserBundle\Security\LoginManagerInterface', new Alias('fos_user.security.login_manager', false));
 
         if ($config['use_listener'] && isset(self::$doctrineDrivers[$config['db_driver']])) {
             $listenerDefinition = $container->getDefinition('fos_user.user_listener');
