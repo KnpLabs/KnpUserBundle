@@ -45,9 +45,6 @@ class RoutingTest extends TestCase
         $subCollection->addPrefix('/resetting');
         $collection->addCollection($subCollection);
         $collection->addCollection($loader->load(__DIR__.'/../../Resources/config/routing/security.xml'));
-        $subCollection = $loader->load(__DIR__.'/../../Resources/config/routing/update_email.xml');
-        $subCollection->addPrefix('/profile');
-        $collection->addCollection($subCollection);
 
         $route = $collection->get($routeName);
         $this->assertNotNull($route, sprintf('The route "%s" should exists', $routeName));
@@ -85,8 +82,6 @@ class RoutingTest extends TestCase
             array('fos_user_security_login', '/login', array('GET', 'POST')),
             array('fos_user_security_check', '/login_check', array('POST')),
             array('fos_user_security_logout', '/logout', array('GET', 'POST')),
-
-            array('fos_user_update_email_confirm', '/profile/confirm-email-update/{token}', array('GET')),
         );
     }
 }

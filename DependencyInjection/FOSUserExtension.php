@@ -113,7 +113,7 @@ class FOSUserExtension extends Extension
         ));
 
         if (!empty($config['profile'])) {
-            $this->loadProfile($config['profile'], $container, $loader, $config['db_driver']);
+            $this->loadProfile($config['profile'], $container, $loader);
         }
 
         if (!empty($config['registration'])) {
@@ -189,19 +189,10 @@ class FOSUserExtension extends Extension
      * @param array            $config
      * @param ContainerBuilder $container
      * @param XmlFileLoader    $loader
-     * @param string           $dbDriver
      */
-    private function loadProfile(array $config, ContainerBuilder $container, XmlFileLoader $loader, $dbDriver)
+    private function loadProfile(array $config, ContainerBuilder $container, XmlFileLoader $loader)
     {
         $loader->load('profile.xml');
-
-        if ($config['email_update_confirmation']['enabled']) {
-            if ('custom' !== $dbDriver && isset(self::$doctrineDrivers[$dbDriver])) {
-                $loader->load('profile_email_update.xml');
-            }
-            $container->setParameter('fos_user.email_update_confirmation.template', $config['email_update_confirmation']['email_template']);
-            $container->setParameter('fos_user.email_update_confirmation.cypher_method', $config['email_update_confirmation']['cypher_method']);
-        }
 
         $this->remapParametersNamespaces($config, $container, array(
             'form' => 'fos_user.profile.form.%s',

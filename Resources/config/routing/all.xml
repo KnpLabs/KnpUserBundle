@@ -18,7 +18,4 @@
     <import
         resource="@FOSUserBundle/Resources/config/routing/change_password.xml"
         prefix="/profile" />
-    <import
-        resource="@FOSUserBundle/Resources/config/routing/update_email.xml"
-        prefix="/profile" />
 </routes>

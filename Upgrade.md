@@ -4,17 +4,6 @@ Upgrade instruction
 This document describes the changes needed when upgrading because of a BC
 break. For the full list of changes, please look at the Changelog file.
 
-## 2.0.x => 2.1.0
-
-### MailerInterface
-For the implementation of [Confirmation of Changed Email](https://github.com/FriendsOfSymfony/FOSUserBundle/blob/master/Resources/doc/emails.rst#confirmation-of-changed-email)-feature, 
-the `FOSUserBundle/Mailer/MailerInterface` received a new method. 
-
-`public function sendUpdateEmailConfirmation(UserInterface $user, $confirmationUrl, $toEmail);`
-
-If you use your own implementation of the `MailerInterface` and it does not inherit from one of the 
-implementations in `FOSUserBundle/Mailer`, then you will need to implement the new function as well.
-
 ## 2.0.0-alpha3 to 2.0.0-beta1
 
 Methods and properties removed from `FOS\UserBundle\Model\User`

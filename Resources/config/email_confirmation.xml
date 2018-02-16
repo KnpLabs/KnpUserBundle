@@ -12,7 +12,6 @@
             <argument type="service" id="router" />
             <argument type="service" id="session" />
         </service>
-
     </services>
 
 </container>

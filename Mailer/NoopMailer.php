@@ -37,12 +37,4 @@ class NoopMailer implements MailerInterface
     {
         // nothing happens.
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function sendUpdateEmailConfirmation(UserInterface $user, $confirmationUrl, $toEmail)
-    {
-        // nothing happens.
-    }
 }
