@@ -35,29 +35,10 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ResettingController extends Controller
 {
-    /**
-     * @var EventDispatcherInterface
-     */
     private $eventDispatcher;
-
-    /**
-     * @var FactoryInterface
-     */
     private $formFactory;
-
-    /**
-     * @var UserManagerInterface
-     */
     private $userManager;
-
-    /**
-     * @var TokenGeneratorInterface
-     */
     private $tokenGenerator;
-
-    /**
-     * @var MailerInterface
-     */
     private $mailer;
 
     /**

@@ -34,26 +34,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class GroupController extends Controller
 {
-    /**
-     * @var EventDispatcherInterface
-     */
     private $eventDispatcher;
-
-    /**
-     * @var FactoryInterface
-     */
     private $formFactory;
-
-    /**
-     * @var GroupManagerInterface
-     */
     private $groupManager;
 
-    /**
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param FactoryInterface         $formFactory
-     * @param GroupManagerInterface    $groupManager
-     */
     public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, GroupManagerInterface $groupManager)
     {
         $this->eventDispatcher = $eventDispatcher;

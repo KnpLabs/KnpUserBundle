@@ -31,19 +31,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class ConfirmEmailUpdateController extends Controller
 {
-    /**
-     * @var EventDispatcherInterface
-     */
     private $eventDispatcher;
-
-    /**
-     * @var UserManagerInterface
-     */
     private $userManager;
-
-    /**
-     * @var EmailUpdateConfirmation
-     */
     private $emailUpdateConfirmation;
 
     /**

@@ -27,14 +27,8 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  */
 class SecurityController extends Controller
 {
-    /**
-     * @var CsrfTokenManagerInterface
-     */
     private $tokenManager;
 
-    /**
-     * @param CsrfTokenManagerInterface $tokenManager
-     */
     public function __construct(CsrfTokenManagerInterface $tokenManager = null)
     {
         $this->tokenManager = $tokenManager;

@@ -23,30 +23,13 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
-/**
- * Class EmailUpdateConfirmation.
- */
 class EmailUpdateConfirmation implements EmailUpdateConfirmationInterface
 {
     const EMAIL_CONFIRMED = 'email_confirmed';
 
-    /**
-     * @var MailerInterface
-     */
     private $mailer;
-    /**
-     * @var Router
-     */
     private $router;
-
-    /**
-     * @var TokenGenerator
-     */
     private $tokenGenerator;
-
-    /**
-     * @var EmailEncryptionInterface
-     */
     private $emailEncryption;
 
     /**
@@ -63,20 +46,8 @@ class EmailUpdateConfirmation implements EmailUpdateConfirmationInterface
      * @var string Route for confirmation link
      */
     private $confirmationRoute;
-
-    /**
-     * @var EventDispatcherInterface
-     */
     private $eventDispatcher;
 
-    /**
-     * EmailUpdateConfirmation constructor.
-     *
-     * @param Router                   $router
-     * @param TokenGenerator           $tokenGenerator
-     * @param MailerInterface          $mailer
-     * @param EmailEncryptionInterface $emailEncryption
-     */
     public function __construct(
         Router $router,
         TokenGenerator $tokenGenerator,
@@ -85,13 +56,9 @@ class EmailUpdateConfirmation implements EmailUpdateConfirmationInterface
         EventDispatcherInterface $eventDispatcher
     ) {
         $this->router = $router;
-
         $this->tokenGenerator = $tokenGenerator;
-
         $this->mailer = $mailer;
-
         $this->emailEncryption = $emailEncryption;
-
         $this->eventDispatcher = $eventDispatcher;
     }
 
