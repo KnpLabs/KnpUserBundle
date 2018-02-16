@@ -60,8 +60,7 @@ EOT
     {
         $username = $input->getArgument('username');
 
-        $manipulator = $this->userManipulator;
-        $manipulator->deactivate($username);
+        $this->userManipulator->deactivate($username);
 
         $output->writeln(sprintf('User "%s" has been deactivated.', $username));
     }

@@ -86,8 +86,7 @@ EOT
         $inactive = $input->getOption('inactive');
         $superadmin = $input->getOption('super-admin');
 
-        $manipulator = $this->userManipulator;
-        $manipulator->create($username, $password, $email, !$inactive, $superadmin);
+        $this->userManipulator->create($username, $password, $email, !$inactive, $superadmin);
 
         $output->writeln(sprintf('Created user <comment>%s</comment>', $username));
     }

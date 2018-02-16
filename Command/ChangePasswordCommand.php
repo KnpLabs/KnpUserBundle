@@ -66,8 +66,7 @@ EOT
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
 
-        $manipulator = $this->userManipulator;
-        $manipulator->changePassword($username, $password);
+        $this->userManipulator->changePassword($username, $password);
 
         $output->writeln(sprintf('Changed password for user <comment>%s</comment>', $username));
     }

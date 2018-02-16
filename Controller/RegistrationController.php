@@ -56,14 +56,11 @@ class RegistrationController extends Controller
      */
     public function registerAction(Request $request)
     {
-        $userManager = $this->userManager;
-        $dispatcher = $this->eventDispatcher;
-
-        $user = $userManager->createUser();
+        $user = $this->userManager->createUser();
         $user->setEnabled(true);
 
         $event = new GetResponseUserEvent($user, $request);
-        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
+        $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
 
         if (null !== $event->getResponse()) {
             return $event->getResponse();
@@ -77,22 +74,22 @@ class RegistrationController extends Controller
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $event = new FormEvent($form, $request);
-                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+                $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
 
-                $userManager->updateUser($user);
+                $this->userManager->updateUser($user);
 
                 if (null === $response = $event->getResponse()) {
                     $url = $this->generateUrl('fos_user_registration_confirmed');
                     $response = new RedirectResponse($url);
                 }
 
-                $dispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+                $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
 
                 return $response;
             }
 
             $event = new FormEvent($form, $request);
-            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_FAILURE, $event);
+            $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_FAILURE, $event);
 
             if (null !== $response = $event->getResponse()) {
                 return $response;
@@ -145,13 +142,11 @@ class RegistrationController extends Controller
             throw new NotFoundHttpException(sprintf('The user with confirmation token "%s" does not exist', $token));
         }
 
-        $dispatcher = $this->eventDispatcher;
-
         $user->setConfirmationToken(null);
         $user->setEnabled(true);
 
         $event = new GetResponseUserEvent($user, $request);
-        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRM, $event);
+        $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRM, $event);
 
         $userManager->updateUser($user);
 
@@ -160,7 +155,7 @@ class RegistrationController extends Controller
             $response = new RedirectResponse($url);
         }
 
-        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRMED, new FilterUserResponseEvent($user, $request, $response));
+        $this->eventDispatcher->dispatch(FOSUserEvents::REGISTRATION_CONFIRMED, new FilterUserResponseEvent($user, $request, $response));
 
         return $response;
     }
@@ -182,7 +177,7 @@ class RegistrationController extends Controller
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
     private function getTargetUrlFromSession(SessionInterface $session)
     {
@@ -191,5 +186,7 @@ class RegistrationController extends Controller
         if ($session->has($key)) {
             return $session->get($key);
         }
+
+        return null;
     }
 }

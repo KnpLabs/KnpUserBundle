@@ -34,23 +34,9 @@ class ConfirmEmailUpdateController extends Controller
     private $eventDispatcher;
     private $userManager;
     private $emailUpdateConfirmation;
-
-    /**
-     * @var TranslatorInterface
-     */
     private $translator;
-    /**
-     * @var CanonicalFieldsUpdater
-     */
     private $canonicalFieldsUpdater;
 
-    /**
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param UserManagerInterface     $userManager
-     * @param EmailUpdateConfirmation  $emailUpdateConfirmation
-     * @param TranslatorInterface      $translator
-     * @param CanonicalFieldsUpdater   $canonicalFieldsUpdater
-     */
     public function __construct(EventDispatcherInterface $eventDispatcher, UserManagerInterface $userManager, EmailUpdateConfirmation $emailUpdateConfirmation, TranslatorInterface $translator, CanonicalFieldsUpdater $canonicalFieldsUpdater)
     {
         $this->eventDispatcher = $eventDispatcher;

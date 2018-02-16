@@ -60,8 +60,7 @@ EOT
     {
         $username = $input->getArgument('username');
 
-        $manipulator = $this->userManipulator;
-        $manipulator->activate($username);
+        $this->userManipulator->activate($username);
 
         $output->writeln(sprintf('User "%s" has been activated.', $username));
     }
