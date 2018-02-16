@@ -6,7 +6,6 @@ Changelog
 * Add Symfony 4 compatibility.
 * Redirect to login when requesting resetting password with invalid token.
 * Added autocomplete hints for password inputs.
-* Added email update confirmation option.
 * Fixed several incorrect Turkish translations.
 
 ### 2.0.2 (2017-11-29)

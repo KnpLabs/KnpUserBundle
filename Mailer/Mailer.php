@@ -85,24 +85,6 @@ class Mailer implements MailerInterface
     }
 
     /**
-     * Send confirmation link to specified new user email.
-     *
-     * @param UserInterface $user
-     * @param string        $confirmationUrl
-     * @param string        $toEmail
-     */
-    public function sendUpdateEmailConfirmation(UserInterface $user, $confirmationUrl, $toEmail)
-    {
-        $template = $this->parameters['email_updating.template'];
-        $rendered = $this->templating->render($template, array(
-            'user' => $user,
-            'confirmationUrl' => $confirmationUrl,
-        ));
-
-        $this->sendEmailMessage($rendered, $this->parameters['from_email']['resetting'], $toEmail);
-    }
-
-    /**
      * @param string       $renderedTemplate
      * @param array|string $fromEmail
      * @param array|string $toEmail

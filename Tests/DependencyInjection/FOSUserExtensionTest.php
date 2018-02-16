@@ -23,7 +23,7 @@ class FOSUserExtensionTest extends TestCase
 
     protected function tearDown()
     {
-        unset($this->configuration);
+        $this->configuration = null;
     }
 
     /**
@@ -134,8 +134,6 @@ class FOSUserExtensionTest extends TestCase
         $config['profile'] = false;
         $loader->load(array($config), $this->configuration);
         $this->assertNotHasDefinition('fos_user.profile.form.factory');
-        $this->assertNotHasDefinition('fos_user.email_update_confirmation.template');
-        $this->assertNotHasDefinition('fos_user.email_update_confirmation.cypher_method');
     }
 
     public function testDisableChangePassword()
@@ -244,9 +242,6 @@ class FOSUserExtensionTest extends TestCase
         $this->assertParameter(array('admin@acme.org' => 'Acme Corp'), 'fos_user.registration.confirmation.from_email');
         $this->assertParameter('@FOSUser/Registration/email.txt.twig', 'fos_user.registration.confirmation.template');
         $this->assertParameter('@FOSUser/Resetting/email.txt.twig', 'fos_user.resetting.email.template');
-        $this->assertParameter('@FOSUser/Profile/email_update_confirmation.txt.twig', 'fos_user.email_update_confirmation.template');
-        $this->assertNotHasDefinition('fos_user.email_update_confirmation.cypher_method');
-        $this->assertNotHasDefinition('fos_user.email_update_confirmation.template');
         $this->assertParameter(array('admin@acme.org' => 'Acme Corp'), 'fos_user.resetting.email.from_email');
         $this->assertParameter(86400, 'fos_user.resetting.token_ttl');
     }
@@ -261,35 +256,6 @@ class FOSUserExtensionTest extends TestCase
         $this->assertParameter('AcmeMyBundle:Resetting:mail.txt.twig', 'fos_user.resetting.email.template');
         $this->assertParameter(array('reset@acme.org' => 'Acme Corp'), 'fos_user.resetting.email.from_email');
         $this->assertParameter(7200, 'fos_user.resetting.retry_ttl');
-        $this->assertParameter('@FOSUser/Profile/email_update_confirmation.txt.twig', 'fos_user.email_update_confirmation.template');
-        $this->assertParameter(null, 'fos_user.email_update_confirmation.cypher_method');
-    }
-
-    public function testUserLoadConfirmationEmailAndUpdateConfirmation()
-    {
-        $this->configuration = new ContainerBuilder();
-        $loader = new FOSUserExtension();
-        $config = $this->getFullConfig();
-        $loader->load(array($config), $this->configuration);
-        $this->assertTrue($this->configuration instanceof ContainerBuilder);
-
-        $this->assertParameter(true, 'fos_user.registration.confirmation.enabled');
-        $this->assertParameter(null, 'fos_user.email_update_confirmation.cypher_method');
-        $this->assertParameter('@FOSUser/Profile/email_update_confirmation.txt.twig', 'fos_user.email_update_confirmation.template');
-    }
-
-    public function testUserLoadConfirmationEmailAndNotUpdateConfirmation()
-    {
-        $this->configuration = new ContainerBuilder();
-        $loader = new FOSUserExtension();
-        $config = $this->getFullConfig();
-        $config['profile']['email_update_confirmation']['enabled'] = false;
-        $loader->load(array($config), $this->configuration);
-        $this->assertTrue($this->configuration instanceof ContainerBuilder);
-
-        $this->assertParameter(true, 'fos_user.registration.confirmation.enabled');
-        $this->assertNotHasDefinition('fos_user.email_update_confirmation.cypher_method');
-        $this->assertNotHasDefinition('fos_user.email_update_confirmation.template');
     }
 
     public function testUserLoadUtilServiceWithDefaults()
@@ -424,8 +390,6 @@ profile:
         type: acme_my_profile
         name: acme_profile_form
         validation_groups: [acme_profile]
-    email_update_confirmation:
-        enabled: true
 change_password:
     form:
         type: acme_my_change_password

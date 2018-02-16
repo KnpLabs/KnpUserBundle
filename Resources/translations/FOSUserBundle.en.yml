@@ -31,22 +31,6 @@ change_password:
     flash:
         success: 'The password has been changed.'
 
-email_update:
-    flash:
-        info: 'Please check the inbox of your new email address and click the link in the confirmation email.'
-        success: 'E-mail was successfully updated'
-    error:
-        message: 'Invalid confirmation link. Can not update the email address.'
-    email:
-        subject: 'Confirm the activation of the new email address.'
-        message: |
-            Hello %username%!
-
-            To activate your new email address - please visit %confirmationUrl%
-
-            Kind regards,
-            the Team.
-
 registration:
     check_email: |
         An email has been sent to %email%. It contains an activation link you must click to activate your account.
