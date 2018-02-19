@@ -41,6 +41,7 @@ class FOSUserExtension extends Extension
     );
 
     private $mailerNeeded = false;
+    private $sessionNeeded = false;
 
     /**
      * {@inheritdoc}
@@ -78,6 +79,7 @@ class FOSUserExtension extends Extension
         }
 
         if ($config['use_flash_notifications']) {
+            $this->sessionNeeded = true;
             $loader->load('flash_notifications.xml');
         }
 
@@ -129,6 +131,11 @@ class FOSUserExtension extends Extension
 
         if ($this->mailerNeeded) {
             $container->setAlias('fos_user.mailer', $config['service']['mailer']);
+        }
+
+        if ($this->sessionNeeded) {
+            // Use a private alias rather than a parameter, to avoid leaking it at runtime (the private alias will be removed)
+            $container->setAlias('fos_user.session', new Alias('session', false));
         }
     }
 
@@ -203,6 +210,7 @@ class FOSUserExtension extends Extension
     private function loadRegistration(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail)
     {
         $loader->load('registration.xml');
+        $this->sessionNeeded = true;
 
         if ($config['confirmation']['enabled']) {
             $this->mailerNeeded = true;
