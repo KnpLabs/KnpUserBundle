@@ -4,6 +4,14 @@ Upgrade instruction
 This document describes the changes needed when upgrading because of a BC
 break. For the full list of changes, please look at the Changelog file.
 
+## 2.0 to 2.1
+
+Controllers and commands now use DI and are defined as services.
+
+Projects overriding them will need to adapt their code to fit with these changes.
+Note that backward compatibility is not ensured for such usage. Relying on
+extension points of the bundle (mostly through events) is preferred.
+
 ## 2.0.0-alpha3 to 2.0.0-beta1
 
 Methods and properties removed from `FOS\UserBundle\Model\User`
