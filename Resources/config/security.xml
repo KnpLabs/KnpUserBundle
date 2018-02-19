@@ -23,7 +23,7 @@
             <argument>null</argument> <!-- remember_me service -->
         </service>
 
-        <service id="FOS\UserBundle\Security\LoginManagerInterface" alias="fos_user.security.login_manager" />
+        <service id="FOS\UserBundle\Security\LoginManagerInterface" alias="fos_user.security.login_manager" public="false" />
 
         <service id="fos_user.user_provider.username" class="FOS\UserBundle\Security\UserProvider" public="false">
             <argument type="service" id="fos_user.user_manager" />
