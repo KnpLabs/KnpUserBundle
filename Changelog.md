@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.1.1 (2018-02-20)
+
+* Fixed the check for the required session, to account for the fact it is not always required.
+
 ### 2.1.0 (2018-02-16)
 
 * Dropped Symfony < 2.8 support.
