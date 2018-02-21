@@ -23,6 +23,9 @@
             <argument type="service" id="fos_user.registration.form.factory" />
             <argument type="service" id="fos_user.user_manager" />
             <argument type="service" id="security.token_storage" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
         </service>
     </services>
 

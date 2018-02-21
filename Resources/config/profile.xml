@@ -22,6 +22,9 @@
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="fos_user.profile.form.factory" />
             <argument type="service" id="fos_user.user_manager" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
         </service>
     </services>
 

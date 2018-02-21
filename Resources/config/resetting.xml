@@ -31,6 +31,9 @@
             <argument type="service" id="fos_user.util.token_generator" />
             <argument type="service" id="fos_user.mailer" />
             <argument>%fos_user.resetting.retry_ttl%</argument>
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
         </service>
     </services>
 
