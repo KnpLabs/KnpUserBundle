@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.1.3 (2018-xx-xx)
+
+* Added Mongolian translation.
+
 ### 2.1.2 (2018-03-08)
 
 * Fixed compatibility of controllers with Symfony 2.8
