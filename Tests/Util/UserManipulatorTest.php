@@ -327,6 +327,51 @@ class UserManipulatorTest extends TestCase
         $manipulator->changePassword($invalidusername, $password);
     }
 
+    public function testAddRole()
+    {
+        $userManagerMock = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')->getMock();
+        $username = 'test_username';
+        $userRole = 'test_role';
+        $user = new TestUser();
+
+        $userManagerMock->expects($this->exactly(2))
+            ->method('findUserByUsername')
+            ->will($this->returnValue($user))
+            ->with($this->equalTo($username));
+
+        $eventDispatcherMock = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        $requestStackMock = $this->getRequestStackMock(false);
+
+        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $requestStackMock);
+
+        $this->assertTrue($manipulator->addRole($username, $userRole));
+        $this->assertFalse($manipulator->addRole($username, $userRole));
+        $this->assertTrue($user->hasRole($userRole));
+    }
+
+    public function testRemoveRole()
+    {
+        $userManagerMock = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')->getMock();
+        $username = 'test_username';
+        $userRole = 'test_role';
+        $user = new TestUser();
+        $user->addRole($userRole);
+
+        $userManagerMock->expects($this->exactly(2))
+            ->method('findUserByUsername')
+            ->will($this->returnValue($user))
+            ->with($this->equalTo($username));
+
+        $eventDispatcherMock = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        $requestStackMock = $this->getRequestStackMock(false);
+
+        $manipulator = new UserManipulator($userManagerMock, $eventDispatcherMock, $requestStackMock);
+
+        $this->assertTrue($manipulator->removeRole($username, $userRole));
+        $this->assertFalse($user->hasRole($userRole));
+        $this->assertFalse($manipulator->removeRole($username, $userRole));
+    }
+
     /**
      * @param string $event
      * @param bool   $once
