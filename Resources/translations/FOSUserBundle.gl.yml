@@ -58,7 +58,6 @@ resetting:
     password_already_requested: O contrasinal para este usuario solicitouse xa dentro das 24 horas.
     check_email: Enviouse un email %email%. Contén un enlace de activación que deberás premer para restablecelo teu contrasinal.
     request:
-        invalid_username: O usuario ou dirección de correo "%username%" non existe.
         username: Nome de usuario
         submit: Restablecer contrasinal
     reset:
