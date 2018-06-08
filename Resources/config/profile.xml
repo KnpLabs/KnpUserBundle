@@ -26,6 +26,8 @@
                 <argument type="service" id="service_container" />
             </call>
         </service>
+
+        <service id="FOS\UserBundle\Controller\ProfileController" alias="fos_user.profile.controller" public="true" />
     </services>
 
 </container>

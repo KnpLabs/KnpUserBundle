@@ -27,6 +27,8 @@
                 <argument type="service" id="service_container" />
             </call>
         </service>
+
+        <service id="FOS\UserBundle\Controller\RegistrationController" alias="fos_user.registration.controller" public="true" />
     </services>
 
 </container>

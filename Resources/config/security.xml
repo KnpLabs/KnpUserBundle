@@ -43,6 +43,8 @@
                 <argument type="service" id="service_container" />
             </call>
         </service>
+
+        <service id="FOS\UserBundle\Controller\SecurityController" alias="fos_user.security.controller" public="true" />
     </services>
 
 </container>
