@@ -47,7 +47,11 @@ registration:
             Teamet.
 
 resetting:
-    check_email: 'Ett meddelande har skickats till %email%. Det innehåller en länk som du måste klicka på för att återställa ditt lösenord.'
+    check_email: |
+        Ett meddelande har skickats. Det innehåller en länk som du kan klicka för att återställa ditt lösenord.
+        Obs! Man kan inte återställa sitt lösenord oftare än var %tokenLifetime% timme.
+
+        Om du inte har fått ett meddelande, vänligen kolla din skräpinkorg eller försök igen.
     request:
         username: 'Användarnamn eller epost-adress'
         submit: 'Återställ lösenord'
