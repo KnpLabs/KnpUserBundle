@@ -6,9 +6,9 @@ group:
     new:
         submit: 'Utwórz grupę'
     flash:
-        updated: 'Grupa została zaktualizowana.'
-        created: 'Grupa została utworzona.'
-        deleted: 'Grupa została usunięta.'
+        updated: 'Grupa została zaktualizowana'
+        created: 'Grupa została utworzona'
+        deleted: 'Grupa została usunięta'
 security:
     login:
         username: 'Nazwa użytkownika'
@@ -22,34 +22,34 @@ profile:
     edit:
         submit: 'Edytuj użytkownika'
     flash:
-        updated: 'Zapisano zmiany w profilu.'
+        updated: 'Zapisano zmiany w profilu'
 change_password:
     submit: 'Zmień hasło'
     flash:
-        success: 'Hasło zostało zmienione.'
+        success: 'Hasło zostało zmienione'
 registration:
     check_email: 'Na adres %email% wysłano wiadomość e-mail z linkiem. Kliknij go, aby aktywować Twoje konto.'
     confirmed: 'Gratulacje %username%, Twoje konto zostało aktywowane.'
-    back: 'Powrót do poprzedniej strony.'
+    back: 'Powrót do poprzedniej strony'
     submit: Zarejestruj
     flash:
-        user_created: 'Utworzono użytkownika.'
+        user_created: 'Twoje konto zostało utworzone'
     email:
-        subject: 'Witaj %username%!'
+        subject: 'Cześć %username%!'
         message: |
             Cześć %username%!
 
-            Aby potwierdzić Twoje konto, przejdź pod adres %confirmationUrl%
+            Aby aktywować Twoje konto, przejdź pod adres %confirmationUrl%
 
             Pozdrawiamy,
             Zespół.
-
 resetting:
     check_email: |
         E-mail został wysłany. Zawiera on link do formularza zmiany hasła.
         Uwaga: Możesz zresetować hasło tylko jeden raz w ciągu %tokenLifetime% godzin.
 
-        Sprawdź swoją skrzynkę pocztową, jeśli jednak nie widzisz wiadomości od nas, sprawdź folder spam lub spróbuj ponownie później.
+        Sprawdź swoją skrzynkę pocztową, jeśli jednak nie widzisz wiadomości od nas, sprawdź folder spam lub spróbuj
+        ponownie później.
 
     request:
         username: 'Nazwa użytkownika lub e-mail'
@@ -57,7 +57,7 @@ resetting:
     reset:
         submit: 'Zmień hasło'
     flash:
-        success: 'Hasło zostało zresetowane.'
+        success: 'Hasło zostało zresetowane'
     email:
         subject: 'Resetowanie hasła'
         message: |
@@ -68,6 +68,7 @@ resetting:
             Pozdrawiamy,
             Zespół.
 
+# Global strings
 layout:
     logout: Wyloguj
     login: Zaloguj

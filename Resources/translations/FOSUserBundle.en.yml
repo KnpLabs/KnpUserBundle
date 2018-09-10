@@ -9,14 +9,12 @@ group:
         updated: 'The group has been updated.'
         created: 'The group has been created.'
         deleted: 'The group has been deleted.'
-
 security:
     login:
         username: Username
         password: Password
         remember_me: 'Remember me'
         submit: 'Log in'
-
 profile:
     show:
         username: Username
@@ -25,12 +23,10 @@ profile:
         submit: Update
     flash:
         updated: 'The profile has been updated.'
-
 change_password:
     submit: 'Change password'
     flash:
         success: 'The password has been changed.'
-
 registration:
     check_email: |
         An email has been sent to %email%. It contains an activation link you must click to activate your account.
@@ -50,7 +46,6 @@ registration:
 
             Regards,
             the Team.
-
 resetting:
     check_email: |
         An email has been sent. It contains a link you must click to reset your password.
@@ -80,7 +75,6 @@ layout:
     login: 'Log in'
     register: Register
     logged_in_as: 'Logged in as %username%'
-
 form:
     group_name: 'Group name'
     username: Username
