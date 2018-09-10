@@ -1,5 +1,5 @@
 Logging in by Username or Email
-============================
+===============================
 
 As of the version 1.3.0, the bundle provides a built-in user provider implementation
 using both the username and email fields. To use it, simply change the id
