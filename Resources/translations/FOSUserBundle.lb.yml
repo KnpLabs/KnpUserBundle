@@ -65,7 +65,7 @@ resetting:
     flash:
         success: 'D''Passwuert gouf erfollegräich zeréckgesat.'
     email:
-#        subject: 'Wëllkomm %username%!'
+        subject: 'Passwuert zrécksetzen'
         message: |
             Hallo %username%!
 
