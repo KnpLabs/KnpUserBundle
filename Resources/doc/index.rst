@@ -384,8 +384,6 @@ import the FOSUserBundle routing files.
 By importing the routing files you will have ready made pages for things such as
 logging in, creating users, etc.
 
-Use `routing_41` instead of `routing` for `Symfony4.1`.
-
 .. configuration-block::
 
     .. code-block:: yaml
