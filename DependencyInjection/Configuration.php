@@ -31,8 +31,13 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('fos_user');
+        $treeBuilder = new TreeBuilder('fos_user');
+
+        if (method_exists($treeBuilder, 'getRootNode')) {
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            $rootNode = $treeBuilder->root('fos_user');
+        }
 
         $supportedDrivers = array('orm', 'mongodb', 'couchdb', 'custom');
 
