@@ -41,11 +41,11 @@ registration:
     email:
         subject: 'Chào mừng %username%!'
         message: |
-        Xin chào %username%!
+            Xin chào %username%!
 
-        Để hoàn tất kích hoạt tài khoản của bạn - vui lòng truy cập %confirmationUrl%.
+            Để hoàn tất kích hoạt tài khoản của bạn - vui lòng truy cập %confirmationUrl%.
 
-        Cám ơn.'
+            Cám ơn.'
 
 resetting:
     check_email: |
@@ -63,11 +63,11 @@ resetting:
     email:
         subject: 'Thiết lập lại mật khẩu'
         message: |
-        Xin chào %username%!
+            Xin chào %username%!
 
-        Để thiết lập lại mật khẩu của bạn - vui lòng truy cập %confirmationUrl%
+            Để thiết lập lại mật khẩu của bạn - vui lòng truy cập %confirmationUrl%
 
-        Trân trọng.
+            Trân trọng.
 
 # Global strings
 layout:
