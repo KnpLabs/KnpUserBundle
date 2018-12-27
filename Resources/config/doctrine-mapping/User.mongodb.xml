@@ -6,27 +6,27 @@
 
     <mapped-superclass name="FOS\UserBundle\Model\User" collection="fos_user_user">
 
-        <field name="username" fieldName="username" type="string" />
+        <field name="username" type="string" />
 
-        <field name="usernameCanonical" fieldName="usernameCanonical" type="string" />
+        <field name="usernameCanonical" type="string" />
 
-        <field name="email" fieldName="email" type="string" />
+        <field name="email" type="string" />
 
-        <field name="emailCanonical" fieldName="emailCanonical" type="string" />
+        <field name="emailCanonical" type="string" />
 
-        <field name="enabled" fieldName="enabled" type="boolean" />
+        <field name="enabled" type="boolean" />
 
-        <field name="salt" fieldName="salt" type="string" />
+        <field name="salt" type="string" />
 
-        <field name="password" fieldName="password" type="string" />
+        <field name="password" type="string" />
 
-        <field name="lastLogin" fieldName="lastLogin" type="date" />
+        <field name="lastLogin" type="date" />
 
-        <field name="confirmationToken" fieldName="confirmationToken" type="string" />
+        <field name="confirmationToken" type="string" />
 
-        <field name="passwordRequestedAt" fieldName="passwordRequestedAt" type="date" />
+        <field name="passwordRequestedAt" type="date" />
 
-        <field name="roles" fieldName="roles" type="collection" />
+        <field name="roles" type="collection" />
 
         <indexes>
             <index>
