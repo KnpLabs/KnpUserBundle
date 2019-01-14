@@ -8,7 +8,6 @@
         <service id="fos_user.listener.flash" class="FOS\UserBundle\EventListener\FlashListener">
             <tag name="kernel.event_subscriber" />
             <argument type="service" id="session" />
-            <argument type="service" id="translator" />
         </service>
     </services>
 
