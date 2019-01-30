@@ -6,9 +6,9 @@
 
     <mapped-superclass name="FOS\UserBundle\Model\Group" collection="fos_user_group">
 
-        <field name="name" fieldName="name" type="string" />
+        <field name="name" type="string" />
 
-        <field name="roles" fieldName="roles" type="collection" />
+        <field name="roles" type="collection" />
 
         <indexes>
             <index>
