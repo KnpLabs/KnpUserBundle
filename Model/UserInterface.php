@@ -161,7 +161,7 @@ interface FosUserInterface extends \Serializable
     /**
      * Sets the timestamp that the user requested a password reset.
      *
-     * @param null|\DateTime $date
+     * @param \DateTime|null $date
      *
      * @return static
      */
