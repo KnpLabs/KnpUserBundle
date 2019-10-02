@@ -14,7 +14,7 @@ namespace FOS\UserBundle\EventListener;
 use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class FlashListener implements EventSubscriberInterface
@@ -33,7 +33,7 @@ class FlashListener implements EventSubscriberInterface
     );
 
     /**
-     * @var Session
+     * @var SessionInterface
      */
     private $session;
 
@@ -45,10 +45,10 @@ class FlashListener implements EventSubscriberInterface
     /**
      * FlashListener constructor.
      *
-     * @param Session             $session
+     * @param SessionInterface    $session
      * @param TranslatorInterface $translator
      */
-    public function __construct(Session $session, TranslatorInterface $translator)
+    public function __construct(SessionInterface $session, TranslatorInterface $translator)
     {
         $this->session = $session;
         $this->translator = $translator;
