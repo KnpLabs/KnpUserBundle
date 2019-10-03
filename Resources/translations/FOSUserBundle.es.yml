@@ -54,6 +54,7 @@ resetting:
         Si no recibes un correo electrónico, comprueba tu carpeta de correo no deseado o inténtalo de nuevo.
 
     request:
+        invalid_username: El usuario o correo electrónico "%username%" no existe.
         username: 'Nombre de usuario o correo electrónico'
         submit: 'Restablecer contraseña'
     reset:
