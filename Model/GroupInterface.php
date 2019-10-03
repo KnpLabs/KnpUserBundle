@@ -25,7 +25,7 @@ interface GroupInterface
     public function addRole($role);
 
     /**
-     * @return int
+     * @return mixed
      */
     public function getId();
 
