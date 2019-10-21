@@ -21,7 +21,7 @@ All available configuration options are listed below with their default values.
             form:
                 type:               FOS\UserBundle\Form\Type\ProfileFormType
                 name:               fos_user_profile_form
-                validation_groups:  [Profile, Default]openssl_get_cipher_methods will be used. See http://php.net/manual/function.openssl-get-cipher-methods.php
+                validation_groups:  [Profile, Default]
         change_password:
             form:
                 type:               FOS\UserBundle\Form\Type\ChangePasswordFormType
