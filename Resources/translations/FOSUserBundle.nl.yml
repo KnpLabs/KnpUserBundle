@@ -41,6 +41,8 @@ registration:
 
             U moet uw account nog valideren, ga naar %confirmationUrl%
 
+            Deze link kan maar één keer gebruikt worden om je account te valideren.
+
             Vriendelijke groeten,
             het Team.
 
@@ -50,7 +52,6 @@ resetting:
         Opgelet: Je kan pas na %tokenLifetime% uur een nieuw wachtwoord aanvragen.
 
         Indien je geen email ontvangen hebt, controleer dan zeker je spam folder of probeer opnieuw.
-
     request:
         username: 'Gebruikersnaam of e-mailadres'
         submit: 'Reset wachtwoord'
@@ -68,6 +69,7 @@ resetting:
             Met vriendelijke groet,
             het Team.
 
+#Global strings
 layout:
     logout: Uitloggen
     login: Inloggen
