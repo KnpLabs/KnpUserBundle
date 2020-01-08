@@ -2,7 +2,6 @@ Changelog
 =========
 
 ### 2.2.0 (2020-01-xx)
-=======
 
 * Marked all controllers final.
 * Added Mongolian translation.
