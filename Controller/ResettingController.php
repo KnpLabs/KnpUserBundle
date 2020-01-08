@@ -46,12 +46,7 @@ class ResettingController extends Controller
     private $retryTtl;
 
     /**
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param FactoryInterface         $formFactory
-     * @param UserManagerInterface     $userManager
-     * @param TokenGeneratorInterface  $tokenGenerator
-     * @param MailerInterface          $mailer
-     * @param int                      $retryTtl
+     * @param int $retryTtl
      */
     public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager, TokenGeneratorInterface $tokenGenerator, MailerInterface $mailer, $retryTtl)
     {
@@ -73,8 +68,6 @@ class ResettingController extends Controller
 
     /**
      * Request reset user password: submit form and send email.
-     *
-     * @param Request $request
      *
      * @return Response
      */
@@ -122,13 +115,11 @@ class ResettingController extends Controller
             }
         }
 
-        return new RedirectResponse($this->generateUrl('fos_user_resetting_check_email', array('username' => $username)));
+        return new RedirectResponse($this->generateUrl('fos_user_resetting_check_email', ['username' => $username]));
     }
 
     /**
      * Tell the user to check his email provider.
-     *
-     * @param Request $request
      *
      * @return Response
      */
@@ -141,16 +132,15 @@ class ResettingController extends Controller
             return new RedirectResponse($this->generateUrl('fos_user_resetting_request'));
         }
 
-        return $this->render('@FOSUser/Resetting/check_email.html.twig', array(
+        return $this->render('@FOSUser/Resetting/check_email.html.twig', [
             'tokenLifetime' => ceil($this->retryTtl / 3600),
-        ));
+        ]);
     }
 
     /**
      * Reset user password.
      *
-     * @param Request $request
-     * @param string  $token
+     * @param string $token
      *
      * @return Response
      */
@@ -193,9 +183,9 @@ class ResettingController extends Controller
             return $response;
         }
 
-        return $this->render('@FOSUser/Resetting/reset.html.twig', array(
+        return $this->render('@FOSUser/Resetting/reset.html.twig', [
             'token' => $token,
             'form' => $form->createView(),
-        ));
+        ]);
     }
 }

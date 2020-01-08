@@ -39,10 +39,10 @@ class ChangePasswordCommand extends Command
         $this
             ->setName('fos:user:change-password')
             ->setDescription('Change the password of a user.')
-            ->setDefinition(array(
+            ->setDefinition([
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
                 new InputArgument('password', InputArgument::REQUIRED, 'The password'),
-            ))
+            ])
             ->setHelp(<<<'EOT'
 The <info>fos:user:change-password</info> command changes the password of a user:
 
@@ -76,7 +76,7 @@ EOT
      */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        $questions = array();
+        $questions = [];
 
         if (!$input->getArgument('username')) {
             $question = new Question('Please give the username:');

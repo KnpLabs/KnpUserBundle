@@ -35,8 +35,6 @@ class SecurityController extends Controller
     }
 
     /**
-     * @param Request $request
-     *
      * @return Response
      */
     public function loginAction(Request $request)
@@ -68,11 +66,11 @@ class SecurityController extends Controller
             ? $this->tokenManager->getToken('authenticate')->getValue()
             : null;
 
-        return $this->renderLogin(array(
+        return $this->renderLogin([
             'last_username' => $lastUsername,
             'error' => $error,
             'csrf_token' => $csrfToken,
-        ));
+        ]);
     }
 
     public function checkAction()
@@ -88,8 +86,6 @@ class SecurityController extends Controller
     /**
      * Renders the login template with the given parameters. Overwrite this function in
      * an extended controller to provide additional data for the login template.
-     *
-     * @param array $data
      *
      * @return Response
      */

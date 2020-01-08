@@ -53,15 +53,13 @@ class ProfileController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        return $this->render('@FOSUser/Profile/show.html.twig', array(
+        return $this->render('@FOSUser/Profile/show.html.twig', [
             'user' => $user,
-        ));
+        ]);
     }
 
     /**
      * Edit the user.
-     *
-     * @param Request $request
      *
      * @return Response
      */
@@ -100,8 +98,8 @@ class ProfileController extends Controller
             return $response;
         }
 
-        return $this->render('@FOSUser/Profile/edit.html.twig', array(
+        return $this->render('@FOSUser/Profile/edit.html.twig', [
             'form' => $form->createView(),
-        ));
+        ]);
     }
 }
