@@ -20,6 +20,8 @@ namespace FOS\UserBundle\Model;
  * All changes to groups should happen through this interface.
  *
  * @author Christophe Coevoet <stof@notk.org>
+ *
+ * @deprecated
  */
 interface GroupManagerInterface
 {

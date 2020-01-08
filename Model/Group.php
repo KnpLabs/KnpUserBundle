@@ -15,6 +15,8 @@ namespace FOS\UserBundle\Model;
 
 /**
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
+ *
+ * @deprecated
  */
 abstract class Group implements GroupInterface
 {

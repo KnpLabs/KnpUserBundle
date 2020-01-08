@@ -18,6 +18,9 @@ use Doctrine\Common\Persistence\ObjectRepository;
 use FOS\UserBundle\Model\GroupInterface;
 use FOS\UserBundle\Model\GroupManager as BaseGroupManager;
 
+/**
+ * @deprecated
+ */
 class GroupManager extends BaseGroupManager
 {
     /**

@@ -34,7 +34,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Christophe Coevoet <stof@notk.org>
  *
- * @final
+ * @deprecated
  */
 class GroupController extends Controller
 {

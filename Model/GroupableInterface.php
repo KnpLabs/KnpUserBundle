@@ -17,6 +17,8 @@ namespace FOS\UserBundle\Model;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  * @author Christophe Coevoet <stof@notk.org>
+ *
+ * @deprecated
  */
 interface GroupableInterface
 {

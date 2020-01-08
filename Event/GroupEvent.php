@@ -17,6 +17,9 @@ use FOS\UserBundle\Model\GroupInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @deprecated
+ */
 class GroupEvent extends Event
 {
     /**

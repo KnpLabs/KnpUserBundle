@@ -18,6 +18,8 @@ namespace FOS\UserBundle\Model;
  * concrete manager.
  *
  * @author Christophe Coevoet <stof@notk.org>
+ *
+ * @deprecated
  */
 abstract class GroupManager implements GroupManagerInterface
 {
