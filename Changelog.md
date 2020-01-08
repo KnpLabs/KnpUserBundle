@@ -7,7 +7,7 @@ Changelog
 * Added Mongolian translation.
 * Added an email provider.
 * Added a custom user checker.
-* Added PHP 7.3 support.
+* Added PHP 7.4 support.
 * Removed fieldName attribute in MongoDB mapping.
 * Registration confirmation now redirects to login page if token is invalid.
 * User model will not rely on `AdvancedUserInterface` anymore.
