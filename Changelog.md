@@ -1,8 +1,9 @@
 Changelog
 =========
 
-### 2.1.3 (2018-xx-xx)
+### 2.2.0 (2020-xx-xx)
 
+* Marked all controllers final.
 * Added Mongolian translation.
 
 ### 2.1.2 (2018-03-08)

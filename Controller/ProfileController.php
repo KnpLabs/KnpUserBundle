@@ -29,6 +29,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  * Controller managing the user profile.
  *
  * @author Christophe Coevoet <stof@notk.org>
+ *
+ * @final
  */
 class ProfileController extends Controller
 {

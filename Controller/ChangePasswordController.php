@@ -30,6 +30,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Christophe Coevoet <stof@notk.org>
+ *
+ * @final
  */
 class ChangePasswordController extends Controller
 {
