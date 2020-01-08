@@ -31,6 +31,8 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Christophe Coevoet <stof@notk.org>
+ *
+ * @final
  */
 class ResettingController extends Controller
 {
