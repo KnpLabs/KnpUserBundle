@@ -101,7 +101,7 @@ class MailerTest extends TestCase
 
     private function getTemplating()
     {
-        $templating = $this->getMockBuilder('Twig\Environment')
+        $templating = $this->getMockBuilder('Symfony\Bundle\FrameworkBundle\Templating\EngineInterface')
             ->disableOriginalConstructor()
             ->getMock()
         ;
