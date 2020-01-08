@@ -63,6 +63,8 @@ EOT
         $this->userManipulator->deactivate($username);
 
         $output->writeln(sprintf('User "%s" has been deactivated.', $username));
+
+        return 0;
     }
 
     /**
