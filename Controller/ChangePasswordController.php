@@ -49,8 +49,6 @@ class ChangePasswordController extends Controller
     /**
      * Change user password.
      *
-     * @param Request $request
-     *
      * @return Response
      */
     public function changePasswordAction(Request $request)
@@ -88,8 +86,8 @@ class ChangePasswordController extends Controller
             return $response;
         }
 
-        return $this->render('@FOSUser/ChangePassword/change_password.html.twig', array(
+        return $this->render('@FOSUser/ChangePassword/change_password.html.twig', [
             'form' => $form->createView(),
-        ));
+        ]);
     }
 }

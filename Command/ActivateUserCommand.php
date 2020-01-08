@@ -42,9 +42,9 @@ class ActivateUserCommand extends Command
         $this
             ->setName('fos:user:activate')
             ->setDescription('Activate a user')
-            ->setDefinition(array(
+            ->setDefinition([
                 new InputArgument('username', InputArgument::REQUIRED, 'The username'),
-            ))
+            ])
             ->setHelp(<<<'EOT'
 The <info>fos:user:activate</info> command activates a user (so they will be able to log in):
 
