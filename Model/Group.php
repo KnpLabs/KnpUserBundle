@@ -11,6 +11,8 @@
 
 namespace FOS\UserBundle\Model;
 
+@trigger_error('Using Groups is deprecated since version 2.2 and will be removed in 3.0.', E_USER_DEPRECATED);
+
 /**
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
