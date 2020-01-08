@@ -65,6 +65,8 @@ abstract class RoleCommand extends Command
 
         $manipulator = $this->userManipulator;
         $this->executeRoleCommand($manipulator, $output, $username, $super, $role);
+
+        return 0;
     }
 
     /**
