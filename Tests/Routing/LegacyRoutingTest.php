@@ -26,7 +26,6 @@ class LegacyRoutingTest extends TestCase
      *
      * @param string $routeName
      * @param string $path
-     * @param array  $methods
      */
     public function testLegacyGroupRouting($routeName, $path, array $methods)
     {
@@ -49,12 +48,12 @@ class LegacyRoutingTest extends TestCase
      */
     public function loadRoutingProvider()
     {
-        return array(
-            array('fos_user_group_list', '/group/list', array('GET')),
-            array('fos_user_group_new', '/group/new', array('GET', 'POST')),
-            array('fos_user_group_show', '/group/{groupName}', array('GET')),
-            array('fos_user_group_edit', '/group/{groupName}/edit', array('GET', 'POST')),
-            array('fos_user_group_delete', '/group/{groupName}/delete', array('GET')),
-        );
+        return [
+            ['fos_user_group_list', '/group/list', ['GET']],
+            ['fos_user_group_new', '/group/new', ['GET', 'POST']],
+            ['fos_user_group_show', '/group/{groupName}', ['GET']],
+            ['fos_user_group_edit', '/group/{groupName}/edit', ['GET', 'POST']],
+            ['fos_user_group_delete', '/group/{groupName}/delete', ['GET']],
+        ];
     }
 }
