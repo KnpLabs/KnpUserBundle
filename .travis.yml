@@ -10,6 +10,7 @@ php:
 env:
   global:
     - TARGET=test
+    - SYMFONY_DEPRECATIONS_HELPER=weak
 
 matrix:
   fast_finish: true
