@@ -13,9 +13,6 @@ namespace FOS\UserBundle\Tests;
 
 use FOS\UserBundle\Model\Group;
 
-/**
- * @deprecated
- */
 class TestGroup extends Group
 {
     /**
