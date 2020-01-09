@@ -238,6 +238,15 @@ class FOSUserExtensionTest extends TestCase
         $this->assertParameter('mongodb', 'fos_user.storage');
         $this->assertParameter(null, 'fos_user.model_manager_name');
         $this->assertAlias('fos_user.user_manager.default', 'fos_user.user_manager');
+    }
+
+    /**
+     * @group legacy
+     */
+    public function testLegacyUserLoadManagerClassWithDefaults()
+    {
+        $this->createEmptyConfiguration();
+
         $this->assertNotHasDefinition('fos_user.group_manager');
     }
 
@@ -248,6 +257,15 @@ class FOSUserExtensionTest extends TestCase
         $this->assertParameter('orm', 'fos_user.storage');
         $this->assertParameter('custom', 'fos_user.model_manager_name');
         $this->assertAlias('acme_my.user_manager', 'fos_user.user_manager');
+    }
+
+    /**
+     * @group legacy
+     */
+    public function testLegacyUserLoadManagerClass()
+    {
+        $this->createFullConfiguration();
+
         $this->assertAlias('fos_user.group_manager.default', 'fos_user.group_manager');
     }
 
