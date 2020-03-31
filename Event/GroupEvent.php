@@ -11,10 +11,15 @@
 
 namespace FOS\UserBundle\Event;
 
+@trigger_error('Using Groups is deprecated since version 2.2 and will be removed in 3.0.', E_USER_DEPRECATED);
+
 use FOS\UserBundle\Model\GroupInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @deprecated
+ */
 class GroupEvent extends Event
 {
     /**

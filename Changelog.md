@@ -3,6 +3,7 @@ Changelog
 
 ### 2.2.0 (2020-01-xx)
 
+* Deprecated the Groups feature.
 * Marked all controllers final.
 * Added Mongolian translation.
 * Added an email provider.
