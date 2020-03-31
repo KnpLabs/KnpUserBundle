@@ -13,7 +13,6 @@ Changelog
 * User model will not rely on `AdvancedUserInterface` anymore.
 * Self-salting password encoders will not create a salt anymore.
 * FlashListener constructor now accepts `SessionInterface`.
-* Fixed `UserManagerInterface::updateUser` signature.
 * Fixed several Symfony deprecation notices.
 * Fixed several translations.
 
