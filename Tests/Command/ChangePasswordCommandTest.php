@@ -31,7 +31,7 @@ class ChangePasswordCommandTest extends TestCase
         ]);
 
         $this->assertSame(0, $exitCode, 'Returns 0 in case of success');
-        $this->assertRegExp('/Changed password for user user/', $commandTester->getDisplay());
+        $this->assertMatchesRegularExpression('/Changed password for user user/', $commandTester->getDisplay());
     }
 
     public function testExecuteInteractiveWithQuestionHelper()
@@ -58,7 +58,7 @@ class ChangePasswordCommandTest extends TestCase
         ]);
 
         $this->assertSame(0, $exitCode, 'Returns 0 in case of success');
-        $this->assertRegExp('/Changed password for user user/', $commandTester->getDisplay());
+        $this->assertMatchesRegularExpression('/Changed password for user user/', $commandTester->getDisplay());
     }
 
     /**
