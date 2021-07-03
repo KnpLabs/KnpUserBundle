@@ -41,9 +41,9 @@ class DeactivateUserCommandTest extends TestCase
             ->setMethods(['ask'])
             ->getMock();
 
-        $helper->expects($this->at(0))
+        $helper->expects($this->once())
             ->method('ask')
-            ->will($this->returnValue('user'));
+            ->willReturn('user');
 
         $application->getHelperSet()->set($helper, 'question');
 

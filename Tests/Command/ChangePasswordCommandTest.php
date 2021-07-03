@@ -42,12 +42,9 @@ class ChangePasswordCommandTest extends TestCase
             ->setMethods(['ask'])
             ->getMock();
 
-        $helper->expects($this->at(0))
+        $helper->expects($this->exactly(2))
             ->method('ask')
-            ->will($this->returnValue('user'));
-        $helper->expects($this->at(1))
-            ->method('ask')
-            ->will($this->returnValue('pass'));
+            ->willReturnOnConsecutiveCalls('user', 'pass');
 
         $application->getHelperSet()->set($helper, 'question');
 
