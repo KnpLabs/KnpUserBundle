@@ -15,6 +15,9 @@ use FOS\UserBundle\Model\GroupInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @final
+ */
 class FilterGroupResponseEvent extends GroupEvent
 {
     /**

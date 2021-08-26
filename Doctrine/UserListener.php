@@ -12,10 +12,10 @@
 namespace FOS\UserBundle\Doctrine;
 
 use Doctrine\Common\EventSubscriber;
-use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManager;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Doctrine\Persistence\ObjectManager;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Util\CanonicalFieldsUpdater;
 use FOS\UserBundle\Util\PasswordUpdaterInterface;
@@ -25,6 +25,9 @@ use FOS\UserBundle\Util\PasswordUpdaterInterface;
  *
  * @author Christophe Coevoet <stof@notk.org>
  * @author David Buchmann <mail@davidbu.ch>
+ *
+ * @internal
+ * @final
  */
 class UserListener implements EventSubscriber
 {

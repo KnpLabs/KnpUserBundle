@@ -18,6 +18,9 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @final
+ */
 class RegistrationFormType extends AbstractType
 {
     /**
@@ -65,16 +68,6 @@ class RegistrationFormType extends AbstractType
             'data_class' => $this->class,
             'csrf_token_id' => 'registration',
         ]);
-    }
-
-    // BC for SF < 3.0
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return $this->getBlockPrefix();
     }
 
     /**

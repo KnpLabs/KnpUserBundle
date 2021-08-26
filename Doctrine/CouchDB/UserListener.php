@@ -18,6 +18,10 @@ use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Util\CanonicalFieldsUpdater;
 use FOS\UserBundle\Util\PasswordUpdaterInterface;
 
+/**
+ * @internal
+ * @final
+ */
 class UserListener implements EventSubscriber
 {
     private $passwordUpdater;

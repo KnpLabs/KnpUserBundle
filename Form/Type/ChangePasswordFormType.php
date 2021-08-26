@@ -19,6 +19,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * @final
+ */
 class ChangePasswordFormType extends AbstractType
 {
     /**
@@ -83,16 +86,6 @@ class ChangePasswordFormType extends AbstractType
             'data_class' => $this->class,
             'csrf_token_id' => 'change_password',
         ]);
-    }
-
-    // BC for SF < 3.0
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return $this->getBlockPrefix();
     }
 
     /**

@@ -20,6 +20,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * @internal
+ * @final
+ */
 class EmailConfirmationListener implements EventSubscriberInterface
 {
     private $mailer;

@@ -14,7 +14,10 @@ namespace FOS\UserBundle\Tests\Util;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Tests\TestUser;
 use FOS\UserBundle\Util\UserManipulator;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class UserManipulatorTest extends TestCase
 {
@@ -82,11 +85,10 @@ class UserManipulatorTest extends TestCase
         $this->assertTrue($user->isEnabled());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testActivateWithInvalidUsername()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $userManagerMock = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')->getMock();
         $invalidusername = 'invalid_username';
 
@@ -136,11 +138,10 @@ class UserManipulatorTest extends TestCase
         $this->assertFalse($user->isEnabled());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testDeactivateWithInvalidUsername()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $userManagerMock = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')->getMock();
         $invalidusername = 'invalid_username';
 
@@ -190,11 +191,10 @@ class UserManipulatorTest extends TestCase
         $this->assertTrue($user->isSuperAdmin());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testPromoteWithInvalidUsername()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $userManagerMock = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')->getMock();
         $invalidusername = 'invalid_username';
 
@@ -244,11 +244,10 @@ class UserManipulatorTest extends TestCase
         $this->assertFalse($user->isSuperAdmin());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testDemoteWithInvalidUsername()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $userManagerMock = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')->getMock();
         $invalidusername = 'invalid_username';
 
@@ -301,11 +300,10 @@ class UserManipulatorTest extends TestCase
         $this->assertSame($password, $user->getPlainPassword());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testChangePasswordWithInvalidUsername()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $userManagerMock = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')->getMock();
 
         $invalidusername = 'invalid_username';
@@ -376,15 +374,15 @@ class UserManipulatorTest extends TestCase
      * @param string $event
      * @param bool   $once
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject&EventDispatcherInterface
      */
     protected function getEventDispatcherMock($event, $once = true)
     {
-        $eventDispatcherMock = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        $eventDispatcherMock = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
 
         $eventDispatcherMock->expects($once ? $this->once() : $this->never())
             ->method('dispatch')
-            ->with($event);
+            ->with($this->anything(), $event);
 
         return $eventDispatcherMock;
     }
@@ -392,11 +390,11 @@ class UserManipulatorTest extends TestCase
     /**
      * @param bool $once
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject&RequestStack
      */
     protected function getRequestStackMock($once = true)
     {
-        $requestStackMock = $this->getMockBuilder('Symfony\Component\HttpFoundation\RequestStack')->getMock();
+        $requestStackMock = $this->getMockBuilder(RequestStack::class)->getMock();
 
         $requestStackMock->expects($once ? $this->once() : $this->never())
             ->method('getCurrentRequest')

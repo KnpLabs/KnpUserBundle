@@ -19,6 +19,9 @@ use Symfony\Component\Validator\ObjectInitializerInterface;
  * Automatically updates the canonical fields before validation.
  *
  * @author Christophe Coevoet <stof@notk.org>
+ *
+ * @internal
+ * @final
  */
 class Initializer implements ObjectInitializerInterface
 {

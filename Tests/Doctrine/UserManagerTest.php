@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class UserManagerTest extends TestCase
 {
-    const USER_CLASS = 'FOS\UserBundle\Tests\Doctrine\DummyUser';
+    public const USER_CLASS = 'FOS\UserBundle\Tests\Doctrine\DummyUser';
 
     /** @var UserManager */
     protected $userManager;

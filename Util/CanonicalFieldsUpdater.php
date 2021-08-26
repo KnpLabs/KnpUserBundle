@@ -17,6 +17,8 @@ use FOS\UserBundle\Model\UserInterface;
  * Class updating the canonical fields of the user.
  *
  * @author Christophe Coevoet <stof@notk.org>
+ *
+ * @final
  */
 class CanonicalFieldsUpdater
 {

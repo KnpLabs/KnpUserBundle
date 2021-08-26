@@ -19,6 +19,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * @final
+ */
 class ProfileFormType extends AbstractType
 {
     /**
@@ -72,16 +75,6 @@ class ProfileFormType extends AbstractType
             'data_class' => $this->class,
             'csrf_token_id' => 'profile',
         ]);
-    }
-
-    // BC for SF < 3.0
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return $this->getBlockPrefix();
     }
 
     /**

@@ -17,6 +17,9 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @final
+ */
 class ResettingFormType extends AbstractType
 {
     /**
@@ -60,16 +63,6 @@ class ResettingFormType extends AbstractType
             'data_class' => $this->class,
             'csrf_token_id' => 'resetting',
         ]);
-    }
-
-    // BC for SF < 3.0
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return $this->getBlockPrefix();
     }
 
     /**

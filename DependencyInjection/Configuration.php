@@ -23,6 +23,9 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  * sections are normalized, and merged.
  *
  * @author Christophe Coevoet <stof@notk.org>
+ *
+ * @internal
+ * @final
  */
 class Configuration implements ConfigurationInterface
 {
@@ -32,12 +35,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder('fos_user');
-
-        if (method_exists($treeBuilder, 'getRootNode')) {
-            $rootNode = $treeBuilder->getRootNode();
-        } else {
-            $rootNode = $treeBuilder->root('fos_user');
-        }
+        $rootNode = $treeBuilder->getRootNode();
 
         $supportedDrivers = ['orm', 'mongodb', 'couchdb', 'custom'];
 
