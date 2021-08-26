@@ -3,7 +3,7 @@ name: Code style and composer validate
 on:
     pull_request:
     push:
-        branches: [ master ]
+        branches: [ master, 2.x ]
 
 jobs:
     composer-validate:
