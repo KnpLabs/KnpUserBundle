@@ -1,14 +1,15 @@
 Changelog
 =========
 
-### 2.2.0 (2020-01-xx)
+### 2.2.0 (2021-08-26)
 
 * Deprecated the Groups feature.
 * Marked all controllers final.
+* Marked internal classes as such.
 * Added Mongolian translation.
 * Added an email provider.
 * Added a custom user checker.
-* Added PHP 7.4 support.
+* Added PHP 7.4 and PHP 8.0 support.
 * Removed fieldName attribute in MongoDB mapping.
 * Registration confirmation now redirects to login page if token is invalid.
 * User model will not rely on `AdvancedUserInterface` anymore.
@@ -16,6 +17,10 @@ Changelog
 * FlashListener constructor now accepts `SessionInterface`.
 * Fixed several Symfony deprecation notices.
 * Fixed several translations.
+* Bumped the min PHP version to 7.1.3.
+* Bumped the min Symfony version to 4.4.
+* Added compatibility with Twig 3.
+* Added compatibility with doctrine/persistence 2.
 
 ### 2.1.2 (2018-03-08)
 
