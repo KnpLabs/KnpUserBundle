@@ -19,7 +19,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class AuthenticationListenerTest extends TestCase
 {
-    const FIREWALL_NAME = 'foo';
+    public const FIREWALL_NAME = 'foo';
 
     /** @var EventDispatcherInterface */
     private $eventDispatcher;
