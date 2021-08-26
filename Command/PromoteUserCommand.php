@@ -19,6 +19,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Luis Cordova <cordoval@gmail.com>
  * @author Lenar Lõhmus <lenar@city.ee>
+ *
+ * @internal
+ * @final
  */
 class PromoteUserCommand extends RoleCommand
 {

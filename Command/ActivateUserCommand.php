@@ -20,6 +20,9 @@ use Symfony\Component\Console\Question\Question;
 
 /**
  * @author Antoine Hérault <antoine.herault@gmail.com>
+ *
+ * @internal
+ * @final
  */
 class ActivateUserCommand extends Command
 {

@@ -15,6 +15,9 @@ use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @final
+ */
 class FilterUserResponseEvent extends UserEvent
 {
     private $response;

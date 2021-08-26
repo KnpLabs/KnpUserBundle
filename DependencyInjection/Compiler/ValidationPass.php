@@ -18,6 +18,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  * Registers the additional validators according to the storage.
  *
  * @author Christophe Coevoet <stof@notk.org>
+ *
+ * @internal
+ * @final
  */
 class ValidationPass implements CompilerPassInterface
 {

@@ -23,6 +23,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
  *
  * @author Christophe Coevoet <stof@notk.org>
  * @author Luis Cordova <cordoval@gmail.com>
+ *
+ * @internal
+ * @final
  */
 class UserManipulator
 {

@@ -23,6 +23,9 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  * sections are normalized, and merged.
  *
  * @author Christophe Coevoet <stof@notk.org>
+ *
+ * @internal
+ * @final
  */
 class Configuration implements ConfigurationInterface
 {

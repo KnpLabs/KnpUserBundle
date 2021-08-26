@@ -17,6 +17,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
+/**
+ * @internal
+ * @final
+ */
 class FlashListener implements EventSubscriberInterface
 {
     /**

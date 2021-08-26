@@ -20,6 +20,8 @@ use Symfony\Component\Form\FormBuilderInterface;
  * Form type for representing a UserInterface instance by its username string.
  *
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ *
+ * @final
  */
 class UsernameFormType extends AbstractType
 {

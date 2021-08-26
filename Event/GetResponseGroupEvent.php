@@ -13,6 +13,9 @@ namespace FOS\UserBundle\Event;
 
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @final
+ */
 class GetResponseGroupEvent extends GroupEvent
 {
     /**
