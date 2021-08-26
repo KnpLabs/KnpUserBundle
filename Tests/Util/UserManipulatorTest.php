@@ -14,7 +14,10 @@ namespace FOS\UserBundle\Tests\Util;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Tests\TestUser;
 use FOS\UserBundle\Util\UserManipulator;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class UserManipulatorTest extends TestCase
 {
@@ -371,15 +374,15 @@ class UserManipulatorTest extends TestCase
      * @param string $event
      * @param bool   $once
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject&EventDispatcherInterface
      */
     protected function getEventDispatcherMock($event, $once = true)
     {
-        $eventDispatcherMock = $this->getMockBuilder('Symfony\Component\EventDispatcher\EventDispatcherInterface')->getMock();
+        $eventDispatcherMock = $this->getMockBuilder(EventDispatcherInterface::class)->getMock();
 
         $eventDispatcherMock->expects($once ? $this->once() : $this->never())
             ->method('dispatch')
-            ->with($event);
+            ->with($this->anything(), $event);
 
         return $eventDispatcherMock;
     }
@@ -387,11 +390,11 @@ class UserManipulatorTest extends TestCase
     /**
      * @param bool $once
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return MockObject&RequestStack
      */
     protected function getRequestStackMock($once = true)
     {
-        $requestStackMock = $this->getMockBuilder('Symfony\Component\HttpFoundation\RequestStack')->getMock();
+        $requestStackMock = $this->getMockBuilder(RequestStack::class)->getMock();
 
         $requestStackMock->expects($once ? $this->once() : $this->never())
             ->method('getCurrentRequest')
