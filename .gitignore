@@ -1,4 +1,4 @@
-.php_cs
+.php-cs-fixer.php
 .php_cs.cache
 composer.lock
 phpunit.xml
