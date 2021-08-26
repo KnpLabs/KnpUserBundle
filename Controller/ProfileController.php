@@ -20,6 +20,7 @@ use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +41,7 @@ class ProfileController extends Controller
 
     public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager)
     {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = LegacyEventDispatcherProxy::decorate($eventDispatcher);
         $this->formFactory = $formFactory;
         $this->userManager = $userManager;
     }
@@ -73,7 +74,7 @@ class ProfileController extends Controller
         }
 
         $event = new GetResponseUserEvent($user, $request);
-        $this->eventDispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_INITIALIZE, $event);
+        $this->eventDispatcher->dispatch($event, FOSUserEvents::PROFILE_EDIT_INITIALIZE);
 
         if (null !== $event->getResponse()) {
             return $event->getResponse();
@@ -86,7 +87,7 @@ class ProfileController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $event = new FormEvent($form, $request);
-            $this->eventDispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_SUCCESS, $event);
+            $this->eventDispatcher->dispatch($event, FOSUserEvents::PROFILE_EDIT_SUCCESS);
 
             $this->userManager->updateUser($user);
 
@@ -95,7 +96,7 @@ class ProfileController extends Controller
                 $response = new RedirectResponse($url);
             }
 
-            $this->eventDispatcher->dispatch(FOSUserEvents::PROFILE_EDIT_COMPLETED, new FilterUserResponseEvent($user, $request, $response));
+            $this->eventDispatcher->dispatch(new FilterUserResponseEvent($user, $request, $response), FOSUserEvents::PROFILE_EDIT_COMPLETED);
 
             return $response;
         }
