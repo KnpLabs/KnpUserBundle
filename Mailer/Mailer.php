@@ -41,8 +41,6 @@ class Mailer implements MailerInterface
     protected $parameters;
 
     /**
-     * Mailer constructor.
-     *
      * @param \Swift_Mailer $mailer
      */
     public function __construct($mailer, UrlGeneratorInterface $router, EngineInterface $templating, array $parameters)
