@@ -18,6 +18,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * @internal
+ * @final
+ */
 class ResettingListener implements EventSubscriberInterface
 {
     /**

@@ -25,6 +25,9 @@ use FOS\UserBundle\Util\PasswordUpdaterInterface;
  *
  * @author Christophe Coevoet <stof@notk.org>
  * @author David Buchmann <mail@davidbu.ch>
+ *
+ * @internal
+ * @final
  */
 class UserListener implements EventSubscriber
 {

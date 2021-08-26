@@ -21,6 +21,8 @@ use Symfony\Component\Console\Question\Question;
 
 /**
  * @author Lenar Lõhmus <lenar@city.ee>
+ *
+ * @internal
  */
 abstract class RoleCommand extends Command
 {

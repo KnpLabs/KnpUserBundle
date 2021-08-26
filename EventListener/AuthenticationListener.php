@@ -20,6 +20,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 
+/**
+ * @internal
+ * @final
+ */
 class AuthenticationListener implements EventSubscriberInterface
 {
     /**
