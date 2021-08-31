@@ -3,6 +3,7 @@ Changelog
 
 ### 3.0.0 (unreleased)
 
+* [BC break] Change the base class of controllers to use the `AbstractController` (but extending the controllers is not officially supported anymore).
 * [BC break] Remove the group feature
 
 ### 2.2.0 (2021-08-26)
