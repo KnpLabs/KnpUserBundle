@@ -27,6 +27,8 @@
         "paragonie/random_compat": "^1 || ^2 || ^9",
         "symfony/config": "^4.4",
         "symfony/dependency-injection": "^4.4",
+        "symfony/event-dispatcher": "^4.4",
+        "symfony/event-dispatcher-contracts": "^1.1 || ^2.0",
         "symfony/form": "^4.4",
         "symfony/framework-bundle": "^4.4",
         "symfony/security-bundle": "^4.4",

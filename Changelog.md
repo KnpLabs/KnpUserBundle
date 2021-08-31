@@ -4,6 +4,7 @@ Changelog
 ### 3.0.0 (unreleased)
 
 * [BC break] Remove the group feature
+* [BC break] Change the base class for events to `Symfony\Contracts\EventDispatcher\Event` instead of `Symfony\Component\EventDispatcher\Event`
 
 ### 2.2.0 (2021-08-26)
 
