@@ -1,14 +1,3 @@
-group:
-    edit:
-        submit: 'Grubu Güncelle'
-    show:
-        name: 'Grup Adı'
-    new:
-        submit: 'Grup Yarat'
-    flash:
-        updated: 'Grup Güncellendi.'
-        created: 'Grup Yaratıldı.'
-        deleted: 'Grup Silindi.'
 security:
     login:
         username: 'Kullanıcı adı'
@@ -49,7 +38,7 @@ resetting:
     check_email: |
         E-posta adresinize parolanızı sıfırlama adresi bulunan bir e-posta gönderildi.
         Not: Yeni şifre talep etmek için %tokenLifetime% saat beklemelisiniz.
-        
+
         E-posta gelmedi ise spam klasörünü kontrol edin veya tekrar deneyin.
     request:
         username: 'Kullanıcı adı ya da e-posta adresi'
@@ -75,7 +64,6 @@ layout:
     register: 'Kayıt ol'
     logged_in_as: '%username% olarak giriş yapıldı'
 form:
-    group_name: 'Grup adı'
     username: 'Kullanıcı adı'
     email: 'E-posta adresi'
     current_password: 'Geçerli parola'

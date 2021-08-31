@@ -1,15 +1,3 @@
-group:
-    edit:
-        submit: 'Opdateer Groep'
-    show:
-        name: 'Groep Naam'
-    new:
-        submit: 'Nuwe groep'
-    flash:
-        updated: 'Die groep was opgedateer'
-        created: 'Die groep was gemaak'
-        deleted: 'Die groep was verwyder'
-
 security:
     login:
         username: 'Gebruiker Naam'
@@ -81,7 +69,6 @@ layout:
     logged_in_as: 'Ingeteken as %username%'
 
 form:
-    group_name: 'Groep naam'
     username: 'Verbruiker Naam'
     email: E-pos
     current_password: 'Huidige wagwoord'

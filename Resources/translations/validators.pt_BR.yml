@@ -19,7 +19,3 @@ fos_user:
         short: 'A nova senha é muito curta.'
     current_password:
         invalid: 'A senha está incorreta.'
-    group:
-        blank: 'É necessário preencher o nome.'
-        short: 'O nome é muito curto.'
-        long: 'O nome é muito longo.'

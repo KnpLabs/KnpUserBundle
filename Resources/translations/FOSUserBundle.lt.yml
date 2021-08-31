@@ -1,14 +1,3 @@
-group:
-    edit:
-        submit: 'Atnaujinti grupę'
-    show:
-        name: 'Grupės vardas'
-    new:
-        submit: 'Sukurti grupę'
-    flash:
-        updated: 'Grupė atnaujinta.'
-        created: 'Grupė sukurta.'
-        deleted: 'Grupė ištrinta.'
 security:
     login:
         username: 'Naudotojo vardas'
@@ -69,7 +58,6 @@ layout:
     register: Registruotis
     logged_in_as: 'Prisijungęs kaip %username%'
 form:
-    group_name: 'Grupės vardas'
     username: 'Naudotojo vardas'
     email: 'El. paštas'
     current_password: 'Dabartinis slaptažodis'

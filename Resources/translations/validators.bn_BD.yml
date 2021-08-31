@@ -19,10 +19,3 @@ fos_user:
         short: 'নতুন পাসওয়ার্ড টি থুবই ছোট'
     current_password:
         invalid: 'পাসওয়ার্ডটি সঠিক নয়'
-    group:
-        blank: 'অনুগ্রহ করে একটি নাম লিখুন'
-        short: 'নামটি থুবই ছোট'
-        long: 'নামটি থুবই বড়'
-fos_group:
-    name:
-        already_used: 'নামটি ইতিমধ্যে ব্যবহার করা হয়েছে'

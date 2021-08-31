@@ -19,10 +19,3 @@ fos_user:
         short: 'Parola nouă este prea scurtă.'
     current_password:
         invalid: 'Parola introdusă nu este corectă.'
-    group:
-        blank: 'Introduceți un nume.'
-        short: 'Numele este prea scurt.'
-        long: 'Numele este prea lung.'
-fos_group:
-    name:
-        already_used: 'Numele este deja folosit.'

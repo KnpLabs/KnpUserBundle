@@ -19,7 +19,3 @@ fos_user:
         short: '[-Inf, Inf] Mật khẩu mới là quá ngắn'
     current_password:
         invalid: 'Mật khẩu nhập không hợp lệ'
-    group:
-        blank: 'Hãy nhập tên'
-        short: '[-Inf, Inf] Tên quá ngắn'
-        long: '[-Inf, Inf] Tên quá dài'

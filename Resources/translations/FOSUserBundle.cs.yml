@@ -1,14 +1,3 @@
-group:
-    edit:
-        submit: 'Upravit skupinu'
-    show:
-        name: 'Název skupiny'
-    new:
-        submit: 'Vytvořit skupinu'
-    flash:
-        updated: 'Skupina byla úspěšně aktualizována.'
-        created: 'Skupina byla úspěšně vytvořena.'
-        deleted: 'Skupina byla úspěšně vymazána.'
 security:
     login:
         username: 'Uživatelské jméno'
@@ -74,7 +63,6 @@ layout:
     register: 'Registrovat se'
     logged_in_as: 'Přihlášený uživatel: %username%'
 form:
-    group_name: 'Název skupiny'
     username: 'Uživatelské jméno'
     email: E-mail
     current_password: 'Současné heslo'

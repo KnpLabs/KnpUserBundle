@@ -19,10 +19,3 @@ fos_user:
         short: 'Nuova password troppo breve.'
     current_password:
         invalid: 'Password non valida.'
-    group:
-        blank: 'Si prega di inserire un nome.'
-        short: 'Nome troppo breve.'
-        long: 'Nome troppo lungo.'
-fos_group:
-    name:
-        already_used: 'Nome già in uso.'

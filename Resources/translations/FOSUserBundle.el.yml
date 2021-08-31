@@ -1,14 +1,3 @@
-group:
-    edit:
-        submit: 'Ενημέρωση ομάδας'
-    show:
-        name: 'Όνομα ομάδας'
-    new:
-        submit: 'Δημιουργία ομάδας'
-    flash:
-        updated: 'Η ομάδα ενημερώθηκε επιτυχώς'
-        created: 'Η ομάδα δημιουργήθηκε επιτυχώς'
-        deleted: 'Η ομάδα διαγράφηκε επιτυχώς'
 security:
     login:
         username: 'Όνομα Χρήστη'
@@ -72,7 +61,6 @@ layout:
     register: Εγγραφή
     logged_in_as: 'Έχετε συνδεθεί ως %username%'
 form:
-    group_name: 'Όνομα ομάδας'
     username: 'Όνομα Χρήστη'
     email: Email
     current_password: 'Τρέχον κωδικός πρόσβασης'

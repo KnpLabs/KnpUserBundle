@@ -1,14 +1,3 @@
-group:
-    edit:
-        submit: 'Edytuj grupę'
-    show:
-        name: 'Nazwa grupy'
-    new:
-        submit: 'Utwórz grupę'
-    flash:
-        updated: 'Grupa została zaktualizowana'
-        created: 'Grupa została utworzona'
-        deleted: 'Grupa została usunięta'
 security:
     login:
         username: 'Nazwa użytkownika'
@@ -75,7 +64,6 @@ layout:
     register: Zarejestruj
     logged_in_as: 'Zalogowano jako %username%'
 form:
-    group_name: 'Nazwa grupy'
     username: 'Nazwa użytkownika'
     email: E-mail
     current_password: 'Obecne hasło'

@@ -1,15 +1,3 @@
-group:
-    edit:
-        submit: 'Aktualigi'
-    show:
-        name: 'Grupnomo'
-    new:
-        submit: 'Krei grupon'
-    flash:
-        updated: 'La grupo estas aktualigita.'
-        created: 'La grupo estas kreita.'
-        deleted: 'La grupo estas forigita.'
-
 security:
     login:
         username: Uzantnomo
@@ -82,7 +70,6 @@ layout:
     logged_in_as: 'Ensalutita kiel %username%'
 
 form:
-    group_name: 'Grupnomo'
     username: Uzantnomo
     email: Retpoŝtadreso
     current_password: 'Nuna pasvorto'

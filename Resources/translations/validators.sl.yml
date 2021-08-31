@@ -19,10 +19,3 @@ fos_user:
         short: 'Novo geslo je prekratko.'
     current_password:
         invalid: 'Geslo je napačno.'
-    group:
-        blank: 'Prosimo, vnesite ime.'
-        short: 'Ime je prekratko.'
-        long: 'Ime je predolgo.'
-fos_group:
-    name:
-        already_used: 'Ime je že v uporabi.'

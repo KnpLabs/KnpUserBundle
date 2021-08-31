@@ -19,10 +19,3 @@ fos_user:
         short: 'La nova pasvorto estas tro mallonga.'
     current_password:
         invalid: 'La pasvorto estas nevalida.'
-    group:
-        blank: 'Bonvolu enmeti grupnomon.'
-        short: 'La nomo estas tro mallonga.'
-        long: 'La nomo estas tro longa.'
-fos_group:
-    name:
-        already_used: 'La grupnomon estas jam okupita.'

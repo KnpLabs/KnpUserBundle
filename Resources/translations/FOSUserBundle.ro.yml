@@ -1,15 +1,3 @@
-group:
-    edit:
-        submit: 'Actualizează grupul'
-    show:
-        name: 'Numele grupului'
-    new:
-        submit: 'Creează grup'
-    flash:
-        updated: 'Grupul a fost actualizat.'
-        created: 'Grupul a fost creat.'
-        deleted: 'Grupul a fost șters.'
-
 security:
     login:
         username: 'Nume de utilizator'
@@ -81,7 +69,6 @@ layout:
     logged_in_as: 'Autentificat ca %username%'
 
 form:
-    group_name: 'Numele grupului'
     username: 'Nume de utilizator'
     email: Email
     current_password: 'Parola curentă'

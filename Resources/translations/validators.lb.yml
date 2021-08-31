@@ -19,10 +19,3 @@ fos_user:
         short: 'Dat neit Passwuert ass ze kuerz.'
     current_password:
         invalid: 'D''Passwuert ass net korrekt.'
-    group:
-        blank: 'Wann ech gelift en Numm uginn.'
-        short: 'Dësen Numm ass ze kuerz.'
-        long: 'Dësen Numm ass ze laang.'
-fos_group:
-    name:
-        already_used: 'Dësen Numm ass schonn am Gebrauch.'

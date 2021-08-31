@@ -1,14 +1,3 @@
-group:
-    edit:
-        submit: 'Saglabāt izmaiņas'
-    show:
-        name: 'Grupas nosaukums'
-    new:
-        submit: 'Izveidot grupu'
-    flash:
-        updated: 'Grupa tika atjaunināta.'
-        created: 'Grupa tika izveidota.'
-        deleted: 'Grupa tika dzēsta.'
 security:
     login:
         username: Lietotājvārds
@@ -69,7 +58,6 @@ layout:
     register: Reģistrēties
     logged_in_as: 'Autorizējies kā %username%'
 form:
-    group_name: 'Grupas nosaukums'
     username: Lietotājvārds
     email: E-pasts
     current_password: 'Esošā parole'

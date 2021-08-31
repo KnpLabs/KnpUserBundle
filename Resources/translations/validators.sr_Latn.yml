@@ -18,10 +18,3 @@ fos_user:
         short: 'Nova lozinka je prekratka.'
     current_password:
         invalid: 'Lozinka nije validna.'
-    group:
-        blank: 'Molimo unesite naziv.'
-        short: 'Naziv je prekratak.'
-        long: 'Naziv je predug.'
-fos_group:
-    name:
-        already_used: 'Ovo ime već postoji.'

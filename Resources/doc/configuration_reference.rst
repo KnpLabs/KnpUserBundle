@@ -56,10 +56,3 @@ All available configuration options are listed below with their default values.
             username_canonicalizer: fos_user.util.canonicalizer.default
             token_generator:        fos_user.util.token_generator.default
             user_manager:           fos_user.user_manager.default
-        group:
-            group_class:    ~ # Required when using groups
-            group_manager:  fos_user.group_manager.default
-            form:
-                type:               FOS\UserBundle\Form\Type\GroupFormType
-                name:               fos_user_group_form
-                validation_groups:  [Registration, Default]

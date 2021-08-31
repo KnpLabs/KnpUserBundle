@@ -1,14 +1,3 @@
-group:
-    edit:
-        submit: 'Uppdatera gruppen'
-    show:
-        name: Gruppnamn
-    new:
-        submit: 'Skapa grupp'
-    flash:
-        updated: 'Gruppen har uppdaterats.'
-        created: 'Gruppen har skapats.'
-        deleted: 'Gruppen har tagits bort.'
 security:
     login:
         username: Användarnamn
@@ -75,7 +64,6 @@ layout:
     register: Registrera
     logged_in_as: 'Inloggad som %username%'
 form:
-    group_name: Gruppnamn
     username: Användarnamn
     email: Epost
     current_password: 'Nuvarande lösenord'

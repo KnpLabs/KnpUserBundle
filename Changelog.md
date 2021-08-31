@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 3.0.0 (unreleased)
+
+* [BC break] Remove the group feature
+
 ### 2.2.0 (2021-08-26)
 
 * Deprecated the Groups feature.

@@ -2,7 +2,7 @@ Advanced routing configuration
 ==============================
 
 By default, the routing file ``@FOSUserBundle/Resources/config/routing/all.xml`` imports
-all the routing files (except groups) and enables all the routes.
+all the routing files and enables all the routes.
 In the case you want to enable or disable the different available routes, just use the
 single routing configuration files.
 

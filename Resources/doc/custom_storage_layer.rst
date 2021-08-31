@@ -6,8 +6,7 @@ layer used by your application and keep all of the functionality
 provided by the bundle.
 
 Implementing a new storage layer requires providing two classes: the user
-implementation and the corresponding user manager (you will of course need
-two other classes if you want to use the groups).
+implementation and the corresponding user manager.
 
 The user implementation must implement ``FOS\UserBundle\Model\UserInterface``
 and the user manager must implement ``FOS\UserBundle\Model\UserManagerInterface``.

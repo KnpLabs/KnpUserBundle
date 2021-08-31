@@ -1,15 +1,3 @@
-group:
-    edit:
-        submit: 'Grupp aktualiséieren'
-    show:
-        name: Gruppennumm
-    new:
-        submit: 'Grupp creéieren'
-    flash:
-        updated: 'D''Grupp gouf aktualiséiert.'
-        created: 'D''Grupp gouf creéiert.'
-        deleted: 'D''Grupp gouf geläscht.'
-
 security:
     login:
         username: Benotzernumm
@@ -82,7 +70,6 @@ layout:
     logged_in_as: 'Ugemellt als %username%'
 
 form:
-    group_name: Gruppennumm
     username: Benotzernumm
     email: E-Mail-Adress
     current_password: 'Aktuellt Passwuert'

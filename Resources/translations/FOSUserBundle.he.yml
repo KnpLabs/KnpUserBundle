@@ -1,14 +1,3 @@
-group:
-    edit:
-        submit: 'עדכן קבוצה'
-    show:
-        name: 'שם קבוצה'
-    new:
-        submit: 'צור קבומה'
-    flash:
-        updated: 'הקבוצה עודכנה בהצלחה'
-        created: 'הקבוצה נוצרה בהצלחה'
-        deleted: 'הקבוצה נמחקה בהצלחה'
 security:
     login:
         username: 'שם משתמש'
@@ -79,7 +68,6 @@ layout:
     logged_in_as: 'שלום %username%'
 
 form:
-    group_name: 'שם קבוצה'
     username: 'שם משתמש'
     email: 'דוא\"ל'
     current_password: 'סיסמה נוכחות'
