@@ -1,15 +1,3 @@
-group:
-    edit:
-        submit: 'Csoport frissítése'
-    show:
-        name: 'Csoport név'
-    new:
-        submit: 'Csoport létrehozása'
-    flash:
-        updated: 'A csoport frissítve.'
-        created: 'A csoport létrehozva.'
-        deleted: 'A csoport törölve.'
-
 security:
     login:
         username: Felhasználónév
@@ -80,7 +68,6 @@ layout:
     logged_in_as: 'Belépve mint %username%'
 
 form:
-    group_name: 'Csoport név'
     username: Felhasználónév
     email: E-mail
     current_password: 'Jelenlegi jelszó'

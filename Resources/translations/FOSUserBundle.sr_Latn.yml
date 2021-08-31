@@ -1,14 +1,3 @@
-group:
-    edit:
-        submit: 'Ažuriraj grupu'
-    show:
-        name: 'Naziv grupe'
-    new:
-        submit: 'Kreiraj grupu'
-    flash:
-        updated: 'Grupa je ažurirana.'
-        created: 'Grupa je kreirana.'
-        deleted: 'Grupa je obrisana.'
 security:
     login:
         username: 'Korisničko ime'
@@ -40,7 +29,7 @@ registration:
             Zdravo %username%!
 
             Da bi aktivirali Vaš nalog posetite %confirmationUrl%
-            
+
             Ovaj link možete upotrebiti samo jednom da biste potvrdili Vaš nalog.
 
             S poštovanjem,
@@ -71,7 +60,6 @@ layout:
     register: Registracija
     logged_in_as: 'Prijavljen kao %username%'
 form:
-    group_name: 'Naziv grupe'
     username: 'Korisničko ime'
     email: 'Adresa e-pošte'
     current_password: 'Trenutna lozinka'

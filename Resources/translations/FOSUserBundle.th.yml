@@ -1,14 +1,3 @@
-group:
-    edit:
-        submit: บันทึกการแก้ไข
-    show:
-        name: ชื่อกลุ่ม
-    new:
-        submit: สร้างกลุ่ม
-    flash:
-        updated: กลุ่มถูกแก้ไขแล้ว
-        created: กลุ่มถูกแก้ไขแล้ว
-        deleted: กลุ่มถูกแก้ไขแล้ว
 security:
     login:
         username: ชื่อผู้ใช้
@@ -72,7 +61,6 @@ layout:
     register: สมัครสมาชิก
     logged_in_as: 'เข้าระบบด้วย %username%'
 form:
-    group_name: ชื่อกลุ่ม
     username: ชื่อเข้าระบบ
     email: อีเมล์
     current_password: รหัสผ่านปัจจุบัน

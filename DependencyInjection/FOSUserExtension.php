@@ -129,12 +129,6 @@ class FOSUserExtension extends Extension
             $this->loadResetting($config['resetting'], $container, $loader, $config['from_email']);
         }
 
-        if (!empty($config['group'])) {
-            @trigger_error('Using Groups is deprecated since version 2.2 and will be removed in 3.0.', E_USER_DEPRECATED);
-
-            $this->loadGroups($config['group'], $container, $loader, $config['db_driver']);
-        }
-
         if ($this->mailerNeeded) {
             $container->setAlias('fos_user.mailer', $config['service']['mailer']);
         }
@@ -243,31 +237,6 @@ class FOSUserExtension extends Extension
             ],
             'email' => 'fos_user.resetting.email.%s',
             'form' => 'fos_user.resetting.form.%s',
-        ]);
-    }
-
-    /**
-     * @param string $dbDriver
-     */
-    private function loadGroups(array $config, ContainerBuilder $container, XmlFileLoader $loader, $dbDriver)
-    {
-        $loader->load('group.xml');
-        if ('custom' !== $dbDriver) {
-            if (isset(self::$doctrineDrivers[$dbDriver])) {
-                $loader->load('doctrine_group.xml');
-            } else {
-                $loader->load(sprintf('%s_group.xml', $dbDriver));
-            }
-        }
-
-        $container->setAlias('fos_user.group_manager', new Alias($config['group_manager'], true));
-        $container->setAlias('FOS\UserBundle\Model\GroupManagerInterface', new Alias('fos_user.group_manager', false));
-
-        $this->remapParametersNamespaces($config, $container, [
-            '' => [
-                'group_class' => 'fos_user.model.group.class',
-            ],
-            'form' => 'fos_user.group.form.%s',
         ]);
     }
 }

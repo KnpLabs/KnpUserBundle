@@ -1,14 +1,3 @@
-group:
-    edit:
-        submit: 'Actualitza el grup'
-    show:
-        name: 'Nom del grup'
-    new:
-        submit: 'Crea el grup'
-    flash:
-        updated: 'S''ha actualitzat el grup.'
-        created: 'S''ha creat el grup.'
-        deleted: 'S''ha eliminat el grup.'
 security:
     login:
         username: 'Nom d''usuari'
@@ -69,7 +58,6 @@ layout:
     register: Registrar-se
     logged_in_as: 'Heu iniciat sessió com a %username%'
 form:
-    group_name: 'Nom del grup'
     username: 'Nom d''usuari'
     email: 'Correu electrònic'
     current_password: 'Contrasenya actual'

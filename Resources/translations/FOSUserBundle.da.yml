@@ -1,15 +1,3 @@
-group:
-    edit:
-        submit: 'Opdater gruppe'
-    show:
-        name: Gruppenavn
-    new:
-        submit: 'Opret gruppe'
-    flash:
-        updated: 'Gruppen er blevet opdateret.'
-        created: 'Gruppen er blevet oprettet.'
-        deleted: 'Gruppen er blevet slettet.'
-
 security:
     login:
         username: Brugernavn
@@ -81,7 +69,6 @@ layout:
     register: Registrer
     logged_in_as: 'Logget ind som %username%'
 form:
-    group_name: Gruppenavn
     username: Brugernavn
     email: E-mail
     current_password: 'Nuværende adgangskode'

@@ -19,10 +19,3 @@ fos_user:
         short: 'Nové heslo je príliš krátke.'
     current_password:
         invalid: 'Zadané heslo je neplatné.'
-    group:
-        blank: 'Zadajte, prosím, názov.'
-        short: 'Názov je príliš krátky.'
-        long: 'Názov je príliš dlhý.'
-fos_group:
-    name:
-        already_used: 'Tento názov už existuje.'

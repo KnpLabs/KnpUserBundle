@@ -19,7 +19,3 @@ fos_user:
         short: 'Pasahitz berria motzegia da.'
     current_password:
         invalid: 'Sartutako pasahitza ez da baliagarria.'
-    group:
-        blank: 'Sartu izena mesedez.'
-        short: 'Izena motzegia da.'
-        long: 'Izena luzeegia da.'

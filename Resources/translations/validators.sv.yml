@@ -19,10 +19,3 @@ fos_user:
         short: 'Det nya lösenordet är för kort.'
     current_password:
         invalid: 'Det nuvarande lösenordet är felaktigt.'
-    group:
-        blank: 'Ange ett namn.'
-        short: 'Namnet är för kort.'
-        long: 'Namnet är för långt.'
-fos_group:
-    name:
-        already_used: 'Namnet är upptaget'

@@ -19,10 +19,3 @@ fos_user:
         short: 'Den nye adgangskode er for kort.'
     current_password:
         invalid: 'Den indtastede adgangskode er forkert.'
-    group:
-        blank: 'Indtast venligst et navn.'
-        short: 'Navnet er for kort.'
-        long: 'Navnet er for langt.'
-fos_group:
-    name:
-        already_used: 'Navnet er allerede i brug.'

@@ -19,7 +19,3 @@ fos_user:
         short: 'Nové heslo je příliš krátké.'
     current_password:
         invalid: 'Nesprávné heslo.'
-    group:
-        blank: 'Vyplňte název skupiny.'
-        short: 'Název skupiny je příliš krátký.'
-        long: 'Název skupiny je příliš dlouhý.'

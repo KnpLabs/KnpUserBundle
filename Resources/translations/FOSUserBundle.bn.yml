@@ -1,15 +1,3 @@
-group:
-    edit:
-        submit: 'আপডেট গ্রুপ'
-    show:
-        name: 'গ্রুপের নাম'
-    new:
-        submit: 'গ্রুপ তৈরি'
-    flash:
-        updated: 'গ্রুপের তথ্য হালনাগাদ হয়েছে'
-        created: 'গ্রুপের তথ্য তৈরি করা হয়েছে'
-        deleted: 'গ্রুপের তথ্য মুছে ফেলা হয়েছে'
-
 security:
     login:
         username: 'ব্যবহারকারীর নাম'
@@ -82,7 +70,6 @@ layout:
     logged_in_as: '%username% হিসাবে লগ ইন করেছেন'
 
 form:
-    group_name: 'গ্রুপের নাম'
     username: 'ব্যবহারকারীর নাম'
     email: 'ই-মেইল'
     current_password: 'বর্তমান পাসওয়ার্ড'

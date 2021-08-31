@@ -1,14 +1,3 @@
-group:
-    edit:
-        submit: 'Оновити групу'
-    show:
-        name: 'Назва групи'
-    new:
-        submit: 'Створити групу'
-    flash:
-        updated: 'Група оновлена.'
-        created: 'Група створена.'
-        deleted: 'Група видалена.'
 security:
     login:
         username: 'Ім''я користувача'
@@ -75,7 +64,6 @@ layout:
     register: Реєстрація
     logged_in_as: 'Ви увійшли як %username%'
 form:
-    group_name: 'Назва групи'
     username: 'Ім''я користувача'
     email: 'Електронна адреса'
     current_password: 'Поточний пароль'

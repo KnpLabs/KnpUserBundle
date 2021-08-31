@@ -1,14 +1,3 @@
-group:
-    edit:
-        submit: 'Päivitä ryhmä'
-    show:
-        name: 'Ryhmän nimi'
-    new:
-        submit: 'Luo ryhmä'
-    flash:
-        updated: 'Ryhmä on päivitetty.'
-        created: 'Ryhmä on luotu.'
-        deleted: 'Ryhmä on poistettu.'
 security:
     login:
         username: Käyttäjätunnus
@@ -71,7 +60,6 @@ layout:
     register: 'Luo tunnus'
     logged_in_as: 'Kirjautuneena %username%'
 form:
-    group_name: 'Ryhmän nimi'
     username: Käyttäjätunnus
     email: Sähköpostiosoite
     current_password: 'Nykyinen salasana'

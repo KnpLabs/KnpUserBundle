@@ -19,10 +19,3 @@ fos_user:
         short: 'Kata sandi baru anda terlalu pendek.'
     current_password:
         invalid: 'Kata sandi yang anda masukkan salah.'
-    group:
-        blank: 'Masukkan nama.'
-        short: 'Nama terlalu pendek.'
-        long: 'Nama terlalu panjang.'
-fos_group:
-    name:
-        already_used: 'Nama telah digunakan.'

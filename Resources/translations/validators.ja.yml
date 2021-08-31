@@ -19,10 +19,3 @@ fos_user:
         short: パスワードが短すぎます
     current_password:
         invalid: 正しいパスワードを入力してください
-    group:
-        blank: 名前を入力してください
-        short: 名前が短すぎます
-        long: 名前が長すぎます
-fos_group:
-    name:
-        already_used: 'その名前は既に使用されています'
