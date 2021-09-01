@@ -11,13 +11,19 @@
 
 namespace FOS\UserBundle\Model;
 
-use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 
 /**
- * @internal Only for back compatibility. Remove / merge when dropping support for Symfony 4
+ * Implementations of that interface must be serializable. The mechanism
+ * being used to support serialization is up for the implementation.
+ * The serialized data must contain all the fields involved in comparing
+ * the user in the security component.
+ *
+ * @author Thibault Duplessis <thibault.duplessis@gmail.com>
+ * @author Johannes M. Schmitt <schmittjoh@gmail.com>
+ * @author Julian Finkler <julian@developer-heaven.de>
  */
-interface FosUserInterface extends \Serializable
+interface UserInterface extends BaseUserInterface
 {
     public const ROLE_DEFAULT = 'ROLE_USER';
 
@@ -97,14 +103,14 @@ interface FosUserInterface extends \Serializable
     /**
      * Gets the plain password.
      *
-     * @return string
+     * @return string|null
      */
     public function getPlainPassword();
 
     /**
      * Sets the plain password.
      *
-     * @param string $password
+     * @param string|null $password
      *
      * @return static
      */
@@ -223,72 +229,9 @@ interface FosUserInterface extends \Serializable
     public function removeRole($role);
 
     /**
-     * Checks whether the user's account has expired.
-     *
-     * Internally, if this method returns false, the authentication system
-     * will throw an AccountExpiredException and prevent login.
-     *
-     * @return bool true if the user's account is non expired, false otherwise
-     *
-     * @see AccountExpiredException
-     */
-    public function isAccountNonExpired();
-
-    /**
-     * Checks whether the user is locked.
-     *
-     * Internally, if this method returns false, the authentication system
-     * will throw a LockedException and prevent login.
-     *
-     * @return bool true if the user is not locked, false otherwise
-     *
-     * @see LockedException
-     */
-    public function isAccountNonLocked();
-
-    /**
-     * Checks whether the user's credentials (password) has expired.
-     *
-     * Internally, if this method returns false, the authentication system
-     * will throw a CredentialsExpiredException and prevent login.
-     *
-     * @return bool true if the user's credentials are non expired, false otherwise
-     *
-     * @see CredentialsExpiredException
-     */
-    public function isCredentialsNonExpired();
-
-    /**
      * Checks whether the user is enabled.
      *
-     * Internally, if this method returns false, the authentication system
-     * will throw a DisabledException and prevent login.
-     *
      * @return bool true if the user is enabled, false otherwise
-     *
-     * @see DisabledException
      */
     public function isEnabled();
-}
-
-// This is required to support apps that explicitly check if a user is an instance of AdvancedUserInterface
-if (interface_exists('\Symfony\Component\Security\Core\User\AdvancedUserInterface')) {
-    /**
-     * @author Thibault Duplessis <thibault.duplessis@gmail.com>
-     * @author Johannes M. Schmitt <schmittjoh@gmail.com>
-     *
-     * @deprecated since Symfony 4.1. Remove in Nov 2023 (End of support for security fixes SF 4.4)
-     */
-    interface UserInterface extends FosUserInterface, \Symfony\Component\Security\Core\User\AdvancedUserInterface
-    {
-    }
-} else {
-    /**
-     * @author Thibault Duplessis <thibault.duplessis@gmail.com>
-     * @author Johannes M. Schmitt <schmittjoh@gmail.com>
-     * @author Julian Finkler <julian@developer-heaven.de>
-     */
-    interface UserInterface extends FosUserInterface, BaseUserInterface, EquatableInterface
-    {
-    }
 }
