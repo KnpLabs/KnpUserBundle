@@ -24,7 +24,6 @@
         "php": "^7.1.3 || ^8.0",
         "ext-dom": "*",
         "ext-json": "*",
-        "paragonie/random_compat": "^1 || ^2 || ^9",
         "symfony/config": "^4.4",
         "symfony/dependency-injection": "^4.4",
         "symfony/event-dispatcher": "^4.4",
