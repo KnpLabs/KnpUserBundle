@@ -7,6 +7,7 @@ Changelog
 * [BC break] Remove the group feature
 * [BC break] Change the base class for events to `Symfony\Contracts\EventDispatcher\Event` instead of `Symfony\Component\EventDispatcher\Event`
 * [BC break] Remove the `Symfony\Component\Security\Core\User\AdvancedUserInterface` methods from our `UserInterface`
+* [BC break] Made `\FOS\UserBundle\Model\User::serialize` and `\FOS\UserBundle\Model\User::unserialize` final. Child classes needing to extend the serialization must override `__serialize` and `__unserialize` instead.
 
 ### 2.2.0 (2021-08-26)
 
