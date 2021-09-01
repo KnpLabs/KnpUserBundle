@@ -3,6 +3,7 @@ Changelog
 
 ### 3.0.0 (unreleased)
 
+* [BC break] Change the base class of controllers to use the `AbstractController` (but extending the controllers is not officially supported anymore).
 * [BC break] Remove the group feature
 * [BC break] Change the base class for events to `Symfony\Contracts\EventDispatcher\Event` instead of `Symfony\Component\EventDispatcher\Event`
 
