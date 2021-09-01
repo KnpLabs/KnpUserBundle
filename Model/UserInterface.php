@@ -97,14 +97,14 @@ interface FosUserInterface extends \Serializable
     /**
      * Gets the plain password.
      *
-     * @return string
+     * @return string|null
      */
     public function getPlainPassword();
 
     /**
      * Sets the plain password.
      *
-     * @param string $password
+     * @param string|null $password
      *
      * @return static
      */
