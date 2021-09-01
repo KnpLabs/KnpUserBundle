@@ -6,6 +6,7 @@ Changelog
 * [BC break] Change the base class of controllers to use the `AbstractController` (but extending the controllers is not officially supported anymore).
 * [BC break] Remove the group feature
 * [BC break] Change the base class for events to `Symfony\Contracts\EventDispatcher\Event` instead of `Symfony\Component\EventDispatcher\Event`
+* [BC break] Remove the `Symfony\Component\Security\Core\User\AdvancedUserInterface` methods from our `UserInterface`
 
 ### 2.2.0 (2021-08-26)
 

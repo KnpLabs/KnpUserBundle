@@ -11,6 +11,7 @@
 
 namespace FOS\UserBundle\Model;
 
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 
 /**
@@ -19,7 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
  * @author Thibault Duplessis <thibault.duplessis@gmail.com>
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
-abstract class User implements UserInterface
+abstract class User implements UserInterface, EquatableInterface
 {
     /**
      * @var mixed
@@ -283,30 +284,6 @@ abstract class User implements UserInterface
     public function hasRole($role)
     {
         return in_array(strtoupper($role), $this->getRoles(), true);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isAccountNonExpired()
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isAccountNonLocked()
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function isCredentialsNonExpired()
-    {
-        return true;
     }
 
     public function isEnabled()
