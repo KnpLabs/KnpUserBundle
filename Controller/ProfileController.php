@@ -11,6 +11,7 @@
 
 namespace FOS\UserBundle\Controller;
 
+use FOS\UserBundle\CompatibilityUtil;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
@@ -19,12 +20,11 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\EventDispatcher\LegacyEventDispatcherProxy;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Controller managing the user profile.
@@ -41,7 +41,7 @@ class ProfileController extends AbstractController
 
     public function __construct(EventDispatcherInterface $eventDispatcher, FactoryInterface $formFactory, UserManagerInterface $userManager)
     {
-        $this->eventDispatcher = LegacyEventDispatcherProxy::decorate($eventDispatcher);
+        $this->eventDispatcher = CompatibilityUtil::upgradeEventDispatcher($eventDispatcher);
         $this->formFactory = $formFactory;
         $this->userManager = $userManager;
     }
