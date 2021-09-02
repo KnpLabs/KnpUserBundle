@@ -24,11 +24,11 @@ class EmailProviderTest extends TestCase
     private $userManager;
 
     /**
-     * @var UserProvider
+     * @var EmailProvider
      */
     private $userProvider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->userManager = $this->getMockBuilder('FOS\UserBundle\Model\UserManagerInterface')->getMock();
         $this->userProvider = new EmailProvider($this->userManager);
