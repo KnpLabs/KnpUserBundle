@@ -17,6 +17,20 @@ provide the user provider for the core [SecurityBundle](https://symfony.com/doc/
 
 [![Build Status](https://github.com/FriendsOfSymfony/FOSUserBundle/workflows/CI/badge.svg?branch=master)](https://github.com/FriendsOfSymfony/FOSUserBundle/actions?query=workflow%3ACI+branch%3Amaster) [![Total Downloads](https://poser.pugx.org/friendsofsymfony/user-bundle/downloads.svg)](https://packagist.org/packages/friendsofsymfony/user-bundle) [![Latest Stable Version](https://poser.pugx.org/friendsofsymfony/user-bundle/v/stable.svg)](https://packagist.org/packages/friendsofsymfony/user-bundle)
 
+Maintenance status
+------------------
+
+The package only receives minimal maintenance to allow existing projects to upgrade. Existing projects are expected to plan a migration away from this bundle.
+
+**New projects should not use this bundle.** It is actually much easier to implement the User entity in the project (allowing to fit exactly the need of the project). Regarding the extra features of the bundle:
+
+- the EntityUserProvider of Symfony already provides the UserProvider when using the Doctrine ORM (and other object managers integrated with Symfony have an equivalent feature)
+- change password is easy to implement in the project. That's a simple form relying on core Symfony features (the validator for the current password is in core since years)
+- email verification is provided by https://github.com/SymfonyCasts/verify-email-bundle
+- password reset is provided by https://github.com/SymfonyCasts/reset-password-bundle
+- registration is easier to implement in the project directly to fit the need of the project, especially when the User entity is in the project. symfony/form already provides everything you need
+- the ProfileController showing a profile page for the user is better done in projects needing it, as the content is likely not enough anyway
+
 Documentation
 -------------
 
