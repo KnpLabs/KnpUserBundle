@@ -54,6 +54,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('firewall_name')->isRequired()->cannotBeEmpty()->end()
                 ->scalarNode('model_manager_name')->defaultNull()->end()
                 ->booleanNode('use_authentication_listener')->defaultTrue()->end()
+                ->booleanNode('register_last_login')->defaultTrue()->end()
                 ->booleanNode('use_listener')->defaultTrue()->end()
                 ->booleanNode('use_flash_notifications')->defaultTrue()->end()
                 ->booleanNode('use_username_form_type')->defaultTrue()->end()
