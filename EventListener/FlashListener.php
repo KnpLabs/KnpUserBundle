@@ -13,7 +13,8 @@ namespace FOS\UserBundle\EventListener;
 
 use FOS\UserBundle\FOSUserEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -34,9 +35,9 @@ class FlashListener implements EventSubscriberInterface
     ];
 
     /**
-     * @var SessionInterface
+     * @var RequestStack
      */
-    private $session;
+    private $requestStack;
 
     /**
      * @var TranslatorInterface
@@ -46,10 +47,10 @@ class FlashListener implements EventSubscriberInterface
     /**
      * FlashListener constructor.
      */
-    public function __construct(SessionInterface $session, TranslatorInterface $translator)
+    public function __construct(RequestStack $requestStack, TranslatorInterface $translator)
     {
-        $this->session = $session;
         $this->translator = $translator;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -74,11 +75,22 @@ class FlashListener implements EventSubscriberInterface
             throw new \InvalidArgumentException('This event does not correspond to a known flash message');
         }
 
-        $this->session->getFlashBag()->add('success', $this->trans(self::$successMessages[$eventName]));
+        $this->getSession()->getFlashBag()->add('success', $this->trans(self::$successMessages[$eventName]));
+    }
+
+    private function getSession(): Session
+    {
+        $request = $this->requestStack->getCurrentRequest();
+
+        if (null === $request) {
+            throw new \LogicException('Cannot get the session without an active request.');
+        }
+
+        return $request->getSession();
     }
 
     /**
-     * @param string$message
+     * @param string $message
      *
      * @return string
      */
