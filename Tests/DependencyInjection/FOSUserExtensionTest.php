@@ -358,16 +358,11 @@ class FOSUserExtensionTest extends TestCase
 
         $this->assertAlias($doctrineService, 'fos_user.doctrine_registry');
 
-        if (method_exists($definition, 'getFactory')) {
-            $factory = $definition->getFactory();
+        $factory = $definition->getFactory();
 
-            $this->assertInstanceOf('Symfony\Component\DependencyInjection\Reference', $factory[0]);
-            $this->assertSame('fos_user.doctrine_registry', (string) $factory[0]);
-            $this->assertSame('getManager', $factory[1]);
-        } else {
-            $this->assertSame('fos_user.doctrine_registry', $definition->getFactoryService());
-            $this->assertSame('getManager', $definition->getFactoryMethod());
-        }
+        $this->assertInstanceOf('Symfony\Component\DependencyInjection\Reference', $factory[0]);
+        $this->assertSame('fos_user.doctrine_registry', (string) $factory[0]);
+        $this->assertSame('getManager', $factory[1]);
     }
 
     /**
