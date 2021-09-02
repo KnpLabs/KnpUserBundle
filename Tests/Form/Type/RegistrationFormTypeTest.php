@@ -38,10 +38,7 @@ class RegistrationFormTypeTest extends ValidatorExtensionTypeTestCase
         $this->assertSame('test', $user->getPlainPassword());
     }
 
-    /**
-     * @return array
-     */
-    protected function getTypes()
+    protected function getTypes(): array
     {
         return array_merge(parent::getTypes(), [
             new RegistrationFormType('FOS\UserBundle\Tests\TestUser'),
