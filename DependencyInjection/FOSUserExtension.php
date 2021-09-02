@@ -82,6 +82,10 @@ class FOSUserExtension extends Extension
             $container->removeDefinition('fos_user.listener.authentication');
         }
 
+        if (!$config['register_last_login']) {
+            $container->removeDefinition('fos_user.security.interactive_login_listener');
+        }
+
         if ($config['use_flash_notifications']) {
             $this->sessionNeeded = true;
             $loader->load('flash_notifications.xml');
