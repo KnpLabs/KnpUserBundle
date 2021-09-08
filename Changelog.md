@@ -10,6 +10,10 @@ Changelog
 * [BC break] Made `\FOS\UserBundle\Model\User::serialize` and `\FOS\UserBundle\Model\User::unserialize` final. Child classes needing to extend the serialization must override `__serialize` and `__unserialize` instead.
 * Add support for Symfony 5.
 
+### 2.2.1 (2021-09-08)
+
+* Fixed a deprecation warning about groups being triggered when loading the User class of the bundle.
+
 ### 2.2.0 (2021-08-26)
 
 * Deprecated the Groups feature.
