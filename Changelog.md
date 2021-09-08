@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.2.2 (2021-09-08)
+
+* Fixed a deprecation warning about groups being triggered when loading all Doctrine metadata.
+
 ### 2.2.1 (2021-09-08)
 
 * Fixed a deprecation warning about groups being triggered when loading the User class of the bundle.
