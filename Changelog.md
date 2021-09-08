@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 2.2.1 (2021-09-08)
+
+* Fixed a deprecation warning about groups being triggered when loading the User class of the bundle.
+
 ### 2.2.0 (2021-08-26)
 
 * Deprecated the Groups feature.
