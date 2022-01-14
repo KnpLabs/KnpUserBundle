@@ -29,4 +29,12 @@ class GetResponseNullableUserEvent extends GetResponseUserEvent
         $this->user = $user;
         $this->request = $request;
     }
+
+    /**
+     * @return UserInterface|null
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
 }
