@@ -10,6 +10,12 @@ Changelog
 * [BC break] Made `\FOS\UserBundle\Model\User::serialize` and `\FOS\UserBundle\Model\User::unserialize` final. Child classes needing to extend the serialization must override `__serialize` and `__unserialize` instead.
 * Add support for Symfony 5.
 
+### 2.2.3 (2022-01-14)
+
+* Added missing deprecations on some group-related event classes
+* Fixed an invalid report of `UserInterface` being deprecated in static analyzers
+* Fixed the documented return type for `\FOS\UserBundle\Event\GetResponseNullableUserEvent::getUser`
+
 ### 2.2.2 (2021-09-08)
 
 * Fixed a deprecation warning about groups being triggered when loading all Doctrine metadata.
