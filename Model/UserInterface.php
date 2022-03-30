@@ -11,7 +11,24 @@
 
 namespace FOS\UserBundle\Model;
 
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
+
+if (interface_exists(PasswordAuthenticatedUserInterface::class)) {
+    /**
+     * @internal Only for back compatibility. Remove / merge when dropping support for Symfony 4
+     */
+    interface CompatUserInterface extends PasswordAuthenticatedUserInterface, BaseUserInterface
+    {
+    }
+} else {
+    /**
+     * @internal Only for back compatibility. Remove / merge when dropping support for Symfony 4
+     */
+    interface CompatUserInterface extends BaseUserInterface
+    {
+    }
+}
 
 /**
  * Implementations of that interface must be serializable. The mechanism
@@ -23,7 +40,7 @@ use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  * @author Julian Finkler <julian@developer-heaven.de>
  */
-interface UserInterface extends BaseUserInterface
+interface UserInterface extends CompatUserInterface
 {
     public const ROLE_DEFAULT = 'ROLE_USER';
 
