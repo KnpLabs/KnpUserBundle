@@ -45,7 +45,7 @@ class UserEvent extends Event
     }
 
     /**
-     * @return Request
+     * @return Request|null
      */
     public function getRequest()
     {
