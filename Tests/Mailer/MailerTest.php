@@ -18,7 +18,7 @@ use Swift_Transport_NullTransport;
 
 class MailerTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         // skip test for Symfony > 5
         if (!interface_exists('Symfony\Bundle\FrameworkBundle\Templating\EngineInterface')) {
