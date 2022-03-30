@@ -54,6 +54,10 @@ class PasswordUpdaterTest extends TestCase
 
     public function testUpdatePasswordWithBCrypt()
     {
+        if (!class_exists('Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder')) {
+            $this->markTestSkipped('This test requires Symfony 4');
+        }
+
         $encoder = $this->getMockBuilder('Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder')
             ->disableOriginalConstructor()
             ->getMock();

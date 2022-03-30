@@ -15,15 +15,14 @@ use FOS\UserBundle\Mailer\Mailer;
 use PHPUnit\Framework\TestCase;
 use Swift_Mailer;
 use Swift_Transport_NullTransport;
-use Symfony\Component\Templating\EngineInterface;
 
 class MailerTest extends TestCase
 {
     protected function setUp()
     {
         // skip test for Symfony > 5
-        if (!interface_exists(EngineInterface::class)) {
-            $this->markTestSkipped(sprintf('%s class not exists', EngineInterface::class));
+        if (!interface_exists('Symfony\Bundle\FrameworkBundle\Templating\EngineInterface')) {
+            $this->markTestSkipped('Symfony\Bundle\FrameworkBundle\Templating\EngineInterface class not exists');
         }
     }
 
