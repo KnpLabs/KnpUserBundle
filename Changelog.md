@@ -10,6 +10,10 @@ Changelog
 * [BC break] Made `\FOS\UserBundle\Model\User::serialize` and `\FOS\UserBundle\Model\User::unserialize` final. Child classes needing to extend the serialization must override `__serialize` and `__unserialize` instead.
 * Add support for Symfony 5.
 
+### 2.2.4 (2022-01-14)
+
+* Fixed a deprecated warning reported by DebugClassLoader in the AdvancedUserInterface BC layer due to the change done in 2.2.3.
+
 ### 2.2.3 (2022-01-14)
 
 * Added missing deprecations on some group-related event classes
