@@ -199,6 +199,11 @@ abstract class User implements UserInterface, EquatableInterface, \Serializable
         return $this->id;
     }
 
+    public function getUserIdentifier(): string
+    {
+        return $this->username;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -242,7 +247,7 @@ abstract class User implements UserInterface, EquatableInterface, \Serializable
     /**
      * {@inheritdoc}
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }

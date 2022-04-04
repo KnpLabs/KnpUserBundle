@@ -81,12 +81,23 @@ class PasswordUpdaterTest extends TestCase
         $this->assertNull($user->getPlainPassword(), '->updatePassword() erases credentials');
     }
 
-    public function testDoesNotUpdateWithoutPlainPassword()
+    public function testDoesNotUpdateWithEmptyPlainPassword()
     {
         $user = new TestUser();
         $user->setPassword('hash');
 
         $user->setPlainPassword('');
+
+        $this->updater->hashPassword($user);
+        $this->assertSame('hash', $user->getPassword());
+    }
+
+    public function testDoesNotUpdateWithoutPlainPassword()
+    {
+        $user = new TestUser();
+        $user->setPassword('hash');
+
+        $user->setPlainPassword(null);
 
         $this->updater->hashPassword($user);
         $this->assertSame('hash', $user->getPassword());

@@ -9,16 +9,14 @@ on:
 
 jobs:
     run:
-        runs-on: ubuntu-18.04
+        runs-on: ubuntu-latest
         strategy:
             fail-fast: false
             matrix:
                 php:
-                    - '7.1'
-                    - '7.2'
-                    - '7.3'
                     - '7.4'
                     - '8.0'
+                    - '8.1'
                 symfony-versions: [false]
                 include:
                     -   description: 'Symfony 4.*'
@@ -48,5 +46,4 @@ jobs:
 
             - name: Run PHPUnit tests
               run: |
-                export SYMFONY_PHPUNIT_REMOVE_RETURN_TYPEHINT=1
                 ./vendor/bin/simple-phpunit
