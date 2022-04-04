@@ -30,7 +30,7 @@ class CheckForSessionPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if ($container->has('fos_user.session') && !$container->has('session.storage.factory') && !$container->has('session')) {
+        if ($container->hasParameter('fos_user.session_needed') && !$container->has('session.storage.factory') && !$container->has('session')) {
             $message = 'FOSUserBundle requires the "session" to be available for the enabled features.';
 
             if (class_exists(Recipe::class)) {
@@ -39,5 +39,7 @@ class CheckForSessionPass implements CompilerPassInterface
 
             throw new \LogicException($message);
         }
+
+        $container->getParameterBag()->remove('fos_user.session_needed');
     }
 }

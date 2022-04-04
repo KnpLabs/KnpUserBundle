@@ -138,8 +138,7 @@ class FOSUserExtension extends Extension
         }
 
         if ($this->sessionNeeded) {
-            // Use a private alias rather than a parameter, to avoid leaking it at runtime (the private alias will be removed)
-            $container->setAlias('fos_user.session', new Alias('session', false));
+            $container->setParameter('fos_user.session_needed', true);
         }
     }
 
