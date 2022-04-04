@@ -56,7 +56,7 @@ class FlashListener implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             FOSUserEvents::CHANGE_PASSWORD_COMPLETED => 'addSuccessFlash',
@@ -91,10 +91,8 @@ class FlashListener implements EventSubscriberInterface
 
     /**
      * @param string $message
-     *
-     * @return string
      */
-    private function trans($message, array $params = [])
+    private function trans($message, array $params = []): string
     {
         return $this->translator->trans($message, $params, 'FOSUserBundle');
     }

@@ -31,10 +31,7 @@ class FilterUserResponseEvent extends UserEvent
         $this->response = $response;
     }
 
-    /**
-     * @return Response
-     */
-    public function getResponse()
+    public function getResponse(): Response
     {
         return $this->response;
     }

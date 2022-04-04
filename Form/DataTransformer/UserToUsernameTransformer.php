@@ -47,10 +47,10 @@ class UserToUsernameTransformer implements DataTransformerInterface
      *
      * @throws UnexpectedTypeException if the given value is not a UserInterface instance
      */
-    public function transform($value)
+    public function transform($value): ?string
     {
         if (null === $value) {
-            return;
+            return null;
         }
 
         if (!$value instanceof UserInterface) {
@@ -65,14 +65,14 @@ class UserToUsernameTransformer implements DataTransformerInterface
      *
      * @param string $value Username
      *
-     * @return UserInterface the corresponding UserInterface instance
+     * @return UserInterface|null the corresponding UserInterface instance
      *
      * @throws UnexpectedTypeException if the given value is not a string
      */
-    public function reverseTransform($value)
+    public function reverseTransform($value): ?UserInterface
     {
         if (null === $value || '' === $value) {
-            return;
+            return null;
         }
 
         if (!is_string($value)) {

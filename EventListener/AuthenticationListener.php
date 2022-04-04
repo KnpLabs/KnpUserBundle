@@ -50,7 +50,7 @@ class AuthenticationListener implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             FOSUserEvents::REGISTRATION_COMPLETED => 'authenticate',

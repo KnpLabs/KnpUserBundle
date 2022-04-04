@@ -80,7 +80,7 @@ class ProfileFormType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getBlockPrefix()
+    public function getBlockPrefix(): string
     {
         return 'fos_user_profile';
     }

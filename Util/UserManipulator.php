@@ -66,10 +66,8 @@ class UserManipulator
      * @param string $email
      * @param bool   $active
      * @param bool   $superadmin
-     *
-     * @return \FOS\UserBundle\Model\UserInterface
      */
-    public function create($username, $password, $email, $active, $superadmin)
+    public function create($username, $password, $email, $active, $superadmin): UserInterface
     {
         $user = $this->userManager->createUser();
         $user->setUsername($username);
@@ -169,7 +167,7 @@ class UserManipulator
      *
      * @return bool true if role was added, false if user already had the role
      */
-    public function addRole($username, $role)
+    public function addRole($username, $role): bool
     {
         $user = $this->findUserByUsernameOrThrowException($username);
         if ($user->hasRole($role)) {
@@ -189,7 +187,7 @@ class UserManipulator
      *
      * @return bool true if role was removed, false if user didn't have the role
      */
-    public function removeRole($username, $role)
+    public function removeRole($username, $role): bool
     {
         $user = $this->findUserByUsernameOrThrowException($username);
         if (!$user->hasRole($role)) {
@@ -207,10 +205,8 @@ class UserManipulator
      * @param string $username
      *
      * @throws \InvalidArgumentException When user does not exist
-     *
-     * @return UserInterface
      */
-    private function findUserByUsernameOrThrowException($username)
+    private function findUserByUsernameOrThrowException($username): UserInterface
     {
         $user = $this->userManager->findUserByUsername($username);
 
@@ -221,10 +217,7 @@ class UserManipulator
         return $user;
     }
 
-    /**
-     * @return Request|null
-     */
-    private function getRequest()
+    private function getRequest(): ?Request
     {
         return $this->requestStack->getCurrentRequest();
     }

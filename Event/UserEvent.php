@@ -27,27 +27,18 @@ class UserEvent extends Event
      */
     protected $user;
 
-    /**
-     * UserEvent constructor.
-     */
     public function __construct(UserInterface $user, Request $request = null)
     {
         $this->user = $user;
         $this->request = $request;
     }
 
-    /**
-     * @return UserInterface
-     */
-    public function getUser()
+    public function getUser(): UserInterface
     {
         return $this->user;
     }
 
-    /**
-     * @return Request|null
-     */
-    public function getRequest()
+    public function getRequest(): ?Request
     {
         return $this->request;
     }

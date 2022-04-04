@@ -64,17 +64,15 @@ class ResettingController extends AbstractController
     /**
      * Request reset user password: show form.
      */
-    public function requestAction()
+    public function requestAction(): Response
     {
         return $this->render('@FOSUser/Resetting/request.html.twig');
     }
 
     /**
      * Request reset user password: submit form and send email.
-     *
-     * @return Response
      */
-    public function sendEmailAction(Request $request)
+    public function sendEmailAction(Request $request): Response
     {
         $username = $request->request->get('username');
 
@@ -123,10 +121,8 @@ class ResettingController extends AbstractController
 
     /**
      * Tell the user to check his email provider.
-     *
-     * @return Response
      */
-    public function checkEmailAction(Request $request)
+    public function checkEmailAction(Request $request): Response
     {
         $username = $request->query->get('username');
 
@@ -144,10 +140,8 @@ class ResettingController extends AbstractController
      * Reset user password.
      *
      * @param string $token
-     *
-     * @return Response
      */
-    public function resetAction(Request $request, $token)
+    public function resetAction(Request $request, $token): Response
     {
         $user = $this->userManager->findUserByConfirmationToken($token);
 

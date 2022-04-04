@@ -35,10 +35,7 @@ class SecurityController extends AbstractController
         $this->tokenManager = $tokenManager;
     }
 
-    /**
-     * @return Response
-     */
-    public function loginAction()
+    public function loginAction(): Response
     {
         $error = $this->authenticationUtils->getLastAuthenticationError();
         $lastUsername = $this->authenticationUtils->getLastUsername();
@@ -67,10 +64,8 @@ class SecurityController extends AbstractController
     /**
      * Renders the login template with the given parameters. Overwrite this function in
      * an extended controller to provide additional data for the login template.
-     *
-     * @return Response
      */
-    protected function renderLogin(array $data)
+    protected function renderLogin(array $data): Response
     {
         return $this->render('@FOSUser/Security/login.html.twig', $data);
     }
