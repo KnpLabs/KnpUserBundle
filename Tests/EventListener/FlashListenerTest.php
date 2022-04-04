@@ -13,6 +13,7 @@ namespace FOS\UserBundle\Tests\EventListener;
 
 use FOS\UserBundle\EventListener\FlashListener;
 use FOS\UserBundle\FOSUserEvents;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -26,6 +27,11 @@ class FlashListenerTest extends TestCase
 
     /** @var FlashListener */
     private $listener;
+
+    /**
+     * @var TranslatorInterface&MockObject
+     */
+    private $translator;
 
     protected function setUp(): void
     {
@@ -45,13 +51,17 @@ class FlashListenerTest extends TestCase
         $requestStack = new RequestStack();
         $requestStack->push($request);
 
-        $translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
+        $this->translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
 
-        $this->listener = new FlashListener($requestStack, $translator);
+        $this->listener = new FlashListener($requestStack, $this->translator);
     }
 
     public function testAddSuccessFlash()
     {
+        $this->translator->method('trans')
+            ->with('change_password.flash.success', [], 'FOSUserBundle')
+            ->willReturn('Success message');
+
         $this->listener->addSuccessFlash($this->event, FOSUserEvents::CHANGE_PASSWORD_COMPLETED);
     }
 }

@@ -49,7 +49,7 @@ class ProfileController extends AbstractController
     /**
      * Show the user.
      */
-    public function showAction()
+    public function showAction(): Response
     {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
@@ -63,10 +63,8 @@ class ProfileController extends AbstractController
 
     /**
      * Edit the user.
-     *
-     * @return Response
      */
-    public function editAction(Request $request)
+    public function editAction(Request $request): Response
     {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {

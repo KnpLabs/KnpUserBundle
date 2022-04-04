@@ -20,6 +20,7 @@ use Symfony\Contracts\EventDispatcher\Event;
  * Response user event that allows null user.
  *
  * @author Konstantinos Christofilos <kostas.christofilos@gmail.com>
+ * @final
  */
 class GetResponseNullableUserEvent extends Event
 {
@@ -38,24 +39,18 @@ class GetResponseNullableUserEvent extends Event
      */
     private $response;
 
-    public function __construct(UserInterface $user = null, Request $request)
+    public function __construct(?UserInterface $user, Request $request)
     {
         $this->user = $user;
         $this->request = $request;
     }
 
-    /**
-     * @return UserInterface|null
-     */
-    public function getUser()
+    public function getUser(): ?UserInterface
     {
         return $this->user;
     }
 
-    /**
-     * @return Request
-     */
-    public function getRequest()
+    public function getRequest(): Request
     {
         return $this->request;
     }
@@ -65,10 +60,7 @@ class GetResponseNullableUserEvent extends Event
         $this->response = $response;
     }
 
-    /**
-     * @return Response|null
-     */
-    public function getResponse()
+    public function getResponse(): ?Response
     {
         return $this->response;
     }

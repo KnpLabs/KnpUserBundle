@@ -143,10 +143,7 @@ class FOSUserExtension extends Extension
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getNamespace()
+    public function getNamespace(): string
     {
         return 'http://friendsofsymfony.github.io/schema/dic/user';
     }

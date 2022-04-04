@@ -45,18 +45,12 @@ class FormEvent extends Event
         $this->request = $request;
     }
 
-    /**
-     * @return FormInterface
-     */
-    public function getForm()
+    public function getForm(): FormInterface
     {
         return $this->form;
     }
 
-    /**
-     * @return Request
-     */
-    public function getRequest()
+    public function getRequest(): Request
     {
         return $this->request;
     }
@@ -66,10 +60,7 @@ class FormEvent extends Event
         $this->response = $response;
     }
 
-    /**
-     * @return Response|null
-     */
-    public function getResponse()
+    public function getResponse(): ?Response
     {
         return $this->response;
     }

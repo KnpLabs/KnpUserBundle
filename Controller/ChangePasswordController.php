@@ -49,10 +49,8 @@ class ChangePasswordController extends AbstractController
 
     /**
      * Change user password.
-     *
-     * @return Response
      */
-    public function changePasswordAction(Request $request)
+    public function changePasswordAction(Request $request): Response
     {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {

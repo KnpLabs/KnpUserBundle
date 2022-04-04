@@ -9,11 +9,13 @@ Changelog
 * [BC break] Remove the `Symfony\Component\Security\Core\User\AdvancedUserInterface` methods from our `UserInterface`
 * [BC break] Made `\FOS\UserBundle\Model\User::serialize` and `\FOS\UserBundle\Model\User::unserialize` final. Child classes needing to extend the serialization must override `__serialize` and `__unserialize` instead.
 * [BC break] `\FOS\UserBundle\Event\GetResponseNullableUserEvent` no longer inherits from `\FOS\UserBundle\Event\GetResponseUserEvent` and `\FOS\UserBundle\Event\UserEvent` as that was breaking variance rules.
+* [BC break] A few methods of `FOS\UserBundle\Model\User` now have return types (in methods where Symfony 6 requires them)
 * Add support for Symfony 5.
+* Add return types in most methods.
 
 ### 2.2.4 (2022-01-14)
 
-* Fixed a deprecated warning reported by DebugClassLoader in the AdvancedUserInterface BC layer due to the change done in 2.2.3.
+* Fixed a deprecation warning reported by DebugClassLoader in the AdvancedUserInterface BC layer due to the change done in 2.2.3.
 
 ### 2.2.3 (2022-01-14)
 

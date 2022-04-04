@@ -206,6 +206,8 @@ abstract class User implements UserInterface, EquatableInterface, \Serializable
 
     /**
      * {@inheritdoc}
+     *
+     * @return string
      */
     public function getUsername()
     {
@@ -223,7 +225,7 @@ abstract class User implements UserInterface, EquatableInterface, \Serializable
     /**
      * {@inheritdoc}
      */
-    public function getSalt()
+    public function getSalt(): ?string
     {
         return $this->salt;
     }
@@ -281,7 +283,7 @@ abstract class User implements UserInterface, EquatableInterface, \Serializable
     /**
      * {@inheritdoc}
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         $roles = $this->roles;
 
@@ -485,7 +487,7 @@ abstract class User implements UserInterface, EquatableInterface, \Serializable
     /**
      * {@inheritdoc}
      */
-    public function isEqualTo(BaseUserInterface $user)
+    public function isEqualTo(BaseUserInterface $user): bool
     {
         if (!$user instanceof self) {
             return false;
