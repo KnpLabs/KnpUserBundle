@@ -41,13 +41,13 @@ class PasswordUpdater implements PasswordUpdaterInterface
         $encoder = $this->encoderFactory->getEncoder($user);
 
         if ($encoder instanceof BCryptPasswordEncoder || $encoder instanceof SelfSaltingEncoderInterface) {
-            $user->setSalt(null);
+            $salt = null;
         } else {
             $salt = rtrim(str_replace('+', '.', base64_encode(random_bytes(32))), '=');
-            $user->setSalt($salt);
         }
+        $user->setSalt($salt);
 
-        $hashedPassword = $encoder->encodePassword($plainPassword, $user->getSalt());
+        $hashedPassword = $encoder->encodePassword($plainPassword, $salt);
         $user->setPassword($hashedPassword);
         $user->eraseCredentials();
     }
