@@ -100,7 +100,7 @@ class FOSUserExtensionTest extends TestCase
         $loader->load([$config], $this->configuration);
         $this->assertNotHasDefinition('fos_user.registration.form.factory');
 
-        $mailer = $this->configuration->getDefinition('fos_user.mailer.default');
+        $mailer = $this->configuration->getDefinition('fos_user.mailer.twig_swift');
         $parameters = $this->configuration->getParameterBag()->resolveValue(
             $mailer->getArgument(3)
         );
@@ -122,7 +122,7 @@ class FOSUserExtensionTest extends TestCase
         $loader->load([$config], $this->configuration);
         $this->assertNotHasDefinition('fos_user.resetting.form.factory');
 
-        $mailer = $this->configuration->getDefinition('fos_user.mailer.default');
+        $mailer = $this->configuration->getDefinition('fos_user.mailer.twig_swift');
         $parameters = $this->configuration->getParameterBag()->resolveValue(
             $mailer->getArgument(3)
         );

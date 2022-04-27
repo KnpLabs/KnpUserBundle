@@ -12,6 +12,7 @@ Changelog
 * [BC break] `\FOS\UserBundle\Event\GetResponseNullableUserEvent` no longer inherits from `\FOS\UserBundle\Event\GetResponseUserEvent` and `\FOS\UserBundle\Event\UserEvent` as that was breaking variance rules.
 * [BC break] A few methods of `FOS\UserBundle\Model\User` now have return types (in methods where Symfony 6 requires them)
 * [BC break] The legacy mailer based on SwiftMailer and symfony/templating is no longer used by default. Selecting a mailer service is now mandatory when using a feature needing the mailer.
+* [BC break] Remove the legacy mailer based on SwiftMailer and symfony/templating. Use `fos_user.mailer.twig_swift` or a custom mailer service.
 * Add support for Symfony 5.
 * Add return types in most methods.
 * Add autowiring support for `FOS\UserBundle\Mailer\MailerInterface`
