@@ -53,7 +53,6 @@ class ResettingListener implements EventSubscriberInterface
         return [
             FOSUserEvents::RESETTING_RESET_INITIALIZE => 'onResettingResetInitialize',
             FOSUserEvents::RESETTING_RESET_SUCCESS => 'onResettingResetSuccess',
-            FOSUserEvents::RESETTING_RESET_REQUEST => 'onResettingResetRequest',
         ];
     }
 
@@ -72,12 +71,5 @@ class ResettingListener implements EventSubscriberInterface
         $user->setConfirmationToken(null);
         $user->setPasswordRequestedAt(null);
         $user->setEnabled(true);
-    }
-
-    public function onResettingResetRequest(GetResponseUserEvent $event)
-    {
-        if (!$event->getUser()->isAccountNonLocked()) {
-            $event->setResponse(new RedirectResponse($this->router->generate('fos_user_resetting_request')));
-        }
     }
 }

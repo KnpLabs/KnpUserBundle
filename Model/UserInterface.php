@@ -54,6 +54,11 @@ interface UserInterface extends CompatUserInterface
     public function getId();
 
     /**
+     * @return string
+     */
+    public function getUsername();
+
+    /**
      * Sets the username.
      *
      * @param string $username
