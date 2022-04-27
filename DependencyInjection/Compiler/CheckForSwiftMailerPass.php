@@ -23,7 +23,7 @@ use Symfony\Flex\Recipe;
  * @internal
  * @final
  */
-class CheckForMailerPass implements CompilerPassInterface
+class CheckForSwiftMailerPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
@@ -36,7 +36,7 @@ class CheckForMailerPass implements CompilerPassInterface
         }
 
         // the mailer exists, so all is good
-        if ($container->has('mailer')) {
+        if ($container->has('swiftmailer.mailer')) {
             return;
         }
 
