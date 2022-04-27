@@ -133,7 +133,11 @@ class FOSUserExtension extends Extension
             $this->loadResetting($config['resetting'], $container, $loader, $config['from_email']);
         }
 
-        if ($this->mailerNeeded) {
+        if ($this->mailerNeeded && null === $config['service']['mailer']) {
+            throw new \LogicException('Configuring the mailer service for FOSUserBundle is mandatory when enabling features that need the mailer.');
+        }
+
+        if (null !== $config['service']['mailer']) {
             $container->setAlias('fos_user.mailer', $config['service']['mailer']);
         }
 

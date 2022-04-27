@@ -312,7 +312,7 @@ class FOSUserExtensionTest extends TestCase
     {
         $this->createEmptyConfiguration();
 
-        $this->assertAlias('fos_user.mailer.default', 'fos_user.mailer');
+        $this->assertAlias('fos_user.mailer.noop', 'fos_user.mailer');
         $this->assertAlias('fos_user.util.canonicalizer.default', 'fos_user.util.email_canonicalizer');
         $this->assertAlias('fos_user.util.canonicalizer.default', 'fos_user.util.username_canonicalizer');
     }
@@ -409,6 +409,8 @@ user_class: Acme\MyBundle\Document\User
 from_email:
     address: admin@acme.org
     sender_name: Acme Corp
+service:
+    mailer: fos_user.mailer.noop
 EOF;
         $parser = new Parser();
 
