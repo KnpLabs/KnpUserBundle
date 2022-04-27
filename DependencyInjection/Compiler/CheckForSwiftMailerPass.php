@@ -23,7 +23,7 @@ use Symfony\Flex\Recipe;
  * @internal
  * @final
  */
-class CheckForMailerPass implements CompilerPassInterface
+class CheckForSwiftMailerPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
