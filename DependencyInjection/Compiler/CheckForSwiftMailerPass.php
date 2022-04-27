@@ -36,7 +36,7 @@ class CheckForSwiftMailerPass implements CompilerPassInterface
         }
 
         // the mailer exists, so all is good
-        if ($container->has('mailer')) {
+        if ($container->has('swiftmailer.mailer')) {
             return;
         }
 

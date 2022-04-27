@@ -17,7 +17,7 @@
 
     <services>
         <service id="fos_user.mailer.default" class="FOS\UserBundle\Mailer\Mailer" public="false">
-            <argument type="service" id="mailer" />
+            <argument type="service" id="swiftmailer.mailer" />
             <argument type="service" id="router" />
             <argument type="service" id="templating" />
             <argument type="collection">
@@ -32,7 +32,7 @@
         </service>
 
         <service id="fos_user.mailer.twig_swift" class="FOS\UserBundle\Mailer\TwigSwiftMailer" public="false">
-            <argument type="service" id="mailer" />
+            <argument type="service" id="swiftmailer.mailer" />
             <argument type="service" id="router" />
             <argument type="service" id="twig" />
             <argument type="collection">
