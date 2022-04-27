@@ -14,6 +14,7 @@ Changelog
 * [BC break] The legacy mailer based on SwiftMailer and symfony/templating is no longer used by default. Selecting a mailer service is now mandatory when using a feature needing the mailer.
 * Add support for Symfony 5.
 * Add return types in most methods.
+* Add autowiring support for `FOS\UserBundle\Mailer\MailerInterface`
 
 ### 2.2.4 (2022-01-14)
 

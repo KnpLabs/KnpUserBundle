@@ -11,6 +11,7 @@
 
 namespace FOS\UserBundle\DependencyInjection;
 
+use FOS\UserBundle\Mailer\MailerInterface;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Alias;
@@ -139,6 +140,7 @@ class FOSUserExtension extends Extension
 
         if (null !== $config['service']['mailer']) {
             $container->setAlias('fos_user.mailer', $config['service']['mailer']);
+            $container->setAlias(MailerInterface::class, new Alias('fos_user.mailer', false));
         }
 
         if ($this->sessionNeeded) {
