@@ -38,10 +38,9 @@ a form to enter in a new password.
 Default Mailer Implementations
 ------------------------------
 
-The bundle comes with three mailer implementations. They are listed below
+The bundle comes with 2 mailer implementations. They are listed below
 by service id:
 
-- ``fos_user.mailer.default`` is the default implementation, and uses Swiftmailer to send emails.
 - ``fos_user.mailer.twig_swift`` uses Swiftmailer to send emails and Twig blocks to render the message.
 - ``fos_user.mailer.noop`` is a mailer implementation which performs no operation, so no emails are sent.
 
@@ -49,9 +48,7 @@ by service id:
 
     The ``fos_user.mailer.noop`` mailer service should be used in the case
     where you do not want the bundle to send emails and you do not want to
-    include the SwiftmailerBundle in your app. If you leave the default implementation
-    configured as the mailer and do not have the SwiftmailerBundle registered,
-    you will receive an exception because of a missing dependency.
+    include the SwiftmailerBundle in your app.
 
 Configuring the Sender Email Address
 ------------------------------------

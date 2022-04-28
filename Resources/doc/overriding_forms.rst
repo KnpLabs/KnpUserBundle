@@ -92,12 +92,6 @@ the form type hierarchy and then adds the custom ``name`` field.
         {
             return 'app_user_registration';
         }
-
-        // For Symfony 2.x
-        public function getName()
-        {
-            return $this->getBlockPrefix();
-        }
     }
 
 

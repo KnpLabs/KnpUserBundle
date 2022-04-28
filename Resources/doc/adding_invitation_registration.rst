@@ -112,6 +112,7 @@ Override the default registration form with your own::
 
     namespace AppBundle\Form;
 
+    use FOS\UserBundle\Form\Type\RegistrationFormType;
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
 
@@ -119,21 +120,15 @@ Override the default registration form with your own::
     {
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
-            $builder->add('invitation', 'AppBundle\Form\InvitationFormType');
+            $builder->add('invitation', InvitationFormType::class);
         }
 
         public function getParent()
         {
-            return 'FOS\UserBundle\Form\Type\RegistrationFormType';
+            return RegistrationFormType::class;
         }
 
         public function getBlockPrefix()
-        {
-            return 'app_user_registration';
-        }
-
-        // Not necessary on Symfony 3+
-        public function getName()
         {
             return 'app_user_registration';
         }
@@ -147,23 +142,25 @@ Create the invitation field::
     namespace AppBundle\Form;
 
     use Symfony\Component\Form\AbstractType;
+    use Symfony\Component\Form\Extension\Core\Type\TextType;
     use Symfony\Component\Form\FormBuilderInterface;
     use Symfony\Component\OptionsResolver\OptionsResolver;
+    use Doctrine\ORM\EntityManager;
     use Doctrine\ORM\EntityRepository;
     use AppBundle\Form\DataTransformer\InvitationToCodeTransformer;
 
     class InvitationFormType extends AbstractType
     {
-        private $invitationTransformer;
+        private $entityManager;
 
-        public function __construct(InvitationToCodeTransformer $invitationTransformer)
+        public function __construct(EntityManager $entityManager)
         {
-            $this->invitationTransformer = $invitationTransformer;
+            $this->entityManager = $entityManager;
         }
 
         public function buildForm(FormBuilderInterface $builder, array $options)
         {
-            $builder->addModelTransformer($this->invitationTransformer);
+            $builder->addModelTransformer(new InvitationToCodeTransformer($this->entityManager));
         }
 
         public function configureOptions(OptionsResolver $resolver)
@@ -176,16 +173,10 @@ Create the invitation field::
 
         public function getParent()
         {
-            return 'Symfony\Component\Form\Extension\Core\Type\TextType';
+            return TextType::class;
         }
 
         public function getBlockPrefix()
-        {
-            return 'app_invitation_type';
-        }
-
-        // Not necessary on Symfony 3+
-        public function getName()
         {
             return 'app_invitation_type';
         }
@@ -222,7 +213,7 @@ Create the custom data transformer::
             }
 
             if (!$value instanceof Invitation) {
-                throw new UnexpectedTypeException($value, 'AppBundle\Entity\Invitation');
+                throw new UnexpectedTypeException($value, Invitation::class);
             }
 
             return $value->getCode();
@@ -252,61 +243,6 @@ Create the custom data transformer::
                 ->getOneOrNullResult();
         }
     }
-
-Register your custom form type in the container:
-
-.. configuration-block::
-
-    .. code-block:: yaml
-
-        # app/config/services.yml
-        services:
-            app.form.registration:
-                class: AppBundle\Form\RegistrationFormType
-                tags:
-                    - { name: "form.type", alias: "app_user_registration" }
-
-            app.form.invitation:
-                class: AppBundle\Form\InvitationFormType
-                arguments: ['@app.form.data_transformer.invitation']
-                tags:
-                    - { name: "form.type", alias: "app_invitation_type" }
-
-            app.form.data_transformer.invitation:
-                class: AppBundle\Form\DataTransformer\InvitationToCodeTransformer
-                arguments: ['@doctrine.orm.entity_manager']
-                public: false
-
-    .. code-block:: xml
-
-        <!-- app/config/services.xml -->
-
-        <?xml version="1.0" ?>
-
-        <container xmlns="http://symfony.com/schema/dic/services"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
-            <services>
-
-                <service id="app.form.registration" class="AppBundle\Form\RegistrationFormType">
-                    <tag name="form.type" alias="app_user_registration" />
-                </service>
-
-                <service id="app.form.invitation" class="AppBundle\Form\InvitationFormType">
-                    <argument type="service" id="app.form.data_transformer.invitation"/>
-                    <tag name="form.type" alias="app_invitation_type" />
-                </service>
-
-                <service id="app.form.data_transformer.invitation"
-                    class="AppBundle\Form\DataTransformer\InvitationToCodeTransformer"
-                    public="false
-                >
-                    <argument type="service" id="doctrine.orm.entity_manager"/>
-                </service>
-
-            </services>
-        </container>
 
 Next overwrite the default ``RegistrationFormType`` with the one just created :
 

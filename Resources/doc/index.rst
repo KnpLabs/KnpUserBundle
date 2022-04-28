@@ -53,7 +53,7 @@ Require the bundle with composer:
 
 .. code-block:: bash
 
-    $ composer require friendsofsymfony/user-bundle "~2.0"
+    $ composer require friendsofsymfony/user-bundle "^3.0"
 
 Composer will install the bundle to your project's ``vendor/friendsofsymfony/user-bundle`` directory.
 If you encounter installation errors pointing at a lack of configuration parameters, such as ``The child node "db_driver" at path "fos_user" must be configured``, you should complete the configuration in Step 5 first and then re-run this step.
