@@ -32,8 +32,9 @@
             <argument type="service" id="fos_user.mailer" />
             <argument>%fos_user.resetting.retry_ttl%</argument>
             <call method="setContainer">
-                <argument type="service" id="service_container" />
+                <argument type="service" id="Psr\Container\ContainerInterface" />
             </call>
+            <tag name="container.service_subscriber" />
         </service>
 
         <service id="FOS\UserBundle\Controller\ResettingController" alias="fos_user.resetting.controller" public="true" />

@@ -41,8 +41,9 @@
             <argument type="service" id="security.authentication_utils" />
             <argument type="service" id="security.csrf.token_manager" on-invalid="null" />
             <call method="setContainer">
-                <argument type="service" id="service_container" />
+                <argument type="service" id="Psr\Container\ContainerInterface" />
             </call>
+            <tag name="container.service_subscriber" />
         </service>
 
         <service id="FOS\UserBundle\Controller\SecurityController" alias="fos_user.security.controller" public="true" />
