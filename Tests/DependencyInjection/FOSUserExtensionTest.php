@@ -499,7 +499,7 @@ EOF;
      */
     private function assertHasDefinition($id)
     {
-        $this->assertTrue(($this->configuration->hasDefinition($id) ?: $this->configuration->hasAlias($id)));
+        $this->assertTrue($this->configuration->hasDefinition($id) ?: $this->configuration->hasAlias($id));
     }
 
     /**
@@ -507,6 +507,6 @@ EOF;
      */
     private function assertNotHasDefinition($id)
     {
-        $this->assertFalse(($this->configuration->hasDefinition($id) ?: $this->configuration->hasAlias($id)));
+        $this->assertFalse($this->configuration->hasDefinition($id) ?: $this->configuration->hasAlias($id));
     }
 }
