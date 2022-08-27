@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 3.0.1 (2022-08-27)
+
+* Fixed the wiring of controllers to avoid a deprecation warning when using Twig.
+
 ### 3.0.0 (2022-04-28)
 
 * [BC break] Change the base class of controllers to use the `AbstractController` (but extending the controllers is not officially supported anymore).
