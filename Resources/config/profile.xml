@@ -23,8 +23,9 @@
             <argument type="service" id="fos_user.profile.form.factory" />
             <argument type="service" id="fos_user.user_manager" />
             <call method="setContainer">
-                <argument type="service" id="service_container" />
+                <argument type="service" id="Psr\Container\ContainerInterface" />
             </call>
+            <tag name="container.service_subscriber" />
         </service>
 
         <service id="FOS\UserBundle\Controller\ProfileController" alias="fos_user.profile.controller" public="true" />
