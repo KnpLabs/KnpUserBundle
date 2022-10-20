@@ -1,0 +1,4 @@
+# SwiftMailer does not put phpdoc on overwritten methods and is not maintained anymore to add them.
+/Method "Swift_[^"]++" might add "[^"]++" as a native return type declaration in the future\. Do the same in implementation "Swift_[^"]++" now to avoid errors or add an explicit @return annotation to suppress this message\./
+# Weird error reported for symfony/validator
+/The "Symfony\\Component\\Validator\\Constraint::\$errorNames" property is considered final\. You should not override it in "Symfony\\Component\\Validator\\Constraints\\NotBlank"\./
