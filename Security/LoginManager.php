@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Authorization\Voter\CacheableVoterInterface;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Http\RememberMe\RememberMeHandlerInterface;
 use Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface;
@@ -102,6 +103,11 @@ class LoginManager implements LoginManagerInterface
      */
     protected function createToken($firewall, UserInterface $user)
     {
-        return new UsernamePasswordToken($user, null, $firewall, $user->getRoles());
+        // Bc layer for Symfony <5.4
+        if (!interface_exists(CacheableVoterInterface::class)) {
+            return new UsernamePasswordToken($user, null, $firewall, $user->getRoles());
+        }
+
+        return new UsernamePasswordToken($user, $firewall, $user->getRoles());
     }
 }
