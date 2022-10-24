@@ -34,7 +34,9 @@ class InjectRememberMeServicesPass implements CompilerPassInterface
         $firewallName = $container->getParameter('fos_user.firewall_name');
         $loginManager = $container->getDefinition('fos_user.security.login_manager');
 
-        if ($container->hasDefinition('security.authentication.rememberme.services.persistent.'.$firewallName)) {
+        if ($container->has('security.authenticator.remember_me_handler.'.$firewallName)) {
+            $loginManager->replaceArgument(4, new Reference('security.authenticator.remember_me_handler.'.$firewallName));
+        } elseif ($container->hasDefinition('security.authentication.rememberme.services.persistent.'.$firewallName)) {
             $loginManager->replaceArgument(4, new Reference('security.authentication.rememberme.services.persistent.'.$firewallName));
         } elseif ($container->hasDefinition('security.authentication.rememberme.services.simplehash.'.$firewallName)) {
             $loginManager->replaceArgument(4, new Reference('security.authentication.rememberme.services.simplehash.'.$firewallName));

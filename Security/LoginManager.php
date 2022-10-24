@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
+use Symfony\Component\Security\Http\RememberMe\RememberMeHandlerInterface;
 use Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface;
 use Symfony\Component\Security\Http\Session\SessionAuthenticationStrategyInterface;
 
@@ -48,23 +49,27 @@ class LoginManager implements LoginManagerInterface
     private $requestStack;
 
     /**
-     * @var RememberMeServicesInterface
+     * @var RememberMeHandlerInterface|RememberMeServicesInterface|null
      */
-    private $rememberMeService;
+    private $rememberMeHandler;
 
     /**
-     * LoginManager constructor.
+     * @param RememberMeHandlerInterface|RememberMeServicesInterface|null $rememberMeHandler
      */
     public function __construct(TokenStorageInterface $tokenStorage, UserCheckerInterface $userChecker,
                                 SessionAuthenticationStrategyInterface $sessionStrategy,
                                 RequestStack $requestStack,
-                                RememberMeServicesInterface $rememberMeService = null
+                                $rememberMeHandler = null
     ) {
+        if (null !== $rememberMeHandler && !$rememberMeHandler instanceof RememberMeHandlerInterface && !$rememberMeHandler instanceof RememberMeServicesInterface) {
+            throw new \TypeError(sprintf('Argument 2 passed to "%s()" must be an instance of "%s|%s|null", "%s" given.', __METHOD__, RememberMeHandlerInterface::class, RememberMeServicesInterface::class, \is_object($rememberMeHandler) ? \get_class($rememberMeHandler) : \gettype($rememberMeHandler)));
+        }
+
         $this->tokenStorage = $tokenStorage;
         $this->userChecker = $userChecker;
         $this->sessionStrategy = $sessionStrategy;
         $this->requestStack = $requestStack;
-        $this->rememberMeService = $rememberMeService;
+        $this->rememberMeHandler = $rememberMeHandler;
     }
 
     /**
@@ -80,8 +85,10 @@ class LoginManager implements LoginManagerInterface
         if (null !== $request) {
             $this->sessionStrategy->onAuthentication($request, $token);
 
-            if (null !== $response && null !== $this->rememberMeService) {
-                $this->rememberMeService->loginSuccess($request, $response, $token);
+            if (null !== $response && $this->rememberMeHandler instanceof RememberMeServicesInterface) {
+                $this->rememberMeHandler->loginSuccess($request, $response, $token);
+            } elseif ($this->rememberMeHandler instanceof RememberMeHandlerInterface) {
+                $this->rememberMeHandler->createRememberMeCookie($user);
             }
         }
 
