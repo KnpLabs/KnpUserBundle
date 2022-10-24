@@ -13,19 +13,28 @@ namespace FOS\UserBundle\Tests\Util;
 
 use FOS\UserBundle\Tests\TestUser;
 use FOS\UserBundle\Util\PasswordUpdater;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
+/**
+ * @group legacy
+ */
 class PasswordUpdaterTest extends TestCase
 {
     /**
-     * @var PasswordUpdater
+     * @var PasswordUpdater&MockObject
      */
     private $updater;
     private $encoderFactory;
 
     protected function setUp(): void
     {
-        $this->encoderFactory = $this->getMockBuilder('Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface')->getMock();
+        if (!interface_exists(EncoderFactoryInterface::class)) {
+            $this->markTestSkipped('The PasswordUpdater class does not support Symfony 6+.');
+        }
+
+        $this->encoderFactory = $this->getMockBuilder(EncoderFactoryInterface::class)->getMock();
 
         $this->updater = new PasswordUpdater($this->encoderFactory);
     }
