@@ -18,7 +18,8 @@
             </exclude>
         </whitelist>
     </filter>
+
     <php>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="ignoreFile=Tests/ignored-deprecations.txt&amp;max[total]=0" />
     </php>
 </phpunit>

@@ -11,9 +11,17 @@
 
 namespace FOS\UserBundle\Tests\Security;
 
+use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Security\LoginManager;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Http\RememberMe\RememberMeHandlerInterface;
+use Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface;
+use Symfony\Component\Security\Http\Session\SessionAuthenticationStrategyInterface;
 
 class LoginManagerTest extends TestCase
 {
@@ -23,66 +31,79 @@ class LoginManagerTest extends TestCase
         $loginManager->logInUser('main', $this->mockUser());
     }
 
-    public function testLogInUserWithRememberMeAndRequestStack()
+    public function testLogInUserWithRememberMeHandler()
     {
-        $response = $this->getMockBuilder('Symfony\Component\HttpFoundation\Response')->getMock();
+        if (!interface_exists(RememberMeHandlerInterface::class)) {
+            $this->markTestSkipped('This test requires Symfony 5.3+.');
+        }
 
-        $loginManager = $this->createLoginManager('main', $response);
+        $response = new Response();
+        $user = $this->mockUser();
+
+        $rememberMeHandler = $this->createMock(RememberMeHandlerInterface::class);
+        $rememberMeHandler->expects($this->once())
+            ->method('createRememberMeCookie')
+            ->with($user);
+
+        $loginManager = $this->createLoginManager('main', $rememberMeHandler);
+        $loginManager->logInUser('main', $user, $response);
+    }
+
+    /**
+     * @group legacy
+     */
+    public function testLogInUserWithRememberMeService()
+    {
+        if (!interface_exists(RememberMeServicesInterface::class)) {
+            $this->markTestSkipped('This test does not support Symfony 6+.');
+        }
+
+        $response = new Response();
+
+        $rememberMeService = $this->createMock(RememberMeServicesInterface::class);
+        $rememberMeService
+            ->expects($this->once())
+            ->method('loginSuccess')
+            ->with($this->isInstanceOf(Request::class), $response, $this->isInstanceOf(TokenInterface::class));
+
+        $loginManager = $this->createLoginManager('main', $rememberMeService);
         $loginManager->logInUser('main', $this->mockUser(), $response);
     }
 
     /**
-     * @param string $firewallName
-     *
-     * @return LoginManager
+     * @param RememberMeHandlerInterface|RememberMeServicesInterface|null $rememberMeHandler
      */
-    private function createLoginManager($firewallName, Response $response = null)
+    private function createLoginManager(string $firewallName, $rememberMeHandler = null): LoginManager
     {
-        $tokenStorage = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')->getMock();
-
+        $tokenStorage = $this->getMockBuilder(TokenStorageInterface::class)->getMock();
         $tokenStorage
             ->expects($this->once())
             ->method('setToken')
-            ->with($this->isInstanceOf('Symfony\Component\Security\Core\Authentication\Token\TokenInterface'));
+            ->with($this->isInstanceOf(TokenInterface::class));
 
         $userChecker = $this->getMockBuilder('Symfony\Component\Security\Core\User\UserCheckerInterface')->getMock();
         $userChecker
             ->expects($this->once())
             ->method('checkPreAuth')
-            ->with($this->isInstanceOf('FOS\UserBundle\Model\UserInterface'));
+            ->with($this->isInstanceOf(UserInterface::class));
 
-        $request = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')->getMock();
+        $request = new Request();
 
-        $sessionStrategy = $this->getMockBuilder('Symfony\Component\Security\Http\Session\SessionAuthenticationStrategyInterface')->getMock();
+        $sessionStrategy = $this->getMockBuilder(SessionAuthenticationStrategyInterface::class)->getMock();
         $sessionStrategy
             ->expects($this->once())
             ->method('onAuthentication')
-            ->with($request, $this->isInstanceOf('Symfony\Component\Security\Core\Authentication\Token\TokenInterface'));
+            ->with($request, $this->isInstanceOf(TokenInterface::class));
 
-        $requestStack = $this->getMockBuilder('Symfony\Component\HttpFoundation\RequestStack')->getMock();
-        $requestStack
-            ->expects($this->once())
-            ->method('getCurrentRequest')
-            ->will($this->returnValue($request));
+        $requestStack = new RequestStack();
+        $requestStack->push($request);
 
-        $rememberMe = null;
-        if (null !== $response) {
-            $rememberMe = $this->getMockBuilder('Symfony\Component\Security\Http\RememberMe\RememberMeServicesInterface')->getMock();
-            $rememberMe
-                ->expects($this->once())
-                ->method('loginSuccess')
-                ->with($request, $response, $this->isInstanceOf('Symfony\Component\Security\Core\Authentication\Token\TokenInterface'));
-        }
-
-        return new LoginManager($tokenStorage, $userChecker, $sessionStrategy, $requestStack, $rememberMe);
+        return new LoginManager($tokenStorage, $userChecker, $sessionStrategy, $requestStack, $rememberMeHandler);
     }
 
-    /**
-     * @return mixed
-     */
-    private function mockUser()
+    private function mockUser(): UserInterface
     {
-        $user = $this->getMockBuilder('FOS\UserBundle\Model\UserInterface')->getMock();
+        $user = $this->getMockBuilder(UserInterface::class)->getMock();
         $user
             ->expects($this->once())
             ->method('getRoles')

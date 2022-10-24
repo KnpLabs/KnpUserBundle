@@ -15,6 +15,7 @@ use FOS\UserBundle\Security\UserProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 
 class UserProviderTest extends TestCase
 {
@@ -47,7 +48,11 @@ class UserProviderTest extends TestCase
 
     public function testLoadUserByInvalidUsername()
     {
-        $this->expectException(UsernameNotFoundException::class);
+        if (class_exists(UserNotFoundException::class)) {
+            $this->expectException(UserNotFoundException::class);
+        } else {
+            $this->expectException(UsernameNotFoundException::class);
+        }
 
         $this->userManager->expects($this->once())
             ->method('findUserByUsername')
@@ -82,7 +87,11 @@ class UserProviderTest extends TestCase
 
     public function testRefreshDeleted()
     {
-        $this->expectException(UsernameNotFoundException::class);
+        if (class_exists(UserNotFoundException::class)) {
+            $this->expectException(UserNotFoundException::class);
+        } else {
+            $this->expectException(UsernameNotFoundException::class);
+        }
 
         $user = $this->getMockForAbstractClass('FOS\UserBundle\Model\User');
         $this->userManager->expects($this->once())
