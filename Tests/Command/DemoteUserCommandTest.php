@@ -76,14 +76,7 @@ class DemoteUserCommandTest extends TestCase
         return new CommandTester($application->find('fos:user:demote'));
     }
 
-    /**
-     * @param $username
-     * @param $role
-     * @param $super
-     *
-     * @return mixed
-     */
-    private function getManipulator($username, $role, $super)
+    private function getManipulator(string $username, string $role, bool $super): UserManipulator
     {
         $manipulator = $this->getMockBuilder('FOS\UserBundle\Util\UserManipulator')
             ->disableOriginalConstructor()

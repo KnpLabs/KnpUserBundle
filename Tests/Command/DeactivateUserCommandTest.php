@@ -75,12 +75,7 @@ class DeactivateUserCommandTest extends TestCase
         return new CommandTester($application->find('fos:user:deactivate'));
     }
 
-    /**
-     * @param $username
-     *
-     * @return mixed
-     */
-    private function getManipulator($username)
+    private function getManipulator(string $username): UserManipulator
     {
         $manipulator = $this->getMockBuilder('FOS\UserBundle\Util\UserManipulator')
             ->disableOriginalConstructor()

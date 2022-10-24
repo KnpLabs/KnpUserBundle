@@ -79,16 +79,7 @@ class CreateUserCommandTest extends TestCase
         return new CommandTester($application->find('fos:user:create'));
     }
 
-    /**
-     * @param $username
-     * @param $password
-     * @param $email
-     * @param $active
-     * @param $superadmin
-     *
-     * @return mixed
-     */
-    private function getManipulator($username, $password, $email, $active, $superadmin)
+    private function getManipulator(string $username, string $password, string $email, bool $active, bool $superadmin): UserManipulator
     {
         $manipulator = $this->getMockBuilder('FOS\UserBundle\Util\UserManipulator')
             ->disableOriginalConstructor()
