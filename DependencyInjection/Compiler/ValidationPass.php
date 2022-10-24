@@ -20,6 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  * @author Christophe Coevoet <stof@notk.org>
  *
  * @internal
+ *
  * @final
  */
 class ValidationPass implements CompilerPassInterface

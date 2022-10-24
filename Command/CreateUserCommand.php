@@ -25,6 +25,7 @@ use Symfony\Component\Console\Question\Question;
  * @author Luis Cordova <cordoval@gmail.com>
  *
  * @internal
+ *
  * @final
  */
 class CreateUserCommand extends Command

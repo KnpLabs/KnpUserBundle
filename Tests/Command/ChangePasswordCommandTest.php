@@ -79,9 +79,6 @@ class ChangePasswordCommandTest extends TestCase
     }
 
     /**
-     * @param $username
-     * @param $password
-     *
      * @return mixed
      */
     private function getManipulator($username, $password)

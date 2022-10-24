@@ -21,6 +21,7 @@ use Symfony\Component\Validator\ObjectInitializerInterface;
  * @author Christophe Coevoet <stof@notk.org>
  *
  * @internal
+ *
  * @final
  */
 class Initializer implements ObjectInitializerInterface

@@ -342,9 +342,6 @@ class FOSUserExtensionTest extends TestCase
 
     /**
      * @dataProvider userManagerSetFactoryProvider
-     *
-     * @param $dbDriver
-     * @param $doctrineService
      */
     public function testUserManagerSetFactory($dbDriver, $doctrineService)
     {

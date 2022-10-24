@@ -20,6 +20,7 @@ use Symfony\Component\Console\Question\Question;
 
 /**
  * @internal
+ *
  * @final
  */
 class ChangePasswordCommand extends Command

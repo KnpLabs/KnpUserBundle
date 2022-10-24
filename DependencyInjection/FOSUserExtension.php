@@ -22,6 +22,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * @internal
+ *
  * @final
  */
 class FOSUserExtension extends Extension

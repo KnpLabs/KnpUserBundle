@@ -21,6 +21,7 @@ use Symfony\Component\Security\Http\SecurityEvents;
 
 /**
  * @internal
+ *
  * @final
  */
 class LastLoginListener implements EventSubscriberInterface

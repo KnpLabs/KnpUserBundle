@@ -27,6 +27,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  * @author Luis Cordova <cordoval@gmail.com>
  *
  * @internal
+ *
  * @final
  */
 class UserManipulator

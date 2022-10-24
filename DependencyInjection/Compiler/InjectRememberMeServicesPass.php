@@ -21,6 +21,7 @@ use Symfony\Component\DependencyInjection\Reference;
  * @author Vasily Khayrulin <sirianru@gmail.com>
  *
  * @internal
+ *
  * @final
  */
 class InjectRememberMeServicesPass implements CompilerPassInterface

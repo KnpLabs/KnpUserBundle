@@ -22,6 +22,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @internal
+ *
  * @final
  */
 class EmailConfirmationListener implements EventSubscriberInterface

@@ -21,6 +21,7 @@ use Symfony\Flex\Recipe;
  * @author Ryan Weaver <ryan@knpuniversity.com>
  *
  * @internal
+ *
  * @final
  */
 class CheckForSwiftMailerPass implements CompilerPassInterface

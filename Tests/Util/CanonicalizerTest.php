@@ -18,9 +18,6 @@ class CanonicalizerTest extends TestCase
 {
     /**
      * @dataProvider canonicalizeProvider
-     *
-     * @param $source
-     * @param $expectedResult
      */
     public function testCanonicalize($source, $expectedResult)
     {

@@ -19,6 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @author Lenar Lõhmus <lenar@city.ee>
  *
  * @internal
+ *
  * @final
  */
 class DemoteUserCommand extends RoleCommand
