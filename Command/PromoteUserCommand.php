@@ -12,6 +12,7 @@
 namespace FOS\UserBundle\Command;
 
 use FOS\UserBundle\Util\UserManipulator;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -24,8 +25,10 @@ use Symfony\Component\Console\Output\OutputInterface;
  *
  * @final
  */
+#[AsCommand(name: 'fos:user:promote', description: 'Promotes a user by adding a role')]
 class PromoteUserCommand extends RoleCommand
 {
+    // BC with Symfony <5.3
     protected static $defaultName = 'fos:user:promote';
 
     /**
@@ -36,6 +39,7 @@ class PromoteUserCommand extends RoleCommand
         parent::configure();
 
         $this
+            // BC with Symfony <5.3
             ->setName('fos:user:promote')
             ->setDescription('Promotes a user by adding a role')
             ->setHelp(<<<'EOT'

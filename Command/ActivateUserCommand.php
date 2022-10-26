@@ -12,6 +12,7 @@
 namespace FOS\UserBundle\Command;
 
 use FOS\UserBundle\Util\UserManipulator;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,8 +26,10 @@ use Symfony\Component\Console\Question\Question;
  *
  * @final
  */
+#[AsCommand(name: 'fos:user:activate', description: 'Activate a user')]
 class ActivateUserCommand extends Command
 {
+    // BC with Symfony <5.3
     protected static $defaultName = 'fos:user:activate';
 
     private $userManipulator;
@@ -44,6 +47,7 @@ class ActivateUserCommand extends Command
     protected function configure()
     {
         $this
+            // BC with Symfony <5.3
             ->setName('fos:user:activate')
             ->setDescription('Activate a user')
             ->setDefinition([
