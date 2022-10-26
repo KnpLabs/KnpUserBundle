@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 3.1.0 (2022-10-26)
+
+* Added support for Symfony 6
+
 ### 3.0.2 (2022-10-26)
 
 * Fixed support for the remember-me in the programmatic login when using the new authentication system of Symfony.
