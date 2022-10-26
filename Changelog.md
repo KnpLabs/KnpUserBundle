@@ -1,6 +1,11 @@
 Changelog
 =========
 
+### 3.0.2 (2022-10-26)
+
+* Fixed support for the remember-me in the programmatic login when using the new authentication system of Symfony.
+* Fixed some deprecations when using Symfony 5.4.
+
 ### 3.0.1 (2022-08-27)
 
 * Fixed the wiring of controllers to avoid a deprecation warning when using Twig.
