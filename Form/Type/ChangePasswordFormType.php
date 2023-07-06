@@ -37,7 +37,7 @@ class ChangePasswordFormType extends AbstractType
         $this->class = $class;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $constraintsOptions = [
             'message' => 'fos_user.current_password.invalid',
@@ -74,7 +74,7 @@ class ChangePasswordFormType extends AbstractType
         ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => $this->class,

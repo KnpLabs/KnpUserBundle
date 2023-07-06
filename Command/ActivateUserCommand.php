@@ -41,7 +41,7 @@ class ActivateUserCommand extends Command
         $this->userManipulator = $userManipulator;
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             // BC with Symfony <5.3
@@ -69,7 +69,7 @@ EOT
         return 0;
     }
 
-    protected function interact(InputInterface $input, OutputInterface $output)
+    protected function interact(InputInterface $input, OutputInterface $output): void
     {
         if (!$input->getArgument('username')) {
             $question = new Question('Please choose a username:');

@@ -38,7 +38,7 @@ class UsernameFormType extends AbstractType
         $this->usernameTransformer = $usernameTransformer;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addModelTransformer($this->usernameTransformer);
     }
