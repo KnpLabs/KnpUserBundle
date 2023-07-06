@@ -13,8 +13,6 @@ namespace FOS\UserBundle\Tests\Mailer;
 
 use FOS\UserBundle\Mailer\TwigSwiftMailer;
 use PHPUnit\Framework\TestCase;
-use Swift_Mailer;
-use Swift_Transport_NullTransport;
 
 class TwigSwiftMailerTest extends TestCase
 {
@@ -83,8 +81,8 @@ class TwigSwiftMailerTest extends TestCase
     private function getTwigSwiftMailer()
     {
         return new TwigSwiftMailer(
-            new Swift_Mailer(
-                new Swift_Transport_NullTransport(
+            new \Swift_Mailer(
+                new \Swift_Transport_NullTransport(
                     $this->getMockBuilder('Swift_Events_EventDispatcher')->getMock()
                 )
             ),

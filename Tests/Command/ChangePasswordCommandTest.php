@@ -59,8 +59,6 @@ class ChangePasswordCommandTest extends TestCase
     }
 
     /**
-     * @param UserManipulator $container
-     *
      * @return CommandTester
      */
     private function createCommandTester(UserManipulator $userManipulator, Application $application = null)

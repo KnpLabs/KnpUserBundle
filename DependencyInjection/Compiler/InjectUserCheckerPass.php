@@ -26,9 +26,6 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class InjectUserCheckerPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container)
     {
         $firewallName = $container->getParameter('fos_user.firewall_name');

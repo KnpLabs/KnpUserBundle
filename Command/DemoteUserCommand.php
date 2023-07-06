@@ -29,9 +29,6 @@ class DemoteUserCommand extends RoleCommand
     // BC with Symfony <5.3
     protected static $defaultName = 'fos:user:demote';
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure()
     {
         parent::configure();
@@ -49,9 +46,6 @@ EOT
             );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function executeRoleCommand(UserManipulator $manipulator, OutputInterface $output, $username, $super, $role)
     {
         if ($super) {

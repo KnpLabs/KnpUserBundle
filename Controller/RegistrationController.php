@@ -183,7 +183,6 @@ class RegistrationController extends AbstractController
             return null;
         }
 
-
         $key = sprintf('_security.%s.target_path', $firewallName);
 
         if ($session->has($key)) {

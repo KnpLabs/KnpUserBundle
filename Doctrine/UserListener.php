@@ -41,9 +41,6 @@ class UserListener implements EventSubscriber
         $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSubscribedEvents(): array
     {
         return [

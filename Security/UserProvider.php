@@ -45,9 +45,6 @@ class UserProvider implements UserProviderInterface
         return $user;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function loadUserByUsername($username): SecurityUserInterface
     {
         $user = $this->findUser($username);
@@ -63,9 +60,6 @@ class UserProvider implements UserProviderInterface
         return $user;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function refreshUser(SecurityUserInterface $user): SecurityUserInterface
     {
         if (!$user instanceof UserInterface) {
@@ -87,9 +81,6 @@ class UserProvider implements UserProviderInterface
         return $reloadedUser;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsClass($class): bool
     {
         $userClass = $this->userManager->getClass();

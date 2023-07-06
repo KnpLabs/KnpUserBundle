@@ -21,9 +21,6 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class ConfigurePasswordHasherPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container)
     {
         if ($container->has('security.password_hasher_factory')) {

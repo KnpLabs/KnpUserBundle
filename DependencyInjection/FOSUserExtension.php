@@ -49,9 +49,6 @@ class FOSUserExtension extends Extension
     private $mailerNeeded = false;
     private $sessionNeeded = false;
 
-    /**
-     * {@inheritdoc}
-     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $processor = new Processor();

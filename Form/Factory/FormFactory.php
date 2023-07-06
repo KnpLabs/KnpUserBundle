@@ -50,9 +50,6 @@ class FormFactory implements FactoryInterface
         $this->validationGroups = $validationGroups;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function createForm(array $options = [])
     {
         $options = array_merge(['validation_groups' => $this->validationGroups], $options);

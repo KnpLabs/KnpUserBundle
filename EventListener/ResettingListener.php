@@ -46,9 +46,6 @@ class ResettingListener implements EventSubscriberInterface
         $this->tokenTtl = $tokenTtl;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public static function getSubscribedEvents(): array
     {
         return [

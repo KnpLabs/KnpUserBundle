@@ -26,9 +26,6 @@ use Symfony\Flex\Recipe;
  */
 class CheckForSwiftMailerPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container)
     {
         // if the mailer isn't needed, then no error needed

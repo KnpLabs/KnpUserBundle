@@ -25,9 +25,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  */
 class ValidationPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasParameter('fos_user.storage')) {

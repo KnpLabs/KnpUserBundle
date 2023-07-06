@@ -43,18 +43,12 @@ class UserManager extends BaseUserManager
         $this->class = $class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function deleteUser(UserInterface $user)
     {
         $this->objectManager->remove($user);
         $this->objectManager->flush();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getClass()
     {
         if (false !== strpos($this->class, ':')) {
@@ -65,33 +59,21 @@ class UserManager extends BaseUserManager
         return $this->class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findUserBy(array $criteria)
     {
         return $this->getRepository()->findOneBy($criteria);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findUsers()
     {
         return $this->getRepository()->findAll();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reloadUser(UserInterface $user)
     {
         $this->objectManager->refresh($user);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function updateUser(UserInterface $user, $andFlush = true)
     {
         $this->updateCanonicalFields($user);

@@ -58,9 +58,9 @@ class LoginManager implements LoginManagerInterface
      * @param RememberMeHandlerInterface|RememberMeServicesInterface|null $rememberMeHandler
      */
     public function __construct(TokenStorageInterface $tokenStorage, UserCheckerInterface $userChecker,
-                                SessionAuthenticationStrategyInterface $sessionStrategy,
-                                RequestStack $requestStack,
-                                $rememberMeHandler = null
+        SessionAuthenticationStrategyInterface $sessionStrategy,
+        RequestStack $requestStack,
+        $rememberMeHandler = null
     ) {
         if (null !== $rememberMeHandler && !$rememberMeHandler instanceof RememberMeHandlerInterface && !$rememberMeHandler instanceof RememberMeServicesInterface) {
             throw new \TypeError(sprintf('Argument 2 passed to "%s()" must be an instance of "%s|%s|null", "%s" given.', __METHOD__, RememberMeHandlerInterface::class, RememberMeServicesInterface::class, \is_object($rememberMeHandler) ? \get_class($rememberMeHandler) : \gettype($rememberMeHandler)));
@@ -73,9 +73,6 @@ class LoginManager implements LoginManagerInterface
         $this->rememberMeHandler = $rememberMeHandler;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     final public function logInUser($firewallName, UserInterface $user, Response $response = null)
     {
         $this->userChecker->checkPreAuth($user);
