@@ -31,7 +31,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class FOSUserBundle extends Bundle
 {
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         parent::build($container);
         $container->addCompilerPass(new ConfigurePasswordHasherPass());
@@ -44,7 +44,7 @@ class FOSUserBundle extends Bundle
         $this->addRegisterMappingsPass($container);
     }
 
-    private function addRegisterMappingsPass(ContainerBuilder $container)
+    private function addRegisterMappingsPass(ContainerBuilder $container): void
     {
         $mappings = [
             realpath(__DIR__.'/Resources/config/doctrine-mapping') => 'FOS\UserBundle\Model',
