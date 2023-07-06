@@ -1,6 +1,10 @@
 Changelog
 =========
 
+### 3.2.1 (2023-07-06)
+
+* Fixed remaining deprecations with Symfony 6.3
+
 ### 3.2.0 (2023-07-06)
 
 * Fixed deprecations with Symfony 6.3
