@@ -14,6 +14,9 @@ namespace FOS\UserBundle\Tests\Mailer;
 use FOS\UserBundle\Mailer\TwigSwiftMailer;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group legacy
+ */
 class TwigSwiftMailerTest extends TestCase
 {
     /**
