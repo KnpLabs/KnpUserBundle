@@ -33,15 +33,15 @@ class FOSUserExtension extends Extension
     private static $doctrineDrivers = [
         'orm' => [
             'registry' => 'doctrine',
-            'tag' => 'doctrine.event_subscriber',
+            'tag' => 'doctrine.event_listener',
         ],
         'mongodb' => [
             'registry' => 'doctrine_mongodb',
-            'tag' => 'doctrine_mongodb.odm.event_subscriber',
+            'tag' => 'doctrine_mongodb.odm.event_listener',
         ],
         'couchdb' => [
             'registry' => 'doctrine_couchdb',
-            'tag' => 'doctrine_couchdb.event_subscriber',
+            'tag' => 'doctrine_couchdb.event_listener',
             'listener_class' => 'FOS\UserBundle\Doctrine\CouchDB\UserListener',
         ],
     ];
@@ -97,7 +97,8 @@ class FOSUserExtension extends Extension
 
         if ($config['use_listener'] && isset(self::$doctrineDrivers[$config['db_driver']])) {
             $listenerDefinition = $container->getDefinition('fos_user.user_listener');
-            $listenerDefinition->addTag(self::$doctrineDrivers[$config['db_driver']]['tag']);
+            $listenerDefinition->addTag(self::$doctrineDrivers[$config['db_driver']]['tag'], ['event' => 'prePersist']);
+            $listenerDefinition->addTag(self::$doctrineDrivers[$config['db_driver']]['tag'], ['event' => 'preUpdate']);
             if (isset(self::$doctrineDrivers[$config['db_driver']]['listener_class'])) {
                 $listenerDefinition->setClass(self::$doctrineDrivers[$config['db_driver']]['listener_class']);
             }

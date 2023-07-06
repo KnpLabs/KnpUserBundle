@@ -26,7 +26,7 @@ use Symfony\Flex\Recipe;
  */
 class CheckForSwiftMailerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         // if the mailer isn't needed, then no error needed
         if (!$container->has('fos_user.mailer')) {

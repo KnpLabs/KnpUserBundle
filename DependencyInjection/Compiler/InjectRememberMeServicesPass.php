@@ -26,7 +26,7 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class InjectRememberMeServicesPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $firewallName = $container->getParameter('fos_user.firewall_name');
         $loginManager = $container->getDefinition('fos_user.security.login_manager');
