@@ -31,7 +31,7 @@ class PromoteUserCommand extends RoleCommand
     // BC with Symfony <5.3
     protected static $defaultName = 'fos:user:promote';
 
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -48,7 +48,7 @@ EOT
             );
     }
 
-    protected function executeRoleCommand(UserManipulator $manipulator, OutputInterface $output, $username, $super, $role)
+    protected function executeRoleCommand(UserManipulator $manipulator, OutputInterface $output, $username, $super, $role): void
     {
         if ($super) {
             $manipulator->promote($username);

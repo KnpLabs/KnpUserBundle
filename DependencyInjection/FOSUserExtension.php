@@ -49,7 +49,7 @@ class FOSUserExtension extends Extension
     private $mailerNeeded = false;
     private $sessionNeeded = false;
 
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $processor = new Processor();
         $configuration = new Configuration();
@@ -151,7 +151,7 @@ class FOSUserExtension extends Extension
         return 'http://friendsofsymfony.github.io/schema/dic/user';
     }
 
-    protected function remapParameters(array $config, ContainerBuilder $container, array $map)
+    protected function remapParameters(array $config, ContainerBuilder $container, array $map): void
     {
         foreach ($map as $name => $paramName) {
             if (array_key_exists($name, $config)) {
@@ -160,7 +160,7 @@ class FOSUserExtension extends Extension
         }
     }
 
-    protected function remapParametersNamespaces(array $config, ContainerBuilder $container, array $namespaces)
+    protected function remapParametersNamespaces(array $config, ContainerBuilder $container, array $namespaces): void
     {
         foreach ($namespaces as $ns => $map) {
             if ($ns) {
@@ -181,7 +181,7 @@ class FOSUserExtension extends Extension
         }
     }
 
-    private function loadProfile(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    private function loadProfile(array $config, ContainerBuilder $container, XmlFileLoader $loader): void
     {
         $loader->load('profile.xml');
 
@@ -190,7 +190,7 @@ class FOSUserExtension extends Extension
         ]);
     }
 
-    private function loadRegistration(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail)
+    private function loadRegistration(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail): void
     {
         $loader->load('registration.xml');
         $this->sessionNeeded = true;
@@ -213,7 +213,7 @@ class FOSUserExtension extends Extension
         ]);
     }
 
-    private function loadChangePassword(array $config, ContainerBuilder $container, XmlFileLoader $loader)
+    private function loadChangePassword(array $config, ContainerBuilder $container, XmlFileLoader $loader): void
     {
         $loader->load('change_password.xml');
 
@@ -222,7 +222,7 @@ class FOSUserExtension extends Extension
         ]);
     }
 
-    private function loadResetting(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail)
+    private function loadResetting(array $config, ContainerBuilder $container, XmlFileLoader $loader, array $fromEmail): void
     {
         $this->mailerNeeded = true;
         $loader->load('resetting.xml');
