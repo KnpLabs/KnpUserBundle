@@ -10,7 +10,6 @@
             <argument type="service" id="fos_user.mailer" />
             <argument type="service" id="fos_user.util.token_generator" />
             <argument type="service" id="router" />
-            <argument type="service" id="session" />
         </service>
     </services>
 
