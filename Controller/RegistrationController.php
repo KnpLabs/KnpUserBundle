@@ -172,7 +172,19 @@ class RegistrationController extends AbstractController
 
     private function getTargetUrlFromSession(SessionInterface $session): ?string
     {
-        $key = sprintf('_security.%s.target_path', $this->tokenStorage->getToken()->getProviderKey());
+        $token = $this->tokenStorage->getToken();
+
+        if (method_exists($token, 'getFirewallName')) {
+            $firewallName = $token->getFirewallName();
+        } elseif (method_exists($token, 'getProviderKey')) {
+            // BC with Symfony 5.x
+            $firewallName = $token->getProviderKey();
+        } else {
+            return null;
+        }
+
+
+        $key = sprintf('_security.%s.target_path', $firewallName);
 
         if ($session->has($key)) {
             return $session->get($key);
