@@ -51,6 +51,8 @@
         "friendsofphp/php-cs-fixer": "^3.0.2, !=3.5.0",
         "swiftmailer/swiftmailer": "^4.3 || ^5.0 || ^6.0",
         "symfony/console": "^4.4 || ^5.0 || ^6.0",
+        "symfony/mailer": "^4.4 || ^5.0 || ^6.0",
+        "symfony/mime": "^4.4 || ^5.0 || ^6.0",
         "symfony/phpunit-bridge": "^6.1",
         "symfony/yaml": "^4.4 || ^5.0 || ^6.0"
     },

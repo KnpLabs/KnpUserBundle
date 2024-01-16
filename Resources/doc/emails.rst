@@ -38,9 +38,10 @@ a form to enter in a new password.
 Default Mailer Implementations
 ------------------------------
 
-The bundle comes with 2 mailer implementations. They are listed below
+The bundle comes with 3 mailer implementations. They are listed below
 by service id:
 
+- ``fos_user.mailer.twig_symfony`` uses symfony/mailer to send emails and Twig blocks to render the message.
 - ``fos_user.mailer.twig_swift`` uses Swiftmailer to send emails and Twig blocks to render the message.
 - ``fos_user.mailer.noop`` is a mailer implementation which performs no operation, so no emails are sent.
 
@@ -48,7 +49,7 @@ by service id:
 
     The ``fos_user.mailer.noop`` mailer service should be used in the case
     where you do not want the bundle to send emails and you do not want to
-    include the SwiftmailerBundle in your app.
+    include an actual mailer in your app.
 
 Configuring the Sender Email Address
 ------------------------------------
@@ -103,13 +104,12 @@ the password reset request email:
 Sending HTML mails
 ------------------
 
-The default mailer only supports sending plain text messages. If you want
-to send multipart messages, the easiest solution is to use the TwigSwiftMailer
-implementation instead. It expects your twig template to define 3 blocks:
+The default mailers supports sending multipart messages. They expect your twig template
+to define 3 blocks:
 
 - ``subject`` containing the email subject
 - ``body_text`` rendering the plain text version of the message
-- ``body_html`` rendering the html mail
+- ``body_html`` rendering the html mail (this block is optional)
 
 Here is how you can use it, you can use either of the two methods
 of referencing the email template below.
@@ -120,7 +120,7 @@ of referencing the email template below.
     fos_user:
         # ...
         service:
-            mailer: fos_user.mailer.twig_swift
+            mailer: fos_user.mailer.twig_symfony
         resetting:
             email:
                 template:   email/password_resetting.email.twig
@@ -166,10 +166,8 @@ You can view the default email templates at
 Using A Custom Mailer
 ---------------------
 
-The default mailer service used by FOSUserBundle relies on the Swiftmailer
-library to send mail. If you would like to use a different library to send
-emails, want to send HTML emails or simply change the content of the email you
-may do so by defining your own service.
+If you would like to use a different library to send emails, want to send HTML emails
+or simply change the content of the email you may do so by defining your own service.
 
 First you must create a new class which implements ``FOS\UserBundle\Mailer\MailerInterface``
 which is listed below.
