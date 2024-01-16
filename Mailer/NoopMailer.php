@@ -24,11 +24,17 @@ use FOS\UserBundle\Model\UserInterface;
  */
 class NoopMailer implements MailerInterface
 {
+    /**
+     * @return void
+     */
     public function sendConfirmationEmailMessage(UserInterface $user)
     {
         // nothing happens.
     }
 
+    /**
+     * @return void
+     */
     public function sendResettingEmailMessage(UserInterface $user)
     {
         // nothing happens.

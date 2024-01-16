@@ -35,6 +35,8 @@ interface UserManagerInterface
 
     /**
      * Deletes a user.
+     *
+     * @return void
      */
     public function deleteUser(UserInterface $user);
 
@@ -84,7 +86,7 @@ interface UserManagerInterface
     /**
      * Returns a collection with all user instances.
      *
-     * @return \Traversable
+     * @return \Traversable<UserInterface>
      */
     public function findUsers();
 
@@ -92,26 +94,36 @@ interface UserManagerInterface
      * Returns the user's fully qualified class name.
      *
      * @return string
+     *
+     * @phpstan-return class-string<UserInterface>
      */
     public function getClass();
 
     /**
      * Reloads a user.
+     *
+     * @return void
      */
     public function reloadUser(UserInterface $user);
 
     /**
      * Updates a user.
+     *
+     * @return void
      */
     public function updateUser(UserInterface $user);
 
     /**
      * Updates the canonical username and email fields for a user.
+     *
+     * @return void
      */
     public function updateCanonicalFields(UserInterface $user);
 
     /**
      * Updates a user password if a plain password is set.
+     *
+     * @return void
      */
     public function updatePassword(UserInterface $user);
 }

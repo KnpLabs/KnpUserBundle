@@ -31,6 +31,9 @@ abstract class UserManager implements UserManagerInterface
         $this->canonicalFieldsUpdater = $canonicalFieldsUpdater;
     }
 
+    /**
+     * @return UserInterface
+     */
     public function createUser()
     {
         $class = $this->getClass();
@@ -39,16 +42,25 @@ abstract class UserManager implements UserManagerInterface
         return $user;
     }
 
+    /**
+     * @return UserInterface|null
+     */
     public function findUserByEmail($email)
     {
         return $this->findUserBy(['emailCanonical' => $this->canonicalFieldsUpdater->canonicalizeEmail($email)]);
     }
 
+    /**
+     * @return UserInterface|null
+     */
     public function findUserByUsername($username)
     {
         return $this->findUserBy(['usernameCanonical' => $this->canonicalFieldsUpdater->canonicalizeUsername($username)]);
     }
 
+    /**
+     * @return UserInterface|null
+     */
     public function findUserByUsernameOrEmail($usernameOrEmail)
     {
         if (preg_match('/^.+\@\S+\.\S+$/', $usernameOrEmail)) {
@@ -61,16 +73,25 @@ abstract class UserManager implements UserManagerInterface
         return $this->findUserByUsername($usernameOrEmail);
     }
 
+    /**
+     * @return UserInterface|null
+     */
     public function findUserByConfirmationToken($token)
     {
         return $this->findUserBy(['confirmationToken' => $token]);
     }
 
+    /**
+     * @return void
+     */
     public function updateCanonicalFields(UserInterface $user)
     {
         $this->canonicalFieldsUpdater->updateCanonicalFields($user);
     }
 
+    /**
+     * @return void
+     */
     public function updatePassword(UserInterface $user)
     {
         $this->passwordUpdater->hashPassword($user);
