@@ -48,6 +48,9 @@ class TwigSwiftMailer implements MailerInterface
         $this->parameters = $parameters;
     }
 
+    /**
+     * @return void
+     */
     public function sendConfirmationEmailMessage(UserInterface $user)
     {
         $template = $this->parameters['template']['confirmation'];
@@ -61,6 +64,9 @@ class TwigSwiftMailer implements MailerInterface
         $this->sendMessage($template, $context, $this->parameters['from_email']['confirmation'], (string) $user->getEmail());
     }
 
+    /**
+     * @return void
+     */
     public function sendResettingEmailMessage(UserInterface $user)
     {
         $template = $this->parameters['template']['resetting'];
@@ -79,6 +85,8 @@ class TwigSwiftMailer implements MailerInterface
      * @param array  $context
      * @param array  $fromEmail
      * @param string $toEmail
+     *
+     * @return void
      */
     protected function sendMessage($templateName, $context, $fromEmail, $toEmail)
     {

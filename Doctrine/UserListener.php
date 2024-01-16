@@ -52,7 +52,7 @@ class UserListener implements EventSubscriber
     /**
      * Pre persist listener based on doctrine common.
      */
-    public function prePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $args): void
     {
         $object = $args->getObject();
         if ($object instanceof UserInterface) {
@@ -63,7 +63,7 @@ class UserListener implements EventSubscriber
     /**
      * Pre update listener based on doctrine common.
      */
-    public function preUpdate(LifecycleEventArgs $args)
+    public function preUpdate(LifecycleEventArgs $args): void
     {
         $object = $args->getObject();
         if ($object instanceof UserInterface) {
@@ -75,7 +75,7 @@ class UserListener implements EventSubscriber
     /**
      * Updates the user properties.
      */
-    private function updateUserFields(UserInterface $user)
+    private function updateUserFields(UserInterface $user): void
     {
         $this->canonicalFieldsUpdater->updateCanonicalFields($user);
         $this->passwordUpdater->hashPassword($user);
@@ -84,7 +84,7 @@ class UserListener implements EventSubscriber
     /**
      * Recomputes change set for Doctrine implementations not doing it automatically after the event.
      */
-    private function recomputeChangeSet(ObjectManager $om, UserInterface $user)
+    private function recomputeChangeSet(ObjectManager $om, UserInterface $user): void
     {
         $meta = $om->getClassMetadata(get_class($user));
 

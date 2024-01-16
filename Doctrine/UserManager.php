@@ -43,12 +43,20 @@ class UserManager extends BaseUserManager
         $this->class = $class;
     }
 
+    /**
+     * @return void
+     */
     public function deleteUser(UserInterface $user)
     {
         $this->objectManager->remove($user);
         $this->objectManager->flush();
     }
 
+    /**
+     * @return string
+     *
+     * @phpstan-return class-string<UserInterface>
+     */
     public function getClass()
     {
         if (false !== strpos($this->class, ':')) {
@@ -59,21 +67,33 @@ class UserManager extends BaseUserManager
         return $this->class;
     }
 
+    /**
+     * @return UserInterface|null
+     */
     public function findUserBy(array $criteria)
     {
         return $this->getRepository()->findOneBy($criteria);
     }
 
+    /**
+     * @return \Traversable<UserInterface>
+     */
     public function findUsers()
     {
         return $this->getRepository()->findAll();
     }
 
+    /**
+     * @return void
+     */
     public function reloadUser(UserInterface $user)
     {
         $this->objectManager->refresh($user);
     }
 
+    /**
+     * @return void
+     */
     public function updateUser(UserInterface $user, $andFlush = true)
     {
         $this->updateCanonicalFields($user);
@@ -86,7 +106,7 @@ class UserManager extends BaseUserManager
     }
 
     /**
-     * @return ObjectRepository
+     * @return ObjectRepository<UserInterface>
      */
     protected function getRepository()
     {

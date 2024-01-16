@@ -88,6 +88,8 @@ class UserManipulator
      * Activates the given user.
      *
      * @param string $username
+     *
+     * @return void
      */
     public function activate($username)
     {
@@ -103,6 +105,8 @@ class UserManipulator
      * Deactivates the given user.
      *
      * @param string $username
+     *
+     * @return void
      */
     public function deactivate($username)
     {
@@ -119,6 +123,8 @@ class UserManipulator
      *
      * @param string $username
      * @param string $password
+     *
+     * @return void
      */
     public function changePassword($username, $password)
     {
@@ -134,6 +140,8 @@ class UserManipulator
      * Promotes the given user.
      *
      * @param string $username
+     *
+     * @return void
      */
     public function promote($username)
     {
@@ -149,6 +157,8 @@ class UserManipulator
      * Demotes the given user.
      *
      * @param string $username
+     *
+     * @return void
      */
     public function demote($username)
     {

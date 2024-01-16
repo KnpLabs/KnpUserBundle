@@ -29,6 +29,9 @@ class PasswordUpdater implements PasswordUpdaterInterface
         $this->encoderFactory = $encoderFactory;
     }
 
+    /**
+     * @return void
+     */
     public function hashPassword(UserInterface $user)
     {
         $plainPassword = $user->getPlainPassword();

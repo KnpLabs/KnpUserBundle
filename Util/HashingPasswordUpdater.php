@@ -29,6 +29,9 @@ class HashingPasswordUpdater implements PasswordUpdaterInterface
         $this->passwordHasherFactory = $passwordHasherFactory;
     }
 
+    /**
+     * @return void
+     */
     public function hashPassword(UserInterface $user)
     {
         $plainPassword = $user->getPlainPassword();
